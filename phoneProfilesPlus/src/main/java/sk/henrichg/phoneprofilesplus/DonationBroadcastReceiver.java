@@ -146,12 +146,16 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             workManager.cancelUniqueWork("elapsedAlarmsDonationWork");
             workManager.cancelAllWorkByTag("elapsedAlarmsDonationWork");
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {

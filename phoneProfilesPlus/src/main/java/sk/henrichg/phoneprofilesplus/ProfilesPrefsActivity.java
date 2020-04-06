@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -710,7 +711,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {} // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
 
                     sequence.targets(targets);
                 }
@@ -728,7 +731,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {} // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
 
                     sequence.targets(targets);
                 }

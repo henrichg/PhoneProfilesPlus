@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -89,7 +91,9 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                 //}
                 //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.REPLACE, worker);
                 workManager.enqueue(worker);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
 
         /*//Intent intent = new Intent(_context, UpdateGUIBroadcastReceiver.class);
@@ -141,7 +145,9 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         PhoneProfilesService.cancelWork("elapsedAlarmsUpdateGUIWork", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }

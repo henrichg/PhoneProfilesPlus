@@ -14,6 +14,8 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.crashlytics.android.Crashlytics;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -396,9 +398,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             //appWidgetManager.updateAppWidget(widgetId, remoteViews);
                             ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
                             appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     //}
-                } catch (Exception ignored) {}
+                } catch (Exception ee) {
+                    Crashlytics.logException(ee);
+                }
 
                 //dataWrapper.invalidateDataWrapper();
             }

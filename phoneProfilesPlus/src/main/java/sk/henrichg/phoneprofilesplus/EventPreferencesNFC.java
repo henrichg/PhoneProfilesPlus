@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 
 import androidx.preference.Preference;
@@ -329,12 +331,17 @@ class EventPreferencesNFC extends EventPreferences {
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+
+        }
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

@@ -137,7 +137,8 @@ public class DelayedWorksWorker extends Worker {
 
                         String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0, "");
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
                     }
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
@@ -468,7 +469,8 @@ public class DelayedWorksWorker extends Worker {
                                 restartService = true;
                             }
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception ee) {
+                        Crashlytics.logException(ee);
                     }
 
                     PPApplication.loadApplicationPreferences(appContext);
@@ -529,7 +531,8 @@ public class DelayedWorksWorker extends Worker {
                             try {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                 workManager.enqueue(worker);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
 
                             //instance.setApplicationFullyStarted(/*true, */true);

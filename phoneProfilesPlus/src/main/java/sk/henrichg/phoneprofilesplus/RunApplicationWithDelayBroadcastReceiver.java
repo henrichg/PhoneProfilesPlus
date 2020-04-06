@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -99,7 +101,10 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     }*/
                     workManager.enqueue(worker);
                     PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+
+                }
             }
 
             /*//Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
@@ -170,7 +175,9 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         PhoneProfilesService.cancelWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, context.getApplicationContext());
         PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
@@ -199,10 +206,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 context.startActivity(appIntent);
-                            } catch (Exception ignored) {
+                            } catch (Exception ee) {
+                                Crashlytics.logException(ee);
                             }
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
                     }
                 }
             }
@@ -219,13 +228,15 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 context.startActivity(appIntent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         else {
                             try {
                                 context.sendBroadcast(appIntent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -239,7 +250,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     context.startActivity(appIntent);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
             }
         }

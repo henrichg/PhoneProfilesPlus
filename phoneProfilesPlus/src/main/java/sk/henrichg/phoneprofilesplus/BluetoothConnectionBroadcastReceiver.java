@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -114,7 +115,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                         removeConnectedDevice(device);
                                         break;
                                 }
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
 
                             saveConnectedDevices(appContext);

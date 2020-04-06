@@ -8,6 +8,8 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -115,7 +117,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             try {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                                 workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, worker);
-                                            } catch (Exception ignored) {}
+                                            } catch (Exception e) {
+                                                Crashlytics.logException(e);
+                                            }
 
                                             /*PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");
                                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

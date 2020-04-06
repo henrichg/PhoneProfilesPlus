@@ -1795,7 +1795,8 @@ public class DataWrapper {
                             context.getResources().getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
         }
-        catch (Exception ignored) {
+        catch (Exception e) {
+            Crashlytics.logException(e);
         }
         //Log.d("DataWrapper.showToastAfterActivation", "-- end");
     }
@@ -1945,7 +1946,9 @@ public class DataWrapper {
                         //    _activity.finishAndRemoveTask();
                         //else
                             _activity.finish();
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
             });
         }
@@ -2388,7 +2391,9 @@ public class DataWrapper {
                     public void run() {
                         try {
                             activity.finish();
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                 });
             }
@@ -2466,7 +2471,9 @@ public class DataWrapper {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                 //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
                 workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
 
             /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

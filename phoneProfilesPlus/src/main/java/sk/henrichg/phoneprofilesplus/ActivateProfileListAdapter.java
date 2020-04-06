@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -324,7 +325,9 @@ class ActivateProfileListAdapter extends BaseAdapter
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 try {
                                     ActivatorTargetHelpsActivity.activity.finish();
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
                                 ActivatorTargetHelpsActivity.activity = null;
                                 //ActivatorTargetHelpsActivity.activatorActivity = null;
                             }
@@ -348,7 +351,9 @@ class ActivateProfileListAdapter extends BaseAdapter
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 try {
                                     ActivatorTargetHelpsActivity.activity.finish();
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
                                 ActivatorTargetHelpsActivity.activity = null;
                                 //ActivatorTargetHelpsActivity.activatorActivity = null;
                             }
@@ -370,7 +375,9 @@ class ActivateProfileListAdapter extends BaseAdapter
                         //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }

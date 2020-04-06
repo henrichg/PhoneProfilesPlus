@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -130,7 +132,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -163,7 +167,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -190,7 +196,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -217,7 +225,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -244,7 +254,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -271,7 +283,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -339,7 +353,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                         Intent i = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName()));
                         startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
-                    } catch (Exception ignored) {}
+                    } catch (Exception ee) {
+                        Crashlytics.logException(ee);
+                    }
                 }
             }
         };
@@ -395,7 +411,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                     packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
                 if (subjectText.isEmpty())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
@@ -405,7 +422,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     intent.putExtra(Intent.EXTRA_TEXT, bodyText);
                 try {
                     context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         sbt.setSpan(clickableSpan, strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

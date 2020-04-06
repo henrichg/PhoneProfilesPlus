@@ -46,7 +46,8 @@ public class CmdMobileData {
                     try {
                         // Loop through the subscription list i.e. SIM list.
                         subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                    } catch (SecurityException ignored) {
+                    } catch (SecurityException e) {
+                        Crashlytics.logException(e);
                     }
                     if (subscriptionList != null) {
                         for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {

@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -173,7 +175,9 @@ class WifiBluetoothScanner {
                                             if (WifiScanWorker.wifi != null)
                                                 WifiScanWorker.wifi.setWifiEnabled(false);
                                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception e) {
+                                            Crashlytics.logException(e);
+                                        }
                                     }
                                 });
                                 //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -237,7 +241,9 @@ class WifiBluetoothScanner {
                                             try {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                                                 workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, worker);
-                                            } catch (Exception ignored) {}
+                                            } catch (Exception e) {
+                                                Crashlytics.logException(e);
+                                            }
 
                                             /*PPApplication.startHandlerThread("WifiBluetoothScanner.doScan");
                                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -291,7 +297,9 @@ class WifiBluetoothScanner {
                                         //else
                                         if (WifiScanWorker.wifi != null)
                                             WifiScanWorker.wifi.setWifiEnabled(false);
-                                    } catch (Exception ignored) {}
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
+                                    }
                                 } //else
                                     //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
 
@@ -371,7 +379,9 @@ class WifiBluetoothScanner {
                                                     //    CmdBluetooth.setBluetooth(false);
                                                     //else
                                                     BluetoothScanWorker.bluetooth.disable();
-                                                } catch (Exception ignored) {}
+                                                } catch (Exception e) {
+                                                    Crashlytics.logException(e);
+                                                }
                                             }
                                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         }
@@ -500,7 +510,9 @@ class WifiBluetoothScanner {
                                                     //    CmdBluetooth.setBluetooth(false);
                                                     //else
                                                     BluetoothScanWorker.bluetooth.disable();
-                                                } catch (Exception ignored) {}
+                                                } catch (Exception e) {
+                                                    Crashlytics.logException(e);
+                                                }
                                             }
                                         } //else
                                             //PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "keep enabled bluetooth");
@@ -685,7 +697,8 @@ class WifiBluetoothScanner {
                     WifiApManager wifiApManager = null;
                     try {
                         wifiApManager = new WifiApManager(context);
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
                     }
                     if (wifiApManager != null)
                         isWifiAPEnabled = wifiApManager.isWifiAPEnabled();

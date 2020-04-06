@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -347,7 +349,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                     getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                                     ok = true;
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
                             }
                             if (!ok) {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
@@ -511,7 +515,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 int iCell = Integer.parseInt(cell);
                                 _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0, "", "", false));
                                 //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - not found - add it to list");
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         if (_registeredCellData != null) {

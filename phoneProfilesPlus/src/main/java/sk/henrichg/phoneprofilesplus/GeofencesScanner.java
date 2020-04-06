@@ -98,7 +98,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     useGPS = true;
                 mGoogleApiClient.connect();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     void connectForResolve() {
@@ -113,7 +115,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
                 mGoogleApiClient.connect();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     void disconnect() {
@@ -131,7 +135,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mGoogleApiClient.disconnect();
             }
             //useGPS = true; disconnect is called from screen on/off broadcast therefore not change this
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -141,7 +147,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
             //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
             Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         /*if (PPApplication.logEnabled()) {
             if (PhoneProfilesService.getInstance() != null)
                 PPApplication.logE("##### GeofenceScanner.onConnected", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
@@ -188,8 +196,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     }
                 });
             }
-        } catch (Exception ignored) {
+        } catch (Exception ee) {
             //Log.e("##### GeofenceScanner.onConnected", Log.getStackTraceString(e));
+            Crashlytics.logException(ee);
         }
     }
 
@@ -204,7 +213,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
             //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
             Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         // The connection has been interrupted.
         // Disable any UI components that depend on Google APIs
@@ -224,7 +235,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
             //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
             Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             //noinspection StatementWithEmptyBody
             if (mResolvingError) {
@@ -245,7 +258,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 showErrorNotification(connectionResult.getErrorCode());
                 mResolvingError = true;
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     /*
@@ -451,7 +466,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     //PPApplication.logE("##### GeofenceScanWorker.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
                     mUpdatesStarted = false;
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
     }
 
@@ -528,7 +545,9 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     }
                 });
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ee) {
+            Crashlytics.logException(ee);
+        }
     }
 
     //-------------------------------------------

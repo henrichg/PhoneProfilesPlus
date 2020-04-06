@@ -23,6 +23,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -342,7 +344,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         else
                         if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
@@ -350,7 +354,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             if (getActivity() != null) {
@@ -678,7 +684,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -720,7 +727,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -798,7 +806,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             //PPApplication.logE("ProfilesPrefsFragment.onDestroy", "xxx");
 
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -3472,7 +3482,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
         else
         if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", getActivity())) {
@@ -3480,7 +3492,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
         if (!ok) {
             if (getActivity() != null) {
@@ -3522,7 +3536,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -3550,7 +3566,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
         if (!ok) {
             if (getActivity() != null) {

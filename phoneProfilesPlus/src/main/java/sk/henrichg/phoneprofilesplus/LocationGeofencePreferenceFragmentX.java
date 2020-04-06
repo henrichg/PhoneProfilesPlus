@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
@@ -187,7 +189,9 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);

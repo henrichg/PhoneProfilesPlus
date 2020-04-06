@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -1042,7 +1043,9 @@ public class EditorEventListFragment extends Fragment
                             redText.setVisibility(View.VISIBLE);
                         else
                             redText.setVisibility(GONE);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
             }
 
@@ -1418,8 +1421,9 @@ public class EditorEventListFragment extends Fragment
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {
-                    } // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_title), getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_description))
@@ -1431,8 +1435,9 @@ public class EditorEventListFragment extends Fragment
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {
-                    } // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 if (startTargetHelpsDefaultProfile) {
                     try {
@@ -1446,8 +1451,9 @@ public class EditorEventListFragment extends Fragment
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {
-                    } // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 if (startTargetHelpsOrderSpinner) {
                     if (filterType != FILTER_TYPE_START_ORDER) {
@@ -1464,8 +1470,9 @@ public class EditorEventListFragment extends Fragment
                                             .id(1)
                             );
                             ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                 }
 
@@ -1630,7 +1637,9 @@ public class EditorEventListFragment extends Fragment
             Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
             method.setAccessible(true);
             method.invoke(menuPopupHelper, new Object[]{true});
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         final Event event = (Event)view.getTag();
 

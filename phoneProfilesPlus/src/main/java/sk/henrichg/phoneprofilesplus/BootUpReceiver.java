@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.Data;
@@ -108,7 +110,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 try {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                     workManager.enqueue(worker);
-                                } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
                                 }
                             }
                         } else {

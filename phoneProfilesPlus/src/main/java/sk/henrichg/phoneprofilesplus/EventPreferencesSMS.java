@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.telephony.PhoneNumberUtils;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -425,12 +427,16 @@ class EventPreferencesSMS extends EventPreferences {
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

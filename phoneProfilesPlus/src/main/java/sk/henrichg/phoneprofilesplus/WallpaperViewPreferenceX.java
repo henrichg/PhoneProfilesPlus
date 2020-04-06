@@ -16,6 +16,8 @@ import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.File;
 
 import androidx.preference.Preference;
@@ -178,7 +180,9 @@ public class WallpaperViewPreferenceX extends Preference {
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         /*} catch (ActivityNotFoundException e) {
             try {
                 intent = new Intent(Intent.ACTION_GET_CONTENT);

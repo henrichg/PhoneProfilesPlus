@@ -423,7 +423,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (mGoogleApiClient.isConnected()) {
                 startLocationUpdates();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -434,7 +436,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (mGoogleApiClient.isConnected()) {
                 stopLocationUpdates();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -450,7 +454,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                             !mGoogleApiClient.isConnected()) {
                         mGoogleApiClient.connect();
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         }
         else
@@ -471,7 +477,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
             Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
         startLocationUpdates();
@@ -487,7 +495,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
             Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         //mGoogleApiClient.connect();
     }
 
@@ -497,7 +507,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
             Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         //noinspection StatementWithEmptyBody
         if (mResolvingError) {
             // Already attempting to resolve an error.
@@ -663,7 +675,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                                 refreshActivity(true);
                             }
                         });
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
     }
 
@@ -693,7 +707,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             try {
                 if (mFusedLocationClient != null)
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                Crashlytics.logException(e);
             }
         }
     }
@@ -723,7 +738,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             // concerned, pressing the Fetch Address button
             // immediately kicks off the process of getting the address.
             //mAddressRequested = true;
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     private void startIntentService(boolean updateName) {

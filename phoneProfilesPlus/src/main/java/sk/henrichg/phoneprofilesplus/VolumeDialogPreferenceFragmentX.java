@@ -156,7 +156,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                             if (preference.mediaPlayer.isPlaying())
                                 preference.mediaPlayer.stop();
                             preference.mediaPlayer.release();
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -245,7 +246,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                             if (preference.mediaPlayer.isPlaying())
                                 preference.mediaPlayer.stop();
                             preference.mediaPlayer.release();
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
 
                     try {

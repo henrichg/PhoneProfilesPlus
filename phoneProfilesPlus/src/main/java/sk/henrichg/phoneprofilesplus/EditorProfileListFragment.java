@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -922,7 +923,9 @@ public class EditorProfileListFragment extends Fragment
                             redText.setVisibility(View.VISIBLE);
                         else
                             redText.setVisibility(GONE);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
             }
 
@@ -1169,7 +1172,9 @@ public class EditorProfileListFragment extends Fragment
                 Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
                 method.setAccessible(true);
                 method.invoke(menuPopupHelper, new Object[]{true});
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
 
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -1289,8 +1294,9 @@ public class EditorProfileListFragment extends Fragment
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {
-                    } // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_title), getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_description))
@@ -1302,8 +1308,9 @@ public class EditorProfileListFragment extends Fragment
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {
-                    } // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 if (startTargetHelpsDefaultProfile) {
                     try {
@@ -1317,8 +1324,9 @@ public class EditorProfileListFragment extends Fragment
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {
-                    } // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
 
                 sequence.targets(targets)

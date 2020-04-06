@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -85,7 +87,9 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                 WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                 //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
                 workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.REPLACE, worker);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
 
         /*final Context appContext = context.getApplicationContext();

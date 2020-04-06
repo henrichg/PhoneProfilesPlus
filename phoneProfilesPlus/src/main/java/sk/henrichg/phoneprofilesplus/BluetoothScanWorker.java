@@ -572,7 +572,8 @@ public class BluetoothScanWorker extends Worker {
                             setWaitForLEResults(context, true);
 
                             //PPApplication.logE("BluetoothScanWorker.startLEScan", "scanStarted=" + startScan);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                     setLEScanRequest(context, false);
@@ -601,7 +602,9 @@ public class BluetoothScanWorker extends Worker {
                         WifiBluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
 
                         //PPApplication.logE("BluetoothScanWorker.stopLEScan", "stopped");
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
             }
         }
@@ -978,7 +981,9 @@ public class BluetoothScanWorker extends Worker {
                     try {
                         WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                         workManager.enqueueUniqueWork("handleEventsBluetoothCLScannerWork", ExistingWorkPolicy.REPLACE, worker);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
 
                     /*PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

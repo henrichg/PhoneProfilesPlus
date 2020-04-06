@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.Data;
@@ -74,7 +76,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                 try {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                     workManager.enqueueUniqueWork("handleEventsBluetoothLEScannerWork", ExistingWorkPolicy.REPLACE, worker);
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
 
                                 /*PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive");
                                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

@@ -171,7 +171,8 @@ class ActivateProfileHelper {
                     WifiApManager wifiApManager = null;
                     try {
                         wifiApManager = new WifiApManager(appContext);
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
                     }
                     if (wifiApManager != null) {
                         boolean setWifiAPState = false;
@@ -329,9 +330,10 @@ class ActivateProfileHelper {
                                 ConnectivityManager connManager = null;
                                 try {
                                     connManager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-                                } catch (Exception ignored) {
+                                } catch (Exception e) {
                                     // java.lang.NullPointerException: missing IConnectivityManager
                                     // Dual SIM?? Bug in Android ???
+                                    Crashlytics.logException(e);
                                 }
                                 if (connManager != null) {
                                     boolean wifiConnected = false;
@@ -353,7 +355,9 @@ class ActivateProfileHelper {
                                                         break;
                                                     }
                                                 }
-                                            } catch (Exception ignored) {}
+                                            } catch (Exception ee) {
+                                                Crashlytics.logException(ee);
+                                            }
                                         }
                                     }
                                     WifiInfo wifiInfo = null;
@@ -755,7 +759,8 @@ class ActivateProfileHelper {
                         editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
                         ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
                     }
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
             }
         }
@@ -799,7 +804,8 @@ class ActivateProfileHelper {
                         try {
                             audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -819,7 +825,8 @@ class ActivateProfileHelper {
                         try {
                             audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                     if (profile.getVolumeSystemChange()) {
@@ -828,7 +835,8 @@ class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM /* 1 */, profile.getVolumeSystemValue(), 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
                             //correctVolume0(audioManager);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -856,7 +864,8 @@ class ActivateProfileHelper {
                                 //correctVolume0(audioManager);
                                 if (!profile.getVolumeNotificationChange())
                                     setNotificationVolume(appContext, volume);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         volumesSet = true;
@@ -875,7 +884,8 @@ class ActivateProfileHelper {
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                 if (!profile.getVolumeNotificationChange())
                                     setNotificationVolume(appContext, volume);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         volume = ApplicationPreferences.prefNotificationVolume;
@@ -885,7 +895,8 @@ class ActivateProfileHelper {
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, 0);
                                 //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         //correctVolume0(audioManager);
@@ -905,7 +916,8 @@ class ActivateProfileHelper {
                                 //correctVolume0(audioManager);
                                 if (!profile.getVolumeNotificationChange())
                                     setNotificationVolume(appContext, volume);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         volume = ApplicationPreferences.prefNotificationVolume;
@@ -916,7 +928,8 @@ class ActivateProfileHelper {
                                 //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                 //correctVolume0(audioManager);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         volumesSet = true;
@@ -935,7 +948,8 @@ class ActivateProfileHelper {
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                 //correctVolume0(audioManager);
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification volume set");
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -949,7 +963,8 @@ class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                             //correctVolume0(audioManager);
                             //PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer volume set");
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -967,19 +982,25 @@ class ActivateProfileHelper {
                 try {
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
             if (profile.getVolumeVoiceChange()) {
                 try {
                     audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
             if (profile.getVolumeBluetoothSCOChange()) {
                 try {
                     audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         }
 
@@ -1068,21 +1089,25 @@ class ActivateProfileHelper {
                         if (ringerMode == AudioManager.RINGER_MODE_VIBRATE) {
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
-                            } catch (Exception ignored) {
+                            } catch (Exception ee) {
+                                Crashlytics.logException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
-                            } catch (Exception ignored) {
+                            } catch (Exception ee) {
+                                Crashlytics.logException(ee);
                             }
                         }
                         else {
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-                            } catch (Exception ignored) {
+                            } catch (Exception ee) {
+                                Crashlytics.logException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
-                            } catch (Exception ignored) {
+                            } catch (Exception ee) {
+                                Crashlytics.logException(ee);
                             }
                         }
 
@@ -1108,7 +1133,9 @@ class ActivateProfileHelper {
                         audioManager.setRingerMode(ringerMode);
                     }
                     */
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
 
             } else {
                 //PPApplication.logE("ActivateProfileHelper.setZenMode", "ZENMODE_SILENT or not can change zen mode");
@@ -1135,13 +1162,14 @@ class ActivateProfileHelper {
                             RingerModeChangeReceiver.notUnlinkVolumes = false;
                             audioManager.setRingerMode(ringerMode);
                     }
-                } catch (Exception ignored) {
+                } catch (Exception e) {
                     // may be produced this exception:
                     //
                     // java.lang.SecurityException: Not allowed to change Do Not Disturb state
                     //
                     // when changed is ringer mode in activated Do not disturb and
                     // GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context) returns false.
+                    Crashlytics.logException(e);
                 }
             }
         /*}
@@ -1240,7 +1268,9 @@ class ActivateProfileHelper {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                     }
-                    catch (Exception ignored){ }
+                    catch (Exception e){
+                        Crashlytics.logException(e);
+                    }
                 }
             }
             if (profile._soundNotificationChange == 1) {
@@ -1250,14 +1280,18 @@ class ActivateProfileHelper {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, splits[0]);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(splits[0]));
                     }
-                    catch (Exception ignored){ }
+                    catch (Exception e){
+                        Crashlytics.logException(e);
+                    }
                 } else {
                     // selected is None tone
                     try {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
                     }
-                    catch (Exception ignored){ }
+                    catch (Exception e){
+                        Crashlytics.logException(e);
+                    }
                 }
             }
             if (profile._soundAlarmChange == 1) {
@@ -1267,14 +1301,18 @@ class ActivateProfileHelper {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, splits[0]);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, Uri.parse(splits[0]));
                     }
-                    catch (Exception ignored){ }
+                    catch (Exception e){
+                        Crashlytics.logException(e);
+                    }
                 } else {
                     // selected is None tone
                     try {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, null);
                     }
-                    catch (Exception ignored){ }
+                    catch (Exception e){
+                        Crashlytics.logException(e);
+                    }
                 }
             }
         }
@@ -1370,7 +1408,9 @@ class ActivateProfileHelper {
                                 try {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -1997,12 +2037,14 @@ class ActivateProfileHelper {
                                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
-                                                    } catch (Exception ignored) {
+                                                    } catch (Exception e) {
+                                                        Crashlytics.logException(e);
                                                     }
                                                     //} else
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                                 }
-                                            } catch (Exception ignored) {
+                                            } catch (Exception ee) {
+                                                Crashlytics.logException(ee);
                                             }
                                         }
                                     }
@@ -2020,7 +2062,8 @@ class ActivateProfileHelper {
                                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
-                                                    } catch (Exception ignored) {
+                                                    } catch (Exception e) {
+                                                        Crashlytics.logException(e);
                                                     }
                                                 } else {
                                                     try {
@@ -2028,7 +2071,8 @@ class ActivateProfileHelper {
                                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
-                                                    } catch (Exception ignored) {
+                                                    } catch (Exception e) {
+                                                        Crashlytics.logException(e);
                                                     }
                                                 }
                                             }
@@ -2292,7 +2336,8 @@ class ActivateProfileHelper {
                         final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         appContext.startActivity(intent);
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
                     }
                 }
                 else {
@@ -2315,7 +2360,8 @@ class ActivateProfileHelper {
                     final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     appContext.startActivity(intent);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
             }
             else {
@@ -2337,7 +2383,8 @@ class ActivateProfileHelper {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
                     appContext.startActivity(intent);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
             }
             else {
@@ -2447,7 +2494,9 @@ class ActivateProfileHelper {
             }
             if (_setAutoSync)
                 ContentResolver.setMasterSyncAutomatically(_isAutoSync);
-        } catch (Exception ignored) {} // fixed DeadObjectException
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         // screen on permanent
         //if (Permissions.checkProfileScreenTimeout(context, profile, null)) {
@@ -2521,7 +2570,8 @@ class ActivateProfileHelper {
                             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                             commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
                             PPApplication.runCommand(appContext, commandIntent);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -2604,7 +2654,9 @@ class ActivateProfileHelper {
                     }// else
                     //    createBrightnessView(context);
                     */
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         }
 
@@ -2808,7 +2860,8 @@ class ActivateProfileHelper {
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                     workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
             }
         }
@@ -2970,7 +3023,9 @@ class ActivateProfileHelper {
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -3504,7 +3559,8 @@ class ActivateProfileHelper {
                             // Loop through the subscription list i.e. SIM list.
                             subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                             //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList="+subscriptionList);
-                        } catch (SecurityException ignored) {
+                        } catch (SecurityException e) {
+                            Crashlytics.logException(e);
                         }
                         if (subscriptionList != null) {
                             //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList.size()="+subscriptionList.size());
@@ -3660,7 +3716,8 @@ class ActivateProfileHelper {
                             try {
                                 // Loop through the subscription list i.e. SIM list.
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                            } catch (SecurityException ignored) {
+                            } catch (SecurityException e) {
+                                Crashlytics.logException(e);
                             }
                             if (subscriptionList != null) {
                                 for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
@@ -3703,7 +3760,8 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            } catch(Exception ignored) {
+            } catch(Exception ee) {
+                Crashlytics.logException(ee);
             }
         }
     }
@@ -4287,7 +4345,8 @@ class ActivateProfileHelper {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         appContext.startActivity(intent);
-                                    } catch (Exception ignored) {
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
                                     }
                                 }
                             }

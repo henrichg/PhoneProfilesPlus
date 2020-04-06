@@ -187,7 +187,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (what.equals("editor")) {
                         try {
                             EditorProfilesActivity.this.finishAffinity();
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -727,7 +728,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -926,13 +929,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                 try {
                     PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                     packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
                 intent.putExtra(Intent.EXTRA_TEXT, AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */this));
                 try {
                     startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
 
                 return true;
             case R.id.menu_export_and_email_to_author:
@@ -965,7 +971,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     try {
                         PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                         packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -985,7 +993,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //noinspection ToArrayCallWithZeroLengthArrayArgument
                         chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
                         startActivity(chooser);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 else {
                     // toast notification
@@ -1702,7 +1712,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
                             int actualVersionCode = PPApplication.getVersionCode(pInfo);
                             PPApplication.setSavedVersionCode(appContext, actualVersionCode);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
 
@@ -1725,7 +1736,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (input != null) {
                     input.close();
                 }
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                Crashlytics.logException(e);
             }
 
             WifiScanWorker.setScanRequest(getApplicationContext(), false);
@@ -2048,9 +2060,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 editor.commit();
                 output.writeObject(pref.getAll());
-            } catch (FileNotFoundException ignored) {
+            } catch (FileNotFoundException e) {
+                Crashlytics.logException(e);
                 // this is OK
             } catch (IOException e) {
+                Crashlytics.logException(e);
                 res = false;
             }
         } finally {
@@ -2059,7 +2073,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     output.flush();
                     output.close();
                 }
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                Crashlytics.logException(e);
             }
         }
         return res;
@@ -2811,8 +2826,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .id(id)
                             );
                             ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
@@ -2824,8 +2840,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .id(id)
                             );
                             ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
@@ -2837,8 +2854,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .id(id)
                             );
                             ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
 
                         targets.add(
                                 TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
@@ -2918,8 +2936,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .id(id)
                             );
                             ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
@@ -2931,8 +2950,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .id(id)
                             );
                             ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
@@ -2944,8 +2964,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             .id(id)
                             );
                             ++id;
-                        } catch (Exception ignored) {
-                        } // not in action bar?
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
 
                         targets.add(
                                 TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))

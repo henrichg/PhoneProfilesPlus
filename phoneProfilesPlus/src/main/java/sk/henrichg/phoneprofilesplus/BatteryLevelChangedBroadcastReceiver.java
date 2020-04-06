@@ -8,6 +8,8 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import com.crashlytics.android.Crashlytics;
+
 public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -49,7 +51,8 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 batteryStatus = context.registerReceiver(null, iFilter);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                Crashlytics.logException(e);
             }
             if (batteryStatus != null) {
                 _status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
@@ -221,7 +224,9 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
         try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             batteryStatus = appContext.registerReceiver(null, filter);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             PPApplication.isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||

@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 
 //import com.kunzisoft.androidclearchroma.ChromaPreferenceCompat;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
@@ -352,7 +354,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok){
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -396,7 +400,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -498,7 +504,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                                 ok = true;
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -585,7 +592,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -625,7 +634,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -665,7 +676,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -705,7 +718,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -748,7 +763,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                     startActivity(intent);
                                     ok = true;
-                                } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
                                 }
                             }
                             if (!ok) {
@@ -928,7 +944,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     if (!ok) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -1131,7 +1149,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivity(intent);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -1413,7 +1433,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 if (activityExists) {
                                     try {
                                         startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                                    } catch (Exception ignored) {
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
                                     }
                                 }
                             }
@@ -1456,7 +1477,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //SharedPreferences.Editor editor = applicationPreferences.edit();
             //updateSharedPreferences(editor, preferences);
             //editor.apply();
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -1468,7 +1491,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             SharedPreferences.Editor editor = applicationPreferences.edit();
             updateSharedPreferences(editor, preferences);
             editor.apply();
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
             if (getActivity() != null)

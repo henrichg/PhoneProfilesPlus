@@ -1190,14 +1190,17 @@ public class PPApplication extends Application /*implements Application.Activity
         try {
             //FirebaseCrashlytics.getInstance().setCustomKey("DEBUG", DebugVersion.enabled);
             Crashlytics.setBool("DEBUG", DebugVersion.enabled);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         //if (DebugVersion.enabled) {
         int actualVersionCode = 0;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             actualVersionCode = PPApplication.getVersionCode(pInfo);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
@@ -1307,7 +1310,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 startPPService(getApplicationContext(), serviceIntent, true);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                Crashlytics.logException(e);
             }
         }
         else
@@ -1457,10 +1461,10 @@ public class PPApplication extends Application /*implements Application.Activity
             buf.newLine();
             buf.flush();
             buf.close();
-        } catch (IOException e) {
-            Log.e("PPApplication.logIntoFile", Log.getStackTraceString(e));
+        } catch (IOException ignored) {
+            //Log.e("PPApplication.logIntoFile", Log.getStackTraceString(e));
             //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -1626,21 +1630,24 @@ public class PPApplication extends Application /*implements Application.Activity
         try {
             IconWidgetProvider myWidget = new IconWidgetProvider();
             myWidget.updateWidgets(context, refresh);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
 
         // one row widget
         try {
             OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
             myWidget.updateWidgets(context, refresh);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
 
         // list widget
         try {
             ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
             myWidget.updateWidgets(context, refresh);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
 
         // Samsung edge panel
@@ -1648,7 +1655,8 @@ public class PPApplication extends Application /*implements Application.Activity
             try {
                 SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
                 myWidget.updateWidgets(context, refresh);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                Crashlytics.logException(e);
             }
         }
 
@@ -2380,7 +2388,9 @@ public class PPApplication extends Application /*implements Application.Activity
             if (PhoneProfilesService.getInstance() != null)
                 PhoneProfilesService.getInstance().showProfileNotification(refresh, forService/*, false*/);
 
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     // -----------------------------------------------
@@ -2412,7 +2422,9 @@ public class PPApplication extends Application /*implements Application.Activity
             try {
                 //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
                 Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
             return rootMutex.rooted;
         }
 
@@ -2440,7 +2452,9 @@ public class PPApplication extends Application /*implements Application.Activity
             try {
                 //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
                 Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         } catch (Exception e) {
             Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
             //FirebaseCrashlytics.getInstance().recordException(e);
@@ -2838,7 +2852,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void reregisterReceiversForWifiScanner(Context context) {
@@ -2854,7 +2870,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void restartWifiScanner(Context context/*, boolean forScreenOn*/) {
@@ -2871,7 +2889,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void forceRegisterReceiversForBluetoothScanner(Context context) {
@@ -2887,7 +2907,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void reregisterReceiversForBluetoothScanner(Context context) {
@@ -2903,7 +2925,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void restartBluetoothScanner(Context context/*, boolean forScreenOn*/) {
@@ -2920,7 +2944,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void restartGeofenceScanner(Context context/*, boolean forScreenOn*/) {
@@ -2937,7 +2963,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void restartOrientationScanner(Context context/*, boolean forScreenOn*/) {
@@ -2954,7 +2982,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void forceStartPhoneStateScanner(Context context/*, boolean forScreenOn*/) {
@@ -2970,7 +3000,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void restartPhoneStateScanner(Context context/*, boolean forScreenOn*/) {
@@ -2987,7 +3019,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void restartTwilightScanner(Context context/*, boolean forScreenOn*/) {
@@ -3004,7 +3038,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_TWILIGHT_SCANNER);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     public static void restartAllScanners(Context context, boolean fromBatteryChange) {
@@ -3022,7 +3058,9 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ALL_SCANNERS);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FROM_BATTERY_CHANGE, fromBatteryChange);
             PPApplication.runCommand(context, commandIntent);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
 /*
@@ -3350,7 +3388,9 @@ public class PPApplication extends Application /*implements Application.Activity
                         try {
                             if (activity != null)
                                 activity.finish();
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                 };
                 _handler.post(r);
@@ -3406,8 +3446,8 @@ public class PPApplication extends Application /*implements Application.Activity
             }
             else
                 _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
     }
 
@@ -3617,7 +3657,9 @@ public class PPApplication extends Application /*implements Application.Activity
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(context.getApplicationContext());
                 workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
 
             /*PPApplication.startHandlerThread("PPApplication.setBlockProfileEventActions");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

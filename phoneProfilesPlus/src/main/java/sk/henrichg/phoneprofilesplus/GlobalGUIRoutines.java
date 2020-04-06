@@ -38,6 +38,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.xml.sax.XMLReader;
 
 import java.text.DateFormat;
@@ -277,7 +279,9 @@ class GlobalGUIRoutines {
                 public void run() {
                     try {
                         switchNightMode(appContext);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
             });
         }
@@ -304,7 +308,9 @@ class GlobalGUIRoutines {
 
                         activity.startActivity(intent);
                         activity.overridePendingTransition(0, 0);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
             });
         }
@@ -1107,14 +1113,18 @@ class GlobalGUIRoutines {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             }
             // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     static void unlockScreenOrientation(Activity activity) {
         try {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
             // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     static class LiTagHandler implements Html.TagHandler {

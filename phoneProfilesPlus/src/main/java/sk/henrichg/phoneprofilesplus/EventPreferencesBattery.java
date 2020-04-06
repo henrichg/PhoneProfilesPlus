@@ -11,6 +11,8 @@ import android.content.SharedPreferences.Editor;
 //import android.preference.MultiSelectListPreference;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -166,7 +168,9 @@ class EventPreferencesBattery extends EventPreferences {
                                 selectedPlugged = selectedPlugged + ", ";
                             try {
                                 selectedPlugged = selectedPlugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + selectedPlugged + "</b>";

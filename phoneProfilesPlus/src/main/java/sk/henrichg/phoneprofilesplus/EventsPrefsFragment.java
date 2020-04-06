@@ -19,6 +19,8 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -310,7 +312,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             Intent intent = new Intent(activity);
                             startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                             ok = true;
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     if (!ok) {
                         if (getActivity() != null) {
@@ -388,7 +392,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     if (!ok) {
                         if (getActivity() != null) {
@@ -433,7 +439,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     if (!ok) {
                         if (getActivity() != null) {
@@ -463,7 +471,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     if (!ok) {
                         if (getActivity() != null) {
@@ -503,7 +513,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             if (getActivity() != null) {
@@ -549,7 +561,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     if (!ok) {
                         if (getActivity() != null) {
@@ -633,7 +647,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     if (!ok) {
                         if (getActivity() != null) {
@@ -716,7 +732,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -783,7 +800,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -825,7 +843,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -867,7 +886,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 startActivity(intent);
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }
@@ -923,7 +943,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 if (activityExists) {
                                     try {
                                         startActivity(intent);
-                                    } catch (Exception ignored) {
+                                    } catch (Exception ee) {
+                                        Crashlytics.logException(ee);
                                     }
                                 }
                             }
@@ -1001,7 +1022,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             //PPApplication.logE("EventsPrefsFragment.onDestroy", "xxx");
 
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
     }
 
@@ -1562,7 +1584,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1590,7 +1614,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
         if (!ok) {
             if (getActivity() != null) {

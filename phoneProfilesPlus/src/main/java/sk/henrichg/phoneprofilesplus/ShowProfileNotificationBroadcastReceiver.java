@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -74,7 +76,9 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                 WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                 //workManager.enqueueUniqueWork("elapsedAlarmsShowProfileNotificationWork", ExistingWorkPolicy.REPLACE, worker);
                 workManager.enqueue(worker);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
         }
 
         /*//Intent intent = new Intent(_context, ShowProfileNotificationBroadcastReceiver.class);
@@ -125,7 +129,9 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         PhoneProfilesService.cancelWork("elapsedAlarmsShowProfileNotificationWork", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }

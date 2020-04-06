@@ -25,6 +25,8 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -258,7 +260,9 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                     getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                                     ok = true;
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
                                 if (!ok) {
                                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
                                     dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);

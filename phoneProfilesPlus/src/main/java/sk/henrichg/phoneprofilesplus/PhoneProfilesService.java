@@ -288,7 +288,9 @@ public class PhoneProfilesService extends Service
             Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
             Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         /*
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
@@ -423,7 +425,9 @@ public class PhoneProfilesService extends Service
 
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         /*try {
             appContext.unregisterReceiver(stopReceiver);
         } catch (Exception ignored) {}*/
@@ -438,19 +442,29 @@ public class PhoneProfilesService extends Service
 
         try {
             appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             appContext.unregisterReceiver(PPApplication.showProfileNotificationBroadcastReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             appContext.unregisterReceiver(PPApplication.updateGUIBroadcastReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         /*
         if (startLauncherFromNotificationReceiver != null) {
@@ -947,7 +961,9 @@ public class PhoneProfilesService extends Service
                     //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
                     PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
                     appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
 
             // required for start EventsHandler in idle maintenance window
@@ -1086,7 +1102,9 @@ public class PhoneProfilesService extends Service
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
                     PPApplication.contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
                     appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
 
             if (PPApplication.wifiStateChangedBroadcastReceiver == null) {
@@ -3560,13 +3578,15 @@ public class PhoneProfilesService extends Service
                                 try {
                                     //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
                                     Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
-                                } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
                                 }
                             } else {
                                 try {
                                     //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, "ask for grant disabled");
                                     Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, "ask for grant disabled");
-                                } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -3721,7 +3741,8 @@ public class PhoneProfilesService extends Service
                         try {
                             WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                             workManager.enqueue(worker);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     //}
 
@@ -4546,7 +4567,9 @@ public class PhoneProfilesService extends Service
                                     if (contentView != null)
                                         contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                                 }
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         else {
                             if (notificationShowProfileIcon)
@@ -4599,7 +4622,9 @@ public class PhoneProfilesService extends Service
                                     if (contentView != null)
                                         contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                                 }
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         else {
                             if (notificationShowProfileIcon)
@@ -4642,7 +4667,9 @@ public class PhoneProfilesService extends Service
                                         contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
                                 }
                             }
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                     else {
                         if (notificationShowProfileIcon) {
@@ -4664,7 +4691,9 @@ public class PhoneProfilesService extends Service
                             if (contentView != null)
                                 contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                         }
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 else {
                     if (notificationShowProfileIcon)
@@ -4751,7 +4780,9 @@ public class PhoneProfilesService extends Service
                             contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
                             contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
                         }
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 else {
                     Notification.Action.Builder actionBuilder;
@@ -5171,7 +5202,8 @@ public class PhoneProfilesService extends Service
             int locationMode = 0;
             try {
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-            } catch (Settings.SettingNotFoundException ignored) {
+            } catch (Settings.SettingNotFoundException e) {
+                Crashlytics.logException(e);
             }
             enabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
@@ -5183,7 +5215,8 @@ public class PhoneProfilesService extends Service
         int wifiSleepPolicy = -1;
         try {
             wifiSleepPolicy = Settings.Global.getInt(context.getContentResolver(), Settings.Global.WIFI_SLEEP_POLICY);
-        } catch (Settings.SettingNotFoundException ignored) {
+        } catch (Settings.SettingNotFoundException e) {
+            Crashlytics.logException(e);
         }
         return wifiSleepPolicy == Settings.Global.WIFI_SLEEP_POLICY_NEVER;
     }
@@ -5380,12 +5413,16 @@ public class PhoneProfilesService extends Service
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsOrientationSensorWork");
             workManager.cancelAllWorkByTag("elapsedAlarmsOrientationSensorWork");
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -5700,7 +5737,9 @@ public class PhoneProfilesService extends Service
                     if (notificationMediaPlayer.isPlaying())
                         notificationMediaPlayer.stop();
                     notificationMediaPlayer.release();
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
                 notificationIsPlayed = false;
                 notificationMediaPlayer = null;
             }
@@ -5813,7 +5852,9 @@ public class PhoneProfilesService extends Service
                         workManager.cancelUniqueWork("disableInternalChangeWork");
                         workManager.cancelAllWorkByTag("disableInternalChangeWork");
                         workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                    } catch (Exception ignored) {}
+                    } catch (Exception ee) {
+                        Crashlytics.logException(ee);
+                    }
 
                     /*PPApplication.startHandlerThreadInternalChangeToFalse();
                     final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -5843,13 +5884,16 @@ public class PhoneProfilesService extends Service
                     if (ringingMediaPlayer.isPlaying())
                         ringingMediaPlayer.stop();
                     ringingMediaPlayer.release();
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
                 ringingMediaPlayer = null;
 
                 try {
                     if (ringingCallIsSimulating)
                         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, 0);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
                 //PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
@@ -5870,7 +5914,9 @@ public class PhoneProfilesService extends Service
             workManager.cancelUniqueWork("disableInternalChangeWork");
             workManager.cancelAllWorkByTag("disableInternalChangeWork");
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -6164,7 +6210,9 @@ public class PhoneProfilesService extends Service
                 if (notificationMediaPlayer.isPlaying())
                     notificationMediaPlayer.stop();
                 notificationMediaPlayer.release();
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
             notificationIsPlayed = false;
             notificationMediaPlayer = null;
         }
@@ -6181,7 +6229,9 @@ public class PhoneProfilesService extends Service
                     } else {
                         vibrator.vibrate(500);
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         }
 
@@ -6254,7 +6304,8 @@ public class PhoneProfilesService extends Service
                                         if (notificationMediaPlayer.isPlaying())
                                             notificationMediaPlayer.stop();
                                         notificationMediaPlayer.release();
-                                    } catch (Exception ignored) {
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
                                     }
 
                                     //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
@@ -6274,7 +6325,9 @@ public class PhoneProfilesService extends Service
                                     workManager.cancelUniqueWork("disableInternalChangeWork");
                                     workManager.cancelAllWorkByTag("disableInternalChangeWork");
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -6335,7 +6388,9 @@ public class PhoneProfilesService extends Service
                             workManager.cancelUniqueWork("disableInternalChangeWork");
                             workManager.cancelAllWorkByTag("disableInternalChangeWork");
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                        } catch (Exception ignored) {}
+                        } catch (Exception ee) {
+                            Crashlytics.logException(ee);
+                        }
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -133,7 +134,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
             try {
                 unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException e) {
+                Crashlytics.logException(e);
             }
             mobileCellsRegistrationCountDownBroadcastReceiver = null;
         }
@@ -141,7 +143,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         if (mobileCellsRegistrationStoppedBroadcastReceiver != null) {
             try {
                 unregisterReceiver(mobileCellsRegistrationStoppedBroadcastReceiver);
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException e) {
+                Crashlytics.logException(e);
             }
             mobileCellsRegistrationStoppedBroadcastReceiver = null;
         }
@@ -674,7 +677,9 @@ public class EventsPrefsActivity extends AppCompatActivity {
                                 .id(id)
                 );
                 ++id;
-            } catch (Exception ignored) {} // not in action bar?
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
 
             sequence.targets(targets);
             sequence.listener(new TapTargetSequence.Listener() {

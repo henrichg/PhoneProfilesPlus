@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.format.DateFormat;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -1154,7 +1156,9 @@ class EventPreferencesTime extends EventPreferences {
                         //if (testEvent)
                         //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
 
                 try {
                     //if (testEvent)
@@ -1168,9 +1172,13 @@ class EventPreferencesTime extends EventPreferences {
                         //if (testEvent)
                         //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ee) {
+            Crashlytics.logException(ee);
+        }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
@@ -1184,18 +1192,24 @@ class EventPreferencesTime extends EventPreferences {
                 workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
                 //if (testEvent)
                 //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
 
             try {
                 //if (testEvent)
                 //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode=" + (-(int) _event._id));
                 //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
                 workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                Crashlytics.logException(e);
+            }
 
             //if (testEvent)
             //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
-        } catch (Exception ignored) {}
+        } catch (Exception ee) {
+            Crashlytics.logException(ee);
+        }
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

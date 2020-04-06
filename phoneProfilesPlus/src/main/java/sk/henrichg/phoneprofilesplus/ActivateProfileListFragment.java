@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
@@ -355,7 +357,8 @@ public class ActivateProfileListFragment extends Fragment {
 
                         try {
                             fragment.getActivity().finish();
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
 
                         return;
@@ -666,7 +669,9 @@ public class ActivateProfileListFragment extends Fragment {
                         //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
@@ -710,7 +715,9 @@ public class ActivateProfileListFragment extends Fragment {
                         //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }

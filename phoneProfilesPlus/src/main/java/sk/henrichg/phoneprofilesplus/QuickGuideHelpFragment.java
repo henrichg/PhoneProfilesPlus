@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -91,7 +93,9 @@ public class QuickGuideHelpFragment extends Fragment {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         spannable.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

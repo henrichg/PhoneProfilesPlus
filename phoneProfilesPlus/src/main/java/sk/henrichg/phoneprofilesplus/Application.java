@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.annotation.NonNull;
 
 class Application  implements Parcelable {
@@ -116,7 +118,9 @@ class Application  implements Parcelable {
                     if (activityShortcutIdDelay.length >= 2)
                         try {
                             shortcutId = Long.parseLong(activityShortcutIdDelay[1]);
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                 }
             }
             //PPApplication.logE("@ Application.getShortcutId", "shortcutId="+shortcutId);
@@ -136,7 +140,9 @@ class Application  implements Parcelable {
                 // intent
                 try {
                     intentId = Long.parseLong(intentIdDelay[0].substring(3));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
             //PPApplication.logE("@ Application.getIntentId", "intentId="+intentId);
             return intentId;
@@ -160,14 +166,16 @@ class Application  implements Parcelable {
                     if (activityShortcutIdDelay.length >= 3) {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[2]);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                     else
                     if (activityShortcutIdDelay.length >= 2) {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[1]);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -177,7 +185,8 @@ class Application  implements Parcelable {
                     if (activityShortcutIdDelay.length >= 2) {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[1]);
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -187,14 +196,18 @@ class Application  implements Parcelable {
                 if (shortcutIntent.equals("(i)")) {
                     try {
                         startApplicationDelay = Integer.parseInt(packageNameActivity[0]);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 else {
                     String[] packageNameDelay = value.split("#");
                     if (packageNameDelay.length >= 2) {
                         try {
                             startApplicationDelay = Integer.parseInt(packageNameDelay[1]);
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                     }
                 }
             }

@@ -22,6 +22,8 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -1002,7 +1004,8 @@ class EventsHandler {
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
                         PPApplication.runCommand(context, commandIntent);
                     }
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
             }
 
@@ -1218,7 +1221,8 @@ class EventsHandler {
                 try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
                     IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                     batteryStatus = context.registerReceiver(null, filter);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
 
                 if (batteryStatus != null) {
@@ -1277,7 +1281,8 @@ class EventsHandler {
                                             passed = true;
                                             break;
                                         }
-                                    } catch (Exception ignored) {
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
                                     }
                                 }
                                 batteryPassed = batteryPassed && passed;
@@ -1638,9 +1643,10 @@ class EventsHandler {
                     ConnectivityManager connManager = null;
                     try {
                         connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
                         // java.lang.NullPointerException: missing IConnectivityManager
                         // Dual SIM?? Bug in Android ???
+                        Crashlytics.logException(e);
                     }
                     if (connManager != null) {
                         //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -1669,7 +1675,8 @@ class EventsHandler {
                                             }
                                         }
                                     }
-                                } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -2554,7 +2561,8 @@ class EventsHandler {
                                                         lDisplayPassed = true;
                                                         break;
                                                     }
-                                                } catch (Exception ignored) {
+                                                } catch (Exception e) {
+                                                    Crashlytics.logException(e);
                                                 }
                                             }
                                         }
@@ -2582,7 +2590,8 @@ class EventsHandler {
                                                             break;
                                                         }
                                                     }
-                                                } catch (Exception ignored) {
+                                                } catch (Exception e) {
+                                                    Crashlytics.logException(e);
                                                 }
                                             }
                                         }

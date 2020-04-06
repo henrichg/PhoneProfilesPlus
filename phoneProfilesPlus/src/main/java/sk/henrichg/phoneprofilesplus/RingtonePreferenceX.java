@@ -18,6 +18,8 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -189,11 +191,11 @@ public class RingtonePreferenceX extends DialogPreference {
                         try {
                             Cursor cursor = manager.getCursor();
 
-                        /*
-                        profile._soundRingtone=content://settings/system/ringtone
-                        profile._soundNotification=content://settings/system/notification_sound
-                        profile._soundAlarm=content://settings/system/alarm_alert
-                        */
+                            /*
+                            profile._soundRingtone=content://settings/system/ringtone
+                            profile._soundNotification=content://settings/system/notification_sound
+                            profile._soundAlarm=content://settings/system/alarm_alert
+                            */
 
                             while (cursor.moveToNext()) {
                                 String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
@@ -201,7 +203,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                 String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                 _toneList.put(_uri + "/" + _id, _title);
                             }
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
 
                         return null;
@@ -286,7 +289,8 @@ public class RingtonePreferenceX extends DialogPreference {
                     if (mediaPlayer.isPlaying())
                         mediaPlayer.stop();
                     mediaPlayer.release();
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
                 ringtoneIsPlayed = false;
                 mediaPlayer = null;
@@ -388,7 +392,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                         if (mediaPlayer.isPlaying())
                                             mediaPlayer.stop();
                                         mediaPlayer.release();
-                                    } catch (Exception ignored) {
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
                                     }
 
                                     if (oldMediaVolume > -1)
@@ -408,7 +413,9 @@ public class RingtonePreferenceX extends DialogPreference {
                                 try {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -465,7 +472,9 @@ public class RingtonePreferenceX extends DialogPreference {
                         try {
                             WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
-                        } catch (Exception ignored) {}
+                        } catch (Exception ee) {
+                            Crashlytics.logException(ee);
+                        }
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

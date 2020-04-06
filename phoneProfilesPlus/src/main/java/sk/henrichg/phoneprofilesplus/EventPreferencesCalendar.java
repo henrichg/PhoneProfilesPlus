@@ -458,12 +458,16 @@ class EventPreferencesCalendar extends EventPreferences {
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
            // workManager.cancelUniqueWork("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

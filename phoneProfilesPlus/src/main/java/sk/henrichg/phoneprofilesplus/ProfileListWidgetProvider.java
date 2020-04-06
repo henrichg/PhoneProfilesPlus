@@ -19,6 +19,8 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.crashlytics.android.Crashlytics;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -540,7 +542,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         RemoteViews widget = buildLayout(context, appWidgetId, isLargeLayout);
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -612,7 +616,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     layout = buildLayout(context, appWidgetId, isLargeLayout);
                     try {
                         appWidgetManager.updateAppWidget(appWidgetId, layout);
-                    } catch (Exception ignored) {}
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                 }
                 else
                 if ((action != null) &&
@@ -810,7 +816,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             for (int appWidgetId : appWidgetIds) {
                 updateWidget(context, appWidgetId);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     void updateWidgets(final Context context, final boolean refresh) {

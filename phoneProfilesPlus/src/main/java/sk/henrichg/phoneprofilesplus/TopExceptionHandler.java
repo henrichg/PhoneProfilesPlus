@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.provider.Settings;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -40,7 +42,9 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                         Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
                 }
             //}
-        } catch (Exception ignored) {}
+        } catch (Exception ee) {
+            Crashlytics.logException(ee);
+        }
 
         if (PPApplication.crashIntoFile) {
             StackTraceElement[] arr = e.getStackTrace();

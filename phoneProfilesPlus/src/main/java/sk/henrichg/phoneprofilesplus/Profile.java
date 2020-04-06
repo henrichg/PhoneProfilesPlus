@@ -19,6 +19,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -3335,9 +3337,10 @@ public class Profile {
                 ConnectivityManager connManager = null;
                 try {
                     connManager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
                     // java.lang.NullPointerException: missing IConnectivityManager
                     // Dual SIM?? Bug in Android ???
+                    Crashlytics.logException(e);
                 }
                 if (connManager != null) {
                     //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -3361,7 +3364,8 @@ public class Profile {
                                             break;
                                         }
                                     }
-                                } catch (Exception ignored) {
+                                } catch (Exception ee) {
+                                    Crashlytics.logException(ee);
                                 }
                             }
                         }
@@ -4361,7 +4365,9 @@ public class Profile {
         try {
             //noinspection ConstantConditions
             iconResource = profileIconIdMap.get(identifier);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         return iconResource;
     }
 

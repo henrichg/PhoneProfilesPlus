@@ -165,7 +165,8 @@ public class MobileCellsRegistrationService extends Service {
             if (mobileCellsRegistrationStopButtonBroadcastReceiver != null) {
                 try {
                     context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
-                } catch (IllegalArgumentException ignored) {
+                } catch (IllegalArgumentException e) {
+                    Crashlytics.logException(e);
                 }
                 mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }
@@ -185,7 +186,8 @@ public class MobileCellsRegistrationService extends Service {
             //noinspection deprecation
             context.sendStickyBroadcast(new Intent(ACTION_STOP));
             //context.sendBroadcast(new Intent(ACTION_STOP));
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
     }
 

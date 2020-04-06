@@ -8,6 +8,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LockDeviceActivity extends AppCompatActivity {
@@ -113,7 +115,8 @@ public class LockDeviceActivity extends AppCompatActivity {
                     WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
                     if (windowManager != null)
                         windowManager.removeViewImmediate(view);
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
                 }
 
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);

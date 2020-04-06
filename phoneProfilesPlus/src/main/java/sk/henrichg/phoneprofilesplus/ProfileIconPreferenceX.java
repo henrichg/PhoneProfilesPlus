@@ -12,6 +12,8 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -222,7 +224,9 @@ public class ProfileIconPreferenceX extends DialogPreference {
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedProfileIconPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         /*} catch (ActivityNotFoundException e) {
             try {
                 intent = new Intent(Intent.ACTION_GET_CONTENT);

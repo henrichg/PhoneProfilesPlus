@@ -23,6 +23,8 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -63,7 +65,8 @@ public class ImportantInfoHelpFragment extends Fragment {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = PPApplication.getVersionCode(pInfo);
             //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "versionCode="+versionCode);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
 
         boolean news = false;
@@ -164,7 +167,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivity(intent);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -383,7 +388,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivity(intent);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -418,7 +425,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivity(intent);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -456,7 +465,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                     startActivity(intent);
                                     ok = true;
-                                } catch (Exception ignored) {
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
                                 }
                             }
                             if (!ok) {
@@ -587,7 +597,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                                 startActivity(intent);
                                 ok = true;
-                            } catch (Exception ignored) {}
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
+                            }
                         }
                         if (!ok) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -925,7 +937,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         };
         spannable.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -998,7 +1012,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                 i.setData(Uri.parse(url));
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);

@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.telephony.PhoneNumberUtils;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -458,12 +460,16 @@ class EventPreferencesCall extends EventPreferences {
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsCallSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsCallSensorWork_"+(int)_event._id);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @SuppressLint("NewApi")

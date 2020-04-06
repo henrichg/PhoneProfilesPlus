@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +49,9 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     pendingIntent.cancel();
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
         PhoneProfilesService.cancelWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, context.getApplicationContext());
         PPApplication.elapsedAlarmsStartEventNotificationWork.remove("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
         //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
@@ -107,7 +111,9 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     }*/
                     workManager.enqueue(worker);
                     PPApplication.elapsedAlarmsStartEventNotificationWork.add("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
             }
 
             /*//Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);

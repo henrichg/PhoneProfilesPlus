@@ -7,6 +7,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
+
+import com.crashlytics.android.Crashlytics;
+
 import java.util.List;
 
 import androidx.preference.DialogPreference;
@@ -84,7 +87,8 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
                                     if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
                                         contact.checked = true;
                                 }
-                            } catch (Exception ignored) {
+                            } catch (Exception e) {
+                                Crashlytics.logException(e);
                             }
                         }
                     }

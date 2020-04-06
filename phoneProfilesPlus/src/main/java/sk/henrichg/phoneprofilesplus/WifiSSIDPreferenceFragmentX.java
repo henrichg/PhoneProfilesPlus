@@ -24,6 +24,8 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -242,7 +244,9 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                     getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                                     ok = true;
-                                } catch (Exception ignored) {}
+                                } catch (Exception e) {
+                                    Crashlytics.logException(e);
+                                }
                             }
                             if (!ok) {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);

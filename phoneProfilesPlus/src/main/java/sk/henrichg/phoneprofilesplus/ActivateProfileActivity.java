@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -96,7 +97,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     if (what.equals("activator")) {
                         try {
                             ActivateProfileActivity.this.finishAffinity();
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
                         }
                     }
                 }
@@ -410,7 +412,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
         super.onDestroy();
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -610,7 +614,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {} // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
                     try {
                         View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
                         targets.add(
@@ -623,7 +629,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {} // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
 
                     sequence.targets(targets);
                 }
@@ -641,7 +649,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {} // not in action bar?
+                    } catch (Exception e) {
+                        Crashlytics.logException(e);
+                    }
 
                     sequence.targets(targets);
                 }
@@ -674,7 +684,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                     //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                                     try {
                                         ActivatorTargetHelpsActivity.activity.finish();
-                                    } catch (Exception ignored) {}
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
+                                    }
                                     ActivatorTargetHelpsActivity.activity = null;
                                     //ActivatorTargetHelpsActivity.activatorActivity = null;
                                 }
@@ -723,7 +735,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }

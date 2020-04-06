@@ -46,7 +46,8 @@ class ImportantInfoNotification {
 
                 setShowInfoNotificationOnStartVersion(context, packageVersionCode);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
 
         if ((savedVersionCode == 0) || getShowInfoNotificationOnStart(context, packageVersionCode)) {
