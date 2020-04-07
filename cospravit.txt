@@ -831,4 +831,19 @@ len aplikacii A BEZ PP a PPP. Dufam, ze toto spravit ide.
 Potom uz len prejdem zoznam packages, ktore mam v tom parametri.
 Zoznam uz interne podporovanych tam necham.
 
+Pridaj aj info preference, ktore zobrazi zoznam interne podporovanych aplikacii:
+// com.google.android.deskclock - Google Clock
+// com.sec.android.app.clockpackage - Samsung Clock
+// com.sonyericsson.organizer - Sony Clock
+// com.amdroidalarmclock.amdroid - AMdroid
+// com.alarmclock.xtreme.free - Alarm Clock XTreme free
+// com.alarmclock.xtreme - Alarm Clock XTreme
+// droom.sleepIfUCan - Alarmy (Sleep if u can)
+// com.funanduseful.earlybirdalarm - Early Bird Alarm Clock
+// com.apalon.alarmclock.smart - Good Morning Alarm Clock
+// com.kog.alarmclock - I Can't Wake Up! Alarm Clock
+// com.urbandroid.sleep - Sleep as Android
+// ch.bitspin.timely - Timely
+// com.angrydoughnuts.android.alarmclock - Alarm Klock
+
 --------------

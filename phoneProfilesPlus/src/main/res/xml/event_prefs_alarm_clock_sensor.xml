@@ -9,6 +9,25 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
+        app:key="eventAlarmClockSupportedAppsInfo"
+        app:title="@string/event_preferences_alarm_clock_info"
+        app:summary="@string/info_preference_click_here"
+        app:infoText="@string/event_preferences_alarm_clock_info"
+        app:dependency="eventAlarmClockEnabled"
+        app:widgetLayout="@layout/info_preference_clickable"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+        app:defaultValue="@string/dash_string"
+        app:key="eventAlarmClockApplications"
+        app:title="@string/event_preferences_alarm_clock_applications"
+        app:removePPApplications="1"
+        app:systemSettings="not_check"
+        app:dependency="eventAlarmClockEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="eventAlarmClockPermanentRun"
         app:title="@string/pref_event_permanentRun"

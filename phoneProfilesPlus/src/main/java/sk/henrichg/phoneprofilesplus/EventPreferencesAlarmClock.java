@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -22,22 +25,27 @@ class EventPreferencesAlarmClock extends EventPreferences {
     long _startTime;
     boolean _permanentRun;
     int _duration;
+    String _applications;
 
     static final String PREF_EVENT_ALARM_CLOCK_ENABLED = "eventAlarmClockEnabled";
     private static final String PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN = "eventAlarmClockPermanentRun";
     private static final String PREF_EVENT_ALARM_CLOCK_DURATION = "eventAlarmClockDuration";
+    private static final String PREF_EVENT_ALARM_CLOCK_APPLICATIONS = "eventAlarmClockApplications";
+    private static final String PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS = "eventAlarmClockSupportedAppsInfo";
 
     private static final String PREF_EVENT_ALARM_CLOCK_CATEGORY = "eventAlarmClockCategoryRoot";
 
     EventPreferencesAlarmClock(Event event,
                                     boolean enabled,
                                     boolean permanentRun,
-                                    int duration)
+                                    int duration,
+                                    String applications)
     {
         super(event, enabled);
 
         this._permanentRun = permanentRun;
         this._duration = duration;
+        this._applications = applications;
 
         this._startTime = 0;
     }
@@ -48,6 +56,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         this._enabled = fromEvent._eventPreferencesAlarmClock._enabled;
         this._permanentRun = fromEvent._eventPreferencesAlarmClock._permanentRun;
         this._duration = fromEvent._eventPreferencesAlarmClock._duration;
+        this._applications = fromEvent._eventPreferencesAlarmClock._applications;
         this.setSensorPassed(fromEvent._eventPreferencesAlarmClock.getSensorPassed());
 
         this._startTime = 0;
@@ -60,6 +69,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         editor.putBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, _enabled);
         editor.putBoolean(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN, this._permanentRun);
         editor.putString(PREF_EVENT_ALARM_CLOCK_DURATION, String.valueOf(this._duration));
+        editor.putString(PREF_EVENT_ALARM_CLOCK_APPLICATIONS, this._applications);
         editor.apply();
     }
 
@@ -69,6 +79,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         this._enabled = preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
         this._permanentRun = preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN, false);
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_ALARM_CLOCK_DURATION, "5"));
+        this._applications = preferences.getString(PREF_EVENT_ALARM_CLOCK_APPLICATIONS, "");
     }
 
     @Override
@@ -91,6 +102,36 @@ class EventPreferencesAlarmClock extends EventPreferences {
                     descr = descr + "<b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                 else
                     descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
+
+                String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                    String[] splits = this._applications.split("\\|");
+                    if (splits.length == 1) {
+                        String packageName = Application.getPackageName(splits[0]);
+                        String activityName = Application.getActivityName(splits[0]);
+                        PackageManager packageManager = context.getPackageManager();
+                        if (activityName.isEmpty()) {
+                            ApplicationInfo app;
+                            try {
+                                app = packageManager.getApplicationInfo(packageName, 0);
+                                if (app != null)
+                                    selectedApplications = packageManager.getApplicationLabel(app).toString();
+                            } catch (Exception e) {
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClassName(packageName, activityName);
+                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                            if (info != null)
+                                selectedApplications = info.loadLabel(packageManager).toString();
+                        }
+                    } else
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                }
+
+                descr = descr + " • ";
+                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_alarm_clock_applications) + ": <b>" + selectedApplications + "</b>";
             }
         }
 
@@ -129,6 +170,17 @@ class EventPreferencesAlarmClock extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesAlarmClock.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesAlarmClock.isRunnable(context);
+        boolean enabled = preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
+        Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_APPLICATIONS);
+        if (applicationsPreference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_ALARM_CLOCK_APPLICATIONS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, true, !isRunnable, false);
+        }
     }
 
     @Override
@@ -139,7 +191,8 @@ class EventPreferencesAlarmClock extends EventPreferences {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
         }
-        if (key.equals(PREF_EVENT_ALARM_CLOCK_DURATION))
+        if (key.equals(PREF_EVENT_ALARM_CLOCK_DURATION)||
+            key.equals(PREF_EVENT_ALARM_CLOCK_APPLICATIONS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -151,13 +204,36 @@ class EventPreferencesAlarmClock extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_APPLICATIONS, preferences, context);
+
+        InfoDialogPreferenceX preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS);
+        if (preference != null) {
+            String supportedApps = "<ul>" +
+                    "<li>Google Clock</li>" +
+                    "<li>Samsung Clock</li>" +
+                    "<li>Sony Clock</li>" +
+                    "<li>AMdroid</li>" +
+                    "<li>Alarm Clock XTreme free</li>" +
+                    "<li>Alarm Clock XTreme</li>" +
+                    "<li>Alarmy (Sleep if u can)</li>" +
+                    "<li>Early Bird Alarm Clock</li>" +
+                    "<li>Good Morning Alarm Clock</li>" +
+                    "<li>I Can't Wake Up! Alarm Clock</li>" +
+                    "<li>Sleep as Android</li>" +
+                    "<li>Timely</li>" +
+                    "<li>Alarm Klock</li>" +
+                    "</ul>"
+                    ;
+            preference.setInfoText(supportedApps);
+            preference.setIsHtml(true);
+        }
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesAlarmClock tmp = new EventPreferencesAlarmClock(this._event, this._enabled, this._permanentRun, this._duration);
+            EventPreferencesAlarmClock tmp = new EventPreferencesAlarmClock(this._event, this._enabled, this._permanentRun, this._duration, this._applications);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -185,6 +261,18 @@ class EventPreferencesAlarmClock extends EventPreferences {
             return super.isRunnable(context);
         //else
         //    return false;
+    }
+
+    @Override
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
+        ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_APPLICATIONS);
+
+        if (applicationsPreference != null) {
+            applicationsPreference.setEnabled(enabled);
+            applicationsPreference.setSummaryAMSDP();
+        }
     }
 
     long computeAlarm()

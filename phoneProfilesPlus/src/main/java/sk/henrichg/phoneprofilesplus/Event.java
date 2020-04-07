@@ -364,7 +364,7 @@ class Event {
 
     private void createEventPreferencesAlarmClock()
     {
-        this._eventPreferencesAlarmClock = new EventPreferencesAlarmClock(this, false, false, 5);
+        this._eventPreferencesAlarmClock = new EventPreferencesAlarmClock(this, false, false, 5, "");
     }
 
     private void createEventPreferencesDeviceBoot()

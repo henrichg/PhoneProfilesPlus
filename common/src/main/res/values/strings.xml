@@ -1503,6 +1503,9 @@
     <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Configuration for all notification categories</string>
     <string name="phone_profiles_pref_notificationSystemSettingsAll_A7_summary">Configuration for all notifications</string>
 
+    <string name="event_preferences_alarm_clock_info">Internally supported Alarm clock applications</string>
+    <string name="event_preferences_alarm_clock_applications">Alarm clock applications</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
