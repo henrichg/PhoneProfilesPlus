@@ -74,15 +74,15 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                         packageName.equals("ch.bitspin.timely") ||
                                         packageName.equals("com.angrydoughnuts.android.alarmclock"))
 
-                                        setAlarm(_time, alarmManager, context);
+                                        setAlarm(_time, packageName, alarmManager, context);
                                 }
                             } else {
                                 //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
-                                setAlarm(_time, alarmManager, context);
+                                setAlarm(_time, packageName, alarmManager, context);
                             }
                         } else {
                             //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
-                            setAlarm(_time, alarmManager, context);
+                            setAlarm(_time, "", alarmManager, context);
                         }
                     }
                     //else {
@@ -110,7 +110,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     }
 
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setAlarm(long alarmTime, AlarmManager alarmManager, Context context) {
+    private void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
         removeAlarm(alarmManager, context);
 
         //PhoneProfilesService instance = PhoneProfilesService.getInstance();
@@ -134,9 +134,11 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
             //intent.setClass(context, AlarmClockBroadcastReceiver.class);
 
+            intent.putExtra(AlarmClockBroadcastReceiver.EXTRA_ALARM_PACKAGE_NAME, alarmPackageName);
+
             // set alarm
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            // !!! DO NOT USE ALARM CLOCK !!!
+            // !!! DO NOT USE PPP SETTING "Use alarm clock" !!!
             if (android.os.Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else //if (android.os.Build.VERSION.SDK_INT >= 19)

@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2421;
+    private static final int DATABASE_VERSION = 2422;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -332,6 +332,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_DEVICE_BOOT_START_TIME = "deviceBootStartTime";
     private static final String KEY_E_DEVICE_BOOT_SENSOR_PASSED = "deviceBootSensorPassed";
     private static final String KEY_E_ALARM_CLOCK_APPLICATIONS = "alarmClockApplications";
+    private static final String KEY_E_ALARM_CLOCK_PACKAGE_NAME = "alarmClockPackageName";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -709,7 +710,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_DEVICE_BOOT_DURATION + " INTEGER,"
                 + KEY_E_DEVICE_BOOT_START_TIME + " INTEGER,"
                 + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_ALARM_CLOCK_APPLICATIONS + " TEXT"
+                + KEY_E_ALARM_CLOCK_APPLICATIONS + " TEXT,"
+                + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " TEXT"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -3084,6 +3086,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_APPLICATIONS + " TEXT");
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_APPLICATIONS + "=\"\"");
+        }
+
+        if (oldVersion < 2422)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " TEXT");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_PACKAGE_NAME + "=\"\"");
         }
 
         //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -5814,7 +5823,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_ALARM_CLOCK_DURATION,
                         KEY_E_ALARM_CLOCK_PERMANENT_RUN,
                         KEY_E_ALARM_CLOCK_SENSOR_PASSED,
-                        KEY_E_ALARM_CLOCK_APPLICATIONS
+                        KEY_E_ALARM_CLOCK_APPLICATIONS,
+                        KEY_E_ALARM_CLOCK_PACKAGE_NAME
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5831,6 +5841,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_DURATION));
                 eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_PERMANENT_RUN)) == 1);
                 eventPreferences._applications = cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_APPLICATIONS));
+                eventPreferences._alarmPackageName = cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_PACKAGE_NAME));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_SENSOR_PASSED)));
             }
             cursor.close();
@@ -6193,6 +6204,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_ALARM_CLOCK_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
         values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(KEY_E_ALARM_CLOCK_APPLICATIONS, eventPreferences._applications);
+        values.put(KEY_E_ALARM_CLOCK_PACKAGE_NAME, eventPreferences._alarmPackageName);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -11822,6 +11834,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 2421) {
                                                 values.put(KEY_E_ALARM_CLOCK_APPLICATIONS, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2422) {
+                                                values.put(KEY_E_ALARM_CLOCK_PACKAGE_NAME, "");
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

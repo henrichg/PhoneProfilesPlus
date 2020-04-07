@@ -10,6 +10,8 @@ import java.util.Calendar;
 
 public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
+    static final String EXTRA_ALARM_PACKAGE_NAME = "alarm_package_name";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         //PPApplication.logE("##### AlarmClockBroadcastReceiver.onReceive", "xxx");
@@ -24,6 +26,8 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         final long _time = now.getTimeInMillis() + gmtOffset;
+
+        final String alarmPackageName = intent.getStringExtra(EXTRA_ALARM_PACKAGE_NAME);
 
         if (Event.getGlobalEventsRunning()) {
             //PPApplication.logE("@@@ AlarmClockBroadcastReceiver.onReceive", "start service");
@@ -44,7 +48,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                         //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.setEventAlarmClockParameters(_time);
+                        eventsHandler.setEventAlarmClockParameters(_time, alarmPackageName);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=AlarmClockBroadcastReceiver.onReceive");

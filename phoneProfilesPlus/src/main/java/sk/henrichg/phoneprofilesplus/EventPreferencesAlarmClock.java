@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.service.notification.StatusBarNotification;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -26,6 +27,8 @@ class EventPreferencesAlarmClock extends EventPreferences {
     boolean _permanentRun;
     int _duration;
     String _applications;
+
+    String _alarmPackageName;
 
     static final String PREF_EVENT_ALARM_CLOCK_ENABLED = "eventAlarmClockEnabled";
     private static final String PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN = "eventAlarmClockPermanentRun";
@@ -48,6 +51,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         this._applications = applications;
 
         this._startTime = 0;
+        this._alarmPackageName = "";
     }
 
     @Override
@@ -60,6 +64,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesAlarmClock.getSensorPassed());
 
         this._startTime = 0;
+        this._alarmPackageName = "";
     }
 
     @Override
@@ -263,18 +268,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
         //    return false;
     }
 
-    @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-        boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
-        ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_APPLICATIONS);
-
-        if (applicationsPreference != null) {
-            applicationsPreference.setEnabled(enabled);
-            applicationsPreference.setSummaryAMSDP();
-        }
-    }
-
     long computeAlarm()
     {
         //PPApplication.logE("EventPreferencesAlarmClock.computeAlarm","xxx");
@@ -448,11 +441,12 @@ class EventPreferencesAlarmClock extends EventPreferences {
         }
     }
 
-    void saveStartTime(DataWrapper dataWrapper, long startTime) {
+    void saveStartTime(DataWrapper dataWrapper, long startTime, String alarmPackageName) {
         if (this._startTime == 0) {
             // alarm for end is not set
 
             this._startTime = startTime; // + (10 * 1000);
+            this._alarmPackageName = alarmPackageName;
 
             DatabaseHandler.getInstance(dataWrapper.context).updateAlarmClockStartTime(_event);
 
@@ -460,4 +454,18 @@ class EventPreferencesAlarmClock extends EventPreferences {
         }
     }
 
+    boolean isPackageSupported(Context context) {
+        if ((_applications == null) || _applications.isEmpty() ||
+                _applications.equals(context.getString(R.string.dash_string)))
+            // applications are not configured, alarmPackageName is supported
+            return true;
+
+        String[] splits = this._applications.split("\\|");
+        for (String split : splits) {
+            // get only package name = remove activity
+            String packageName = Application.getPackageName(split);
+            return this._alarmPackageName.equals(packageName);
+        }
+        return false;
+    }
 }

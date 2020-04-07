@@ -50,6 +50,7 @@ class EventsHandler {
     private String eventNFCTagName;
     private long eventNFCDate;
     private long eventAlarmClockDate;
+    private String eventAlarmClockPackageName;
     private long eventDeviceBootDate;
 
     private boolean startProfileMerged;
@@ -326,7 +327,7 @@ class EventsHandler {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesAlarmClock._enabled) {
                                 //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                                _event._eventPreferencesAlarmClock.saveStartTime(dataWrapper, eventAlarmClockDate);
+                                _event._eventPreferencesAlarmClock.saveStartTime(dataWrapper, eventAlarmClockDate, eventAlarmClockPackageName);
                             }
                         }
                     }
@@ -2971,46 +2972,52 @@ class EventsHandler {
                 // compute start time
 
                 if (event._eventPreferencesAlarmClock._startTime > 0) {
-                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                    long startTime = event._eventPreferencesAlarmClock._startTime - gmtOffset;
+                    if (event._eventPreferencesAlarmClock.isPackageSupported(context)) {
 
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
-                    }*/
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        long startTime = event._eventPreferencesAlarmClock._startTime - gmtOffset;
 
-                    // compute end datetime
-                    long endAlarmTime = event._eventPreferencesAlarmClock.computeAlarm();
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
-                    }*/
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(startTime);
+                            PPApplication.logE("EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                        }*/
 
-                    Calendar now = Calendar.getInstance();
-                    long nowAlarmTime = now.getTimeInMillis();
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
-                    }*/
+                        // compute end datetime
+                        long endAlarmTime = event._eventPreferencesAlarmClock.computeAlarm();
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(endAlarmTime);
+                            PPApplication.logE("EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        }*/
 
-                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
-                        alarmClockPassed = true;
-                    else if (!event._eventPreferencesAlarmClock._permanentRun) {
-                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
-                            alarmClockPassed = false;
-                        else
-                            alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                    } else {
-                        alarmClockPassed = nowAlarmTime >= startTime;
+                        Calendar now = Calendar.getInstance();
+                        long nowAlarmTime = now.getTimeInMillis();
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(nowAlarmTime);
+                            PPApplication.logE("EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        }*/
+
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
+                            alarmClockPassed = true;
+                        else if (!event._eventPreferencesAlarmClock._permanentRun) {
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
+                                alarmClockPassed = false;
+                            else
+                                alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                        } else {
+                            alarmClockPassed = nowAlarmTime >= startTime;
+                        }
                     }
+                    else
+                        alarmClockPassed = false;
                 } else
                     alarmClockPassed = false;
 
                 if (!alarmClockPassed) {
                     event._eventPreferencesAlarmClock._startTime = 0;
+                    event._eventPreferencesAlarmClock._alarmPackageName = "";
                     DatabaseHandler.getInstance(context).updateAlarmClockStartTime(event);
                 }
 
@@ -3396,8 +3403,9 @@ class EventsHandler {
         eventNFCDate = date;
     }
 
-    void setEventAlarmClockParameters(long date) {
+    void setEventAlarmClockParameters(long date, String alarmPackageName) {
         eventAlarmClockDate = date;
+        eventAlarmClockPackageName = alarmPackageName;
     }
 
     void setEventCallParameters(int callEventType, String phoneNumber, long eventTime) {

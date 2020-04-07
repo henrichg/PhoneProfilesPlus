@@ -2935,6 +2935,7 @@ public class DataWrapper {
 
         if (force || _event._eventPreferencesAlarmClock._permanentRun) {
             _event._eventPreferencesAlarmClock._startTime = 0;
+            _event._eventPreferencesAlarmClock._alarmPackageName = "";
             DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
             _event._eventPreferencesAlarmClock.removeAlarm(context);
         }
