@@ -30,6 +30,7 @@ import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
@@ -2683,24 +2684,27 @@ public class PPApplication extends Application /*implements Application.Activity
             synchronized (PPApplication.rootMutex) {
                 //noinspection RegExpRedundantEscape
                 final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
+
                 Command command = new Command(0, false, "service list") {
                     @Override
                     public void commandOutput(int id, String line) {
-                        PPApplication.logE("PPApplication.getServicesList", "line=" + line);
+                        //PPApplication.logE("PPApplication.getServicesList", "line=" + line);
                         Matcher matcher = compile.matcher(line);
                         if (matcher.find()) {
                             synchronized (PPApplication.serviceListMutex) {
                                 //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
                                 serviceListMutex.serviceList.add(Pair.create(matcher.group(1), matcher.group(2)));
-                                PPApplication.logE("PPApplication.getServicesList", "matcher.group(1)=" + matcher.group(1));
-                                PPApplication.logE("PPApplication.getServicesList", "matcher.group(2)=" + matcher.group(2));
+                                //PPApplication.logE("PPApplication.getServicesList", "matcher.group(1)=" + matcher.group(1));
+                                //PPApplication.logE("PPApplication.getServicesList", "matcher.group(2)=" + matcher.group(2));
                             }
                         }
                         super.commandOutput(id, line);
                     }
                 };
+
                 try {
-                    RootTools.getShell(true).add(command);
+                    //RootTools.getShell(false).add(command);
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     commandWait(command);
                 } catch (Exception e) {
                     Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
