@@ -51,7 +51,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onDestroy() {
         super.onDestroy();
 
-        unregisterReceiver(nlservicereceiver);
+        try {
+            unregisterReceiver(nlservicereceiver);
+        } catch (Exception ignored) {}
 
         synchronized (PPApplication.ppNotificationListenerService) {
             instance = null;

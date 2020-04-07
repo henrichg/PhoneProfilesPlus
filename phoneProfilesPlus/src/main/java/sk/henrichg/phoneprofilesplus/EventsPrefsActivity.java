@@ -135,7 +135,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             try {
                 unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
             } catch (IllegalArgumentException e) {
-                Crashlytics.logException(e);
+                //Crashlytics.logException(e);
             }
             mobileCellsRegistrationCountDownBroadcastReceiver = null;
         }
@@ -144,7 +144,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             try {
                 unregisterReceiver(mobileCellsRegistrationStoppedBroadcastReceiver);
             } catch (IllegalArgumentException e) {
-                Crashlytics.logException(e);
+                //Crashlytics.logException(e);
             }
             mobileCellsRegistrationStoppedBroadcastReceiver = null;
         }

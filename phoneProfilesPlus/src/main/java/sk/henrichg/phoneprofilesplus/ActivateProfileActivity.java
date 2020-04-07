@@ -413,7 +413,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
     }
     @Override

@@ -65,7 +65,7 @@ class TwilightScanner {
         try {
             context.unregisterReceiver(mUpdateLocationReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
     }
 

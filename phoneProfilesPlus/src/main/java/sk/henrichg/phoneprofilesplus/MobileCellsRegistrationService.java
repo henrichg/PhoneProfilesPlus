@@ -166,7 +166,7 @@ public class MobileCellsRegistrationService extends Service {
                 try {
                     context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
                 } catch (IllegalArgumentException e) {
-                    Crashlytics.logException(e);
+                    //Crashlytics.logException(e);
                 }
                 mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }

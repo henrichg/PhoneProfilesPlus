@@ -427,7 +427,7 @@ public class PhoneProfilesService extends Service
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
         /*try {
             appContext.unregisterReceiver(stopReceiver);
@@ -444,27 +444,27 @@ public class PhoneProfilesService extends Service
         try {
             appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
         try {
             appContext.unregisterReceiver(PPApplication.showProfileNotificationBroadcastReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
         try {
             appContext.unregisterReceiver(PPApplication.updateGUIBroadcastReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.dashClockBroadcastReceiver);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            //Crashlytics.logException(e);
         }
 
         /*
@@ -3367,43 +3367,6 @@ public class PhoneProfilesService extends Service
 
         // required for notification event
         registerReceiverForNotificationSensor(true, dataWrapper);
-
-        /*
-        if (alarmClockBroadcastReceiver != null)
-            appContext.unregisterReceiver(alarmClockBroadcastReceiver);
-        alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
-        IntentFilter intentFilter16 = new IntentFilter();
-        // Stock alarms
-        // Nexus (?)
-        intentFilter16.addAction("com.android.deskclock.ALARM_ALERT");
-        //intentFilter16.addAction("com.android.deskclock.ALARM_DISMISS");
-        //intentFilter16.addAction("com.android.deskclock.ALARM_DONE");
-        //intentFilter16.addAction("com.android.deskclock.ALARM_SNOOZE");
-        // stock Android (?)
-        intentFilter16.addAction("com.android.alarmclock.ALARM_ALERT");
-        // Stock alarm Manufactures
-        // Samsung
-        intentFilter16.addAction("com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT");
-        // HTC
-        intentFilter16.addAction("com.htc.android.worldclock.ALARM_ALERT");
-        intentFilter16.addAction("com.htc.android.ALARM_ALERT");
-        // Sony
-        intentFilter16.addAction("com.sonyericsson.alarm.ALARM_ALERT");
-        // ZTE
-        intentFilter16.addAction("zte.com.cn.alarmclock.ALARM_ALERT");
-        // Motorola
-        intentFilter16.addAction("com.motorola.blur.alarmclock.ALARM_ALERT");
-        // LG
-        intentFilter16.addAction("com.lge.clock.ALARM_ALERT");
-        // Third-party Alarms
-        // Gentle Alarm
-        intentFilter16.addAction("com.mobitobi.android.gentlealarm.ALARM_INFO");
-        // Sleep As Android
-        intentFilter16.addAction("com.urbandroid.sleep.alarmclock.ALARM_ALERT");
-        // Alarmdroid (1.13.2)
-        intentFilter16.addAction("com.splunchy.android.alarmclock.ALARM_ALERT");
-        appContext.registerReceiver(alarmClockBroadcastReceiver, intentFilter16);
-        */
 
         //SMSBroadcastReceiver.registerSMSContentObserver(appContext);
         //SMSBroadcastReceiver.registerMMSContentObserver(appContext);
