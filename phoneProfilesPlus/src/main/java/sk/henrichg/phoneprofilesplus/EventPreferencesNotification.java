@@ -1066,7 +1066,10 @@ class EventPreferencesNotification extends EventPreferences {
                 } catch (Exception e) {
                     Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
                     //FirebaseCrashlytics.getInstance().recordException(e);
-                    Crashlytics.logException(e);
+
+                    // Hm: java.lang.RuntimeException: Could not read bitmap blob.
+                    //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                    //Crashlytics.logException(e);
                 }
             }
         }
