@@ -4,12 +4,19 @@
     app:key="categoryNotifications"
     app:title="@string/phone_profiles_pref_category_status_bar">
 
-        <Preference
-            app:key="notificationSystemSettings"
-            app:title="@string/phone_profiles_pref_notificationSystemSettings"
-            app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
-            app:widgetLayout="@layout/start_activity_preference"
-            app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="notificationSystemSettingsActivatedProfile"
+        app:title="@string/phone_profiles_pref_notificationSystemSettings"
+        app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:key="notificationSystemSettingsAll"
+        app:title="@string/phone_profiles_pref_notificationSystemSettings"
+        app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
 
     <PreferenceCategory
         app:key="notificationStatusBarCategory"

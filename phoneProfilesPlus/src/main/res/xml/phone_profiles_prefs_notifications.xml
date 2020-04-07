@@ -4,6 +4,13 @@
     app:key="categoryNotifications"
     app:title="@string/phone_profiles_pref_category_status_bar">
 
+    <Preference
+        app:key="notificationSystemSettingsAll"
+        app:title="@string/phone_profiles_pref_notificationSystemSettings"
+        app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_A7_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="notificationShowInStatusBar"
         app:title="@string/phone_profiles_pref_notificationShowInStatusBar"

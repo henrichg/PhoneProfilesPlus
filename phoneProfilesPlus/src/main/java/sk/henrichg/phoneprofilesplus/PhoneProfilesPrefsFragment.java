@@ -73,7 +73,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
     private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
-    private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
+    private static final String PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettingsActivatedProfile";
+    private static final String PREF_ALL_NOTIFICATIONS_SYSTEM_SETTINGS = "notificationSystemSettingsAll";
     //private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
     //private static final String PREF_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_SYSTEM_SETTINGS = "applicationEventMobileCellNotUsedCellsDetectionNotificationSystemSettings";
     private static final String PREF_SYSTEM_POWER_SAVE_MODE_SETTINGS = "applicationSystemPowerSaveMode";
@@ -1130,7 +1131,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (Build.VERSION.SDK_INT >= 26) {
-            preference = findPreference(PREF_NOTIFICATION_SYSTEM_SETTINGS);
+            preference = findPreference(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 preference.setSummary(getString(R.string.phone_profiles_pref_notificationSystemSettings_summary) +
                         " " + getString(R.string.notification_channel_activated_profile));
@@ -1176,6 +1177,62 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
         }
+
+        preference = findPreference(PREF_ALL_NOTIFICATIONS_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @SuppressWarnings("ConstantConditions")
+                @TargetApi(Build.VERSION_CODES.O)
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    boolean ok = false;
+                    PPApplication.createProfileNotificationChannel(getActivity().getApplicationContext());
+
+                    Intent intent = new Intent();
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+                        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getActivity().getPackageName());
+                    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+                        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                        intent.putExtra("android.provider.extra.APP_PACKAGE", getActivity().getPackageName());
+                    } else {// if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+                        intent.putExtra("app_package", getActivity().getPackageName());
+                        intent.putExtra("app_uid", getActivity().getApplicationInfo().uid);
+                    }
+
+                    if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                        try {
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception e) {
+                            Crashlytics.logException(e);
+                        }
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
+                        if (!getActivity().isFinishing())
+                            dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+
         //preference = findPreference(PREF_APPLICATION_POWER_MANAGER);
         //if (preference != null) {
             /*boolean intentFound = false;
@@ -1904,7 +1961,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
         setSummary(PREF_APPLICATION_PERMISSIONS);
         setSummary(PREF_AUTOSTART_MANAGER);
-        setSummary(PREF_NOTIFICATION_SYSTEM_SETTINGS);
+        setSummary(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY);
@@ -1939,7 +1996,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
-        setSummary(PREF_NOTIFICATION_SYSTEM_SETTINGS);
+        setSummary(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE);

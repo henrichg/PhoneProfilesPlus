@@ -1500,6 +1500,9 @@
     <string name="event_type_device_boot">Device boot</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Device boot sensor</string>
 
+    <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Configuration for all notification categories</string>
+    <string name="phone_profiles_pref_notificationSystemSettingsAll_A7_summary">Configuration for all notifications</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

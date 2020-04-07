@@ -1101,8 +1101,6 @@ public class PPApplication extends Application /*implements Application.Activity
                 }
             */
             Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            //Crashlytics.logException(e);
         }
 
         if (checkAppReplacingState()) {
