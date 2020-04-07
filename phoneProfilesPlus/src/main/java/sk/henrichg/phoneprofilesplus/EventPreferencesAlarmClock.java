@@ -10,7 +10,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.service.notification.StatusBarNotification;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -455,6 +454,9 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     boolean isPackageSupported(Context context) {
+        if ((this._alarmPackageName == null) || this._alarmPackageName.equals(context.getPackageName()))
+            return false;
+
         if (this._alarmPackageName.equals("com.google.android.deskclock") ||
                 this._alarmPackageName.equals("com.sec.android.app.clockpackage") ||
                 this._alarmPackageName.equals("com.sonyericsson.organizer") ||
@@ -481,6 +483,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             String packageName = Application.getPackageName(split);
             return this._alarmPackageName.equals(packageName);
         }
+
         return false;
     }
 }

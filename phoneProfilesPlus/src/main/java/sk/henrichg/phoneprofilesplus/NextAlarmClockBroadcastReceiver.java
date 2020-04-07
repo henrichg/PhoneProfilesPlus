@@ -29,7 +29,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                     if (alarmClockInfo != null) {
                         long _time = alarmClockInfo.getTriggerTime();
                         /*if (PPApplication.logEnabled()) {
-                            @SuppressLint("SimpleDateFormat")
                             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                             String result = sdf.format(_time);
                             PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time=" + result);
@@ -42,7 +41,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
-                            /*if (packageName != null) {
+                            //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
+                            if (packageName != null) {
                                 if (!packageName.equals(context.getPackageName())) {
                                     //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
 
@@ -60,7 +60,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                     // ch.bitspin.timely - Timely
                                     // com.angrydoughnuts.android.alarmclock - Alarm Klock
 
-                                    if (packageName.equals("com.google.android.deskclock") ||
+                                    /*if (packageName.equals("com.google.android.deskclock") ||
                                         packageName.equals("com.sec.android.app.clockpackage") ||
                                         packageName.equals("com.sonyericsson.organizer") ||
                                         packageName.equals("com.amdroidalarmclock.amdroid") ||
@@ -72,14 +72,14 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                         packageName.equals("com.kog.alarmclock") ||
                                         packageName.equals("com.urbandroid.sleep") ||
                                         packageName.equals("ch.bitspin.timely") ||
-                                        packageName.equals("com.angrydoughnuts.android.alarmclock"))
+                                        packageName.equals("com.angrydoughnuts.android.alarmclock"))*/
 
                                         setAlarm(_time, packageName, alarmManager, context);
-                                }*/
-                            //} else {
+                                }
+                            } else {
                                 //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
-                                setAlarm(_time, packageName, alarmManager, context);
-                            //}
+                                setAlarm(_time, "", alarmManager, context);
+                            }
                         } else {
                             //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
                             setAlarm(_time, "", alarmManager, context);
