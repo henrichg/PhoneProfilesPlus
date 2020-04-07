@@ -42,7 +42,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
-                            if (packageName != null) {
+                            /*if (packageName != null) {
                                 if (!packageName.equals(context.getPackageName())) {
                                     //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
 
@@ -75,11 +75,11 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                         packageName.equals("com.angrydoughnuts.android.alarmclock"))
 
                                         setAlarm(_time, packageName, alarmManager, context);
-                                }
-                            } else {
+                                }*/
+                            //} else {
                                 //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
                                 setAlarm(_time, packageName, alarmManager, context);
-                            }
+                            //}
                         } else {
                             //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
                             setAlarm(_time, "", alarmManager, context);

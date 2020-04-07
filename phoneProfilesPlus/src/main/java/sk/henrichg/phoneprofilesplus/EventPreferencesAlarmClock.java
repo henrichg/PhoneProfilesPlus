@@ -455,6 +455,21 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     boolean isPackageSupported(Context context) {
+        if (this._alarmPackageName.equals("com.google.android.deskclock") ||
+                this._alarmPackageName.equals("com.sec.android.app.clockpackage") ||
+                this._alarmPackageName.equals("com.sonyericsson.organizer") ||
+                this._alarmPackageName.equals("com.amdroidalarmclock.amdroid") ||
+                this._alarmPackageName.equals("com.alarmclock.xtreme") ||
+                this._alarmPackageName.equals("com.alarmclock.xtreme.free") ||
+                this._alarmPackageName.equals("droom.sleepIfUCan") ||
+                this._alarmPackageName.equals("com.funanduseful.earlybirdalarm") ||
+                this._alarmPackageName.equals("com.apalon.alarmclock.smart") ||
+                this._alarmPackageName.equals("com.kog.alarmclock") ||
+                this._alarmPackageName.equals("com.urbandroid.sleep") ||
+                this._alarmPackageName.equals("ch.bitspin.timely") ||
+                this._alarmPackageName.equals("com.angrydoughnuts.android.alarmclock"))
+            return true;
+
         if ((_applications == null) || _applications.isEmpty() ||
                 _applications.equals(context.getString(R.string.dash_string)))
             // applications are not configured, alarmPackageName is supported

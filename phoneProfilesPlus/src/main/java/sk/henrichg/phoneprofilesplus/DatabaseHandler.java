@@ -7584,6 +7584,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
                 values.put(KEY_E_ALARM_CLOCK_START_TIME, event._eventPreferencesAlarmClock._startTime);
+                values.put(KEY_E_ALARM_CLOCK_PACKAGE_NAME, event._eventPreferencesAlarmClock._alarmPackageName);
 
                 db.beginTransaction();
 
@@ -7624,7 +7625,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 Cursor cursor = db.query(TABLE_EVENTS,
                         new String[]{
-                                KEY_E_ALARM_CLOCK_START_TIME
+                                KEY_E_ALARM_CLOCK_START_TIME,
+                                KEY_E_ALARM_CLOCK_PACKAGE_NAME
                         },
                         KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -7633,6 +7635,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (cursor.getCount() > 0) {
                         event._eventPreferencesAlarmClock._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_START_TIME));
+                        event._eventPreferencesAlarmClock._alarmPackageName = cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_PACKAGE_NAME));
                     }
 
                     cursor.close();
