@@ -812,112 +812,18 @@ Vysledok je, ze pocas delay je stale RUNNING az po delay je PAUSE.
 
 --------------
 
-registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
-registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
-- PPApplication.reregisterReceiversForBluetoothScanner()
-  - BluetoothNamePreferenceX
+NextAlarmClockBroadcastReceiver
+- AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED
+- AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
+- long _time = alarmClockInfo.getTriggerTime(); - cas alarmu
+- PendingIntent infoPendingIntent = alarmClockInfo.getShowIntent(); - intent alarmu
+  ak je null, nahadzujem PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER. Preco???
+- String packageName = infoPendingIntent.getCreatorPackage();
+  ak je null, nahadzujem PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER. Preco???
+  ak to nie je PPP, nahadzujem PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER. OK
 
-registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
-registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER)
-- PPApplication.forceRegisterReceiversForBluetoothScanner()
-  - BluetoothNamePreferenceX
+Cize v dvoch pripadoch nahadzujem alarm. Vypada to, ze to je blbost. Asi sa snzim podporovat co najviac typov.
+Moze to sposobit, ze alarm senzor bude passed aj pri nie-budikoch !!! Toto sa mi zda uplne ze zle.
+Ako kua teraz z toho von?
 
-registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
-registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
-- PPApplication.restartBluetoothScanner()
-  - Profile._applicationDisableBluetoothScanning
-  - grant permissions
-  - save application preferences
-
-registerLocationModeChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
-scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
-startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_GEOFENCE_SCANNER)
-- PPApplication.restartGeofenceScanner()
-  - Profile._applicationDisableLocationScanning
-  - grant permissions
-  - save application preferences
-
-registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-registerWifiScannerReceiver() - PPService.doCommand(SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-- PPApplication.reregisterReceiversForWifiScanner()
-  - WifiSSIDPreferenceX
-
-registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-registerWifiScannerReceiver() - PPService.doCommand(SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER)
-- PPApplication.forceRegisterReceiversForWifiScanner()
-  - WifiSSIDPreferenceX
-
-registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
-registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
-registerWifiScannerReceiver() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
-scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_WIFI_SCANNER)
-- PPApplication.restartWifiScanner()
-  - Profile._applicationDisableWifiScanning
-  - grant permissions
-  - save application preferences
-
-scheduleBluetoothWorker() - PPService.doCommand(SCANNER_RESTART_BLUETOOTH_SCANNER)
-- PPApplication.restartBluetoothScanner()
-  - Profile._applicationDisableBluetoothScanning
-  - grant permissions
-  - save application preferences
-
-startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ORIENTATION_SCANNER)
-- PPApplication.restartOrientationScanner()
-  - Profile.__applicationDisableOrientationScanning
-  - save application preferences
-
-startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_PHONE_STATE_SCANNER)
-- PPApplication.restartPhoneStateScanner()
-  - Profile._applicationDisableMobileCellScanning
-  - MobileCellsPreferencesX
-  - MobileCellsRegistrationService
-  - save application preferences
-
-startPhoneStateScanner() - PPService.doCommand(SCANNER_FORCE_START_PHONE_STATE_SCANNER)
-- PPApplication.forceStartPhoneStateScanner()
-  - MobileCellsPreferencesX
-  - MobileCellsRegistrationService
-
-startTwilightScanner() - PPService.doCommand(SCANNER_RESTART_TWILIGHT_SCANNER)
-- PPApplication.restartTwilightScanner()
-  - save event preferences with twilight time sensor
-  - save application preferences
-
-registerBluetoothScannerReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-registerBluetoothStateChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-registerLocationModeChangedBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-registerWifiAPStateChangeBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-registerWifiConnectionBroadcastReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-registerWifiScannerReceiver() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-scheduleBluetoothWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-scheduleGeofenceWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-scheduleWifiWorker() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-startGeofenceScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-startOrientationScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-startPhoneStateScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-startTwilightScanner() - PPService.doCommand(SCANNER_RESTART_ALL_SCANNERS)
-- PPApplication.restartAllScanners()
-  - restartEventsWithRescan (true...); - only for in GUI changes
-  - grant permissions
-  - BatteryBroadcastReceiver.onReceive() - required for scanning during screen on/off
-  - PowerSaveModeBroadcastReceiver.onReceive() - required for scanning during screen on/off
-  - ScreenOnOffBroadcastReceiver.onReceive() - required for scanning during screen on/off
-
-registerReceiversAndWorkers() - PPService.doCommand(EXTRA_REGISTER_RECEIVERS_AND_WORKERS)
-- global run/stop events
-
-reregisterReceiversAndWorkers() - PPService.doCommand(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS);
-- run/stop events
-- delete event
-- delete profile
-- delete all profiles
-- save profile preferences
-- save event preferences
-- application preferences changes
-
-------------
-
-
+--------------
