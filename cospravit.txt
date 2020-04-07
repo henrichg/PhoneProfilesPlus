@@ -825,5 +825,10 @@ NextAlarmClockBroadcastReceiver
 Cize v dvoch pripadoch nahadzujem alarm. Vypada to, ze to je blbost. Asi sa snzim podporovat co najviac typov.
 Moze to sposobit, ze alarm senzor bude passed aj pri nie-budikoch !!! Toto sa mi zda uplne ze zle.
 Ako kua teraz z toho von?
+Asi proste, ak neviem, co je to za package, tak to odignorujem. Nebude generovat ten alarm.
+A pridam teda tu podporu aplikacii. Bude novy parameter pre multiselect preferences aplikacii, ale
+len aplikacii A BEZ PP a PPP. Dufam, ze toto spravit ide.
+Potom uz len prejdem zoznam packages, ktore mam v tom parametri.
+Zoznam uz interne podporovanych tam necham.
 
 --------------
