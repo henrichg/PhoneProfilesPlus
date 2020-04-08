@@ -122,9 +122,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                         db.updateMobileCellsCells(event);
 
                                         // broadcast for event preferences
-                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
+                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
                                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
-                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, _mobileCellId);
+                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _mobileCellId);
                                         intent.setPackage(appContext.getPackageName());
                                         appContext.sendBroadcast(intent);
 
@@ -146,9 +146,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                         db.updateMobileCellsCells(event);
 
                                         // broadcast for event preferences
-                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
+                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
                                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
-                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, _mobileCellId);
+                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _mobileCellId);
                                         intent.setPackage(appContext.getPackageName());
                                         appContext.sendBroadcast(intent);
 

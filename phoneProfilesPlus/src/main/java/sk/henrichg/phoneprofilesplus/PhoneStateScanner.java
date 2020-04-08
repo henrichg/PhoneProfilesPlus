@@ -645,14 +645,14 @@ class PhoneStateScanner extends PhoneStateListener {
             // application is not started
             return;
 
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "enabledAutoRegistration=" + enabledAutoRegistration);
             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellsNameForAutoRegistration=" + cellsNameForAutoRegistration);
             if (isValidCellId(_registeredCell))
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellIdToRegister=" + _registeredCell);
             else
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellIdToRegister=NOT valid");
-        }*/
+        }
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;
@@ -715,10 +715,10 @@ class PhoneStateScanner extends PhoneStateListener {
                                     event._eventPreferencesMobileCells._cells = cells;
                                     db.updateMobileCellsCells(event);
 
-                                    // broadcast for event preferences
-                                    Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
+                                    // broadcast new cell to
+                                    Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
                                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                                    intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, _registeredCell);
+                                    intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
                                     intent.setPackage(context.getPackageName());
                                     context.sendBroadcast(intent);
 

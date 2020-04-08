@@ -47,7 +47,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
-    private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationStoppedBroadcastReceiver = null;
+    private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
 
@@ -119,11 +119,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
             registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter);
         }
 
-        if (mobileCellsRegistrationStoppedBroadcastReceiver == null) {
+        if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
-            mobileCellsRegistrationStoppedBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver();
-            registerReceiver(mobileCellsRegistrationStoppedBroadcastReceiver, intentFilter);
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+            mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver();
+            registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter);
         }
     }
 
@@ -140,13 +140,13 @@ public class EventsPrefsActivity extends AppCompatActivity {
             mobileCellsRegistrationCountDownBroadcastReceiver = null;
         }
 
-        if (mobileCellsRegistrationStoppedBroadcastReceiver != null) {
+        if (mobileCellsRegistrationNewCellsBroadcastReceiver != null) {
             try {
-                unregisterReceiver(mobileCellsRegistrationStoppedBroadcastReceiver);
+                unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
             } catch (IllegalArgumentException e) {
                 //Crashlytics.logException(e);
             }
-            mobileCellsRegistrationStoppedBroadcastReceiver = null;
+            mobileCellsRegistrationNewCellsBroadcastReceiver = null;
         }
     }
 

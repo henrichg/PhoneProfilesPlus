@@ -23,11 +23,16 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class MobileCellsRegistrationService extends Service {
 
+    // this is for show remaining time in "Cell registration" event sensor preference summary
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_COUNTDOWN";
     public static final String EXTRA_COUNTDOWN = "countdown";
+
+    // this is for stop button in notification
     private static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_BUTTON";
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELLS";
-    public static final String EXTRA_NEW_CELLS_VALUE = "new_cells_value";
+
+    // this is for show new cell count in "Cell registration" event sensor preference summary
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELL";
+    public static final String EXTRA_NEW_CELL_VALUE = "new_cell_value";
 
     private CountDownTimer countDownTimer = null;
 
@@ -64,7 +69,7 @@ public class MobileCellsRegistrationService extends Service {
     {
         super.onCreate();
 
-        //PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
+        PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
 
         context = this;
 
@@ -74,7 +79,7 @@ public class MobileCellsRegistrationService extends Service {
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
-        //PPApplication.logE("MobileCellsRegistrationService.onCreate", "remainingDuration="+remainingDuration);
+        PPApplication.logE("MobileCellsRegistrationService.onCreate", "remainingDuration="+remainingDuration);
 
         if (remainingDuration > 0) {
             serviceStarted = true;
@@ -141,7 +146,7 @@ public class MobileCellsRegistrationService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
+        PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
 
         /*try {
             unregisterReceiver(stopReceiver);
@@ -235,7 +240,7 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     private void stopRegistration() {
-        //PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
+        PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
 
         setMobileCellsAutoRegistration(context, true);
 
