@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.text.Spannable;
 import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
@@ -37,7 +36,8 @@ public class InfoDialogPreferenceX extends DialogPreference {
     void setInfoText(String _infoText) {
         this.infoText = _infoText;
     }
-    void setIsHtml(boolean _isHtml) {
+
+    void setIsHtml(@SuppressWarnings("SameParameterValue") boolean _isHtml) {
         this.isHtml = _isHtml;
     }
 

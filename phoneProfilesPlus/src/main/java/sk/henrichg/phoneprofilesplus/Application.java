@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.crashlytics.android.Crashlytics;
-
 import androidx.annotation.NonNull;
 
 class Application  implements Parcelable {

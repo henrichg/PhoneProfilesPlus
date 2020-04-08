@@ -8,8 +8,6 @@ import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
 
-import com.crashlytics.android.Crashlytics;
-
 import java.util.List;
 
 import androidx.preference.DialogPreference;
