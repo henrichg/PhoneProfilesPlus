@@ -1065,6 +1065,32 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Crashlytics.logException(e);
                 }
                 return true;
+            case R.id.gui_items_help:
+                dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.gui_items_help_alert_title);
+                dialogBuilder.setMessage(R.string.gui_items_help_alert_message);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
+                        ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
+                        showTargetHelps();
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                dialog = dialogBuilder.create();
+                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        if (positive != null) positive.setAllCaps(false);
+                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        if (negative != null) negative.setAllCaps(false);
+                    }
+                });*/
+                if (!isFinishing())
+                    dialog.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

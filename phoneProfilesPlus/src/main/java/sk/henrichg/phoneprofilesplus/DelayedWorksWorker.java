@@ -489,6 +489,12 @@ public class DelayedWorksWorker extends Worker {
                                 // restart service for move screen timeout 24hr and permanent to Keep screen on
                                 restartService = true;
                             }
+
+                            if (actualVersionCode <= 5900) {
+                                ApplicationPreferences.startStopTargetHelps(appContext, false);
+
+                                restartService = true;
+                            }
                         }
                     } catch (Exception ee) {
                         Crashlytics.logException(ee);

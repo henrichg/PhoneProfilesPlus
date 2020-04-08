@@ -1506,6 +1506,10 @@
     <string name="event_preferences_alarm_clock_info">Internally supported Alarm clock applications</string>
     <string name="event_preferences_alarm_clock_applications">Alarm clock applications</string>
 
+    <string name="gui_items_help">Help with GUI items</string>
+    <string name="gui_items_help_alert_title">Start help with GUI items</string>
+    <string name="gui_items_help_alert_message">Is not possible to cancel this help. And will be invoked from all GUI. Start it?</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

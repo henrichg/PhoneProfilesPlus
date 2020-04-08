@@ -12,11 +12,26 @@
         android:orderInCategory="101"
         android:icon="?attr/actionRunStopEventsIcon"
         app:showAsAction="always" />
-    <item android:id="@+id/important_info"
+
+    <item android:id="@+id/important_info_menu"
         android:title="@string/important_info_activity_title"
         android:orderInCategory="102"
         app:showAsAction="always"
-        android:icon="?attr/actionHelpIcon"/>
+        android:icon="?attr/actionHelpIcon">
+
+        <menu>
+            <item android:id="@+id/important_info"
+                android:title="@string/important_info_activity_title"
+                android:orderInCategory="100"
+                app:showAsAction="never" />
+            <item android:id="@+id/gui_items_help"
+                android:title="@string/gui_items_help"
+                android:orderInCategory="101"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
+
     <item android:id="@+id/menu_activity_log"
         android:title="@string/menu_activity_log"
         android:orderInCategory="103"

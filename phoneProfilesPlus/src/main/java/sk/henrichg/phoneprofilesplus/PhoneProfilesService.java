@@ -295,47 +295,7 @@ public class PhoneProfilesService extends Service
 
         /*
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-        editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefActivatorActivityStartTargetHelps = true;
-        editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefActivatorFragmentStartTargetHelps = true;
-        editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefActivatorAdapterStartTargetHelps = true;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefEditorActivityStartTargetHelps = true;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true);
-        ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = true;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
-        ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner = true;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, true);
-        ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = true;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, true);
-        ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = true;
-        editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = true;
-        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = true;
-        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
-        ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = true;
-        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, true);
-        ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = true;
-        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = true;
-        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, true);
-        ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = true;
-        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = true;
-        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
-        ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = true;
-        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, true);
-        ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = true;
-        editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = true;
-        editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, true);
-        ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = true;
-        editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, true);
-        ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = true;
-        //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
         editor.apply();
         */
 
