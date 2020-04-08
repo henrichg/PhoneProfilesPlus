@@ -47,7 +47,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static String lastRunningEventsNotOutside = "";
     static String lastPausedEventsOutside = "";
 
-    static boolean forceStart = false;
+    //static boolean forceStart = false;
 
     static boolean enabledAutoRegistration = false;
     static int durationForAutoRegistration = 0;
@@ -564,7 +564,9 @@ class PhoneStateScanner extends PhoneStateListener {
 
     void rescanMobileCells() {
         //PPApplication.logE("PhoneStateScanner.rescanMobileCells", "xxx");
-        if (ApplicationPreferences.applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
+        //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
+        if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
+                MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
             //PPApplication.logE("PhoneStateScanner.rescanMobileCells", "-----");
 
             final Context appContext = context.getApplicationContext();
@@ -973,7 +975,8 @@ class PhoneStateScanner extends PhoneStateListener {
             }
         }
 
-        if (forceStart) {
+        //if (forceStart) {
+        if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
             if (isValidCellId(_registeredCell)) {
                 //PPApplication.logE("PhoneStateScanner.doAutoRegistration", "send broadcast for force start");
                 // broadcast for event preferences

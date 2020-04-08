@@ -3156,7 +3156,9 @@ public class PhoneProfilesService extends Service
             }
             if (start) {
                 PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "START");
-                if (ApplicationPreferences.applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
+                //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
+                if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
+                        MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
                     boolean eventAllowed = false;
                     if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart)
                         eventAllowed = true;
@@ -3172,10 +3174,10 @@ public class PhoneProfilesService extends Service
                     }
                     PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "eventAllowed="+eventAllowed);
                     if (eventAllowed) {
-                        if (PPApplication.logEnabled()) {
+                        /*if (PPApplication.logEnabled()) {
                             //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled=" + applicationEventMobileCellEnableScanning);
                             PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "PhoneStateScanner.forceStart=" + PhoneStateScanner.forceStart);
-                        }
+                        }*/
                         if (!isPhoneStateScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
                             startPhoneStateScanner();
@@ -4004,12 +4006,12 @@ public class PhoneProfilesService extends Service
                                     break;
                                 case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
-                                    PhoneStateScanner.forceStart = false;
+                                    //PhoneStateScanner.forceStart = false;
                                     startPhoneStateScanner(true, true, dataWrapper, false, true);
                                     break;
                                 case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
-                                    PhoneStateScanner.forceStart = true;
+                                    //PhoneStateScanner.forceStart = true;
                                     startPhoneStateScanner(true, false, dataWrapper, true, false);
                                     break;
                                 case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
@@ -4067,7 +4069,7 @@ public class PhoneProfilesService extends Service
                                         //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - canRestart="+canRestart);
                                         if ((!fromBatteryChange) || canRestart) {
                                             //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - restart");
-                                            PhoneStateScanner.forceStart = false;
+                                            //PhoneStateScanner.forceStart = false;
                                             startPhoneStateScanner(true, true, dataWrapper, false, true);
                                         }
                                     }
