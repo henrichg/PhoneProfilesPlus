@@ -938,8 +938,10 @@ do tych docasnych preferences.
 
 phoneProfilesManager.backup
 
-Toto je databaza. Tu by musel PP ju otvorit a postupne profil za profilom posielat.
-Problem je ze ako. Tych parametrov profilu je mrte vela. Da sa to spravit v cykle, ze polozku za polozkou.
+Toto je databaza. Tu by musel PP ju otvorit a postupne profil za profilom polozku po polozke posielat
+broadcastom.
+Problem je ze ako. Tych parametrov profilu je mrte vela. Da sa to spravit v cykle, ze profil po profile,
+jeho polozku za polozkou.
 
 Ipprtovat do docasnej databazy, ktoru, ak to ziskam vsetko bez chyby, zasa profil po profile,
 zapisem do PPP databazy.
