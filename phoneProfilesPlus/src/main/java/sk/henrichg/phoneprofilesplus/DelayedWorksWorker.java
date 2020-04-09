@@ -749,17 +749,17 @@ public class DelayedWorksWorker extends Worker {
         if (exitApp)
             PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
-        DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-        DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
-        DatabaseHandler.getInstance(dataWrapper.context).deactivateProfile();
-        DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
+        //DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+        //DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
+        //DatabaseHandler.getInstance(dataWrapper.context).deactivateProfile();
+        //DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
         DatabaseHandler.getInstance(dataWrapper.context).disableNotAllowedPreferences();
         //this.dataWrapper.invalidateProfileList();
         //this.dataWrapper.invalidateEventList();
         //this.dataWrapper.invalidateEventTimelineList();
-        Event.setEventsBlocked(dataWrapper.context, false);
-        DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
-        Event.setForceRunEventRunning(dataWrapper.context, false);
+        //Event.setEventsBlocked(dataWrapper.context, false);
+        //DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
+        //Event.setForceRunEventRunning(dataWrapper.context, false);
 
         //if (isApplicationStarted)
         //{
