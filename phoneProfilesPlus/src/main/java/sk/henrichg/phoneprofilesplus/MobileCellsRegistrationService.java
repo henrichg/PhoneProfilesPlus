@@ -118,7 +118,8 @@ public class MobileCellsRegistrationService extends Service {
                 public void onFinish() {
                     //Log.d("MobileCellsRegistrationService", "Timer finished");
 
-                    stopRegistration();
+                    if (serviceStarted && (PhoneStateScanner.enabledAutoRegistration))
+                        stopRegistration();
                 }
             };
 
@@ -152,8 +153,10 @@ public class MobileCellsRegistrationService extends Service {
             unregisterReceiver(stopReceiver);
         } catch (Exception ignored) {}*/
 
-        if (serviceStarted) {
+        if (countDownTimer != null)
             countDownTimer.cancel();
+
+        if (serviceStarted) {
 
             //PhoneStateScanner.autoRegistrationService = null;
 
