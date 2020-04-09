@@ -754,9 +754,6 @@ public class DelayedWorksWorker extends Worker {
         //DatabaseHandler.getInstance(dataWrapper.context).deactivateProfile();
         //DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
         DatabaseHandler.getInstance(dataWrapper.context).disableNotAllowedPreferences();
-        //this.dataWrapper.invalidateProfileList();
-        //this.dataWrapper.invalidateEventList();
-        //this.dataWrapper.invalidateEventTimelineList();
         //Event.setEventsBlocked(dataWrapper.context, false);
         //DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
         //Event.setForceRunEventRunning(dataWrapper.context, false);
