@@ -490,7 +490,7 @@ public class DelayedWorksWorker extends Worker {
                                 restartService = true;
                             }
 
-                            if (actualVersionCode <= 5900) {
+                            if (actualVersionCode <= 5910) {
                                 ApplicationPreferences.startStopTargetHelps(appContext, false);
 
                                 restartService = true;
