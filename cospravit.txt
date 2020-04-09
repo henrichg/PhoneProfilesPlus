@@ -985,8 +985,14 @@ Tie ktore nenejdem, v udalosti nastavim, ze nema nastavene. Toto rob pre start a
 -----------------
 
 Nova verzia, co sa zmenilo a nebolo v zozname z verzie 4.1.6.7
+
 - "Draw over apps" permission required for Android 10. (v4.1.6.7)
 - Removed internal battery saver option. Used is only system battery saver (v4.1.6.7)
 - Added (G1) type of profile preferences into Permissions. (v4.1.6.7)
+
+- Added system Settings for notifications parameters to PPP Settings/Application notification.
+- Added "Alarm clock applications" parameter to "Alarm clock sensor".
+- Do not start tap target help from application start. Instead added is sub-menu with item "Help with GUI items" in top toolbar to start it.
+
 
 -----------------
