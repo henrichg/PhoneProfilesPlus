@@ -864,6 +864,10 @@ Problém vidím v tom, ak PP nepošle koniec. Čiže PPP by mal vedieť toto pre
 PPP nech zobrazuje notifikaciu s buttonom na ukoncenie. Mozno by bolo uplne super tiez mat zvlast
 foreground servis na tento import z PP.
 Tiez v menu nech zobrazuje, ze je/nie je to spustene a ak to je spustene, nech to skonci bez ulozenia.
+Pocasd zapisu importnutych dat do ostrych preferences a db nech uz nejde predcasne ukoncit import.
+Proste notifikaciu prepisat, nech tam nie je button na ukoncenie a tiez aj polozku menu disablovat.
+PP by aj tak po poslani konca importu mal svoj servis ukoncit. Uz nema co dalej posielat.
+
 Mozno by bolo super merat cas v PPP medzi prijatymi broadcastami, zacat merat od broadcastu, co
 PPP posle na zacatie importu. Ak cas bude velky (5, 10 sekund?) tak predcasne ukonci import.
 Kazdy poslany broadcast na zacatie od PPP nech PP berie ako reset, cize zacne odznova.
