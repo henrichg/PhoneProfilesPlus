@@ -850,6 +850,21 @@ Pridaj aj info preference, ktore zobrazi zoznam interne podporovanych aplikacii:
 
 Import dat z PP:
 
+V PhoneProfiles sprav export PP dát cez broadcast. PP by na to mal mať foreground servis.
+PP bude postupne posielať veci jednu za druhou v broadcaste, PPP musí vedieť, čo sa poslalo.
+Na konci pošle, že je koniec.
+PPP tieto broadcasty zachytí a nahádže do dočasných preferences a tabuľky profilov.
+(docasne preferences a tabulku daj do exceptions, aby sa neautobackupovali).
+Pre profily nech najprv posle, kolko ich je.
+PPP potom všetko nahádže do ostrých preferences a db. PPP bude mať menu, kde sa toto spustí.
+Čiže pošle do PP broadcast, nech PP začne posielať.
+Problém vidím v tom, ak PP nepošle koniec. Čiže PPP by mal vedieť toto predčasne ukončiť.
+PPP nech zobrazuje notifikaciu s buttonom na ukoncenie. Tiez v menu nech zobrazuje, ze
+je/nie je to spustene a ak to je spustene, nech to skonci bez ulozenia.
+Mozno by bolo super merat cas v PPP medzi prijatymi broadcastami, zacat merat od broadcastu, co
+PPP posle na zacatie importu. Ak cas bude velky (5, 10 sekund?) tak predcasne ukonci import.
+Kazdy poslany broadcast na zacatie od PPP nech PP berie ako reset, cize zacne odznova.
+
 ApplicationPreferences.backup
 
 Toto by este slo spravit cez broadcast ze chcem toto a PP by posielal polzku za polozkou.
