@@ -95,7 +95,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PhoneProfilesService.isServiceRunningInForeground"
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
-                                                +"|ShowProfileNotificationBroadcastReceiver"
+                                                //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                                 //+"|PhoneProfilesService.stopReceiver"
@@ -1050,7 +1050,28 @@ public class PPApplication extends Application /*implements Application.Activity
     @Override
     public void onCreate()
     {
+        /* Hm this resets start, why?!
+        if (DebugVersion.enabled) {
+            PPApplication.logE("##### PPApplication.onCreate", "strict mode");
+
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectDiskReads()
+                    .detectDiskWrites()
+                    .detectAll()
+                    //.detectNetwork()   // or .detectAll() for all detectable problems
+                    .penaltyLog()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectLeakedSqlLiteObjects()
+                    .detectLeakedClosableObjects()
+                    .penaltyLog()
+                    .penaltyDeath()
+                    .build());
+        }*/
+
         super.onCreate();
+
+        PPApplication.logE("##### PPApplication.onCreate", "xxx");
 
         instance = this;
 

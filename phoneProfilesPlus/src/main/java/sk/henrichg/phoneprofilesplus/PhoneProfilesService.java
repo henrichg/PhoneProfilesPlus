@@ -3625,10 +3625,14 @@ public class PhoneProfilesService extends Service
                         DatabaseHandler.getInstance(appContext).fixPhoneProfilesSilentInProfiles();
                     }
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "2");
+
                     //TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
                     ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
 
                     ActivateProfileHelper.setLockScreenDisabled(appContext, false);
+
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "3");
 
                     AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
                     if (audioManager != null) {
@@ -3640,38 +3644,54 @@ public class PhoneProfilesService extends Service
                         InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
                     }
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "4");
+
                     PPPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                     EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                     EventPreferencesCall.setEventCallEventTime(appContext, 0);
                     EventPreferencesCall.setEventCallPhoneNumber(appContext, "");
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "5");
+
                     // show info notification
                     ImportantInfoNotification.showInfoNotification(appContext);
                     DrawOverAppsPermissionNotification.showNotification(appContext, false);
                     IgnoreBatteryOptimizationNotification.showNotification(appContext, false);
+
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "6");
 
                     // must be first
                     createContactsCache(appContext, true);
                     //must be seconds, this ads groups int contacts
                     createContactGroupsCache(appContext, true);
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "7");
+
                     dataWrapper.fillProfileList(false, false);
                     for (Profile profile : dataWrapper.profileList)
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
                     Profile.setActivatedProfileForDuration(appContext, 0);
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "8");
+
                     dataWrapper.fillEventList();
                     for (Event event : dataWrapper.eventList)
                         StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
+
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "9");
 
                     GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
                     LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
                     //PPNotificationListenerService.clearNotifiedPackages(appContext);
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "10");
+
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
                     DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "11");
 
                     MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, _startOnBoot || _startOnPackageReplace);
 
@@ -3681,6 +3701,8 @@ public class PhoneProfilesService extends Service
 
                     // duration > 30 seconds because in it is 3 x 10 seconds sleep
                     BluetoothConnectedDevices.getConnectedDevices(appContext);
+
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "12");
 
                     WifiScanWorker.setScanRequest(appContext, false);
                     WifiScanWorker.setWaitForResults(appContext, false);
@@ -3693,7 +3715,12 @@ public class PhoneProfilesService extends Service
                     BluetoothScanWorker.setBluetoothEnabledForScan(appContext, false);
                     BluetoothScanWorker.setScanKilled(appContext, false);
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "13");
+
                     registerReceiversAndWorkers(false);
+
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "14");
+
                     DonationBroadcastReceiver.setAlarm(appContext);
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
