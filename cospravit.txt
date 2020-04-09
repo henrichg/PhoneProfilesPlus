@@ -847,3 +847,104 @@ Pridaj aj info preference, ktore zobrazi zoznam interne podporovanych aplikacii:
 // com.angrydoughnuts.android.alarmclock - Alarm Klock
 
 --------------
+
+Import dat z PP:
+
+ApplicationPreferences.backup
+
+Toto by este slo spravit cez broadcast ze chcem toto a PP by posielal polzku za polozkou.
+
+Ipprtovat do docasnych preferences, ktore, ak to ziskam vsetko bez chyby, zasa polozku po polozke
+zapisem do PPP preferences.
+
+Treba tu pozerat, ci taka polozka existuje v PPP a ci sa nezmenili honoty, cize treba spravit mapovanie
+do tych docasnych preferences.
+
+- applicationTheme
+- applicationStartOnBoot
+- applicationActivate
+- applicationUnlinkRingerNotificationVolumes
+- applicationForceSetMergeRingNotificationVolumes
+- notificationsToast
+- notificationStatusBar
+- notificationStatusBarPermanent
+- notificationStatusBarCancel
+- notificationShowInStatusBar
+- notificationHideInLockscreen
+- notificationLayoutType
+- notificationStatusBarStyle
+- notificationPrefIndicator
+- notificationBackgroundColor
+- notificationTextColor
+- notificationUseDecoration
+- notificationShowButtonExit
+- applicationBackgroundProfile
+- applicationAlert
+- applicationActivatorPrefIndicator
+- applicationActivatorHeader
+- applicationLongClickActivation
+- applicationClose
+- applicationActivatorGridLayout
+- applicationEditorPrefIndicator
+- applicationEditorHeader
+- applicationWidgetListPrefIndicator
+- applicationWidgetListHeader
+- applicationWidgetListGridLayout
+- applicationWidgetListBackground
+- applicationWidgetListBackgroundType
+- applicationWidgetListLightnessB
+- applicationWidgetListBackgroundColor
+- applicationWidgetListShowBorder
+- applicationWidgetListLightnessBorder
+- applicationWidgetListRoundedCorners
+- applicationWidgetListLightnessT
+- applicationWidgetListIconColor
+- applicationWidgetListIconLightness
+- applicationWidgetListCustomIconLightness
+- applicationWidgetOneRowPrefIndicator
+- applicationWidgetOneRowBackground
+- applicationWidgetOneRowBackgroundType
+- applicationWidgetOneRowLightnessB
+- applicationWidgetOneRowBackgroundColor
+- applicationWidgetOneRowShowBorder
+- applicationWidgetOneRowLightnessBorder
+- applicationWidgetOneRowRoundedCorners
+- applicationWidgetOneRowLightnessT
+- applicationWidgetOneRowIconColor
+- applicationWidgetOneRowIconLightness
+- applicationWidgetOneRowCustomIconLightness
+- applicationWidgetIconBackground
+- applicationWidgetIconBackgroundType
+- applicationWidgetIconLightnessB
+- applicationWidgetIconBackgroundColor
+- applicationWidgetIconShowBorder
+- applicationWidgetIconLightnessBorder
+- applicationWidgetIconRoundedCorners
+- applicationWidgetIconHideProfileName
+- applicationWidgetIconLightnessT
+- applicationWidgetIconColor
+- applicationWidgetIconLightness
+- applicationWidgetIconCustomIconLightness
+- applicationShortcutEmblem
+- applicationSamsungEdgeHeader
+- applicationSamsungEdgeBackground
+- applicationSamsungEdgeBackgroundType
+- applicationSamsungEdgeLightnessB
+- applicationSamsungEdgeBackgroundColor
+- applicationSamsungEdgeLightnessT
+- applicationSamsungEdgeIconColor
+- applicationSamsungEdgeIconLightness
+- applicationSamsungEdgeCustomIconLightness
+
+phoneProfilesManager.backup
+
+Toto je databaza. Tu by musel PP ju otvorit a postupne profil za profilom posielat.
+Problem je ze ako. Tych parametrov profilu je mrte vela. Da sa to spravit v cykle, ze polozku za polozkou.
+
+Ipprtovat do docasnej databazy, ktoru, ak to ziskam vsetko bez chyby, zasa profil po profile,
+zapisem do PPP databazy.
+
+Treba tu pozerat, ci taka polozka profilu existuje v PPP a ci sa nezmenili honoty, cize treba spravit mapovanie
+do tych docasnych poloziek profilu.
+
+-----------------
