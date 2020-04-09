@@ -951,5 +951,7 @@ do tych docasnych poloziek profilu.
 
 Co sa tyka udalosti: pre ne sa spytaj uzivatela, ci chce udalosti zachovat. Ak odpovie nie, tak
 ich vsetky vymazem.
+Ak odpovie, ze zachovat, tak neviem co s profilmi. Tie by som asi mal namapovat podla nazvu na importnute.
+Tie ktore nenejdem, v udalosti nastavim, ze nema nastavene. Toto rob pre start aj end profily.
 
 -----------------
