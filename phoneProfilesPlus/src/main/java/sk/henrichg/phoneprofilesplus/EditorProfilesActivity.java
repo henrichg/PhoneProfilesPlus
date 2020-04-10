@@ -2869,7 +2869,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                         try {
                             targets.add(
-                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info_menu, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
                                             .textColor(textColor)
