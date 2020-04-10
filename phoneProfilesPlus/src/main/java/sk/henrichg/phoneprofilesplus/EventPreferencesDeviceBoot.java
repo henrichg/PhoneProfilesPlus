@@ -42,8 +42,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         this._startTime = 0;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesDeviceBoot._enabled;
         this._permanentRun = fromEvent._eventPreferencesDeviceBoot._permanentRun;
@@ -53,8 +52,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         this._startTime = 0;
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_DEVICE_BOOT_ENABLED, _enabled);
@@ -63,16 +61,14 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_DEVICE_BOOT_ENABLED, false);
         this._permanentRun = preferences.getBoolean(PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN, false);
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_DEVICE_BOOT_DURATION, "5"));
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -97,8 +93,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -131,30 +126,28 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
+                    @SuppressWarnings("unused") Context context)
     {
         if (key.equals(PREF_EVENT_DEVICE_BOOT_ENABLED) ||
             key.equals(PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
         }
         if (key.equals(PREF_EVENT_DEVICE_BOOT_DURATION))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_DEVICE_BOOT_DURATION, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_DEVICE_BOOT_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesDeviceBoot tmp = new EventPreferencesDeviceBoot(this._event, this._enabled, this._permanentRun, this._duration);
@@ -179,7 +172,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
         //if (android.os.Build.VERSION.SDK_INT >= 21)
             return super.isRunnable(context);
@@ -187,7 +180,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         //    return false;
     }
 
-    long computeAlarm()
+    private long computeAlarm()
     {
         //PPApplication.logE("EventPreferencesDeviceBoot.computeAlarm","xxx");
 
@@ -206,7 +199,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -219,7 +212,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -237,7 +230,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
         removeAlarm(context);
 
@@ -372,6 +365,80 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             DatabaseHandler.getInstance(dataWrapper.context).updateDeviceBootStartTime(_event);
 
             setSystemEventForPause(dataWrapper.context);
+        }
+    }
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "xxx");
+            int oldSensorPassed = getSensorPassed();
+            if (Event.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "allowed");
+
+                // compute start time
+
+                if (_startTime > 0) {
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    long startTime = _startTime - gmtOffset;
+
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(startTime);
+                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                    }*/
+
+                    // compute end datetime
+                    long endAlarmTime = computeAlarm();
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(endAlarmTime);
+                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                    }*/
+
+                    Calendar now = Calendar.getInstance();
+                    long nowAlarmTime = now.getTimeInMillis();
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(nowAlarmTime);
+                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                    }*/
+
+                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_DEVICE_BOOT))
+                        eventsHandler.deviceBootPassed = true;
+                    else if (!_permanentRun) {
+                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END))
+                            eventsHandler.deviceBootPassed = false;
+                        else
+                            eventsHandler.deviceBootPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                    } else {
+                        eventsHandler.deviceBootPassed = nowAlarmTime >= startTime;
+                    }
+                } else
+                    eventsHandler.deviceBootPassed = false;
+
+                if (!eventsHandler.deviceBootPassed) {
+                    _startTime = 0;
+                    DatabaseHandler.getInstance(eventsHandler.context).updateDeviceBootStartTime(_event);
+                }
+
+                if (!eventsHandler.notAllowedDeviceBoot) {
+                    if (eventsHandler.deviceBootPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedDeviceBoot = true;
+
+            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "deviceBootPassed=" + deviceBootPassed);
+            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "notAllowedDeviceBoot=" + notAllowedDeviceBoot);
+
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "device boot - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_DEVICE_BOOT);
+            }
         }
     }
 

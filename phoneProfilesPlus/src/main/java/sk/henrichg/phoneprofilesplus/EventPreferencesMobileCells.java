@@ -46,8 +46,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         this._whenOutside = _whenOutside;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesMobileCells._enabled;
         this._cells = fromEvent._eventPreferencesMobileCells._cells;
@@ -55,8 +54,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesMobileCells.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, _enabled);
@@ -66,16 +64,14 @@ class EventPreferencesMobileCells extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
         this._cells  = preferences.getString(PREF_EVENT_MOBILE_CELLS_CELLS, "0");
         this._whenOutside = preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, false);
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -124,8 +120,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key/*, String value*/, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -217,24 +212,23 @@ class EventPreferencesMobileCells extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key,
+                    @SuppressWarnings("unused") SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE)) {
-            boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            //boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, /*value ? "true" : "false",*/ context);
         }
         if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, /*preferences.getString(key, ""),*/ context);
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
@@ -243,8 +237,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesMobileCells tmp = new EventPreferencesMobileCells(this._event,
@@ -270,7 +263,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -281,7 +274,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         //final boolean enabled = ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext());
         //Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
         //if (preference != null) preference.setEnabled(enabled);
@@ -294,18 +287,95 @@ class EventPreferencesMobileCells extends EventPreferences {
 
     /*
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
     }
     */
+
+    void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)*/) {
+                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+                    //if (forRestartEvents)
+                    //    mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                    //else
+                    // not allowed for disabled mobile cells scanner
+                    //    notAllowedMobileCell = true;
+                    eventsHandler.mobileCellPassed = false;
+                } else {
+                    //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
+                        if (forRestartEvents)
+                            eventsHandler.mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                        else
+                            // not allowed for screen Off
+                            eventsHandler.notAllowedMobileCell = true;
+                    } else {
+                        synchronized (PPApplication.phoneStateScannerMutex) {
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
+                                if (PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
+                                    String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
+                                    if (_whenOutside) {
+                                        // all mobile cells must not be registered
+                                        String[] splits = _cells.split("\\|");
+                                        eventsHandler.mobileCellPassed = true;
+                                        for (String cell : splits) {
+                                            if (cell.equals(registeredCell)) {
+                                                // one of cells in configuration is registered
+                                                eventsHandler.mobileCellPassed = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        // one mobile cell must be registered
+                                        String[] splits = _cells.split("\\|");
+                                        eventsHandler.mobileCellPassed = false;
+                                        for (String cell : splits) {
+                                            if (cell.equals(registeredCell)) {
+                                                // one of cells in configuration is registered
+                                                eventsHandler.mobileCellPassed = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else
+                                    eventsHandler.notAllowedMobileCell = true;
+
+                            } else
+                                eventsHandler.notAllowedMobileCell = true;
+                        }
+                    }
+                }
+
+                if (!eventsHandler.notAllowedMobileCell) {
+                    if (eventsHandler.mobileCellPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedMobileCell = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "mobile cells - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_MOBILE_CELLS);
+            }
+        }
+    }
+
 }

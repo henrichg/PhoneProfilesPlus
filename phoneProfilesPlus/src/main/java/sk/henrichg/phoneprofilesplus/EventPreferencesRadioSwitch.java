@@ -1,8 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.net.wifi.WifiManager;
+import android.nfc.NfcAdapter;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -60,8 +65,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._airplaneMode = airplaneMode;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesRadioSwitch._enabled;
         this._wifi = fromEvent._eventPreferencesRadioSwitch._wifi;
@@ -73,8 +77,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesRadioSwitch.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_RADIO_SWITCH_ENABLED, _enabled);
@@ -87,8 +90,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_RADIO_SWITCH_ENABLED, false);
         this._wifi = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_WIFI, "0"));
@@ -99,8 +101,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._airplaneMode = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, "0"));
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -173,8 +174,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -237,8 +237,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_RADIO_SWITCH_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
@@ -255,8 +254,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_WIFI, preferences, context);
@@ -280,8 +278,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         */
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
@@ -307,7 +304,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -319,7 +316,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context)
+    void checkPreferences(PreferenceManager prefMng, Context context)
     {
         boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 
@@ -345,18 +342,155 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
     /*
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
     }
     */
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                eventsHandler.radioSwitchPassed = true;
+                boolean tested = false;
+
+                if ((_wifi == 1 || _wifi == 2)
+                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_WIFI)) {
+
+                    if (!(ApplicationPreferences.prefEventWifiScanRequest ||
+                            ApplicationPreferences.prefEventWifiWaitForResult ||
+                            ApplicationPreferences.prefEventWifiEnabledForScan)) {
+                        // ignore for wifi scanning
+
+                        WifiManager wifiManager = (WifiManager) eventsHandler.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                        if (wifiManager != null) {
+                            int wifiState = wifiManager.getWifiState();
+                            boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                            //PPApplication.logE("-###- EventsHandler.doHandleEvents", "wifiState=" + enabled);
+                            tested = true;
+                            if (_wifi == 1)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                            else
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                        }
+                        else
+                            eventsHandler.notAllowedRadioSwitch = true;
+                    } else
+                        eventsHandler.notAllowedRadioSwitch = true;
+                }
+
+                if ((_bluetooth == 1 || _bluetooth == 2)
+                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_BLUETOOTH)) {
+
+                    if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
+                            ApplicationPreferences.prefEventBluetoothLEScanRequest ||
+                            ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                            ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
+                            ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
+                        // ignore for bluetooth scanning
+
+
+                        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
+                        if (bluetoothAdapter != null) {
+                            boolean enabled = bluetoothAdapter.isEnabled();
+                            //PPApplication.logE("-###- EventsHandler.doHandleEvents", "bluetoothState=" + enabled);
+                            tested = true;
+                            if (_bluetooth == 1)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                            else
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                        }
+                    } else
+                        eventsHandler.notAllowedRadioSwitch = true;
+                }
+
+                if ((_mobileData == 1 || _mobileData == 2)
+                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_TELEPHONY)) {
+
+                    boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context);
+                    //PPApplication.logE("-###- EventsHandler.doHandleEvents", "mobileDataState=" + enabled);
+                    tested = true;
+                    if (_mobileData == 1)
+                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                    else
+                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                }
+
+                if ((_gps == 1 || _gps == 2)
+                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_LOCATION_GPS)) {
+
+                    boolean enabled;
+                    /*if (android.os.Build.VERSION.SDK_INT < 19)
+                        enabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
+                    else {*/
+                    LocationManager locationManager = (LocationManager) eventsHandler.context.getSystemService(Context.LOCATION_SERVICE);
+                    if (locationManager != null) {
+                        enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                        //}
+                        //PPApplication.logE("-###- EventsHandler.doHandleEvents", "gpsState=" + enabled);
+                        tested = true;
+                        if (_gps == 1)
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                        else
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                    }
+                    else
+                        eventsHandler.notAllowedRadioSwitch = true;
+                }
+
+                if ((_nfc == 1 || _nfc == 2)
+                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_NFC)) {
+
+                    NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(eventsHandler.context);
+                    if (nfcAdapter != null) {
+                        boolean enabled = nfcAdapter.isEnabled();
+                        //PPApplication.logE("-###- EventsHandler.doHandleEvents", "nfcState=" + enabled);
+                        tested = true;
+                        if (_nfc == 1)
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                        else
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                    }
+                }
+
+                if (_airplaneMode == 1 || _airplaneMode == 2) {
+
+                    boolean enabled = ActivateProfileHelper.isAirplaneMode(eventsHandler.context);
+                    //PPApplication.logE("-###- EventsHandler.doHandleEvents", "airplaneModeState=" + enabled);
+                    tested = true;
+                    if (_airplaneMode == 1)
+                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                    else
+                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                }
+
+                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && tested;
+
+                if (!eventsHandler.notAllowedRadioSwitch) {
+                    if (eventsHandler.radioSwitchPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedRadioSwitch = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "radio switch - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_RADIO_SWITCH);
+            }
+        }
+    }
+
 }

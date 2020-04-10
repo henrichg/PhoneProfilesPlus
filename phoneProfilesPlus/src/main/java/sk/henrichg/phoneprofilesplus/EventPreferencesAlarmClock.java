@@ -53,8 +53,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         this._alarmPackageName = "";
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesAlarmClock._enabled;
         this._permanentRun = fromEvent._eventPreferencesAlarmClock._permanentRun;
@@ -66,8 +65,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         this._alarmPackageName = "";
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, _enabled);
@@ -77,8 +75,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
         this._permanentRun = preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN, false);
@@ -86,8 +83,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         this._applications = preferences.getString(PREF_EVENT_ALARM_CLOCK_APPLICATIONS, "");
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -142,8 +138,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -187,8 +182,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_ALARM_CLOCK_ENABLED) ||
             key.equals(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN)) {
@@ -202,8 +196,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN, preferences, context);
@@ -233,8 +226,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         }
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesAlarmClock tmp = new EventPreferencesAlarmClock(this._event, this._enabled, this._permanentRun, this._duration, this._applications);
@@ -258,8 +250,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         }
     }
 
-    @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
         //if (android.os.Build.VERSION.SDK_INT >= 21)
             return super.isRunnable(context);
@@ -267,7 +258,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         //    return false;
     }
 
-    long computeAlarm()
+    private long computeAlarm()
     {
         //PPApplication.logE("EventPreferencesAlarmClock.computeAlarm","xxx");
 
@@ -286,7 +277,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -299,7 +290,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -317,7 +308,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
         removeAlarm(context);
 
@@ -453,7 +444,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         }
     }
 
-    boolean isPackageSupported(Context context) {
+    private boolean isPackageSupported(Context context) {
         if ((this._alarmPackageName == null) || this._alarmPackageName.equals(context.getPackageName()))
             return false;
 
@@ -486,4 +477,78 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
         return false;
     }
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if (Event.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                // compute start time
+
+                if (_startTime > 0) {
+                    if (isPackageSupported(eventsHandler.context)) {
+
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        long startTime = _startTime - gmtOffset;
+
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(startTime);
+                            PPApplication.logE("EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                        }*/
+
+                        // compute end datetime
+                        long endAlarmTime = computeAlarm();
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(endAlarmTime);
+                            PPApplication.logE("EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        }*/
+
+                        Calendar now = Calendar.getInstance();
+                        long nowAlarmTime = now.getTimeInMillis();
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(nowAlarmTime);
+                            PPApplication.logE("EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        }*/
+
+                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
+                            eventsHandler.alarmClockPassed = true;
+                        else if (!_permanentRun) {
+                            if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
+                                eventsHandler.alarmClockPassed = false;
+                            else
+                                eventsHandler.alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                        } else {
+                            eventsHandler.alarmClockPassed = nowAlarmTime >= startTime;
+                        }
+                    }
+                    else
+                        eventsHandler.alarmClockPassed = false;
+                } else
+                    eventsHandler.alarmClockPassed = false;
+
+                if (!eventsHandler.alarmClockPassed) {
+                    _startTime = 0;
+                    _alarmPackageName = "";
+                    DatabaseHandler.getInstance(eventsHandler.context).updateAlarmClockStartTime(_event);
+                }
+
+                if (!eventsHandler.notAllowedAlarmClock) {
+                    if (eventsHandler.alarmClockPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedAlarmClock = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "alarm clock - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_ALARM_CLOCK);
+            }
+        }
+    }
+
 }

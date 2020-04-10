@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 //import android.preference.CheckBoxPreference;
@@ -9,6 +11,7 @@ import android.content.SharedPreferences.Editor;
 //import android.preference.Preference.OnPreferenceChangeListener;
 //import android.preference.PreferenceManager;
 //import android.preference.MultiSelectListPreference;
+import android.os.BatteryManager;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -59,8 +62,7 @@ class EventPreferencesBattery extends EventPreferences {
         this._powerSaveMode = powerSaveMode;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesBattery._enabled;
         this._levelLow = fromEvent._eventPreferencesBattery._levelLow;
@@ -71,8 +73,7 @@ class EventPreferencesBattery extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesBattery.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_BATTERY_ENABLED, _enabled);
@@ -93,8 +94,7 @@ class EventPreferencesBattery extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_BATTERY_ENABLED, false);
 
@@ -131,8 +131,7 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -181,8 +180,7 @@ class EventPreferencesBattery extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -235,19 +233,18 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_BATTERY_ENABLED) ||
             key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            setSummary(prefMng, key, value ? "true" : "false"/*, context*/);
         }
         if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) ||
             key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT) ||
             key.equals(PREF_EVENT_BATTERY_CHARGING))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
         }
 
         if (key.equals(PREF_EVENT_BATTERY_PLUGGED)) {
@@ -268,13 +265,12 @@ class EventPreferencesBattery extends EventPreferences {
             }
             else
                 plugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            setSummary(prefMng, key, plugged, context);
+            setSummary(prefMng, key, plugged/*, context*/);
         }
 
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_BATTERY_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_LOW, preferences, context);
@@ -284,8 +280,7 @@ class EventPreferencesBattery extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BATTERY_POWER_SAVE_MODE, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode, this._plugged);
@@ -310,7 +305,7 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context)
+    void checkPreferences(PreferenceManager prefMng, Context context)
     {
         final Preference lowLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_LOW);
         final Preference hightLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_HIGHT);
@@ -420,18 +415,129 @@ class EventPreferencesBattery extends EventPreferences {
 
     /*
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
     }
     */
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(eventsHandler.context);
+                //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
+
+                boolean isCharging;
+                int batteryPct;
+                int plugged;
+
+                // get battery status
+                Intent batteryStatus = null;
+                try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
+                    IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                    batteryStatus = eventsHandler.context.registerReceiver(null, filter);
+                } catch (Exception e) {
+                    Crashlytics.logException(e);
+                }
+
+                if (batteryStatus != null) {
+                    eventsHandler.batteryPassed = false;
+
+                    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                    //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "status=" + status);
+                    isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                            status == BatteryManager.BATTERY_STATUS_FULL;
+                    //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "isCharging=" + isCharging);
+                    plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+                    //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "plugged=" + plugged);
+
+                    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                    int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "level=" + level);
+                        PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "scale=" + scale);
+                    }*/
+
+                    batteryPct = Math.round(level / (float) scale * 100);
+                    //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "batteryPct=" + batteryPct);
+
+                    if ((batteryPct >= _levelLow) &&
+                            (batteryPct <= _levelHight))
+                        eventsHandler.batteryPassed = true;
+
+                    if ((_charging > 0) ||
+                            ((_plugged != null) &&
+                                    (!_plugged.isEmpty()))){
+                        if (_charging == 1)
+                            eventsHandler.batteryPassed = eventsHandler.batteryPassed && isCharging;
+                        else
+                        if (_charging == 2)
+                            eventsHandler.batteryPassed = eventsHandler.batteryPassed && (!isCharging);
+                        //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "event._eventPreferencesBattery._plugged=" + event._eventPreferencesBattery._plugged);
+                        if ((_plugged != null) &&
+                                (!_plugged.isEmpty())) {
+                            String[] splits = _plugged.split("\\|");
+                            //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "splits.length=" + splits.length);
+                            if (splits.length > 0) {
+                                boolean passed = false;
+                                for (String split : splits) {
+                                    try {
+                                        int plug = Integer.parseInt(split);
+                                        //PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "plug=" + plug);
+                                        if ((plug == 1) && (plugged == BatteryManager.BATTERY_PLUGGED_AC)) {
+                                            passed = true;
+                                            break;
+                                        }
+                                        if ((plug == 2) && (plugged == BatteryManager.BATTERY_PLUGGED_USB)) {
+                                            passed = true;
+                                            break;
+                                        }
+                                        if ((plug == 3) && (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS)) {
+                                            passed = true;
+                                            break;
+                                        }
+                                    } catch (Exception e) {
+                                        //Crashlytics.logException(e);
+                                    }
+                                }
+                                eventsHandler.batteryPassed = eventsHandler.batteryPassed && passed;
+                            }
+                        }
+                    } else if (_powerSaveMode)
+                        eventsHandler.batteryPassed = eventsHandler.batteryPassed && isPowerSaveMode;
+                } else
+                    eventsHandler.notAllowedBattery = true;
+
+                /*if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
+                    PPApplication.logE("[BAT] EventsHandler.doHandleEvents", "batteryPassed=" + batteryPassed);
+                }*/
+
+                if (!eventsHandler.notAllowedBattery) {
+                    if (eventsHandler.batteryPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedBattery = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "battery - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_BATTERY);
+            }
+        }
+    }
+
 }

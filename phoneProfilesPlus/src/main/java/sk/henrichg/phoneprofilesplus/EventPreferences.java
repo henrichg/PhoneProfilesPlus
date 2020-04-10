@@ -1,14 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
-//import android.preference.PreferenceManager;
 
-class EventPreferences {
+abstract class EventPreferences {
 
-    Event _event;
+    final Event _event;
     boolean _enabled;
     private int _sensorPassed;
 
@@ -16,22 +14,20 @@ class EventPreferences {
     static final int SENSOR_PASSED_PASSED = 0x1;
     static final int SENSOR_PASSED_WAITING = 0x2;
 
-    EventPreferences()
+    /*EventPreferences()
     {
         _enabled = false;
-    }
+    }*/
 
     EventPreferences(Event event, boolean enabled)
     {
+        //this();
         _event = event;
         _enabled = enabled;
         _sensorPassed = SENSOR_PASSED_NOT_PASSED;
     }
 
-    @SuppressWarnings("unused")
-    void copyPreferences(Event fromEvent)
-    {
-    }
+    //abstract void copyPreferences(Event fromEvent);
 
     boolean isRunnable(Context context)
     {
@@ -50,28 +46,18 @@ class EventPreferences {
     }
     */
 
-    @SuppressWarnings("unused")
-    void loadSharedPreferences(SharedPreferences preferences)
-    {
-    }
+    //abstract void loadSharedPreferences(SharedPreferences preferences);
 
-    @SuppressWarnings("unused")
-    void saveSharedPreferences(SharedPreferences preferences)
-    {
-    }
+    //abstract void saveSharedPreferences(SharedPreferences preferences);
 
-    @SuppressWarnings("unused")
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
-        return "";
-    }
+    //abstract String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context);
 
-    public int getSensorPassed()
+    int getSensorPassed()
     {
         return _sensorPassed;
     }
 
-    public void setSensorPassed(int sensorPassed)
+    void setSensorPassed(int sensorPassed)
     {
         _sensorPassed = sensorPassed;
     }
@@ -110,24 +96,13 @@ class EventPreferences {
         }
     }
 
-    @SuppressWarnings("unused")
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
-    {
-    }
+    //abstract void setSummary(PreferenceManager prefMng, String key, String value, Context context);
 
-    @SuppressWarnings("unused")
-    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
-    {
-    }
+    //abstract void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context);
 
-    @SuppressWarnings("unused")
-    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
-    {
-    }
+    //abstract void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context);
 
-    @SuppressWarnings("unused")
-    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-    }
+    //abstract void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context);
 
     void checkPreferences(PreferenceManager prefMng, Context context)
     {
@@ -135,17 +110,16 @@ class EventPreferences {
 
     void setSystemEventForStart(Context context)
     {
-
     }
 
     void setSystemEventForPause(Context context)
     {
-
     }
 
     void removeSystemEvent(Context context)
     {
-
     }
+
+    //abstract void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents);
 
 }

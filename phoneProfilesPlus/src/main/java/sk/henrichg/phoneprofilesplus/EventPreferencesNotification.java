@@ -80,8 +80,7 @@ class EventPreferencesNotification extends EventPreferences {
         this._contactListType = contactListType;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesNotification._enabled;
         this._applications = fromEvent._eventPreferencesNotification._applications;
@@ -98,8 +97,7 @@ class EventPreferencesNotification extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesNotification.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Editor editor = preferences.edit();
@@ -118,8 +116,7 @@ class EventPreferencesNotification extends EventPreferences {
         //}
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
@@ -136,8 +133,7 @@ class EventPreferencesNotification extends EventPreferences {
         //}
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -225,8 +221,7 @@ class EventPreferencesNotification extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -337,8 +332,7 @@ class EventPreferencesNotification extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED) ||
             key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
@@ -360,8 +354,7 @@ class EventPreferencesNotification extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_IN_CALL, preferences, context);
@@ -377,8 +370,7 @@ class EventPreferencesNotification extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
@@ -406,7 +398,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -417,7 +409,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
             ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
@@ -489,7 +481,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -502,7 +494,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -520,7 +512,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
         removeAlarm(context);
 
@@ -907,7 +899,7 @@ class EventPreferencesNotification extends EventPreferences {
         return null;
     }
 
-    boolean isNotificationVisible(Context context) {
+    private boolean isNotificationVisible(Context context) {
         //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
         if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
@@ -1337,6 +1329,31 @@ class EventPreferencesNotification extends EventPreferences {
         //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phoneNumberFound=" + phoneNumberFound);
 
         return phoneNumberFound;
+    }
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
+
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "notificationPassed=" + notificationPassed);
+
+                if (!eventsHandler.notAllowedNotification) {
+                    if (eventsHandler.notificationPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedNotification = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "notification - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_NOTIFICATION);
+            }
+        }
     }
 
 }

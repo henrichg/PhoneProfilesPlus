@@ -647,14 +647,14 @@ class PhoneStateScanner extends PhoneStateListener {
             // application is not started
             return;
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "enabledAutoRegistration=" + enabledAutoRegistration);
             PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellsNameForAutoRegistration=" + cellsNameForAutoRegistration);
             if (isValidCellId(_registeredCell))
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellIdToRegister=" + _registeredCell);
             else
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellIdToRegister=NOT valid");
-        }
+        }*/
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;

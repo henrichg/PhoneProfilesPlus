@@ -10,10 +10,13 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -71,8 +74,7 @@ class EventPreferencesOrientation extends EventPreferences {
         this._ignoredApplications = ignoredApplications;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesOrientation._enabled;
         this._display = fromEvent._eventPreferencesOrientation._display;
@@ -85,8 +87,7 @@ class EventPreferencesOrientation extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesOrientation.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_ORIENTATION_ENABLED, _enabled);
@@ -110,8 +111,7 @@ class EventPreferencesOrientation extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_ORIENTATION_ENABLED, false);
 
@@ -147,8 +147,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -260,8 +259,7 @@ class EventPreferencesOrientation extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -430,8 +428,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED) ||
             key.equals(PREF_EVENT_ORIENTATION_CHECK_LIGHT)) {
@@ -500,8 +497,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_ORIENTATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_DISPLAY, preferences, context);
@@ -515,8 +511,7 @@ class EventPreferencesOrientation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ORIENTATION_APP_SETTINGS, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesOrientation tmp = new EventPreferencesOrientation(this._event, this._enabled, this._display, this._sides, this._distance, this._checkLight, this._lightMin, this._lightMax, this._ignoredApplications);
@@ -541,7 +536,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -569,7 +564,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
         boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
@@ -660,7 +655,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -673,7 +668,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -700,7 +695,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
         removeAlarm(context);
 
@@ -715,5 +710,198 @@ class EventPreferencesOrientation extends EventPreferences {
     static float convertPercentsToLight(long percentage, float maxLight) {
         return Math.round(maxLight / 100 * percentage);
     }*/
+
+    void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                boolean inCall = false;
+                TelephonyManager telephony = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephony != null) {
+                    int callState = telephony.getCallState();
+                    inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
+                }
+                if (inCall) {
+                    // not allowed changes during call
+                    eventsHandler.notAllowedOrientation = true;
+                } else if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                    //if (forRestartEvents)
+                    //    orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                    //else
+                    // not allowed for disabled orientation scanner
+                    //    notAllowedOrientation = true;
+                    eventsHandler.orientationPassed = false;
+                } else if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
+                    if (forRestartEvents)
+                        eventsHandler.orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                    else
+                        // not allowed for screen Off
+                        eventsHandler.notAllowedOrientation = true;
+                } else {
+                    synchronized (PPApplication.orientationScannerMutex) {
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isOrientationScannerStarted()) {
+                            PPApplication.startHandlerThreadOrientationScanner();
+                            boolean lApplicationPassed = false;
+                            if (!_ignoredApplications.isEmpty()) {
+                                if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0)) {
+                                    String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
+                                    if (!foregroundApplication.isEmpty()) {
+                                        String[] splits = _ignoredApplications.split("\\|");
+                                        for (String split : splits) {
+                                            String packageName = Application.getPackageName(split);
+
+                                            if (foregroundApplication.equals(packageName)) {
+                                                lApplicationPassed = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else
+                                    eventsHandler.notAllowedOrientation = true;
+                            }
+                            if (!lApplicationPassed) {
+                                boolean lDisplayPassed = false;
+                                boolean lSidePassed = false;
+
+                                boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
+                                boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
+                                boolean hasProximity = PPApplication.proximitySensor != null;
+                                boolean hasLight = PPApplication.lightSensor != null;
+
+                                boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
+
+                                boolean configuredDisplay = false;
+                                if (hasAccelerometer) {
+                                    if (!_display.isEmpty()) {
+                                        String[] splits = _display.split("\\|");
+                                        if (splits.length > 0) {
+                                            configuredDisplay = true;
+                                            //lDisplayPassed = false;
+                                            for (String split : splits) {
+                                                try {
+                                                    int side = Integer.parseInt(split);
+                                                    if (side == PPApplication.handlerThreadOrientationScanner.mDisplayUp) {
+                                                        lDisplayPassed = true;
+                                                        break;
+                                                    }
+                                                } catch (Exception e) {
+                                                    Crashlytics.logException(e);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                boolean configuredSide = false;
+                                if (enabledAll) {
+                                    if (!_sides.isEmpty()) {
+                                        String[] splits = _sides.split("\\|");
+                                        if (splits.length > 0) {
+                                            configuredSide = true;
+                                            //lSidePassed = false;
+                                            for (String split : splits) {
+                                                try {
+                                                    int side = Integer.parseInt(split);
+                                                    if (side == OrientationScannerHandlerThread.DEVICE_ORIENTATION_HORIZONTAL) {
+                                                        if (PPApplication.handlerThreadOrientationScanner.mSideUp == PPApplication.handlerThreadOrientationScanner.mDisplayUp) {
+                                                            lSidePassed = true;
+                                                            break;
+                                                        }
+                                                    } else {
+                                                        if (side == PPApplication.handlerThreadOrientationScanner.mSideUp) {
+                                                            lSidePassed = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                } catch (Exception e) {
+                                                    Crashlytics.logException(e);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                boolean lDistancePassed = false;
+                                boolean configuredDistance = false;
+                                if (hasProximity) {
+                                    if (_distance != 0) {
+                                        configuredDistance = true;
+                                        lDistancePassed = _distance == PPApplication.handlerThreadOrientationScanner.mDeviceDistance;
+                                    }
+                                }
+
+                                boolean lLightPassed = false;
+                                boolean configuredLight = false;
+                                if (hasLight) {
+                                    if (_checkLight) {
+                                        configuredLight = true;
+                                        int light = PPApplication.handlerThreadOrientationScanner.mLight;
+                                        int min = Integer.parseInt(_lightMin);
+                                        int max = Integer.parseInt(_lightMax);
+                                        lLightPassed = (light >= min) && (light <= max);
+                                        /*if (PPApplication.logEnabled()) {
+                                            PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "light=" + light);
+                                            PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "min=" + min);
+                                            PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "max=" + max);
+                                        }*/
+                                    }
+                                }
+
+                                /*if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredDisplay=" + configuredDisplay);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredSide=" + configuredSide);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredDistance=" + configuredDistance);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredLight=" + configuredLight);
+
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasAccelerometer=" + hasAccelerometer);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasMagneticField=" + hasMagneticField);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasProximity=" + hasProximity);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasLight=" + hasLight);
+
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lDisplayPassed=" + lDisplayPassed);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lSidePassed=" + lSidePassed);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lDistancePassed=" + lDistancePassed);
+                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lLightPassed=" + lLightPassed);
+                                }*/
+
+                                if (configuredDisplay || configuredSide || configuredDistance || configuredLight) {
+                                    eventsHandler.orientationPassed = true;
+                                    if (configuredDisplay)
+                                        //noinspection ConstantConditions
+                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lDisplayPassed;
+                                    if (configuredSide)
+                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lSidePassed;
+                                    if (configuredDistance)
+                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lDistancePassed;
+                                    if (configuredLight)
+                                        eventsHandler.orientationPassed = eventsHandler.orientationPassed && lLightPassed;
+                                }
+                                else
+                                    eventsHandler.notAllowedOrientation = true;
+                                //orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
+                            }
+                        } else {
+                            eventsHandler.notAllowedOrientation = true;
+                        }
+                    }
+                }
+
+                if (!eventsHandler.notAllowedOrientation) {
+                    if (eventsHandler.orientationPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedOrientation = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "orientation - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_ORIENTATION);
+            }
+        }
+    }
 
 }

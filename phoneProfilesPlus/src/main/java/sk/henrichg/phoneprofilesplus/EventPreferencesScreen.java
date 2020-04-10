@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -21,7 +22,7 @@ class EventPreferencesScreen extends EventPreferences {
     int _eventType;
     boolean _whenUnlocked;
 
-    static final int ETYPE_SCREENON = 0;
+    private static final int ETYPE_SCREENON = 0;
     //static final int ETYPE_SCREENOFF = 1;
 
     static final String PREF_EVENT_SCREEN_ENABLED = "eventScreenEnabled";
@@ -41,8 +42,7 @@ class EventPreferencesScreen extends EventPreferences {
         this._whenUnlocked = whenUnlocked;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesScreen._enabled;
         this._eventType = fromEvent._eventPreferencesScreen._eventType;
@@ -50,8 +50,7 @@ class EventPreferencesScreen extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesScreen.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_SCREEN_ENABLED, _enabled);
@@ -60,16 +59,14 @@ class EventPreferencesScreen extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_SCREEN_ENABLED, false);
         this._eventType = Integer.parseInt(preferences.getString(PREF_EVENT_SCREEN_EVENT_TYPE, "1"));
         this._whenUnlocked = preferences.getBoolean(PREF_EVENT_SCREEN_WHEN_UNLOCKED, false);
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -102,8 +99,7 @@ class EventPreferencesScreen extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -131,22 +127,21 @@ class EventPreferencesScreen extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
+                    @SuppressWarnings("unused") Context context)
     {
         if (key.equals(PREF_EVENT_SCREEN_ENABLED) ||
             key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
         }
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
@@ -155,8 +150,7 @@ class EventPreferencesScreen extends EventPreferences {
         setWhenUnlockedTitle(prefMng, _eventType);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesScreen tmp = new EventPreferencesScreen(this._event, this._enabled, this._eventType, this._whenUnlocked);
@@ -181,7 +175,7 @@ class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context)
+    void checkPreferences(PreferenceManager prefMng, Context context)
     {
         final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
         final PreferenceManager _prefMng = prefMng;
@@ -219,18 +213,88 @@ class EventPreferencesScreen extends EventPreferences {
 
     /*
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
     }
     */
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                //PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "xxx");
+
+                //boolean isScreenOn;
+                //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                boolean keyguardShowing = false;
+
+                if (_whenUnlocked) {
+                    KeyguardManager kgMgr = (KeyguardManager) eventsHandler.context.getSystemService(Context.KEYGUARD_SERVICE);
+                    if (kgMgr == null)
+                        eventsHandler.notAllowedScreen = true;
+                    else
+                        keyguardShowing = kgMgr.isKeyguardLocked();
+                }
+                /*if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "PPApplication.isScreenOn=" + PPApplication.isScreenOn);
+                    PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "keyguardShowing=" + keyguardShowing);
+                }*/
+
+                if (!eventsHandler.notAllowedScreen) {
+                    if (_eventType == EventPreferencesScreen.ETYPE_SCREENON) {
+                        // event type = screen is on
+                        if (_whenUnlocked)
+                            // passed if screen is on and unlocked
+                            if (PPApplication.isScreenOn) {
+                                eventsHandler.screenPassed = !keyguardShowing;
+                            } else {
+                                eventsHandler.screenPassed = !keyguardShowing;
+                            }
+                            //screenPassed = PPApplication.isScreenOn && (!keyguardShowing);
+                            else
+                                eventsHandler.screenPassed = PPApplication.isScreenOn;
+                    } else {
+                        // event type = screen is off
+                        if (_whenUnlocked) {
+                            // passed if screen is off and locked
+                            if (!PPApplication.isScreenOn) {
+                                eventsHandler.screenPassed = keyguardShowing;
+                            } else {
+                                eventsHandler.screenPassed = keyguardShowing;
+                            }
+                            //screenPassed = (!PPApplication.isScreenOn) && keyguardShowing;
+                        } else
+                            eventsHandler.screenPassed = !PPApplication.isScreenOn;
+                    }
+
+                    //PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "screenPassed="+screenPassed);
+                }
+
+                if (!eventsHandler.notAllowedScreen) {
+                    if (eventsHandler.screenPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedScreen = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "screen - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_SCREEN);
+            }
+        }
+    }
+
 }

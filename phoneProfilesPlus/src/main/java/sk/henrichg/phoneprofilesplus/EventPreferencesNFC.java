@@ -45,8 +45,7 @@ class EventPreferencesNFC extends EventPreferences {
         this._startTime = 0;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesNFC._enabled;
         this._nfcTags = fromEvent._eventPreferencesNFC._nfcTags;
@@ -57,8 +56,7 @@ class EventPreferencesNFC extends EventPreferences {
         this._startTime = 0;
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_NFC_ENABLED, _enabled);
@@ -68,8 +66,7 @@ class EventPreferencesNFC extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_NFC_ENABLED, false);
         this._nfcTags = preferences.getString(PREF_EVENT_NFC_NFC_TAGS, "");
@@ -77,8 +74,7 @@ class EventPreferencesNFC extends EventPreferences {
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NFC_DURATION, "5"));
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -119,8 +115,7 @@ class EventPreferencesNFC extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -164,8 +159,7 @@ class EventPreferencesNFC extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_NFC_ENABLED) ||
             key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
@@ -179,8 +173,7 @@ class EventPreferencesNFC extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_NFC_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_NFC_NFC_TAGS, preferences, context);
@@ -199,8 +192,7 @@ class EventPreferencesNFC extends EventPreferences {
         }
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNFC tmp = new EventPreferencesNFC(this._event, this._enabled, this._nfcTags, this._permanentRun, this._duration);
@@ -225,7 +217,7 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -236,7 +228,7 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context)
+    void checkPreferences(PreferenceManager prefMng, Context context)
     {
         boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
         Preference nfcTagsPreference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
@@ -256,7 +248,7 @@ class EventPreferencesNFC extends EventPreferences {
         }
     }
 
-    long computeAlarm()
+    private long computeAlarm()
     {
         //PPApplication.logE("EventPreferencesNFC.computeAlarm","xxx");
 
@@ -275,7 +267,7 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -288,7 +280,7 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -306,7 +298,7 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
         removeAlarm(context);
 
@@ -463,6 +455,73 @@ class EventPreferencesNFC extends EventPreferences {
             if (tagFound) {
                 //if (_event.getStatus() == Event.ESTATUS_RUNNING)
                     setSystemEventForPause(dataWrapper.context);
+            }
+        }
+    }
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                // compute start time
+
+                if (_startTime > 0) {
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    long startTime = _startTime - gmtOffset;
+
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(startTime);
+                        PPApplication.logE("EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                    }*/
+
+                    // compute end datetime
+                    long endAlarmTime = computeAlarm();
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(endAlarmTime);
+                        PPApplication.logE("EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                    }*/
+
+                    Calendar now = Calendar.getInstance();
+                    long nowAlarmTime = now.getTimeInMillis();
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(nowAlarmTime);
+                        PPApplication.logE("EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                    }*/
+
+                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_TAG))
+                        eventsHandler.nfcPassed = true;
+                    else if (!_permanentRun) {
+                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_EVENT_END))
+                            eventsHandler.nfcPassed = false;
+                        else
+                            eventsHandler.nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                    } else
+                        eventsHandler.nfcPassed = nowAlarmTime >= startTime;
+                } else
+                    eventsHandler.nfcPassed = false;
+
+                if (!eventsHandler.nfcPassed) {
+                    _startTime = 0;
+                    DatabaseHandler.getInstance(eventsHandler.context).updateNFCStartTime(_event);
+                }
+
+                if (!eventsHandler.notAllowedNfc) {
+                    if (eventsHandler.nfcPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+
+            } else
+                eventsHandler.notAllowedNfc = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "nfc - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_NFC);
             }
         }
     }

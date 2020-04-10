@@ -8,12 +8,22 @@ import android.graphics.Color;
 //import android.preference.ListPreference;
 //import android.preference.Preference;
 //import android.preference.PreferenceManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Arrays;
+import java.util.List;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -53,8 +63,7 @@ class EventPreferencesWifi extends EventPreferences {
         this._connectionType = connectionType;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesWifi._enabled;
         this._SSID = fromEvent._eventPreferencesWifi._SSID;
@@ -62,8 +71,7 @@ class EventPreferencesWifi extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesWifi.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_WIFI_ENABLED, _enabled);
@@ -72,16 +80,14 @@ class EventPreferencesWifi extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
         this._SSID = preferences.getString(PREF_EVENT_WIFI_SSID, "");
         this._connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_WIFI_CONNECTION_TYPE, "1"));
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -145,8 +151,7 @@ class EventPreferencesWifi extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -251,8 +256,7 @@ class EventPreferencesWifi extends EventPreferences {
 
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_WIFI_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
@@ -268,8 +272,7 @@ class EventPreferencesWifi extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_WIFI_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
@@ -291,8 +294,7 @@ class EventPreferencesWifi extends EventPreferences {
 
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesWifi tmp = new EventPreferencesWifi(this._event, this._enabled, this._SSID, this._connectionType);
@@ -317,13 +319,13 @@ class EventPreferencesWifi extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
         return super.isRunnable(context) && (!this._SSID.isEmpty());
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         /*final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScanning(context.getApplicationContext());
         Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
         if (preference != null) preference.setEnabled(enabled);*/
@@ -337,18 +339,339 @@ class EventPreferencesWifi extends EventPreferences {
 
     /*
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
     }
     */
+
+    void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)*/) {
+                //if (event._name.equals("Doma"))
+                //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "-------- eventSSID=" + event._eventPreferencesWifi._SSID);
+
+                eventsHandler.wifiPassed = false;
+
+                WifiManager wifiManager = (WifiManager) eventsHandler.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                if (wifiManager == null) {
+                    eventsHandler.notAllowedWifi = true;
+                }
+                else {
+
+                    boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
+
+                    List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(eventsHandler.context);
+
+                    boolean done = false;
+
+                    if (isWifiEnabled) {
+                        //if (event._name.equals("Doma"))
+                        //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiStateEnabled=true");
+
+                        //PPApplication.logE("----- EventsHandler.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
+
+                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+
+                        boolean wifiConnected = false;
+
+                        ConnectivityManager connManager = null;
+                        try {
+                            connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        } catch (Exception e) {
+                            // java.lang.NullPointerException: missing IConnectivityManager
+                            // Dual SIM?? Bug in Android ???
+                            Crashlytics.logException(e);
+                        }
+                        if (connManager != null) {
+                            //if (android.os.Build.VERSION.SDK_INT >= 21) {
+                            Network[] networks = connManager.getAllNetworks();
+                            if ((networks != null) && (networks.length > 0)) {
+                                for (Network network : networks) {
+                                    try {
+                                        if (Build.VERSION.SDK_INT < 28) {
+                                            NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
+                                            if (ntkInfo != null) {
+                                                if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
+                                                    if (wifiInfo != null) {
+                                                        wifiConnected = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            NetworkInfo networkInfo = connManager.getNetworkInfo(network);
+                                            if ((networkInfo != null) && networkInfo.isConnected()) {
+                                                NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                                if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                                                    wifiConnected = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        Crashlytics.logException(e);
+                                    }
+                                }
+                            }
+                            /*} else {
+                                //noinspection deprecation
+                                NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                                wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
+                            }*/
+                        }
+
+                        if (wifiConnected) {
+                            /*if (PPApplication.logEnabled()) {
+                                if (event._name.equals("Doma")) {
+                                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifi connected");
+                                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiSSID="+wifiInfo.getSSID());
+                                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
+                                }
+                            }*/
+
+                            //PPApplication.logE("----- EventsHandler.doHandleEvents","SSID="+event._eventPreferencesWifi._SSID);
+
+                            String[] splits = _SSID.split("\\|");
+                            boolean[] connected = new boolean[splits.length];
+
+                            int i = 0;
+                            for (String _ssid : splits) {
+                                connected[i] = false;
+                                switch (_ssid) {
+                                    case EventPreferencesWifi.ALL_SSIDS_VALUE:
+                                        connected[i] = true;
+                                        break;
+                                    case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
+                                        for (WifiSSIDData data : wifiConfigurationList) {
+                                            connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
+                                            if (connected[i])
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList);
+                                        break;
+                                }
+                                i++;
+                            }
+
+                            if (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED) {
+                                eventsHandler.wifiPassed = true;
+                                for (boolean conn : connected) {
+                                    if (conn) {
+                                        eventsHandler.wifiPassed = false;
+                                        break;
+                                    }
+                                }
+                                // not use scanner data
+                                done = true;
+                            } else if (_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) {
+                                eventsHandler.wifiPassed = false;
+                                for (boolean conn : connected) {
+                                    if (conn) {
+                                        eventsHandler.wifiPassed = true;
+                                        break;
+                                    }
+                                }
+                                // not use scanner data
+                                done = true;
+                            }
+                        } else {
+                            //if (event._name.equals("Doma"))
+                            //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifi not connected");
+
+                            if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                                    (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
+                                // not use scanner data
+                                done = true;
+                                eventsHandler.wifiPassed = (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED);
+                            }
+                        }
+                    } else {
+                        //if (event._name.equals("Doma"))
+                        //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiStateEnabled=false");
+                        if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                                (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
+                            // not use scanner data
+                            done = true;
+                            eventsHandler.wifiPassed = (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED);
+                        }
+                    }
+
+                    //if (event._name.equals("Doma"))
+                    //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
+
+                    if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                            (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
+                        //noinspection ConstantConditions
+                        if (!done) {
+                            if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
+                                //if (forRestartEvents)
+                                //    wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                                //else
+                                // not allowed for disabled scanning
+                                //    notAllowedWifi = true;
+                                eventsHandler.wifiPassed = false;
+                            } else {
+                                //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                                if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) {
+                                    if (forRestartEvents)
+                                        eventsHandler.wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                                    else
+                                        // not allowed for screen Off
+                                        eventsHandler.notAllowedWifi = true;
+                                } else {
+
+                                    eventsHandler.wifiPassed = false;
+
+                                    List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(eventsHandler.context);
+
+                                    //PPApplication.logE("----- EventsHandler.doHandleEvents","scanResults="+scanResults);
+
+                                    if (scanResults != null) {
+                                        /*if (PPApplication.logEnabled()) {
+                                            if (event._name.equals("Doma")) {
+                                                PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "scanResults != null");
+                                                PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "scanResults.size=" + scanResults.size());
+                                                //PPApplication.logE("----- EventsHandler.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
+                                            }
+                                        }*/
+
+                                        for (WifiSSIDData result : scanResults) {
+                                            /*if (PPApplication.logEnabled()) {
+                                                if (event._name.equals("Doma")) {
+                                                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "scanSSID=" + result.ssid);
+                                                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "scanBSSID=" + result.bssid);
+                                                }
+                                            }*/
+                                            String[] splits = _SSID.split("\\|");
+                                            boolean[] nearby = new boolean[splits.length];
+                                            int i = 0;
+                                            for (String _ssid : splits) {
+                                                nearby[i] = false;
+                                                switch (_ssid) {
+                                                    case EventPreferencesWifi.ALL_SSIDS_VALUE:
+                                                        //if (event._name.equals("Doma"))
+                                                        //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "all ssids");
+                                                        nearby[i] = true;
+                                                        break;
+                                                    case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
+                                                        //if (event._name.equals("Doma"))
+                                                        //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "configured ssids");
+                                                        for (WifiSSIDData data : wifiConfigurationList) {
+                                                            if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
+                                                                /*if (PPApplication.logEnabled()) {
+                                                                    if (event._name.equals("Doma")) {
+                                                                        PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "configured SSID=" + data.ssid.replace("\"", ""));
+                                                                        PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifi found");
+                                                                    }
+                                                                }*/
+                                                                nearby[i] = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        break;
+                                                    default:
+                                                        if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
+                                                            /*if (PPApplication.logEnabled()) {
+                                                                if (event._name.equals("Doma")) {
+                                                                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "event SSID=" + event._eventPreferencesWifi._SSID);
+                                                                    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifi found");
+                                                                }
+                                                            }*/
+                                                            nearby[i] = true;
+                                                        }
+                                                        break;
+                                                }
+                                                i++;
+                                            }
+
+                                            done = false;
+                                            if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY) {
+                                                eventsHandler.wifiPassed = true;
+                                                for (boolean inF : nearby) {
+                                                    if (inF) {
+                                                        done = true;
+                                                        eventsHandler.wifiPassed = false;
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                eventsHandler.wifiPassed = false;
+                                                for (boolean inF : nearby) {
+                                                    if (inF) {
+                                                        done = true;
+                                                        eventsHandler.wifiPassed = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            if (done)
+                                                break;
+                                        }
+                                        //if (event._name.equals("Doma"))
+                                        //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiPassed - in front =" + wifiPassed);
+
+                                        if (!done) {
+                                            if (scanResults.size() == 0) {
+                                                //if (event._name.equals("Doma"))
+                                                //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "scanResult is empty");
+
+                                                if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
+                                                    eventsHandler.wifiPassed = true;
+
+                                                //if (event._name.equals("Doma"))
+                                                //    PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiPassed - in front - for empty scanResult =" + wifiPassed);
+                                            }
+                                        }
+
+                                    } /*else
+                                    if (event._name.equals("Doma"))
+                                        PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "scanResults == null");*/
+                                }
+                            }
+                        }
+                    }
+                }
+
+                /*if (PPApplication.logEnabled()) {
+                    if (event._name.equals("Doma")) {
+                        PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "------- wifiPassed=" + wifiPassed);
+                        PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "------- notAllowedWifi=" + notAllowedWifi);
+                    }
+                }*/
+
+                if (!eventsHandler.notAllowedWifi) {
+                    if (eventsHandler.wifiPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedWifi = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - event._name="+event._name);
+            //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - old pass="+oldSensorPassed);
+            //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - new pass="+newSensorPassed);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "wifi - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_WIFI);
+            }
+        }
+    }
+
 }

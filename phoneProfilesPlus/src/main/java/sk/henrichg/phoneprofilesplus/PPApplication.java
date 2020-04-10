@@ -109,7 +109,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|PPApplication.getServicesList"
+                                                //+"|PPApplication.getServicesList"
 
                                                 //+"|[ACTIVATOR]"
                                                 //+"|ActivateProfileHelper.setGPS"
@@ -432,7 +432,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|SMSEventEndBroadcastReceiver.onReceive"
                                                 //+"|[SMS sensor]"
 
-                                                + "|[RJS] PhoneProfilesService.startPhoneStateScanner"
+                                                //+ "|[RJS] PhoneProfilesService.startPhoneStateScanner"
                                                 //+ "|PhoneStateScanner"
                                                 //+"|MobileCellsPreference"
                                                 //+"|MobileCellsPreference.refreshListView"
@@ -443,9 +443,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PhoneStateScanner.stopAutoRegistration"
                                                 //+"|PhoneStateScanner.getAllCellInfo"
                                                 //+"|PhoneStateScanner.getCellLocation"
-                                                +"|PhoneStateScanner.doAutoRegistration"
+                                                //+"|PhoneStateScanner.doAutoRegistration"
                                                 //+"|MobileCellsRegistrationDialogPreference.startRegistration"
-                                                +"|MobileCellsRegistrationService"
+                                                //+"|MobileCellsRegistrationService"
                                                 //+"|NotUsedMobileCellsNotificationDeletedReceiver.onReceive"
 
                                                 //+"|PermissionsNotificationDeletedReceiver.onReceive"

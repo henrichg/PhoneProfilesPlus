@@ -46,8 +46,8 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategoryRoot";
 
     static final int CALL_EVENT_RINGING = 0;
-    static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
-    static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
+    private static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
+    private static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
     static final int CALL_EVENT_MISSED_CALL = 3;
     static final int CALL_EVENT_INCOMING_CALL_ENDED = 4;
     static final int CALL_EVENT_OUTGOING_CALL_ENDED = 5;
@@ -57,14 +57,14 @@ class EventPreferencesCall extends EventPreferences {
     static final int CONTACT_LIST_TYPE_NOT_USE = 2;
 
     static final int PHONE_CALL_EVENT_UNDEFINED = 0;
-    static final int PHONE_CALL_EVENT_INCOMING_CALL_RINGING = 1;
+    private static final int PHONE_CALL_EVENT_INCOMING_CALL_RINGING = 1;
     //static final int PHONE_CALL_EVENT_OUTGOING_CALL_STARTED = 2;
-    static final int PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED = 3;
-    static final int PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
-    static final int PHONE_CALL_EVENT_INCOMING_CALL_ENDED = 5;
-    static final int PHONE_CALL_EVENT_OUTGOING_CALL_ENDED = 6;
-    static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
-    static final int PHONE_CALL_EVENT_SERVICE_UNBIND = 8;
+    private static final int PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED = 3;
+    private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
+    private static final int PHONE_CALL_EVENT_INCOMING_CALL_ENDED = 5;
+    private static final int PHONE_CALL_EVENT_OUTGOING_CALL_ENDED = 6;
+    private static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
+    private static final int PHONE_CALL_EVENT_SERVICE_UNBIND = 8;
 
     private static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
     private static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
@@ -90,8 +90,7 @@ class EventPreferencesCall extends EventPreferences {
         this._startTime = 0;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent) {
+    void copyPreferences(Event fromEvent) {
         this._enabled = fromEvent._eventPreferencesCall._enabled;
         this._callEvent = fromEvent._eventPreferencesCall._callEvent;
         this._contacts = fromEvent._eventPreferencesCall._contacts;
@@ -104,8 +103,7 @@ class EventPreferencesCall extends EventPreferences {
         this._startTime = 0;
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences) {
+    void loadSharedPreferences(SharedPreferences preferences) {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_CALL_ENABLED, _enabled);
         editor.putString(PREF_EVENT_CALL_EVENT, String.valueOf(this._callEvent));
@@ -117,8 +115,7 @@ class EventPreferencesCall extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences) {
+    void saveSharedPreferences(SharedPreferences preferences) {
         this._enabled = preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
         this._callEvent = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_EVENT, "0"));
         this._contacts = preferences.getString(PREF_EVENT_CALL_CONTACTS, "");
@@ -128,8 +125,7 @@ class EventPreferencesCall extends EventPreferences {
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_DURATION, "5"));
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context) {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -188,8 +184,7 @@ class EventPreferencesCall extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context) {
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
         if (key.equals(PREF_EVENT_CALL_ENABLED)) {
@@ -292,8 +287,7 @@ class EventPreferencesCall extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.equals(PREF_EVENT_CALL_ENABLED) ||
                 key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
@@ -309,8 +303,7 @@ class EventPreferencesCall extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
         setSummary(prefMng, PREF_EVENT_CALL_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_EVENT, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_CONTACT_LIST_TYPE, preferences, context);
@@ -322,8 +315,7 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCall tmp = new EventPreferencesCall(this._event, this._enabled, this._callEvent, this._contacts, this._contactGroups,
@@ -349,7 +341,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context) {
+    boolean isRunnable(Context context) {
 
         boolean runnable = super.isRunnable(context);
 
@@ -360,7 +352,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public int isAccessibilityServiceEnabled(Context context)
+    int isAccessibilityServiceEnabled(Context context)
     {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
@@ -373,7 +365,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean accessibilityEnabled =
                 PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
 
@@ -387,7 +379,7 @@ class EventPreferencesCall extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    long computeAlarm() {
+    private long computeAlarm() {
         //PPApplication.logE("EventPreferencesCall.computeAlarm", "xxx");
 
         Calendar calEndTime = Calendar.getInstance();
@@ -405,7 +397,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context) {
+    void setSystemEventForStart(Context context) {
         // set alarm for state PAUSE
 
         // this alarm generates broadcast, that will change state into RUNNING;
@@ -417,7 +409,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context) {
+    void setSystemEventForPause(Context context) {
         // set alarm for state RUNNING
 
         // this alarm generates broadcast, that will change state into PAUSE;
@@ -437,7 +429,7 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context) {
+    void removeSystemEvent(Context context) {
         removeAlarm(context);
 
         //PPApplication.logE("EventPreferencesCall.removeSystemEvent", "xxx");
@@ -812,6 +804,187 @@ class EventPreferencesCall extends EventPreferences {
             editor.putString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
             editor.apply();
             ApplicationPreferences.prefEventCallPhoneNumber = phoneNumber;
+        }
+    }
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventCallContacts(context, event, null)*//* &&
+                  this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
+                int callEventType = ApplicationPreferences.prefEventCallEventType;
+                String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
+
+                /*if (PPApplication.logEnabled()) {
+                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "callEventType=" + callEventType);
+                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "phoneNumber=" + phoneNumber);
+                }*/
+
+                boolean phoneNumberFound = false;
+
+                if (callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED) {
+                    if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
+                        eventsHandler.callPassed = false;
+                    else
+                        phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, this*/);
+
+                    //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "phoneNumberFound=" + phoneNumberFound);
+
+                    if (phoneNumberFound) {
+                        if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
+                            //noinspection StatementWithEmptyBody
+                            if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||
+                                    ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                                ;//eventStart = eventStart && true;
+                            else
+                                eventsHandler.callPassed = false;
+                        } else if (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) {
+                            //noinspection StatementWithEmptyBody
+                            if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)
+                                ;//eventStart = eventStart && true;
+                            else
+                                eventsHandler.callPassed = false;
+                        } else if (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED) {
+                            //noinspection StatementWithEmptyBody
+                            if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED)
+                                ;//eventStart = eventStart && true;
+                            else
+                                eventsHandler.callPassed = false;
+                        } else
+                        if ((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                            if (_startTime > 0) {
+                                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                long startTime = _startTime - gmtOffset;
+
+                                /*if (PPApplication.logEnabled()) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                    String alarmTimeS = sdf.format(startTime);
+                                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                                }*/
+
+                                // compute end datetime
+                                long endAlarmTime = computeAlarm();
+                                /*if (PPApplication.logEnabled()) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                    String alarmTimeS = sdf.format(endAlarmTime);
+                                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                                }*/
+
+                                Calendar now = Calendar.getInstance();
+                                long nowAlarmTime = now.getTimeInMillis();
+                                /*if (PPApplication.logEnabled()) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                    String alarmTimeS = sdf.format(nowAlarmTime);
+                                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                                }*/
+
+                                if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                                    //noinspection StatementWithEmptyBody
+                                    if (((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) && (_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
+                                            ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                                            ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)))
+                                        ;//eventStart = eventStart && true;
+                                    else
+                                        eventsHandler.callPassed = false;
+                                } else if (!_permanentRun) {
+                                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
+                                        eventsHandler.callPassed = false;
+                                    else
+                                        eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                                } else {
+                                    eventsHandler.callPassed = nowAlarmTime >= startTime;
+                                }
+                            } else
+                                eventsHandler.callPassed = false;
+                        }
+
+                        //if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        //        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                        //    //callPassed = true;
+                        //    //eventStart = eventStart && false;
+                        //    callPassed = false;
+                        //}
+                    } else
+                        eventsHandler.callPassed = false;
+
+                    //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "callPassed=" + callPassed);
+
+                    if (!eventsHandler.callPassed) {
+                        //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=0");
+                        _startTime = 0;
+                        DatabaseHandler.getInstance(eventsHandler.context).updateCallStartTime(_event);
+                    }
+                } else {
+                    if ((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                            (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                            (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                        if (_startTime > 0) {
+                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                            long startTime = _startTime - gmtOffset;
+
+                            /*if (PPApplication.logEnabled()) {
+                                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                String alarmTimeS = sdf.format(startTime);
+                                PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                            }*/
+
+                            // compute end datetime
+                            long endAlarmTime = computeAlarm();
+                            /*if (PPApplication.logEnabled()) {
+                                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                String alarmTimeS = sdf.format(endAlarmTime);
+                                PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                            }*/
+
+                            Calendar now = Calendar.getInstance();
+                            long nowAlarmTime = now.getTimeInMillis();
+                            /*if (PPApplication.logEnabled()) {
+                                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                String alarmTimeS = sdf.format(nowAlarmTime);
+                                PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                            }*/
+
+                            if (!_permanentRun) {
+                                if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
+                                    eventsHandler.callPassed = false;
+                                else
+                                    eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                            } else {
+                                eventsHandler.callPassed = nowAlarmTime >= startTime;
+                            }
+                        }
+                        else
+                            eventsHandler.callPassed = false;
+
+                        if (!eventsHandler.callPassed) {
+                            //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=0");
+                            _startTime = 0;
+                            DatabaseHandler.getInstance(eventsHandler.context).updateCallStartTime(_event);
+                        }
+                    }
+                    else
+                        eventsHandler.notAllowedCall = true;
+                }
+
+                if (!eventsHandler.notAllowedCall) {
+                    if (eventsHandler.callPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            }
+            else
+                eventsHandler.notAllowedCall = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "call - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_CALL);
+            }
         }
     }
 

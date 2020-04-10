@@ -79,8 +79,7 @@ class EventPreferencesTime extends EventPreferences {
         //this._useEndTime = useEndTime;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesTime._enabled;
         this._sunday = fromEvent._eventPreferencesTime._sunday;
@@ -97,8 +96,7 @@ class EventPreferencesTime extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesTime.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_TIME_ENABLED, _enabled);
@@ -119,8 +117,7 @@ class EventPreferencesTime extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
 
@@ -165,8 +162,7 @@ class EventPreferencesTime extends EventPreferences {
         //this._useEndTime = preferences.getBoolean(PREF_EVENT_TIME_USE_END_TIME, false);
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -353,8 +349,7 @@ class EventPreferencesTime extends EventPreferences {
         return resDayOfWeek;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -416,8 +411,7 @@ class EventPreferencesTime extends EventPreferences {
         }*/
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_TIME_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
@@ -431,8 +425,7 @@ class EventPreferencesTime extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_TIME_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_TIME_DAYS, preferences, context);
@@ -440,8 +433,7 @@ class EventPreferencesTime extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wednesday,
@@ -467,7 +459,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -485,7 +477,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
@@ -1059,7 +1051,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -1086,7 +1078,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -1113,7 +1105,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
         // remove alarms for state STOP
 
@@ -1348,6 +1340,101 @@ class EventPreferencesTime extends EventPreferences {
                 //    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
             }
         }
+    }
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)*/) {
+                /*boolean testEvent = (event._name != null) && event._name.equals("Plugged In Nighttime");
+                if (testEvent) {
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "------- event._id=" + event._id);
+                        PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "------- event._name=" + event._name);
+                    }
+                }*/
+
+                // compute start datetime
+                long startAlarmTime;
+                long endAlarmTime;
+
+                startAlarmTime = computeAlarm(true, eventsHandler.context);
+                endAlarmTime = computeAlarm(false, eventsHandler.context);
+
+                //if (startAlarmTime > 0) {
+                //String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
+                //        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
+                //if (testEvent)
+                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "startAlarmTime=" + alarmTimeS);
+                //}
+                //else
+                //if (testEvent)
+                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "startAlarmTime=not alarm computed");
+                //if (endAlarmTime > 0) {
+                //String alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
+                //        " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
+                //if (testEvent)
+                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                //}
+                //else
+                //if (testEvent)
+                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "endAlarmTime=not alarm computed");
+
+                Calendar now = Calendar.getInstance();
+                long nowAlarmTime = now.getTimeInMillis();
+                //String alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
+                //        " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
+                //if (testEvent)
+                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+
+                /*boolean[] daysOfWeek =  new boolean[8];
+                daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
+                daysOfWeek[Calendar.MONDAY] = event._eventPreferencesTime._monday;
+                daysOfWeek[Calendar.TUESDAY] = event._eventPreferencesTime._tuesday;
+                daysOfWeek[Calendar.WEDNESDAY] = event._eventPreferencesTime._wednesday;
+                daysOfWeek[Calendar.THURSDAY] = event._eventPreferencesTime._thursday;
+                daysOfWeek[Calendar.FRIDAY] = event._eventPreferencesTime._friday;
+                daysOfWeek[Calendar.SATURDAY] = event._eventPreferencesTime._saturday;*/
+
+                Calendar calStartTime = Calendar.getInstance();
+                calStartTime.setTimeInMillis(startAlarmTime);
+                //int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
+                //if (daysOfWeek[startDayOfWeek])
+                //{
+                // startTime of week is selected
+                //if (testEvent)
+                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents","startTime of week is selected");
+                if ((startAlarmTime > 0) && (endAlarmTime > 0))
+                    eventsHandler.timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+                else
+                    eventsHandler.timePassed = false;
+                /*}
+                else {
+                    PPApplication.logE("[TIME] EventsHandler.doHandleEvents","startTime of week is NOT selected");
+                    timePassed = false;
+                }*/
+
+                //if (testEvent)
+                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "timePassed=" + timePassed);
+
+                if (!eventsHandler.notAllowedTime) {
+                    if (eventsHandler.timePassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedTime = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "time - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_TIME);
+            }
+        }
+
     }
 
 }

@@ -42,8 +42,7 @@ class EventPreferencesApplication extends EventPreferences {
         //this._startTime = 0;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesApplication._enabled;
         this._applications = fromEvent._eventPreferencesApplication._applications;
@@ -53,8 +52,7 @@ class EventPreferencesApplication extends EventPreferences {
         //this._startTime = 0;
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Editor editor = preferences.edit();
@@ -65,8 +63,7 @@ class EventPreferencesApplication extends EventPreferences {
         //}
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
@@ -75,8 +72,7 @@ class EventPreferencesApplication extends EventPreferences {
         //}
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -137,8 +133,7 @@ class EventPreferencesApplication extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key/*, String value*/, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -179,30 +174,28 @@ class EventPreferencesApplication extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key,
+                    @SuppressWarnings("unused") SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_APPLICATION_ENABLED)) {
-            boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            //boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, /*value ? "true" : "false",*/ context);
         }
         if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS) ||
             key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, /*preferences.getString(key, ""),*/ context);
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_APPLICATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_APPLICATION_APPLICATIONS, preferences, context);
         setSummary(prefMng, PREF_EVENT_APPLICATION_INSTALL_EXTENDER, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications);
@@ -228,7 +221,7 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
         boolean runnable = super.isRunnable(context);
 
@@ -238,7 +231,7 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    public int isAccessibilityServiceEnabled(Context context)
+    int isAccessibilityServiceEnabled(Context context)
     {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
@@ -251,7 +244,7 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean accessibilityEnabled =
                 PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
         ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
@@ -272,18 +265,60 @@ class EventPreferencesApplication extends EventPreferences {
 
     /*
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
     }
     */
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                eventsHandler.applicationPassed = false;
+
+                if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0)) {
+                    String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
+
+                    if (!foregroundApplication.isEmpty()) {
+                        String[] splits = _applications.split("\\|");
+                        for (String split : splits) {
+                            String packageName = Application.getPackageName(split);
+
+                            if (foregroundApplication.equals(packageName)) {
+                                eventsHandler.applicationPassed = true;
+                                break;
+                            }
+                        }
+                    } else
+                        eventsHandler.notAllowedApplication = true;
+                } else
+                    eventsHandler.notAllowedApplication = true;
+
+                if (!eventsHandler.notAllowedApplication) {
+                    if (eventsHandler.applicationPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedApplication = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "application - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_APPLICATION);
+            }
+        }
+    }
+
 }

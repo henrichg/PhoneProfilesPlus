@@ -40,8 +40,7 @@ class EventPreferencesLocation extends EventPreferences {
         this._whenOutside = _whenOutside;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesLocation._enabled;
         this._geofences = fromEvent._eventPreferencesLocation._geofences;
@@ -49,8 +48,7 @@ class EventPreferencesLocation extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesLocation.getSensorPassed());
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Editor editor = preferences.edit();
@@ -61,8 +59,7 @@ class EventPreferencesLocation extends EventPreferences {
         //}
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false);
@@ -71,8 +68,7 @@ class EventPreferencesLocation extends EventPreferences {
         //}
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -126,8 +122,7 @@ class EventPreferencesLocation extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key/*, String value*/, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -213,24 +208,23 @@ class EventPreferencesLocation extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key,
+                    @SuppressWarnings("unused") SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_LOCATION_ENABLED) ||
             key.equals(PREF_EVENT_LOCATION_WHEN_OUTSIDE)) {
-            boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            //boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, /*value ? "true" : "false",*/ context);
         }
         if (key.equals(PREF_EVENT_LOCATION_GEOFENCES) ||
             key.equals(PREF_EVENT_LOCATION_APP_SETTINGS) ||
             key.equals(PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, /*preferences.getString(key, ""),*/ context);
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_LOCATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
@@ -239,8 +233,7 @@ class EventPreferencesLocation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_LOCATION_WHEN_OUTSIDE, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofences, this._whenOutside);
@@ -265,7 +258,7 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -276,7 +269,7 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    public void checkPreferences(PreferenceManager prefMng, Context context) {
+    void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext())/* &&
                                 ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())*/;
         Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
@@ -292,17 +285,17 @@ class EventPreferencesLocation extends EventPreferences {
 
     /*
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
     }
     */
@@ -312,6 +305,109 @@ class EventPreferencesLocation extends EventPreferences {
         if (name.isEmpty())
             name = context.getString(R.string.event_preferences_locations_location_not_selected);
         return name;
+    }
+
+    void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& Permissions.checkEventLocation(context, event, null)*/) {
+                if (!ApplicationPreferences.applicationEventLocationEnableScanning) {
+                    //if (forRestartEvents)
+                    //    locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                    //else {
+                    // not allowed for disabled location scanner
+                    //    PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "ignore for disabled scanner");
+                    //    notAllowedLocation = true;
+                    //}
+                    eventsHandler.locationPassed = false;
+                } else {
+                    //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn) {
+                        if (forRestartEvents)
+                            eventsHandler.locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
+                        else {
+                            // not allowed for screen Off
+                            //PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "ignore for screen off");
+                            eventsHandler.notAllowedLocation = true;
+                        }
+                    } else {
+                        synchronized (PPApplication.geofenceScannerMutex) {
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
+                                    PhoneProfilesService.getInstance().getGeofencesScanner().mTransitionsUpdated) {
+
+                                /*if (PPApplication.logEnabled()) {
+                                    PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "--------");
+                                    PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
+                                }*/
+
+                                String[] splits = _geofences.split("\\|");
+                                boolean[] passed = new boolean[splits.length];
+
+                                int i = 0;
+                                for (String _geofence : splits) {
+                                    passed[i] = false;
+                                    if (!_geofence.isEmpty()) {
+                                        //PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
+
+                                        int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
+                                        /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                                            PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "transitionType=GEOFENCE_TRANSITION_ENTER");
+                                        else
+                                            PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
+
+                                        if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
+                                            passed[i] = true;
+                                        }
+                                    }
+                                    ++i;
+                                }
+
+                                if (_whenOutside) {
+                                    // all locations must not be passed
+                                    eventsHandler.locationPassed = true;
+                                    for (boolean pass : passed) {
+                                        if (pass) {
+                                            eventsHandler.locationPassed = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else {
+                                    // one location must be passed
+                                    eventsHandler.locationPassed = false;
+                                    for (boolean pass : passed) {
+                                        if (pass) {
+                                            eventsHandler.locationPassed = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                //PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "locationPassed=" + locationPassed);
+
+                            } else {
+                                eventsHandler.notAllowedLocation = true;
+                            }
+                        }
+                    }
+                }
+
+                if (!eventsHandler.notAllowedLocation) {
+                    if (eventsHandler.locationPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedLocation = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "location - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_LOCATION);
+            }
+        }
     }
 
 }

@@ -88,8 +88,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._eventFound = false;
     }
 
-    @Override
-    public void copyPreferences(Event fromEvent)
+    void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesCalendar._enabled;
         this._calendars = fromEvent._eventPreferencesCalendar._calendars;
@@ -106,8 +105,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._eventFound = false;
     }
 
-    @Override
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_CALENDAR_ENABLED, _enabled);
@@ -121,8 +119,7 @@ class EventPreferencesCalendar extends EventPreferences {
         editor.apply();
     }
 
-    @Override
-    public void saveSharedPreferences(SharedPreferences preferences)
+    void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_CALENDAR_ENABLED, false);
         this._calendars = preferences.getString(PREF_EVENT_CALENDAR_CALENDARS, "");
@@ -138,8 +135,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._eventFound = false;
     }
 
-    @Override
-    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -210,8 +206,7 @@ class EventPreferencesCalendar extends EventPreferences {
         return descr;
     }
 
-    @Override
-    void setSummary(PreferenceManager prefMng, String key, String value, Context context)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -289,8 +284,7 @@ class EventPreferencesCalendar extends EventPreferences {
         }
     }
 
-    @Override
-    public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
+    void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_CALENDAR_ENABLED) ||
             key.equals(PREF_EVENT_CALENDAR_ALL_EVENTS) ||
@@ -310,8 +304,7 @@ class EventPreferencesCalendar extends EventPreferences {
         }
     }
 
-    @Override
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_CALENDAR_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_CALENDARS, preferences, context);
@@ -323,8 +316,7 @@ class EventPreferencesCalendar extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, preferences, context);
     }
 
-    @Override
-    public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
+    void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._allEvents,
@@ -350,7 +342,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public boolean isRunnable(Context context)
+    boolean isRunnable(Context context)
     {
 
         boolean runnable = super.isRunnable(context);
@@ -361,7 +353,7 @@ class EventPreferencesCalendar extends EventPreferences {
         return runnable;
     }
 
-    long computeAlarm(boolean startEvent)
+    private long computeAlarm(boolean startEvent)
     {
         //PPApplication.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
 
@@ -390,7 +382,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForStart(Context context)
+    void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -409,7 +401,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public void setSystemEventForPause(Context context)
+    void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -428,7 +420,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public void removeSystemEvent(Context context)
+    void removeSystemEvent(Context context)
     {
         // remove alarms for state STOP
 
@@ -881,5 +873,55 @@ class EventPreferencesCalendar extends EventPreferences {
         if (_event.getStatus() == Event.ESTATUS_PAUSE)
             _event._eventPreferencesCalendar.setSystemEventForStart(dataWrapper.context);
     }*/
+
+    void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
+        if (_enabled) {
+            int oldSensorPassed = getSensorPassed();
+            if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
+                /*&& (Permissions.checkEventCalendar(context, event, null))*/) {
+                // compute start datetime
+                long startAlarmTime;
+                long endAlarmTime;
+
+                if (_eventFound) {
+                    startAlarmTime = computeAlarm(true);
+
+                    //String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
+                    //        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
+                    //PPApplication.logE("EventsHandler.doHandleEvents", "startAlarmTime=" + alarmTimeS);
+
+                    endAlarmTime = computeAlarm(false);
+
+                    //alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
+                    //        " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
+                    //PPApplication.logE("EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+
+                    Calendar now = Calendar.getInstance();
+                    long nowAlarmTime = now.getTimeInMillis();
+                    //alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
+                    //        " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
+                    //PPApplication.logE("EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+
+                    eventsHandler.calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+                } else
+                    eventsHandler.calendarPassed = false;
+
+                if (!eventsHandler.notAllowedCalendar) {
+                    if (eventsHandler.calendarPassed)
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                }
+            } else
+                eventsHandler.notAllowedCalendar = true;
+            int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
+            if (oldSensorPassed != newSensorPassed) {
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "calendar - sensor pass changed");
+                setSensorPassed(newSensorPassed);
+                DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_CALENDAR);
+            }
+        }
+    }
 
 }
