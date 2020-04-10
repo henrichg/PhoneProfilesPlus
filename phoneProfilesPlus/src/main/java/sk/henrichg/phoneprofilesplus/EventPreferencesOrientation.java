@@ -841,28 +841,28 @@ class EventPreferencesOrientation extends EventPreferences {
                                         int max = Integer.parseInt(_lightMax);
                                         lLightPassed = (light >= min) && (light <= max);
                                         /*if (PPApplication.logEnabled()) {
-                                            PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "light=" + light);
-                                            PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "min=" + min);
-                                            PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "max=" + max);
+                                            PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "light=" + light);
+                                            PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "min=" + min);
+                                            PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "max=" + max);
                                         }*/
                                     }
                                 }
 
                                 /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredDisplay=" + configuredDisplay);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredSide=" + configuredSide);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredDistance=" + configuredDistance);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "configuredLight=" + configuredLight);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredDisplay=" + configuredDisplay);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredSide=" + configuredSide);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredDistance=" + configuredDistance);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "configuredLight=" + configuredLight);
 
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasAccelerometer=" + hasAccelerometer);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasMagneticField=" + hasMagneticField);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasProximity=" + hasProximity);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "hasLight=" + hasLight);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasAccelerometer=" + hasAccelerometer);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasMagneticField=" + hasMagneticField);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasProximity=" + hasProximity);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "hasLight=" + hasLight);
 
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lDisplayPassed=" + lDisplayPassed);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lSidePassed=" + lSidePassed);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lDistancePassed=" + lDistancePassed);
-                                    PPApplication.logE("[OriSensor] EventsHandler.doHandleEvents", "lLightPassed=" + lLightPassed);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lDisplayPassed=" + lDisplayPassed);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lSidePassed=" + lSidePassed);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lDistancePassed=" + lDistancePassed);
+                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lLightPassed=" + lLightPassed);
                                 }*/
 
                                 if (configuredDisplay || configuredSide || configuredDistance || configuredLight) {
@@ -897,7 +897,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 eventsHandler.notAllowedOrientation = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "orientation - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "orientation - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_ORIENTATION);
             }

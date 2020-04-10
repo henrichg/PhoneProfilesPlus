@@ -232,7 +232,7 @@ class EventPreferencesPeripherals extends EventPreferences {
                 eventsHandler.notAllowedPeripheral = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "peripherals - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesPeripherals.doHandleEvent", "peripherals - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_PERIPHERAL);
             }

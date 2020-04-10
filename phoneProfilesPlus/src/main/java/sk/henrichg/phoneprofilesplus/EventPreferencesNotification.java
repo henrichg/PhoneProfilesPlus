@@ -1337,7 +1337,7 @@ class EventPreferencesNotification extends EventPreferences {
             if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
 
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "notificationPassed=" + notificationPassed);
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesNotification.doHandleEvent", "notificationPassed=" + notificationPassed);
 
                 if (!eventsHandler.notAllowedNotification) {
                     if (eventsHandler.notificationPassed)
@@ -1349,7 +1349,7 @@ class EventPreferencesNotification extends EventPreferences {
                 eventsHandler.notAllowedNotification = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "notification - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesNotification.doHandleEvent", "notification - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_NOTIFICATION);
             }

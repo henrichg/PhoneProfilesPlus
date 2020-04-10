@@ -370,10 +370,10 @@ class EventPreferencesDeviceBoot extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
-            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "xxx");
+            //PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "xxx");
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "allowed");
+                //PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "allowed");
 
                 // compute start time
 
@@ -384,7 +384,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                        PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "startTime=" + alarmTimeS);
                     }*/
 
                     // compute end datetime
@@ -392,7 +392,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "endAlarmTime=" + alarmTimeS);
                     }*/
 
                     Calendar now = Calendar.getInstance();
@@ -400,7 +400,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                     }*/
 
                     if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_DEVICE_BOOT))
@@ -430,12 +430,12 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             } else
                 eventsHandler.notAllowedDeviceBoot = true;
 
-            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "deviceBootPassed=" + deviceBootPassed);
-            //PPApplication.logE("[BOOT] EventsHandler.doHandleEvents", "notAllowedDeviceBoot=" + notAllowedDeviceBoot);
+            //PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "deviceBootPassed=" + deviceBootPassed);
+            //PPApplication.logE("[BOOT] EventPreferencesDeviceBoot.doHandleEvent", "notAllowedDeviceBoot=" + notAllowedDeviceBoot);
 
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "device boot - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesDeviceBoot.doHandleEvent", "device boot - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_DEVICE_BOOT);
             }

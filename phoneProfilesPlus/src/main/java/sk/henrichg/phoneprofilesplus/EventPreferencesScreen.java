@@ -232,7 +232,7 @@ class EventPreferencesScreen extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                //PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "xxx");
+                //PPApplication.logE("EventPreferencesScreen.doHandleEvent", "xxx");
 
                 //boolean isScreenOn;
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -246,8 +246,8 @@ class EventPreferencesScreen extends EventPreferences {
                         keyguardShowing = kgMgr.isKeyguardLocked();
                 }
                 /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "PPApplication.isScreenOn=" + PPApplication.isScreenOn);
-                    PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "keyguardShowing=" + keyguardShowing);
+                    PPApplication.logE("EventPreferencesScreen.doHandleEvent", "PPApplication.isScreenOn=" + PPApplication.isScreenOn);
+                    PPApplication.logE("EventPreferencesScreen.doHandleEvent", "keyguardShowing=" + keyguardShowing);
                 }*/
 
                 if (!eventsHandler.notAllowedScreen) {
@@ -277,7 +277,7 @@ class EventPreferencesScreen extends EventPreferences {
                             eventsHandler.screenPassed = !PPApplication.isScreenOn;
                     }
 
-                    //PPApplication.logE("[Screen] EventsHandler.doHandleEvents", "screenPassed="+screenPassed);
+                    //PPApplication.logE("EventPreferencesScreen.doHandleEvent", "screenPassed="+screenPassed);
                 }
 
                 if (!eventsHandler.notAllowedScreen) {
@@ -290,7 +290,7 @@ class EventPreferencesScreen extends EventPreferences {
                 eventsHandler.notAllowedScreen = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "screen - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesScreen.doHandleEvent", "screen - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_SCREEN);
             }

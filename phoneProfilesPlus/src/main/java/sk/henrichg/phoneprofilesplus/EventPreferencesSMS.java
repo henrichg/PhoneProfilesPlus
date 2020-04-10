@@ -73,7 +73,7 @@ class EventPreferencesSMS extends EventPreferences {
 
         this._startTime = 0;
         //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
-        //    PPApplication.logE("[SMS sensor] EventPreferencesSMS.EventPreferencesSMS", "startTime="+this._startTime);
+        //    PPApplication.logE("EventPreferencesSMS.EventPreferencesSMS", "startTime="+this._startTime);
     }
 
     void copyPreferences(Event fromEvent)
@@ -88,7 +88,7 @@ class EventPreferencesSMS extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesSMS.getSensorPassed());
 
         this._startTime = 0;
-        //PPApplication.logE("[SMS sensor] EventPreferencesSMS.copyPreferences", "startTime="+this._startTime);
+        //PPApplication.logE("EventPreferencesSMS.copyPreferences", "startTime="+this._startTime);
     }
 
     void loadSharedPreferences(SharedPreferences preferences)
@@ -665,7 +665,7 @@ class EventPreferencesSMS extends EventPreferences {
                 else
                     this._startTime = 0;
                 //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
-                //    PPApplication.logE("[SMS sensor] EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
+                //    PPApplication.logE("EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
 
                 DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
 
@@ -676,7 +676,7 @@ class EventPreferencesSMS extends EventPreferences {
             } else {
                 this._startTime = 0;
                 //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
-                //    PPApplication.logE("[SMS sensor] EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
+                //    PPApplication.logE("EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
                 DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
             }
         }
@@ -692,7 +692,7 @@ class EventPreferencesSMS extends EventPreferences {
                 // compute start time
 
                 if (_startTime > 0) {
-                    //PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "startTime > 0");
+                    //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime > 0");
 
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     long startTime = _startTime - gmtOffset;
@@ -700,7 +700,7 @@ class EventPreferencesSMS extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                        PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime=" + alarmTimeS);
                     }*/
 
                     // compute end datetime
@@ -708,7 +708,7 @@ class EventPreferencesSMS extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("EventPreferencesSMS.doHandleEvent", "endAlarmTime=" + alarmTimeS);
                     }*/
 
                     Calendar now = Calendar.getInstance();
@@ -716,30 +716,30 @@ class EventPreferencesSMS extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("EventPreferencesSMS.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                     }*/
 
                     if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS))
                         eventsHandler.smsPassed = true;
                     else if (!_permanentRun) {
-                        //PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "sensorType=" + sensorType);
+                        //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "sensorType=" + sensorType);
                         if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS_EVENT_END))
                             eventsHandler.smsPassed = false;
                         else
                             eventsHandler.smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                        //PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "smsPassed=" + smsPassed);
+                        //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "smsPassed=" + smsPassed);
                     } else {
                         eventsHandler.smsPassed = nowAlarmTime >= startTime;
                     }
                 } else {
-                    //PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "startTime == 0");
+                    //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime == 0");
                     eventsHandler.smsPassed = false;
                 }
 
                 if (!eventsHandler.smsPassed) {
                     _startTime = 0;
                     //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
-                    //    PPApplication.logE("[SMS sensor] EventsHandler.doHandleEvents", "startTime="+event._eventPreferencesSMS._startTime);
+                    //    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime="+event._eventPreferencesSMS._startTime);
                     DatabaseHandler.getInstance(eventsHandler.context).updateSMSStartTime(_event);
                 }
 
@@ -753,7 +753,7 @@ class EventPreferencesSMS extends EventPreferences {
                 eventsHandler.notAllowedSms = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "sms - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesSMS.doHandleEvent", "sms - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_SMS);
             }

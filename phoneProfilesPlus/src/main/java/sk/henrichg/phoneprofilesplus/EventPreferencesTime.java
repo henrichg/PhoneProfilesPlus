@@ -1351,8 +1351,8 @@ class EventPreferencesTime extends EventPreferences {
                 /*boolean testEvent = (event._name != null) && event._name.equals("Plugged In Nighttime");
                 if (testEvent) {
                     if (PPApplication.logEnabled()) {
-                        PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "------- event._id=" + event._id);
-                        PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "------- event._name=" + event._name);
+                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._id=" + _event._id);
+                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._name=" + _event._name);
                     }
                 }*/
 
@@ -1367,27 +1367,27 @@ class EventPreferencesTime extends EventPreferences {
                 //String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                 //        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
                 //if (testEvent)
-                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "startAlarmTime=" + alarmTimeS);
+                //    PPApplication.logE("EventPreferencesTime.doHandleEvent", "startAlarmTime=" + alarmTimeS);
                 //}
                 //else
                 //if (testEvent)
-                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "startAlarmTime=not alarm computed");
+                //    PPApplication.logE("EventPreferencesTime.doHandleEvent", "startAlarmTime=not alarm computed");
                 //if (endAlarmTime > 0) {
                 //String alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                 //        " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
                 //if (testEvent)
-                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                //    PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=" + alarmTimeS);
                 //}
                 //else
                 //if (testEvent)
-                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "endAlarmTime=not alarm computed");
+                //    PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=not alarm computed");
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
                 //String alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
                 //        " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
                 //if (testEvent)
-                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                //    PPApplication.logE("EventPreferencesTime.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
 
                 /*boolean[] daysOfWeek =  new boolean[8];
                 daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
@@ -1405,19 +1405,19 @@ class EventPreferencesTime extends EventPreferences {
                 //{
                 // startTime of week is selected
                 //if (testEvent)
-                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents","startTime of week is selected");
+                //    PPApplication.logE("EventPreferencesTime.doHandleEvent","startTime of week is selected");
                 if ((startAlarmTime > 0) && (endAlarmTime > 0))
                     eventsHandler.timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
                 else
                     eventsHandler.timePassed = false;
                 /*}
                 else {
-                    PPApplication.logE("[TIME] EventsHandler.doHandleEvents","startTime of week is NOT selected");
+                    PPApplication.logE("EventPreferencesTime.doHandleEvent","startTime of week is NOT selected");
                     timePassed = false;
                 }*/
 
                 //if (testEvent)
-                //    PPApplication.logE("[TIME] EventsHandler.doHandleEvents", "timePassed=" + timePassed);
+                //    PPApplication.logE("EventPreferencesTime.doHandleEvent", "timePassed=" + eventsHandler.timePassed);
 
                 if (!eventsHandler.notAllowedTime) {
                     if (eventsHandler.timePassed)
@@ -1429,7 +1429,7 @@ class EventPreferencesTime extends EventPreferences {
                 eventsHandler.notAllowedTime = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "time - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesTime.doHandleEvent", "time - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_TIME);
             }

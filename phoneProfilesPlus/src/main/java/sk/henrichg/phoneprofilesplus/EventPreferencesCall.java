@@ -818,8 +818,8 @@ class EventPreferencesCall extends EventPreferences {
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
                 /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "callEventType=" + callEventType);
-                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "phoneNumber=" + phoneNumber);
+                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "callEventType=" + callEventType);
+                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumber=" + phoneNumber);
                 }*/
 
                 boolean phoneNumberFound = false;
@@ -830,7 +830,7 @@ class EventPreferencesCall extends EventPreferences {
                     else
                         phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, this*/);
 
-                    //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "phoneNumberFound=" + phoneNumberFound);
+                    //PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumberFound=" + phoneNumberFound);
 
                     if (phoneNumberFound) {
                         if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
@@ -863,7 +863,7 @@ class EventPreferencesCall extends EventPreferences {
                                 /*if (PPApplication.logEnabled()) {
                                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                     String alarmTimeS = sdf.format(startTime);
-                                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=" + alarmTimeS);
                                 }*/
 
                                 // compute end datetime
@@ -871,7 +871,7 @@ class EventPreferencesCall extends EventPreferences {
                                 /*if (PPApplication.logEnabled()) {
                                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                     String alarmTimeS = sdf.format(endAlarmTime);
-                                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "endAlarmTime=" + alarmTimeS);
                                 }*/
 
                                 Calendar now = Calendar.getInstance();
@@ -879,7 +879,7 @@ class EventPreferencesCall extends EventPreferences {
                                 /*if (PPApplication.logEnabled()) {
                                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                     String alarmTimeS = sdf.format(nowAlarmTime);
-                                    PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                                 }*/
 
                                 if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
@@ -911,10 +911,10 @@ class EventPreferencesCall extends EventPreferences {
                     } else
                         eventsHandler.callPassed = false;
 
-                    //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "callPassed=" + callPassed);
+                    //PPApplication.logE("EventPreferencesCall.doHandleEvent", "callPassed=" + callPassed);
 
                     if (!eventsHandler.callPassed) {
-                        //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=0");
+                        //PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=0");
                         _startTime = 0;
                         DatabaseHandler.getInstance(eventsHandler.context).updateCallStartTime(_event);
                     }
@@ -929,7 +929,7 @@ class EventPreferencesCall extends EventPreferences {
                             /*if (PPApplication.logEnabled()) {
                                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                 String alarmTimeS = sdf.format(startTime);
-                                PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                                PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=" + alarmTimeS);
                             }*/
 
                             // compute end datetime
@@ -937,7 +937,7 @@ class EventPreferencesCall extends EventPreferences {
                             /*if (PPApplication.logEnabled()) {
                                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                 String alarmTimeS = sdf.format(endAlarmTime);
-                                PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                                PPApplication.logE("EventPreferencesCall.doHandleEvent", "endAlarmTime=" + alarmTimeS);
                             }*/
 
                             Calendar now = Calendar.getInstance();
@@ -945,7 +945,7 @@ class EventPreferencesCall extends EventPreferences {
                             /*if (PPApplication.logEnabled()) {
                                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                 String alarmTimeS = sdf.format(nowAlarmTime);
-                                PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                                PPApplication.logE("EventPreferencesCall.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                             }*/
 
                             if (!_permanentRun) {
@@ -961,7 +961,7 @@ class EventPreferencesCall extends EventPreferences {
                             eventsHandler.callPassed = false;
 
                         if (!eventsHandler.callPassed) {
-                            //PPApplication.logE("[CALL] EventsHandler.doHandleEvents", "startTime=0");
+                            //PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=0");
                             _startTime = 0;
                             DatabaseHandler.getInstance(eventsHandler.context).updateCallStartTime(_event);
                         }
@@ -981,7 +981,7 @@ class EventPreferencesCall extends EventPreferences {
                 eventsHandler.notAllowedCall = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "call - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesCall.doHandleEvent", "call - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_CALL);
             }

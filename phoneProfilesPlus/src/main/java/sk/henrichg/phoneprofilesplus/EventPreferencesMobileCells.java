@@ -371,7 +371,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 eventsHandler.notAllowedMobileCell = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "mobile cells - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.doHandleEvent", "mobile cells - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_MOBILE_CELLS);
             }

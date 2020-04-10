@@ -318,7 +318,7 @@ class EventPreferencesLocation extends EventPreferences {
                     //    locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     //else {
                     // not allowed for disabled location scanner
-                    //    PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "ignore for disabled scanner");
+                    //    PPApplication.logE("EventPreferencesLocation.doHandleEvent", "ignore for disabled scanner");
                     //    notAllowedLocation = true;
                     //}
                     eventsHandler.locationPassed = false;
@@ -329,7 +329,7 @@ class EventPreferencesLocation extends EventPreferences {
                             eventsHandler.locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else {
                             // not allowed for screen Off
-                            //PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "ignore for screen off");
+                            //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "ignore for screen off");
                             eventsHandler.notAllowedLocation = true;
                         }
                     } else {
@@ -338,8 +338,8 @@ class EventPreferencesLocation extends EventPreferences {
                                     PhoneProfilesService.getInstance().getGeofencesScanner().mTransitionsUpdated) {
 
                                 /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "--------");
-                                    PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
+                                    PPApplication.logE("EventPreferencesLocation.doHandleEvent", "--------");
+                                    PPApplication.logE("EventPreferencesLocation.doHandleEvent", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
                                 }*/
 
                                 String[] splits = _geofences.split("\\|");
@@ -349,13 +349,13 @@ class EventPreferencesLocation extends EventPreferences {
                                 for (String _geofence : splits) {
                                     passed[i] = false;
                                     if (!_geofence.isEmpty()) {
-                                        //PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
+                                        //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
 
                                         int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
                                         /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
-                                            PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "transitionType=GEOFENCE_TRANSITION_ENTER");
+                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_ENTER");
                                         else
-                                            PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
+                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
 
                                         if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
                                             passed[i] = true;
@@ -384,7 +384,7 @@ class EventPreferencesLocation extends EventPreferences {
                                         }
                                     }
                                 }
-                                //PPApplication.logE("[GeoSensor] EventsHandler.doHandleEvents", "locationPassed=" + locationPassed);
+                                //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "locationPassed=" + locationPassed);
 
                             } else {
                                 eventsHandler.notAllowedLocation = true;
@@ -403,7 +403,7 @@ class EventPreferencesLocation extends EventPreferences {
                 eventsHandler.notAllowedLocation = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "location - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesLocation.doHandleEvent", "location - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_LOCATION);
             }

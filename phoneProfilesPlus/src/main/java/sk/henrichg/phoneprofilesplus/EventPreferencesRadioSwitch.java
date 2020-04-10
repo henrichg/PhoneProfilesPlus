@@ -376,7 +376,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (wifiManager != null) {
                             int wifiState = wifiManager.getWifiState();
                             boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-                            //PPApplication.logE("-###- EventsHandler.doHandleEvents", "wifiState=" + enabled);
+                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifiState=" + enabled);
                             tested = true;
                             if (_wifi == 1)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -403,7 +403,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
-                            //PPApplication.logE("-###- EventsHandler.doHandleEvents", "bluetoothState=" + enabled);
+                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetoothState=" + enabled);
                             tested = true;
                             if (_bluetooth == 1)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -418,7 +418,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_TELEPHONY)) {
 
                     boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context);
-                    //PPApplication.logE("-###- EventsHandler.doHandleEvents", "mobileDataState=" + enabled);
+                    //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataState=" + enabled);
                     tested = true;
                     if (_mobileData == 1)
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -437,7 +437,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     if (locationManager != null) {
                         enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                         //}
-                        //PPApplication.logE("-###- EventsHandler.doHandleEvents", "gpsState=" + enabled);
+                        //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "gpsState=" + enabled);
                         tested = true;
                         if (_gps == 1)
                             eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -454,7 +454,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(eventsHandler.context);
                     if (nfcAdapter != null) {
                         boolean enabled = nfcAdapter.isEnabled();
-                        //PPApplication.logE("-###- EventsHandler.doHandleEvents", "nfcState=" + enabled);
+                        //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "nfcState=" + enabled);
                         tested = true;
                         if (_nfc == 1)
                             eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -466,7 +466,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (_airplaneMode == 1 || _airplaneMode == 2) {
 
                     boolean enabled = ActivateProfileHelper.isAirplaneMode(eventsHandler.context);
-                    //PPApplication.logE("-###- EventsHandler.doHandleEvents", "airplaneModeState=" + enabled);
+                    //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "airplaneModeState=" + enabled);
                     tested = true;
                     if (_airplaneMode == 1)
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
@@ -486,7 +486,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 eventsHandler.notAllowedRadioSwitch = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "radio switch - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesRadioSwitch.doHandleEvent", "radio switch - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_RADIO_SWITCH);
             }

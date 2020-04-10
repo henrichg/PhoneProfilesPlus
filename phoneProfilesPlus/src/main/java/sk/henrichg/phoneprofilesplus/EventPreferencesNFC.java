@@ -472,7 +472,7 @@ class EventPreferencesNFC extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("EventsHandler.doHandleEvents", "startTime=" + alarmTimeS);
+                        PPApplication.logE("EventPreferencesNFC.doHandleEvent", "startTime=" + alarmTimeS);
                     }*/
 
                     // compute end datetime
@@ -480,7 +480,7 @@ class EventPreferencesNFC extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("EventPreferencesNFC.doHandleEvent", "endAlarmTime=" + alarmTimeS);
                     }*/
 
                     Calendar now = Calendar.getInstance();
@@ -488,7 +488,7 @@ class EventPreferencesNFC extends EventPreferences {
                     /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("EventPreferencesNFC.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                     }*/
 
                     if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_NFC_TAG))
@@ -519,7 +519,7 @@ class EventPreferencesNFC extends EventPreferences {
                 eventsHandler.notAllowedNfc = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "nfc - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesNFC.doHandleEvent", "nfc - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_NFC);
             }

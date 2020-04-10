@@ -889,19 +889,19 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     //String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                     //        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
-                    //PPApplication.logE("EventsHandler.doHandleEvents", "startAlarmTime=" + alarmTimeS);
+                    //PPApplication.logE("EventPreferencesCalendar.doHandleEvent", "startAlarmTime=" + alarmTimeS);
 
                     endAlarmTime = computeAlarm(false);
 
                     //alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                     //        " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
-                    //PPApplication.logE("EventsHandler.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                    //PPApplication.logE("EventPreferencesCalendar.doHandleEvent", "endAlarmTime=" + alarmTimeS);
 
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
                     //alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
                     //        " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
-                    //PPApplication.logE("EventsHandler.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                    //PPApplication.logE("EventPreferencesCalendar.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
 
                     eventsHandler.calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
                 } else
@@ -917,7 +917,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 eventsHandler.notAllowedCalendar = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.doHandleEvents", "calendar - sensor pass changed");
+                //PPApplication.logE("[TEST BATTERY] EventPreferencesCalendar.doHandleEvent", "calendar - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_CALENDAR);
             }
