@@ -32,7 +32,6 @@ Required external libs
 - doki - https://github.com/DoubleDotLabs/doki
 - Samsung Look - http://developer.samsung.com/galaxy/edge
 - dashclock - https://github.com/romannurik/dashclock
-- ToastCompat - https://github.com/PureWriter/ToastCompat
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
