@@ -923,6 +923,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
                     appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
                 } catch (Exception e) {
+                    PPApplication.settingsContentObserver = null;
                     Crashlytics.logException(e);
                 }
             }
@@ -1059,11 +1060,14 @@ public class PhoneProfilesService extends Service
 
             if (PPApplication.contactsContentObserver == null) {
                 try {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
-                    PPApplication.contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
-                    appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
+                    if (Permissions.checkContacts(appContext)) {
+                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
+                        PPApplication.contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
+                        appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
+                    }
                 } catch (Exception e) {
+                    PPApplication.contactsContentObserver = null;
                     Crashlytics.logException(e);
                 }
             }
