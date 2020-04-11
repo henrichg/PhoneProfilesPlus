@@ -1648,12 +1648,13 @@ public class PPApplication extends Application /*implements Application.Activity
 
     //--------------------------------------------------------------
 
-    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean refresh) {
+    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification, boolean refresh) {
         /*PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "xxx");
         PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "refresh="+refresh);*/
 
-        PPApplication.showProfileNotification(/*context*/refresh, false);
+        if (alsoNotification)
+            PPApplication.showProfileNotification(/*context*/refresh, false);
 
         // icon widget
         try {
@@ -3387,7 +3388,7 @@ public class PPApplication extends Application /*implements Application.Activity
             if (!shutdown) {
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
                 //ActivateProfileHelper.updateGUI(context, false, true);
-                PPApplication.forceUpdateGUI(context, false, true);
+                PPApplication.forceUpdateGUI(context, false, false, true);
 
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {

@@ -381,9 +381,6 @@ public class PhoneProfilesService extends Service
 
         Context appContext = getApplicationContext();
 
-        // cancel works
-        cancelAllWorks(appContext);
-
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(commandReceiver);
         } catch (Exception e) {
@@ -468,6 +465,9 @@ public class PhoneProfilesService extends Service
         //serviceRunning = false;
         //runningInForeground = false;
         applicationFullyStarted = false;
+
+        // cancel works
+        cancelAllWorks(appContext);
     }
 
     static void cancelWork(String name, Context context) {
@@ -3809,7 +3809,8 @@ public class PhoneProfilesService extends Service
                 } catch (Exception eee) {
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", Log.getStackTraceString(eee));
                     //FirebaseCrashlytics.getInstance().recordException(eee);
-                    Crashlytics.logException(eee);
+                    //Crashlytics.logException(eee);
+                    throw eee;
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
