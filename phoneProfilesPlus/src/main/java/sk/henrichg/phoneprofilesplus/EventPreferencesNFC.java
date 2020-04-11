@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 
@@ -324,15 +326,16 @@ class EventPreferencesNFC extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            Crashlytics.logException(e);
-
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 

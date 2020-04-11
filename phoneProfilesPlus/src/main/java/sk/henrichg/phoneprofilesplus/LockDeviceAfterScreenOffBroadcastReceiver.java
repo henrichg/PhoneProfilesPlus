@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -88,7 +90,8 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                 //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
                 workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
 

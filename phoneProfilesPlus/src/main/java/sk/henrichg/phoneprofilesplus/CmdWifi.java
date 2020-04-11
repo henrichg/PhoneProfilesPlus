@@ -5,7 +5,9 @@ import android.net.wifi.WifiManager;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
+//import com.crashlytics.android.Crashlytics;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CmdWifi {
@@ -20,7 +22,7 @@ public class CmdWifi {
         return setWifi(enable);
     }
 
-    static boolean setWifi(boolean enable) {
+    private static boolean setWifi(boolean enable) {
         final String packageName = PPApplication.PACKAGE_NAME;
         try {
             //PPApplication.logE("CmdWifi.setWifi", "enable="+enable);
@@ -29,8 +31,8 @@ public class CmdWifi {
             return true;
         } catch (Throwable e) {
             Log.e("CmdWifi.setWifi", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -45,8 +47,8 @@ public class CmdWifi {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdWifi.isEnabled", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }

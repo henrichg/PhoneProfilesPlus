@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.math.BigDecimal;
 
@@ -424,7 +425,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 startLocationUpdates();
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -437,7 +439,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 stopLocationUpdates();
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -455,7 +458,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         mGoogleApiClient.connect();
                     }
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         }
@@ -475,10 +479,11 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     public void onConnected(Bundle connectionHint) {
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
-            //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
@@ -493,10 +498,11 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         Log.i("LocationGeofenceEditorActivity", "Connection suspended");
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
-            //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         //mGoogleApiClient.connect();
     }
@@ -505,10 +511,11 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     public void onConnectionFailed(@NonNull ConnectionResult result) {
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
-            //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         //noinspection StatementWithEmptyBody
         if (mResolvingError) {
@@ -676,7 +683,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                             }
                         });
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }
@@ -708,7 +716,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 if (mFusedLocationClient != null)
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }
@@ -739,7 +748,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             // immediately kicks off the process of getting the address.
             //mAddressRequested = true;
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -806,8 +816,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     });
         } catch (Exception e) {
             Log.e("LocationGeofenceEditorActivity.startIntentService", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
     }
@@ -865,12 +875,12 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 pkg = intent.getPackage();
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
                 Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
-                //FirebaseCrashlytics.getInstance().recordException(e);
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
             else {
-                //FirebaseCrashlytics.getInstance().recordException(e);
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
                 throw e;
             }
         }

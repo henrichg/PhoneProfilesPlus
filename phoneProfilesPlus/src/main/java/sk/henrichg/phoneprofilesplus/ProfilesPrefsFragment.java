@@ -23,7 +23,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -345,7 +347,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         else
@@ -355,7 +358,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -685,7 +689,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivity(intent);
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -728,7 +733,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivity(intent);
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -807,7 +813,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //PPApplication.logE("ProfilesPrefsFragment.onDestroy", "xxx");
 
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3483,7 +3490,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
         else
@@ -3493,7 +3501,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
         if (!ok) {
@@ -3537,7 +3546,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         });
@@ -3567,7 +3577,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
         if (!ok) {

@@ -14,7 +14,9 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -399,11 +401,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
                             appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     //}
                 } catch (Exception ee) {
-                    Crashlytics.logException(ee);
+                    FirebaseCrashlytics.getInstance().recordException(ee);
+                    //Crashlytics.logException(ee);
                 }
 
                 //dataWrapper.invalidateDataWrapper();

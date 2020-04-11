@@ -25,7 +25,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -62,7 +63,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import dev.doubledot.doki.views.DokiContentView;
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
@@ -1080,20 +1081,20 @@ public class PPApplication extends Application /*implements Application.Activity
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
 
-        try {
+        /*try {
             //if (!DebugVersion.enabled) {
             // Obtain the FirebaseAnalytics instance.
             //firebaseAnalytics = FirebaseAnalytics.getInstance(this);
             //}
 
-            /*
-            // Set up Crashlytics, disabled for debug builds
-            Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                    .core(new CrashlyticsCore.Builder().disabled(DebugVersion.enabled).build())
-                    .build();
 
-            Fabric.with(this, crashlyticsKit);
-            */
+            // Set up Crashlytics, disabled for debug builds
+            //Crashlytics crashlyticsKit = new Crashlytics.Builder()
+            //        .core(new CrashlyticsCore.Builder().disabled(DebugVersion.enabled).build())
+            //        .build();
+
+            //Fabric.with(this, crashlyticsKit);
+
             //if (!DebugVersion.enabled) {
             Fabric.with(this, new Crashlytics());
             //}
@@ -1101,32 +1102,32 @@ public class PPApplication extends Application /*implements Application.Activity
 
             //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         } catch (Exception e) {
-            /*
-            java.lang.IllegalStateException:
-              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:447)
-              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:432)
-              at android.content.ContextWrapper.getSharedPreferences (ContextWrapper.java:174)
-              at io.fabric.sdk.android.services.persistence.PreferenceStoreImpl.<init> (PreferenceStoreImpl.java:39)
-              at io.fabric.sdk.android.services.common.AdvertisingInfoProvider.<init> (AdvertisingInfoProvider.java:37)
-              at io.fabric.sdk.android.services.common.IdManager.<init> (IdManager.java:114)
-              at io.fabric.sdk.android.Fabric$Builder.build (Fabric.java:289)
-              at io.fabric.sdk.android.Fabric.with (Fabric.java:340)
 
-              This exception occurs, when storage is protected and PPP is started via LOCKED_BOOT_COMPLETED
+//            java.lang.IllegalStateException:
+//              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:447)
+//              at android.app.ContextImpl.getSharedPreferences (ContextImpl.java:432)
+//              at android.content.ContextWrapper.getSharedPreferences (ContextWrapper.java:174)
+//              at io.fabric.sdk.android.services.persistence.PreferenceStoreImpl.<init> (PreferenceStoreImpl.java:39)
+//              at io.fabric.sdk.android.services.common.AdvertisingInfoProvider.<init> (AdvertisingInfoProvider.java:37)
+//              at io.fabric.sdk.android.services.common.IdManager.<init> (IdManager.java:114)
+//              at io.fabric.sdk.android.Fabric$Builder.build (Fabric.java:289)
+//              at io.fabric.sdk.android.Fabric.with (Fabric.java:340)
+//
+//              This exception occurs, when storage is protected and PPP is started via LOCKED_BOOT_COMPLETED
+//
+//              Code from android.app.ContextImpl:
+//                if (getApplicationInfo().targetSdkVersion >= android.os.Build.VERSION_CODES.O) {
+//                    if (isCredentialProtectedStorage()
+//                            && !getSystemService(UserManager.class)
+//                                    .isUserUnlockingOrUnlocked(UserHandle.myUserId())) {
+//                        throw new IllegalStateException("SharedPreferences in credential encrypted "
+//                                + "storage are not available until after user is unlocked");
+//                    }
+//                }
 
-              Code from android.app.ContextImpl:
-                if (getApplicationInfo().targetSdkVersion >= android.os.Build.VERSION_CODES.O) {
-                    if (isCredentialProtectedStorage()
-                            && !getSystemService(UserManager.class)
-                                    .isUserUnlockingOrUnlocked(UserHandle.myUserId())) {
-                        throw new IllegalStateException("SharedPreferences in credential encrypted "
-                                + "storage are not available until after user is unlocked");
-                    }
-                }
-            */
             Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
         }
-
+        */
         if (checkAppReplacingState()) {
             PPApplication.logE("##### PPApplication.onCreate", "kill PPApplication - not good");
             return;
@@ -1195,8 +1196,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 }
             } catch (Exception e) {
                 Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
-                //FirebaseCrashlytics.getInstance().recordException(e);
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
         //////////////////////////////////////////
@@ -1217,10 +1218,11 @@ public class PPApplication extends Application /*implements Application.Activity
         workManagerInstance = getWorkManagerInstance(getApplicationContext());
 
         try {
-            //FirebaseCrashlytics.getInstance().setCustomKey("DEBUG", DebugVersion.enabled);
-            Crashlytics.setBool("DEBUG", DebugVersion.enabled);
+            FirebaseCrashlytics.getInstance().setCustomKey("DEBUG", DebugVersion.enabled);
+            //Crashlytics.setBool("DEBUG", DebugVersion.enabled);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         //if (DebugVersion.enabled) {
@@ -1229,7 +1231,8 @@ public class PPApplication extends Application /*implements Application.Activity
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             actualVersionCode = PPApplication.getVersionCode(pInfo);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
@@ -1340,7 +1343,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 startPPService(getApplicationContext(), serviceIntent, true);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
         else
@@ -1373,7 +1377,8 @@ public class PPApplication extends Application /*implements Application.Activity
         if (getResources() == null) {
             try {
                 android.os.Process.killProcess(android.os.Process.myPid());
-                Crashlytics.log("PPApplication.checkAppReplacingState - app is replacing...kill");
+                FirebaseCrashlytics.getInstance().log("PPApplication.checkAppReplacingState - app is replacing...kill");
+                //Crashlytics.log("PPApplication.checkAppReplacingState - app is replacing...kill");
             } catch (Exception e) {
                 Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
             }
@@ -1661,7 +1666,8 @@ public class PPApplication extends Application /*implements Application.Activity
             IconWidgetProvider myWidget = new IconWidgetProvider();
             myWidget.updateWidgets(context, refresh);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         // one row widget
@@ -1669,7 +1675,8 @@ public class PPApplication extends Application /*implements Application.Activity
             OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
             myWidget.updateWidgets(context, refresh);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         // list widget
@@ -1677,7 +1684,8 @@ public class PPApplication extends Application /*implements Application.Activity
             ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
             myWidget.updateWidgets(context, refresh);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         // Samsung edge panel
@@ -1686,7 +1694,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
                 myWidget.updateWidgets(context, refresh);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
 
@@ -1740,7 +1749,8 @@ public class PPApplication extends Application /*implements Application.Activity
                     Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, length);
                     msg.show();
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         });
@@ -2419,7 +2429,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 PhoneProfilesService.getInstance().showProfileNotification(refresh, forService/*, false*/);
 
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2450,10 +2461,11 @@ public class PPApplication extends Application /*implements Application.Activity
 
         if (rootMutex.rootChecked) {
             try {
-                //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
-                Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                //Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
             return rootMutex.rooted;
         }
@@ -2480,15 +2492,16 @@ public class PPApplication extends Application /*implements Application.Activity
             }
             rootMutex.rootChecked = true;
             try {
-                //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
-                Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                //Crashlytics.setString(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         } catch (Exception e) {
             Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         //if (rooted)
         //	getSUVersion();
@@ -2532,8 +2545,8 @@ public class PPApplication extends Application /*implements Application.Activity
                     }*/
                 } catch (Exception e) {
                     Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
-                    //FirebaseCrashlytics.getInstance().recordException(e);
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                     //rootMutex.rootGranted = false;
                 }
                 //return rootMutex.rootGranted;
@@ -2831,15 +2844,15 @@ public class PPApplication extends Application /*implements Application.Activity
                     //}
                 } catch (InterruptedException e) {
                     Log.e("PPApplication.commandWait", Log.getStackTraceString(e));
-                    //FirebaseCrashlytics.getInstance().recordException(e);
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         }
         if (!cmd.isFinished()){
             Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
-            //FirebaseCrashlytics.getInstance().log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
-            Crashlytics.log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
+            FirebaseCrashlytics.getInstance().log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
+            //Crashlytics.log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 
@@ -2861,7 +2874,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2879,7 +2893,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2898,7 +2913,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2916,7 +2932,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2934,7 +2951,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2953,7 +2971,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2972,7 +2991,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -2991,7 +3011,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3009,7 +3030,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3028,7 +3050,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3047,7 +3070,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_TWILIGHT_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3067,7 +3091,8 @@ public class PPApplication extends Application /*implements Application.Activity
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FROM_BATTERY_CHANGE, fromBatteryChange);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3178,8 +3203,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
         } catch (IOException ex) {
             Log.e("PPApplication.isMIUIROM", Log.getStackTraceString(ex));
-            //FirebaseCrashlytics.getInstance().recordException(ex);
-            Crashlytics.logException(ex);
+            FirebaseCrashlytics.getInstance().recordException(ex);
+            //Crashlytics.logException(ex);
         }
 
         /*if (PPApplication.logEnabled()) {
@@ -3202,8 +3227,8 @@ public class PPApplication extends Application /*implements Application.Activity
             return line;
         } catch (IOException ex) {
             Log.e("PPApplication.getEmuiRomName", Log.getStackTraceString(ex));
-            //FirebaseCrashlytics.getInstance().recordException(ex);
-            Crashlytics.logException(ex);
+            FirebaseCrashlytics.getInstance().recordException(ex);
+            //Crashlytics.logException(ex);
             return "";
         }
     }
@@ -3272,8 +3297,8 @@ public class PPApplication extends Application /*implements Application.Activity
         catch (IOException ex)
         {
             Log.e("PPApplication.getSystemProperty", "Unable to read sysprop " + propName, ex);
-            //FirebaseCrashlytics.getInstance().recordException(ex);
-            Crashlytics.logException(ex);
+            FirebaseCrashlytics.getInstance().recordException(ex);
+            //Crashlytics.logException(ex);
             return null;
         }
         finally
@@ -3287,8 +3312,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 catch (IOException e)
                 {
                     Log.e("PPApplication.getSystemProperty", "Exception while closing InputStream", e);
-                    //FirebaseCrashlytics.getInstance().recordException(e);
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         }
@@ -3397,7 +3422,8 @@ public class PPApplication extends Application /*implements Application.Activity
                             if (activity != null)
                                 activity.finish();
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                 };
@@ -3415,8 +3441,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
         } catch (Exception e) {
             Log.e("PPApplication._exitApp", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3455,7 +3481,8 @@ public class PPApplication extends Application /*implements Application.Activity
             else
                 _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -3666,7 +3693,8 @@ public class PPApplication extends Application /*implements Application.Activity
                 WorkManager workManager = PPApplication.getWorkManagerInstance(context.getApplicationContext());
                 workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
 
             /*PPApplication.startHandlerThread("PPApplication.setBlockProfileEventActions");

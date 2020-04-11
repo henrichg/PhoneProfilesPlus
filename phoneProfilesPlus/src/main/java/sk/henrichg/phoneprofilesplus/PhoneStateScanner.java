@@ -25,7 +25,9 @@ import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -960,7 +962,8 @@ class PhoneStateScanner extends PhoneStateListener {
                                 mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -1009,7 +1012,8 @@ class PhoneStateScanner extends PhoneStateListener {
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
                 PPApplication.startPPService(context, serviceIntent, false);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }

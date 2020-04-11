@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -57,7 +59,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                 workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }

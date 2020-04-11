@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -77,7 +79,8 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                 //workManager.enqueueUniqueWork("elapsedAlarmsShowProfileNotificationWork", ExistingWorkPolicy.REPLACE, worker);
                 workManager.enqueue(worker);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
 
@@ -130,7 +133,8 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsShowProfileNotificationWork", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");

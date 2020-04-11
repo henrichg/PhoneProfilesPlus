@@ -38,7 +38,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.xml.sax.XMLReader;
 
@@ -280,7 +282,8 @@ class GlobalGUIRoutines {
                     try {
                         switchNightMode(appContext);
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
             });
@@ -309,7 +312,8 @@ class GlobalGUIRoutines {
                         activity.startActivity(intent);
                         activity.overridePendingTransition(0, 0);
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
             });
@@ -1114,7 +1118,8 @@ class GlobalGUIRoutines {
             }
             // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -1123,7 +1128,8 @@ class GlobalGUIRoutines {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
             // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 

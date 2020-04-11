@@ -11,7 +11,9 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 
@@ -147,14 +149,16 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             workManager.cancelUniqueWork("elapsedAlarmsDonationWork");
             workManager.cancelAllWorkByTag("elapsedAlarmsDonationWork");
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -318,7 +322,8 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                         mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
                     } catch (Exception e) {
                         Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
             }

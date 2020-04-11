@@ -11,7 +11,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 
@@ -332,14 +334,16 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 

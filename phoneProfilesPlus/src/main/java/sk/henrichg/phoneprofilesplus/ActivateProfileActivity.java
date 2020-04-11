@@ -15,9 +15,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         try {
                             ActivateProfileActivity.this.finishAffinity();
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -615,7 +617,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                     try {
                         View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
@@ -630,7 +633,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
 
                     sequence.targets(targets);
@@ -650,7 +654,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
 
                     sequence.targets(targets);
@@ -685,7 +690,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                     try {
                                         ActivatorTargetHelpsActivity.activity.finish();
                                     } catch (Exception e) {
-                                        Crashlytics.logException(e);
+                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        //Crashlytics.logException(e);
                                     }
                                     ActivatorTargetHelpsActivity.activity = null;
                                     //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -736,7 +742,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;

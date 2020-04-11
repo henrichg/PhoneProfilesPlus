@@ -7,8 +7,9 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +38,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
             int packageVersionCode = PPApplication.getVersionCode(pInfo);
             ImportantInfoNotification.setShowInfoNotificationOnStart(getApplicationContext(), false, packageVersionCode);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         /*

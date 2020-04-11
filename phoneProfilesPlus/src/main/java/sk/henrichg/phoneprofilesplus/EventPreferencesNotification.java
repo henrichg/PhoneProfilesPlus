@@ -14,7 +14,9 @@ import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
 
@@ -538,14 +540,16 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -893,7 +897,8 @@ class EventPreferencesNotification extends EventPreferences {
             }
         } catch (Exception e) {
             Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         // package name not found
         return null;

@@ -13,7 +13,9 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -335,8 +337,8 @@ class BluetoothConnectedDevices {
 
             } catch (Exception e) {
                 Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                //FirebaseCrashlytics.getInstance().recordException(e);
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }

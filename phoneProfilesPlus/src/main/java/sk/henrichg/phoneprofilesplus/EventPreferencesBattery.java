@@ -14,7 +14,9 @@ import android.content.SharedPreferences.Editor;
 import android.os.BatteryManager;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -168,7 +170,8 @@ class EventPreferencesBattery extends EventPreferences {
                             try {
                                 selectedPlugged = selectedPlugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -447,7 +450,8 @@ class EventPreferencesBattery extends EventPreferences {
                     IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                     batteryStatus = eventsHandler.context.registerReceiver(null, filter);
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
 
                 if (batteryStatus != null) {

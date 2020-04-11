@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,6 +21,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
 
@@ -99,7 +100,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mGoogleApiClient.connect();
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -116,7 +118,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mGoogleApiClient.connect();
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -136,7 +139,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
             //useGPS = true; disconnect is called from screen on/off broadcast therefore not change this
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -145,10 +149,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //PPApplication.logE("##### GeofenceScanner.onConnected", "xxx");
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
-            //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         /*if (PPApplication.logEnabled()) {
             if (PhoneProfilesService.getInstance() != null)
@@ -198,7 +203,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
         } catch (Exception ee) {
             //Log.e("##### GeofenceScanner.onConnected", Log.getStackTraceString(e));
-            Crashlytics.logException(ee);
+            FirebaseCrashlytics.getInstance().recordException(ee);
+            //Crashlytics.logException(ee);
         }
     }
 
@@ -211,10 +217,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }*/
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
-            //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         // The connection has been interrupted.
@@ -233,10 +240,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }*/
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
-            //FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            FirebaseCrashlytics.getInstance().setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             //noinspection StatementWithEmptyBody
@@ -259,7 +267,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mResolvingError = true;
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -467,7 +476,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     mUpdatesStarted = false;
                 }
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }
@@ -546,7 +556,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 });
             }
         } catch (Exception ee) {
-            Crashlytics.logException(ee);
+            FirebaseCrashlytics.getInstance().recordException(ee);
+            //Crashlytics.logException(ee);
         }
     }
 
@@ -585,7 +596,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
             } catch (Exception e) {
                 Log.e("GeofencesScanner.showErrorNotification", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }

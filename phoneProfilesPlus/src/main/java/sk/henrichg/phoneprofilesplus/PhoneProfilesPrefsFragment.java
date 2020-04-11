@@ -19,7 +19,9 @@ import android.view.ViewGroup;
 
 //import com.kunzisoft.androidclearchroma.ChromaPreferenceCompat;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.concurrent.TimeUnit;
 
@@ -356,7 +358,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok){
@@ -402,7 +405,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -506,7 +510,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -594,7 +599,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -636,7 +642,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -678,7 +685,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -720,7 +728,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -765,7 +774,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     startActivity(intent);
                                     ok = true;
                                 } catch (Exception e) {
-                                    Crashlytics.logException(e);
+                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    //Crashlytics.logException(e);
                                 }
                             }
                             if (!ok) {
@@ -946,7 +956,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -1151,7 +1162,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -1207,7 +1219,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivity(intent);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -1491,7 +1504,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     try {
                                         startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
                                     } catch (Exception ee) {
-                                        Crashlytics.logException(ee);
+                                        FirebaseCrashlytics.getInstance().recordException(ee);
+                                        //Crashlytics.logException(ee);
                                     }
                                 }
                             }
@@ -1535,7 +1549,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //updateSharedPreferences(editor, preferences);
             //editor.apply();
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -1549,7 +1564,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             updateSharedPreferences(editor, preferences);
             editor.apply();
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {

@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,7 +116,8 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                             WifiScanWorker.fillWifiConfigurationList(prefContext.getApplicationContext());
                     }
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
 
                 return null;
@@ -153,7 +156,8 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                                     wifi.setWifiEnabled(false);
                                 //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifi disabled");
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         wifiEnabled = false;

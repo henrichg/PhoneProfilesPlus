@@ -4,7 +4,9 @@ import android.bluetooth.IBluetoothManager;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
+//import com.crashlytics.android.Crashlytics;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CmdBluetooth {
@@ -31,8 +33,8 @@ public class CmdBluetooth {
             return true;
         } catch (Throwable e) {
             Log.e("CmdBluetooth.setBluetooth", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -46,8 +48,8 @@ public class CmdBluetooth {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdBluetooth.isEnabled", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }

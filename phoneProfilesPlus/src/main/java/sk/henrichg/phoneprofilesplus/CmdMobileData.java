@@ -8,11 +8,12 @@ import android.telephony.SubscriptionManager;
 import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+//import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class CmdMobileData {
 
     public static void main(String[] args) {
@@ -47,7 +48,8 @@ public class CmdMobileData {
                         // Loop through the subscription list i.e. SIM list.
                         subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                     } catch (SecurityException e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                     if (subscriptionList != null) {
                         for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
@@ -78,8 +80,8 @@ public class CmdMobileData {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdMobileData.isEnabled", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             return false;
         }
     }

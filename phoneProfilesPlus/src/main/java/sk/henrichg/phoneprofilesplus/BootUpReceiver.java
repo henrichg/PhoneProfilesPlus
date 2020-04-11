@@ -7,7 +7,9 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.concurrent.TimeUnit;
 
@@ -113,7 +115,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                     workManager.enqueue(worker);
                                 } catch (Exception e) {
-                                    Crashlytics.logException(e);
+                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    //Crashlytics.logException(e);
                                 }
                             }
                         } else {

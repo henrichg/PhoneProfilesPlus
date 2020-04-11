@@ -8,7 +8,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -1050,7 +1052,8 @@ class EventsHandler {
                         PPApplication.runCommand(context, commandIntent);
                     }
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
 

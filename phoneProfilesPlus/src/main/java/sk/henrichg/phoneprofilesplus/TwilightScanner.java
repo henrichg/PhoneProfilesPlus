@@ -19,7 +19,9 @@ import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.Iterator;
@@ -463,14 +465,16 @@ class TwilightScanner {
                         pendingIntent.cancel();
                     }
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                     workManager.cancelUniqueWork("elapsedAlarmsTwilightScannerWork");
                     workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
 
                 // set alarm

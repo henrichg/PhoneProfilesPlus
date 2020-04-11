@@ -10,7 +10,9 @@ import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.List;
@@ -159,7 +161,8 @@ public class DelayedWorksWorker extends Worker {
                         String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0, "");
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
@@ -497,7 +500,8 @@ public class DelayedWorksWorker extends Worker {
                             }
                         }
                     } catch (Exception ee) {
-                        Crashlytics.logException(ee);
+                        FirebaseCrashlytics.getInstance().recordException(ee);
+                        //Crashlytics.logException(ee);
                     }
 
                     PPApplication.loadApplicationPreferences(appContext);
@@ -559,7 +563,8 @@ public class DelayedWorksWorker extends Worker {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                 workManager.enqueue(worker);
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
 
                             //instance.setApplicationFullyStarted(/*true, */true);
@@ -634,8 +639,8 @@ public class DelayedWorksWorker extends Worker {
                             //}
                         } catch (Exception e) {
                             Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
-                            //FirebaseCrashlytics.getInstance().recordException(e);
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     break;
@@ -715,8 +720,8 @@ public class DelayedWorksWorker extends Worker {
             return Result.success();
         } catch (Exception e) {
             Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {

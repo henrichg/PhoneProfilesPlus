@@ -18,7 +18,9 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -204,7 +206,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                 _toneList.put(_uri + "/" + _id, _title);
                             }
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
 
                         return null;
@@ -290,7 +293,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         mediaPlayer.stop();
                     mediaPlayer.release();
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
                 ringtoneIsPlayed = false;
                 mediaPlayer = null;
@@ -393,7 +397,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                             mediaPlayer.stop();
                                         mediaPlayer.release();
                                     } catch (Exception e) {
-                                        Crashlytics.logException(e);
+                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        //Crashlytics.logException(e);
                                     }
 
                                     if (oldMediaVolume > -1)
@@ -414,7 +419,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception e) {
-                                    Crashlytics.logException(e);
+                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    //Crashlytics.logException(e);
                                 }
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -473,7 +479,8 @@ public class RingtonePreferenceX extends DialogPreference {
                             WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ee) {
-                            Crashlytics.logException(ee);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(ee);
                         }
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();

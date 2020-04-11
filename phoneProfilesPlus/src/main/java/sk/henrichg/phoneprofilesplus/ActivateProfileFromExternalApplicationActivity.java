@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -136,7 +138,8 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
                 mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
             } catch (Exception e) {
                 Log.e("ActivateProfileFromExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }

@@ -19,7 +19,9 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -313,7 +315,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -393,7 +396,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -440,7 +444,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -472,7 +477,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -514,7 +520,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -562,7 +569,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -648,7 +656,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -733,7 +742,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivity(intent);
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -801,7 +811,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivity(intent);
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -844,7 +855,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivity(intent);
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -887,7 +899,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             try {
                                 startActivity(intent);
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -944,7 +957,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                     try {
                                         startActivity(intent);
                                     } catch (Exception ee) {
-                                        Crashlytics.logException(ee);
+                                        FirebaseCrashlytics.getInstance().recordException(ee);
+                                        //Crashlytics.logException(ee);
                                     }
                                 }
                             }
@@ -1023,7 +1037,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             //PPApplication.logE("EventsPrefsFragment.onDestroy", "xxx");
 
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -1585,7 +1600,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         });
@@ -1615,7 +1631,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
         if (!ok) {

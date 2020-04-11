@@ -18,9 +18,10 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -678,7 +679,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 );
                 ++id;
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
 
             sequence.targets(targets);

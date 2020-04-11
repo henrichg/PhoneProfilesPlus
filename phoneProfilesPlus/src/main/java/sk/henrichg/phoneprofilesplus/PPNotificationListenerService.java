@@ -13,7 +13,9 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Set;
 
@@ -457,7 +459,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
                                     } catch (SecurityException e) {
                                         // Fix disallowed call from unknown listener exception.
                                         // java.lang.SecurityException: Disallowed call from unknown listener
-                                        Crashlytics.logException(e);
+                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        //Crashlytics.logException(e);
                                     }
                                     break;
                             }

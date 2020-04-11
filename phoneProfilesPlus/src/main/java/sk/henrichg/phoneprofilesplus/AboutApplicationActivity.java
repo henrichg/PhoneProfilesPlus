@@ -21,7 +21,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -133,7 +135,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };
@@ -168,7 +171,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };
@@ -197,7 +201,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };
@@ -226,7 +231,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };
@@ -255,7 +261,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };
@@ -284,7 +291,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };
@@ -354,7 +362,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                                 Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName()));
                         startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
                     } catch (Exception ee) {
-                        Crashlytics.logException(ee);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(ee);
                     }
                 }
             }
@@ -412,7 +421,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                     packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
                 if (subjectText.isEmpty())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
@@ -423,7 +433,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };

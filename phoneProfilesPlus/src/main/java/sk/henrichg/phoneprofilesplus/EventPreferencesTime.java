@@ -9,7 +9,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.format.DateFormat;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.sql.Date;
 import java.text.DateFormatSymbols;
@@ -483,7 +485,7 @@ class EventPreferencesTime extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    long computeAlarm(boolean startEvent, @SuppressWarnings("unused") Context context)
+    private long computeAlarm(boolean startEvent, @SuppressWarnings("unused") Context context)
     {
         /*boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
         if (testEvent) {
@@ -1149,7 +1151,8 @@ class EventPreferencesTime extends EventPreferences {
                         //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
 
                 try {
@@ -1165,11 +1168,13 @@ class EventPreferencesTime extends EventPreferences {
                         //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         } catch (Exception ee) {
-            Crashlytics.logException(ee);
+            FirebaseCrashlytics.getInstance().recordException(ee);
+            //Crashlytics.logException(ee);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -1185,7 +1190,8 @@ class EventPreferencesTime extends EventPreferences {
                 //if (testEvent)
                 //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
 
             try {
@@ -1194,13 +1200,15 @@ class EventPreferencesTime extends EventPreferences {
                 //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
                 workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
 
             //if (testEvent)
             //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
         } catch (Exception ee) {
-            Crashlytics.logException(ee);
+            FirebaseCrashlytics.getInstance().recordException(ee);
+            //Crashlytics.logException(ee);
         }
     }
 

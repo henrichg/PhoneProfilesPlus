@@ -8,7 +8,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -116,7 +118,8 @@ public class LockDeviceActivity extends AppCompatActivity {
                     if (windowManager != null)
                         windowManager.removeViewImmediate(view);
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
 
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);

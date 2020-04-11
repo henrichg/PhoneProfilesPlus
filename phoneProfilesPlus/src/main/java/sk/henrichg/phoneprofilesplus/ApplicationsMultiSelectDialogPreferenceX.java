@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,7 +224,8 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                                 if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         } else {
                             Intent intent = new Intent();

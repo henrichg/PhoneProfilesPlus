@@ -19,7 +19,9 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -3340,7 +3342,8 @@ public class Profile {
                 } catch (Exception e) {
                     // java.lang.NullPointerException: missing IConnectivityManager
                     // Dual SIM?? Bug in Android ???
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
                 if (connManager != null) {
                     //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -3365,7 +3368,8 @@ public class Profile {
                                         }
                                     }
                                 } catch (Exception ee) {
-                                    Crashlytics.logException(ee);
+                                    FirebaseCrashlytics.getInstance().recordException(ee);
+                                    //Crashlytics.logException(ee);
                                 }
                             }
                         }
@@ -4366,7 +4370,8 @@ public class Profile {
             //noinspection ConstantConditions
             iconResource = profileIconIdMap.get(identifier);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         return iconResource;
     }

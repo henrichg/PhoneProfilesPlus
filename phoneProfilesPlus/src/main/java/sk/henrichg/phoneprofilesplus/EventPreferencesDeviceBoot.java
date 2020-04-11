@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 
@@ -254,14 +256,16 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 

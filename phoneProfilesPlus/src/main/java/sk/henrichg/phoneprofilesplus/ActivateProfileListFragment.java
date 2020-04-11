@@ -20,7 +20,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -358,7 +360,8 @@ public class ActivateProfileListFragment extends Fragment {
                         try {
                             fragment.getActivity().finish();
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
 
                         return;
@@ -670,7 +673,8 @@ public class ActivateProfileListFragment extends Fragment {
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -716,7 +720,8 @@ public class ActivateProfileListFragment extends Fragment {
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;

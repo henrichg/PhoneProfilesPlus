@@ -11,7 +11,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.widget.RemoteViews;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
@@ -274,7 +275,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         try {
             cocktailBarManager.updateCocktail(cocktailId, widget);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -339,7 +341,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             else*/
                 cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_grid);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -354,7 +357,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 

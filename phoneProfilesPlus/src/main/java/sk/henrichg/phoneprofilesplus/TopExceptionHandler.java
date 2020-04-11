@@ -3,8 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.provider.Settings;
+import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -43,7 +44,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 }
             //}
         } catch (Exception ee) {
-            Crashlytics.logException(ee);
+            Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
         }
 
         if (PPApplication.crashIntoFile) {

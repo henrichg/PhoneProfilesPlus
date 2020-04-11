@@ -16,7 +16,9 @@ import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 
@@ -181,7 +183,8 @@ public class WallpaperViewPreferenceX extends Preference {
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         /*} catch (ActivityNotFoundException e) {
             try {

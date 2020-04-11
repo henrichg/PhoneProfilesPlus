@@ -10,8 +10,8 @@ class BluetoothDeviceData {
     boolean configured;
     boolean scanned;
 
-    BluetoothDeviceData() {
-    }
+    //BluetoothDeviceData() {
+    //}
 
     BluetoothDeviceData(String name, String address, int type, boolean custom, long timestamp, boolean configured, boolean scanned)
     {

@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -100,8 +102,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     workManager.enqueue(worker);
                     PPApplication.elapsedAlarmsProfileDurationWork.add("elapsedAlarmsProfileDurationWork_"+(int)profile._id);
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
-
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
 
@@ -167,7 +169,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
                 }
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
 
             PhoneProfilesService.cancelWork("elapsedAlarmsProfileDurationWork_"+(int) profile._id, context.getApplicationContext());

@@ -7,7 +7,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +46,8 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         PhoneProfilesService.cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", context.getApplicationContext());
@@ -101,7 +104,8 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                 //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
                 workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
 

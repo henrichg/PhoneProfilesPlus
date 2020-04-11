@@ -9,7 +9,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.telephony.PhoneNumberUtils;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.List;
@@ -453,14 +455,16 @@ class EventPreferencesCall extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
             //workManager.cancelUniqueWork("elapsedAlarmsCallSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsCallSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 

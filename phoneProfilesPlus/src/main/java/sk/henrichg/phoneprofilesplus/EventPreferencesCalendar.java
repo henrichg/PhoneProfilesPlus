@@ -15,7 +15,9 @@ import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -451,14 +453,16 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
            // workManager.cancelUniqueWork("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
     }
 
@@ -789,8 +793,8 @@ class EventPreferencesCalendar extends EventPreferences {
             cur = null;
         } catch (Exception e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             cur = null;
         }
 

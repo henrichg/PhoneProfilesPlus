@@ -16,7 +16,9 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -786,7 +788,8 @@ class EventPreferencesOrientation extends EventPreferences {
                                                         break;
                                                     }
                                                 } catch (Exception e) {
-                                                    Crashlytics.logException(e);
+                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 }
                                             }
                                         }
@@ -815,7 +818,8 @@ class EventPreferencesOrientation extends EventPreferences {
                                                         }
                                                     }
                                                 } catch (Exception e) {
-                                                    Crashlytics.logException(e);
+                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 }
                                             }
                                         }

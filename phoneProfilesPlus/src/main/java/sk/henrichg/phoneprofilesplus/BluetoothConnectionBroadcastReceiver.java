@@ -9,7 +9,8 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -116,7 +117,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                         break;
                                 }
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
 
                             saveConnectedDevices(appContext);

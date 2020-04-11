@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -47,7 +49,8 @@ class ImportantInfoNotification {
                 setShowInfoNotificationOnStartVersion(context, packageVersionCode);
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         if ((savedVersionCode == 0) || getShowInfoNotificationOnStart(context, packageVersionCode)) {
@@ -194,7 +197,8 @@ class ImportantInfoNotification {
                 mNotificationManager.notify(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
             } catch (Exception e) {
                 Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
             }
         }
     }

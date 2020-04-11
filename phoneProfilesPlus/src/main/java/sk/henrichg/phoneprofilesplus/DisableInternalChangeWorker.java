@@ -3,7 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -29,8 +31,8 @@ public class DisableInternalChangeWorker extends Worker {
             return Result.success();
         } catch (Exception e) {
             Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {

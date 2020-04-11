@@ -20,7 +20,9 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Arrays;
 import java.util.List;
@@ -400,7 +402,8 @@ class EventPreferencesWifi extends EventPreferences {
                         } catch (Exception e) {
                             // java.lang.NullPointerException: missing IConnectivityManager
                             // Dual SIM?? Bug in Android ???
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                         if (connManager != null) {
                             //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -429,7 +432,8 @@ class EventPreferencesWifi extends EventPreferences {
                                             }
                                         }
                                     } catch (Exception e) {
-                                        Crashlytics.logException(e);
+                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        //Crashlytics.logException(e);
                                     }
                                 }
                             }

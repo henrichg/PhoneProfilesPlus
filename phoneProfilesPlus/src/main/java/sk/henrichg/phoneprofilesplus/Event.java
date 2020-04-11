@@ -13,7 +13,9 @@ import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 import java.util.List;
@@ -2216,7 +2218,8 @@ class Event {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), _context);
         PPApplication.elapsedAlarmsEventDelayStartWork.remove("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
@@ -2457,7 +2460,8 @@ class Event {
                 }
             }
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), _context);
         PPApplication.elapsedAlarmsEventDelayEndWork.remove("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
@@ -2803,7 +2807,8 @@ class Event {
                         mNotificationManager.notify(notificationID, notification);
                     } catch (Exception e) {
                         Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
 

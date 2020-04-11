@@ -23,7 +23,9 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -66,7 +68,8 @@ public class ImportantInfoHelpFragment extends Fragment {
             versionCode = PPApplication.getVersionCode(pInfo);
             //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "versionCode="+versionCode);
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         boolean news = false;
@@ -168,7 +171,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -389,7 +393,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -426,7 +431,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -466,7 +472,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                                     startActivity(intent);
                                     ok = true;
                                 } catch (Exception e) {
-                                    Crashlytics.logException(e);
+                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    //Crashlytics.logException(e);
                                 }
                             }
                             if (!ok) {
@@ -598,7 +605,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                Crashlytics.logException(e);
+                                FirebaseCrashlytics.getInstance().recordException(e);
+                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -938,7 +946,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         };
@@ -1013,7 +1022,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    Crashlytics.logException(e);
+                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
                 }
             }
         });

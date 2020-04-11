@@ -28,9 +28,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
@@ -1044,7 +1045,8 @@ public class EditorEventListFragment extends Fragment
                         else
                             redText.setVisibility(GONE);
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
             }
@@ -1423,7 +1425,8 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                     try {
                         targets.add(
@@ -1437,7 +1440,8 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
                 if (startTargetHelpsDefaultProfile) {
@@ -1453,7 +1457,8 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        Crashlytics.logException(e);
+                        FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                 }
                 if (startTargetHelpsOrderSpinner) {
@@ -1472,7 +1477,8 @@ public class EditorEventListFragment extends Fragment
                             );
                             ++id;
                         } catch (Exception e) {
-                            Crashlytics.logException(e);
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -1639,7 +1645,8 @@ public class EditorEventListFragment extends Fragment
             method.setAccessible(true);
             method.invoke(menuPopupHelper, new Object[]{true});
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            FirebaseCrashlytics.getInstance().recordException(e);
+            //Crashlytics.logException(e);
         }
 
         final Event event = (Event)view.getTag();
