@@ -3,10 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 class BluetoothDeviceData {
 
     String name;
-    String address;
-    int type;
-    boolean custom;
-    long timestamp;
+    final String address;
+    final int type;
+    final boolean custom;
+    final long timestamp;
     boolean configured;
     boolean scanned;
 

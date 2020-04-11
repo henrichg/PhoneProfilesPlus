@@ -11,7 +11,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 //import com.crashlytics.android.Crashlytics;
 
-@SuppressWarnings("WeakerAccess")
 public class CmdWifiAP {
 
     public static void main(String[] args) {

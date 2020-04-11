@@ -13,7 +13,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.List;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class CmdMobileData {
 
     public static void main(String[] args) {

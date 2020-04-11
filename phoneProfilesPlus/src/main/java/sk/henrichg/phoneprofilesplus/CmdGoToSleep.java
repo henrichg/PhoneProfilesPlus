@@ -9,7 +9,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 //import com.crashlytics.android.Crashlytics;
 
-@SuppressWarnings("WeakerAccess")
 public class CmdGoToSleep {
 
     public static void main(String[] args) {
@@ -23,7 +22,7 @@ public class CmdGoToSleep {
     }
 
     // requires android.permission.DEVICE_POWER but 'pm grant package permission' not working :-(
-    static boolean doSleep() {
+    private static boolean doSleep() {
         try {
             IPowerManager adapter = IPowerManager.Stub.asInterface(ServiceManager.getService("power")); // service list | grep IPowerManager
             adapter.goToSleep(SystemClock.uptimeMillis(), 0, 0);

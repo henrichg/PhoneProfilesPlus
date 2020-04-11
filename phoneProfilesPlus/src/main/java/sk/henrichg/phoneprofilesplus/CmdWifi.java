@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.net.wifi.IWifiManager;
-import android.net.wifi.WifiManager;
 import android.os.ServiceManager;
 import android.util.Log;
 
@@ -9,7 +8,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 //import com.crashlytics.android.Crashlytics;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class CmdWifi {
 
     public static void main(String[] args) {
@@ -37,6 +35,7 @@ public class CmdWifi {
         }
     }
 
+    /*
     static boolean isEnabled() {
         try {
             boolean enabled;
@@ -52,5 +51,6 @@ public class CmdWifi {
             return false;
         }
     }
+    */
 
 }

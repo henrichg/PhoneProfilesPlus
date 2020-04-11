@@ -11,7 +11,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 /**
  * A shell executable for NTC toggle.
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+
 public class CmdNfc {
 
     public static void main(String[] args) {
