@@ -49,7 +49,7 @@ public class CmdWifiAP {
             return true;
         } catch (java.lang.SecurityException ee) {
             Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
-            //FirebaseCrashlytics.getInstance().log(Log.getStackTraceString(ee));
+            //FirebaseCrashlytics.getInstance().log("E/CmdWifiAP.setWifiAP: " + Log.getStackTraceString(ee));
             //Crashlytics.logException(ee);
             //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;

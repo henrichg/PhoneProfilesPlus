@@ -283,13 +283,13 @@ class TonesHandler {
 
             if (!outFile.exists()) {
                 Log.e("TonesHandler._installTone", "Error writing " + filename);
-                FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - Error writing " + filename);
+                FirebaseCrashlytics.getInstance().log("E/TonesHandler._installTone: Error writing " + filename);
                 //Crashlytics.log("TonesHandler._installTone - Error writing " + filename);
                 isError = true;
             } else {
                 if (!outFile.setReadable(true, false)) {
                     Log.e("TonesHandler._installTone", "Error setting readable to all " + filename);
-                    FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - Error setting readable to all " + filename);
+                    FirebaseCrashlytics.getInstance().log("E/TonesHandler._installTone: Error setting readable to all " + filename);
                     //Crashlytics.log("TonesHandler._installTone - Error setting readable to all " + filename);
                 }
             }
@@ -354,7 +354,7 @@ class TonesHandler {
                         PPApplication.sleep(500);
                     } else {
                         Log.e("TonesHandler._installTone", "newUri is empty");
-                        FirebaseCrashlytics.getInstance().log("TonesHandler._installTone - newUri is empty");
+                        FirebaseCrashlytics.getInstance().log("E/TonesHandler._installTone: newUri is empty");
                         //Crashlytics.log("TonesHandler._installTone - newUri is empty");
                         isError = true;
                     }

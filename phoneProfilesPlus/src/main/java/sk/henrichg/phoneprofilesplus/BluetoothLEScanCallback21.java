@@ -202,7 +202,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
     public void onScanFailed(int errorCode) {
         Log.e("BluetoothLEScanCallback21.onScanFailed", "errorCode=" + errorCode);
-        FirebaseCrashlytics.getInstance().log("BluetoothLEScanCallback21.onScanFailed errorCode=" + errorCode);
+        FirebaseCrashlytics.getInstance().log("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
         //Crashlytics.log("BluetoothLEScanCallback21.onScanFailed errorCode=" + errorCode);
     }
 

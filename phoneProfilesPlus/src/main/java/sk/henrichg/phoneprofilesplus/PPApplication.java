@@ -1377,7 +1377,7 @@ public class PPApplication extends Application /*implements Application.Activity
         if (getResources() == null) {
             try {
                 android.os.Process.killProcess(android.os.Process.myPid());
-                FirebaseCrashlytics.getInstance().log("PPApplication.checkAppReplacingState - app is replacing...kill");
+                FirebaseCrashlytics.getInstance().log("E/PPApplication.checkAppReplacingState: app is replacing...kill");
                 //Crashlytics.log("PPApplication.checkAppReplacingState - app is replacing...kill");
             } catch (Exception e) {
                 Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
@@ -2851,7 +2851,7 @@ public class PPApplication extends Application /*implements Application.Activity
         }
         if (!cmd.isFinished()){
             Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
-            FirebaseCrashlytics.getInstance().log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
+            FirebaseCrashlytics.getInstance().log("E/PPApplication.commandWait: Could not finish root command in " + (waitTill/waitTillMultiplier));
             //Crashlytics.log("PPApplication.commandWait - Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
