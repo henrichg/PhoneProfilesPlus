@@ -10542,22 +10542,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private boolean tableExists(String tableName, SQLiteDatabase db)
     {
-        boolean tableExists = false;
+        //boolean tableExists = false;
 
         /* get cursor on it */
         try
         {
+            String query = "select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'";
+            try (Cursor cursor = db.rawQuery(query, null)) {
+                if(cursor!=null) {
+                    if (cursor.getCount()>0) {
+                        cursor.close();
+                        return true;
+                    }
+                    cursor.close();
+                }
+                return false;
+            }
+            /*
             Cursor c = db.query(tableName, null,
                 null, null, null, null, null);
             tableExists = true;
-            c.close();
+            c.close();*/
         }
         catch (Exception e) {
             /* not exists ? */
             Crashlytics.logException(e);
         }
 
-        return tableExists;
+        return false;
     }
 
     //@SuppressWarnings("resource")

@@ -80,7 +80,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
 
                                 boolean scanStarted = ApplicationPreferences.prefEventWifiWaitForResult;
-                                //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
+                                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
 
                                 //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                                 //PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "isWifiAPEnabled="+isWifiAPEnabled);
