@@ -384,8 +384,10 @@ public class ActivateProfileListFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (fragment.getActivity() != null)
-                            ((ActivateProfileActivity)fragment.getActivity()).startTargetHelpsActivity();
+                        if (fragment.getActivity() != null) {
+                            if (!fragment.getActivity().isFinishing())
+                                ((ActivateProfileActivity) fragment.getActivity()).startTargetHelpsActivity();
+                        }
                     }
                 }, 500);
 

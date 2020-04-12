@@ -517,13 +517,13 @@ public class EditorProfileListFragment extends Fragment
                 //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
                 //    fragment.setProfileSelection(profile);
 
-                if (defaultProfilesGenerated)
-                {
+                if (defaultProfilesGenerated) {
                     //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
                     PPApplication.updateGUI(_dataWrapper.context, true, true);
-                    PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                            fragment.getResources().getString(R.string.toast_predefined_profiles_generated),
-                            Toast.LENGTH_SHORT);
+                    if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
+                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                                fragment.getResources().getString(R.string.toast_predefined_profiles_generated),
+                                Toast.LENGTH_SHORT);
                 }
                 /*if (defaultEventsGenerated)
                 {

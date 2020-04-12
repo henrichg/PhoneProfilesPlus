@@ -555,9 +555,10 @@ public class EditorEventListFragment extends Fragment
 
                 if (defaultEventsGenerated)
                 {
-                    PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                            fragment.getResources().getString(R.string.toast_predefined_events_generated),
-                            Toast.LENGTH_SHORT);
+                    if ((fragment.getActivity() != null ) && (!fragment.getActivity().isFinishing()))
+                        PPApplication.showToast(_dataWrapper.context,
+                                fragment.getResources().getString(R.string.toast_predefined_events_generated),
+                                Toast.LENGTH_SHORT);
                 }
             }
         }
@@ -654,7 +655,7 @@ public class EditorEventListFragment extends Fragment
             if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                 if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
                     // pause event
-                    //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context.getApplicationContext());
+                    //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
                     // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                     event.pauseEvent(activityDataWrapper, false, false,
                             false, true, null, false, false);
