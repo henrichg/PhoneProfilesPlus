@@ -293,7 +293,7 @@ public class RingtonePreferenceX extends DialogPreference {
                         mediaPlayer.stop();
                     mediaPlayer.release();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
                     //Crashlytics.logException(e);
                 }
                 ringtoneIsPlayed = false;
@@ -397,7 +397,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                             mediaPlayer.stop();
                                         mediaPlayer.release();
                                     } catch (Exception e) {
-                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        //FirebaseCrashlytics.getInstance().recordException(e);
                                         //Crashlytics.logException(e);
                                     }
 

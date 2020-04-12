@@ -159,7 +159,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                                 preference.mediaPlayer.stop();
                             preference.mediaPlayer.release();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //FirebaseCrashlytics.getInstance().recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -250,7 +250,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                                 preference.mediaPlayer.stop();
                             preference.mediaPlayer.release();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            //FirebaseCrashlytics.getInstance().recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }

@@ -5791,7 +5791,7 @@ public class PhoneProfilesService extends Service
                         notificationMediaPlayer.stop();
                     notificationMediaPlayer.release();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
                     //Crashlytics.logException(e);
                 }
                 notificationIsPlayed = false;
@@ -5940,7 +5940,7 @@ public class PhoneProfilesService extends Service
                         ringingMediaPlayer.stop();
                     ringingMediaPlayer.release();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
                     //Crashlytics.logException(e);
                 }
                 ringingMediaPlayer = null;
@@ -6269,7 +6269,7 @@ public class PhoneProfilesService extends Service
                     notificationMediaPlayer.stop();
                 notificationMediaPlayer.release();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                //FirebaseCrashlytics.getInstance().recordException(e);
                 //Crashlytics.logException(e);
             }
             notificationIsPlayed = false;
@@ -6365,7 +6365,7 @@ public class PhoneProfilesService extends Service
                                             notificationMediaPlayer.stop();
                                         notificationMediaPlayer.release();
                                     } catch (Exception e) {
-                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        //FirebaseCrashlytics.getInstance().recordException(e);
                                         //Crashlytics.logException(e);
                                     }
 
