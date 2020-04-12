@@ -157,6 +157,11 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         try {
                             if (preference.mediaPlayer.isPlaying())
                                 preference.mediaPlayer.stop();
+                        } catch (Exception e) {
+                            //FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
+                        }
+                        try {
                             preference.mediaPlayer.release();
                         } catch (Exception e) {
                             //FirebaseCrashlytics.getInstance().recordException(e);
@@ -248,6 +253,11 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         try {
                             if (preference.mediaPlayer.isPlaying())
                                 preference.mediaPlayer.stop();
+                        } catch (Exception e) {
+                            //FirebaseCrashlytics.getInstance().recordException(e);
+                            //Crashlytics.logException(e);
+                        }
+                        try {
                             preference.mediaPlayer.release();
                         } catch (Exception e) {
                             //FirebaseCrashlytics.getInstance().recordException(e);

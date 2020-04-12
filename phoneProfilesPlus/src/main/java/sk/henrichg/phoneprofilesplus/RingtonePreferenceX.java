@@ -291,6 +291,11 @@ public class RingtonePreferenceX extends DialogPreference {
                 try {
                     if (mediaPlayer.isPlaying())
                         mediaPlayer.stop();
+                } catch (Exception e) {
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
+                }
+                try {
                     mediaPlayer.release();
                 } catch (Exception e) {
                     //FirebaseCrashlytics.getInstance().recordException(e);
@@ -395,6 +400,11 @@ public class RingtonePreferenceX extends DialogPreference {
                                     try {
                                         if (mediaPlayer.isPlaying())
                                             mediaPlayer.stop();
+                                    } catch (Exception e) {
+                                        //FirebaseCrashlytics.getInstance().recordException(e);
+                                        //Crashlytics.logException(e);
+                                    }
+                                    try {
                                         mediaPlayer.release();
                                     } catch (Exception e) {
                                         //FirebaseCrashlytics.getInstance().recordException(e);

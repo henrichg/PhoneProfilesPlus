@@ -5789,11 +5789,17 @@ public class PhoneProfilesService extends Service
                 try {
                     if (notificationMediaPlayer.isPlaying())
                         notificationMediaPlayer.stop();
+                } catch (Exception e) {
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
+                }
+                try {
                     notificationMediaPlayer.release();
                 } catch (Exception e) {
                     //FirebaseCrashlytics.getInstance().recordException(e);
                     //Crashlytics.logException(e);
                 }
+
                 notificationIsPlayed = false;
                 notificationMediaPlayer = null;
             }
@@ -5938,6 +5944,11 @@ public class PhoneProfilesService extends Service
                 try {
                     if (ringingMediaPlayer.isPlaying())
                         ringingMediaPlayer.stop();
+                } catch (Exception e) {
+                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    //Crashlytics.logException(e);
+                }
+                try {
                     ringingMediaPlayer.release();
                 } catch (Exception e) {
                     //FirebaseCrashlytics.getInstance().recordException(e);
@@ -6267,6 +6278,11 @@ public class PhoneProfilesService extends Service
             try {
                 if (notificationMediaPlayer.isPlaying())
                     notificationMediaPlayer.stop();
+            } catch (Exception e) {
+                //FirebaseCrashlytics.getInstance().recordException(e);
+                //Crashlytics.logException(e);
+            }
+            try {
                 notificationMediaPlayer.release();
             } catch (Exception e) {
                 //FirebaseCrashlytics.getInstance().recordException(e);
@@ -6363,6 +6379,11 @@ public class PhoneProfilesService extends Service
                                     try {
                                         if (notificationMediaPlayer.isPlaying())
                                             notificationMediaPlayer.stop();
+                                    } catch (Exception e) {
+                                        //FirebaseCrashlytics.getInstance().recordException(e);
+                                        //Crashlytics.logException(e);
+                                    }
+                                    try {
                                         notificationMediaPlayer.release();
                                     } catch (Exception e) {
                                         //FirebaseCrashlytics.getInstance().recordException(e);
