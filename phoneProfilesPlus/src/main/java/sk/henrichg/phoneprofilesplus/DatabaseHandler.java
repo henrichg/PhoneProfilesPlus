@@ -860,6 +860,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    /*@Override
+    public void onOpen(SQLiteDatabase db) {
+        db.disableWriteAheadLogging();
+        super.onOpen(db);
+    }*/
+
     @Override
     public void onDowngrade (SQLiteDatabase db, int oldVersion, int newVersion) {
         /*if (PPApplication.logEnabled()) {
@@ -12284,19 +12290,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             ret = IMPORT_ERROR_NEVER_VERSION;
                         }
                     }
-                } catch (Exception e) {
-                    Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
+                } catch (Exception e1) {
+                    Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e1));
                     //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
-                    //Crashlytics.logException(e);
-                    //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
+                    FirebaseCrashlytics.getInstance().recordException(e1);
+                    //Crashlytics.logException(e1);
                     ret = IMPORT_ERROR_BUG;
                 }
 
-            } catch (Exception e) {
-                Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
+            } catch (Exception e2) {
+                Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e2));
                 //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
-                //Crashlytics.logException(e);
-                //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e));
+                FirebaseCrashlytics.getInstance().recordException(e2);
+                //Crashlytics.logException(e2);
+                //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e2));
             }
             return ret;
         } finally {
