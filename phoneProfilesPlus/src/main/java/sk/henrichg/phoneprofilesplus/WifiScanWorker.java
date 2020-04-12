@@ -52,7 +52,7 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
+            //PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
 
             //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
@@ -469,10 +469,10 @@ public class WifiScanWorker extends Worker {
                 //TODO from SDK documentation: The ability for apps to trigger scan requests will be removed in a future release. :-/
                 startScan = wifi.startScan();
             }
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiScanWorker.startScan", "scanStarted=" + startScan);
                 //PPApplication.logE("$$$ WifiAP", "WifiScanWorker.startScan-startScan=" + startScan);
-            }
+            }*/
             if (!startScan) {
                 if (ApplicationPreferences.prefEventWifiEnabledForScan) {
                     /*if (PPApplication.logEnabled()) {
@@ -635,12 +635,12 @@ public class WifiScanWorker extends Worker {
 
         if (Permissions.checkLocation(context)) {
             List<ScanResult> _scanResults = wifi.getScanResults();
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 //int wifiState = wifi.getWifiState();
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
                 PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "getScanResults() called");
-            }
+            }*/
             if (_scanResults != null) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 //boolean isScreenOn = PPApplication.isScreenOn(pm);

@@ -712,7 +712,7 @@
     <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Delete all profiles</string>
     <string name="editor_activity_targetHelps_deleteAllProfilesButton_description">Click this to delete all profiles.</string>
     <string name="editor_activity_targetHelps_importantInfoButton_title">Important information</string>
-    <string name="editor_activity_targetHelps_importantInfoButton_description">Click this to show Important information. Please read.</string>
+    <string name="editor_activity_targetHelps_importantInfoButton_description">Click this to show Important information. Please read this information.</string>
     <string name="editor_activity_targetHelps_newEventButton_title">New event</string>
     <string name="editor_activity_targetHelps_newEventButton_description">Click this to add a new event.</string>
     <string name="editor_activity_targetHelps_deleteAllEventsButton_title">Delete all events</string>

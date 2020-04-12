@@ -1348,7 +1348,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="alert_button_install">Zainstaluj</string>
     <string name="event_preferences_red_enable_PPPExtender">Kliknij tu, aby aktywować. Znajdź PhoneProfilesPLusExtender i włącz to ułatwienie dostępu.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Aby włączyć parametr \"Dozwolone powiadomienia\" w ustawieniach profili, włącz w ustawieniach systemowych \"Dostęp do powiadomień\" dla PhoneProfilesPlus.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Aby włączyć parametr \"Nie przeszkadzać\" w ustawieniach profili, włącz w ustawieniach systemowych \"Dostęp do powiadomień\" dla PhoneProfilesPlus.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Aby włączyć parametr \"Nie przeszkadzać\" w ustawieniach profili, włącz w ustawieniach systemowych \"Dostęp do trybu Nie Przeszkadzać\" dla PhoneProfilesPlus. Kliknij tutaj aby to zrobić.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Kliknij go, gdy jest aktywny, aby wyświetlić ukryty nagłówek i dolny pasek narzędzi.</string>
     <string name="event_preferences_notifications_checkContacts">Sprawdź kontakty</string>
     <string name="event_preferences_notifications_contact_groups">Grupy kontaktów</string>
@@ -1362,7 +1362,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="preferences_red_texts_text_2">zawiera błędy w ustawieniach.</string>
     <string name="preferences_red_texts_text_click">Kliknij to powiadomienie, aby je otworzyć.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Okno dialogowe potwierdzania Wi-Fi i Bluetooth</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Dla \"KolorO\" możliwe jest wyłączenie tych okien dialogowych. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Dla \"ColorOs\" możliwe jest wyłączenie tych okien dialogowych. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">W ustawieniach systemu:\n1. Opcje programisty\\Opcje programisty = włącz\n2. Opcje dewelopera\\Debugging\\USB debugging = włącz\n3. Opcje dewelopera\\Apps\\Wyłącza monitorowanie autoryzacji = włączone.</string>
     <string name="important_info_android_look_application_settings">Otwórz ustawienia PhoneProfilesPlus i skonfiguruj. Szczególnie parametry oznaczone pogrubionym tekstem.</string>
     <string name="profile_preferences_red_texts_text_2">Brak możliwości jego aktywowania.</string>

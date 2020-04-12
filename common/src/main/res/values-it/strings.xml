@@ -1422,11 +1422,11 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="event_preferences_category_eventDeviceBootParameters">Sensore di avvio dispositivo</string>
     <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Configurazione per tutte le categorie di notifica</string>
     <string name="phone_profiles_pref_notificationSystemSettingsAll_A7_summary">Configurazione per tutte le notifiche</string>
-    <string name="event_preferences_alarm_clock_info">Internally supported Alarm clock applications</string>
-    <string name="event_preferences_alarm_clock_applications">Alarm clock applications</string>
-    <string name="gui_items_help">Help with GUI items</string>
-    <string name="gui_items_help_alert_title">Start help with GUI items</string>
-    <string name="gui_items_help_alert_message">Is not possible to cancel this help. And will be invoked from all GUI. Start it?</string>
+    <string name="event_preferences_alarm_clock_info">Applicazioni Allarme sveglia supportate internamente</string>
+    <string name="event_preferences_alarm_clock_applications">Applicazioni Allarme sveglia</string>
+    <string name="gui_items_help">Aiuto con elementi GUI</string>
+    <string name="gui_items_help_alert_title">Inizia gli aiuti con elementi GUI</string>
+    <string name="gui_items_help_alert_message">Non è possibile annullare questo aiuto. E verrà invocato da tutte le GUI. Iniziare?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

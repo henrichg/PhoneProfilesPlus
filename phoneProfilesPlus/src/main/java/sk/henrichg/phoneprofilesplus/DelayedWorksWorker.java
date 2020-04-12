@@ -584,7 +584,7 @@ public class DelayedWorksWorker extends Worker {
                     }
                     break;
                 case DELAYED_WORK_START_WIFI_SCAN:
-                    PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_START_WIFI_SCAN");
+                    //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_START_WIFI_SCAN");
                     WifiScanWorker.startScan(appContext);
                     break;
                 case DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS:
