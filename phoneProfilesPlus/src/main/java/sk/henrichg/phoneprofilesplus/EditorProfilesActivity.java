@@ -189,6 +189,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
                     if (what.equals("editor")) {
                         try {
+                            EditorProfilesActivity.this.setResult(Activity.RESULT_CANCELED);
                             EditorProfilesActivity.this.finishAffinity();
                         } catch (Exception e) {
                             FirebaseCrashlytics.getInstance().recordException(e);

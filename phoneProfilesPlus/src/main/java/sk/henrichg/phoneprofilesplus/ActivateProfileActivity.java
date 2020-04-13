@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -97,6 +98,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
                     if (what.equals("activator")) {
                         try {
+                            ActivateProfileActivity.this.setResult(Activity.RESULT_CANCELED);
                             ActivateProfileActivity.this.finishAffinity();
                         } catch (Exception e) {
                             FirebaseCrashlytics.getInstance().recordException(e);
