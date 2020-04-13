@@ -1113,14 +1113,15 @@ class GlobalGUIRoutines {
     @SuppressLint("SourceLockedOrientationActivity")
     static void lockScreenOrientation(Activity activity) {
         try {
-            int currentOrientation = activity.getResources().getConfiguration().orientation;
+            /*int currentOrientation = activity.getResources().getConfiguration().orientation;
             if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
             } else {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-            }
-            // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
+            }*/
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } catch (Exception e) {
+            // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             FirebaseCrashlytics.getInstance().recordException(e);
             //Crashlytics.logException(e);
         }
@@ -1129,8 +1130,8 @@ class GlobalGUIRoutines {
     static void unlockScreenOrientation(Activity activity) {
         try {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
-            // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
         } catch (Exception e) {
+            // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             FirebaseCrashlytics.getInstance().recordException(e);
             //Crashlytics.logException(e);
         }

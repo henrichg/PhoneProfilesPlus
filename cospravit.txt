@@ -123,11 +123,13 @@ Direct boot:
 - Ak nepuzijes direct boot, tak apka pada napr. v Fabric, android_job.
   To preto, lebo chcu pouzivat shared preferences a v uzamknutej obrazovke bez direct boot
   to spadne na IllegalStateException.
+
+  Fabric, android-job uz nepouzivam, treba testnut s Firebase Crashlytics a WorkManager
+
 - Ako spravit podporu Direct boot:
     https://developer.android.com/training/articles/direct-boot
-- Len mam taky strasne blby pocit, ze prave Fabric, android_job bude problem. neviem ako movnut
-  shared preferences z device do credential storage. Nepoznam nazvy shared preferences a
-  databazy.
+
+- Len mam taky strasne blby pocit, ze neviem ako movnut shared preferences z device do credential storage.
   Vid:
     https://developer.android.com/reference/android/content/Context#moveSharedPreferencesFrom(android.content.Context,%20java.lang.String)
     https://developer.android.com/reference/android/content/Context#moveDatabaseFrom(android.content.Context,%20java.lang.String)
