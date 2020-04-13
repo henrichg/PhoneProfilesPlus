@@ -27,8 +27,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/act_prof_subToolbar"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="1dp" >
+            android:layout_height="23dp"
+            android:layout_marginTop="0dp" >
 
             <RelativeLayout
                 android:layout_width="match_parent"
