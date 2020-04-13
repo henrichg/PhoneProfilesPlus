@@ -721,25 +721,27 @@ class ActivateProfileHelper {
             return ApplicationPreferences.prefMergedRingNotificationVolumes;
     }
     // test if ring and notification volumes are merged
-    static void setMergedRingNotificationVolumes(Context context, @SuppressWarnings("SameParameterValue") boolean force) {
+    static void setMergedRingNotificationVolumes(Context context/*, boolean force*/) {
         synchronized (PPApplication.profileActivationMutex) {
             //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            setMergedRingNotificationVolumes(context, force, editor);
+            setMergedRingNotificationVolumes(context, /*force,*/ editor);
             editor.apply();
         }
     }
-    static void setMergedRingNotificationVolumes(Context context, boolean force, SharedPreferences.Editor editor) {
+    static void setMergedRingNotificationVolumes(Context context, /*boolean force,*/ SharedPreferences.Editor editor) {
         synchronized (PPApplication.profileActivationMutex) {
 
             //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "xxx");
 
             Context appContext = context.getApplicationContext();
-            if (!ApplicationPreferences.getSharedPreferences(appContext).contains(PREF_MERGED_RING_NOTIFICATION_VOLUMES) || force) {
+            //if (!ApplicationPreferences.getSharedPreferences(appContext).contains(PREF_MERGED_RING_NOTIFICATION_VOLUMES) || force) {
                 try {
                     boolean merged;
                     AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
                     if (audioManager != null) {
+                        //RingerModeChangeReceiver.internalChange = true;
+
                         int ringerMode = audioManager.getRingerMode();
                         int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
                         int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
@@ -762,12 +764,28 @@ class ActivateProfileHelper {
 
                         editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
                         ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+
+                        /*OneTimeWorkRequest disableInternalChangeWorker =
+                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                                        .addTag("disableInternalChangeWork")
+                                        .setInitialDelay(3, TimeUnit.SECONDS)
+                                        .build();
+                        try {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                            workManager.cancelUniqueWork("disableInternalChangeWork");
+                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
+                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                        } catch (Exception ee) {
+                            FirebaseCrashlytics.getInstance().recordException(ee);
+                            //Crashlytics.logException(ee);
+                        }*/
+
                     }
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    //FirebaseCrashlytics.getInstance().recordException(e);
                     //Crashlytics.logException(e);
                 }
-            }
+            //}
         }
     }
 

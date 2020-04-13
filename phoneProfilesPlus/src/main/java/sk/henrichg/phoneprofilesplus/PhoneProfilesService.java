@@ -3640,7 +3640,7 @@ public class PhoneProfilesService extends Service
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "2");
 
                     //TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
-                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
+                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext/*, true*/);
 
                     ActivateProfileHelper.setLockScreenDisabled(appContext, false);
 

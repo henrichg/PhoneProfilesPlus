@@ -112,7 +112,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
                     //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
                     //ActivateProfileHelper.setScreenUnlocked(appContext, true);
-                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
+                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext/*, true*/);
 
                     // clear shared preferences for last activated profile
                     Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);

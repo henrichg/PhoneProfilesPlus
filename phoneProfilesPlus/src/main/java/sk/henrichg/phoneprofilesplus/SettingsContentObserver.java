@@ -1,10 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.provider.Settings;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 class SettingsContentObserver  extends ContentObserver {
 
@@ -119,11 +128,30 @@ class SettingsContentObserver  extends ContentObserver {
             int audioMode = audioManager.getMode();
 
             if ((audioMode == AudioManager.MODE_NORMAL) || (audioMode == AudioManager.MODE_RINGTONE)) {
-                previousVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, audioManager);
-                previousVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, audioManager);
+                int newVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, audioManager);
+                int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, audioManager);
                 //previousVolumeMusic = volumeChangeDetect(AudioManager.STREAM_MUSIC, previousVolumeMusic, audioManager);
                 //previousVolumeAlarm = volumeChangeDetect(AudioManager.STREAM_ALARM, previousVolumeAlarm, audioManager);
                 //previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
+
+                if ((previousVolumeRing != newVolumeRing) || (previousVolumeNotification != newVolumeNotification)) {
+                    // volumes changed
+
+                    boolean merged = (newVolumeRing == newVolumeNotification) && (previousVolumeRing == previousVolumeNotification);
+
+                    if (!ApplicationPreferences.getSharedPreferences(context).contains(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES)) {
+                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+
+                        editor.putBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+                        ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+
+                        editor.apply();
+                    }
+                }
+
+                previousVolumeRing = newVolumeRing;
+                previousVolumeNotification = newVolumeNotification;
+
             }
             //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
             //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
