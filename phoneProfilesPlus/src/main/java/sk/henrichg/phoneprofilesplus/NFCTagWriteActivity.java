@@ -192,7 +192,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this);
+        GlobalGUIRoutines.lockScreenOrientation(this, true);
     }
 
     @Override

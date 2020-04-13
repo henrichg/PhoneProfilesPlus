@@ -1111,15 +1111,19 @@ class GlobalGUIRoutines {
     */
 
     @SuppressLint("SourceLockedOrientationActivity")
-    static void lockScreenOrientation(Activity activity) {
+    static void lockScreenOrientation(Activity activity, boolean toDefault) {
         try {
-            /*int currentOrientation = activity.getResources().getConfiguration().orientation;
-            if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-            } else {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-            }*/
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            if ((Build.VERSION.SDK_INT != 26) && (!toDefault)) {
+                int currentOrientation = activity.getResources().getConfiguration().orientation;
+                if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                } else {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                }
+            }
+            else
+                // this set device to default orientation (for mobile to portrait, for 10' tablets to landscape)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             FirebaseCrashlytics.getInstance().recordException(e);

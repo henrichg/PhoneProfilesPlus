@@ -1837,7 +1837,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     doImport = true;
 
-                    GlobalGUIRoutines.lockScreenOrientation(activity);
+                    GlobalGUIRoutines.lockScreenOrientation(activity, false);
                     importProgressDialog.setCancelable(false);
                     importProgressDialog.setCanceledOnTouchOutside(false);
                     if (!activity.isFinishing())
@@ -2189,7 +2189,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected void onPreExecute() {
                     super.onPreExecute();
 
-                    GlobalGUIRoutines.lockScreenOrientation(activity);
+                    GlobalGUIRoutines.lockScreenOrientation(activity, false);
                     exportProgressDialog.setCancelable(false);
                     exportProgressDialog.setCanceledOnTouchOutside(false);
                     if (!activity.isFinishing())

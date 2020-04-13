@@ -146,7 +146,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
-        GlobalGUIRoutines.lockScreenOrientation(this);
+        GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         if (started) return;
         started = true;
