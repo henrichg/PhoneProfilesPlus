@@ -3668,8 +3668,10 @@ public class PhoneProfilesService extends Service
 
                     // show info notification
                     ImportantInfoNotification.showInfoNotification(appContext);
-                    DrawOverAppsPermissionNotification.showNotification(appContext, false);
-                    IgnoreBatteryOptimizationNotification.showNotification(appContext, false);
+
+                    // do not show it at start of PPP, will be shown for each profile activation.
+                    //DrawOverAppsPermissionNotification.showNotification(appContext, false);
+                    //IgnoreBatteryOptimizationNotification.showNotification(appContext, false);
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "6");
 
