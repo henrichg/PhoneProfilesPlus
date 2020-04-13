@@ -430,7 +430,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 ignoreManualActivationButton.setImageResource(R.drawable.ic_ignore_manual_activation);
             else
                 ignoreManualActivationButton.setImageResource(R.drawable.ic_not_show_in_activator);
-            TooltipCompat.setTooltipText(ignoreManualActivationButton, context.getString(R.string.array_ignore_manual_activation_ignore));
+            TooltipCompat.setTooltipText(ignoreManualActivationButton, context.getString(R.string.event_preferences_ForceRun));
             ignoreManualActivationButton.setTag(event);
             ignoreManualActivationButton.setOnClickListener(new View.OnClickListener() {
 

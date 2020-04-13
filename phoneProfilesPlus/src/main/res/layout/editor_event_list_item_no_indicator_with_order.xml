@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/profile_preferences_showInActivator"
+            android:contentDescription="@string/event_preferences_ForceRun"
             android:src="@drawable/ic_ignore_manual_activation"/>
 
     </LinearLayout>
