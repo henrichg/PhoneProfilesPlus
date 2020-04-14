@@ -1298,10 +1298,14 @@ class ActivateProfileHelper {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, Uri.parse(splits[0]));
                     }
+                    catch (IllegalArgumentException e) {
+                        // java.lang.IllegalArgumentException: Invalid column: _data
+                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
+                    }
                     catch (Exception e){
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        //Log.e("ActivateProfileHelper.setTones", "TYPE_RINGTONE");
-                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                        FirebaseCrashlytics.getInstance().recordException(e);
                         //Crashlytics.logException(e);
                     }
                 } else {
@@ -1309,6 +1313,11 @@ class ActivateProfileHelper {
                     try {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
+                    }
+                    catch (IllegalArgumentException e) {
+                        // java.lang.IllegalArgumentException: Invalid column: _data
+                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         FirebaseCrashlytics.getInstance().recordException(e);
@@ -1323,6 +1332,11 @@ class ActivateProfileHelper {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, splits[0]);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(splits[0]));
                     }
+                    catch (IllegalArgumentException e) {
+                        // java.lang.IllegalArgumentException: Invalid column: _data
+                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
+                    }
                     catch (Exception e){
                         FirebaseCrashlytics.getInstance().recordException(e);
                         //Crashlytics.logException(e);
@@ -1332,6 +1346,11 @@ class ActivateProfileHelper {
                     try {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
+                    }
+                    catch (IllegalArgumentException e) {
+                        // java.lang.IllegalArgumentException: Invalid column: _data
+                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         FirebaseCrashlytics.getInstance().recordException(e);
@@ -1346,6 +1365,11 @@ class ActivateProfileHelper {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, splits[0]);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, Uri.parse(splits[0]));
                     }
+                    catch (IllegalArgumentException e) {
+                        // java.lang.IllegalArgumentException: Invalid column: _data
+                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
+                    }
                     catch (Exception e){
                         FirebaseCrashlytics.getInstance().recordException(e);
                         //Crashlytics.logException(e);
@@ -1355,6 +1379,11 @@ class ActivateProfileHelper {
                     try {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
                         RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, null);
+                    }
+                    catch (IllegalArgumentException e) {
+                        // java.lang.IllegalArgumentException: Invalid column: _data
+                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         FirebaseCrashlytics.getInstance().recordException(e);
