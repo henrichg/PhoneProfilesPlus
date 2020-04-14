@@ -4835,12 +4835,12 @@ public class PhoneProfilesService extends Service
                 }
                 else {
                     Notification.Action.Builder actionBuilder;
-                    if (Build.VERSION.SDK_INT >= 23)
+                    /*if (Build.VERSION.SDK_INT >= 23)
                         actionBuilder = new Notification.Action.Builder(
                                 Icon.createWithResource(appContext, R.drawable.ic_widget_restart_events),
                                 appContext.getString(R.string.menu_restart_events),
                                 pIntentRE);
-                    else
+                    else*/
                         actionBuilder = new Notification.Action.Builder(
                                 R.drawable.ic_widget_restart_events,
                                 appContext.getString(R.string.menu_restart_events),
@@ -4994,12 +4994,12 @@ public class PhoneProfilesService extends Service
                 PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 Notification.Action.Builder actionBuilder;
-                if (Build.VERSION.SDK_INT >= 23)
+                /*if (Build.VERSION.SDK_INT >= 23)
                     actionBuilder = new Notification.Action.Builder(
                             Icon.createWithResource(appContext, R.drawable.ic_action_exit_app_white),
                             appContext.getString(R.string.menu_exit),
                             pExitAppIntent);
-                else
+                else*/
                     actionBuilder = new Notification.Action.Builder(
                             R.drawable.ic_action_exit_app_white,
                             appContext.getString(R.string.menu_exit),

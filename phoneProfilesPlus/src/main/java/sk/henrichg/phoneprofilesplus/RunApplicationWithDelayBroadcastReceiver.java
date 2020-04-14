@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -207,6 +208,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 context.startActivity(appIntent);
+                            } catch (ActivityNotFoundException ee) {
+                                //PPApplication.recordException(ee);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
@@ -231,6 +234,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 context.startActivity(appIntent);
+                            } catch (ActivityNotFoundException ee) {
+                                //PPApplication.recordException(ee);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
@@ -255,6 +260,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     context.startActivity(appIntent);
+                } catch (ActivityNotFoundException ee) {
+                    //PPApplication.recordException(ee);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                     //Crashlytics.logException(e);
