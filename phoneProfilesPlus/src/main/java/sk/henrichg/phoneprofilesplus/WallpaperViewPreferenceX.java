@@ -18,8 +18,6 @@ import android.widget.ImageView;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.io.File;
 
 import androidx.preference.Preference;
@@ -183,7 +181,7 @@ public class WallpaperViewPreferenceX extends Preference {
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         /*} catch (ActivityNotFoundException e) {

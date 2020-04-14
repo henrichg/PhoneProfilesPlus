@@ -10,8 +10,6 @@ import android.content.pm.PackageManager;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -104,7 +102,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     workManager.enqueue(worker);
                     PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -178,7 +176,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, context.getApplicationContext());
@@ -210,12 +208,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             try {
                                 context.startActivity(appIntent);
                             } catch (Exception ee) {
-                                FirebaseCrashlytics.getInstance().recordException(ee);
+                                PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
                             }
                         }
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -234,7 +232,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             try {
                                 context.startActivity(appIntent);
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -242,7 +240,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             try {
                                 context.sendBroadcast(appIntent);
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -258,7 +256,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 try {
                     context.startActivity(appIntent);
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }

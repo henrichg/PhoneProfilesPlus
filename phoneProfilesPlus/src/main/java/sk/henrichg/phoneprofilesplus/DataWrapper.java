@@ -25,8 +25,6 @@ import android.widget.Toast;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -816,7 +814,7 @@ public class DataWrapper {
                 }
             } catch (Exception e) {
                 Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }
@@ -1798,7 +1796,7 @@ public class DataWrapper {
                     Toast.LENGTH_SHORT);
         }
         catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         //Log.d("DataWrapper.showToastAfterActivation", "-- end");
@@ -1950,7 +1948,7 @@ public class DataWrapper {
                         //else
                             _activity.finish();
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -2396,7 +2394,7 @@ public class DataWrapper {
                         try {
                             activity.finish();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -2477,7 +2475,7 @@ public class DataWrapper {
                 //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
                 workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
 

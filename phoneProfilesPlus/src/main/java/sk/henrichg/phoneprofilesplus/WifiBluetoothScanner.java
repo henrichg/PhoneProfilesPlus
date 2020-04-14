@@ -15,8 +15,6 @@ import android.provider.Settings;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -178,7 +176,7 @@ class WifiBluetoothScanner {
                                                 WifiScanWorker.wifi.setWifiEnabled(false);
                                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         } catch (Exception e) {
-                                            FirebaseCrashlytics.getInstance().recordException(e);
+                                            PPApplication.recordException(e);
                                             //Crashlytics.logException(e);
                                         }
                                     }
@@ -245,7 +243,7 @@ class WifiBluetoothScanner {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance(context);
                                                 workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, worker);
                                             } catch (Exception e) {
-                                                FirebaseCrashlytics.getInstance().recordException(e);
+                                                PPApplication.recordException(e);
                                                 //Crashlytics.logException(e);
                                             }
 
@@ -302,7 +300,7 @@ class WifiBluetoothScanner {
                                         if (WifiScanWorker.wifi != null)
                                             WifiScanWorker.wifi.setWifiEnabled(false);
                                     } catch (Exception e) {
-                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        PPApplication.recordException(e);
                                         //Crashlytics.logException(e);
                                     }
                                 } //else
@@ -385,7 +383,7 @@ class WifiBluetoothScanner {
                                                     //else
                                                     BluetoothScanWorker.bluetooth.disable();
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -517,7 +515,7 @@ class WifiBluetoothScanner {
                                                     //else
                                                     BluetoothScanWorker.bluetooth.disable();
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -705,7 +703,7 @@ class WifiBluetoothScanner {
                     try {
                         wifiApManager = new WifiApManager(context);
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     if (wifiApManager != null)

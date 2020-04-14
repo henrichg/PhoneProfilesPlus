@@ -10,8 +10,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -300,7 +298,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
             } catch (Exception e) {
                 Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }

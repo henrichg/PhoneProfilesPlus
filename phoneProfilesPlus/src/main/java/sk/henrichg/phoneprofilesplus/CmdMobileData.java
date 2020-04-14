@@ -1,14 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.ServiceManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 //import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
@@ -47,7 +45,7 @@ public class CmdMobileData {
                         // Loop through the subscription list i.e. SIM list.
                         subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                     } catch (SecurityException e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     if (subscriptionList != null) {
@@ -79,7 +77,7 @@ public class CmdMobileData {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdMobileData.isEnabled", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
             return false;
         }

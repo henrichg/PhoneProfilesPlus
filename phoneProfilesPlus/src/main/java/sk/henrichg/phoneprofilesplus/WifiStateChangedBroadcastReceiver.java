@@ -10,8 +10,6 @@ import android.os.PowerManager;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -120,7 +118,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                                 workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, worker);
                                             } catch (Exception e) {
-                                                FirebaseCrashlytics.getInstance().recordException(e);
+                                                PPApplication.recordException(e);
                                                 //Crashlytics.logException(e);
                                             }
 

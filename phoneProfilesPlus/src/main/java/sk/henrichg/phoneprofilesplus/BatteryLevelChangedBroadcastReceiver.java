@@ -8,8 +8,6 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 //import com.crashlytics.android.Crashlytics;
 
 public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
@@ -54,7 +52,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 batteryStatus = context.registerReceiver(null, iFilter);
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             if (batteryStatus != null) {
@@ -228,7 +226,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             batteryStatus = appContext.registerReceiver(null, filter);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         if (batteryStatus != null) {

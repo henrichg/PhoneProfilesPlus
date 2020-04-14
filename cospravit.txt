@@ -852,6 +852,10 @@ Pridaj aj info preference, ktore zobrazi zoznam interne podporovanych aplikacii:
 
 Import dat z PP:
 
+PPP testne, ci PP je nainstaloany. Ak je, tak posle broadcast do PP, ktory, ak bezi, musi zacat posielat.
+PPP caka na to, ze PP zacal. Pride z PP broadcast o zaciatku.
+PP musi bezat, pretoze broadcast sa zaregistruje pri starte PP. Ako ostatne broadcasty.
+
 V PhoneProfiles sprav export PP dát cez broadcast. PP by na to mal mať foreground servis.
 PP bude postupne posielať veci jednu za druhou v broadcaste, PPP musí vedieť, čo sa poslalo.
 Na konci pošle, že je koniec.

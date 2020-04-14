@@ -11,8 +11,6 @@ import android.telephony.PhoneNumberUtils;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -422,7 +420,7 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         try {
@@ -430,7 +428,7 @@ class EventPreferencesSMS extends EventPreferences {
             //workManager.cancelUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }

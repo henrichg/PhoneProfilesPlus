@@ -11,8 +11,6 @@ import android.telephony.PhoneNumberUtils;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -455,7 +453,7 @@ class EventPreferencesCall extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         try {
@@ -463,7 +461,7 @@ class EventPreferencesCall extends EventPreferences {
             //workManager.cancelUniqueWork("elapsedAlarmsCallSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsCallSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }

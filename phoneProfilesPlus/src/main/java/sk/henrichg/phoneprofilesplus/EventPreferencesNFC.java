@@ -10,8 +10,6 @@ import android.content.SharedPreferences.Editor;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 
 import androidx.preference.Preference;
@@ -326,7 +324,7 @@ class EventPreferencesNFC extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         try {
@@ -334,7 +332,7 @@ class EventPreferencesNFC extends EventPreferences {
             //workManager.cancelUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }

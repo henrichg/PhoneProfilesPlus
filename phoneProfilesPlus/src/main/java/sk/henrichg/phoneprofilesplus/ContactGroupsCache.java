@@ -7,8 +7,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +111,7 @@ class ContactGroupsCache {
             }
         } catch (SecurityException e) {
             Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
+            //PPApplication.recordException(e);
             //Crashlytics.logException(e);
 
             _contactGroupList.clear();
@@ -123,7 +121,7 @@ class ContactGroupsCache {
             cached = false;
         } catch (Exception e) {
             Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
 
             _contactGroupList.clear();

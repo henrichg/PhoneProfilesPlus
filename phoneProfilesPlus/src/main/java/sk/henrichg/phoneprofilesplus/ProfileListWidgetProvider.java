@@ -21,8 +21,6 @@ import android.widget.RemoteViews;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -545,7 +543,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }
@@ -620,7 +618,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     try {
                         appWidgetManager.updateAppWidget(appWidgetId, layout);
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -821,7 +819,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 updateWidget(context, appWidgetId);
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }

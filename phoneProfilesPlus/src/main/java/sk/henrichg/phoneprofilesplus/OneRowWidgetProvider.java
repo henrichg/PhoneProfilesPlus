@@ -16,8 +16,6 @@ import android.widget.RemoteViews;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -401,12 +399,12 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
                             appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     //}
                 } catch (Exception ee) {
-                    FirebaseCrashlytics.getInstance().recordException(ee);
+                    PPApplication.recordException(ee);
                     //Crashlytics.logException(ee);
                 }
 

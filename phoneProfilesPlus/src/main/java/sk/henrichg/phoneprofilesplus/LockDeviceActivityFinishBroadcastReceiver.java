@@ -9,8 +9,6 @@ import android.content.Intent;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -46,7 +44,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsLockDeviceFinishActivity", context.getApplicationContext());
@@ -103,7 +101,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
                 workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceFinishActivity", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }

@@ -11,8 +11,6 @@ import android.text.format.DateFormat;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -1151,7 +1149,7 @@ class EventPreferencesTime extends EventPreferences {
                         //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
 
@@ -1168,12 +1166,12 @@ class EventPreferencesTime extends EventPreferences {
                         //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
                     }
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
         } catch (Exception ee) {
-            FirebaseCrashlytics.getInstance().recordException(ee);
+            PPApplication.recordException(ee);
             //Crashlytics.logException(ee);
         }
         try {
@@ -1190,7 +1188,7 @@ class EventPreferencesTime extends EventPreferences {
                 //if (testEvent)
                 //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
 
@@ -1200,14 +1198,14 @@ class EventPreferencesTime extends EventPreferences {
                 //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
                 workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
 
             //if (testEvent)
             //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
         } catch (Exception ee) {
-            FirebaseCrashlytics.getInstance().recordException(ee);
+            PPApplication.recordException(ee);
             //Crashlytics.logException(ee);
         }
     }

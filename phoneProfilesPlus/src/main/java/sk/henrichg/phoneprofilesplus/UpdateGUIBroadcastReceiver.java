@@ -12,8 +12,6 @@ import android.os.SystemClock;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -94,7 +92,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                 //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.REPLACE, worker);
                 workManager.enqueue(worker);
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }
@@ -149,7 +147,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsUpdateGUIWork", context.getApplicationContext());

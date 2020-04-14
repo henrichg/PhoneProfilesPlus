@@ -10,8 +10,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -49,7 +47,7 @@ class ImportantInfoNotification {
                 setShowInfoNotificationOnStartVersion(context, packageVersionCode);
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
 
@@ -197,7 +195,7 @@ class ImportantInfoNotification {
                 mNotificationManager.notify(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
             } catch (Exception e) {
                 Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }

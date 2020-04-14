@@ -13,8 +13,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -105,7 +103,7 @@ class DrawOverAppsPermissionNotification {
                 mNotificationManager.notify(PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
             } catch (Exception e) {
                 Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }

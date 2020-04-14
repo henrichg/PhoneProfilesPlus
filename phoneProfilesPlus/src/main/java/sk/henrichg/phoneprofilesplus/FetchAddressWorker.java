@@ -8,8 +8,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +96,7 @@ public class FetchAddressWorker extends Worker {
             return Result.success(outputData);
         } catch (Exception e) {
             Log.e("FetchAddressWorker.doWork", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
             return Result.failure();
         }

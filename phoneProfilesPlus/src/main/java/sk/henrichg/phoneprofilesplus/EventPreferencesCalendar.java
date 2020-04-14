@@ -17,8 +17,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -453,7 +451,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         try {
@@ -461,7 +459,7 @@ class EventPreferencesCalendar extends EventPreferences {
            // workManager.cancelUniqueWork("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }
@@ -788,12 +786,12 @@ class EventPreferencesCalendar extends EventPreferences {
             }
         } catch (SecurityException e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
+            //PPApplication.recordException(e);
             //Crashlytics.logException(e);
             cur = null;
         } catch (Exception e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
             cur = null;
         }

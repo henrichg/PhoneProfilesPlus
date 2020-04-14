@@ -588,7 +588,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                                 ok = true;
                             } catch (Exception e) {
                                 Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
-                                //FirebaseCrashlytics.getInstance().recordException(e);
+                                //PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         } else {

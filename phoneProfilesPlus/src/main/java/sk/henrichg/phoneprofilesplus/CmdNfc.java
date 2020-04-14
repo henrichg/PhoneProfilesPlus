@@ -4,8 +4,6 @@ import android.nfc.INfcAdapter;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 //import com.crashlytics.android.Crashlytics;
 
 /**
@@ -32,7 +30,7 @@ public class CmdNfc {
             return enable ? adapter.enable() : adapter.disable(true);
         } catch (Throwable e) {
             Log.e("CmdNfc.setNFC", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
             return false;
         }

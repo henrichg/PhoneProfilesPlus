@@ -15,8 +15,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -197,7 +195,7 @@ public class MobileCellsRegistrationService extends Service {
             context.sendStickyBroadcast(new Intent(ACTION_STOP));
             //context.sendBroadcast(new Intent(ACTION_STOP));
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }
@@ -291,7 +289,7 @@ public class MobileCellsRegistrationService extends Service {
                 mNotificationManager.notify(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
             } catch (Exception e) {
                 Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }

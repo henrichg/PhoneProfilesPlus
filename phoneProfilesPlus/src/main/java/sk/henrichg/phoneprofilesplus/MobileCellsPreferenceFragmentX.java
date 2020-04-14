@@ -26,8 +26,6 @@ import android.widget.TextView;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -352,7 +350,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                     getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                                     ok = true;
                                 } catch (Exception e) {
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
                             }

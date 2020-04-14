@@ -16,8 +16,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.List;
 
 import androidx.preference.ListPreference;
@@ -540,7 +538,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         try {
@@ -548,7 +546,7 @@ class EventPreferencesNotification extends EventPreferences {
             //workManager.cancelUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }
@@ -897,7 +895,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
         } catch (Exception e) {
             Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         // package name not found
@@ -1062,7 +1060,7 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                 } catch (Exception e) {
                     Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
-                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    //PPApplication.recordException(e);
 
                     // Hm: java.lang.RuntimeException: Could not read bitmap blob.
                     //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();

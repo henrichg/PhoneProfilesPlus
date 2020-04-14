@@ -13,8 +13,6 @@ import android.content.pm.PackageManager;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 
 import androidx.preference.Preference;
@@ -334,7 +332,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         try {
@@ -342,7 +340,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             //workManager.cancelUniqueWork("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id);
             workManager.cancelAllWorkByTag("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }

@@ -14,8 +14,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -3219,7 +3217,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -3409,7 +3407,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return profile;
@@ -3597,7 +3595,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
 
@@ -3698,7 +3696,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new String[]{String.valueOf(profile._id)});
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -3776,7 +3774,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -3784,7 +3782,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -3819,7 +3817,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -3827,7 +3825,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -3870,7 +3868,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }*/
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -3903,7 +3901,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -3943,7 +3941,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -3951,7 +3949,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -4148,7 +4146,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return profile;
@@ -4187,7 +4185,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return id;
@@ -4223,7 +4221,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -4231,7 +4229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -4262,7 +4260,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -4288,7 +4286,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -4296,7 +4294,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -4374,7 +4372,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 }
                             } catch (Exception e) {
                                 Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                                 values.put(KEY_ICON, "ic_profile_default|1|0|0");
                             }
@@ -4391,7 +4389,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     }
                                 } catch (Exception e) {
                                     Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                     values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
                                     values.put(KEY_DEVICE_WALLPAPER, "-");
@@ -4412,7 +4410,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                     Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
                 } finally {
@@ -4423,7 +4421,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         //} finally {
@@ -4519,7 +4517,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -4550,7 +4548,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -4558,7 +4556,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -4629,7 +4627,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
 
@@ -4711,7 +4709,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -4721,7 +4719,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
 
@@ -4749,7 +4747,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -4757,7 +4755,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -4816,7 +4814,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -4824,7 +4822,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -4915,7 +4913,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return event;
@@ -5006,7 +5004,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return eventList;
@@ -5065,7 +5063,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -5073,7 +5071,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -5094,7 +5092,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new String[]{String.valueOf(event._id)});
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -5114,7 +5112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 db.delete(TABLE_EVENTS, null, null);
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -5178,7 +5176,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -5186,7 +5184,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -5214,7 +5212,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -5245,7 +5243,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -5281,7 +5279,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -5289,7 +5287,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6306,7 +6304,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return eventStatus;
@@ -6341,7 +6339,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEventStatus", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6349,7 +6347,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6382,7 +6380,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEventBlocked", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6390,7 +6388,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6422,7 +6420,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.unblockAllEvents", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6430,7 +6428,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6464,7 +6462,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateAllEventsStatus", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6472,7 +6470,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6510,7 +6508,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return id;
@@ -6608,7 +6606,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     //db.close();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
                 return sensorPassed;
@@ -6721,7 +6719,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6729,7 +6727,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6779,7 +6777,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6787,7 +6785,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6836,7 +6834,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.clearAllEventsSensorPassed", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6844,7 +6842,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -6989,7 +6987,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEventCalendarTimes", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -6997,7 +6995,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7037,7 +7035,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7075,7 +7073,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return (eventInDelay == 1);
@@ -7110,7 +7108,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEventInDelayStart", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7118,7 +7116,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7150,7 +7148,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.resetAllEventsInDelayStart", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7158,7 +7156,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7196,7 +7194,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return (eventInDelay == 1);
@@ -7231,7 +7229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEventInDelayEnd", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7239,7 +7237,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7272,7 +7270,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateSMSStartTimes", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7280,7 +7278,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7318,7 +7316,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7474,7 +7472,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateNFCStartTimes", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7482,7 +7480,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7519,7 +7517,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
             } catch (Exception e) {
                 //Crashlytics.logException(e);
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
             }
         } finally {
             stopRunningCommand();
@@ -7592,7 +7590,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateCallStartTimes", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7600,7 +7598,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7636,7 +7634,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7670,7 +7668,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateAlarmClockStartTime", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7678,7 +7676,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7716,7 +7714,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7749,7 +7747,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateDeviceBootStartTime", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7757,7 +7755,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7793,7 +7791,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7820,7 +7818,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7828,7 +7826,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7863,7 +7861,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -7871,7 +7869,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -7903,7 +7901,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -7952,7 +7950,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return eventTimelineList;
@@ -7974,7 +7972,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new String[]{String.valueOf(eventTimeline._id)});
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8011,7 +8009,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.deleteAllEventTimelines", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8019,7 +8017,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8068,7 +8066,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor1.close();
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return eventName;
@@ -8114,7 +8112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8122,7 +8120,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8149,13 +8147,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     //Error in between database transaction
                     //} finally {
                     //db.endTransaction();
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8186,7 +8184,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 cursor = db.rawQuery(selectQuery, null);
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return cursor;
@@ -8224,7 +8222,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8232,7 +8230,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8279,7 +8277,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return geofence;
@@ -8327,7 +8325,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return geofenceList;
@@ -8365,7 +8363,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8373,7 +8371,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8402,7 +8400,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                     //} finally {
                     //db.endTransaction();
@@ -8410,7 +8408,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8439,7 +8437,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.clearAllGeofenceTransitions", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                     //} finally {
                     //db.endTransaction();
@@ -8447,7 +8445,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8513,7 +8511,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.deleteGeofence", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8522,7 +8520,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8580,7 +8578,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.checkGeofence", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8588,7 +8586,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8617,7 +8615,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 cursor = db.rawQuery(selectQuery, null);
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return cursor;
@@ -8651,7 +8649,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -8694,7 +8692,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return value;
@@ -8726,7 +8724,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -8780,7 +8778,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return found;
@@ -8814,7 +8812,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -8848,7 +8846,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8856,7 +8854,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8899,7 +8897,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return shortcut;
@@ -8931,7 +8929,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.deleteShortcut", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8939,7 +8937,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -8977,7 +8975,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -8985,7 +8983,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9024,7 +9022,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateMobileCell", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9032,7 +9030,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9096,7 +9094,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9182,7 +9180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9276,7 +9274,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9304,7 +9302,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.deleteMobileCell", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9312,7 +9310,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9344,7 +9342,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9352,7 +9350,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9390,7 +9388,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9423,7 +9421,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r;
@@ -9460,7 +9458,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateMobileCellsCells", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9468,7 +9466,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9502,7 +9500,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return r > 0;
@@ -9552,7 +9550,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9585,7 +9583,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9593,7 +9591,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9636,7 +9634,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return nfcTagList;
@@ -9671,7 +9669,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateNFCTag", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9679,7 +9677,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9709,7 +9707,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.deleteNFCTag", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9717,7 +9715,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9825,7 +9823,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -9833,7 +9831,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -9953,7 +9951,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return intentList;
@@ -10027,7 +10025,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateIntent", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -10035,7 +10033,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -10156,7 +10154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
 
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return intent;
@@ -10187,7 +10185,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.deleteIntent", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -10195,7 +10193,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -10277,7 +10275,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updatePPIntentUsageCount", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -10285,7 +10283,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -10639,7 +10637,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 } finally {
                     db.endTransaction();
@@ -10649,7 +10647,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         } finally {
@@ -10701,7 +10699,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         catch (Exception e) {
             /* not exists ? */
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
 
@@ -11244,7 +11242,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_RINGTONE, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
                                                     //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11262,7 +11260,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_NOTIFICATION, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11280,7 +11278,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_MEDIA, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11298,7 +11296,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_ALARM, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11316,7 +11314,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_SYSTEM, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11334,7 +11332,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_VOICE, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11352,7 +11350,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_DTMF, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11370,7 +11368,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_ACCESSIBILITY, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -11388,7 +11386,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                         values.put(KEY_VOLUME_BLUETOOTH_SCO, volume+"|"+splits[1]);
                                                 } catch (Exception e) {
-                                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                                    PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
@@ -12293,7 +12291,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e1) {
                     Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e1));
                     //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
-                    FirebaseCrashlytics.getInstance().recordException(e1);
+                    PPApplication.recordException(e1);
                     //Crashlytics.logException(e1);
                     ret = IMPORT_ERROR_BUG;
                 }
@@ -12301,7 +12299,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e2) {
                 Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e2));
                 //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
-                FirebaseCrashlytics.getInstance().recordException(e2);
+                PPApplication.recordException(e2);
                 //Crashlytics.logException(e2);
                 //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e2));
             }
@@ -12360,7 +12358,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         }
                     } catch (Exception e) {
                         Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 } finally {
@@ -12370,7 +12368,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         dst.close();
                 }
             } catch (Exception e) {
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             return ret;

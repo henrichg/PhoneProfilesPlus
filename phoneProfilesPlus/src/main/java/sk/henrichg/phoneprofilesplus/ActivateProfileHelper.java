@@ -46,7 +46,6 @@ import android.view.Surface;
 import android.view.WindowManager;
 
 //import com.crashlytics.android.Crashlytics;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -173,7 +172,7 @@ class ActivateProfileHelper {
                     try {
                         wifiApManager = new WifiApManager(appContext);
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     if (wifiApManager != null) {
@@ -335,7 +334,7 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     // java.lang.NullPointerException: missing IConnectivityManager
                                     // Dual SIM?? Bug in Android ???
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
                                 if (connManager != null) {
@@ -359,7 +358,7 @@ class ActivateProfileHelper {
                                                     }
                                                 }
                                             } catch (Exception ee) {
-                                                FirebaseCrashlytics.getInstance().recordException(ee);
+                                                PPApplication.recordException(ee);
                                                 //Crashlytics.logException(ee);
                                             }
                                         }
@@ -776,13 +775,13 @@ class ActivateProfileHelper {
                             workManager.cancelAllWorkByTag("disableInternalChangeWork");
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ee) {
-                            FirebaseCrashlytics.getInstance().recordException(ee);
+                            PPApplication.recordException(ee);
                             //Crashlytics.logException(ee);
                         }*/
 
                     }
                 } catch (Exception e) {
-                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    //PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             //}
@@ -828,7 +827,7 @@ class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -850,7 +849,7 @@ class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -861,7 +860,7 @@ class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
                             //correctVolume0(audioManager);
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -891,7 +890,7 @@ class ActivateProfileHelper {
                                 if (!profile.getVolumeNotificationChange())
                                     setNotificationVolume(appContext, volume);
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -912,7 +911,7 @@ class ActivateProfileHelper {
                                 if (!profile.getVolumeNotificationChange())
                                     setNotificationVolume(appContext, volume);
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -924,7 +923,7 @@ class ActivateProfileHelper {
                                 //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -946,7 +945,7 @@ class ActivateProfileHelper {
                                 if (!profile.getVolumeNotificationChange())
                                     setNotificationVolume(appContext, volume);
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -959,7 +958,7 @@ class ActivateProfileHelper {
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                 //correctVolume0(audioManager);
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -980,7 +979,7 @@ class ActivateProfileHelper {
                                 //correctVolume0(audioManager);
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification volume set");
                             } catch (Exception e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
@@ -996,7 +995,7 @@ class ActivateProfileHelper {
                             //correctVolume0(audioManager);
                             //PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer volume set");
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -1016,7 +1015,7 @@ class ActivateProfileHelper {
                     audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -1025,7 +1024,7 @@ class ActivateProfileHelper {
                     audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -1034,7 +1033,7 @@ class ActivateProfileHelper {
                     audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -1054,7 +1053,7 @@ class ActivateProfileHelper {
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
         } catch (SecurityException e) {
             //Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e));
-            //FirebaseCrashlytics.getInstance().recordException(e);
+            //PPApplication.recordException(e);
             //Crashlytics.logException(e);
             Context appContext = context.getApplicationContext();
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
@@ -1067,7 +1066,7 @@ class ActivateProfileHelper {
                 }
                 catch (Exception e2) {
                     Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e2);
                 }
             }
@@ -1093,7 +1092,7 @@ class ActivateProfileHelper {
             }
         } catch (Exception e3) {
             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e3));
-            FirebaseCrashlytics.getInstance().recordException(e3);
+            PPApplication.recordException(e3);
             //Crashlytics.logException(e3);
         }
     }
@@ -1126,13 +1125,13 @@ class ActivateProfileHelper {
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
                             } catch (Exception ee) {
-                                FirebaseCrashlytics.getInstance().recordException(ee);
+                                PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
                             } catch (Exception ee) {
-                                FirebaseCrashlytics.getInstance().recordException(ee);
+                                PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
                             }
                         }
@@ -1140,13 +1139,13 @@ class ActivateProfileHelper {
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
                             } catch (Exception ee) {
-                                FirebaseCrashlytics.getInstance().recordException(ee);
+                                PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
                             } catch (Exception ee) {
-                                FirebaseCrashlytics.getInstance().recordException(ee);
+                                PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
                             }
                         }
@@ -1174,7 +1173,7 @@ class ActivateProfileHelper {
                     }
                     */
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
 
@@ -1210,7 +1209,7 @@ class ActivateProfileHelper {
                     //
                     // when changed is ringer mode in activated Do not disturb and
                     // GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context) returns false.
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -1300,12 +1299,12 @@ class ActivateProfileHelper {
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 } else {
@@ -1316,11 +1315,11 @@ class ActivateProfileHelper {
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     catch (Exception e){
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -1334,11 +1333,11 @@ class ActivateProfileHelper {
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     catch (Exception e){
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 } else {
@@ -1349,11 +1348,11 @@ class ActivateProfileHelper {
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     catch (Exception e){
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -1367,11 +1366,11 @@ class ActivateProfileHelper {
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     catch (Exception e){
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 } else {
@@ -1382,11 +1381,11 @@ class ActivateProfileHelper {
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
-                        //FirebaseCrashlytics.getInstance().recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     catch (Exception e){
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -1485,7 +1484,7 @@ class ActivateProfileHelper {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception e) {
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
 
@@ -2042,7 +2041,7 @@ class ActivateProfileHelper {
                                         wallpaperManager.setBitmap(decodedSampleBitmap);
                                 } catch (IOException e) {
                                     Log.e("ActivateProfileHelper.executeForWallpaper", Log.getStackTraceString(e));
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
                             }
@@ -2115,14 +2114,14 @@ class ActivateProfileHelper {
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
                                                     } catch (Exception e) {
-                                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                                        PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
                                                     }
                                                     //} else
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                                 }
                                             } catch (Exception ee) {
-                                                FirebaseCrashlytics.getInstance().recordException(ee);
+                                                PPApplication.recordException(ee);
                                                 //Crashlytics.logException(ee);
                                             }
                                         }
@@ -2142,7 +2141,7 @@ class ActivateProfileHelper {
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
                                                     } catch (Exception e) {
-                                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                                        PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
                                                     }
                                                 } else {
@@ -2152,7 +2151,7 @@ class ActivateProfileHelper {
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
                                                     } catch (Exception e) {
-                                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                                        PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
                                                     }
                                                 }
@@ -2418,7 +2417,7 @@ class ActivateProfileHelper {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         appContext.startActivity(intent);
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -2443,7 +2442,7 @@ class ActivateProfileHelper {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     appContext.startActivity(intent);
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -2467,7 +2466,7 @@ class ActivateProfileHelper {
                     intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
                     appContext.startActivity(intent);
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -2579,7 +2578,7 @@ class ActivateProfileHelper {
             if (_setAutoSync)
                 ContentResolver.setMasterSyncAutomatically(_isAutoSync);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
 
@@ -2656,7 +2655,7 @@ class ActivateProfileHelper {
                             commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
                             PPApplication.runCommand(appContext, commandIntent);
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -2741,7 +2740,7 @@ class ActivateProfileHelper {
                     //    createBrightnessView(context);
                     */
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -2948,7 +2947,7 @@ class ActivateProfileHelper {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
                     workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
@@ -3010,7 +3009,7 @@ class ActivateProfileHelper {
                 mNotificationManager.notify(notificationId, notification);
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }
@@ -3113,7 +3112,7 @@ class ActivateProfileHelper {
             WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
 
@@ -3287,7 +3286,7 @@ class ActivateProfileHelper {
             } catch(Exception e) {
                 PPApplication.keepScreenOnWakeLock = null;
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             try {
@@ -3295,7 +3294,7 @@ class ActivateProfileHelper {
                     PPApplication.keepScreenOnWakeLock.acquire();
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }
@@ -3341,7 +3340,7 @@ class ActivateProfileHelper {
                     PPApplication.keepScreenOnWakeLock.release();
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.removeKeepScreenOnView", Log.getStackTraceString(e));
-                FirebaseCrashlytics.getInstance().recordException(e);
+                PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
             PPApplication.keepScreenOnWakeLock = null;
@@ -3650,7 +3649,7 @@ class ActivateProfileHelper {
                             subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                             //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList="+subscriptionList);
                         } catch (SecurityException e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         if (subscriptionList != null) {
@@ -3808,7 +3807,7 @@ class ActivateProfileHelper {
                                 // Loop through the subscription list i.e. SIM list.
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                             } catch (SecurityException e) {
-                                FirebaseCrashlytics.getInstance().recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                             if (subscriptionList != null) {
@@ -3853,7 +3852,7 @@ class ActivateProfileHelper {
                     }*/
                 }
             } catch(Exception ee) {
-                FirebaseCrashlytics.getInstance().recordException(ee);
+                PPApplication.recordException(ee);
                 //Crashlytics.logException(ee);
             }
         }
@@ -3872,7 +3871,7 @@ class ActivateProfileHelper {
             return false;
         } catch(Exception e) {
             Log.e("ActivateProfileHelper.wifiServiceExists",Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
             return false;
         }
@@ -3949,7 +3948,7 @@ class ActivateProfileHelper {
                     }
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                     //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
@@ -4439,7 +4438,7 @@ class ActivateProfileHelper {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                         appContext.startActivity(intent);
                                     } catch (Exception e) {
-                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        PPApplication.recordException(e);
                                         //Crashlytics.logException(e);
                                     }
                                 }

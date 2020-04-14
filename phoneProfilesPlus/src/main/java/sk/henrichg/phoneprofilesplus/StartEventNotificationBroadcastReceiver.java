@@ -11,8 +11,6 @@ import android.os.PowerManager;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -52,7 +50,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, context.getApplicationContext());
@@ -115,7 +113,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     workManager.enqueue(worker);
                     PPApplication.elapsedAlarmsStartEventNotificationWork.add("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }

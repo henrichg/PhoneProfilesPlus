@@ -7,8 +7,6 @@ import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 //import com.crashlytics.android.Crashlytics;
 
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
@@ -99,7 +97,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                         int actualVersionCode = PPApplication.getVersionCode(pInfo);
                         PPApplication.setSavedVersionCode(appContext, actualVersionCode);
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
 

@@ -19,7 +19,6 @@ import android.widget.Toast;
 //import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +100,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                             ActivateProfileActivity.this.setResult(Activity.RESULT_CANCELED);
                             ActivateProfileActivity.this.finishAffinity();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }
@@ -619,7 +618,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     try {
@@ -635,7 +634,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
 
@@ -656,7 +655,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
 
@@ -692,7 +691,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                     try {
                                         ActivatorTargetHelpsActivity.activity.finish();
                                     } catch (Exception e) {
-                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        PPApplication.recordException(e);
                                         //Crashlytics.logException(e);
                                     }
                                     ActivatorTargetHelpsActivity.activity = null;
@@ -744,7 +743,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;

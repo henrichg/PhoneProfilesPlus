@@ -22,8 +22,6 @@ import android.widget.TextView;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
@@ -360,7 +358,7 @@ public class ActivateProfileListFragment extends Fragment {
                         try {
                             fragment.getActivity().finish();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
 
@@ -675,7 +673,7 @@ public class ActivateProfileListFragment extends Fragment {
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;
@@ -722,7 +720,7 @@ public class ActivateProfileListFragment extends Fragment {
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;

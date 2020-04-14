@@ -16,7 +16,6 @@ import android.widget.TextView;
 //import com.crashlytics.android.Crashlytics;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 class ActivateProfileListAdapter extends BaseAdapter
 {
@@ -327,7 +326,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                                 try {
                                     ActivatorTargetHelpsActivity.activity.finish();
                                 } catch (Exception e) {
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
                                 ActivatorTargetHelpsActivity.activity = null;
@@ -354,7 +353,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                                 try {
                                     ActivatorTargetHelpsActivity.activity.finish();
                                 } catch (Exception e) {
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
                                 ActivatorTargetHelpsActivity.activity = null;
@@ -379,7 +378,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;

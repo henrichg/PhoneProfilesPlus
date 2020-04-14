@@ -4,8 +4,6 @@ import android.net.wifi.IWifiManager;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 //import com.crashlytics.android.Crashlytics;
 
 public class CmdWifi {
@@ -29,7 +27,7 @@ public class CmdWifi {
             return true;
         } catch (Throwable e) {
             Log.e("CmdWifi.setWifi", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
             return false;
         }
@@ -46,7 +44,7 @@ public class CmdWifi {
             return enabled;
         } catch (Throwable e) {
             Log.e("CmdWifi.isEnabled", Log.getStackTraceString(e));
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
             return false;
         }

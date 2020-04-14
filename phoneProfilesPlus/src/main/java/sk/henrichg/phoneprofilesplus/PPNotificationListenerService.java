@@ -15,8 +15,6 @@ import android.text.TextUtils;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Set;
 
 import androidx.core.app.NotificationManagerCompat;
@@ -459,7 +457,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                                     } catch (SecurityException e) {
                                         // Fix disallowed call from unknown listener exception.
                                         // java.lang.SecurityException: Disallowed call from unknown listener
-                                        FirebaseCrashlytics.getInstance().recordException(e);
+                                        PPApplication.recordException(e);
                                         //Crashlytics.logException(e);
                                     }
                                     break;

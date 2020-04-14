@@ -10,8 +10,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -202,7 +200,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
     public void onScanFailed(int errorCode) {
         Log.e("BluetoothLEScanCallback21.onScanFailed", "errorCode=" + errorCode);
-        FirebaseCrashlytics.getInstance().log("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
+        PPApplication.logToCrashlytics("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
         //Crashlytics.log("BluetoothLEScanCallback21.onScanFailed errorCode=" + errorCode);
     }
 

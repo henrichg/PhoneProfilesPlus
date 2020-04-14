@@ -20,8 +20,6 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -206,7 +204,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                 _toneList.put(_uri + "/" + _id, _title);
                             }
                         } catch (Exception e) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
 
@@ -292,13 +290,13 @@ public class RingtonePreferenceX extends DialogPreference {
                     if (mediaPlayer.isPlaying())
                         mediaPlayer.stop();
                 } catch (Exception e) {
-                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    //PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
                 try {
                     mediaPlayer.release();
                 } catch (Exception e) {
-                    //FirebaseCrashlytics.getInstance().recordException(e);
+                    //PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
                 ringtoneIsPlayed = false;
@@ -401,13 +399,13 @@ public class RingtonePreferenceX extends DialogPreference {
                                         if (mediaPlayer.isPlaying())
                                             mediaPlayer.stop();
                                     } catch (Exception e) {
-                                        //FirebaseCrashlytics.getInstance().recordException(e);
+                                        //PPApplication.recordException(e);
                                         //Crashlytics.logException(e);
                                     }
                                     try {
                                         mediaPlayer.release();
                                     } catch (Exception e) {
-                                        //FirebaseCrashlytics.getInstance().recordException(e);
+                                        //PPApplication.recordException(e);
                                         //Crashlytics.logException(e);
                                     }
 
@@ -429,7 +427,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception e) {
-                                    FirebaseCrashlytics.getInstance().recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
 
@@ -489,7 +487,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ee) {
-                            FirebaseCrashlytics.getInstance().recordException(e);
+                            PPApplication.recordException(e);
                             //Crashlytics.logException(ee);
                         }
 

@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,7 +90,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                     try {
                         NFCTagReadActivity.this.finish();
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }

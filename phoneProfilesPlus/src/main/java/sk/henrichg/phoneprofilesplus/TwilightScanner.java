@@ -21,8 +21,6 @@ import android.text.format.Time;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -468,7 +466,7 @@ class TwilightScanner {
                         pendingIntent.cancel();
                     }
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
                 try {
@@ -476,7 +474,7 @@ class TwilightScanner {
                     workManager.cancelUniqueWork("elapsedAlarmsTwilightScannerWork");
                     workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
                 } catch (Exception e) {
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
 

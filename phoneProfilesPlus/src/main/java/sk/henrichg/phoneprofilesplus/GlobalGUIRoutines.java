@@ -40,8 +40,6 @@ import android.widget.TextView;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import org.xml.sax.XMLReader;
 
 import java.text.DateFormat;
@@ -282,7 +280,7 @@ class GlobalGUIRoutines {
                     try {
                         switchNightMode(appContext);
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -315,7 +313,7 @@ class GlobalGUIRoutines {
                         context.startActivity(intent);
                         //activity.overridePendingTransition(0, 0);
                     } catch (Exception e) {
-                        FirebaseCrashlytics.getInstance().recordException(e);
+                        PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -1126,7 +1124,7 @@ class GlobalGUIRoutines {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }
@@ -1136,7 +1134,7 @@ class GlobalGUIRoutines {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-            FirebaseCrashlytics.getInstance().recordException(e);
+            PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }

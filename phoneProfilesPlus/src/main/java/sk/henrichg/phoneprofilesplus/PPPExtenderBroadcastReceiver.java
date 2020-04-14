@@ -18,8 +18,6 @@ import android.view.accessibility.AccessibilityManager;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.List;
 
 public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
@@ -148,7 +146,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     }
                 } catch (Exception e) {
                     Log.e("PPPExtenderBroadcastReceiver.onReceive", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
                 break;

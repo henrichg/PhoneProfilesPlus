@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 //import com.crashlytics.android.Crashlytics;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -914,7 +912,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     mNotificationManager.notify(notificationID, mBuilder.build());
                 } catch (Exception e) {
                     Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
-                    FirebaseCrashlytics.getInstance().recordException(e);
+                    PPApplication.recordException(e);
                     //Crashlytics.logException(e);
                 }
             }
