@@ -1185,7 +1185,7 @@ public class EditorProfileListFragment extends Fragment
                     if (getActivity() != null) {
                         switch (item.getItemId()) {
                             case R.id.profile_list_item_menu_show_in_activator_title:
-                                PPApplication.showToast(activityDataWrapper.context,
+                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                         getResources().getString(R.string.popupmenu_title_click_below_toast),
                                         Toast.LENGTH_SHORT);
                                 break;

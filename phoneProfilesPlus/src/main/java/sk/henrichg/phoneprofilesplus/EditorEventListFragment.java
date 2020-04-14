@@ -556,7 +556,7 @@ public class EditorEventListFragment extends Fragment
                 if (defaultEventsGenerated)
                 {
                     if ((fragment.getActivity() != null ) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(_dataWrapper.context,
+                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
                                 fragment.getResources().getString(R.string.toast_predefined_events_generated),
                                 Toast.LENGTH_SHORT);
                 }
@@ -1658,7 +1658,7 @@ public class EditorEventListFragment extends Fragment
                 if (getActivity() != null) {
                     switch (item.getItemId()) {
                         case R.id.event_list_item_ignore_manual_activation_title:
-                            PPApplication.showToast(activityDataWrapper.context,
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                     getResources().getString(R.string.popupmenu_title_click_below_toast),
                                     Toast.LENGTH_SHORT);
                             break;

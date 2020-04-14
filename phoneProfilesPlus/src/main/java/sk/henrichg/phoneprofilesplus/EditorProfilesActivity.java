@@ -1955,7 +1955,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         // toast notification
                         if (!isFinishing())
-                            PPApplication.showToast(_dataWrapper.context,
+                            PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
                                     getResources().getString(R.string.toast_import_ok),
                                     Toast.LENGTH_SHORT);
 
