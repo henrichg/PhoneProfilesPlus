@@ -1483,11 +1483,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 public boolean onPreferenceClick(Preference preference) {
                     boolean activityExists;
                     Intent intent;
-                    if (Build.VERSION.SDK_INT == 21) {
+                    /*if (Build.VERSION.SDK_INT == 21) {
                         intent = new Intent();
                         intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
                         activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
-                    } else {
+                    } else*/ {
                         activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, getActivity().getApplicationContext());
                         intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
                     }
@@ -1496,7 +1496,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         try {
                             startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
                         } catch (Exception e) {
-                            if (Build.VERSION.SDK_INT > 21) {
+                            //if (Build.VERSION.SDK_INT > 21) {
                                 intent = new Intent();
                                 intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
                                 activityExists = GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext());
@@ -1508,7 +1508,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                         //Crashlytics.logException(ee);
                                     }
                                 }
-                            }
+                            //}
                         }
                     }
                     if (!activityExists) {

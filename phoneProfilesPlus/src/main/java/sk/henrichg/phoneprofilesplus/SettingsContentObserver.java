@@ -7,14 +7,6 @@ import android.media.AudioManager;
 import android.os.Handler;
 import android.provider.Settings;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
-import java.util.concurrent.TimeUnit;
-
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 class SettingsContentObserver  extends ContentObserver {
 
     //public static boolean internalChange = false;

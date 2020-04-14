@@ -331,10 +331,13 @@ class TwilightScanner {
             // is not available yet), the longitude of the location is estimated using the timezone,
             // latitude and accuracy are set to get a good average.
             if (location == null) {
+
+                //noinspection deprecation
                 Time currentTime = new Time();
                 currentTime.set(System.currentTimeMillis());
                 double lngOffset = FACTOR_GMT_OFFSET_LONGITUDE *
                         (currentTime.gmtoff - (currentTime.isDst > 0 ? 3600 : 0));
+
                 location = new Location("fake");
                 location.setLongitude(lngOffset);
                 location.setLatitude(0);

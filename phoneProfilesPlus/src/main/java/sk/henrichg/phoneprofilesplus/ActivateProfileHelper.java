@@ -3403,7 +3403,7 @@ class ActivateProfileHelper {
                 return false;
         }
         else*/
-        if (android.os.Build.VERSION.SDK_INT < 22)
+        /*if (android.os.Build.VERSION.SDK_INT < 22)
         {
             Method getDataEnabledMethod;
             Class<?> telephonyManagerClass;
@@ -3437,7 +3437,7 @@ class ActivateProfileHelper {
             else
                 return false;
         }
-        else
+        else*/
         if (android.os.Build.VERSION.SDK_INT < 28)
         {
             TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -3471,7 +3471,7 @@ class ActivateProfileHelper {
         if (android.os.Build.VERSION.SDK_INT >= 28)
             return true;
         else
-        if (android.os.Build.VERSION.SDK_INT >= 22)
+        //if (android.os.Build.VERSION.SDK_INT >= 22)
         {
             Class<?> telephonyManagerClass;
 
@@ -3489,7 +3489,7 @@ class ActivateProfileHelper {
             else
                 return false;
         }
-        else
+        /*else
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         {
             Class<?> telephonyManagerClass;
@@ -3507,7 +3507,7 @@ class ActivateProfileHelper {
             }
             else
                 return false;
-        }
+        }*/
         /*else
         {
             ConnectivityManager connectivityManager = null;
@@ -3639,7 +3639,7 @@ class ActivateProfileHelper {
                 //PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode="+transactionCode);
 
                 // Android 5.1?
-                if (Build.VERSION.SDK_INT >= 22) {
+                //if (Build.VERSION.SDK_INT >= 22) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager)appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
                     if (mSubscriptionManager != null) {
@@ -3687,7 +3687,7 @@ class ActivateProfileHelper {
                     }
                     //else
                     //    PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
-                } else {
+                /*} else {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = PPApplication.getServiceCommand("phone", transactionCode, state);
                         //PPApplication.logE("ActivateProfileHelper.setMobileData", "command1="+command1);
@@ -3703,7 +3703,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                }*/
             }
             //else
             //    PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode == -1");
@@ -3798,7 +3798,7 @@ class ActivateProfileHelper {
 
                 if (transactionCode != -1) {
                     // Android 5.1?
-                    if (Build.VERSION.SDK_INT >= 22) {
+                    //if (Build.VERSION.SDK_INT >= 22) {
                         Context appContext = context.getApplicationContext();
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager)appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                                 //SubscriptionManager.from(context);
@@ -3835,7 +3835,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                    } else {
+                    /*} else {
                         synchronized (PPApplication.rootMutex) {
                             String command1 = PPApplication.getServiceCommand("phone", transactionCode, networkType);
                             if (command1 != null) {
@@ -3850,7 +3850,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                    }
+                    }*/
                 }
             } catch(Exception ee) {
                 FirebaseCrashlytics.getInstance().recordException(ee);

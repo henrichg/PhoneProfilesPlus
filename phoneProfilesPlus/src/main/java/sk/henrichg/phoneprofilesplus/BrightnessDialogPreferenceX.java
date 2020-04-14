@@ -60,7 +60,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
 
         //_sharedProfile = Profile.getProfileFromSharedPreferences(_context, PPApplication.SHARED_PROFILE_PREFS_NAME);
 
-        adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
+        adaptiveAllowed = /*(android.os.Build.VERSION.SDK_INT <= 21) ||*/
                 (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, _context.getApplicationContext()).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED);
 
