@@ -114,6 +114,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|[ACTIVATOR]"
                                                 //+"|ActivateProfileHelper.setGPS"
+                                                +"|ActivateProfileHelper.setScreenDarkMode"
 
                                                 //+"|EventPreferencesWifi"
                                                 //+"|[TEST BATTERY]"

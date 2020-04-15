@@ -404,23 +404,23 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            /*
-            // screen night mode
-            if (profile._screenNightMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._screenNightMode == 1)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_with_night_on;
-                    if (profile._screenNightMode == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_without_night_on;
-                    if (profile._screenNightMode == 3) {
+            // screen dark mode
+            //TODO screen dark mode
+/*            if (profile._screenDarkMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._screenDarkMode == 1)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_with_night_on;
+                    if (profile._screenDarkMode == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_without_night_on;
+                    if (profile._screenDarkMode == 3) {
                         if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off_mono;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off_mono;
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off;
                     }
                 }
             }
-            */
+ */
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -861,19 +861,15 @@ class ProfilePreferencesIndicator {
                         indicator1 = addIntoIndicator(indicator1, "aod:0", maxLineLength);
                 }
             }
-            /*
-            // screen night mode
-            if (profile._screenNightMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._screenNightMode == 1)
-                        indicator1 = addIntoIndicator(indicator1, "ngm:1");
-                    if (profile._screenNightMode == 2)
-                        indicator1 = addIntoIndicator(indicator1, "ngm:2");
-                    if (profile._screenNightMode == 3)
-                        indicator1 = addIntoIndicator(indicator1, "ngm:0");
+            // screen dark mode
+            if (profile._screenDarkMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._screenDarkMode == 1)
+                        indicator1 = addIntoIndicator(indicator1, "dkm:1", maxLineLength);
+                    if (profile._screenDarkMode == 2)
+                        indicator1 = addIntoIndicator(indicator1, "dkm:0", maxLineLength);
                 }
             }
-            */
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

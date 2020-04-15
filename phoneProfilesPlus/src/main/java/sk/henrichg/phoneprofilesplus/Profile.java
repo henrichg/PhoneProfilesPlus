@@ -94,7 +94,7 @@ public class Profile {
     long _activationByUserCount;
     int _deviceNetworkTypePrefs;
     int _deviceCloseAllApplications;
-    int _screenNightMode;
+    int _screenDarkMode;
     int _dtmfToneWhenDialing;
     int _soundOnTouch;
     String _volumeDTMF;
@@ -175,7 +175,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME = "prf_pref_deviceForceStopApplicationPackageName";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS = "prf_pref_deviceNetworkTypePrefs";
     static final String PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS = "prf_pref_deviceCloseAllApplications";
-    static final String PREF_PROFILE_SCREEN_NIGHT_MODE = "prf_pref_screenNightMode";
+    static final String PREF_PROFILE_SCREEN_DARK_MODE = "prf_pref_screenDarkMode";
     static final String PREF_PROFILE_DTMF_TONE_WHEN_DIALING = "prf_pref_dtmfToneWhenDialing";
     static final String PREF_PROFILE_SOUND_ON_TOUCH = "prf_pref_soundOnTouch";
     static final String PREF_PROFILE_VOLUME_DTMF = "prf_pref_volumeDTMF";
@@ -256,7 +256,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceForceStopApplicationPackageName", "-");
         defaultValuesString.put("prf_pref_deviceNetworkTypePrefs", "0");
         defaultValuesString.put("prf_pref_deviceCloseAllApplications", "0");
-        defaultValuesString.put("prf_pref_screenNightMode", "0");
+        defaultValuesString.put("prf_pref_screenDarkMode", "0");
         defaultValuesString.put("prf_pref_dtmfToneWhenDialing", "0");
         defaultValuesString.put("prf_pref_soundOnTouch", "0");
         defaultValuesString.put("prf_pref_volumeDTMF", "-1|1|0");
@@ -801,7 +801,7 @@ public class Profile {
                    long activationByUserCount,
                    int deviceNetworkTypePrefs,
                    int deviceCloseAllApplications,
-                   int screenNightMode,
+                   int screenDarkMode,
                    int dtmfToneWhenDialing,
                    int soundOnTouch,
                    String volumeDTMF,
@@ -875,7 +875,7 @@ public class Profile {
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
         this._deviceNetworkTypePrefs = deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = deviceCloseAllApplications;
-        this._screenNightMode = screenNightMode;
+        this._screenDarkMode = screenDarkMode;
         this._dtmfToneWhenDialing = dtmfToneWhenDialing;
         this._soundOnTouch = soundOnTouch;
         this._volumeDTMF = volumeDTMF;
@@ -955,7 +955,7 @@ public class Profile {
                    long activationByUserCount,
                    int deviceNetworkTypePrefs,
                    int deviceCloseAllApplications,
-                   int screenNightMode,
+                   int screenDarkMode,
                    int dtmfToneWhenDialing,
                    int soundOnTouch,
                    String volumeDTMF,
@@ -1028,7 +1028,7 @@ public class Profile {
         this._deviceForceStopApplicationPackageName = deviceForceStopApplicationPackageName;
         this._deviceNetworkTypePrefs = deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = deviceCloseAllApplications;
-        this._screenNightMode = screenNightMode;
+        this._screenDarkMode = screenDarkMode;
         this._dtmfToneWhenDialing = dtmfToneWhenDialing;
         this._soundOnTouch = soundOnTouch;
         this._volumeDTMF = volumeDTMF;
@@ -1109,7 +1109,7 @@ public class Profile {
         this._deviceForceStopApplicationPackageName = profile._deviceForceStopApplicationPackageName;
         this._deviceNetworkTypePrefs = profile._deviceNetworkTypePrefs;
         this._deviceCloseAllApplications = profile._deviceCloseAllApplications;
-        this._screenNightMode = profile._screenNightMode;
+        this._screenDarkMode = profile._screenDarkMode;
         this._dtmfToneWhenDialing = profile._dtmfToneWhenDialing;
         this._soundOnTouch = profile._soundOnTouch;
         this._volumeDTMF = profile._volumeDTMF;
@@ -1362,8 +1362,8 @@ public class Profile {
                     this._deviceNetworkTypePrefs = withProfile._deviceNetworkTypePrefs;
                 if (withProfile._deviceCloseAllApplications != 0)
                     this._deviceCloseAllApplications = withProfile._deviceCloseAllApplications;
-                if (withProfile._screenNightMode != 0)
-                    this._screenNightMode = withProfile._screenNightMode;
+                if (withProfile._screenDarkMode != 0)
+                    this._screenDarkMode = withProfile._screenDarkMode;
                 if (withProfile._dtmfToneWhenDialing != 0)
                     this._dtmfToneWhenDialing = withProfile._dtmfToneWhenDialing;
                 if (withProfile._soundOnTouch != 0)
@@ -1654,8 +1654,8 @@ public class Profile {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_deviceCloseAllApplications");
                 return false;
             }
-            if (this._screenNightMode != withProfile._screenNightMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_screenNightMode");
+            if (this._screenDarkMode != withProfile._screenDarkMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_screenDarkMode");
                 return false;
             }
             if (this._dtmfToneWhenDialing != withProfile._dtmfToneWhenDialing) {
@@ -2920,7 +2920,7 @@ public class Profile {
         profile._deviceForceStopApplicationPackageName = preferences.getString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
         profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, "0"));
-        profile._screenNightMode = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_NIGHT_MODE, "0"));
+        profile._screenDarkMode = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_DARK_MODE, "0"));
         profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
         profile._soundOnTouch = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_ON_TOUCH, "0"));
         profile._volumeDTMF = preferences.getString(PREF_PROFILE_VOLUME_DTMF, getVolumeLevelString(70, maximumValueDTMF)+"|0|0");
@@ -2993,7 +2993,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, String.valueOf(profile._deviceNetworkTypePrefs));
         editor.putString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, String.valueOf(profile._deviceCloseAllApplications));
-        editor.putString(PREF_PROFILE_SCREEN_NIGHT_MODE, String.valueOf(profile._screenNightMode));
+        editor.putString(PREF_PROFILE_SCREEN_DARK_MODE, String.valueOf(profile._screenDarkMode));
         editor.putString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, String.valueOf(profile._dtmfToneWhenDialing));
         editor.putString(PREF_PROFILE_SOUND_ON_TOUCH, String.valueOf(profile._soundOnTouch));
         editor.putString(PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
@@ -3080,7 +3080,7 @@ public class Profile {
                     profile._activationByUserCount,
                     profile._deviceNetworkTypePrefs,
                     profile._deviceCloseAllApplications,
-                    profile._screenNightMode,
+                    profile._screenDarkMode,
                     profile._dtmfToneWhenDialing,
                     profile._soundOnTouch,
                     profile._volumeDTMF,
@@ -3205,8 +3205,8 @@ public class Profile {
                 mappedProfile._deviceNetworkTypePrefs = sharedProfile._deviceNetworkTypePrefs;
             if (profile._deviceCloseAllApplications == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceCloseAllApplications = sharedProfile._deviceCloseAllApplications;
-            if (profile._screenNightMode == SHARED_PROFILE_VALUE)
-                mappedProfile._screenNightMode = sharedProfile._screenNightMode;
+            if (profile._screenDarkMode == SHARED_PROFILE_VALUE)
+                mappedProfile._screenDarkMode = sharedProfile._screenDarkMode;
             if (profile._dtmfToneWhenDialing == SHARED_PROFILE_VALUE)
                 mappedProfile._dtmfToneWhenDialing = sharedProfile._dtmfToneWhenDialing;
             if (profile._soundOnTouch == SHARED_PROFILE_VALUE)
@@ -4273,6 +4273,64 @@ public class Profile {
                 }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+            }
+            else {
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
+            }
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
+        }
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
+
+        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_SCREEN_DARK_MODE))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 29) {
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                }
+                else
+                if (PPApplication.isRooted(fromUIThread))
+                {
+                    // device is rooted
+                    if (profile != null) {
+                        // test if grant root is disabled
+                        if (profile._screenDarkMode != 0) {
+                            if (applicationNeverAskForGrantRoot) {
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                // not needed to test all parameters
+                                return preferenceAllowed;
+                            }
+                        }
+                    }
+                    else
+                    if (sharedPreferences != null) {
+                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            if (applicationNeverAskForGrantRoot) {
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                // not needed to test all parameters
+                                return preferenceAllowed;
+                            }
+                        }
+                    }
+
+                    if (PPApplication.settingsBinaryExists(fromUIThread))
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    else
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+                else {
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    if ((profile != null) && (profile._screenDarkMode != 0))
+                        return preferenceAllowed;
+                }
             }
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;

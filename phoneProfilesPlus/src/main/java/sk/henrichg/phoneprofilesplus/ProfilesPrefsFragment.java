@@ -1772,7 +1772,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE) ||
                 key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED) ||
                 key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
-                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE)) {*/
+                key.equals(Profile.PREF_PROFILE_SCREEN_DARK_MODE)) {*/
         if (key.equals("prf_pref_screenCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, R.string.profile_preferences_deviceScreenTimeout, false, context);
             if (!title.isEmpty()) {
@@ -1924,18 +1924,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b>" + value + "</b>";
             }
 
-//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, R.string.profile_preferences_screenNightMode, false, context);
-//            if (!title.isEmpty()) {
-//                _bold = true;
-//                if (!summary.isEmpty()) summary = summary +" • ";
-//
-//                String value = GlobalGUIRoutines.getListPreferenceString(
-//                        preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE,
-//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE)),
-//                        R.array.screenNightModeValues, R.array.screenNightModeArray, context);
-//
-//                summary = summary + title + ": <b>" + value + "</b>";
-//            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_DARK_MODE, R.string.profile_preferences_screenDarkMode, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_SCREEN_DARK_MODE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_DARK_MODE)),
+                        R.array.screenDarkModeValues, R.array.screenDarkModeArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
         }
 
         /*if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
@@ -2571,7 +2571,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
-                key.equals(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE) ||
+                key.equals(Profile.PREF_PROFILE_SCREEN_DARK_MODE) ||
                 key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY) ||
                 key.equals(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT))
         {
@@ -2929,7 +2929,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS);
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS);
         setSummary(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS);
-        setSummary(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE);
+        setSummary(Profile.PREF_PROFILE_SCREEN_DARK_MODE);
         setSummary(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING);
         setSummary(Profile.PREF_PROFILE_SOUND_ON_TOUCH);
         setSummary(PREF_LOCK_DEVICE_INSTALL_EXTENDER);

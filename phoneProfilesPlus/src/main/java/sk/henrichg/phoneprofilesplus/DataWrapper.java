@@ -213,7 +213,7 @@ public class DataWrapper {
                 0,
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypePrefs")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceCloseAllApplications")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_screenNightMode")),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_screenDarkMode")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_dtmfToneWhenDialing")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundOnTouch")),
                 Profile.defaultValuesString.get("prf_pref_volumeDTMF"),

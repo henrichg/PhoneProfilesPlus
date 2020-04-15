@@ -45,6 +45,7 @@
         app:entries="@array/displayRotationArray"
         app:entryValues="@array/displayRotationValues"
         app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/profile_preferences_deviceWallpaperChange"
         app:summary="@string/array_pref_no_change"
@@ -75,14 +76,13 @@
         app:entries="@array/keyguardArray"
         app:entryValues="@array/keyguardValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+
+    <Preference
         app:title="@string/profile_preferences_lockDevice"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_lockDevice"
-        app:defaultValue="0"
-        app:entries="@array/lockDeviceArray"
-        app:entryValues="@array/lockDeviceValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:key="prf_pref_lockDeviceCategoryRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
 
     <Preference
         app:key="prf_pref_notificationLedInfo"
@@ -122,6 +122,15 @@
         app:defaultValue="0"
         app:entries="@array/alwaysOnDisplayArray"
         app:entryValues="@array/alwaysOnDisplayValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_screenDarkMode"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_screenDarkMode"
+        app:defaultValue="0"
+        app:entries="@array/screenDarkModeArray"
+        app:entryValues="@array/screenDarkModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

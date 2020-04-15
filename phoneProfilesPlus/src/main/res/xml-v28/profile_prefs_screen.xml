@@ -124,13 +124,4 @@
         app:entryValues="@array/alwaysOnDisplayValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <!--<ListPreference-->
-        <!--app:title="@string/profile_preferences_screenNightMode"-->
-        <!--app:summary="@string/array_pref_no_change"-->
-        <!--app:key="prf_pref_screenNightMode"-->
-        <!--app:defaultValue="0"-->
-    <!--app:entries="@array/screenNightModeArray"-->
-    <!--app:entryValues="@array/screenNightModeValues"-->
-        <!--app:layout="@layout/mp_preference_material_widget" />-->
-
 </androidx.preference.PreferenceScreen>

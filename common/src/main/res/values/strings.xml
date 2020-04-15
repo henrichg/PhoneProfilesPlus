@@ -1503,6 +1503,8 @@
     <string name="alert_button_grant">Grant</string>
     <string name="alert_button_not_grant">Not grant</string>
 
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Dark mode</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

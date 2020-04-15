@@ -171,7 +171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ACTIVATION_BY_USER_COUNT = "activationByUserCount";
     private static final String KEY_DEVICE_NETWORK_TYPE_PREFS = "deviceNetworkTypePrefs";
     private static final String KEY_DEVICE_CLOSE_ALL_APPLICATIONS = "deviceCloseAllApplications";
-    private static final String KEY_SCREEN_NIGHT_MODE = "screenNightMode";
+    private static final String KEY_SCREEN_DARK_MODE = "screenNightMode";
     private static final String KEY_DTMF_TONE_WHEN_DIALING = "dtmfToneWhenDialing";
     private static final String KEY_SOUND_ON_TOUCH = "soundOnTouch";
     private static final String KEY_VOLUME_DTMF = "volumeDTMF";
@@ -538,7 +538,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER,"
                 + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER,"
                 + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER,"
-                + KEY_SCREEN_NIGHT_MODE + " INTEGER,"
+                + KEY_SCREEN_DARK_MODE + " INTEGER,"
                 + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER,"
                 + KEY_SOUND_ON_TOUCH + " INTEGER,"
                 + KEY_VOLUME_DTMF + " TEXT,"
@@ -2404,13 +2404,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2090");
 
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_DARK_MODE + " INTEGER");
             if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_NIGHT_MODE + " INTEGER");
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_DARK_MODE + " INTEGER");
             }
 
-            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_NIGHT_MODE + "=0");
-            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_NIGHT_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_DARK_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_DARK_MODE + "=0");
         }
 
         if (oldVersion < 2100)
@@ -2753,7 +2753,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             cursor.getLong(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)),
                             cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)),
                             cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)),
-                            cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_DARK_MODE)),
                             cursor.getInt(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING)),
                             cursor.getInt(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH)),
                             "-1|1|0",
@@ -2831,7 +2831,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
                         values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
                         values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                        values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
+                        values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                         values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                         values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
 
@@ -3198,7 +3198,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
                 values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
+                values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                 values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                 values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
                 values.put(KEY_VOLUME_DTMF, profile._volumeDTMF);
@@ -3308,7 +3308,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_ACTIVATION_BY_USER_COUNT,
                                 KEY_DEVICE_NETWORK_TYPE_PREFS,
                                 KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                KEY_SCREEN_NIGHT_MODE,
+                                KEY_SCREEN_DARK_MODE,
                                 KEY_DTMF_TONE_WHEN_DIALING,
                                 KEY_SOUND_ON_TOUCH,
                                 KEY_VOLUME_DTMF,
@@ -3390,7 +3390,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getLong(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_DARK_MODE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH)),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_DTMF)),
@@ -3493,7 +3493,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_ACTIVATION_BY_USER_COUNT + "," +
                         KEY_DEVICE_NETWORK_TYPE_PREFS + "," +
                         KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "," +
-                        KEY_SCREEN_NIGHT_MODE + "," +
+                        KEY_SCREEN_DARK_MODE + "," +
                         KEY_DTMF_TONE_WHEN_DIALING + "," +
                         KEY_SOUND_ON_TOUCH + "," +
                         KEY_VOLUME_DTMF + "," +
@@ -3578,7 +3578,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._activationByUserCount = cursor.getLong(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT));
                         profile._deviceNetworkTypePrefs = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS));
                         profile._deviceCloseAllApplications = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS));
-                        profile._screenNightMode = cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE));
+                        profile._screenDarkMode = cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_DARK_MODE));
                         profile._dtmfToneWhenDialing = cursor.getInt(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING));
                         profile._soundOnTouch = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH));
                         profile._volumeDTMF = cursor.getString(cursor.getColumnIndex(KEY_VOLUME_DTMF));
@@ -3682,7 +3682,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
                 values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
+                values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                 values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                 values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
                 values.put(KEY_VOLUME_DTMF, profile._volumeDTMF);
@@ -4045,7 +4045,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_ACTIVATION_BY_USER_COUNT,
                                 KEY_DEVICE_NETWORK_TYPE_PREFS,
                                 KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                KEY_SCREEN_NIGHT_MODE,
+                                KEY_SCREEN_DARK_MODE,
                                 KEY_DTMF_TONE_WHEN_DIALING,
                                 KEY_SOUND_ON_TOUCH,
                                 KEY_VOLUME_DTMF,
@@ -4129,7 +4129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getLong(cursor.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_NIGHT_MODE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_DARK_MODE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_ON_TOUCH)),
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_DTMF)),
@@ -10980,7 +10980,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, 0);
                                         }
                                         if (exportedDBObj.getVersion() < 2090) {
-                                            values.put(KEY_SCREEN_NIGHT_MODE, 0);
+                                            values.put(KEY_SCREEN_DARK_MODE, 0);
                                         }
                                         if (exportedDBObj.getVersion() < 2100) {
                                             values.put(KEY_DTMF_TONE_WHEN_DIALING, 0);
@@ -11113,7 +11113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     cursorImportDB.getLong(cursorImportDB.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS)),
-                                                    cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_SCREEN_NIGHT_MODE)),
+                                                    cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_SCREEN_DARK_MODE)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING)),
                                                     cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_SOUND_ON_TOUCH)),
 
@@ -11192,7 +11192,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
                                                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
                                                 values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
-                                                values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
+                                                values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                                                 values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                                                 values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
 

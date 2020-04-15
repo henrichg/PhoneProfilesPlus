@@ -6,6 +6,7 @@ import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.UiModeManager;
 import android.app.WallpaperManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
@@ -2905,12 +2906,10 @@ class ActivateProfileHelper {
             }
         }
 
-        /*
-        // set screen night mode
-        if (profile._screenNightMode != 0) {
-            setScreenNightMode(context, profile._screenNightMode);
+        // set screen dark mode
+        if (profile._screenDarkMode != 0) {
+            setScreenDarkMode(context, profile._screenDarkMode);
         }
-        */
 
         if (android.os.Build.VERSION.SDK_INT >= 26) {
             // set always on display
@@ -4508,11 +4507,73 @@ class ActivateProfileHelper {
         });
     }
 
-    /*
-    private static void setScreenNightMode(Context context, final int value) {
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, null, null, false, context).allowed
+    private static void setScreenDarkMode(Context appContext, final int value) {
+        PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "xxx");
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, false, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (Build.VERSION.SDK_INT > 26) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "allowed");
+
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "G1 granted");
+
+                    try {
+                        PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "value="+value);
+                        // Android Q (Tasker: https://www.reddit.com/r/tasker/comments/d2ngcl/trigger_android_10_dark_theme_with_brightness/)
+                        if (value == 1)
+                            Settings.Secure.putInt(appContext.getContentResolver(), "ui_night_mode", 2);
+                        else
+                            Settings.Secure.putInt(appContext.getContentResolver(), "ui_night_mode", 1);
+                    }
+                    catch (Exception e2) {
+                        Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
+                        PPApplication.recordException(e2);
+                        //Crashlytics.logException(e2);
+                    }
+                }
+                else {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            (PPApplication.isRooted(false))) {
+                        PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "root granted");
+
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put secure ui_night_mode ";
+                            if (value == 1)
+                                command1 = command1 + "2";
+                            else
+                                command1 = command1 + "1";
+                            Command command = new Command(0, false, command1);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                PPApplication.commandWait(command);
+                            } catch (Exception ee) {
+                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(ee));
+                                //Crashlytics.logException(ee);
+                            }
+                        }
+                    }
+                }
+                // switch car mode on and off is required !!!
+                // but how when car mode is on by device? Oposite switch?
+                UiModeManager uiModeManager = (UiModeManager) appContext.getSystemService(Context.UI_MODE_SERVICE);
+                PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "uiModeManager=" + uiModeManager);
+                if (uiModeManager != null) {
+                    if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_NORMAL) {
+                        uiModeManager.enableCarMode(0);
+                        PPApplication.sleep(200);
+                        uiModeManager.disableCarMode(0);
+                    }
+                    else
+                    if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_CAR) {
+                        uiModeManager.disableCarMode(0);
+                        PPApplication.sleep(200);
+                        uiModeManager.enableCarMode(0);
+                    }
+                }
+            }
+
+            /*if (Build.VERSION.SDK_INT > 26) {
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     try {
                         // Not working in Samsung S8 :-(
@@ -4554,10 +4615,9 @@ class ActivateProfileHelper {
                     PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "currentModeType=" + uiModeManager.getCurrentModeType());
                     PPApplication.logE("ActivateProfileHelper.setScreenNightMode", "nightMode=" + uiModeManager.getNightMode());
                 }
-            }
+            }*/
         }
     }
-    */
 
     static void getRingerVolume(Context context)
     {

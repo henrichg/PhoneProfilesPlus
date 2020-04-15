@@ -14,4 +14,16 @@
 <!--        <item>2</item>-->
         <item>5</item>
     </string-array>
+
+    <string-array name="screenDarkModeArray" tools:ignore="InconsistentArrays">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="screenDarkModeValues" tools:ignore="InconsistentArrays">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>
