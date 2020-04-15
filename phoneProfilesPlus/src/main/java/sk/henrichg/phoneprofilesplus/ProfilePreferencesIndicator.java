@@ -405,14 +405,11 @@ class ProfilePreferencesIndicator {
                 }
             }
             // screen dark mode
-            //TODO screen dark mode
-/*            if (profile._screenDarkMode != 0) {
+            if (profile._screenDarkMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._screenDarkMode == 1)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_with_night_on;
-                    if (profile._screenDarkMode == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_without_night_on;
-                    if (profile._screenDarkMode == 3) {
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode;
+                    if (profile._screenDarkMode == 2) {
                         if (monochrome)
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off_mono;
                         else
@@ -420,7 +417,7 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
- */
+
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

@@ -2968,8 +2968,6 @@ class ActivateProfileHelper {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForInteractivePreferences()");
             executeForInteractivePreferences(profile, appContext);
         }
-
-        //TODO Crashlytics.getInstance().crash();
     }
 
     private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId) {
@@ -4508,17 +4506,17 @@ class ActivateProfileHelper {
     }
 
     private static void setScreenDarkMode(Context appContext, final int value) {
-        PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "xxx");
+        //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "xxx");
         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, false, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (Build.VERSION.SDK_INT >= 29) {
-                PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "allowed");
+                //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "allowed");
 
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "G1 granted");
+                    //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "G1 granted");
 
                     try {
-                        PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "value="+value);
+                        //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "value="+value);
                         // Android Q (Tasker: https://www.reddit.com/r/tasker/comments/d2ngcl/trigger_android_10_dark_theme_with_brightness/)
                         if (value == 1)
                             Settings.Secure.putInt(appContext.getContentResolver(), "ui_night_mode", 2);
@@ -4534,7 +4532,7 @@ class ActivateProfileHelper {
                 else {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                             (PPApplication.isRooted(false))) {
-                        PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "root granted");
+                        //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "root granted");
 
                         synchronized (PPApplication.rootMutex) {
                             String command1 = "settings put secure ui_night_mode ";
@@ -4555,9 +4553,9 @@ class ActivateProfileHelper {
                     }
                 }
                 // switch car mode on and off is required !!!
-                // but how when car mode is on by device? Oposite switch?
+                // but how when car mode is on by device? Opposite switch?
                 UiModeManager uiModeManager = (UiModeManager) appContext.getSystemService(Context.UI_MODE_SERVICE);
-                PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "uiModeManager=" + uiModeManager);
+                //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "uiModeManager=" + uiModeManager);
                 if (uiModeManager != null) {
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_NORMAL) {
                         uiModeManager.enableCarMode(0);
