@@ -4335,6 +4335,8 @@ public class PhoneProfilesService extends Service
             boolean useDecorator;
             int useNightColor = 0;
             boolean profileIconExists = true;
+            //boolean preferencesIndicatorExists = true;
+            boolean preferencesIndicatorExistsLarge = true;
 
             if (notificationNotificationStyle.equals("0")) {
                 // ----- create content view
@@ -4388,15 +4390,20 @@ public class PhoneProfilesService extends Service
 
                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                     if (android.os.Build.VERSION.SDK_INT >= 24) {
-                        if (!useDecorator)
+                        if (!useDecorator) {
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui_no_decorator);
+                            preferencesIndicatorExistsLarge = false;
+                        }
                         else
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
-                        if (!useDecorator)
+                        if (!useDecorator) {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_miui_no_decorator);
+                            //preferencesIndicatorExists = false;
+                        }
                         else {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
                             profileIconExists = false;
+                            //preferencesIndicatorExists = false;
                         }
                     } else
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
@@ -4407,11 +4414,14 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
-                        if (!useDecorator)
+                        if (!useDecorator) {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_emui_no_decorator);
+                            //preferencesIndicatorExists = false;
+                        }
                         else {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
                             profileIconExists = false;
+                            //preferencesIndicatorExists = false;
                         }
                     } else
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
@@ -4422,11 +4432,14 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_samsung_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
-                        if (!useDecorator)
+                        if (!useDecorator) {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_samsung_no_decorator);
+                            //preferencesIndicatorExists = false;
+                        }
                         else {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
                             profileIconExists = false;
+                            //preferencesIndicatorExists = false;
                         }
                     } else
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
@@ -4437,11 +4450,14 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
-                        if (!useDecorator)
+                        if (!useDecorator) {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_no_decorator);
+                            //preferencesIndicatorExists = false;
+                        }
                         else {
                             contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
                             profileIconExists = false;
+                            //preferencesIndicatorExists = false;
                         }
                     } else
                         contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
@@ -4753,22 +4769,32 @@ public class PhoneProfilesService extends Service
                 contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
                 if (contentView != null)
                     contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
-                notificationBuilder.setContentText(profileName);
+
+                // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
+                //notificationBuilder.setContentText(profileName);
             }
-            notificationBuilder.setContentTitle(profileName);
+            // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
+            //notificationBuilder.setContentTitle(profileName);
 
             try {
                 if (notificationNotificationStyle.equals("0")) {
                     if ((preferencesIndicator != null) && (notificationPrefIndicator)) {
-                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
-                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
-                    } else
-                        //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
-                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
+                        if (preferencesIndicatorExistsLarge) {
+                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
+                            contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
+                        }
+                    } else {
+                        if (preferencesIndicatorExistsLarge) {
+                            //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
+                            contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
+                        }
+                    }
                 }
                 else {
-                    if (notificationPrefIndicator)
+                    notificationBuilder.setContentTitle(profileName);
+                    if (notificationPrefIndicator) {
                         notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
+                    }
                 }
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));

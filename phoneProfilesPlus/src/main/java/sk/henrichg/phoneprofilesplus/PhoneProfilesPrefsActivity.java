@@ -294,7 +294,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 if (PhoneProfilesService.getInstance() != null)
                     PhoneProfilesService.getInstance().showProfileNotification(true, false/*, true*/);
             }
-        }, 500);
+        }, 1000);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
         PPApplication.updateGUI(getApplicationContext(), true, true);
     }

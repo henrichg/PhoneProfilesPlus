@@ -407,9 +407,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
     void updateWidgets(Context context, boolean refresh) {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
-        int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
-        refreshWidget = refresh;
-        onUpdate(context, manager, ids);
+        if (manager != null) {
+            int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+            refreshWidget = refresh;
+            onUpdate(context, manager, ids);
+        }
     }
 
 }
