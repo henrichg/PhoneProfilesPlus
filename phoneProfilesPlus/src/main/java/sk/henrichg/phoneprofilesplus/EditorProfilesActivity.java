@@ -2876,7 +2876,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            //PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         try {
@@ -2891,7 +2891,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            //PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         try {
@@ -2906,7 +2906,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            //PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
 
@@ -2989,7 +2989,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            //PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         try {
@@ -3004,7 +3004,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            //PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                         try {
@@ -3019,7 +3019,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            //PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
 

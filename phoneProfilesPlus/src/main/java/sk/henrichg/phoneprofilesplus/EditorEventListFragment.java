@@ -1425,7 +1425,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     try {
@@ -1440,7 +1440,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -1457,7 +1457,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                 }
@@ -1477,7 +1477,7 @@ public class EditorEventListFragment extends Fragment
                             );
                             ++id;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            //PPApplication.recordException(e);
                             //Crashlytics.logException(e);
                         }
                     }

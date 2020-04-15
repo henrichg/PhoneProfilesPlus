@@ -678,7 +678,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 );
                 ++id;
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                //PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
 

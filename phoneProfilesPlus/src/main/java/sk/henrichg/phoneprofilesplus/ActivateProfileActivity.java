@@ -618,7 +618,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
                     try {
@@ -634,7 +634,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
 
@@ -655,7 +655,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         );
                         ++id;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        //PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
 
