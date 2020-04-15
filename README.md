@@ -15,7 +15,7 @@ Android application - manually and by event triggered change of device settings 
 Supported Android SDK
 ----------------------
 
-- minSdkVersion = 21
+- minSdkVersion = 23
 - targetSdkVersion = 28
 
 Required external libs
