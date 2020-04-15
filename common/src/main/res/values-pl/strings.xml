@@ -281,10 +281,7 @@
     <string name="event_preferences_sms_contacts">Kontakty</string>
     <string name="toast_events_restarted">Zdarzenia zrestartowane</string>
     <string name="event_name_background_profile">Profil domyślny</string>
-    <string name="profile_preferences_volumeZenMode">Typ przerwania</string>
-    <string name="array_pref_zenModeArray_all">Wszystkie</string>
     <string name="array_pref_zenModeArray_priority">Priorytet</string>
-    <string name="array_pref_zenModeArray_none">Brak</string>
     <string name="profile_preferences_deviceMobileData_21">(R) Dane mobilne</string>
     <string name="preference_profile_adaptiveBrightness">Adaptacyjna</string>
     <string name="profile_preferences_deviceKeyguard">Ekran blokady</string>
@@ -356,13 +353,10 @@
     <string name="important_info_profile_settings">Niektóre ustawienia profilu wymagają zmian w ustawieniach systemowych. Ustawienia te są oznaczone jako \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Dostęp do powiadomień</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Aby włączyć parametr \"typy przerwań\" w ustawieniach profili, zezwól PhoneProfilesPlus na dostęp do \"Powiadomień dostępu\" w ustawieniach systemowych.</string>
-    <string name="array_pref_zenModeArray_allWithVibration">Wszystkie z wibracjami</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Priorytet z wibracjami</string>
     <string name="important_info_news">Wiadomości</string>
     <string name="important_info_profile_zenMode">\"Przerwania\" w \"Trybie dzwonienia\" profilu wymagają zezwolenia na \"Dostęp do powiadomień\" dla PhoneProfilesPlus w ustawieniach systemowych. Kliknij tutaj, aby je włączyć.</string>
-    <string name="profile_preferences_zenMode_none_summary">Bez przerywania. Nawet bez alarmów</string>
     <string name="profile_preferences_zenMode_priority_summary">Przerwania - tylko priorytetowe</string>
-    <string name="profile_preferences_zenMode_all_summary">Wszystkie przerwy</string>
     <string name="event_preferences_duration">Czas trwania</string>
     <string name="pref_event_duration">Czas trwania</string>
     <string name="applications_multiselect_summary_text_selected">Wybrane</string>
@@ -1208,8 +1202,6 @@
     <string name="profile_preferences_volumeSoundMode">Tryb dźwięku</string>
     <string name="array_pref_soundModeArray_sound">Dźwięk</string>
     <string name="array_pref_soundModeArray_vibration">Wibracje</string>
-    <string name="array_pref_soundModeArray_ZenMode">Powiadomienia dozwolone</string>
-    <string name="array_pref_soundModeArray_silentL">Tryb priorytetu</string>
     <string name="array_pref_soundModeArray_silentM">Tylko alarmy</string>
     <string name="array_pref_soundModeArray_ZenModeM">Nie przeszkadzać</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp">PhoneProfilesPlus nie działa w tle</string>
@@ -1402,8 +1394,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="altype_manualRestartEvents">ręczny restart zdarzeń</string>
     <string name="profile_preferences_configureSoundMode_info">Proszę skonfigurować również parametr profilu \"Profil dźwięku\"/\"Tryb dźwięku\"</string>
     <string name="profile_preferences_category_volumeTypes">Typy głośności</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
     <string name="draw_over_apps_permission_notification_title">Zezwolenie na \"Rysuj nad aplikacjami\"</string>
@@ -1427,6 +1417,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="gui_items_help">Pomoc dla elementów GUI</string>
     <string name="gui_items_help_alert_title">Uruchom pomoc dla elementów GUI</string>
     <string name="gui_items_help_alert_message">Nie jest możliwe anulowanie tej pomocy. Zostanie ona wywołana dla każdego elementu interfejsu graficznego. Uruchomić?</string>
+    <string name="alert_button_grant">Grant</string>
+    <string name="alert_button_not_grant">Not grant</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1689,4 +1681,14 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
+    <!--    <string name="profile_preferences_volumeZenMode">Interruptions type</string>-->
+    <!--    <string name="array_pref_zenModeArray_all">All</string>-->
+    <!--    <string name="array_pref_zenModeArray_none">None</string>-->
+    <!--    <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>-->
+    <!--    <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>-->
+    <!--    <string name="profile_preferences_zenMode_all_summary">All interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
 </resources>

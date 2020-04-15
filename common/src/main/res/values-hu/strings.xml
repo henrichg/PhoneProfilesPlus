@@ -281,10 +281,7 @@
     <string name="event_preferences_sms_contacts">Kapcsolatok</string>
     <string name="toast_events_restarted">Események újra indítása</string>
     <string name="event_name_background_profile">Alapértelmezett profil</string>
-    <string name="profile_preferences_volumeZenMode">Megszakítások típusa</string>
-    <string name="array_pref_zenModeArray_all">Mindegyik</string>
     <string name="array_pref_zenModeArray_priority">Elsőbbség</string>
-    <string name="array_pref_zenModeArray_none">Nincs</string>
     <string name="profile_preferences_deviceMobileData_21">(R) Mobile adat</string>
     <string name="preference_profile_adaptiveBrightness">Adaptív</string>
     <string name="profile_preferences_deviceKeyguard">Képernyőzár</string>
@@ -356,13 +353,10 @@
     <string name="important_info_profile_settings">Néhány profil tulajdonság érvényesítéséhez a rendszer beállításokon módosítani kell. Ezeket a \"(S)\" -sel jelöli.</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Értesítési hozzáférés</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Lehetővé teszi a PhoneProfilesPlus számára a \"Értesítési hozzáférés\"-t a rendszer beállításokon belül, hogy engedélyezze a \"Megszakítások típusa\" profil előnybe helyezését.</string>
-    <string name="array_pref_zenModeArray_allWithVibration">Minden rezgéssel</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Prioritás rezgéssel</string>
     <string name="important_info_news">Hírek</string>
     <string name="important_info_profile_zenMode">\"Megszakítás\" a profilban \"Csengő mód\" - ban szükséges, lehetővé tenni a PhoneProfilesPlus-nak az \"Értesítés hozzáférés\"-eket a rendszer beállításokban. Kattintson ide, és engedélyezi a PhoneProfilesPlus-nak.</string>
-    <string name="profile_preferences_zenMode_none_summary">Megszakítás nélkül. Nem figyelmeztet</string>
     <string name="profile_preferences_zenMode_priority_summary">Elsődleges megszakítások csak</string>
-    <string name="profile_preferences_zenMode_all_summary">Minden megszakítás</string>
     <string name="event_preferences_duration">Időtartam</string>
     <string name="pref_event_duration">Időtartam</string>
     <string name="applications_multiselect_summary_text_selected">Kijelöltek</string>
@@ -1208,8 +1202,6 @@
     <string name="profile_preferences_volumeSoundMode">Hang üzemmód</string>
     <string name="array_pref_soundModeArray_sound">Hang</string>
     <string name="array_pref_soundModeArray_vibration">Rezgés</string>
-    <string name="array_pref_soundModeArray_ZenMode">Megszakítások</string>
-    <string name="array_pref_soundModeArray_silentL">Prioritás mód</string>
     <string name="array_pref_soundModeArray_silentM">Csak riasztások</string>
     <string name="array_pref_soundModeArray_ZenModeM">Ne zavarjanak</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp">A PhoneProfilesPlus nem működik a háttérben</string>
@@ -1401,8 +1393,6 @@
     <string name="altype_manualRestartEvents">manual restart events</string>
     <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
     <string name="profile_preferences_category_volumeTypes">Volume types</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
@@ -1426,6 +1416,8 @@
     <string name="gui_items_help">Help with GUI items</string>
     <string name="gui_items_help_alert_title">Start help with GUI items</string>
     <string name="gui_items_help_alert_message">Is not possible to cancel this help. And will be invoked from all GUI. Start it?</string>
+    <string name="alert_button_grant">Grant</string>
+    <string name="alert_button_not_grant">Not grant</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1688,4 +1680,14 @@
     <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
+    <!--    <string name="profile_preferences_volumeZenMode">Interruptions type</string>-->
+    <!--    <string name="array_pref_zenModeArray_all">All</string>-->
+    <!--    <string name="array_pref_zenModeArray_none">None</string>-->
+    <!--    <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>-->
+    <!--    <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>-->
+    <!--    <string name="profile_preferences_zenMode_all_summary">All interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
 </resources>

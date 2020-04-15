@@ -281,10 +281,7 @@
     <string name="event_preferences_sms_contacts">Kontakte</string>
     <string name="toast_events_restarted">Ereignisse neu gestartet</string>
     <string name="event_name_background_profile">Standardprofil</string>
-    <string name="profile_preferences_volumeZenMode">Unterbrechungstyp</string>
-    <string name="array_pref_zenModeArray_all">Alle</string>
     <string name="array_pref_zenModeArray_priority">Wichtig</string>
-    <string name="array_pref_zenModeArray_none">Keine</string>
     <string name="profile_preferences_deviceMobileData_21">(R) Mobilfunkverbindung</string>
     <string name="preference_profile_adaptiveBrightness">Adaptiv</string>
     <string name="profile_preferences_deviceKeyguard">Sperrbildschirm</string>
@@ -356,13 +353,10 @@
     <string name="important_info_profile_settings">Einige Profil-Einstellungen benötigen Änderungen in den System-Einstellungen. Diese Einstellungen sind mit \"(S)\" gekennzeichnet.</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Benachrichtigungszugriff</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Erlaube PPP in \"Benachrichtigungszugriff\", um den Unterbrechungstyp in Profilen auswählen zu können.</string>
-    <string name="array_pref_zenModeArray_allWithVibration">Alle mit Vibration</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Priorität mit Vibration</string>
     <string name="important_info_news">Neuigkeiten</string>
     <string name="important_info_profile_zenMode">\"Unterbrechungen\" im Klingelmodus von Profilen benötigt Benachrichtigungszugriff für PPP. Klicke hier und erlaube PPP.</string>
-    <string name="profile_preferences_zenMode_none_summary">Nicht unterbrechen; auch nicht beim Wecken</string>
     <string name="profile_preferences_zenMode_priority_summary">Nur wichtige Unterbrechungen</string>
-    <string name="profile_preferences_zenMode_all_summary">Alle Unterbrechungen</string>
     <string name="event_preferences_duration">Dauer</string>
     <string name="pref_event_duration">Dauer</string>
     <string name="applications_multiselect_summary_text_selected">Ausgewählt</string>
@@ -1208,8 +1202,6 @@
     <string name="profile_preferences_volumeSoundMode">Audiomodus</string>
     <string name="array_pref_soundModeArray_sound">Töne</string>
     <string name="array_pref_soundModeArray_vibration">Vibrieren</string>
-    <string name="array_pref_soundModeArray_ZenMode">Unterbrechungen</string>
-    <string name="array_pref_soundModeArray_silentL">Prioritätsmodus</string>
     <string name="array_pref_soundModeArray_silentM">Nur Benachrichtigungen</string>
     <string name="array_pref_soundModeArray_ZenModeM">Bitte nicht stören</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp">PhoneProfilesPlus funktioniert nicht im Hintergrund</string>
@@ -1401,8 +1393,6 @@
     <string name="altype_manualRestartEvents">Manuelle Neustart-Ereignisse</string>
     <string name="profile_preferences_configureSoundMode_info">Bitte konfigurieren Sie auch den Profilparameter „Audioprofil”/„Audiomodus”</string>
     <string name="profile_preferences_category_volumeTypes">Laufwerkstypen</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Unterbrechungen (Aus)</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Unterbrechungen eingeschaltet</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Bitte nicht stören (Aus)</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Bitte nicht stören (Ein)</string>
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
@@ -1426,6 +1416,8 @@
     <string name="gui_items_help">Help with GUI items</string>
     <string name="gui_items_help_alert_title">Start help with GUI items</string>
     <string name="gui_items_help_alert_message">Is not possible to cancel this help. And will be invoked from all GUI. Start it?</string>
+    <string name="alert_button_grant">Grant</string>
+    <string name="alert_button_not_grant">Not grant</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1688,4 +1680,14 @@
     <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
+    <!--    <string name="profile_preferences_volumeZenMode">Interruptions type</string>-->
+    <!--    <string name="array_pref_zenModeArray_all">All</string>-->
+    <!--    <string name="array_pref_zenModeArray_none">None</string>-->
+    <!--    <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>-->
+    <!--    <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>-->
+    <!--    <string name="profile_preferences_zenMode_all_summary">All interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
 </resources>

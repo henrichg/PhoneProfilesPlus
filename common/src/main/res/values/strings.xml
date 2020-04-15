@@ -286,10 +286,7 @@
     <string name="event_preferences_sms_contacts">Contacts</string>
     <string name="toast_events_restarted">Events restarted</string>
     <string name="event_name_background_profile">Default profile</string>
-    <string name="profile_preferences_volumeZenMode">Interruptions type</string>
-    <string name="array_pref_zenModeArray_all">All</string>
     <string name="array_pref_zenModeArray_priority">Priority</string>
-    <string name="array_pref_zenModeArray_none">None</string>
     <string name="profile_preferences_deviceMobileData_21">(R) Mobile data</string>
     <string name="preference_profile_adaptiveBrightness">Adaptive</string>
     <string name="profile_preferences_deviceKeyguard">Lock screen</string>
@@ -361,13 +358,10 @@
     <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notification access</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">To enable \"Interruptions type\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
-    <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
     <string name="important_info_news">News</string>
     <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>
-    <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>
     <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
-    <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
     <string name="event_preferences_duration">Duration</string>
     <string name="pref_event_duration">Duration</string>
     <string name="applications_multiselect_summary_text_selected">Selected</string>
@@ -1233,8 +1227,6 @@
     <string name="profile_preferences_volumeSoundMode">Sound mode</string>
     <string name="array_pref_soundModeArray_sound">Sound</string>
     <string name="array_pref_soundModeArray_vibration">Vibration</string>
-    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>
-    <string name="array_pref_soundModeArray_silentL">Priority mode</string>
     <string name="array_pref_soundModeArray_silentM">Alarms only</string>
     <string name="array_pref_soundModeArray_ZenModeM">Do not disturb</string>
 
@@ -1476,8 +1468,6 @@
     <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
     <string name="profile_preferences_category_volumeTypes">Volume types</string>
 
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
 
@@ -1791,6 +1781,16 @@
 <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
 <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
 <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
+<!--    <string name="profile_preferences_volumeZenMode">Interruptions type</string>-->
+<!--    <string name="array_pref_zenModeArray_all">All</string>-->
+<!--    <string name="array_pref_zenModeArray_none">None</string>-->
+<!--    <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>-->
+<!--    <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>-->
+<!--    <string name="profile_preferences_zenMode_all_summary">All interruptions</string>-->
+<!--    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>-->
+<!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
+<!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
+<!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
 
 </resources>
 

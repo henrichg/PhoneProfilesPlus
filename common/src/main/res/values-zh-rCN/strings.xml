@@ -281,10 +281,7 @@
     <string name="event_preferences_sms_contacts">联系人</string>
     <string name="toast_events_restarted">事件已启动</string>
     <string name="event_name_background_profile">默认情景</string>
-    <string name="profile_preferences_volumeZenMode">中断类型</string>
-    <string name="array_pref_zenModeArray_all">所有</string>
     <string name="array_pref_zenModeArray_priority">优先级</string>
-    <string name="array_pref_zenModeArray_none">无</string>
     <string name="profile_preferences_deviceMobileData_21">(R) 移动数据</string>
     <string name="preference_profile_adaptiveBrightness">自适应</string>
     <string name="profile_preferences_deviceKeyguard">锁定屏幕</string>
@@ -356,13 +353,10 @@
     <string name="important_info_profile_settings">一些情景设置项需要在系统设置中进行更改，这些首选项标记为“(S)”。</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">通知访问</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">在“系统设置”中允许 PhoneProfilesPlus “访问通知”，以启用“中断类型”首选项。</string>
-    <string name="array_pref_zenModeArray_allWithVibration">所有通知都振动</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">进行振动通知的优先事项</string>
     <string name="important_info_news">新闻</string>
     <string name="important_info_profile_zenMode">“静音模式”的“中断”需要在“系统设置”的“访问通知”中启用 PhoneProfilesPlus；单击此处以启用 PhoneProfilesPlus。</string>
-    <string name="profile_preferences_zenMode_none_summary">不会中断，甚至没有警报</string>
     <string name="profile_preferences_zenMode_priority_summary">仅优先中断</string>
-    <string name="profile_preferences_zenMode_all_summary">所有中断</string>
     <string name="event_preferences_duration">持续时间</string>
     <string name="pref_event_duration">持续时间</string>
     <string name="applications_multiselect_summary_text_selected">已选中</string>
@@ -1208,8 +1202,6 @@
     <string name="profile_preferences_volumeSoundMode">Sound mode</string>
     <string name="array_pref_soundModeArray_sound">Sound</string>
     <string name="array_pref_soundModeArray_vibration">Vibration</string>
-    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>
-    <string name="array_pref_soundModeArray_silentL">Priority mode</string>
     <string name="array_pref_soundModeArray_silentM">Alarms only</string>
     <string name="array_pref_soundModeArray_ZenModeM">Do not disturb</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp">PhoneProfilesPlus not working in background</string>
@@ -1401,8 +1393,6 @@
     <string name="altype_manualRestartEvents">manual restart events</string>
     <string name="profile_preferences_configureSoundMode_info">Please configure also profile parameter \"Sound profile\"/\"Sound mode\"</string>
     <string name="profile_preferences_category_volumeTypes">Volume types</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
@@ -1426,6 +1416,8 @@
     <string name="gui_items_help">Help with GUI items</string>
     <string name="gui_items_help_alert_title">Start help with GUI items</string>
     <string name="gui_items_help_alert_message">Is not possible to cancel this help. And will be invoked from all GUI. Start it?</string>
+    <string name="alert_button_grant">Grant</string>
+    <string name="alert_button_not_grant">Not grant</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：n•配置文件参数“强制停止应用程序”n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1688,4 +1680,14 @@
     <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
+    <!--    <string name="profile_preferences_volumeZenMode">Interruptions type</string>-->
+    <!--    <string name="array_pref_zenModeArray_all">All</string>-->
+    <!--    <string name="array_pref_zenModeArray_none">None</string>-->
+    <!--    <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>-->
+    <!--    <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>-->
+    <!--    <string name="profile_preferences_zenMode_all_summary">All interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
 </resources>

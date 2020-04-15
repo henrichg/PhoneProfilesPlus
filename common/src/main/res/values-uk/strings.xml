@@ -281,10 +281,7 @@
     <string name="event_preferences_sms_contacts">Контакти</string>
     <string name="toast_events_restarted">Події перезавантажено</string>
     <string name="event_name_background_profile">Профіль за замовчуванням</string>
-    <string name="profile_preferences_volumeZenMode">Типи режиму сповіщень</string>
-    <string name="array_pref_zenModeArray_all">Усі</string>
     <string name="array_pref_zenModeArray_priority">Важливі</string>
-    <string name="array_pref_zenModeArray_none">Немає</string>
     <string name="profile_preferences_deviceMobileData_21">(R) Передача даних</string>
     <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
     <string name="profile_preferences_deviceKeyguard">Заблокувати екран</string>
@@ -356,13 +353,10 @@
     <string name="important_info_profile_settings">Деякі налаштування профілю потребують внесення змін до системних налаштуваннях. Ці налаштування відмічені «(S)».</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Доступ до сповіщень</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Увімкнути службу PhoneProfilesPlus в налаштуваннях системи \"Доступ до сповіщень\" для активації пункту \"Типи режиму сповіщення\" в налаштуваннях профілю.</string>
-    <string name="array_pref_zenModeArray_allWithVibration">Усі з вібросигналом</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Важливі з вібросигналом</string>
     <string name="important_info_news">Новини</string>
     <string name="important_info_profile_zenMode">Для встановлення значення \"Режими сповіщення\" в розділі \"Режим дзвінка\" необхідно увімкнути службу PhoneProfilesPlus в налаштуваннях системи \"Доступ до сповіщень\". Натисніть тут, щоб увімкнути службу PhoneProfilesPlus.</string>
-    <string name="profile_preferences_zenMode_none_summary">Не турбувати</string>
     <string name="profile_preferences_zenMode_priority_summary">Тільки важливі сповіщення</string>
-    <string name="profile_preferences_zenMode_all_summary">Сповіщувати завжди</string>
     <string name="event_preferences_duration">Тривалість</string>
     <string name="pref_event_duration">Тривалість</string>
     <string name="applications_multiselect_summary_text_selected">Вибрано</string>
@@ -1208,8 +1202,6 @@
     <string name="profile_preferences_volumeSoundMode">Режим звуку</string>
     <string name="array_pref_soundModeArray_sound">Звук</string>
     <string name="array_pref_soundModeArray_vibration">Вібрація</string>
-    <string name="array_pref_soundModeArray_ZenMode">Переривання</string>
-    <string name="array_pref_soundModeArray_silentL">Режим пріоритету</string>
     <string name="array_pref_soundModeArray_silentM">Тільки будильники</string>
     <string name="array_pref_soundModeArray_ZenModeM">Не турбувати</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp">PhoneProfilesPlus не працює у фоні</string>
@@ -1401,8 +1393,6 @@
     <string name="altype_manualRestartEvents">перезапуск подій вручну</string>
     <string name="profile_preferences_configureSoundMode_info">Будь ласка, налаштуйте також параметр профіля \"Звуковий профіль\"/\"Режим звуку\"</string>
     <string name="profile_preferences_category_volumeTypes">Типи гучності</string>
-    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>
-    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Режим \"Не турбувати\" вимкнено</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Режим \"Не турбувати\" ввімкнено</string>
     <string name="draw_over_apps_permission_notification_title">Дозвіл на \"Відображати поверх додатків\"</string>
@@ -1426,6 +1416,8 @@
     <string name="gui_items_help">Допомога з об\'єктами інтерфейсу</string>
     <string name="gui_items_help_alert_title">Запуск допомоги по об\'єктам інтерфейсу</string>
     <string name="gui_items_help_alert_message">Цю допомогу неможливо скасувати. Буде вискакувати в кожному додатку. Запустити?</string>
+    <string name="alert_button_grant">Grant</string>
+    <string name="alert_button_not_grant">Not grant</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1688,4 +1680,14 @@
     <!--    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>-->
     <!--    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>-->
+    <!--    <string name="profile_preferences_volumeZenMode">Interruptions type</string>-->
+    <!--    <string name="array_pref_zenModeArray_all">All</string>-->
+    <!--    <string name="array_pref_zenModeArray_none">None</string>-->
+    <!--    <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>-->
+    <!--    <string name="profile_preferences_zenMode_none_summary">No interruptions; not even alarms</string>-->
+    <!--    <string name="profile_preferences_zenMode_all_summary">All interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>-->
+    <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
+    <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
 </resources>
