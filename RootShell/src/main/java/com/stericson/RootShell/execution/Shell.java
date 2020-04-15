@@ -554,7 +554,7 @@ public class Shell {
 
                 // 4.4+ builds are enforcing by default, take the gamble
                 if (enforcing == null) {
-                    enforcing = (android.os.Build.VERSION.SDK_INT >= 19);
+                    enforcing = true; //(android.os.Build.VERSION.SDK_INT >= 19);
                 }
             //}
 

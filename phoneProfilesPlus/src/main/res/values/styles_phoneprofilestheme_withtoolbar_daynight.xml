@@ -5,6 +5,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>
+        <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
         <item name="android:navigationBarColor">@color/navigationBar</item>
     </style>
 

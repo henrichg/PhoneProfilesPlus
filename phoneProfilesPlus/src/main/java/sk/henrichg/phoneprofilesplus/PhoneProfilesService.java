@@ -885,7 +885,7 @@ public class PhoneProfilesService extends Service
             if (PPApplication.interruptionFilterChangedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER interruption filter", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER interruption filter");
-                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                //if (android.os.Build.VERSION.SDK_INT >= 23) {
                     boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
                     if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
                         PPApplication.interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
@@ -893,7 +893,7 @@ public class PhoneProfilesService extends Service
                         intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
                         appContext.registerReceiver(PPApplication.interruptionFilterChangedReceiver, intentFilter11);
                     }
-                }
+                //}
             }
 
             // required for unlink ring and notification volume
@@ -935,7 +935,7 @@ public class PhoneProfilesService extends Service
             if (PPApplication.deviceIdleModeReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER device idle mode", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER device idle mode");
-                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                //if (android.os.Build.VERSION.SDK_INT >= 23) {
                     PPApplication.deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
                     IntentFilter intentFilter9 = new IntentFilter();
                     intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
@@ -943,7 +943,7 @@ public class PhoneProfilesService extends Service
                     //if (android.os.Build.VERSION.SDK_INT >= 24)
                     //    intentFilter9.addAction(PowerManager.ACTION_LIGHT_DEVICE_IDLE_MODE_CHANGED);
                     appContext.registerReceiver(PPApplication.deviceIdleModeReceiver, intentFilter9);
-                }
+                //}
             }
 
             // required for (un)register connected bluetooth devices
@@ -4566,7 +4566,7 @@ public class PhoneProfilesService extends Service
                               ) &&*/
                                     (android.os.Build.VERSION.SDK_INT == 23);
                             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
-                            if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
+                            if (/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4)) {
                                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
                                 notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                             } else {
@@ -4686,7 +4686,7 @@ public class PhoneProfilesService extends Service
                         ) &&*/
                             (android.os.Build.VERSION.SDK_INT == 23);
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
-                    if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
+                    if (/*(Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4) && (iconBitmap != null)) {
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
                         notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                     } else {
@@ -4835,16 +4835,16 @@ public class PhoneProfilesService extends Service
                 }
                 else {
                     Notification.Action.Builder actionBuilder;
-                    /*if (Build.VERSION.SDK_INT >= 23)
+                    //if (Build.VERSION.SDK_INT >= 23)
                         actionBuilder = new Notification.Action.Builder(
                                 Icon.createWithResource(appContext, R.drawable.ic_widget_restart_events),
                                 appContext.getString(R.string.menu_restart_events),
                                 pIntentRE);
-                    else*/
+                    /*else
                         actionBuilder = new Notification.Action.Builder(
                                 R.drawable.ic_widget_restart_events,
                                 appContext.getString(R.string.menu_restart_events),
-                                pIntentRE);
+                                pIntentRE);*/
                     notificationBuilder.addAction(actionBuilder.build());
                 }
             }
@@ -4994,16 +4994,16 @@ public class PhoneProfilesService extends Service
                 PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 Notification.Action.Builder actionBuilder;
-                /*if (Build.VERSION.SDK_INT >= 23)
+                //if (Build.VERSION.SDK_INT >= 23)
                     actionBuilder = new Notification.Action.Builder(
                             Icon.createWithResource(appContext, R.drawable.ic_action_exit_app_white),
                             appContext.getString(R.string.menu_exit),
                             pExitAppIntent);
-                else*/
+                /*else
                     actionBuilder = new Notification.Action.Builder(
                             R.drawable.ic_action_exit_app_white,
                             appContext.getString(R.string.menu_exit),
-                            pExitAppIntent);
+                            pExitAppIntent);*/
                 notificationBuilder.addAction(actionBuilder.build());
             }
 
@@ -5577,10 +5577,10 @@ public class PhoneProfilesService extends Service
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
+                //if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 //else
                 //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
             }
@@ -5630,7 +5630,7 @@ public class PhoneProfilesService extends Service
             PPApplication.sleep(1500);
 
             int oldRingerMode = intent.getIntExtra(EXTRA_OLD_RINGER_MODE, 0);
-            int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
+            //int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(EXTRA_OLD_ZEN_MODE, 0);
             String oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
             //int oldSystemRingerVolume = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, -1);
@@ -5714,13 +5714,13 @@ public class PhoneProfilesService extends Service
                     //        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (1)");
                     //    }
                     //}
-                    if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    //if (android.os.Build.VERSION.SDK_INT >= 23) {
                        if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                            simulateRinging = true;
                            stream = AudioManager.STREAM_ALARM;
                            //PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (1)");
                        }
-                    }
+                    //}
 
                     //if (!simulateRinging) {
                     //    if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
@@ -5743,7 +5743,7 @@ public class PhoneProfilesService extends Service
                     //        }
                     //    }
                     //}
-                    if (android.os.Build.VERSION.SDK_INT < 23) {
+                    /*if (android.os.Build.VERSION.SDK_INT < 23) {
                         if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                             simulateRinging = true;
                             if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
@@ -5756,7 +5756,7 @@ public class PhoneProfilesService extends Service
                                 //PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=RING (2)");
                             }
                         }
-                    }
+                    }*/
 
                 //}
 

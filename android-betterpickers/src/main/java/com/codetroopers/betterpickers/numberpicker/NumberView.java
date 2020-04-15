@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import com.codetroopers.betterpickers.R;
 import com.codetroopers.betterpickers.widget.ZeroTopPaddingTextView;
 
+import androidx.core.content.ContextCompat;
+
 public class NumberView extends LinearLayout {
 
     private ZeroTopPaddingTextView mNumber, mDecimal;
@@ -44,7 +46,8 @@ public class NumberView extends LinearLayout {
                 Typeface.createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
 
         // Init defaults
-        mTextColor = getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
+        mTextColor = ContextCompat .getColorStateList(context, R.color.dialog_text_color_holo_dark);
+                //getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
     }
 
     /**

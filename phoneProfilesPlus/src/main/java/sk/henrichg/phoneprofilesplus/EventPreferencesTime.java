@@ -1336,10 +1336,10 @@ class EventPreferencesTime extends EventPreferences {
                 //    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock set");
             }
             else {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
+                //if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 //else
                 //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 //if (testEvent)

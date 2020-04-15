@@ -43,8 +43,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
                 // WifiScanBroadcastReceiver
 
-                boolean resultsUpdated = true;
-                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                boolean resultsUpdated;// = true;
+                //if (android.os.Build.VERSION.SDK_INT >= 23) {
                     if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED)) {
                         //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
                         resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
@@ -53,7 +53,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                         //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
                         resultsUpdated = false;
                     }
-                }
+                //}
                 final boolean scanResultsUpdated = resultsUpdated;
                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResultsUpdated=" + scanResultsUpdated);
 

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.service.notification.StatusBarNotification;
 
 // Disable action button
@@ -24,17 +23,17 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
-            if (Build.VERSION.SDK_INT >= 23) {
+            //if (Build.VERSION.SDK_INT >= 23) {
                 StatusBarNotification[] notifications = manager.getActiveNotifications();
                 for (StatusBarNotification notification : notifications) {
                     if (notification.getId() >= PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
                         manager.cancel(notification.getId());
                     }
                 }
-            } else {
+            /*} else {
                 int notificationId = intent.getIntExtra("notificationId", 0);
                 manager.cancel(notificationId);
-            }
+            }*/
         }
     }
 

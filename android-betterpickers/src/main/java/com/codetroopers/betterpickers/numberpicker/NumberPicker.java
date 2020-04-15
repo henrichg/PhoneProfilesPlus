@@ -26,6 +26,7 @@ import java.util.Arrays;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class NumberPicker extends LinearLayout implements Button.OnClickListener/*,
@@ -87,12 +88,14 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         LayoutInflater.from(context).inflate(getLayoutId(), this);
 
         // Init defaults
-        mTextColor = getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
+        mTextColor = ContextCompat.getColorStateList(context, R.color.dialog_text_color_holo_dark);
+                //getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
         mKeyBackgroundResId = R.drawable.key_background_dark;
         mButtonBackgroundResId = R.drawable.button_background_dark;
         mBackspaceDrawableSrcResId = R.drawable.ic_backspace_dark_bp;
         mClearDrawableSrcResId = R.drawable.ic_clear_dark_bp;
-        mDividerColor = getResources().getColor(R.color.default_divider_color_dark);
+        mDividerColor = ContextCompat.getColor(context, R.color.default_divider_color_dark);
+                //getResources().getColor(R.color.default_divider_color_dark);
     }
 
     protected int getLayoutId() {

@@ -3,7 +3,6 @@ package mobi.upod.timedurationpicker;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -114,9 +113,9 @@ public class TimeDurationPicker extends FrameLayout {
         try {
             applyPadding(attributes, R.styleable.TimeDurationPicker_numPadButtonPadding, numPadButtons);
 
-            applyTextAppearance(context, attributes, R.styleable.TimeDurationPicker_textAppearanceDisplay, displayViews);
-            applyTextAppearance(context, attributes, R.styleable.TimeDurationPicker_textAppearanceButton, numPadButtons);
-            applyTextAppearance(context, attributes, R.styleable.TimeDurationPicker_textAppearanceUnit, unitLabelViews);
+            applyTextAppearance(/*context,*/ attributes, R.styleable.TimeDurationPicker_textAppearanceDisplay, displayViews);
+            applyTextAppearance(/*context,*/ attributes, R.styleable.TimeDurationPicker_textAppearanceButton, numPadButtons);
+            applyTextAppearance(/*context,*/ attributes, R.styleable.TimeDurationPicker_textAppearanceUnit, unitLabelViews);
 
             applyIcon(attributes, R.styleable.TimeDurationPicker_backspaceIcon, backspaceButton);
             applyIcon(attributes, R.styleable.TimeDurationPicker_clearIcon, clearButton);
@@ -225,7 +224,7 @@ public class TimeDurationPicker extends FrameLayout {
      */
     @SuppressWarnings("unused")
     public void setDisplayTextAppearance(int resId) {
-        applyTextAppearance(getContext(), resId, displayViews);
+        applyTextAppearance(/*getContext(),*/ resId, displayViews);
     }
 
     /**
@@ -234,7 +233,7 @@ public class TimeDurationPicker extends FrameLayout {
      */
     @SuppressWarnings("unused")
     public void setUnitTextAppearance(int resId) {
-        applyTextAppearance(getContext(), resId, unitLabelViews);
+        applyTextAppearance(/*getContext(),*/ resId, unitLabelViews);
     }
 
     /**
@@ -243,7 +242,7 @@ public class TimeDurationPicker extends FrameLayout {
      */
     @SuppressWarnings("unused")
     public void setButtonTextAppearance(int resId) {
-        applyTextAppearance(getContext(), resId, numPadButtons);
+        applyTextAppearance(/*getContext(),*/ resId, numPadButtons);
     }
 
     /**
@@ -306,20 +305,20 @@ public class TimeDurationPicker extends FrameLayout {
         for (View view : targetViews) view.setPadding(padding, padding, padding, padding);
     }
 
-    private void applyTextAppearance(Context context, TypedArray attrs, int attributeIndex, final TextView[] targetViews) {
+    private void applyTextAppearance(/*Context context,*/ TypedArray attrs, int attributeIndex, final TextView[] targetViews) {
         final int id = attrs.getResourceId(attributeIndex, 0);
         if (id != 0) {
-            applyTextAppearance(context, id, targetViews);
+            applyTextAppearance(/*context,*/ id, targetViews);
         }
     }
 
-    private void applyTextAppearance(Context context, int resId, final TextView[] targetViews) {
-        if (Build.VERSION.SDK_INT < 23) {
-            for (TextView view : targetViews) view.setTextAppearance(context, resId);
-        }
-        else {
+    private void applyTextAppearance(/*Context context,*/ int resId, final TextView[] targetViews) {
+        //if (Build.VERSION.SDK_INT < 23) {
+        //    for (TextView view : targetViews) view.setTextAppearance(context, resId);
+        //}
+        //else {
             for (TextView view : targetViews) view.setTextAppearance(resId);
-        }
+        //}
     }
 
     private void applyIcon(TypedArray attrs, int attributeIndex, ImageView targetView) {

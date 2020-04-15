@@ -25,7 +25,7 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
-        app:title="@string/profile_preferences_volumeZenMode"
+        app:title="@string/profile_preferences_volumeZenModeM"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_volumeZenMode"
         app:defaultValue="1"
@@ -40,5 +40,5 @@
         app:entries="@array/vibrateWhenRingingArray"
         app:entryValues="@array/vibrateWhenRingingValues"
         app:layout="@layout/mp_preference_material_widget" />
-    
+
 </androidx.preference.PreferenceScreen>

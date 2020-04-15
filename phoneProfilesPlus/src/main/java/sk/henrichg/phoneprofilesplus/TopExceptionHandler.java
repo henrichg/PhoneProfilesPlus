@@ -36,8 +36,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         try {
             //if (PhoneProfilesService.getInstance() != null) {
                 if (PPApplication.lockDeviceActivity != null) {
-                    boolean canWriteSettings = true;
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                    boolean canWriteSettings;// = true;
+                    //if (android.os.Build.VERSION.SDK_INT >= 23)
                         canWriteSettings = Settings.System.canWrite(applicationContext);
                     if (canWriteSettings)
                         Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -226,7 +225,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     }
 
     void setLocationEnableStatus() {
-        if (Build.VERSION.SDK_INT >= 23) {
+        //if (Build.VERSION.SDK_INT >= 23) {
             String statusText;
             if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
                 statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
@@ -279,12 +278,12 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                 locationSystemSettingsButton.setVisibility(View.GONE);
                 rescanButton.setVisibility(View.VISIBLE);
             }
-        }
+        /*}
         else {
             locationEnabledStatusTextView.setVisibility(View.GONE);
             locationSystemSettingsButton.setVisibility(View.GONE);
             rescanButton.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     @SuppressLint("StaticFieldLeak")

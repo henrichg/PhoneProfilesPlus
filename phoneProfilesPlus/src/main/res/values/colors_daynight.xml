@@ -2,7 +2,7 @@
 <resources>
     <!--<color name="primary">#F7F7F7</color>-->
     <color name="primary">#FFFFFF</color>
-    <color name="primaryDark">#A7A7A7</color>
+    <color name="primaryDark">#FFFFFF</color>
     <color name="accent">#DC8160</color>
     <color name="accent_disabled">#70DC8160</color>
     <color name="navigationBar">#000000</color>

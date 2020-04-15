@@ -183,7 +183,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState == null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 Permissions.saveAllPermissions(getApplicationContext(), false);
             getSupportFragmentManager()
                     .beginTransaction()

@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -156,7 +157,9 @@ public class NumberPickerDialogFragment extends DialogFragment {
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
         // Init defaults
-        mTextColor = getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
+        if (getActivity() != null)
+            mTextColor = ContextCompat .getColorStateList(getActivity(), R.color.dialog_text_color_holo_dark);
+                    //getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
         mDialogBackgroundResId = R.drawable.dialog_full_holo_dark;
 
         if (mTheme != -1) {

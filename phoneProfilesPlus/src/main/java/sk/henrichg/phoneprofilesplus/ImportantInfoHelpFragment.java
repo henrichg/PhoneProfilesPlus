@@ -378,7 +378,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             //infoText17.setVisibility(View.GONE);
             //TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
             //infoText19.setVisibility(View.GONE);
-            if (Build.VERSION.SDK_INT >= 23) {
+            //if (Build.VERSION.SDK_INT >= 23) {
                 TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
                 infoText20.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -526,7 +526,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }*/
                     }
                 });
-            }
+            //}
         //}
 
         /*if (news1772) {
@@ -584,14 +584,14 @@ public class ImportantInfoHelpFragment extends Fragment {
             //infoText13.setVisibility(View.GONE);
 
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-            if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+            if (/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 infoText14.setVisibility(View.GONE);
             }
             else {
                 TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
-                if (android.os.Build.VERSION.SDK_INT >= 23)
+                //if (android.os.Build.VERSION.SDK_INT >= 23)
                     infoText14.setText(R.string.important_info_profile_zenModeM);
                 infoText14.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -630,7 +630,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         //}
 
-        if (android.os.Build.VERSION.SDK_INT < 23) {
+        /*if (android.os.Build.VERSION.SDK_INT < 23) {
             //TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
             //infoText15.setVisibility(View.GONE);
             TextView infoText16 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root);
@@ -649,7 +649,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText22.setVisibility(View.GONE);
             TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
             infoText10a.setVisibility(View.GONE);
-        }
+        }*/
 
         /*
         if (android.os.Build.VERSION.SDK_INT < 21) {
@@ -741,7 +741,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         });
 
 
-        TextView infoText10a = view.findViewById(R.id.activity_info_notification_application_settings);
+        infoText10a = view.findViewById(R.id.activity_info_notification_application_settings);
         infoText10a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

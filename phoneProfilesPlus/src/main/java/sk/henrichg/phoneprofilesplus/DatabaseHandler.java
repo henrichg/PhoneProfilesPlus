@@ -1659,7 +1659,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_START_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_DURATION + "=5");
         }
-        if (oldVersion < 1410)
+
+        /*if (oldVersion < 1410)
         {
             final String selectQuery = "SELECT " + KEY_ID + "," +
                     KEY_VOLUME_ZEN_MODE +
@@ -1681,7 +1682,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             cursor.close();
-        }
+        }*/
 
         if (oldVersion < 1420)
         {
@@ -10853,11 +10854,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 ringerMode = cursorExportedDB.getInt(i);
                                         }
 
-                                        if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23)) {
+                                        /*if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23)) {
                                             // Alarms only zen mode is supported from Android 6.0
                                             values.remove(KEY_VOLUME_ZEN_MODE);
                                             values.put(KEY_VOLUME_ZEN_MODE, 3);
-                                        }
+                                        }*/
 
                                         // for non existent fields set default value
                                         if (exportedDBObj.getVersion() < 19) {

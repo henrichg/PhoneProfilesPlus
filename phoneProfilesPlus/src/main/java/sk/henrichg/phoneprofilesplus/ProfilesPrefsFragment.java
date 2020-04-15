@@ -324,7 +324,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
                 final boolean showDoNotDisturbPermission =
-                        (android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                        /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
                 if (showDoNotDisturbPermission) {
                     notificationAccessPreference.setTitle(getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions));
@@ -388,12 +388,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (ringerModePreference != null) {
             CharSequence[] entries = ringerModePreference.getEntries();
-            if (Build.VERSION.SDK_INT < 23) {
+            /*if (Build.VERSION.SDK_INT < 23) {
                 entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
                 entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
                 entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_On) + ")";
             }
-            else {
+            else*/ {
                 entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
@@ -423,7 +423,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                         @SuppressLint("InlinedApi")
-                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                        boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyleX(zenModePreference, true, false, false, false, addS);
                     }
@@ -1242,12 +1242,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 if (ringerMode != null) {
                     boolean zenModeOffValue = ringerMode.equals("1") || ringerMode.equals("2") || ringerMode.equals("3");
-                    if (Build.VERSION.SDK_INT < 23) {
+                    /*if (Build.VERSION.SDK_INT < 23) {
                         if (zenModeOffValue)
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
                         else if (ringerMode.equals("4"))
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_On) + ")";
-                    } else {
+                    } else*/ {
                         if (zenModeOffValue)
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                         else if (ringerMode.equals("4"))
@@ -1260,10 +1260,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (_bold) {
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
-                boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                         GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                int titleRes = R.string.profile_preferences_volumeZenMode;
-                if (Build.VERSION.SDK_INT >= 23)
+                int titleRes;// = R.string.profile_preferences_volumeZenMode;
+                //if (Build.VERSION.SDK_INT >= 23)
                     titleRes = R.string.profile_preferences_volumeZenModeM;
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, titleRes, addS, context);
                 if (!title.isEmpty()) {
@@ -2311,7 +2311,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                     boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                     @SuppressLint("InlinedApi")
-                    boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                             GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, addS);
                 }
@@ -2325,7 +2325,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     if ((iValue != Profile.NO_CHANGE_VALUE) /*&& (iValue != Profile.SHARED_PROFILE_VALUE)*/) {
-                        if (!((iValue == 6) && (android.os.Build.VERSION.SDK_INT < 23))) {
+                        if (!((iValue == 6) /*&& (android.os.Build.VERSION.SDK_INT < 23)*/)) {
                             String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
                             summary = summary + " - " + summaryArray[iValue - 1];
                         }
@@ -2342,7 +2342,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (iRingerMode == 5) {
                         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                         @SuppressLint("InlinedApi")
-                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                        boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, addS);
                     }
@@ -3354,7 +3354,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String _summary;
                         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                         final boolean showDoNotDisturbPermission =
-                                (android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                                         GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
                         if (showDoNotDisturbPermission) {
                             _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);

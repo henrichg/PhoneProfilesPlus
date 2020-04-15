@@ -139,10 +139,10 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             // set alarm
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             // !!! DO NOT USE PPP SETTING "Use alarm clock" !!!
-            if (android.os.Build.VERSION.SDK_INT >= 23)
+            //if (android.os.Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-            else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+            //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else
             //    alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         //}

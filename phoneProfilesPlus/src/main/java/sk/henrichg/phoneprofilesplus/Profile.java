@@ -3730,8 +3730,8 @@ public class Profile {
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
         {
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                {
+                //if (android.os.Build.VERSION.SDK_INT >= 23)
+                //{
                     /* not working (private secure settings) :-/
                     if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -3770,9 +3770,9 @@ public class Profile {
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     } else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                }
-                else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                //}
+                //else
+                //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             /*}
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
@@ -3916,7 +3916,7 @@ public class Profile {
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
             int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
-            if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
+            if ((value != -10) /*&& (android.os.Build.VERSION.SDK_INT >= 23)*/) {
                 /* not working (private secure settings) :-/
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -3956,9 +3956,9 @@ public class Profile {
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
-            else
-            if (value != -10)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            //else
+            //if (value != -10)
+            //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);

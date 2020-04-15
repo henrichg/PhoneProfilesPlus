@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
@@ -891,7 +890,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     PPApplication.createMobileCellsNewCellNotificationChannel(context);
 
                     boolean isShown = false;
-                    if (Build.VERSION.SDK_INT >= 23) {
+                    //if (Build.VERSION.SDK_INT >= 23) {
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
                             StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
@@ -902,12 +901,12 @@ class PhoneStateScanner extends PhoneStateListener {
                                 }
                             }
                         }
-                    }
+                    /*}
                     else {
                         Intent notificationIntent = new Intent(context, NotUsedMobileCellsDetectedActivity.class);
                         PendingIntent test = PendingIntent.getActivity(context, _registeredCell, notificationIntent, PendingIntent.FLAG_NO_CREATE);
                         isShown = test != null;
-                    }
+                    }*/
                     if (!isShown) {
                         NotificationCompat.Builder mBuilder;
 
@@ -954,7 +953,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                        mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
                             try {
                                 mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());

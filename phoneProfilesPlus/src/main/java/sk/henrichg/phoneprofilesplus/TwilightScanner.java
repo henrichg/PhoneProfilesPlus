@@ -546,10 +546,10 @@ class TwilightScanner {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
                         mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
-                        if (android.os.Build.VERSION.SDK_INT >= 23)
+                        //if (android.os.Build.VERSION.SDK_INT >= 23)
                             mAlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
-                        else
-                            mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
+                        //else
+                        //    mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, nextUpdate, pendingIntent);
                     }
                 }
             }

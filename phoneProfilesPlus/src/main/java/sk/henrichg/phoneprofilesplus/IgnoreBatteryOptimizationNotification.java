@@ -22,7 +22,7 @@ class IgnoreBatteryOptimizationNotification {
     static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IgnoreBatteryOptimizationNotification.DISABLE_ACTION";
 
     static void showNotification(Context context, boolean useHandler) {
-        if (Build.VERSION.SDK_INT >= 23) {
+        //if (Build.VERSION.SDK_INT >= 23) {
             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
 
             final Context appContext = context.getApplicationContext();
@@ -110,7 +110,7 @@ class IgnoreBatteryOptimizationNotification {
                     }
                 }
             }
-        }
+        //}
     }
 
     static private void showNotification(Context context, String title, String text) {

@@ -25,8 +25,8 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         //PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
 
-        boolean canWriteSettings = true;
-        if (android.os.Build.VERSION.SDK_INT >= 23)
+        boolean canWriteSettings;// = true;
+        //if (android.os.Build.VERSION.SDK_INT >= 23)
             canWriteSettings = Settings.System.canWrite(getApplicationContext());
 
         if (/*(PhoneProfilesService.getInstance() != null) &&*/ canWriteSettings) {
@@ -103,8 +103,8 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         final Context appContext = getApplicationContext();
 
-        boolean canWriteSettings = true;
-        if (android.os.Build.VERSION.SDK_INT >= 23)
+        boolean canWriteSettings;// = true;
+        //if (android.os.Build.VERSION.SDK_INT >= 23)
             canWriteSettings = Settings.System.canWrite(appContext);
 
         if (displayed && (PhoneProfilesService.getInstance() != null) && canWriteSettings) {

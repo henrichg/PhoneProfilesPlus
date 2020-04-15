@@ -6,8 +6,8 @@
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_soundModeArray_sound</item>
         <item>@string/array_pref_soundModeArray_vibration</item>
-        <item>@string/array_pref_soundModeArray_silentL</item>
-        <item>@string/array_pref_soundModeArray_ZenMode</item>
+        <item>@string/array_pref_soundModeArray_silentM</item>
+        <item>@string/array_pref_soundModeArray_ZenModeM</item>
     </string-array>
     <string-array name="soundModeValues" tools:ignore="InconsistentArrays">
         <item>0</item>
@@ -37,8 +37,8 @@
         <item>@string/array_pref_screenTimeoutArray_5minutes</item>
         <item>@string/array_pref_screenTimeoutArray_10minutes</item>
         <item>@string/array_pref_screenTimeoutArray_30minutes</item>
-<!--        <item>@string/array_pref_screenTimeoutArray_24hours</item>-->
-<!--        <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>-->
+        <!--        <item>@string/array_pref_screenTimeoutArray_24hours</item>-->
+        <!--        <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>-->
     </string-array>
     <string-array name="screenTimeoutValues">
         <item>0</item>
@@ -49,119 +49,119 @@
         <item>7</item>
         <item>5</item>
         <item>9</item>
-<!--        <item>6</item>-->
-<!--        <item>8</item>-->
+        <!--        <item>6</item>-->
+        <!--        <item>8</item>-->
     </string-array>
-<!--    <string-array name="languageArray">
-        <item>@string/phone_profiles_pref_applicationLanguage_system</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_af</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ca</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_cs</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_da</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_de</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_en</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_es</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_et</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_fr</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ga_IE</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_hr</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_hu</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_in</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_is</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_it</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ku</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_lb</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_lv</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ms</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_nl</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_no</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_pl</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_pt_BR</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_pt_PT</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ro</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_sk</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_sl</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_sr_Latn</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_fi</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_sv</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_tr</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_vi</item>
+    <!--    <string-array name="languageArray">
+            <item>@string/phone_profiles_pref_applicationLanguage_system</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_af</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ca</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_cs</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_da</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_de</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_en</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_es</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_et</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_fr</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ga_IE</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_hr</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_hu</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_in</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_is</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_it</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ku</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_lb</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_lv</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ms</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_nl</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_no</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_pl</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_pt_BR</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_pt_PT</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ro</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_sk</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_sl</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_sr_Latn</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_fi</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_sv</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_tr</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_vi</item>
 
-        <item>@string/phone_profiles_pref_applicationLanguage_el</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_el</item>
 
-        <item>@string/phone_profiles_pref_applicationLanguage_bg</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ru</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_sr</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_bg</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ru</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_sr</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
 
-        <item>@string/phone_profiles_pref_applicationLanguage_iw</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_iw</item>
 
-        <item>@string/phone_profiles_pref_applicationLanguage_ar</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_bn_IN</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_fa</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_hi</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ja</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_ko</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_te</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_th</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_zh_CN</item>
-        <item>@string/phone_profiles_pref_applicationLanguage_zh_TW</item>
-    </string-array>
-    <string-array name="languageValues">
-        <item>@string/array_pref_value_system</item>
-        <item>@string/array_pref_value_af</item>
-        <item>@string/array_pref_value_ca</item>
-        <item>@string/array_pref_value_cs</item>
-        <item>@string/array_pref_value_da</item>
-        <item>@string/array_pref_value_de</item>
-        <item>@string/array_pref_value_en</item>
-        <item>@string/array_pref_value_es</item>
-        <item>@string/array_pref_value_et</item>
-        <item>@string/array_pref_value_fr</item>
-        <item>@string/array_pref_value_ga_IE</item>
-        <item>@string/array_pref_value_hr</item>
-        <item>@string/array_pref_value_hu</item>
-        <item>@string/array_pref_value_in</item>
-        <item>@string/array_pref_value_is</item>
-        <item>@string/array_pref_value_it</item>
-        <item>@string/array_pref_value_ku</item>
-        <item>@string/array_pref_value_lb</item>
-        <item>@string/array_pref_value_lv</item>
-        <item>@string/array_pref_value_ms</item>
-        <item>@string/array_pref_value_nl</item>
-        <item>@string/array_pref_value_no</item>
-        <item>@string/array_pref_value_pl</item>
-        <item>@string/array_pref_value_pt_BR</item>
-        <item>@string/array_pref_value_pt_PT</item>
-        <item>@string/array_pref_value_ro</item>
-        <item>@string/array_pref_value_sk</item>
-        <item>@string/array_pref_value_sl</item>
-        <item>@string/array_pref_value_sr_Latn</item>
-        <item>@string/array_pref_value_fi</item>
-        <item>@string/array_pref_value_sv</item>
-        <item>@string/array_pref_value_tr</item>
-        <item>@string/array_pref_value_vi</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ar</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_bn_IN</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_fa</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_hi</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ja</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_ko</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_te</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_th</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_zh_CN</item>
+            <item>@string/phone_profiles_pref_applicationLanguage_zh_TW</item>
+        </string-array>
+        <string-array name="languageValues">
+            <item>@string/array_pref_value_system</item>
+            <item>@string/array_pref_value_af</item>
+            <item>@string/array_pref_value_ca</item>
+            <item>@string/array_pref_value_cs</item>
+            <item>@string/array_pref_value_da</item>
+            <item>@string/array_pref_value_de</item>
+            <item>@string/array_pref_value_en</item>
+            <item>@string/array_pref_value_es</item>
+            <item>@string/array_pref_value_et</item>
+            <item>@string/array_pref_value_fr</item>
+            <item>@string/array_pref_value_ga_IE</item>
+            <item>@string/array_pref_value_hr</item>
+            <item>@string/array_pref_value_hu</item>
+            <item>@string/array_pref_value_in</item>
+            <item>@string/array_pref_value_is</item>
+            <item>@string/array_pref_value_it</item>
+            <item>@string/array_pref_value_ku</item>
+            <item>@string/array_pref_value_lb</item>
+            <item>@string/array_pref_value_lv</item>
+            <item>@string/array_pref_value_ms</item>
+            <item>@string/array_pref_value_nl</item>
+            <item>@string/array_pref_value_no</item>
+            <item>@string/array_pref_value_pl</item>
+            <item>@string/array_pref_value_pt_BR</item>
+            <item>@string/array_pref_value_pt_PT</item>
+            <item>@string/array_pref_value_ro</item>
+            <item>@string/array_pref_value_sk</item>
+            <item>@string/array_pref_value_sl</item>
+            <item>@string/array_pref_value_sr_Latn</item>
+            <item>@string/array_pref_value_fi</item>
+            <item>@string/array_pref_value_sv</item>
+            <item>@string/array_pref_value_tr</item>
+            <item>@string/array_pref_value_vi</item>
 
-        <item>@string/array_pref_value_el</item>
+            <item>@string/array_pref_value_el</item>
 
-        <item>@string/array_pref_value_bg</item>
-        <item>@string/array_pref_value_ru</item>
-        <item>@string/array_pref_value_sr</item>
-        <item>@string/array_pref_value_uk</item>
+            <item>@string/array_pref_value_bg</item>
+            <item>@string/array_pref_value_ru</item>
+            <item>@string/array_pref_value_sr</item>
+            <item>@string/array_pref_value_uk</item>
 
-        <item>@string/array_pref_value_iw</item>
+            <item>@string/array_pref_value_iw</item>
 
-        <item>@string/array_pref_value_ar</item>
-        <item>@string/array_pref_value_bn_IN</item>
-        <item>@string/array_pref_value_fa</item>
-        <item>@string/array_pref_value_hi</item>
-        <item>@string/array_pref_value_ja</item>
-        <item>@string/array_pref_value_ko</item>
-        <item>@string/array_pref_value_te</item>
-        <item>@string/array_pref_value_th</item>
-        <item>@string/array_pref_value_zh_CN</item>
-        <item>@string/array_pref_value_zh_TW</item>
-    </string-array>-->
+            <item>@string/array_pref_value_ar</item>
+            <item>@string/array_pref_value_bn_IN</item>
+            <item>@string/array_pref_value_fa</item>
+            <item>@string/array_pref_value_hi</item>
+            <item>@string/array_pref_value_ja</item>
+            <item>@string/array_pref_value_ko</item>
+            <item>@string/array_pref_value_te</item>
+            <item>@string/array_pref_value_th</item>
+            <item>@string/array_pref_value_zh_CN</item>
+            <item>@string/array_pref_value_zh_TW</item>
+        </string-array>-->
     <string-array name="notificationIconStyleArray">
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_color</item>
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_android</item>
@@ -232,12 +232,12 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-<!--    <string-array name="orderEventsArray">-->
-<!--        <item>@string/editor_drawer_order_start_order</item>-->
-<!--        <item>@string/editor_drawer_order_event_name</item>-->
-<!--        <item>@string/editor_drawer_order_profile_name</item>-->
-<!--        <item>@string/editor_drawer_order_priority</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="orderEventsArray">-->
+    <!--        <item>@string/editor_drawer_order_start_order</item>-->
+    <!--        <item>@string/editor_drawer_order_event_name</item>-->
+    <!--        <item>@string/editor_drawer_order_profile_name</item>-->
+    <!--        <item>@string/editor_drawer_order_priority</item>-->
+    <!--    </string-array>-->
     <string-array name="displayRotationArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_auto_rotate_on</item>
@@ -456,25 +456,28 @@
         <item>3</item>
     </string-array>-->
     <string-array name="zenModeArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_zenModeArray_all</item>
-        <item>@string/array_pref_zenModeArray_allWithVibration</item>
+        <item>@string/array_pref_zenModeArray_off</item>
+        <item>@string/array_pref_zenModeArray_offButVibration</item>
         <item>@string/array_pref_zenModeArray_priority</item>
         <item>@string/array_pref_zenModeArray_priorityWithVibration</item>
-        <item>@string/array_pref_zenModeArray_none</item>
+        <item>@string/array_pref_zenModeArray_alarms</item>
+        <item>@string/array_pref_zenModeArray_totalSilence</item>
     </string-array>
     <string-array name="zenModeValues" tools:ignore="InconsistentArrays">
         <item>1</item>
         <item>4</item>
         <item>2</item>
         <item>5</item>
+        <item>6</item>
         <item>3</item>
     </string-array>
     <string-array name="zenModeSummaryArray" tools:ignore="InconsistentArrays">
-        <item>@string/profile_preferences_zenMode_all_summary</item>
+        <item>@string/profile_preferences_zenMode_off_summary</item>
         <item>@string/profile_preferences_zenMode_priority_summary</item>
-        <item>@string/profile_preferences_zenMode_none_summary</item>
-        <item>@string/profile_preferences_zenMode_all_summary</item>
+        <item>@string/profile_preferences_zenMode_totalSilence_summary</item>
+        <item>@string/profile_preferences_zenMode_off_summary</item>
         <item>@string/profile_preferences_zenMode_priority_summary</item>
+        <item>@string/profile_preferences_zenMode_alarms_summary</item>
     </string-array>
     <string-array name="keyguardArray">
         <item>@string/array_pref_no_change</item>
@@ -550,26 +553,26 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-<!--    <string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">-->
-<!--        <item>@string/array_pref_powerSaveMode_off</item>-->
-<!--        <item>@string/array_pref_powerSaveMode_5</item>-->
-<!--        <item>@string/array_pref_powerSaveMode_15</item>-->
-<!--        <item>@string/array_pref_powerSaveMode_useSystem</item>-->
-<!--    </string-array>-->
-<!--    <string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">-->
-<!--        <item>0</item>-->
-<!--        <item>1</item>-->
-<!--        <item>2</item>-->
-<!--        <item>3</item>-->
-<!--    </string-array>-->
-<!--    <string-array name="eventBluetoothDevicesTypeArray">-->
-<!--        <item>@string/array_event_pref_bluetoothDevicesType_classic</item>-->
-<!--        <item>@string/array_event_pref_bluetoothDevicesType_le</item>-->
-<!--    </string-array>-->
-<!--    <string-array name="eventBluetoothDevicesTypeValues">-->
-<!--        <item>0</item>-->
-<!--        <item>1</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">-->
+    <!--        <item>@string/array_pref_powerSaveMode_off</item>-->
+    <!--        <item>@string/array_pref_powerSaveMode_5</item>-->
+    <!--        <item>@string/array_pref_powerSaveMode_15</item>-->
+    <!--        <item>@string/array_pref_powerSaveMode_useSystem</item>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">-->
+    <!--        <item>0</item>-->
+    <!--        <item>1</item>-->
+    <!--        <item>2</item>-->
+    <!--        <item>3</item>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="eventBluetoothDevicesTypeArray">-->
+    <!--        <item>@string/array_event_pref_bluetoothDevicesType_classic</item>-->
+    <!--        <item>@string/array_event_pref_bluetoothDevicesType_le</item>-->
+    <!--    </string-array>-->
+    <!--    <string-array name="eventBluetoothDevicesTypeValues">-->
+    <!--        <item>0</item>-->
+    <!--        <item>1</item>-->
+    <!--    </string-array>-->
     <string-array name="addEventPredefinedStartProfilesArray">
         <item>@string/profile_preference_profile_not_set</item>
         <item>@string/default_profile_name_home</item>
@@ -924,28 +927,28 @@
         <item>@string/phone_profiles_pref_notificationBackgroundColor_android</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_dark</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_black</item>-
-<!--        <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>-->
-<!--        <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>-->
+        <!--        <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>-->
+        <!--        <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>-->
         <item>@string/phone_profiles_pref_notificationBackgroundColor_custom</item>
     </string-array>
     <string-array name="notificationBackgroundColorValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
         <item>3</item>
-<!--        <item>2</item>-->
-<!--        <item>4</item>-->
+        <!--        <item>2</item>-->
+        <!--        <item>4</item>-->
         <item>5</item>
     </string-array>
-<!--    <string-array name="nightModeOffThemeArray">
-        <item>@string/phone_profiles_pref_applicationTheme_color</item>
-        <item>@string/phone_profiles_pref_applicationTheme_dlight</item>
-        <item>@string/phone_profiles_pref_applicationTheme_white</item>
-    </string-array>
-    <string-array name="nightModeOffThemeValues">
-        <item>@string/array_pref_value_color</item>
-        <item>@string/array_pref_value_dlight</item>
-        <item>@string/array_pref_value_white</item>
-    </string-array> -->
+    <!--    <string-array name="nightModeOffThemeArray">
+            <item>@string/phone_profiles_pref_applicationTheme_color</item>
+            <item>@string/phone_profiles_pref_applicationTheme_dlight</item>
+            <item>@string/phone_profiles_pref_applicationTheme_white</item>
+        </string-array>
+        <string-array name="nightModeOffThemeValues">
+            <item>@string/array_pref_value_color</item>
+            <item>@string/array_pref_value_dlight</item>
+            <item>@string/array_pref_value_white</item>
+        </string-array> -->
     <string-array name="eventBatteryPluggedArray">
         <item>@string/array_pref_battery_plugged_ac</item>
         <item>@string/array_pref_battery_plugged_usb</item>
@@ -1115,12 +1118,12 @@
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_name</item>
         <item>@string/array_mobile_cells_pref_dlg_cell_sort_by_connection</item>
     </string-array>
-<!--
-    <string-array name="showProfileInActivatorArray">
-        <item>@string/array_show_profile_in_activator_not_show</item>
-        <item>@string/array_show_profile_in_activator_show</item>
-    </string-array>
--->
+    <!--
+        <string-array name="showProfileInActivatorArray">
+            <item>@string/array_show_profile_in_activator_not_show</item>
+            <item>@string/array_show_profile_in_activator_show</item>
+        </string-array>
+    -->
     <string-array name="alwaysOnDisplayArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
@@ -1131,12 +1134,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-<!--
-    <string-array name="ignoreManualActivationArray">
-        <item>@string/array_ignore_manual_activation_not_ignore</item>
-        <item>@string/array_ignore_manual_activation_ignore</item>
-    </string-array>
--->
+    <!--
+        <string-array name="ignoreManualActivationArray">
+            <item>@string/array_ignore_manual_activation_not_ignore</item>
+            <item>@string/array_ignore_manual_activation_ignore</item>
+        </string-array>
+    -->
     <string-array name="eventNotificationContactListTypeArray">
         <item>@string/array_event_pref_contact_list_type_white_list</item>
         <item>@string/array_event_pref_contact_list_type_black_list</item>

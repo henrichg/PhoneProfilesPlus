@@ -338,7 +338,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         doOnActivityCreatedBatterySaver(PREF_MOBILE_CELL_POWER_SAVE_MODE_SETTINGS);
         doOnActivityCreatedBatterySaver(PREF_ORIENTATION_POWER_SAVE_MODE_SETTINGS);
 
-        if (Build.VERSION.SDK_INT >= 23) {
+        //if (Build.VERSION.SDK_INT >= 23) {
             preference = findPreference(PREF_APPLICATION_PERMISSIONS);
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -845,7 +845,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         getString(R.string.profile_preferences_types_G1_show_info));
             }
 
-        }
+        /*}
         else {
             // hide user permissions
             PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
@@ -870,29 +870,29 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(false);
             }
 
-            /*if (PPApplication.isRooted(true)) {
-                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
-                if (preferenceCategory != null) {
-                    preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-                    if (preference != null)
-                        preferenceCategory.removePreference(preference);
-                    //preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
-                    //if (preference != null)
-                    //    preferenceCategory.removePreference(preference);
-                    preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
-                    if (preference != null)
-                        preferenceCategory.removePreference(preference);
-                    preference = findPreference(PREF_APPLICATION_PERMISSIONS);
-                    if (preference != null)
-                        preferenceCategory.removePreference(preference);
-                }
-            }
-            else {
-                PreferenceScreen preferenceScreen = findPreference("rootScreen");
-                Preference preferenceCategory = findPreference("categoryPermissionsRoot");
-                if ((preferenceScreen != null) && (preferenceCategory != null))
-                        preferenceScreen.removePreference(preferenceCategory);
-            }*/
+//            if (PPApplication.isRooted(true)) {
+//                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+//                if (preferenceCategory != null) {
+//                    preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+//                    if (preference != null)
+//                        preferenceCategory.removePreference(preference);
+//                    //preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+//                    //if (preference != null)
+//                    //    preferenceCategory.removePreference(preference);
+//                    preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
+//                    if (preference != null)
+//                        preferenceCategory.removePreference(preference);
+//                    preference = findPreference(PREF_APPLICATION_PERMISSIONS);
+//                    if (preference != null)
+//                        preferenceCategory.removePreference(preference);
+//                }
+//            }
+//            else {
+//                PreferenceScreen preferenceScreen = findPreference("rootScreen");
+//                Preference preferenceCategory = findPreference("categoryPermissionsRoot");
+//                if ((preferenceScreen != null) && (preferenceCategory != null))
+//                        preferenceScreen.removePreference(preferenceCategory);
+//            }
 
             preferenceCategory = findPreference("wifiScanningCategory");
             preference = findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
@@ -908,7 +908,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
             if ((preferenceCategory2 != null) && (preference != null))
                 preferenceCategory2.removePreference(preference);
-        }
+        }*/
 
         if (PPApplication.isRooted(true)) {
             preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
@@ -1623,7 +1623,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //(requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
                 (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Activity activity = getActivity();
                 if (activity != null) {
                     Context context = activity.getApplicationContext();
@@ -1744,7 +1744,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     } else
                         activity.setResult(Activity.RESULT_CANCELED);
                 }
-            }
+            //}
         }
 
         if (requestCode == RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS) {
@@ -2497,7 +2497,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setSummary(summary);
             }
         }*/
-        if (Build.VERSION.SDK_INT >= 23) {
+        //if (Build.VERSION.SDK_INT >= 23) {
             /*if (key.equals(PREF_APPLICATION_PERMISSIONS)) {
                 // not possible to get granted runtime permission groups :-(
             }*/
@@ -2531,7 +2531,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 preference.setSummary(summary);
             }
-        }
+        //}
         if (key.equals(PREF_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventLocationSystemSettings_summary);
             if (!PhoneProfilesService.isLocationEnabled(context)) {
@@ -2640,10 +2640,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes);
             if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes);
-            if (Build.VERSION.SDK_INT >= 23) {
+            //if (Build.VERSION.SDK_INT >= 23) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationBatteryOptimization);
-            }
+            //}
             /*if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_POWERSAVING)) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationPowerManager);
@@ -2659,7 +2659,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (PPApplication.isRooted(true)) {
                 summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
             }
-            if (Build.VERSION.SDK_INT >= 23) {
+            //if (Build.VERSION.SDK_INT >= 23) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions);
                 //if (!summary.isEmpty()) summary = summary + " • ";
@@ -2668,7 +2668,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_drawOverlaysPermissions);
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationPermissions);
-            }
+            //}
         }
         if (key.equals("categoryNotificationsRoot")) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);

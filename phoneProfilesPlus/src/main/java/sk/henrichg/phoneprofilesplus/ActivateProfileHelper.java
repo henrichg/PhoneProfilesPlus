@@ -1243,11 +1243,11 @@ class ActivateProfileHelper {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
-                    if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
+                    /*if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
                         Settings.System.putInt(appContext.getContentResolver(), "vibrate_when_ringing", lValue);
                         //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API < 23)");
                     }
-                    else {
+                    else {*/
                         try {
                             Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
                             //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
@@ -1277,7 +1277,7 @@ class ActivateProfileHelper {
                             //else
                                 //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not rooted");
                         }
-                    }
+                    //}
                 }
                 //else
                 //    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not permission granted");
@@ -1551,9 +1551,9 @@ class ActivateProfileHelper {
 
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
-                            Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
-                        else {
+                        //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                        //    Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
+                        //else {
                         /* not working (private secure settings) :-/
                         if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                             Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
@@ -1576,7 +1576,7 @@ class ActivateProfileHelper {
                                     }
                                 }
                             }
-                        }
+                        //}
                     }
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -1738,7 +1738,7 @@ class ActivateProfileHelper {
 
     private static boolean checkAccessNotificationPolicy(Context context) {
         Context appContext = context.getApplicationContext();
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
+        //if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
                 if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
@@ -1754,14 +1754,14 @@ class ActivateProfileHelper {
             } catch (Exception e) {
                 return false;
             }
-        }
-        else
-            return true;
+        //}
+        //else
+        //    return true;
     }
 
     static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
         Context appContext = context.getApplicationContext();
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
+        //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 if (notCheckAccess)
@@ -1772,10 +1772,10 @@ class ActivateProfileHelper {
             }
             else
                 return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext);
-        }
-        else
+        //}
+        //else
         //if (android.os.Build.VERSION.SDK_INT >= 21)
-            return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext);
+        //    return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext);
         //return false;
     }
 
@@ -1796,7 +1796,7 @@ class ActivateProfileHelper {
     @SuppressLint("SwitchIntDef")
     static int getSystemZenMode(Context context/*, int defaultValue*/) {
         Context appContext = context.getApplicationContext();
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
+        //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -1828,8 +1828,8 @@ class ActivateProfileHelper {
                         return ActivateProfileHelper.ZENMODE_ALARMS;
                 }
             }
-        }
-        if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/ (android.os.Build.VERSION.SDK_INT < 23)) {
+        /*}
+        if (android.os.Build.VERSION.SDK_INT < 23) {
             int interruptionFilter = Settings.Global.getInt(appContext.getContentResolver(), "zen_mode", -1);
             switch (interruptionFilter) {
                 case 0:
@@ -1841,7 +1841,7 @@ class ActivateProfileHelper {
                 case 3:
                     return ActivateProfileHelper.ZENMODE_ALARMS;
             }
-        }
+        }*/
         return -1; //defaultValue;
     }
 
@@ -2683,12 +2683,12 @@ class ActivateProfileHelper {
                                     profile.getDeviceBrightnessManualValue(appContext));
                             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, appContext).allowed
                                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                                if (android.os.Build.VERSION.SDK_INT < 23) {   // Not working in Android M (exception)
+                                /*if (android.os.Build.VERSION.SDK_INT < 23) {   // Not working in Android M (exception)
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 1");
                                     Settings.System.putFloat(appContext.getContentResolver(),
                                             ADAPTIVE_BRIGHTNESS_SETTING_NAME,
                                             profile.getDeviceBrightnessAdaptiveValue(appContext));
-                                } else {
+                                } else*/ {
                                     try {
                                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 2");
                                         Settings.System.putFloat(appContext.getContentResolver(),
@@ -4056,14 +4056,14 @@ class ActivateProfileHelper {
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 String newSet;
-                if (android.os.Build.VERSION.SDK_INT < 23) {
+                /*if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     if (provider.equals(""))
                         newSet = LocationManager.GPS_PROVIDER;
                     else
                         newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
                 }
-                else
+                else*/
                     newSet = "+gps";
                 Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
@@ -4077,7 +4077,7 @@ class ActivateProfileHelper {
                 String command1;
                 //String command2;
 
-                if (android.os.Build.VERSION.SDK_INT < 23) {
+                /*if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     //PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
@@ -4106,7 +4106,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                else {
+                else*/ {
                     /*
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
@@ -4160,8 +4160,8 @@ class ActivateProfileHelper {
         {
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                String newSet = "";
-                if (android.os.Build.VERSION.SDK_INT < 23) {
+                String newSet;// = "";
+                /*if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     String[] list = provider.split(",");
                     int j = 0;
@@ -4176,7 +4176,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                else
+                else*/
                     newSet = "-gps";
                 Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
@@ -4190,7 +4190,7 @@ class ActivateProfileHelper {
                 String command1;
                 //String command2;
 
-                if (android.os.Build.VERSION.SDK_INT < 23) {
+                /*if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     //PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
@@ -4220,9 +4220,6 @@ class ActivateProfileHelper {
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command);
-                        /*} catch (RootDeniedException e) {
-                            PPApplication.rootMutex.rootGranted = false;
-                            Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));*/
                         } catch (Exception e) {
                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
@@ -4231,7 +4228,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                else {
+                else*/ {
                     /*
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);

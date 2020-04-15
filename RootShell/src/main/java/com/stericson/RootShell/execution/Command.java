@@ -24,7 +24,6 @@ package com.stericson.RootShell.execution;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -199,21 +198,21 @@ public class Command {
                  * that do not require access to the fw. -CFR
                  */
                 //export CLASSPATH=/data/user/0/ch.masshardt.emailnotification/files/anbuild.dex ; app_process /system/bin
-                if (Build.VERSION.SDK_INT > 22) {
+                //if (Build.VERSION.SDK_INT > 22) {
                     //dalvikvm command is not working in Android Marshmallow
                     //noinspection StringConcatenationInsideStringBufferAppend
                     sb.append(
                             "export CLASSPATH=" + filePath + "/anbuild.dex;"
                                     + " app_process /system/bin "
                                     + aCommand);
-                } else {
+                /*} else {
                     //noinspection StringConcatenationInsideStringBufferAppend
                     sb.append(
                             "dalvikvm -cp " + filePath + "/anbuild.dex"
                                     + " com.android.internal.util.WithFramework"
                                     + " com.stericson.RootTools.containers.RootClass "
                                     + aCommand);
-                }
+                }*/
 
                 sb.append('\n');
             }
