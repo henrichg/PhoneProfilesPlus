@@ -209,6 +209,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             try {
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
+                                //TODO show alert dialog with error
                                 //PPApplication.recordException(ee);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
@@ -235,6 +236,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             try {
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
+                                //TODO show alert dialog with error
                                 //PPApplication.recordException(ee);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -261,6 +263,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 try {
                     context.startActivity(appIntent);
                 } catch (ActivityNotFoundException ee) {
+                    //TODO show alert dialog with error
                     //PPApplication.recordException(ee);
                 } catch (Exception e) {
                     PPApplication.recordException(e);

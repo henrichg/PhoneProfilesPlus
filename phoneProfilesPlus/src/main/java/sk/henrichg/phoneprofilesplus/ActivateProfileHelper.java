@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.app.UiModeManager;
 import android.app.WallpaperManager;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -2114,6 +2115,10 @@ class ActivateProfileHelper {
                                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
+                                                    } catch (ActivityNotFoundException e) {
+                                                        //TODO show alert dialog with error
+                                                        //PPApplication.recordException(e);
+                                                        //Crashlytics.logException(e);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
@@ -2141,6 +2146,10 @@ class ActivateProfileHelper {
                                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                                         //SystemClock.sleep(1000);
                                                         PPApplication.sleep(1000);
+                                                    } catch (ActivityNotFoundException e) {
+                                                        //TODO show alert dialog with error
+                                                        //PPApplication.recordException(e);
+                                                        //Crashlytics.logException(e);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
@@ -2175,6 +2184,10 @@ class ActivateProfileHelper {
                                             //SystemClock.sleep(1000);
                                             PPApplication.sleep(1000);
                                             //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application started");
+                                        } catch (ActivityNotFoundException e) {
+                                            //TODO show alert dialog with error
+                                            //PPApplication.recordException(e);
+                                            //Crashlytics.logException(e);
                                         } catch (Exception e) {
                                             //Log.e("ActivateProfileHelper.executeForRunApplications", Log.getStackTraceString(e));
                                         }
