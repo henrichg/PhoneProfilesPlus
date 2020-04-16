@@ -28,6 +28,8 @@
         android:elevation="0dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
+        app:tabTextAppearance="@style/ImportantInfoTextAppearanceTab"
+        app:tabMode="scrollable"
         tools:ignore="UnusedAttribute"/>
 
     <FrameLayout

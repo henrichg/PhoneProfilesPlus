@@ -1306,7 +1306,6 @@ class ActivateProfileHelper {
                         //Crashlytics.logException(e);
                     }
                     catch (Exception e){
-                        // java.lang.IllegalArgumentException: Invalid column: _data
                         PPApplication.recordException(e);
                         //Crashlytics.logException(e);
                     }
