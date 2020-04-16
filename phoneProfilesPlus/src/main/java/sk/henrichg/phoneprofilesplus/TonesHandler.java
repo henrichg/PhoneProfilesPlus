@@ -112,6 +112,9 @@ class TonesHandler {
 
                 cursor.close();
             }
+        } catch (SecurityException e) {
+            //PPApplication.recordException(e);
+            //Crashlytics.logException(e);
         } catch (Exception e) {
             PPApplication.recordException(e);
             //Crashlytics.logException(e);
