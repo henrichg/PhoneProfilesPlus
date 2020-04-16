@@ -4592,11 +4592,11 @@ public class PhoneProfilesService extends Service
                                 //    iconSmallResource = R.drawable.ic_profile_default;
                                 iconSmallResource = R.drawable.ic_profile_default_notify_color;
                                 try {
-                                    //noinspection ConstantConditions
-                                    iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                                    Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                                    if (idx != null)
+                                        iconSmallResource = (int)idx;
                                 } catch (Exception e) {
-                                    //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    PPApplication.recordException(e);
                                     //Crashlytics.logException(e);
                                 }
                                 notificationBuilder.setSmallIcon(iconSmallResource);
@@ -4610,11 +4610,11 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
-                                //noinspection ConstantConditions
-                                iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
+                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (idx != null)
+                                    iconSmallResource = (int)idx;
                             } catch (Exception e) {
-                                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                             notificationBuilder.setSmallIcon(iconSmallResource);
@@ -4646,11 +4646,11 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default;
                             iconSmallResource = R.drawable.ic_profile_default_notify_color;
                             try {
-                                //noinspection ConstantConditions
-                                iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                                Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                                if (idx != null)
+                                    iconSmallResource = (int)idx;
                             } catch (Exception e) {
-                                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         } else {
@@ -4660,11 +4660,11 @@ public class PhoneProfilesService extends Service
                             //    iconSmallResource = R.drawable.ic_profile_default_notify;
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                             try {
-                                //noinspection ConstantConditions
-                                iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
+                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (idx != null)
+                                    iconSmallResource = (int)idx;
                             } catch (Exception e) {
-                                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
+                                PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
                             }
                         }
