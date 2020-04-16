@@ -290,7 +290,8 @@ public class PhoneProfilesService extends Service
             Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);*/
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
 
