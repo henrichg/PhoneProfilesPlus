@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -11241,6 +11242,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_RINGTONE, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_RINGTONE, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
                                                     PPApplication.recordException(e);
@@ -11260,6 +11265,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_NOTIFICATION, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_NOTIFICATION, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
@@ -11278,6 +11287,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_MEDIA, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_MEDIA, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
@@ -11296,6 +11309,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_ALARM, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_ALARM, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
@@ -11314,6 +11331,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_SYSTEM, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_SYSTEM, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
@@ -11332,6 +11353,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_VOICE, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_VOICE, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
@@ -11350,27 +11375,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_DTMF, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_DTMF, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
                                                 }
                                             }
-                                            if (maximumVolumeAccessibility > 0) {
-                                                String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_ACCESSIBILITY));
-                                                try {
-                                                    String[] splits = value.split("\\|");
-                                                    int volume = Integer.parseInt(splits[0]);
-                                                    float fVolume = volume;
-                                                    float percentage = fVolume / maximumVolumeAccessibility * 100f;
-                                                    fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) / 100f * percentage;
-                                                    volume = Math.round(fVolume);
-                                                    if (splits.length == 3)
-                                                        values.put(KEY_VOLUME_ACCESSIBILITY, volume+"|"+splits[1]+"|"+splits[2]);
-                                                    else
-                                                        values.put(KEY_VOLUME_ACCESSIBILITY, volume+"|"+splits[1]);
-                                                } catch (Exception e) {
-                                                    PPApplication.recordException(e);
-                                                    //Crashlytics.logException(e);
+                                            if (Build.VERSION.SDK_INT >= 26) {
+                                                if (maximumVolumeAccessibility > 0) {
+                                                    String value = cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_ACCESSIBILITY));
+                                                    try {
+                                                        String[] splits = value.split("\\|");
+                                                        int volume = Integer.parseInt(splits[0]);
+                                                        float fVolume = volume;
+                                                        float percentage = fVolume / maximumVolumeAccessibility * 100f;
+                                                        fVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY) / 100f * percentage;
+                                                        volume = Math.round(fVolume);
+                                                        if (splits.length == 3)
+                                                            values.put(KEY_VOLUME_ACCESSIBILITY, volume + "|" + splits[1] + "|" + splits[2]);
+                                                        else
+                                                            values.put(KEY_VOLUME_ACCESSIBILITY, volume + "|" + splits[1]);
+                                                    } catch (IllegalArgumentException e) {
+                                                        // java.lang.IllegalArgumentException: Bad stream type 10 - Android 6
+                                                        //PPApplication.recordException(e);
+                                                        //Crashlytics.logException(e);
+                                                    } catch (Exception e) {
+                                                        PPApplication.recordException(e);
+                                                        //Crashlytics.logException(e);
+                                                    }
                                                 }
                                             }
                                             if (maximumVolumeBluetoothSCO > 0) {
@@ -11386,6 +11421,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(KEY_VOLUME_BLUETOOTH_SCO, volume+"|"+splits[1]+"|"+splits[2]);
                                                     else
                                                         values.put(KEY_VOLUME_BLUETOOTH_SCO, volume+"|"+splits[1]);
+                                                } catch (IllegalArgumentException e) {
+                                                    // java.lang.IllegalArgumentException: Bad stream type X
+                                                    //PPApplication.recordException(e);
+                                                    //Crashlytics.logException(e);
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
                                                     //Crashlytics.logException(e);
