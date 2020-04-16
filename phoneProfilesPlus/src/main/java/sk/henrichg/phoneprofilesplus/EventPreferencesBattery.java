@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import androidx.preference.ListPreference;
@@ -159,17 +160,15 @@ class EventPreferencesBattery extends EventPreferences {
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
                         String[] splits = this._plugged.split("\\|");
-                        String[] pluggedValues = context.getResources().getStringArray(R.array.eventBatteryPluggedValues);
+                        List<String> pluggedValues = Arrays.asList(context.getResources().getStringArray(R.array.eventBatteryPluggedValues));
                         String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
                         selectedPlugged = "";
                         for (String s : splits) {
-                            if (!selectedPlugged.isEmpty())
-                                selectedPlugged = selectedPlugged + ", ";
-                            try {
-                                selectedPlugged = selectedPlugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
+                            int idx = pluggedValues.indexOf(s);
+                            if (idx != -1) {
+                                if (!selectedPlugged.isEmpty())
+                                    selectedPlugged = selectedPlugged + ", ";
+                                selectedPlugged = selectedPlugged + pluggedNames[idx];
                             }
                         }
                     }
