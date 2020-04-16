@@ -725,7 +725,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
 
-    static PowerManager.WakeLock keepScreenOnWakeLock;
+    //static PowerManager.WakeLock keepScreenOnWakeLock;
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();
@@ -910,7 +910,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
     //BrightnessView brightnessView = null;
     //BrightnessView screenTimeoutAlwaysOnView = null;
-    //BrightnessView keepScreenOnView = null;
+    static BrightnessView keepScreenOnView = null;
 
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
@@ -3367,7 +3367,7 @@ public class PPApplication extends Application /*implements Application.Activity
                             //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
                             //ActivateProfileHelper.removeBrightnessView(context);
                             //PPApplication.logE("******** PPApplication._exitApp()", "remove wakelock");
-                            ActivateProfileHelper.removeKeepScreenOnView();
+                            ActivateProfileHelper.removeKeepScreenOnView(context);
                 //        }
                 //    });
                 //}

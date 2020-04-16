@@ -20,6 +20,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.location.LocationManager;
 import android.media.AudioManager;
@@ -1697,11 +1698,12 @@ class ActivateProfileHelper {
 
     private static void setScreenOnPermanent(Profile profile, Context context) {
         //PPApplication.logE("******** ActivateProfileHelper.setScreenOnPermanent", "profile._screenOnPermanent="+profile._screenOnPermanent);
-        if (profile._screenOnPermanent == 1)
-            createKeepScreenOnView(context);
-        else
-        if (profile._screenOnPermanent == 2)
-            removeKeepScreenOnView();
+        if (Permissions.checkProfileScreenOnPermanent(context, profile, null)) {
+            if (profile._screenOnPermanent == 1)
+                createKeepScreenOnView(context);
+            else if (profile._screenOnPermanent == 2)
+                removeKeepScreenOnView(context);
+        }
     }
 
     private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager) {
@@ -3277,18 +3279,19 @@ class ActivateProfileHelper {
     }
     */
 
-    @SuppressLint("WakelockTimeout")
     private static void createKeepScreenOnView(Context context) {
         //removeKeepScreenOnView();
 
-        //if (PhoneProfilesService.getInstance() != null) {
         final Context appContext = context.getApplicationContext();
+
+        /*
+        //if (PhoneProfilesService.getInstance() != null) {
 
         //PhoneProfilesService service = PhoneProfilesService.getInstance();
         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
         if (powerManager != null) {
             try {
-                //Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
+                Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+PPApplication.keepScreenOnWakeLock);
                 if (PPApplication.keepScreenOnWakeLock == null)
                     //noinspection deprecation
                     PPApplication.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
@@ -3300,52 +3303,64 @@ class ActivateProfileHelper {
                 //Crashlytics.logException(e);
             }
             try {
-                if ((PPApplication.keepScreenOnWakeLock != null) && (!PPApplication.keepScreenOnWakeLock.isHeld()))
+                if ((PPApplication.keepScreenOnWakeLock != null) && (!PPApplication.keepScreenOnWakeLock.isHeld())) {
+                    Log.e("ActivateProfileHelper.createKeepScreenOnView", "acquire");
                     PPApplication.keepScreenOnWakeLock.acquire();
+                }
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
         }
-        /*WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+        */
+
+        if (PPApplication.keepScreenOnView != null)
+            removeKeepScreenOnView(context);
+        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
         if (windowManager != null) {
             int type;
             if (android.os.Build.VERSION.SDK_INT < 25)
                 type = WindowManager.LayoutParams.TYPE_TOAST;
             else if (android.os.Build.VERSION.SDK_INT < 26)
-                type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             else
-                type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     1, 1,
                     type,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON,
-                    PixelFormat.TRANSLUCENT
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
+                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON/* |
+                            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | // deprecated in API level 26
+                            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | // deprecated in API level 27
+                            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON // deprecated in API level 27*/
+                    , PixelFormat.TRANSLUCENT
             );
             //if (android.os.Build.VERSION.SDK_INT < 17)
             //    params.gravity = Gravity.RIGHT | Gravity.TOP;
             //else
             //    params.gravity = Gravity.END | Gravity.TOP;
-            PhoneProfilesService.getInstance().keepScreenOnView = new BrightnessView(appContext);
+            PPApplication.keepScreenOnView = new BrightnessView(appContext);
             try {
-                windowManager.addView(PhoneProfilesService.getInstance().keepScreenOnView, params);
+                windowManager.addView(PPApplication.keepScreenOnView, params);
             } catch (Exception e) {
-                PhoneProfilesService.getInstance().keepScreenOnView = null;
+                PPApplication.keepScreenOnView = null;
             }
-        }*/
+        }
     }
 
-    static void removeKeepScreenOnView(/*Context context*/)
+    static void removeKeepScreenOnView(Context context)
     {
+        final Context appContext = context.getApplicationContext();
+
         //if (PhoneProfilesService.getInstance() != null) {
             //final Context appContext = context.getApplicationContext();
 
             //PhoneProfilesService service = PhoneProfilesService.getInstance();
 
-            try {
-                //Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+service.keepScreenOnWakeLock);
+            /*try {
+                Log.e("ActivateProfileHelper.removeKeepScreenOnView", "keepScreenOnWakeLock="+PPApplication.keepScreenOnWakeLock);
                 if ((PPApplication.keepScreenOnWakeLock != null) && PPApplication.keepScreenOnWakeLock.isHeld())
                     PPApplication.keepScreenOnWakeLock.release();
             } catch (Exception e) {
@@ -3353,18 +3368,18 @@ class ActivateProfileHelper {
                 PPApplication.recordException(e);
                 //Crashlytics.logException(e);
             }
-            PPApplication.keepScreenOnWakeLock = null;
+            PPApplication.keepScreenOnWakeLock = null;*/
 
-            /*if (PhoneProfilesService.getInstance().keepScreenOnView != null) {
+            if (PPApplication.keepScreenOnView != null) {
                 WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
                 if (windowManager != null) {
                     try {
-                        windowManager.removeView(PhoneProfilesService.getInstance().keepScreenOnView);
+                        windowManager.removeView(PPApplication.keepScreenOnView);
                     } catch (Exception ignored) {
                     }
-                    PhoneProfilesService.getInstance().keepScreenOnView = null;
+                    PPApplication.keepScreenOnView = null;
                 }
-            }*/
+            }
         //}
     }
 

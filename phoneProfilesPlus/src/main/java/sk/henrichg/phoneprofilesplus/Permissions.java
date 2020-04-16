@@ -72,6 +72,7 @@ class Permissions {
     static final int PERMISSION_EVENT_TIME_PREFERENCES = 39;
     static final int PERMISSION_PROFILE_ALWAYS_ON_DISPLAY = 40;
     static final int PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
+    static final int PERMISSION_PROFILE_SCREEN_ON_PERMANENT = 42;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -260,6 +261,7 @@ class Permissions {
             checkProfileDtmfToneWhenDialing(context, profile, permissions);
             checkProfileSoundOnTouch(context, profile, permissions);
             checkProfileAlwaysOnDisplay(context, profile, permissions);
+            checkProfileScreenOnPermanent(context, profile, permissions);
 
             return permissions;
         //}
@@ -854,24 +856,6 @@ class Permissions {
             return true;
     }*/
 
-    static boolean checkLockDevice(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                boolean grantedWriteSettings = Settings.System.canWrite(context);
-                if (grantedWriteSettings)
-                    setShowRequestWriteSettingsPermission(context, true);
-                boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
-                if (grantedDrawOverlays)
-                    setShowRequestDrawOverlaysPermission(context, true);
-                return grantedWriteSettings && grantedDrawOverlays;
-            } catch (Exception e) {
-                return false;
-            }
-        //}
-        //else
-        //    return true;
-    }
-
     private static void checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 26) {
@@ -891,6 +875,24 @@ class Permissions {
                 //return false;
             }
         }
+        //else
+        //    return true;
+    }
+
+    static boolean checkLockDevice(Context context) {
+        //if (android.os.Build.VERSION.SDK_INT >= 23) {
+        try {
+            boolean grantedWriteSettings = Settings.System.canWrite(context);
+            if (grantedWriteSettings)
+                setShowRequestWriteSettingsPermission(context, true);
+            boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);
+            return grantedWriteSettings && grantedDrawOverlays;
+        } catch (Exception e) {
+            return false;
+        }
+        //}
         //else
         //    return true;
     }
@@ -965,6 +967,46 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
+        //}
+        //else
+        //    return true;
+    }
+
+    /*
+    static boolean checkScreenOnPermanent(Context context) {
+        //if (android.os.Build.VERSION.SDK_INT >= 23) {
+        try {
+            boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);
+            return grantedDrawOverlays;
+        } catch (Exception e) {
+            return false;
+        }
+        //}
+        //else
+        //    return true;
+    }
+    */
+
+    static boolean checkProfileScreenOnPermanent(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+        //if (android.os.Build.VERSION.SDK_INT >= 23) {
+        try {
+            if (profile._screenOnPermanent == 1) {
+                boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                if (grantedDrawOverlays)
+                    setShowRequestDrawOverlaysPermission(context, true);
+                if (permissions != null) {
+                    if (!grantedDrawOverlays)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_ON_PERMANENT, permission.SYSTEM_ALERT_WINDOW));
+                }
+                return grantedDrawOverlays;
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
         //}
         //else
         //    return true;

@@ -748,6 +748,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE:
                         s = getString(R.string.permission_why_profile_connect_to_ssid_preference);
                         break;
+                    case Permissions.PERMISSION_PROFILE_SCREEN_ON_PERMANENT:
+                        s = getString(R.string.permission_why_profile_screen_on_permanent);
+                        break;
                 }
             }
         }
