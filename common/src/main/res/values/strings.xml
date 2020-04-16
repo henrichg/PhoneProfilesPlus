@@ -1505,6 +1505,8 @@
 
     <string name="profile_preferences_screenDarkMode">(G1)(R) Dark mode</string>
 
+    <string name="donation_activity_close">Close</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
