@@ -29,8 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:padding="5dp"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:clickable="true"
@@ -38,8 +41,9 @@
         android:hint="@string/mobile_cells_registration_cell_name_hint"
         android:textColor="?attr/colorAccent"
         android:textColorHint="?attr/colorAccent"
-        android:background="?attr/selectableItemBackground"
-        android:textSize="18sp"/>
+        android:background="?attr/buttonBackground"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:textSize="17sp"/>
 
     <TextView
         android:id="@+id/not_used_mobile_cells_dlg_last_running_events_label"

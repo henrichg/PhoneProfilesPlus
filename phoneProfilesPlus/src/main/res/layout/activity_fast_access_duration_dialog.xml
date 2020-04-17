@@ -183,6 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:textSize="16sp"
             android:text="@string/profile_preferences_afterDurationProfile" />
         <RelativeLayout
@@ -191,8 +192,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
-            android:padding="5dp"
-            android:background="?attr/selectableItemBackground"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true">
 
@@ -247,7 +252,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="@string/fast_access_duration_activate_without_button_2"
