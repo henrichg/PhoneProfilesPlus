@@ -288,6 +288,16 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         valueDialog = dialogBuilder.create();
 
+        valueDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
+
         radiusValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

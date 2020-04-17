@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -135,7 +136,8 @@ public class ActivityLogActivity extends AppCompatActivity {
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
                 AlertDialog dialog = dialogBuilder.create();
-                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface dialog) {
                         Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -143,7 +145,8 @@ public class ActivityLogActivity extends AppCompatActivity {
                         Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                         if (negative != null) negative.setAllCaps(false);
                     }
-                });*/
+                });
+
                 if (!isFinishing())
                     dialog.show();
                 return true;

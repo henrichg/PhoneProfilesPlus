@@ -7,6 +7,7 @@ import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -23,6 +24,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 //import com.crashlytics.android.Crashlytics;
@@ -3504,7 +3506,19 @@ public class PPApplication extends Application /*implements Application.Activity
             doki.loadContent(Build.MANUFACTURER.toLowerCase().replace(" ", "-"));
         }
 
-        dialogBuilder.show();
+        AlertDialog dialog = dialogBuilder.create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
+
+        dialog.show();
     }
 
     static void startHandlerThread(@SuppressWarnings("unused") String from) {

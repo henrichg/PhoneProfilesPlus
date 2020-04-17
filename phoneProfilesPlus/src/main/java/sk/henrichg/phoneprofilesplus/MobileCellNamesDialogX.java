@@ -89,6 +89,16 @@ class MobileCellNamesDialogX {
 
         mDialog = dialogBuilder.create();
 
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
+
         ListView cellNamesListView = layout.findViewById(R.id.mobile_cell_names_dlg_listview);
         cellName = layout.findViewById(R.id.mobile_cell_names_dlg_name);
         if (!showFilterItems) {

@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -41,6 +43,16 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
 
         final TypedArray ta = activity.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -48,9 +49,13 @@ class FastAccessDurationProfileDialog
         mDialog = dialogBuilder.create();
 
         mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-
             @Override
             public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+
                 FastAccessDurationProfileDialog.this.onShow();
             }
         });

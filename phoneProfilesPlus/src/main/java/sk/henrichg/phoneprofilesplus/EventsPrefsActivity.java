@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -237,15 +238,17 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 }
             });
             AlertDialog dialog = dialogBuilder.create();
-                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        if (positive != null) positive.setAllCaps(false);
-                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        if (negative != null) negative.setAllCaps(false);
-                    }
-                });*/
+
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });
+
             if (!isFinishing())
                 dialog.show();
         }
@@ -467,7 +470,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
                     }
                 });
                 AlertDialog dialog = dialogBuilder.create();
-                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface dialog) {
                         Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -475,7 +479,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                         if (negative != null) negative.setAllCaps(false);
                     }
-                });*/
+                });
+
                 if (!isFinishing())
                     dialog.show();
                 return false;

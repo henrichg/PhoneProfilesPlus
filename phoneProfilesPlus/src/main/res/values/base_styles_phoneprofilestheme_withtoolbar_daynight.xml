@@ -84,6 +84,8 @@
         <item name="infoPreferenceIcon">@drawable/ic_info_preference_icon</item>
         <item name="exclamationPreferenceIcon">@drawable/ic_exclamation_preference_icon</item>
 
+        <item name="android:textAppearanceButton">@style/NoAllCapsButtonStyle</item>
+
     </style>
 
 </resources>

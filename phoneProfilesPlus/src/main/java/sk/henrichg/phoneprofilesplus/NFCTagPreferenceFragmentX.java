@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -189,7 +190,19 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                                     //dialog.dismiss();
                                 }
                             })
-                            .show();
+                            .create();
+
+                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            if (positive != null) positive.setAllCaps(false);
+                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            if (negative != null) negative.setAllCaps(false);
+                        }
+                    });
+
+                    mSelectorDialog.show();
                 }
             }
         });

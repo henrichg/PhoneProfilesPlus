@@ -15,6 +15,7 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
@@ -2442,15 +2443,17 @@ class Permissions {
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog2 = dialogBuilder.create();
-                    /*dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
                         @Override
                         public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog2).getButton(DialogInterface.BUTTON_POSITIVE);
+                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
                             if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog2).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                             if (negative != null) negative.setAllCaps(false);
                         }
-                    });*/
+                    });
+
                     if (!activity.isFinishing())
                         dialog2.show();
                 }
@@ -2465,7 +2468,8 @@ class Permissions {
             }
         });
         AlertDialog dialog = dialogBuilder.create();
-        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -2473,7 +2477,8 @@ class Permissions {
                 Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                 if (negative != null) negative.setAllCaps(false);
             }
-        });*/
+        });
+
         if (!activity.isFinishing())
             dialog.show();
     }
@@ -2543,7 +2548,8 @@ class Permissions {
             }
         });
         AlertDialog dialog = dialogBuilder.create();
-        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -2551,7 +2557,8 @@ class Permissions {
                 Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                 if (negative != null) negative.setAllCaps(false);
             }
-        });*/
+        });
+
         if (!activity.isFinishing())
             dialog.show();
     }

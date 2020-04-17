@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 //import com.crashlytics.android.Crashlytics;
@@ -570,15 +571,17 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             });
             AlertDialog dialog = dialogBuilder.create();
-                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        if (positive != null) positive.setAllCaps(false);
-                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        if (negative != null) negative.setAllCaps(false);
-                    }
-                });*/
+
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });
+
             if (!isFinishing())
                 dialog.show();
             //}
@@ -1026,7 +1029,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         }
                     });
                     AlertDialog dialog = dialogBuilder.create();
-                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                         @Override
                         public void onShow(DialogInterface dialog) {
                             Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -1034,7 +1038,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                             if (negative != null) negative.setAllCaps(false);
                         }
-                    });*/
+                    });
+
                     if (!isFinishing())
                         dialog.show();
                 /*}
@@ -1095,15 +1100,15 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             }
                         });
                         AlertDialog dialog = dialogBuilder.create();
-//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                            @Override
-//                            public void onShow(DialogInterface dialog) {
-//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                if (positive != null) positive.setAllCaps(false);
-//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                if (negative != null) negative.setAllCaps(false);
-//                            }
-//                        });
+                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });
                         if (!isFinishing())
                             dialog.show();
 //                    }
@@ -1185,7 +1190,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         }
                     });
                     AlertDialog dialog = dialogBuilder.create();
-                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                         @Override
                         public void onShow(DialogInterface dialog) {
                             Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -1193,7 +1199,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                             if (negative != null) negative.setAllCaps(false);
                         }
-                    });*/
+                    });
+
                     if (!isFinishing())
                         dialog.show();
                 /*}

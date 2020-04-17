@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.provider.Settings;
@@ -200,15 +201,17 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                        @Override
-                                        public void onShow(DialogInterface dialog) {
-                                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                            if (positive != null) positive.setAllCaps(false);
-                                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                            if (negative != null) negative.setAllCaps(false);
-                                        }
-                                    });*/
+
+                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });
+
                             if (!((Activity)prefContext).isFinishing())
                                 dialog.show();
                         }
@@ -278,7 +281,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                                 dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
-                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                     @Override
                                     public void onShow(DialogInterface dialog) {
                                         Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -286,7 +290,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                                         Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                         if (negative != null) negative.setAllCaps(false);
                                     }
-                                });*/
+                                });
+
                                 if (!((Activity)context).isFinishing())
                                     dialog.show();
                             }

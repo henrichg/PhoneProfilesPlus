@@ -183,7 +183,19 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                                     //dialog.dismiss();
                                 }
                             })
-                            .show();
+                            .create();
+
+                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            if (positive != null) positive.setAllCaps(false);
+                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            if (negative != null) negative.setAllCaps(false);
+                        }
+                    });
+
+                    mSelectorDialog.show();
                 }
             }
         });
@@ -269,7 +281,8 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                     dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                     AlertDialog dialog = dialogBuilder.create();
-                                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                         @Override
                                         public void onShow(DialogInterface dialog) {
                                             Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -277,7 +290,8 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                                             Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                             if (negative != null) negative.setAllCaps(false);
                                         }
-                                    });*/
+                                    });
+
                                     if (!((Activity) prefContext).isFinishing())
                                         dialog.show();
                                 }
