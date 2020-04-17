@@ -28,7 +28,7 @@ public class MobileCellsRegistrationService extends Service {
     public static final String EXTRA_COUNTDOWN = "countdown";
 
     // this is for stop button in notification
-    private static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_BUTTON";
+    static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_BUTTON";
 
     // this is for show new cell count in "Cell registration" event sensor preference summary
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_NEW_CELL";

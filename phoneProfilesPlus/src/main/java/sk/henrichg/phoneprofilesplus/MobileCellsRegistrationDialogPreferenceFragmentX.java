@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
@@ -223,11 +224,15 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
             @Override
             public void onClick(View v) {
                 updateInterface(0, true);
-                MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, 0);
                 //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
                 //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
                 preference.setSummaryDDP(0);
-                PhoneStateScanner.stopAutoRegistration(prefContext.getApplicationContext());
+
+                //MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, 0);
+                //PhoneStateScanner.stopAutoRegistration(prefContext.getApplicationContext());
+
+                Intent intent5 = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
+                prefContext.sendBroadcast(intent5);
             }
         });
 
