@@ -4752,66 +4752,66 @@ public class PhoneProfilesService extends Service
             //Crashlytics.logException(e);
         }
 
-        if (Event.getGlobalEventsRunning() &&
-                PPApplication.getApplicationStarted(true)) {
+        if (inHandlerThread) {
+            if (Event.getGlobalEventsRunning() &&
+                    PPApplication.getApplicationStarted(true)) {
 
-            PendingIntent pIntentRE; //= null;
-            /*if (Event.getGlobalEventsRunning() &&
-                    PPApplication.getApplicationStarted(true)) {*/
+                PendingIntent pIntentRE; //= null;
+                /*if (Event.getGlobalEventsRunning() &&
+                        PPApplication.getApplicationStarted(true)) {*/
                 // intent for restart events
                 Intent intentRE = new Intent(appContext, RestartEventsFromGUIActivity.class);
                 intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 pIntentRE = PendingIntent.getActivity(appContext, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-            //}
+                //}
 
-            if (notificationNotificationStyle.equals("0")) {
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
+                if (notificationNotificationStyle.equals("0")) {
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
 
-                int restartEventsId;
-                if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
-                    // dark or black
-                    restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                } else if (notificationBackgroundColor.equals("5")) {
-                    // custom color
-                    if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
+                    int restartEventsId;
+                    if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
+                        // dark or black
                         restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                    else
-                        restartEventsId = R.drawable.ic_widget_restart_events;
-                } else {
-                    // native
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        if (useNightColor == 1)
+                    } else if (notificationBackgroundColor.equals("5")) {
+                        // custom color
+                        if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
                             restartEventsId = R.drawable.ic_widget_restart_events_dark;
                         else
                             restartEventsId = R.drawable.ic_widget_restart_events;
                     } else {
-                        if (notificationTextColor.equals("1"))
-                            restartEventsId = R.drawable.ic_widget_restart_events;
-                        else if (notificationTextColor.equals("2"))
-                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                        else
-                            restartEventsId = R.drawable.ic_widget_restart_events;
+                        // native
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            if (useNightColor == 1)
+                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            else
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                        } else {
+                            if (notificationTextColor.equals("1"))
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                            else if (notificationTextColor.equals("2"))
+                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            else
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                        }
                     }
-                }
 
-                try {
-                    //contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                    contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                    contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                    try {
+                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                        contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                        contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
-                    if (contentView != null) {
-                        //contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                        contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                        contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                        if (contentView != null) {
+                            contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                            contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                            contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                        //Crashlytics.logException(e);
                     }
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
-                }
-            }
-            else {
-                Notification.Action.Builder actionBuilder;
-                //if (Build.VERSION.SDK_INT >= 23)
+                } else {
+                    Notification.Action.Builder actionBuilder;
+                    //if (Build.VERSION.SDK_INT >= 23)
                     actionBuilder = new Notification.Action.Builder(
                             Icon.createWithResource(appContext, R.drawable.ic_widget_restart_events),
                             appContext.getString(R.string.menu_restart_events),
@@ -4821,7 +4821,19 @@ public class PhoneProfilesService extends Service
                             R.drawable.ic_widget_restart_events,
                             appContext.getString(R.string.menu_restart_events),
                             pIntentRE);*/
-                notificationBuilder.addAction(actionBuilder.build());
+                    notificationBuilder.addAction(actionBuilder.build());
+                }
+            }
+        }
+        else {
+            try {
+                if (contentViewLarge != null)
+                    contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                if (contentView != null)
+                    contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+                //Crashlytics.logException(e);
             }
         }
 
