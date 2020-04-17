@@ -104,7 +104,7 @@ public class ElapsedAlarmsWorker extends Worker {
                     UpdateGUIBroadcastReceiver.doWork(false, appContext, refresh, refreshAlsoEditor/*, true*/);
                     break;
                 case ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION:
-                    ShowProfileNotificationBroadcastReceiver.doWork(false, appContext/*, true*/);
+                    ShowProfileNotificationBroadcastReceiver.doWork(appContext/*, true*/);
                     break;
                 //case ELAPSED_ALARMS_DONATION:
                 //    DonationBroadcastReceiver.doWork(false, appContext);

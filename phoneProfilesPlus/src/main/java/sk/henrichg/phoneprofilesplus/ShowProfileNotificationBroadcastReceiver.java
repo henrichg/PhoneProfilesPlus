@@ -29,7 +29,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
 
         //boolean fromAlarm = intent.getBooleanExtra(EXTRA_FROM_ALARM, false);
 
-        doWork(true, context/*, fromAlarm*/);
+        doWork(context/*, fromAlarm*/);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -138,7 +138,8 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 
-    static void doWork(boolean useHandler, Context context/*, final boolean fromAlarm*/) {
+    // must be called from PPApplication.handlerThreadProfileNotification
+    static void doWork(/*boolean useHandler,*/ Context context/*, final boolean fromAlarm*/) {
         final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
@@ -147,7 +148,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
 
         //PPApplication.logE("ShowProfileNotificationBroadcastReceiver.doWork", "xxx");
 
-        if (useHandler) {
+        //if (useHandler) {
             PPApplication.startHandlerThreadProfileNotification();
             final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
             handler.post(new Runnable() {
@@ -174,9 +175,9 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                     }
                 }
             });
-        }
-        else
-            _doWork(/*false,*/ appContext/*, fromAlarm*/);
+        //}
+        //else
+        //    _doWork(/*false,*/ appContext/*, fromAlarm*/);
     }
 
     private static void _doWork(/*boolean useHandler,*/ Context context/*, final boolean fromAlarm*/) {
