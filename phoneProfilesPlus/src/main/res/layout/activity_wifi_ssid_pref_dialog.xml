@@ -78,6 +78,7 @@
                 android:text="@string/wifi_ssid_pref_dlg_rescan_button"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
+                android:minHeight="40dp"
                 android:textColor="@color/action_button_text_color"
                 android:background="?attr/buttonBackground"
                 android:foreground="?attr/selectableItemBackgroundBorderless"

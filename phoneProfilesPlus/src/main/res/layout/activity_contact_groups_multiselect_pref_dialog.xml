@@ -47,6 +47,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/pref_dlg_change_selection_button_unselect_all"
                 android:layout_marginTop="10dp"
+                android:minHeight="40dp"
                 android:textColor="@color/action_button_text_color"
                 android:background="?attr/buttonBackground"
                 android:foreground="?attr/selectableItemBackgroundBorderless"

@@ -147,6 +147,7 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/mobile_cells_registration_pref_dlg_stop_button"
         android:layout_marginTop="10dp"
+        android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
         android:background="?attr/buttonBackground"
         android:foreground="?attr/selectableItemBackgroundBorderless"

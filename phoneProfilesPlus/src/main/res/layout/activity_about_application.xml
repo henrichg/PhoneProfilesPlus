@@ -65,6 +65,7 @@
             android:textColor="@color/action_button_text_color"
             android:background="?attr/buttonBackground"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:minHeight="40dp"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/about_application_donate_button"

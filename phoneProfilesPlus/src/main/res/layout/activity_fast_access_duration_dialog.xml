@@ -241,6 +241,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="@string/fast_access_duration_activate_without_button_2"
+            android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
             android:background="?attr/buttonBackground"
             android:foreground="?attr/selectableItemBackgroundBorderless"
