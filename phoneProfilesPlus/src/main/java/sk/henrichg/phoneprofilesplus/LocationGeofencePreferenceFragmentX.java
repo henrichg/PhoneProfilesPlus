@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 //import com.crashlytics.android.Crashlytics;
@@ -29,6 +30,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
     LocationGeofencePreferenceX preference;
 
+    private RelativeLayout locationSystemSettingsRelLa;
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
 
@@ -141,6 +143,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             unselectAllButton.setVisibility(View.GONE);
         }
 
+        locationSystemSettingsRelLa = view.findViewById(R.id.location_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.location_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.location_pref_dlg_locationSystemSettingsButton);
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
@@ -218,11 +221,13 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                 }
             });
 
-            locationEnabledStatusTextView.setVisibility(View.VISIBLE);
-            locationSystemSettingsButton.setVisibility(View.VISIBLE);
+            locationSystemSettingsRelLa.setVisibility(View.VISIBLE);
+            //locationEnabledStatusTextView.setVisibility(View.VISIBLE);
+            //locationSystemSettingsButton.setVisibility(View.VISIBLE);
         } else {
-            locationEnabledStatusTextView.setVisibility(View.GONE);
-            locationSystemSettingsButton.setVisibility(View.GONE);
+            locationSystemSettingsRelLa.setVisibility(View.GONE);
+            //locationEnabledStatusTextView.setVisibility(View.GONE);
+            //locationSystemSettingsButton.setVisibility(View.GONE);
         }
     }
 

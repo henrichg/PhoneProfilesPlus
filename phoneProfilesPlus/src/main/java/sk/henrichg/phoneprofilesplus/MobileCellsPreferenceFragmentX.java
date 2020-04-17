@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 //import com.crashlytics.android.Crashlytics;
@@ -54,6 +55,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     private MobileCellNamesDialogX mMobileCellsFilterDialog;
     private MobileCellNamesDialogX mMobileCellNamesDialog;
     private AppCompatImageButton addCellButton;
+    private RelativeLayout locationSystemSettingsRelLa;
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
@@ -319,6 +321,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
 
+        locationSystemSettingsRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.mobile_cells_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsButton);
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
@@ -413,18 +416,21 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
                 });
 
-                locationEnabledStatusTextView.setVisibility(View.VISIBLE);
-                locationSystemSettingsButton.setVisibility(View.VISIBLE);
+                locationSystemSettingsRelLa.setVisibility(View.VISIBLE);
+                //locationEnabledStatusTextView.setVisibility(View.VISIBLE);
+                //locationSystemSettingsButton.setVisibility(View.VISIBLE);
                 rescanButton.setVisibility(View.GONE);
             } else {
-                locationEnabledStatusTextView.setVisibility(View.GONE);
-                locationSystemSettingsButton.setVisibility(View.GONE);
+                locationSystemSettingsRelLa.setVisibility(View.GONE);
+                //locationEnabledStatusTextView.setVisibility(View.GONE);
+                //locationSystemSettingsButton.setVisibility(View.GONE);
                 rescanButton.setVisibility(View.VISIBLE);
             }
         }
         else {
-            locationEnabledStatusTextView.setVisibility(View.GONE);
-            locationSystemSettingsButton.setVisibility(View.GONE);
+            locationSystemSettingsRelLa.setVisibility(View.GONE);
+            //locationEnabledStatusTextView.setVisibility(View.GONE);
+            //locationSystemSettingsButton.setVisibility(View.GONE);
             rescanButton.setVisibility(View.VISIBLE);
         }
     }

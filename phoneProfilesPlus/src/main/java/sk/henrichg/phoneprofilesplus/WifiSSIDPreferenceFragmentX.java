@@ -48,6 +48,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     private EditText SSIDName;
     private AppCompatImageButton addIcon;
     private WifiSSIDPreferenceAdapterX listAdapter;
+    private RelativeLayout locationSystemSettingsRelLa;
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
@@ -200,6 +201,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             }
         });
 
+        locationSystemSettingsRelLa = view.findViewById(R.id.wifi_ssid_pref_dlg_locationSystemSettingsRelLa);
         locationEnabledStatusTextView = view.findViewById(R.id.wifi_ssid_pref_dlg_locationEnableStatus);
         locationSystemSettingsButton = view.findViewById(R.id.wifi_ssid_pref_dlg_locationSystemSettingsButton);
         TooltipCompat.setTooltipText(locationSystemSettingsButton, getString(R.string.location_settings_button_tooltip));
@@ -283,18 +285,21 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     }
                 });
 
-                locationEnabledStatusTextView.setVisibility(View.VISIBLE);
-                locationSystemSettingsButton.setVisibility(View.VISIBLE);
+                locationSystemSettingsRelLa.setVisibility(View.VISIBLE);
+                //locationEnabledStatusTextView.setVisibility(View.VISIBLE);
+                //locationSystemSettingsButton.setVisibility(View.VISIBLE);
                 rescanButton.setVisibility(View.GONE);
             } else {
-                locationEnabledStatusTextView.setVisibility(View.GONE);
-                locationSystemSettingsButton.setVisibility(View.GONE);
+                locationSystemSettingsRelLa.setVisibility(View.GONE);
+                //locationEnabledStatusTextView.setVisibility(View.GONE);
+                //locationSystemSettingsButton.setVisibility(View.GONE);
                 rescanButton.setVisibility(View.VISIBLE);
             }
         /*}
         else {
-            locationEnabledStatusTextView.setVisibility(View.GONE);
-            locationSystemSettingsButton.setVisibility(View.GONE);
+            locationSystemSettingsRelLa.setVisibility(View.GONE);
+            //locationEnabledStatusTextView.setVisibility(View.GONE);
+            //locationSystemSettingsButton.setVisibility(View.GONE);
             rescanButton.setVisibility(View.VISIBLE);
         }*/
     }

@@ -42,12 +42,13 @@
                 android:background="?attr/dialogDivider" />
 
             <RelativeLayout
+                android:id="@+id/wifi_ssid_pref_dlg_locationSystemSettingsRelLa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="5dp" >
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp" >
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/wifi_ssid_pref_dlg_locationSystemSettingsButton"
@@ -73,12 +74,14 @@
                 android:id="@+id/wifi_ssid_pref_dlg_rescanButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/wifi_ssid_pref_dlg_rescan_button"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/action_button_text_color"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/buttonBackground"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                style="?android:attr/borderlessButtonStyle" />
 
             <RelativeLayout
                 android:id="@+id/wifi_ssid_pref_dlg_et_btn2"

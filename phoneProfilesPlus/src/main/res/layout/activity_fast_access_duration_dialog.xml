@@ -238,10 +238,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:padding="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:text="@string/fast_access_duration_activate_without_button_2"
             android:textColor="@color/action_button_text_color"
-            android:background="?attr/selectableItemBackground" />
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>
 

@@ -44,12 +44,13 @@
                 android:id="@+id/calendars_multiselect_pref_dlg_unselect_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/pref_dlg_change_selection_button_unselect_all"
                 android:textColor="@color/action_button_text_color"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/buttonBackground"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                style="?android:attr/borderlessButtonStyle" />
 
         </LinearLayout>
 
