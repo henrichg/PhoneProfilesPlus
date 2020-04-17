@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/duration_pref_dlg_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout
     android:id="@+id/duration_pref_dlg_root"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -29,20 +34,23 @@
             android:id="@+id/duration_pref_dlg_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="18sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="17sp"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textColor="?attr/colorAccent"
-            android:background="?attr/selectableItemBackground"
-            android:layout_marginBottom="10dp"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:orientation="vertical">
@@ -109,18 +117,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:padding="5dp"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
         android:hint="@string/mobile_cells_registration_cell_name_hint"
         android:textColor="?attr/colorAccent"
         android:textColorHint="?attr/colorAccent"
-        android:background="?attr/selectableItemBackground"
-        android:textSize="18sp"/>
+        android:background="?attr/buttonBackground"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:textSize="17sp"/>
 
     <TextView
         android:id="@+id/mobile_cells_registration_status"
@@ -145,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/mobile_cells_registration_pref_dlg_stop_button"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
         android:background="?attr/buttonBackground"
@@ -154,3 +167,5 @@
 
 
 </LinearLayout>
+
+</ScrollView>
