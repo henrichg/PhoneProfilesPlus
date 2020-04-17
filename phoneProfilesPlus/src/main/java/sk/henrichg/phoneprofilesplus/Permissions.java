@@ -2444,15 +2444,15 @@ class Permissions {
                     dialogBuilder.setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog2 = dialogBuilder.create();
 
-                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });
+//                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
                     if (!activity.isFinishing())
                         dialog2.show();
@@ -2469,15 +2469,15 @@ class Permissions {
         });
         AlertDialog dialog = dialogBuilder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
-            }
-        });
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
 
         if (!activity.isFinishing())
             dialog.show();
@@ -2549,15 +2549,15 @@ class Permissions {
         });
         AlertDialog dialog = dialogBuilder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
-            }
-        });
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
 
         if (!activity.isFinishing())
             dialog.show();

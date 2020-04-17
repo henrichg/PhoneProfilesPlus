@@ -90,15 +90,15 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         AlertDialog dialog = dialogBuilder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
-            }
-        });
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
 
         //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after create dialog");
 

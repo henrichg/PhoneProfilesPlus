@@ -78,7 +78,6 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
         });
 
         final Button unselectAllButton = view.findViewById(R.id.calendars_multiselect_pref_dlg_unselect_all);
-        //unselectAllButton.setAllCaps(false);
         unselectAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

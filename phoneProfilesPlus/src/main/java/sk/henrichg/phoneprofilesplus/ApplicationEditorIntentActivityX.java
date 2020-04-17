@@ -269,15 +269,15 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
 
-                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        if (positive != null) positive.setAllCaps(false);
-                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        if (negative != null) negative.setAllCaps(false);
-                    }
-                });
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
 
                 //AlertDialog mDialog = builder.create();
                 if (!isFinishing())
@@ -341,15 +341,15 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
                 AlertDialog mDialog = builder.create();
 
-                mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        if (positive != null) positive.setAllCaps(false);
-                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        if (negative != null) negative.setAllCaps(false);
-                    }
-                });
+//                mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
 
                 if (!isFinishing())
                     mDialog.show();
@@ -569,7 +569,6 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         });
 
         Button cancelButton = findViewById(R.id.application_editor_intent_cancel);
-        //cancelButton.setAllCaps(false);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -594,15 +593,15 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
                     AlertDialog mDialog = builder.create();
 
-                    mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });
+//                    mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
                     if (!isFinishing())
                         mDialog.show();
@@ -655,15 +654,15 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
                         AlertDialog mDialog = builder.create();
 
-                        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });
+//                        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                            @Override
+//                            public void onShow(DialogInterface dialog) {
+//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                if (positive != null) positive.setAllCaps(false);
+//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                if (negative != null) negative.setAllCaps(false);
+//                            }
+//                        });
 
                         if (!isFinishing())
                             mDialog.show();

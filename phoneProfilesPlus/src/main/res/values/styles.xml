@@ -119,8 +119,14 @@
         <item name="android:textSize">@dimen/important_info_text_size</item>
     </style>
 
+    <!--
     <style name="NoAllCapsButtonStyle" parent="@android:style/TextAppearance.Material.Widget.Button">
         <item name="android:textAllCaps">false</item>
     </style>
+    -->
+
+<!--    <style name="NoAllCapsButtonStyle" parent="TextAppearance.AppCompat.Button">-->
+<!--        <item name="android:textAllCaps">false</item>-->
+<!--    </style>-->
 
 </resources>

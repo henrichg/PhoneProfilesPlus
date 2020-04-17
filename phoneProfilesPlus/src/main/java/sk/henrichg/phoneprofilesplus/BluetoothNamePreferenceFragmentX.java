@@ -185,15 +185,15 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                             })
                             .create();
 
-                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });
+//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
                     mSelectorDialog.show();
                 }
@@ -201,7 +201,6 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         });
 
         rescanButton = view.findViewById(R.id.bluetooth_name_pref_dlg_rescanButton);
-        //rescanButton.setAllCaps(false);
         rescanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -282,15 +281,15 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                                     dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                     AlertDialog dialog = dialogBuilder.create();
 
-                                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                        @Override
-                                        public void onShow(DialogInterface dialog) {
-                                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                            if (positive != null) positive.setAllCaps(false);
-                                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                            if (negative != null) negative.setAllCaps(false);
-                                        }
-                                    });
+//                                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                        @Override
+//                                        public void onShow(DialogInterface dialog) {
+//                                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                            if (positive != null) positive.setAllCaps(false);
+//                                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                            if (negative != null) negative.setAllCaps(false);
+//                                        }
+//                                    });
 
                                     if (!((Activity) prefContext).isFinishing())
                                         dialog.show();

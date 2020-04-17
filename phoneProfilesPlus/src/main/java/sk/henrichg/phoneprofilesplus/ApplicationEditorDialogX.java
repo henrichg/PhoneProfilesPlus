@@ -138,13 +138,13 @@ class ApplicationEditorDialogX
         mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                if (selectedPosition == -1) {
-                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    if (positive != null) positive.setAllCaps(false);
-                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    if (negative != null) negative.setAllCaps(false);
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
 
-                    positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                if (selectedPosition == -1) {
+                    Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                     if (positive != null)
                         positive.setEnabled(false);
                 }

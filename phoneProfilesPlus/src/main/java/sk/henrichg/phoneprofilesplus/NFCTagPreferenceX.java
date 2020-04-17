@@ -146,15 +146,15 @@ public class NFCTagPreferenceX extends DialogPreference {
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
             AlertDialog dialog = dialogBuilder.create();
 
-            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    if (positive != null) positive.setAllCaps(false);
-                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    if (negative != null) negative.setAllCaps(false);
-                }
-            });
+//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialog) {
+//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                    if (positive != null) positive.setAllCaps(false);
+//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                    if (negative != null) negative.setAllCaps(false);
+//                }
+//            });
 
             if (!((Activity)context).isFinishing())
                 dialog.show();

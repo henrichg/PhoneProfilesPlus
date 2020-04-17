@@ -58,7 +58,6 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         preference.dialogIcon = view.findViewById(R.id.profileicon_pref_dlg_icon);
 
         colorChooserButton = view.findViewById(R.id.profileicon_pref_dlg_change_color);
-        //colorChooserButton.setAllCaps(false);
         colorChooserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +75,6 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         });*/
 
         final Button customIconButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon);
-        //customIconButton.setAllCaps(false);
         customIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +108,6 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         colorDialog.show();
 
         /*
-        setAllCaps(false); ???
         ColorChooserDialog colorDialog  = new ColorChooserDialog.Builder(prefContext, R.string.colorChooser_pref_dialog_title)
                 .titleSub(R.string.colorChooser_pref_dialog_title)  // title of dialog when viewing shades of a color
                 .accentMode(false)  // when true, will display accent palette instead of primary palette

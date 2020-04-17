@@ -178,15 +178,15 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                             })
                             .create();
 
-                    mRenameDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });
+//                    mRenameDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
                     mRenameDialog.show();
                 }
@@ -230,15 +230,15 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                             })
                             .create();
 
-                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });
+//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
                     mSelectorDialog.show();
                 }
@@ -265,15 +265,15 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                             })
                             .create();
 
-                    mSortDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            if (positive != null) positive.setAllCaps(false);
-                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            if (negative != null) negative.setAllCaps(false);
-                        }
-                    });
+//                    mSortDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
                     mSortDialog.show();
                 }
@@ -290,7 +290,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         });
 
         rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
-        //rescanButton.setAllCaps(false);
         if (PPApplication.hasSystemFeature(prefContext, PackageManager.FEATURE_TELEPHONY)) {
             TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
             if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)) {
@@ -397,15 +396,15 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
 
-                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialog) {
-                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                        if (positive != null) positive.setAllCaps(false);
-                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                        if (negative != null) negative.setAllCaps(false);
-                                    }
-                                });
+//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                    @Override
+//                                    public void onShow(DialogInterface dialog) {
+//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                        if (positive != null) positive.setAllCaps(false);
+//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                        if (negative != null) negative.setAllCaps(false);
+//                                    }
+//                                });
 
                                 if (!((Activity)prefContext).isFinishing())
                                     dialog.show();

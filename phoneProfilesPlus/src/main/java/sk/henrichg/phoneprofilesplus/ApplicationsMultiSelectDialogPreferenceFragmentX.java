@@ -64,7 +64,6 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
         */
 
         final Button unselectAllButton = view.findViewById(R.id.applications_multiselect_pref_dlg_unselect_all);
-        //unselectAllButton.setAllCaps(false);
         unselectAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

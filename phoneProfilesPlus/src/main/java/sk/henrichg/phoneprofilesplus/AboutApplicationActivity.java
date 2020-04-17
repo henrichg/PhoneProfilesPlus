@@ -372,7 +372,6 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
         Button donateButton = findViewById(R.id.about_application_donate_button);
-        //donateButton.setAllCaps(false);
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

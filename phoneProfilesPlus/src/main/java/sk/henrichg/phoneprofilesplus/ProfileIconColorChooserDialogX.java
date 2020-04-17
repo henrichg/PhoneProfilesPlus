@@ -44,15 +44,15 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
-            }
-        });
+//        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
 
         final TypedArray ta = activity.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];

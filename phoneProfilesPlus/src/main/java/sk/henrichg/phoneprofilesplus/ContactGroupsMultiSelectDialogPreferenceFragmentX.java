@@ -61,7 +61,6 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
         listView.setAdapter(listAdapter);
 
         final Button unselectAllButton = view.findViewById(R.id.contact_groups_multiselect_pref_dlg_unselect_all);
-        //unselectAllButton.setAllCaps(false);
         unselectAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

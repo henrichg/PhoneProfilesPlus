@@ -129,15 +129,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
@@ -181,15 +181,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
 
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
 
                             if (!activity.isFinishing())
                                 dialog.show();
@@ -320,15 +320,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
@@ -355,15 +355,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
@@ -405,15 +405,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
 
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
 
                             if (!activity.isFinishing())
                                 dialog.show();
@@ -445,15 +445,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
 
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
 
                             if (!activity.isFinishing())
                                 dialog.show();
@@ -488,15 +488,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
 
-                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialog) {
-                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                        if (positive != null) positive.setAllCaps(false);
-                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                        if (negative != null) negative.setAllCaps(false);
-                                    }
-                                });
+//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                    @Override
+//                                    public void onShow(DialogInterface dialog) {
+//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                        if (positive != null) positive.setAllCaps(false);
+//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                        if (negative != null) negative.setAllCaps(false);
+//                                    }
+//                                });
 
                                 if (!activity.isFinishing())
                                     dialog.show();
@@ -520,15 +520,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
-                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialog) {
-                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                        if (positive != null) positive.setAllCaps(false);
-                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                        if (negative != null) negative.setAllCaps(false);
-                                    }
-                                });
+//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                    @Override
+//                                    public void onShow(DialogInterface dialog) {
+//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                        if (positive != null) positive.setAllCaps(false);
+//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                        if (negative != null) negative.setAllCaps(false);
+//                                    }
+//                                });
                                 if (!activity.isFinishing())
                                     dialog.show();
                             }
@@ -570,15 +570,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
-                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialog) {
-                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                        if (positive != null) positive.setAllCaps(false);
-                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                        if (negative != null) negative.setAllCaps(false);
-                                    }
-                                });
+//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                    @Override
+//                                    public void onShow(DialogInterface dialog) {
+//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                        if (positive != null) positive.setAllCaps(false);
+//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                        if (negative != null) negative.setAllCaps(false);
+//                                    }
+//                                });
                                 if (!activity.isFinishing())
                                     dialog.show();
                             }
@@ -623,15 +623,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
 
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
 
                             if (!activity.isFinishing())
                                 dialog.show();
@@ -707,15 +707,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });
+//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                            @Override
+//                            public void onShow(DialogInterface dialog) {
+//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                if (positive != null) positive.setAllCaps(false);
+//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                if (negative != null) negative.setAllCaps(false);
+//                            }
+//                        });
                         if (!activity.isFinishing())
                             dialog.show();
                     }
@@ -1039,15 +1039,15 @@ public class ImportantInfoHelpFragment extends Fragment {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         AlertDialog dialog = dialogBuilder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
-            }
-        });
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
 
         if (!getActivity().isFinishing())
             dialog.show();

@@ -87,10 +87,10 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
 
                 preference.updateInterface(0, false);
             }
@@ -219,7 +219,6 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
-        //stopButton.setAllCaps(false);
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

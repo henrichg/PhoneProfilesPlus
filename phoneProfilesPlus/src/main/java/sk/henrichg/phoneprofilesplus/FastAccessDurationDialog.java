@@ -139,15 +139,15 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (positive != null) positive.setAllCaps(false);
-                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                if (negative != null) negative.setAllCaps(false);
-            }
-        });
+//        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
 
         afterDurationLabel = layout.findViewById(R.id.fast_access_duration_dlg_after_do_label);
         afterDurationLabel.setText(activity.getString(R.string.profile_preferences_afterDurationDo) + ":");
@@ -324,7 +324,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         updateProfileView();
 
         final Button activateWithoutButton = layout.findViewById(R.id.fast_access_duration_dlg_activate_without);
-        //activateWithoutButton.setAllCaps(false);
         activateWithoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
