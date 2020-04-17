@@ -3840,7 +3840,9 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
+        startForegroundNotification = true;
         PPApplication.showProfileNotification(true, true/*, false*/);
+
         if (!serviceHasFirstStart) {
             Context appContext = getApplicationContext();
             String text = appContext.getString(R.string.app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
