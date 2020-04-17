@@ -1361,7 +1361,6 @@
     <string name="profile_preferences_red_texts_text_3">Поэтому его невозможно показать в Активаторе.</string>
     <string name="profile_preferences_red_texts_in_header">Настройки некоторых профилей ошибочны. Такие профили отмечены красным цветом. Пожалуйста, исправьте их.</string>
     <string name="event_preferences_red_texts_in_header">Настройки некоторых событий ошибочны. Такие события отмечены красным цветом. Пожалуйста, исправьте их.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Включить экран и оставить его включённым</string>
     <string name="permission_why_profile_connect_to_ssid_preference">для подключения к SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Подключение к SSID требует дополнительных разрешений.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. После этого будет показан список настроенных SSID.</string>
@@ -1416,8 +1415,12 @@
     <string name="gui_items_help">Справка по элементам интерфейса</string>
     <string name="gui_items_help_alert_title">Запустить справку по элементам интерфейса</string>
     <string name="gui_items_help_alert_message">Эту справку невозможно отменить, и она будет показываться на всех экранах приложения. Запустить её?</string>
-    <string name="alert_button_grant">Grant</string>
-    <string name="alert_button_not_grant">Not grant</string>
+    <string name="alert_button_grant">Предоставить</string>
+    <string name="alert_button_not_grant">Не предоставлять</string>
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Тёмный режим</string>
+    <string name="donation_activity_close">Close</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
+    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

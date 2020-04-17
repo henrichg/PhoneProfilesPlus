@@ -2178,15 +2178,15 @@ public class PPApplication extends Application /*implements Application.Activity
 
     // notification channels -------------------------
 
-    static boolean createProfileNotificationChannel(/*Profile profile, */Context context) {
+    static void createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
-                    return true;
+                    return;// true;
             }
             else
-                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED");
+                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - notificationManager=null");
 
             int importance;
             //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
@@ -2232,9 +2232,9 @@ public class PPApplication extends Application /*implements Application.Activity
             NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
 
             if (newChannel == null)
-                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED");
+                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - newChannel=null");
         }
-        return true;
+        //return true;
     }
 
     static void createMobileCellsRegistrationNotificationChannel(Context context) {

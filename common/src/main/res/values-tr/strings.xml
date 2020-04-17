@@ -3,7 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
-    <string name="menu_edit_profiles">Editör</string>
+    <string name="menu_edit_profiles">Düzenleyici</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Profil tercihleri</string>
@@ -1361,7 +1361,6 @@
     <string name="profile_preferences_red_texts_text_3">Bunu Muharrik\'te göstermek mümkün değil.</string>
     <string name="profile_preferences_red_texts_in_header">Bazı tercihlerin değerlerinde hatalar var. Bu tercihler kırmızı renkle işaretli. Lutfen onları düzeltin.</string>
     <string name="event_preferences_red_texts_in_header">Bazı durumların değerlerinde hatalar var. Bu durumlar kırmızı renkle işaretli. Lutfen onları düzeltin.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Ekranı açık bırak</string>
     <string name="permission_why_profile_connect_to_ssid_preference">SSID\'ye (Wi-Fi ağı) bağlanmak için</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">SSID\'ye bağlamak için bazı izinler lazımdır.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Lutfen sonraki iletişim kutularında izinleri verin. Ondan sonra kaydedilen SSID\'ler gösterilecek.</string>
@@ -1416,8 +1415,12 @@
     <string name="gui_items_help">Arayüzdeki maddelerin tarifi için yardım</string>
     <string name="gui_items_help_alert_title">Arayüzdeki maddelerin tarifi için yardımı başlat</string>
     <string name="gui_items_help_alert_message">Bu yardımı iptal etmek mümkün değildir. Arayüzdeki maddelerin tamamını tarif edecektir. Başlasın mı?</string>
-    <string name="alert_button_grant">Grant</string>
-    <string name="alert_button_not_grant">Not grant</string>
+    <string name="alert_button_grant">İzin ver</string>
+    <string name="alert_button_not_grant">İzin verme</string>
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Karanlık Modu</string>
+    <string name="donation_activity_close">Close</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
+    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

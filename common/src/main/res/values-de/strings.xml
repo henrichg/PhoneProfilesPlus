@@ -1361,7 +1361,6 @@
     <string name="profile_preferences_red_texts_text_3">Eine Anzeige im Aktivator ist hierfür nicht möglich.</string>
     <string name="profile_preferences_red_texts_in_header">Einige Profile enthalten Fehler in ihren Einstellungen. Diese Profile wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="event_preferences_red_texts_in_header">Einige Ereignisse enthalten Fehler in den Einstellungen. Diese Ereignisse wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Bildschirm einschalten und eingeschaltet lassen</string>
     <string name="permission_why_profile_connect_to_ssid_preference">für Verbinden mit SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Die Verbindung mit SSID erfordert einige Berechtigungen.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Bitte diese im nächsten Dialog gewähren. Es wird daraufhin eine Liste der konfigurierten SSIDs angezeigt.</string>
@@ -1396,7 +1395,7 @@
     <string name="array_pref_soundModeArray_ZenModeM_Off">Bitte nicht stören (Aus)</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">Bitte nicht stören (Ein)</string>
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
-    <string name="draw_over_apps_permission_notification_text">You must grant permission \"Draw over apps\". It is required to start activities when PhoneProfilesPlus is in background. Click here to grant this permission.</string>
+    <string name="draw_over_apps_permission_notification_text">Sie müssen die Berechtigung \"Über Apps ziehen\" erteilen. Es ist erforderlich, um Aktivitäten zu starten, wenn PhoneProfilesPlus im Hintergrund ist. Klicken Sie hier, um diese Berechtigung zu erteilen.</string>
     <string name="profile_preferences_types_G1_permission">G1-Einstellungen zulassen</string>
     <string name="preferences_grantG1Preferences_title">Erlaubnis für (G1)-Präferenzen nicht erteilt</string>
     <string name="preferences_grantG1Preferences_summary">Erlaubnis für (G1)-Präferenzen nicht erteilt. Hier klicken, um sie zu gewähren.</string>
@@ -1416,8 +1415,12 @@
     <string name="gui_items_help">Help with GUI items</string>
     <string name="gui_items_help_alert_title">Start help with GUI items</string>
     <string name="gui_items_help_alert_message">Is not possible to cancel this help. And will be invoked from all GUI. Start it?</string>
-    <string name="alert_button_grant">Grant</string>
-    <string name="alert_button_not_grant">Not grant</string>
+    <string name="alert_button_grant">Erlauben</string>
+    <string name="alert_button_not_grant">Ablehnen</string>
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Dunkler Modus</string>
+    <string name="donation_activity_close">Close</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
+    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

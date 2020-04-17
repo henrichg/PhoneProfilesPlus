@@ -1362,7 +1362,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="profile_preferences_red_texts_text_3">Brak możliwości pokazania go w Aktywatorze.</string>
     <string name="profile_preferences_red_texts_in_header">Niektóre profile mają błędy w ustawieniach. Zostały one oznaczone na czerwono. Proszę je naprawić.</string>
     <string name="event_preferences_red_texts_in_header">Niektóre zdarzenia mają błędy w ustawieniach. Zostały one oznaczone na czerwono. Proszę je naprawić.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Pozostaw ekran włączony</string>
     <string name="permission_why_profile_connect_to_ssid_preference">połączenie z SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Połączenie z SSID wymaga pewnych uprawnień.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Proszę przyznać je w następnym oknie dialogowym. Lista skonfigurowanych SSID zostanie wtedy wyświetlona.</string>
@@ -1394,17 +1393,17 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="altype_manualRestartEvents">ręczny restart zdarzeń</string>
     <string name="profile_preferences_configureSoundMode_info">Proszę skonfigurować również parametr profilu \"Profil dźwięku\"/\"Tryb dźwięku\"</string>
     <string name="profile_preferences_category_volumeTypes">Typy głośności</string>
-    <string name="array_pref_soundModeArray_ZenModeM_Off">Do not disturb off</string>
-    <string name="array_pref_soundModeArray_ZenModeM_On">Do not disturb on</string>
+    <string name="array_pref_soundModeArray_ZenModeM_Off">\"Nie przeszkadzać\" wyłączone</string>
+    <string name="array_pref_soundModeArray_ZenModeM_On">\"Nie przeszkadzać\" włączone</string>
     <string name="draw_over_apps_permission_notification_title">Zezwolenie na \"Rysuj nad aplikacjami\"</string>
     <string name="draw_over_apps_permission_notification_text">Musisz przyznać uprawnienie \"Rysuj nad aplikacjami\". Jest to wymagane aby uruchamiać aktywności, gdy PhoneProfilesPlus działa w tle. Kliknij tutaj, aby przyznać to uprawnienie.</string>
     <string name="profile_preferences_types_G1_permission">Udzielono uprawnień na parametry (G1)</string>
-    <string name="preferences_grantG1Preferences_title">Permission for (G1) preferences not granted</string>
-    <string name="preferences_grantG1Preferences_summary">Permission for (G1) preferences not granted. Click here to grant it.</string>
+    <string name="preferences_grantG1Preferences_title">Uprawnienia dla preferencji (G1) nie zostały przyznane</string>
+    <string name="preferences_grantG1Preferences_summary">Uprawnienia dla preferencji (G1) nie zostały przyznane. Kliknij tutaj, aby je przyznać.</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">Proszę przyznać uprawnienia WRITE_SECURE_SETTINGS dla PhoneProfilesPlus. Jest wymagane dla parametrów profili i zdarzeń, oznaczonych (G1). Wtedy ROOT nie będzie potrzebny.</string>
     <string name="profile_preferences_profile_not_found">Profil nie został znaleziony. Usunięty?</string>
     <string name="event_preferences_event_not_found">Nie znaleziono zdarzenia. Usunięte?</string>
-    <string name="permissions_draw_overlays_not_allowed_alway_required">You do not have granted permission \"Draw over apps\". But this permission is required for Android 10. Please grant it.</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Nie udzielono uprawnienia \"Rysuj nad aplikacjami\". Jest ono wymagane dla Androida 10. Proszę je udzielić.</string>
     <string name="event_preferences_battery_level_info">Ostrzeżenie o poziomie baterii</string>
     <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Niższy poziom &gt; 0% lub wyższy poziom &lt; 100% zużywa baterię!</string>
     <string name="event_preference_sensor_device_boot_summary">Ten czujnik uruchomi zdarzenie natychmiast po uruchomieniu urządzenia. Parametry: Trwałe uruchomienie, czas trwania (czas trwania zdarzenia).</string>
@@ -1417,8 +1416,12 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="gui_items_help">Pomoc dla elementów GUI</string>
     <string name="gui_items_help_alert_title">Uruchom pomoc dla elementów GUI</string>
     <string name="gui_items_help_alert_message">Nie jest możliwe anulowanie tej pomocy. Zostanie ona wywołana dla każdego elementu interfejsu graficznego. Uruchomić?</string>
-    <string name="alert_button_grant">Grant</string>
-    <string name="alert_button_not_grant">Not grant</string>
+    <string name="alert_button_grant">Udziel</string>
+    <string name="alert_button_not_grant">Nie udzielaj</string>
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Motyw ciemny</string>
+    <string name="donation_activity_close">Close</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
+    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

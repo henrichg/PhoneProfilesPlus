@@ -18,7 +18,6 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 //import com.crashlytics.android.Crashlytics;
 

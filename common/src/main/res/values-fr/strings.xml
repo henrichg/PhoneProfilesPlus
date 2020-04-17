@@ -1361,7 +1361,6 @@
     <string name="profile_preferences_red_texts_text_3">Pour cela, il n\'est pas possible de le montrer dans l\'activateur.</string>
     <string name="profile_preferences_red_texts_in_header">Certains profils ont des erreurs dans leurs préférences. Ces profils sont marqués de couleur rouge. Veuillez les corriger.</string>
     <string name="event_preferences_red_texts_in_header">Certains événements ont des erreurs dans leurs préférences. Ces événements sont marqués de couleur rouge. Veuillez les corriger.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Allumer l\'écran et le laisser allumé</string>
     <string name="permission_why_profile_connect_to_ssid_preference">pour se connecter au SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">La connexion au SSID nécessite certaines autorisations.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Veuillez les autoriser dans la boîte de dialogue suivante. La liste des SSID configurés sera alors affichée.</string>
@@ -1416,8 +1415,12 @@
     <string name="gui_items_help">Aide sur les éléments de l\'interface</string>
     <string name="gui_items_help_alert_title">Démarrer l\'aide sur les éléments de l\'interface</string>
     <string name="gui_items_help_alert_message">Il n\'est pas possible d\'annuler cette aide. Et elle sera présente sur toutes les interfaces graphiques. La démarrer ?</string>
-    <string name="alert_button_grant">Grant</string>
-    <string name="alert_button_not_grant">Not grant</string>
+    <string name="alert_button_grant">Accorder</string>
+    <string name="alert_button_not_grant">Non accordé</string>
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Mode sombre</string>
+    <string name="donation_activity_close">Close</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
+    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

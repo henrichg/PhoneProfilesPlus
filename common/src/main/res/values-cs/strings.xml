@@ -1361,7 +1361,6 @@
     <string name="profile_preferences_red_texts_text_3">Pro toto, není možné ho zobrazovat v aktivátorů.</string>
     <string name="profile_preferences_red_texts_in_header">Některé profily mají chyby ve svých parametrech. Tyto profily jsou označeny červenou barvou. Prosím opravte je.</string>
     <string name="event_preferences_red_texts_in_header">Některé události mají chyby ve svých parametrech. Tyto události jsou označeny červenou barvou. Prosím opravte je.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Zapni a nech obrazovku zapnutou</string>
     <string name="permission_why_profile_connect_to_ssid_preference">pro připojení ke SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Připojení ke SSID vyžaduje nějaké povolení.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Prosím, povolte je v následujících dialogových oknech. Poté se zobrazí seznam SSID.</string>
@@ -1416,8 +1415,12 @@
     <string name="gui_items_help">Pomoc s GUI položkami</string>
     <string name="gui_items_help_alert_title">Start pomoci s GUI položkami</string>
     <string name="gui_items_help_alert_message">Není možné zastavit tuto pomoc. A bude vyvolána z celého GUI. Spustit ji?</string>
-    <string name="alert_button_grant">Grant</string>
-    <string name="alert_button_not_grant">Not grant</string>
+    <string name="alert_button_grant">Udělit</string>
+    <string name="alert_button_not_grant">Neudělit</string>
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Tmavý režim</string>
+    <string name="donation_activity_close">Zavřít</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Udržet obrazovku zapnutou</string>
+    <string name="permission_why_profile_screen_on_permanent">pro udržení zapnuté obrazovky</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

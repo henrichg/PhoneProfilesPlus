@@ -21,7 +21,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 //import com.crashlytics.android.Crashlytics;

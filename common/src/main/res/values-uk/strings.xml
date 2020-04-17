@@ -1361,7 +1361,6 @@
     <string name="profile_preferences_red_texts_text_3">Неможливо показати це в Активаторі.</string>
     <string name="profile_preferences_red_texts_in_header">В деяких профілях є помилки в налаштуваннях. Ці профілі позначені червоним кольором. Виправте це.</string>
     <string name="event_preferences_red_texts_in_header">Деякі події мають помилки в налаштуваннях. Ці події позначені червоним кольором. Будь ласка виправте це.</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Увімкнути та залишити увімкнутим екран</string>
     <string name="permission_why_profile_connect_to_ssid_preference">щоб під\'єднатись до SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Підключення до SSID потребує додаткових дозволів.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Будь ласка, надайте їх у наступних діалогових вікнах. Після цього буде показано список налаштованих SSID.</string>
@@ -1416,8 +1415,12 @@
     <string name="gui_items_help">Допомога з об\'єктами інтерфейсу</string>
     <string name="gui_items_help_alert_title">Запуск допомоги по об\'єктам інтерфейсу</string>
     <string name="gui_items_help_alert_message">Цю допомогу неможливо скасувати. Буде вискакувати в кожному додатку. Запустити?</string>
-    <string name="alert_button_grant">Grant</string>
-    <string name="alert_button_not_grant">Not grant</string>
+    <string name="alert_button_grant">Надати</string>
+    <string name="alert_button_not_grant">Не надавати</string>
+    <string name="profile_preferences_screenDarkMode">(G1)(R) Темний режим</string>
+    <string name="donation_activity_close">Close</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
+    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

@@ -15,7 +15,6 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
