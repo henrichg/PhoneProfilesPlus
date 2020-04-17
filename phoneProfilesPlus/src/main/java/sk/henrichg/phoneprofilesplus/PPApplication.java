@@ -7,7 +7,6 @@ import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -24,7 +23,6 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 //import com.crashlytics.android.Crashlytics;
@@ -2182,6 +2180,14 @@ public class PPApplication extends Application /*implements Application.Activity
 
     static boolean createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
+                    return true;
+            }
+            else
+                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED");
+
             int importance;
             //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
             //if (ApplicationPreferences.notificationShowInStatusBar(context)) {
@@ -2222,20 +2228,25 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.setSound(null, null);
             channel.setShowBadge(false);
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-                NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
-                return newChannel != null;
-            }
-            else
-                return false;
+            notificationManager.createNotificationChannel(channel);
+            NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
+
+            if (newChannel == null)
+                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED");
         }
         return true;
     }
 
     static void createMobileCellsRegistrationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
+                    return;
+            }
+            else
+                return;
+
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification);
             // The user-visible description of the channel.
@@ -2255,14 +2266,20 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.setSound(null, null);
             channel.setShowBadge(false);
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createInformationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(INFORMATION_NOTIFICATION_CHANNEL) != null)
+                    return;
+            }
+            else
+                return;
+
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_information);
             // The user-visible description of the channel.
@@ -2280,14 +2297,20 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.enableVibration(false);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createExclamationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL) != null)
+                    return;
+            }
+            else
+                return;
+
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_exclamation);
             // The user-visible description of the channel.
@@ -2305,14 +2328,20 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createGrantPermissionNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
+                    return;
+            }
+            else
+                return;
+
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_grant_permission);
             // The user-visible description of the channel.
@@ -2330,14 +2359,20 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createNotifyEventStartNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
+                    return;
+            }
+            else
+                return;
+
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_notify_event_start);
             // The user-visible description of the channel.
@@ -2356,14 +2391,20 @@ public class PPApplication extends Application /*implements Application.Activity
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             channel.setSound(null, null);
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createMobileCellsNewCellNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
+                    return;
+            }
+            else
+                return;
+
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_not_used_mobile_cell);
             // The user-visible description of the channel.
@@ -2381,14 +2422,20 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.enableVibration(true);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createDonationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
+                    return;
+            }
+            else
+                return;
+
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_donation);
             // The user-visible description of the channel.
@@ -2406,12 +2453,9 @@ public class PPApplication extends Application /*implements Application.Activity
             channel.enableVibration(false);
             //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
     }
-
 
     static void createNotificationChannels(Context appContext) {
         PPApplication.createProfileNotificationChannel(appContext);
