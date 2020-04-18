@@ -1014,4 +1014,12 @@ Treba kuknut, co sa sem dava a ako to citat a zapisat do shared preferences. Aby
 2. Citanie dorob do MobileCellsRegistrationService.getMobileCellsAutoRegistration().
 3. Zapis dorob do MobileCellsRegistrationServicesetMobileCellsAutoRegistration().
 
+TOTO BY SI MAL VYHODIT! AUTOREGISTRACIA MUSI NASTARTOVAT, AK BOLA SPUSTENA PREDTYM
+PhoneProfilesService.doFirstStart()
+- MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, _startOnBoot || _startOnPackageReplace);
+
+!!! Este sa pozri, kedy vlastne skener mobilnych buniek nastartuje, lebo je celkom mozne,
+ze nenastartuje, lebo nie su posmienky, pritom registracny servis ma vynimku, od spustenia.
+Moze sa spustiti hocikedy, dokonca aj ked neulozis udalost.
+
 --------------------
