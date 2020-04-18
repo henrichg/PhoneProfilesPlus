@@ -118,12 +118,6 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
         return false;
     }
 
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-    }
-
     /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)

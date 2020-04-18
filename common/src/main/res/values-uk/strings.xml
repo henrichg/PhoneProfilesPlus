@@ -1418,9 +1418,12 @@
     <string name="alert_button_grant">Надати</string>
     <string name="alert_button_not_grant">Не надавати</string>
     <string name="profile_preferences_screenDarkMode">(G1)(R) Темний режим</string>
-    <string name="donation_activity_close">Close</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
-    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
+    <string name="donation_activity_close">Закрити</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Залишати екран увімкненим</string>
+    <string name="permission_why_profile_screen_on_permanent">щоб тримати екран увімкненим</string>
+    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
+    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

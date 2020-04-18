@@ -1421,6 +1421,9 @@
     <string name="donation_activity_close">Zavřít</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Udržet obrazovku zapnutou</string>
     <string name="permission_why_profile_screen_on_permanent">pro udržení zapnuté obrazovky</string>
+    <string name="run_applications_error_dialog_text_application">Chyba při spuštění aplikace.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Chyba při spuštění odkazu.</string>
+    <string name="run_applications_error_dialog_text_intent">Chyba při spuštění intentu.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

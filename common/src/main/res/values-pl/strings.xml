@@ -448,13 +448,13 @@
     <string name="important_info_profile_activation_text9">Zielone światło: zdarzenia mogą być uruchomione.</string>
     <string name="important_info_profile_activation_text10">Pomarańczowe światło: zdarzenia nie mogą być uruchomione - profil był aktywowany ręcznie.</string>
     <string name="important_info_profile_activation_text11">Czerwone światło: zdarzenia są zatrzymane - zdarzenia można odblokować za pomocą polecenia \"Uaktywnij zdarzenia\" w menu Edytora.</string>
-    <string name="important_info_profile_activation_restart_events_icon">Ikona restartu wydarzeń:</string>
+    <string name="important_info_profile_activation_restart_events_icon">Ikona restartu zdarzeń:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ikona \"Sygnalizacja świetlna\":</string>
-    <string name="important_info_android_doze_mode">Android 6+ posiada funkcje oszczędzające energię: \"Doze mode\" i \"App standby\". Dodaj PhoneProfilesPlus do \"Ustawienia→Użycie baterii→Optymalizacja baterii→Bez optymalizacji\" jeśli napotykasz problemy z aktywacją profili przez wydarzenia w czasie gdy telefon leży nieruchomo, odłączony od prądu i z wygaszonym ekranem.</string>
+    <string name="important_info_android_doze_mode">Android 6+ posiada funkcje oszczędzające energię: \"Doze mode\" i \"App standby\". Dodaj PhoneProfilesPlus do \"Ustawienia→Użycie baterii→Optymalizacja baterii→Bez optymalizacji\" jeśli napotykasz problemy z aktywacją profili przez zdarzenia w czasie, gdy telefon leży nieruchomo, odłączony od prądu i z wygaszonym ekranem.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Wibracje podczas dzwonienia</string>
-    <string name="info_notification_event_states">Wydarzenie może być w jednym z 6 stanów:</string>
+    <string name="info_notification_event_states">Zdarzenie może być w jednym z 6 stanów:</string>
     <string name="info_notification_event_states_running">Uruchomiono: zdarzenie jest uruchomione i działa. Parametry zdarzeń są spełnione.</string>
-    <string name="info_notification_event_states_paused">Wstrzymane: wydarzenie nie jest uruchomione. Parametry wydarzenia nie są spełnione. Zdarzenie czeka na spełnienie parametrów.</string>
+    <string name="info_notification_event_states_paused">Wstrzymane: zdarzenie nie jest uruchomione. Parametry zdarzenia nie są spełnione. Zdarzenie oczekuje na spełnienie parametrów.</string>
     <string name="info_notification_event_states_stopped">Zatrzymano: zdarzenie jest zatrzymane i nie można go uruchomić. Parametr zdarzenia \"Zezwól na uruchomienie\" nie jest zaznaczony.</string>
     <string name="info_notification_event_states_paused_delay">Zatrzymane z opóźnieniem: zdarzenie jest rozpoczęte, ale czeka na wygaśnięcie opóźnienia. Parametry zdarzenia są spełnione.</string>
     <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj wydarzenia całodniowe</string>
@@ -554,7 +554,7 @@
     <string name="about_application_rate_in_googlePlay">Proszę oceń tę aplikację na Google Play</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Nie przeszkadzaj dostępowi</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Znajdź na liście \"PhoneProfilesPlus\" i przyznaj uprawnienie.</string>
-    <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Dodaj PhoneProfilesPlus do \"Bez optymalizacji\" jeśli napotykasz problemy z aktywacją profili przez wydarzenia w czasie, gdy telefon leży nieruchomo, jest odłączony od prądu i z wygaszonym ekranem.</string>
+    <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Dodaj PhoneProfilesPlus do \"Bez optymalizacji\" jeśli napotykasz problemy z aktywacją profili przez zdarzenia w czasie, gdy telefon leży nieruchomo, jest odłączony od prądu i z wygaszonym ekranem.</string>
     <string name="profile_preferences_deviceWallpaperFor">Ustaw tapetę dla</string>
     <string name="array_pref_device_wallpaper_homescreen">Ekran główny</string>
     <string name="array_pref_device_wallpaper_lockscreen">Ekran blokady</string>
@@ -602,12 +602,12 @@
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Nieprzezroczystość tła (widżet)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Jasność tła (widżet)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Jasność tekstu (widżet)</string>
-    <string name="altype_eventStop">zatrzymaj wydarzenie</string>
+    <string name="altype_eventStop">zatrzymaj zdarzenie</string>
     <string name="info_notification_manage_events_from_tasker">Możesz zarządzać zdarzeniami za pośrednictwem Tasker. Skonfiguruj zadanie \"System\"/\"Wyślij intencję\" z parametrami:</string>
-    <string name="info_notification_manage_events_from_tasker_restart_events">zrestartuj wydarzenia:</string>
+    <string name="info_notification_manage_events_from_tasker_restart_events">zrestartuj zdarzenia:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">włącz uruchamianie zdarzeń:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">zatrzymaj wydarzenie:</string>
-    <string name="info_notification_manage_events_from_tasker_stop_event">zatrzymaj wydarzenie:</string>
+    <string name="info_notification_manage_events_from_tasker_pause_event">zatrzymaj zdarzenie:</string>
+    <string name="info_notification_manage_events_from_tasker_stop_event">zatrzymaj zdarzenie:</string>
     <string name="phone_profiles_pref_category_eventRun">Uruchamianie zdarzeń</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Używaj priorytetów zdarzeń</string>
     <string name="event_preferences_priority_notUse">Priorytety wyłączone</string>
@@ -645,10 +645,10 @@
     <string name="preference_item_edit_menu">Edytuj menu</string>
     <string name="preference_item_drag_handle">Zmiana kolejności traktowania</string>
     <string name="contacts_multiselect_pref_dlg_contact_photo">Zdjęcie kontaktu</string>
-    <string name="editor_event_list_item_event_status">Wskaźnik statusu wydarzeń</string>
+    <string name="editor_event_list_item_event_status">Wskaźnik statusu zdarzeń</string>
     <string name="editor_event_list_item_profile_start_icon">Początek ikony profilu wydarzenia</string>
     <string name="editor_event_list_item_profile_end_icon">Koniec ikony profilu wydarzenia</string>
-    <string name="run_stop_events_indicator">Włącz/wyłącz wskaźnik włączonych wydarzeń</string>
+    <string name="run_stop_events_indicator">Włącz/wyłącz wskaźnik włączonych zdarzeń</string>
     <string name="important_info_how_to_show">Ta ważna informacja może być wyświetlona w Edytorze przez ikonę znaku zapytania na pasku narzędzi.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">niespierane przez aplikację</string>
     <string name="preference_not_allowed_reason_detail_old_android">stara wersja Android</string>
@@ -673,13 +673,13 @@
     <string name="profile_preferences_volumeNotificationVolume0_title">Zmień dźwięk powiadomień</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Dźwięk powiadomień \"PhoneProfiles Silent\" jest skonfigurowany.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Twoje urządzenie ma połączone poziomy głośności dla dzwonku i powiadomienia. Możesz użyć \"Odłącz głośność dzwonku i powiadomień\". Kliknij tutaj i skonfiguruj to.</string>
-    <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Twoje urządzenie ma połączone woluminy dla dzwonka i powiadomień. Jeśli chcesz je rozłączyć, włącz ten parametr.</string>
+    <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Twoje urządzenie ma połączone poziomy głośności dla dzwonka i powiadomień. Jeśli chcesz je rozłączyć, włącz ten parametr.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Użyj priorytetu</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Włącz użycie parametru \"Priorytet\" w ustawieniach aplikacji.</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Obecnie skonfigurowane:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Głośność dzwonka = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Jeśli głośność dzwonka jest ustawiona na \"0\" konfiguruje to urządzenie w tryb cichy. Dźwięk powiadomień jest ignorowany.</string>
-    <string name="event_preferences_event_priorityInfo_summary">Funkcja priorytetu: Zdarzenie nie rozpocznie się, jeśli inne uruchomione wydarzenie ma wyższy priorytet.</string>
+    <string name="event_preferences_event_priorityInfo_summary">Funkcjonalność priorytetu: Zdarzenie nie rozpocznie się, jeżeli inne zdarzenie ma wyższy priorytet.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Typ preferencji</string>
     <string name="event_preference_sensor_time_summary">Ten sensor rozpocznie zdarzenie przez czas. Parametry: Czas rozpoczęcia, Czas zakończenia, Dni tygodnia.</string>
     <string name="event_preference_sensor_calendar_summary">Ten sensor rozpocznie zdarzenie przez zdarzenie kalendarza. Parametry: Kalendarze, Wyszukaj pola (Nazwa zdarzenia, Opis, itp.), przeszukaj ciąg tekstu, ignoruj zdarzenia \"całodniowe\", dostępność (Zajęty, wolny, itp.).</string>
@@ -757,10 +757,10 @@
     <string name="event_preferences_radioSwitch_info_summary">Stan każdego radia musi być spełniony, aby uruchomić zdarzenie. Skonfiguruj tylko te radia, które potrzebujesz.</string>
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Dowolny SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Połącz z SSID</string>
-    <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Ustaw linki woluminów</string>
+    <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Ustaw połączenie głośności</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Wykrywaj</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Zalinkowane woluminy</string>
-    <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Woluminy niezalinkowane</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Głośności połączone</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Głośności niepołączone</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Użyj tego, jeśli wykrywanie połączonych głośności działa nieprawidłowo.</string>
     <string name="profile_preferences_category_application">Funkcje aplikacji</string>
     <string name="profile_preferences_applicationDisableWifiScanning">Skanowanie Wi-Fi</string>
@@ -1378,9 +1378,9 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Pokaż czas trwania profilu (widżet)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Może w ogóle nie działać w twoim urządzeniu.</string>
-    <string name="application_is_not_started">nie jest uruchomiona</string>
+    <string name="application_is_not_started">nie jest uruchomiony</string>
     <string name="application_is_starting_toast">uruchamia się…</string>
-    <string name="application_is_started_toast">jest uruchomiona</string>
+    <string name="application_is_started_toast">jest uruchomiony</string>
     <string name="popupmenu_title_click_below_toast">Kliknij poniżej, aby zmienić ten parametr</string>
     <string name="duration_end_acronym">Do</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Pasek statusu</string>
@@ -1419,9 +1419,12 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="alert_button_grant">Udziel</string>
     <string name="alert_button_not_grant">Nie udzielaj</string>
     <string name="profile_preferences_screenDarkMode">(G1)(R) Motyw ciemny</string>
-    <string name="donation_activity_close">Close</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
-    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
+    <string name="donation_activity_close">Zamknij</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Ekran stale włączony</string>
+    <string name="permission_why_profile_screen_on_permanent">aby utrzymać włączony stale ekran</string>
+    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
+    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

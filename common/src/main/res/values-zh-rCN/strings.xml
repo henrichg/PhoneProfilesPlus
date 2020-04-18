@@ -1421,6 +1421,9 @@
     <string name="donation_activity_close">Close</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
     <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
+    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
+    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：n•配置文件参数“强制停止应用程序”n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
