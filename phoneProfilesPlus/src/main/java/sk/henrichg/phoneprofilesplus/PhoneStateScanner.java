@@ -994,9 +994,11 @@ class PhoneStateScanner extends PhoneStateListener {
 
         if (!forConnect) {
             enabledAutoRegistration = true;
+            // save to shared preferences
             MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
         }
         else
+            // read from shared preferences
             MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
 
         /*if (PPApplication.logEnabled()) {
@@ -1006,6 +1008,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
         if (enabledAutoRegistration) {
             try {
+                // start registration service
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
                 PPApplication.startPPService(context, serviceIntent, false);
             } catch (Exception e) {
@@ -1018,11 +1021,13 @@ class PhoneStateScanner extends PhoneStateListener {
     static void stopAutoRegistration(Context context) {
         //PPApplication.logE("PhoneStateScanner.stopAutoRegistration", "xxx");
 
+        // stop registration service
         //context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
         MobileCellsRegistrationService.stop(context);
 
         clearEventList();
 
+        // set enabledAutoRegistration=false
         MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
     }
 
