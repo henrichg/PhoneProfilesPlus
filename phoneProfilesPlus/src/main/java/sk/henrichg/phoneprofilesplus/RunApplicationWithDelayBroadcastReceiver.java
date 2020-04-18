@@ -213,6 +213,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                 context.startActivity(appIntent);
+                            } catch (SecurityException e) {
+                                appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
+                                context.startActivity(appIntent);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
@@ -242,6 +247,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                 context.startActivity(appIntent);
+                            } catch (SecurityException e) {
+                                appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
+                                context.startActivity(appIntent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
@@ -270,6 +280,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     //TODO show alert dialog with error
                     appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
+                    context.startActivity(appIntent);
+                } catch (SecurityException e) {
+                    appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                    appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                    appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                     context.startActivity(appIntent);
                 } catch (Exception e) {
                     PPApplication.recordException(e);

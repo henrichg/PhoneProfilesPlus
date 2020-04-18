@@ -12,6 +12,7 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
     private boolean activityStarted = false;
 
     static final String EXTRA_ACTIVITY_TYPE = "activity_type";
+    static final String EXTRA_EXCEPTION = "exception";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,11 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
                     break;
                 case 3:
                     dialogBuilder.setMessage(R.string.run_applications_error_dialog_text_intent);
+                    break;
+                case 4:
+                    String message = getString(R.string.run_applications_error_dialog_text_activity);
+                    message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
+                    dialogBuilder.setMessage(message);
                     break;
             }
             dialogBuilder.setCancelable(true);
