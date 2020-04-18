@@ -2123,7 +2123,7 @@ class ActivateProfileHelper {
                                                         appContext.startActivity(intent);
                                                     } catch (SecurityException e) {
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
-                                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                                         appContext.startActivity(intent);
                                                     } catch (Exception e) {
@@ -2160,7 +2160,7 @@ class ActivateProfileHelper {
                                                         appContext.startActivity(intent);
                                                     } catch (SecurityException e) {
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
-                                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                                         appContext.startActivity(intent);
                                                     } catch (Exception e) {
@@ -2204,7 +2204,7 @@ class ActivateProfileHelper {
                                             appContext.startActivity(intent);
                                         } catch (SecurityException e) {
                                             intent = new Intent(appContext, RunApplicationsErrorActivity.class);
-                                            intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                                            intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                             appContext.startActivity(intent);
                                         } catch (Exception e) {

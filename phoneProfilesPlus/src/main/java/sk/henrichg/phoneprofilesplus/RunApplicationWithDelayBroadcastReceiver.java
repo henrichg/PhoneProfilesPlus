@@ -215,7 +215,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 context.startActivity(appIntent);
                             } catch (SecurityException e) {
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
-                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                 context.startActivity(appIntent);
                             } catch (Exception ee) {
@@ -249,7 +249,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 context.startActivity(appIntent);
                             } catch (SecurityException e) {
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
-                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                 context.startActivity(appIntent);
                             } catch (Exception e) {
@@ -283,7 +283,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     context.startActivity(appIntent);
                 } catch (SecurityException e) {
                     appIntent = new Intent(context, RunApplicationsErrorActivity.class);
-                    appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 4);
+                    appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                     context.startActivity(appIntent);
                 } catch (Exception e) {

@@ -45,20 +45,28 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getBaseContext());
             dialogBuilder.setTitle(R.string.profile_preferences_deviceRunApplicationsShortcutsChange);
 
+            String sException = "";
+            if (getIntent().hasExtra(EXTRA_EXCEPTION))
+                sException = getIntent().getStringExtra(EXTRA_EXCEPTION);
+
             int type = getIntent().getIntExtra(EXTRA_ACTIVITY_TYPE, 0);
             switch (type) {
                 case 1:
-                    dialogBuilder.setMessage(R.string.run_applications_error_dialog_text_application);
+                    String message = getString(R.string.run_applications_error_dialog_text_application);
+                    if (!sException.isEmpty())
+                        message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
+                    dialogBuilder.setMessage(message);
                     break;
                 case 2:
-                    dialogBuilder.setMessage(R.string.run_applications_error_dialog_text_shortcut);
+                    message = getString(R.string.run_applications_error_dialog_text_shortcut);
+                    if (!sException.isEmpty())
+                        message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
+                    dialogBuilder.setMessage(message);
                     break;
                 case 3:
-                    dialogBuilder.setMessage(R.string.run_applications_error_dialog_text_intent);
-                    break;
-                case 4:
-                    String message = getString(R.string.run_applications_error_dialog_text_activity);
-                    message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
+                    message = getString(R.string.run_applications_error_dialog_text_intent);
+                    if (!sException.isEmpty())
+                        message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
                     dialogBuilder.setMessage(message);
                     break;
             }

@@ -1511,7 +1511,6 @@
     <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
     <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
-    <string name="run_applications_error_dialog_text_activity">Error on start of activity</string>
 
     <!-- **************************************************************************************** -->
 
