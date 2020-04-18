@@ -1508,6 +1508,10 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
     <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
 
+    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
+    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

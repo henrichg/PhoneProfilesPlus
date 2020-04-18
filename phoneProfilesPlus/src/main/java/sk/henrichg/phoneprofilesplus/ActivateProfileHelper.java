@@ -2118,8 +2118,9 @@ class ActivateProfileHelper {
                                                         PPApplication.sleep(1000);
                                                     } catch (ActivityNotFoundException e) {
                                                         //TODO show alert dialog with error
-                                                        //PPApplication.recordException(e);
-                                                        //Crashlytics.logException(e);
+                                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                                                        appContext.startActivity(intent);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
@@ -2149,8 +2150,9 @@ class ActivateProfileHelper {
                                                         PPApplication.sleep(1000);
                                                     } catch (ActivityNotFoundException e) {
                                                         //TODO show alert dialog with error
-                                                        //PPApplication.recordException(e);
-                                                        //Crashlytics.logException(e);
+                                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                                                        appContext.startActivity(intent);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
@@ -2187,8 +2189,9 @@ class ActivateProfileHelper {
                                             //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application started");
                                         } catch (ActivityNotFoundException e) {
                                             //TODO show alert dialog with error
-                                            //PPApplication.recordException(e);
-                                            //Crashlytics.logException(e);
+                                            intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
+                                            appContext.startActivity(intent);
                                         } catch (Exception e) {
                                             //Log.e("ActivateProfileHelper.executeForRunApplications", Log.getStackTraceString(e));
                                         }

@@ -210,7 +210,9 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
                                 //TODO show alert dialog with error
-                                //PPApplication.recordException(ee);
+                                appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                                context.startActivity(appIntent);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
                                 //Crashlytics.logException(ee);
@@ -237,7 +239,9 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
                                 //TODO show alert dialog with error
-                                //PPApplication.recordException(ee);
+                                appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                                context.startActivity(appIntent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
@@ -264,7 +268,9 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     context.startActivity(appIntent);
                 } catch (ActivityNotFoundException ee) {
                     //TODO show alert dialog with error
-                    //PPApplication.recordException(ee);
+                    appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                    appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
+                    context.startActivity(appIntent);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                     //Crashlytics.logException(e);
