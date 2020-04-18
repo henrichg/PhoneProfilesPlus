@@ -124,7 +124,7 @@ class TonesHandler {
         return (displayName != null) && displayName.equals(filename);
     }
 
-    private static boolean  isToneInstalled(/*int resID, String directory,*/ int type, Context context) {
+    private static boolean  _isToneInstalled(/*int resID, String directory,*/ int type, Context context) {
         // Make sure the shared storage is currently writable
         /*if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             //Log.d("TonesHandler.isToneInstalled","not writable shared storage");
@@ -167,15 +167,7 @@ class TonesHandler {
         }
         */
 
-        //noinspection RedundantIfStatement
-        if (getPhoneProfilesSilentUri(context, type).isEmpty()) {
-            //PPApplication.logE("TonesHandler.isToneInstalled","not in ringtone manager");
-            return false;
-        }
-
-        //PPApplication.logE("TonesHandler.isToneInstalled","tone installed");
-
-        return true;
+        return !getPhoneProfilesSilentUri(context, type).isEmpty();
     }
 
     static boolean isToneInstalled(/*@SuppressWarnings("SameParameterValue") int resID,*/
@@ -184,9 +176,9 @@ class TonesHandler {
             //boolean ringtone = isToneInstalled(resID, Environment.DIRECTORY_RINGTONES, context);
             //boolean notification = isToneInstalled(resID, Environment.DIRECTORY_NOTIFICATIONS, context);
             //boolean alarm = isToneInstalled(resID, Environment.DIRECTORY_ALARMS, context);
-            boolean ringtone = isToneInstalled(/*resID,*/ RingtoneManager.TYPE_RINGTONE, context);
-            boolean notification = isToneInstalled(/*resID,*/ RingtoneManager.TYPE_NOTIFICATION, context);
-            boolean alarm = isToneInstalled(/*resID,*/ RingtoneManager.TYPE_ALARM, context);
+            boolean ringtone = _isToneInstalled(/*resID,*/ RingtoneManager.TYPE_RINGTONE, context);
+            boolean notification = _isToneInstalled(/*resID,*/ RingtoneManager.TYPE_NOTIFICATION, context);
+            boolean alarm = _isToneInstalled(/*resID,*/ RingtoneManager.TYPE_ALARM, context);
 
             return ringtone && notification && alarm;
         //}
@@ -242,6 +234,7 @@ class TonesHandler {
             path.mkdirs();
             String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
             File outFile = new File(path, filename);
+            //PPApplication.logE("TonesHandler._installTone", "path=" + outFile.getAbsolutePath());
 
             boolean isError = false;
 
@@ -303,11 +296,12 @@ class TonesHandler {
 
                     // Set the file metadata
                     String outAbsPath = outFile.getAbsolutePath();
+                    //PPApplication.logE("TonesHandler._installTone", "outAbsPath=" + outAbsPath);
 
                     Uri contentUri;
-                    if (Build.VERSION.SDK_INT < 29)
-                        contentUri = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
-                    else
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    contentUri = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
+                    //else
                         contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
 
                     // Add the metadata to the file in the database
