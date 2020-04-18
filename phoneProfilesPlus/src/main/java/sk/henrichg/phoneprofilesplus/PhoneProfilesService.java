@@ -4555,9 +4555,11 @@ public class PhoneProfilesService extends Service
                             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
                             iconSmallResource = R.drawable.ic_profile_default_notify_color;
                             try {
-                                Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
-                                if (idx != null)
-                                    iconSmallResource = (int)idx;
+                                if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                    Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                                    if (idx != null)
+                                        iconSmallResource = (int) idx;
+                                }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                                 //Crashlytics.logException(e);
@@ -4570,9 +4572,11 @@ public class PhoneProfilesService extends Service
 
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
-                            Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
-                            if (idx != null)
-                                iconSmallResource = (int)idx;
+                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (idx != null)
+                                    iconSmallResource = (int) idx;
+                            }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                             //Crashlytics.logException(e);
@@ -4603,9 +4607,11 @@ public class PhoneProfilesService extends Service
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "enabled is colorful icon in status bar");
                         iconSmallResource = R.drawable.ic_profile_default_notify_color;
                         try {
-                            Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
-                            if (idx != null)
-                                iconSmallResource = (int)idx;
+                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                                if (idx != null)
+                                    iconSmallResource = (int) idx;
+                            }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                             //Crashlytics.logException(e);
@@ -4614,9 +4620,11 @@ public class PhoneProfilesService extends Service
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
-                            Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
-                            if (idx != null)
-                                iconSmallResource = (int)idx;
+                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (idx != null)
+                                    iconSmallResource = (int) idx;
+                            }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                             //Crashlytics.logException(e);

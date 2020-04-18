@@ -4423,9 +4423,11 @@ public class Profile {
     static int getIconResource(String identifier) {
         int iconResource = R.drawable.ic_profile_default;
         try {
-            Object idx = profileIconIdMap.get(identifier);
-            if (idx != null)
-                iconResource = (int)idx;
+            if ((identifier != null) && (!identifier.isEmpty())) {
+                Object idx = profileIconIdMap.get(identifier);
+                if (idx != null)
+                    iconResource = (int) idx;
+            }
         } catch (Exception e) {
             PPApplication.recordException(e);
             //Crashlytics.logException(e);
