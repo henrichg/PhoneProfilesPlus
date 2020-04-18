@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -26,6 +27,10 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -131,7 +136,7 @@ class PhoneStateScanner extends PhoneStateListener {
         //PPApplication.logE("PhoneStateScanner.disconnect", "xxx");
         if ((telephonyManager != null) && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
-        stopAutoRegistration(context);
+        stopAutoRegistration(context, false);
     }
 
     /*
@@ -995,6 +1000,7 @@ class PhoneStateScanner extends PhoneStateListener {
         if (!forConnect) {
             enabledAutoRegistration = true;
             // save to shared preferences
+            //PPApplication.logE("[REG] PhoneStateScanner.startAutoRegistration", "setMobileCellsAutoRegistration(true)");
             MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
         }
         else
@@ -1018,17 +1024,19 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    static void stopAutoRegistration(Context context) {
+    static void stopAutoRegistration(Context context, boolean clearRegistration) {
         //PPApplication.logE("PhoneStateScanner.stopAutoRegistration", "xxx");
 
         // stop registration service
-        //context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
-        MobileCellsRegistrationService.stop(context);
+        context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
+        //MobileCellsRegistrationService.stop(context);
 
-        clearEventList();
-
-        // set enabledAutoRegistration=false
-        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
+        if (clearRegistration) {
+            //clearEventList();
+            // set enabledAutoRegistration=false
+            //PPApplication.logE("[REG] PhoneStateScanner.stopAutoRegistration", "setMobileCellsAutoRegistration(true)");
+            MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
+        }
     }
 
     static boolean isEventAdded(long event_id) {
@@ -1049,7 +1057,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    private static void clearEventList() {
+    static void clearEventList() {
         synchronized (autoRegistrationEventList) {
             autoRegistrationEventList.clear();
         }
@@ -1058,6 +1066,28 @@ class PhoneStateScanner extends PhoneStateListener {
     static int getEventCount() {
         synchronized (autoRegistrationEventList) {
             return autoRegistrationEventList.size();
+        }
+    }
+
+    static void getAllEvents(SharedPreferences sharedPreferences,
+                             @SuppressWarnings("SameParameterValue") String key) {
+        synchronized (autoRegistrationEventList) {
+            Gson gson = new Gson();
+            String json =sharedPreferences.getString(key, null);
+            Type type = new TypeToken<ArrayList<Long>>() {}.getType();
+            autoRegistrationEventList.clear();
+            ArrayList<Long> list = gson.fromJson(json, type);
+            if (list != null)
+                autoRegistrationEventList.addAll(list);
+        }
+    }
+
+    static void saveAllEvents(SharedPreferences.Editor editor,
+                              @SuppressWarnings("SameParameterValue") String key) {
+        synchronized (autoRegistrationEventList) {
+            Gson gson = new Gson();
+            String json = gson.toJson(autoRegistrationEventList);
+            editor.putString(key, json);
         }
     }
 

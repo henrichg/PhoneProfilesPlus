@@ -44,25 +44,9 @@ public class MobileCellsRegistrationService extends Service {
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
-
-    private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_SERVICE";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST = "mobile_cells_autoregistration_event_list";
 
     private MobileCellsRegistrationStopButtonBroadcastReceiver mobileCellsRegistrationStopButtonBroadcastReceiver = null;
-
-    /*private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("MobileCellsRegistrationService.stopReceiver", "xxx");
-            try {
-                //noinspection deprecation
-                context.removeStickyBroadcast(intent);
-            } catch (Exception e) {
-                PPApplication.logE("MobileCellsRegistrationService.stopReceiver", Log.getStackTraceString(e));
-            }
-            stopForeground(true);
-            stopSelf();
-        }
-    };*/
 
     @Override
     public void onCreate()
@@ -126,6 +110,7 @@ public class MobileCellsRegistrationService extends Service {
             countDownTimer.start();
         }
         else {
+            //PPApplication.logE("[REG] MobileCellsRegistrationService.onCreate", "setMobileCellsAutoRegistration(true)");
             setMobileCellsAutoRegistration(context, true);
 
             /*stopForeground(true);
@@ -148,10 +133,6 @@ public class MobileCellsRegistrationService extends Service {
         super.onDestroy();
 
         //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
-
-        /*try {
-            unregisterReceiver(stopReceiver);
-        } catch (Exception ignored) {}*/
 
         if (countDownTimer != null)
             countDownTimer.cancel();
@@ -189,16 +170,16 @@ public class MobileCellsRegistrationService extends Service {
         serviceStarted = false;
     }
 
+    /*
     public static void stop(Context context) {
         try {
-            //noinspection deprecation
-            context.sendStickyBroadcast(new Intent(ACTION_STOP));
-            //context.sendBroadcast(new Intent(ACTION_STOP));
+            context.sendBroadcast(new Intent(ACTION_STOP));
         } catch (Exception e) {
             PPApplication.recordException(e);
             //Crashlytics.logException(e);
         }
     }
+    */
 
     private void showNotification(long millisUntilFinished) {
         String text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
@@ -246,6 +227,7 @@ public class MobileCellsRegistrationService extends Service {
     private void stopRegistration() {
         //PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
 
+        //PPApplication.logE("[REG] MobileCellsRegistrationService.stopRegistration", "setMobileCellsAutoRegistration(true)");
         setMobileCellsAutoRegistration(context, true);
 
         // broadcast for event preferences
@@ -306,6 +288,7 @@ public class MobileCellsRegistrationService extends Service {
         PhoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
         PhoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
         PhoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+        PhoneStateScanner.getAllEvents(preferences, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
     }
 
     static public void setMobileCellsAutoRegistration(Context context, boolean clear) {
@@ -318,11 +301,14 @@ public class MobileCellsRegistrationService extends Service {
             PhoneStateScanner.durationForAutoRegistration = 0;
             PhoneStateScanner.cellsNameForAutoRegistration = "";
             PhoneStateScanner.enabledAutoRegistration = false;
+            PhoneStateScanner.clearEventList();
+            PhoneStateScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
         }
         else {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneStateScanner.durationForAutoRegistration);
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneStateScanner.cellsNameForAutoRegistration);
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneStateScanner.enabledAutoRegistration);
+            PhoneStateScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
         }
         editor.apply();
     }

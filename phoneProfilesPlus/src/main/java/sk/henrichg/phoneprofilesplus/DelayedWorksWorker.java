@@ -515,7 +515,7 @@ public class DelayedWorksWorker extends Worker {
 
                     PPApplication.logE("PackageReplacedReceiver.doWork", "PhoneStateScanner.enabledAutoRegistration="+PhoneStateScanner.enabledAutoRegistration);
                     if (PhoneStateScanner.enabledAutoRegistration) {
-                        PhoneStateScanner.stopAutoRegistration(appContext);
+                        PhoneStateScanner.stopAutoRegistration(appContext, true);
                         PPApplication.logE("PackageReplacedReceiver.doWork", "start of wait for end of autoregistration");
                         int count = 0;
                         while (MobileCellsRegistrationService.serviceStarted && (count < 50)) {

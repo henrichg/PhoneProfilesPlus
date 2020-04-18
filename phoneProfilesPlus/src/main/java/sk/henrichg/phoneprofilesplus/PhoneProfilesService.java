@@ -3706,7 +3706,12 @@ public class PhoneProfilesService extends Service
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "11");
 
-                    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, _startOnBoot || _startOnPackageReplace);
+                    if (_startOnPackageReplace) {
+                        //PPApplication.logE("[REG] PhoneProfilesService.doFirstStart", "setMobileCellsAutoRegistration(true)");
+                        MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, _startOnPackageReplace);
+                    }
+                    else
+                        PhoneStateScanner.startAutoRegistration(appContext, true);
 
                     BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);

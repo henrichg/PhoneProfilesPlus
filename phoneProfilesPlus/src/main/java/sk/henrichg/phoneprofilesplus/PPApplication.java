@@ -450,7 +450,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PhoneStateScanner.getCellLocation"
                                                 //+"|PhoneStateScanner.doAutoRegistration"
                                                 //+"|MobileCellsRegistrationDialogPreference.startRegistration"
-                                                //+"|MobileCellsRegistrationService"
+                                                //+"|[REG] MobileCellsRegistrationService"
+                                                //+"|[REG] PhoneProfilesService"
+                                                //+"|[REG] PhoneStateScanner"
                                                 //+"|NotUsedMobileCellsNotificationDeletedReceiver.onReceive"
 
                                                 //+"|PermissionsNotificationDeletedReceiver.onReceive"
