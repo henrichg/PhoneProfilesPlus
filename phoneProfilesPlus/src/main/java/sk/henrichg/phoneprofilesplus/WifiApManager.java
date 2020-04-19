@@ -66,7 +66,7 @@ final class WifiApManager {
                     boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                     if (isWifiEnabled) {
                         //PPApplication.logE("#### setWifiEnabled", "from WifAPManager.setWifiApState");
-                        //if (Build.VERSION.SDK_INT >= 26)
+                        //if (Build.VERSION.SDK_INT >= 29)
                         //    CmdWifi.setWifi(false);
                         //else
                             mWifiManager.setWifiEnabled(false);
@@ -162,7 +162,7 @@ final class WifiApManager {
             //PPApplication.logE("WifiApManager.startTethering", "isWifiEnabled="+isWifiEnabled);
             if (isWifiEnabled) {
                 //PPApplication.logE("#### setWifiEnabled", "from WifiAPManager.startTethering");
-                //if (Build.VERSION.SDK_INT >= 26)
+                //if (Build.VERSION.SDK_INT >= 29)
                 //    CmdWifi.setWifi(false);
                 //else
                     mWifiManager.setWifiEnabled(false);

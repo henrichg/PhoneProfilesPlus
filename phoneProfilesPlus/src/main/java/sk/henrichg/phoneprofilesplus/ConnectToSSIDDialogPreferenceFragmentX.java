@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -107,7 +108,12 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                         if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED) {
                             //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.1", "enable wifi");
                             wifiEnabled = true;
-                            wifi.setWifiEnabled(true);
+
+                            //if (Build.VERSION.SDK_INT >= 29)
+                            //    CmdWifi.setWifi(true);
+                            //else
+                                wifi.setWifiEnabled(true);
+
                             PPApplication.sleep(3000);
                         }
                         else
@@ -150,8 +156,12 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                         if (wifiEnabled) {
                             try {
                                 WifiManager wifi = (WifiManager) prefContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                                if (wifi != null)
-                                    wifi.setWifiEnabled(false);
+                                if (wifi != null) {
+                                    //if (Build.VERSION.SDK_INT >= 29)
+                                    //    CmdWifi.setWifi(false);
+                                    //else
+                                        wifi.setWifiEnabled(false);
+                                }
                                 //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifi disabled");
                             } catch (Exception e) {
                                 PPApplication.recordException(e);

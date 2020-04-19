@@ -169,7 +169,7 @@ class WifiBluetoothScanner {
                                             //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                             //lock();
                                             //PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 1");
-                                            //if (Build.VERSION.SDK_INT >= 26)
+                                            //if (Build.VERSION.SDK_INT >= 29)
                                             //    CmdWifi.setWifi(false);
                                             //else
                                             if (WifiScanWorker.wifi != null)
@@ -294,7 +294,7 @@ class WifiBluetoothScanner {
                                         //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                         //lock();
                                         //PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 2");
-                                        //if (Build.VERSION.SDK_INT >= 26)
+                                        //if (Build.VERSION.SDK_INT >= 29)
                                         //    CmdWifi.setWifi(false);
                                         //else
                                         if (WifiScanWorker.wifi != null)
@@ -678,7 +678,7 @@ class WifiBluetoothScanner {
                                     PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
                                 }*/
 
-                                //if (Build.VERSION.SDK_INT >= 26)
+                                //if (Build.VERSION.SDK_INT >= 29)
                                 //    CmdWifi.setWifi(true);
                                 //else
                                     _wifi.setWifiEnabled(true);
