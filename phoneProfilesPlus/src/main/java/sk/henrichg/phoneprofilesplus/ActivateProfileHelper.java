@@ -3573,11 +3573,11 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setMobileData(Context context, boolean enable)
+    private static void setMobileData(@SuppressWarnings("unused") Context context, boolean enable)
     {
         //PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
 
-        Context appContext = context.getApplicationContext();
+        //Context appContext = context.getApplicationContext();
 
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
         // not working :-/
@@ -3633,7 +3633,7 @@ class ActivateProfileHelper {
         {
             //PPApplication.logE("ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
 
-/*            synchronized (PPApplication.rootMutex) {
+            synchronized (PPApplication.rootMutex) {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
                 PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
                 Command command = new Command(0, false, command1);// {
@@ -3663,7 +3663,8 @@ class ActivateProfileHelper {
                     Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                 }
             }
-*/
+
+/*
             // Get the value of the "TRANSACTION_setDataEnabled" field.
             Object serviceManager = PPApplication.getServiceManager("phone");
             int transactionCode = -1;
@@ -3696,7 +3697,7 @@ class ActivateProfileHelper {
                         }
                         if (subscriptionList != null) {
                             //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList.size()="+subscriptionList.size());
-                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            for (int i = 0; i < subscriptionList.size(); i++) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo="+subscriptionInfo);
@@ -3728,26 +3729,27 @@ class ActivateProfileHelper {
                     }
                     //else
                     //    PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
-                /*} else {
-                    synchronized (PPApplication.rootMutex) {
-                        String command1 = PPApplication.getServiceCommand("phone", transactionCode, state);
-                        //PPApplication.logE("ActivateProfileHelper.setMobileData", "command1="+command1);
-                        if (command1 != null) {
-                            Command command = new Command(0, false, command1);
-                            try {
-                                RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                                PPApplication.commandWait(command);
-                            } catch (Exception e) {
-                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
-                                //og.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                //Crashlytics.logException(e);
-                            }
-                        }
-                    }
-                }*/
+//                } else {
+//                    synchronized (PPApplication.rootMutex) {
+//                        String command1 = PPApplication.getServiceCommand("phone", transactionCode, state);
+//                        //PPApplication.logE("ActivateProfileHelper.setMobileData", "command1="+command1);
+//                        if (command1 != null) {
+//                            Command command = new Command(0, false, command1);
+//                            try {
+//                                RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+//                                PPApplication.commandWait(command);
+//                            } catch (Exception e) {
+//                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+//                                //og.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+//                                //Crashlytics.logException(e);
+//                            }
+//                        }
+//                    }
+//                }
             }
             //else
             //    PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode == -1");
+ */
         }
     }
 
