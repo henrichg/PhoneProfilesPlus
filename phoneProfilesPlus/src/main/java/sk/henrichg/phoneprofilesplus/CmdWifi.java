@@ -18,7 +18,7 @@ public class CmdWifi {
         return setWifi(enable);
     }
 
-    static boolean setWifi(boolean enable) {
+    private static boolean setWifi(boolean enable) {
         final String packageName = PPApplication.PACKAGE_NAME;
         try {
             //PPApplication.logE("CmdWifi.setWifi", "enable="+enable);
