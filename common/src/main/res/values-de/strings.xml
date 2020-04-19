@@ -1421,8 +1421,8 @@
     <string name="donation_activity_close">Schließen</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Display eingeschaltet lassen</string>
     <string name="permission_why_profile_screen_on_permanent">Um das Display eingeschaltet zu lassen</string>
-    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
+    <string name="run_applications_error_dialog_text_application">Fehler beim Starten der Anwendung</string>
+    <string name="run_applications_error_dialog_text_shortcut">Fehler beim Starten der Verknüpfung</string>
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

@@ -1421,9 +1421,9 @@
     <string name="donation_activity_close">Закрити</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Залишати екран увімкненим</string>
     <string name="permission_why_profile_screen_on_permanent">щоб тримати екран увімкненим</string>
-    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
-    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
+    <string name="run_applications_error_dialog_text_application">Помилка при запуску додатка.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Помилка при запуску ярлика.</string>
+    <string name="run_applications_error_dialog_text_intent">Помилка при запуску intent.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

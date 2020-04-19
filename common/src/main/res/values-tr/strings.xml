@@ -1418,12 +1418,12 @@
     <string name="alert_button_grant">İzin ver</string>
     <string name="alert_button_not_grant">İzin verme</string>
     <string name="profile_preferences_screenDarkMode">(G1)(R) Karanlık Modu</string>
-    <string name="donation_activity_close">Close</string>
-    <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
-    <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
-    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
-    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
+    <string name="donation_activity_close">Kapat</string>
+    <string name="profile_preferences_deviceScreenOnPermanent">Ekranı açık tut</string>
+    <string name="permission_why_profile_screen_on_permanent">ekranı açık tutmak için</string>
+    <string name="run_applications_error_dialog_text_application">Uygulama başlangıcında hata.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Kısayol başlangıcında hata.</string>
+    <string name="run_applications_error_dialog_text_intent">Intent başlangıcında hata.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

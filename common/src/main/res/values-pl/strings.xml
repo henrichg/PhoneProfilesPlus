@@ -1422,7 +1422,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="donation_activity_close">Zamknij</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Ekran stale włączony</string>
     <string name="permission_why_profile_screen_on_permanent">aby utrzymać włączony stale ekran</string>
-    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
+    <string name="run_applications_error_dialog_text_application">Błąd przy uruchamianiu aplikacji.</string>
     <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <!-- **************************************************************************************** -->

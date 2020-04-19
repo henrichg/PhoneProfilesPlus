@@ -3708,7 +3708,7 @@ public class PhoneProfilesService extends Service
 
                     if (_startOnPackageReplace) {
                         //PPApplication.logE("[REG] PhoneProfilesService.doFirstStart", "setMobileCellsAutoRegistration(true)");
-                        MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, _startOnPackageReplace);
+                        MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
                     }
                     else
                         PhoneStateScanner.startAutoRegistration(appContext, true);

@@ -1422,8 +1422,8 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Не выключать экран</string>
     <string name="permission_why_profile_screen_on_permanent">чтобы оставлять экран включённым</string>
     <string name="run_applications_error_dialog_text_application">Ошибка при запуске приложения.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
-    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
+    <string name="run_applications_error_dialog_text_shortcut">Ошибка при запуске ярлыка.</string>
+    <string name="run_applications_error_dialog_text_intent">Ошибка при запуске intent\'а.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
