@@ -68,7 +68,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         // set theme and language for dialog alert ;-)
-        // not working on Android 2.3.x
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
         //GlobalGUIRoutines.setLanguage(this);
 

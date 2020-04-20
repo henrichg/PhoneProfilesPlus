@@ -42,6 +42,10 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
         }
 
         if (activityStarted) {
+            // set theme and language for dialog alert ;-)
+            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+            //GlobalGUIRoutines.setLanguage(activity);
+
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getBaseContext());
             dialogBuilder.setTitle(R.string.profile_preferences_deviceRunApplicationsShortcutsChange);
 

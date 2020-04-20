@@ -1811,7 +1811,6 @@ public class DataWrapper {
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
-            // not working on Android 2.3.x
             GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
