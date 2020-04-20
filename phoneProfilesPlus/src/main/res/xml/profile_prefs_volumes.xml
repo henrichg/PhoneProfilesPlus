@@ -21,6 +21,14 @@
             app:title="@string/profile_preferences_configureSoundMode_info"
             app:summary="@string/empty_string"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <Preference
+            app:key="prf_pref_volumeIgnoreSoundModeInfo2"
+            app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
+            app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
+            app:widgetLayout="@layout/info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeRingtone"
             app:volumeType="ringtone"

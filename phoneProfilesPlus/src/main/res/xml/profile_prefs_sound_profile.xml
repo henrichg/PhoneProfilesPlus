@@ -5,6 +5,12 @@
     app:key="prf_pref_soundProfileCategory" >
 
     <Preference
+        app:key="prf_pref_volumeIgnoreSoundModeInfo1"
+        app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
+        app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
         app:key="prf_pref_volumeVibrateWhenRingingRootInfo"
         app:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
         app:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfoM_summary"
