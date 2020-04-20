@@ -1513,7 +1513,7 @@
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
 
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ring and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (only alarms, vibration).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
 
     <!-- **************************************************************************************** -->
 
