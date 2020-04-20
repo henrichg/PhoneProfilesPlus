@@ -7,9 +7,9 @@ import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -60,6 +60,40 @@ class TonesHandler {
         }
         return "";
     }
+
+    static String searchUri(Context context, int type, String searchUri) {
+        try {
+            if ((type == RingtoneManager.TYPE_RINGTONE) &&
+                    (searchUri.isEmpty() || searchUri.equals(RINGING_TONE_URI_NONE) || (Uri.parse(searchUri) == Settings.System.DEFAULT_RINGTONE_URI)))
+                return searchUri;
+            if ((type == RingtoneManager.TYPE_NOTIFICATION) &&
+                    (searchUri.isEmpty() || searchUri.equals(NOTIFICATION_TONE_URI_NONE) || (Uri.parse(searchUri) == Settings.System.DEFAULT_NOTIFICATION_URI)))
+                return searchUri;
+            if ((type == RingtoneManager.TYPE_ALARM) &&
+                    (searchUri.isEmpty() || searchUri.equals(ALARM_TONE_URI_NONE) || (Uri.parse(searchUri) == Settings.System.DEFAULT_ALARM_ALERT_URI)))
+                return searchUri;
+
+            RingtoneManager manager = new RingtoneManager(context);
+            manager.setType(type);
+            Cursor cursor = manager.getCursor();
+
+            while (cursor.moveToNext()) {
+                String id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                String uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+
+                String uriId = uri + "/" + id;
+                if (uriId.equals(searchUri))
+                    return uriId;
+            }
+        } catch (Exception e) {
+            // FC in manager.getCursor() for RingtoneManager.TYPE_NOTIFICATION.
+            // Nokia 8 (HMD Global), hm
+            //Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
+            //Crashlytics.logException(e);
+        }
+        return "";
+    }
+
 
     static String getToneName(Context context,
                               @SuppressWarnings("SameParameterValue") int type,
@@ -224,12 +258,13 @@ class TonesHandler {
 
         //File path = Environment.getExternalStoragePublicDirectory(directory);
         File path;
-        if (Build.VERSION.SDK_INT < 29)
+        //if (Build.VERSION.SDK_INT < 29)
             path = context.getFilesDir();
-        else
-            path = context.getExternalFilesDir(null);
-        //PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
+        //else
+        //    path = context.getExternalFilesDir(null);
         if (path != null) {
+            //PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
+
             //noinspection ResultOfMethodCallIgnored
             path.mkdirs();
             String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
@@ -238,40 +273,40 @@ class TonesHandler {
 
             boolean isError = false;
 
-            //if (!outFile.exists()) {
-
-            // Write the file
-            InputStream inputStream = null;
-            FileOutputStream outputStream = null;
-            //noinspection TryFinallyCanBeTryWithResources
-            try {
-                inputStream = context.getResources().openRawResource(resID);
-                outputStream = new FileOutputStream(outFile);
-
-
-                // Write in 1024-byte chunks
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                // Keep writing until `inputStream.read()` returns -1, which means we reached the
-                //  end of the stream
-                while ((bytesRead = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-
-            } catch (Exception e) {
-                Log.e("TonesHandler._installTone", "Error writing " + filename, e);
-                PPApplication.recordException(e);
-                //Crashlytics.logException(e);
-                isError = true;
-            } finally {
-                // Close the streams
+            if (!outFile.exists()) {
+                // Write the file
+                InputStream inputStream = null;
+                FileOutputStream outputStream = null;
+                //noinspection TryFinallyCanBeTryWithResources
                 try {
-                    if (inputStream != null)
-                        inputStream.close();
-                    if (outputStream != null)
-                        outputStream.close();
-                } catch (IOException e) {
-                    // Means there was an error trying to close the streams, so do nothing
+                    inputStream = context.getResources().openRawResource(resID);
+                    outputStream = new FileOutputStream(outFile);
+
+
+                    // Write in 1024-byte chunks
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    // Keep writing until `inputStream.read()` returns -1, which means we reached the
+                    //  end of the stream
+                    while ((bytesRead = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+
+                } catch (Exception e) {
+                    Log.e("TonesHandler._installTone", "Error writing " + filename, e);
+                    PPApplication.recordException(e);
+                    //Crashlytics.logException(e);
+                    isError = true;
+                } finally {
+                    // Close the streams
+                    try {
+                        if (inputStream != null)
+                            inputStream.close();
+                        if (outputStream != null)
+                            outputStream.close();
+                    } catch (IOException e) {
+                        // Means there was an error trying to close the streams, so do nothing
+                    }
                 }
             }
 
@@ -430,8 +465,11 @@ class TonesHandler {
 
             return !isError;
         }
-        else
+        else {
+            Log.e("TonesHandler._installTone", "path=null");
+            PPApplication.logToCrashlytics("E/TonesHandler._installTone: path=null");
             return false;
+        }
     }
 
     static void installTone(@SuppressWarnings("SameParameterValue") int resID,

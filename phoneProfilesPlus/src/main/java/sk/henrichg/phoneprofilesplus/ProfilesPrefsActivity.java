@@ -507,31 +507,31 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
             String toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
             String[] splits = toneString.split("\\|");
-            Uri soundUri = Uri.parse(splits[0]);
-            if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+            //Uri soundUri = Uri.parse(splits[0]);
+            /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundRingtone = splits[0]+"|1";
-            else
-                profile._soundRingtone = splits[0]+"|0";
+            else*/
+                profile._soundRingtone = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtone=" + profile._soundRingtone);
 
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
             splits = toneString.split("\\|");
-            soundUri = Uri.parse(splits[0]);
-            if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+            //soundUri = Uri.parse(splits[0]);
+            /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundNotification = splits[0]+"|1";
-            else
-                profile._soundNotification = splits[0]+"|0";
+            else*/
+                profile._soundNotification = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotification=" + profile._soundNotification);
 
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
             splits = toneString.split("\\|");
-            soundUri = Uri.parse(splits[0]);
-            if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+            //soundUri = Uri.parse(splits[0]);
+            /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundAlarm = splits[0]+"|1";
-            else
-                profile._soundAlarm = splits[0]+"|0";
+            else*/
+                profile._soundAlarm = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundAlarm=" + profile._soundAlarm);
 
             profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
