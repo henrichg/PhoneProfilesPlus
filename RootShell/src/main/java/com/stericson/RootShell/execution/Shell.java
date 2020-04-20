@@ -818,7 +818,7 @@ public class Shell {
 
                 read = 0;
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 RootShell.log(e.getMessage(), RootShell.LogLevel.ERROR, e);
             } finally {
                 closeQuietly(outputStream);
