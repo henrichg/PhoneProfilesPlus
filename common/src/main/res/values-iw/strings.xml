@@ -1427,6 +1427,8 @@
     <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
     <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

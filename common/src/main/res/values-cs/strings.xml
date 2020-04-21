@@ -1424,6 +1424,8 @@
     <string name="run_applications_error_dialog_text_application">Chyba při spuštění aplikace.</string>
     <string name="run_applications_error_dialog_text_shortcut">Chyba při spuštění odkazu.</string>
     <string name="run_applications_error_dialog_text_intent">Chyba při spuštění intentu.</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Výjimka pro hlasitosti</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Hlasitosti vyzvánění a notifikace nakonfigurované v tomto profilu budou ignorovány, pokud v systému je nastaven \"tichý\" mód zvuku (pouze budíky, vibrování).</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
