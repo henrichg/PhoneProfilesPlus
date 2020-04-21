@@ -1884,6 +1884,9 @@ public class DataWrapper {
         }
         else
         {
+            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
+            //GlobalGUIRoutines.setLanguage(activity);
+
             if (profile._askForDuration/* && interactive*/) {
                 if (!activity.isFinishing()) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this,
@@ -1893,8 +1896,6 @@ public class DataWrapper {
             }
             else {
                 boolean granted;
-                GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
-                //GlobalGUIRoutines.setLanguage(activity);
 
                 //granted = Permissions.grantProfilePermissions(context, profile, false, true,
                 //        /*false, monochrome, monochromeValue,*/
