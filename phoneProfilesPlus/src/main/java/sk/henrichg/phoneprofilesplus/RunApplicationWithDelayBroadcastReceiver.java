@@ -205,16 +205,18 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     try {
                         appIntent = Intent.parseUri(shortcut._intent, 0);
                         if (appIntent != null) {
-                            appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
                                 //TODO show alert dialog with error
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                 context.startActivity(appIntent);
                             } catch (SecurityException e) {
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                 context.startActivity(appIntent);
@@ -239,16 +241,18 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     appIntent = ApplicationEditorIntentActivityX.createIntent(ppIntent);
                     if (appIntent != null) {
                         if (ppIntent._intentType == 0) {
-                            appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
                                 //TODO show alert dialog with error
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                 context.startActivity(appIntent);
                             } catch (SecurityException e) {
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                 context.startActivity(appIntent);
@@ -273,16 +277,18 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             appIntent = packageManager.getLaunchIntentForPackage(packageName);
             if (appIntent != null) {
                 appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
+                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(appIntent);
                 } catch (ActivityNotFoundException ee) {
                     //TODO show alert dialog with error
                     appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                     context.startActivity(appIntent);
                 } catch (SecurityException e) {
                     appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                     context.startActivity(appIntent);

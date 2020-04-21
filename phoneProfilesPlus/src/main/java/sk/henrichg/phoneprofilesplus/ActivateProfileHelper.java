@@ -2109,20 +2109,19 @@ class ActivateProfileHelper {
                                                     //String packageName = intent.getPackage();
                                                     //if (!isRunning(procInfo, packageName)) {
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                                     try {
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         appContext.startActivity(intent);
-                                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                                        //SystemClock.sleep(1000);
-                                                        PPApplication.sleep(1000);
                                                     } catch (ActivityNotFoundException e) {
                                                         //TODO show alert dialog with error
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                                         appContext.startActivity(intent);
                                                     } catch (SecurityException e) {
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                                         appContext.startActivity(intent);
@@ -2147,19 +2146,18 @@ class ActivateProfileHelper {
                                             intent = ApplicationEditorIntentActivityX.createIntent(ppIntent);
                                             if (intent != null) {
                                                 if (ppIntent._intentType == 0) {
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     try {
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         appContext.startActivity(intent);
-                                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                                        //SystemClock.sleep(1000);
-                                                        PPApplication.sleep(1000);
                                                     } catch (ActivityNotFoundException e) {
                                                         //TODO show alert dialog with error
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                                         appContext.startActivity(intent);
                                                     } catch (SecurityException e) {
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                                         appContext.startActivity(intent);
@@ -2170,9 +2168,6 @@ class ActivateProfileHelper {
                                                 } else {
                                                     try {
                                                         appContext.sendBroadcast(intent);
-                                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                                        //SystemClock.sleep(1000);
-                                                        PPApplication.sleep(1000);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
                                                         //Crashlytics.logException(e);
@@ -2190,20 +2185,19 @@ class ActivateProfileHelper {
                                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
                                         //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         try {
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             appContext.startActivity(intent);
-                                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                            //SystemClock.sleep(1000);
-                                            PPApplication.sleep(1000);
                                             //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application started");
                                         } catch (ActivityNotFoundException e) {
                                             //TODO show alert dialog with error
                                             intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                                             appContext.startActivity(intent);
                                         } catch (SecurityException e) {
                                             intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                             appContext.startActivity(intent);
@@ -2216,6 +2210,7 @@ class ActivateProfileHelper {
                                     }
                                 }
                             }
+                            PPApplication.sleep(1000);
                         }
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
