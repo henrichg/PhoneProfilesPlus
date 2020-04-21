@@ -3716,6 +3716,7 @@ public class PhoneProfilesService extends Service
                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                     // not needed clearConnectedDevices(.., true) call it
 
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "BluetoothConnectedDevices.getConnectedDevices()");
                     // duration > 30 seconds because in it is 3 x 10 seconds sleep
                     BluetoothConnectedDevices.getConnectedDevices(appContext);
 
