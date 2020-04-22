@@ -2093,7 +2093,7 @@ class ActivateProfileHelper {
                             //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
                             int startApplicationDelay = Application.getStartApplicationDelay(split);
                             if (Application.getStartApplicationDelay(split) > 0) {
-                                RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, split);
+                                RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
                                 if (Application.isShortcut(split)) {
                                     //Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
@@ -2117,11 +2117,13 @@ class ActivateProfileHelper {
                                                         //TODO show alert dialog with error
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                                         appContext.startActivity(intent);
                                                     } catch (SecurityException e) {
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                                         appContext.startActivity(intent);
@@ -2153,11 +2155,13 @@ class ActivateProfileHelper {
                                                         //TODO show alert dialog with error
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                                         appContext.startActivity(intent);
                                                     } catch (SecurityException e) {
                                                         intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                                         appContext.startActivity(intent);
@@ -2193,11 +2197,13 @@ class ActivateProfileHelper {
                                             //TODO show alert dialog with error
                                             intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                                             appContext.startActivity(intent);
                                         } catch (SecurityException e) {
                                             intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                             appContext.startActivity(intent);

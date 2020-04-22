@@ -21,6 +21,7 @@ import androidx.work.WorkManager;
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_RUN_APPLICATION_DATA = "run_application_data";
+    static final String EXTRA_PROFILE_NAME = "profile_name";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,9 +29,10 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         //CallsCounter.logCounter(context, "RunApplicationWithDelayBroadcastReceiver.onReceive", "RunApplicationWithDelayBroadcastReceiver_onReceive");
 
         if (intent != null) {
+            String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
             String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
             Context appContext = context.getApplicationContext();
-            doWork(appContext, runApplicationData);
+            doWork(appContext, profileName, runApplicationData);
         }
     }
 
@@ -44,7 +46,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     }
 
     @SuppressLint("NewApi")
-    static void setDelayAlarm(Context context, int startApplicationDelay, String runApplicationData)
+    static void setDelayAlarm(Context context, int startApplicationDelay, String profileName, String runApplicationData)
     {
         removeDelayAlarm(context, runApplicationData);
 
@@ -58,6 +60,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                 //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
+                intent.putExtra(EXTRA_PROFILE_NAME, profileName);
                 intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
@@ -85,6 +88,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             else {
                 Data workData = new Data.Builder()
                         .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY)
+                        .putString(EXTRA_PROFILE_NAME, profileName)
                         .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                         .build();
 
@@ -113,6 +117,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
             //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
+            intent.putExtra(EXTRA_PROFILE_NAME, profileName);
             intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
@@ -185,7 +190,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 
-    static void doWork(Context context, String runApplicationData) {
+    static void doWork(Context context, String profileName, String runApplicationData) {
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.doWork", "runApplicationData="+runApplicationData);
 
         //final Context appContext = context.getApplicationContext();
@@ -212,11 +217,13 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 //TODO show alert dialog with error
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                 context.startActivity(appIntent);
                             } catch (SecurityException e) {
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                 context.startActivity(appIntent);
@@ -248,11 +255,13 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 //TODO show alert dialog with error
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                 context.startActivity(appIntent);
                             } catch (SecurityException e) {
                                 appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                 appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                                 context.startActivity(appIntent);
@@ -284,11 +293,13 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     //TODO show alert dialog with error
                     appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                     appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                     context.startActivity(appIntent);
                 } catch (SecurityException e) {
                     appIntent = new Intent(context, RunApplicationsErrorActivity.class);
                     appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                     appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
                     context.startActivity(appIntent);

@@ -43,32 +43,38 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getBaseContext());
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.profile_preferences_deviceRunApplicationsShortcutsChange);
 
             String sException = "";
             if (getIntent().hasExtra(EXTRA_EXCEPTION))
                 sException = getIntent().getStringExtra(EXTRA_EXCEPTION);
 
+            String message = "";
+            if (getIntent().hasExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME)) {
+                message = getString(R.string.profile_string_0) + ": " + getIntent().getStringExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
+                message = message + "\n\n";
+            }
+
             int type = getIntent().getIntExtra(EXTRA_ACTIVITY_TYPE, 0);
             switch (type) {
                 case 1:
-                    String message = getString(R.string.run_applications_error_dialog_text_application);
+                    message = message + getString(R.string.run_applications_error_dialog_text_application);
                     if (!sException.isEmpty())
                         message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
                     dialogBuilder.setMessage(message);
                     break;
                 case 2:
-                    message = getString(R.string.run_applications_error_dialog_text_shortcut);
+                    message = message + getString(R.string.run_applications_error_dialog_text_shortcut);
                     if (!sException.isEmpty())
                         message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
                     dialogBuilder.setMessage(message);
                     break;
                 case 3:
-                    message = getString(R.string.run_applications_error_dialog_text_intent);
+                    message = message + getString(R.string.run_applications_error_dialog_text_intent);
                     if (!sException.isEmpty())
                         message = message + ": " + getIntent().getStringExtra(EXTRA_EXCEPTION);
                     dialogBuilder.setMessage(message);

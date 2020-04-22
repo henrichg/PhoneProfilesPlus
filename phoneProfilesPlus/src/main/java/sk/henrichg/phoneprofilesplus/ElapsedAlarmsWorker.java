@@ -60,6 +60,7 @@ public class ElapsedAlarmsWorker extends Worker {
             //PPApplication.logE("ElapsedAlarmsWorker.doWork", "action=" + action);
 
             long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
+            String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
             String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
@@ -89,7 +90,7 @@ public class ElapsedAlarmsWorker extends Worker {
                     StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
                     break;
                 case ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY:
-                    RunApplicationWithDelayBroadcastReceiver.doWork(appContext, runApplicationData);
+                    RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
                     break;
                 case ELAPSED_ALARMS_PROFILE_DURATION:
                     ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
