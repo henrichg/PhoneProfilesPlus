@@ -34,13 +34,13 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         //Log.d("NotificationVolume0DialogPreferenceFragmentX.showDialog","toneInstalled="+ToneHandler.isToneInstalled(TonesHandler.TONE_ID, _context));
 
-        final String uriId = TonesHandler.getPhoneProfilesSilentUri(preference._context, RingtoneManager.TYPE_NOTIFICATION);
+        final String uriId = TonesHandler.getPhoneProfilesSilentUri(preference.prefContext, RingtoneManager.TYPE_NOTIFICATION);
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference._context);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.prefContext);
 
         //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before layout inflater");
 
-        LayoutInflater inflater = ((Activity)preference._context).getLayoutInflater();
+        LayoutInflater inflater = ((Activity)preference.prefContext).getLayoutInflater();
         @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_notification_volume_0_pref_dialog, null);
         dialogBuilder.setView(layout);
@@ -64,7 +64,7 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
             //if (notificationToneChange.equals(Profile.SHARED_PROFILE_VALUE_STR))
             //    message = message + " " + getString(R.string.default_profile_name);
             //else {
-                message = message + " " + TonesHandler.getToneName(preference._context, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
+                message = message + " " + TonesHandler.getToneName(preference.prefContext, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
             //}
             message = message + "\n\n";
         }

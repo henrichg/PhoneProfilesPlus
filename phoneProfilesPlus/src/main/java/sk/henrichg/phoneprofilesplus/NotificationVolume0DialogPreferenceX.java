@@ -10,12 +10,12 @@ public class NotificationVolume0DialogPreferenceX extends DialogPreference {
 
     NotificationVolume0DialogPreferenceFragmentX fragment;
 
-    final Context _context;
+    final Context prefContext;
 
     public NotificationVolume0DialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        _context = context;
+        prefContext = context;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class NFCTagPreferenceX extends DialogPreference {
 
     List<NFCTag> nfcTagList;
 
-    private final Context context;
+    private final Context prefContext;
 
     //static final int RESULT_NFC_TAG_READ_EDITOR = 3500;
     static final int RESULT_NFC_TAG_WRITE = 3501;
@@ -37,7 +37,7 @@ public class NFCTagPreferenceX extends DialogPreference {
     public NFCTagPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
         
-        this.context = context;
+        this.prefContext = context;
 
         nfcTagList = new ArrayList<>();
     }
@@ -67,7 +67,7 @@ public class NFCTagPreferenceX extends DialogPreference {
                 setSummary(_tag);
             }
             else {
-                String selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
+                String selectedNfcTags = prefContext.getString(R.string.applications_multiselect_summary_text_selected);
                 selectedNfcTags = selectedNfcTags + " " + splits.length;
                 setSummary(selectedNfcTags);
                 break;
@@ -136,9 +136,9 @@ public class NFCTagPreferenceX extends DialogPreference {
 
     void writeToNFCTag(long id, String tag) {
 
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(prefContext);
         if (!nfcAdapter.isEnabled()) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
             dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
             dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
@@ -154,15 +154,15 @@ public class NFCTagPreferenceX extends DialogPreference {
 //                }
 //            });
 
-            if (!((Activity)context).isFinishing())
+            if (!((Activity) prefContext).isFinishing())
                 dialog.show();
             return;
         }
 
-        Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagWriteActivity.class);
+        Intent nfcTagIntent = new Intent(prefContext.getApplicationContext(), NFCTagWriteActivity.class);
         nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, tag);
         nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_DB_ID, id);
-        ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_WRITE);
+        ((Activity) prefContext).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_WRITE);
     }
 
     void setNFCTagFromEditor(String tagName,
@@ -171,9 +171,9 @@ public class NFCTagPreferenceX extends DialogPreference {
         addNfcTag(tagName);
         NFCTag tag = new NFCTag(tagDbId, tagName, tagUid);
         if (tagDbId == 0)
-            DatabaseHandler.getInstance(context).addNFCTag(tag);
+            DatabaseHandler.getInstance(prefContext).addNFCTag(tag);
         else
-            DatabaseHandler.getInstance(context).updateNFCTag(tag);
+            DatabaseHandler.getInstance(prefContext).updateNFCTag(tag);
         refreshListView(tagName);
     }
 
