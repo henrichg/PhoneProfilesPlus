@@ -1421,7 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für eine lautlose Benachrichtigung legen Sie den Benachrichtigungston auf „PhoneProfile Lautlos” oder „Kein” fest.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für eine lautlose Benachrichtigung legen Sie den Benachrichtigungston auf „Kein” fest.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

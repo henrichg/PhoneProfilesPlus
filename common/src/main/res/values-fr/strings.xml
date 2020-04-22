@@ -1421,7 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Erreur lors du démarrage de l\'activité.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pour un volume de notification vraiment silencieux, configurez le ton de notification à \"PhoneProfiles Silent\" ou \"None\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pour un volume de notification vraiment silencieux, configurez le ton de notification à \"None\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

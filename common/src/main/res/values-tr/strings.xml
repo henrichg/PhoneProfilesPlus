@@ -1421,7 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Intent başlangıcında hata.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Gerçek sessiz bildirim ses seviyesi için, bildirim sesini \"PhoneProfiles Sessiz\" veya \"Yok\" olarak ayarlayın.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Gerçek sessiz bildirim ses seviyesi için, bildirim sesini \"Yok\" olarak ayarlayın.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

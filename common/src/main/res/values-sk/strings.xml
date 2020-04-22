@@ -1421,7 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Chyba pri spustení intentu.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Výnimka pre hlasitosti</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Hlasitosti zvonenia a notifikácie nakonfigurované v tomto profile budú ignorované, ak v systéme je nastavený \"tichý\" mód zvuku (iba budíky, vibrovanie).</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pre úplne tichú hlasitosť notifikácií, nakonfigurujte tón notifikácie na \"PhoneProfiles Silent\" alebo \"Žiadny\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pre úplne tichú hlasitosť notifikácií, nakonfigurujte tón notifikácie na \"Žiadny\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
