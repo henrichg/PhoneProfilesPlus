@@ -379,8 +379,6 @@
     <string name="permissions_for_profile_text_notification">Prośba o uprawnienia</string>
     <string name="permissions_for_profile_big_text_notification">wymaga przyznania pewnych uprawnień.</string>
     <string name="permissions_notification_text">Prośba o uprawnienia</string>
-    <string name="toast_tone_installation_installed_ok">Dźwięk \"PhoneProfiles Silent\" zainstalowany.</string>
-    <string name="toast_tone_installation_installed_error">Błąd podczas instalowania dźwięku \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Uprawnienia już zostały otrzymane</string>
     <string name="toast_permissions_not_granted">Nie przyznano uprawnień</string>
     <string name="permissions_for_wallpaper_text1">Wybór tapet wymaga pewnych uprawnień.</string>
@@ -671,7 +669,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Parametry aktywacji</string>
     <string name="profile_preferences_category_profileDeviceParameters">Parametry urządzenia</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Zmień dźwięk powiadomień</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Dźwięk powiadomień \"PhoneProfiles Silent\" jest skonfigurowany.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Twoje urządzenie ma połączone poziomy głośności dla dzwonku i powiadomienia. Możesz użyć \"Odłącz głośność dzwonku i powiadomień\". Kliknij tutaj i skonfiguruj to.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Twoje urządzenie ma połączone poziomy głośności dla dzwonka i powiadomień. Jeśli chcesz je rozłączyć, włącz ten parametr.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Użyj priorytetu</string>
@@ -1196,8 +1193,6 @@
     <string name="important_info_profile_type_of_preferences">Rodzaje preferencji:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Ustaw dźwięk powiadomień na:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Ustawiono brak dźwięku powiadomień.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Dla wyciszenia powiadomień, ustaw dźwięk powiadomień na \"PhoneProfiles Silent\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Dźwięk powiadomień \"PhoneProfiles Silent\" nie jest zainstalowany. Proszę zainstalować go z menu edytora i spróbować ponownie.</string>
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Kliknij tu, aby pokazać, jak działa \"Rozłącz głośność dzwonka i powiadomień\".</string>
     <string name="profile_preferences_volumeSoundMode">Tryb dźwięku</string>
     <string name="array_pref_soundModeArray_sound">Dźwięk</string>
@@ -1427,6 +1422,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Dla wyciszenia powiadomień, ustaw dźwięk powiadomień na \"PhoneProfiles Silent\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1699,4 +1695,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+    <!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+    <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 </resources>

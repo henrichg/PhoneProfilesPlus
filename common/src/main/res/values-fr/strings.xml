@@ -379,8 +379,6 @@
     <string name="permissions_for_profile_text_notification">Demande d\'autorisation</string>
     <string name="permissions_for_profile_big_text_notification">nécessite certaines autorisations.</string>
     <string name="permissions_notification_text">Demande d\'autorisation</string>
-    <string name="toast_tone_installation_installed_ok">tone \"PhoneProfiles silencieux\" installé.</string>
-    <string name="toast_tone_installation_installed_error">Erreur lors de l\'installation de \"PhoneProfiles silencieux\"!</string>
     <string name="toast_permissions_granted">Les permissions sont déjà octroyées</string>
     <string name="toast_permissions_not_granted">Les autorisations ne sont pas accordées</string>
     <string name="permissions_for_wallpaper_text1">La sélection de fond d\'écran nécessite certaines autorisations.</string>
@@ -671,7 +669,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Paramètres d’activation</string>
     <string name="profile_preferences_category_profileDeviceParameters">Paramètres de l’appareil</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Changement de Tonalité de notification</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Tonalité de notification \"PhoneProfiles silencieux\" est configurée.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Votre appareil a fusionné le volume de la sonnerie d’appel et les notifications. Vous pouvez utiliser \"dissocier le volume de sonnerie et de notification\". Cliquez ici pour le configurer.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Votre appareil a fusionné le volume de la sonnerie d’appel et les notifications. Activer ce paramètre pour les dissocier.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Priorité d\'utilisation</string>
@@ -1196,8 +1193,6 @@
     <string name="important_info_profile_type_of_preferences">Type de préférences :</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configurer le son de notification à :</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Le son de notification \"Aucun\" est configuré.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pour un volume de notification vraiment silencieux, configurez le ton de notification à \"PhoneProfiles Silent\" ou \"None\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Le ton de notification \"PhoneProfiles Silent\" n\'est pas installé. Veuillez l\'installer dans le paramètre \"Sons\".</string>
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Cliquez ici pour afficher comment \"Délier la sonnerie et les volumes de notification\".</string>
     <string name="profile_preferences_volumeSoundMode">Profil sonore</string>
     <string name="array_pref_soundModeArray_sound">Sons</string>
@@ -1426,6 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Erreur lors du démarrage de l\'activité.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pour un volume de notification vraiment silencieux, configurez le ton de notification à \"PhoneProfiles Silent\" ou \"None\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1698,4 +1694,8 @@
     <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+    <!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+    <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 </resources>

@@ -379,8 +379,6 @@
     <string name="permissions_for_profile_text_notification">Zahtjev za dopuštenjem</string>
     <string name="permissions_for_profile_big_text_notification">potrebne su neke dozvole da se omoguće.</string>
     <string name="permissions_notification_text">Potrebne dozvole</string>
-    <string name="toast_tone_installation_installed_ok">Zvuk \"PhoneProfiles Silent\" je instaliran.</string>
-    <string name="toast_tone_installation_installed_error">Pogreška pri instalaciji zvuka \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Dozvole su već omogućene</string>
     <string name="toast_permissions_not_granted">Dozvole nisu odobrene</string>
     <string name="permissions_for_wallpaper_text1">Odabir pozadine zahteva određene dozvole.</string>
@@ -671,7 +669,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Parametri aktivacije</string>
     <string name="profile_preferences_category_profileDeviceParameters">Parametri uređaja</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Promjenite ton obavijesti</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Zvuk obavijesti \"PhoneProfiles Tišina\" je konfiguriran.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Vaš uređaj ima povezane razine jačine zvuka zvona i obavijesti. Možete koristiti \"Razdvoji tonove zvona i glasnoće obavijesti\". Kliknite ovdje da biste ga konfigurirali.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Vaš uređaj ima povezane glasnoće zvuka zvona i obavijesti. Ako želite razdvajanje zvukova zvona i obavijesti omogućite ovaj parametar.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Koristi prioritet</string>
@@ -1196,8 +1193,6 @@
     <string name="important_info_profile_type_of_preferences">Tip postavki:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Podesi zvuk obavijesti na:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Zvuk obavijesti \"Nijedan\" je postavljen.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Za potpuno bezvučnu obavijest, postavite zvuk obavijesti na \"Telefonski profil bez zvuka\" ili \"Nijedan\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Zvuk obavijesti \"Zvučni profil bez zvuka\" nije instaliran. Instalirajte ga u parametru profila \"Zvukovi\".</string>
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Klikni ovdje za prikaz kako da uradite \" Razdvajanje glasnoća zvuka zvona i obavijesti\".</string>
     <string name="profile_preferences_volumeSoundMode">Zvučni način</string>
     <string name="array_pref_soundModeArray_sound">Zvuk</string>
@@ -1426,6 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Pogreška pri startu namere.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Za potpuno bezvučnu obavijest, postavite zvuk obavijesti na \"Telefonski profil bez zvuka\" ili \"Nijedan\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1698,4 +1694,8 @@
     <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+    <!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+    <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 </resources>

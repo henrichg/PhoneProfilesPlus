@@ -379,8 +379,6 @@
     <string name="permissions_for_profile_text_notification">Toestemming aanvragen</string>
     <string name="permissions_for_profile_big_text_notification">vereist dat sommige machtigingen worden verleend.</string>
     <string name="permissions_notification_text">Toestemming aanvragen</string>
-    <string name="toast_tone_installation_installed_ok">Geluid \"PhoneProfiles Silente\" geïnstalleerd.</string>
-    <string name="toast_tone_installation_installed_error">Fout bij het installeren van geluid \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Machtigingen zijn al toegekend</string>
     <string name="toast_permissions_not_granted">Machtigingen zijn niet toegekend</string>
     <string name="permissions_for_wallpaper_text1">Selecteren van achtergrond vereist machtigingen.</string>
@@ -671,7 +669,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Activatie parameters</string>
     <string name="profile_preferences_category_profileDeviceParameters">Apparaat parameters</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Wijzig melding toon</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Melding toon \"PhoneProfiles Stil\" geconfigureerd.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Je apparaat heeft een samengevoegd volume voor beltoon en melding toon. Je kunt \"Volume ontkoppelen\" instellen. Tik hier om te configureren.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Je apparaat heeft een samengevoegd volume voor beltoon en melding toon. Als je ontkoppeld volume wilt, deze parameter aanvinken.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Gebruik prioriteit</string>
@@ -1196,8 +1193,6 @@
     <string name="important_info_profile_type_of_preferences">Type voorkeuren:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configureer meldingstoon naar:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Meldingstoon \"Geen\" is geconfigureerd.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Voor echt stille meldingsgolume, configureer meldingentoon naar \"PhoneProfiles Silent\" of \"Geen\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Meldingentoon \"PhoneProfiles Silent\" is niet geïnstalleerd. Installeer het in profielparameter \"Geluiden\".</string>
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Tik hier om te zien hoe \"Beltoon- en meldingsvolumes ontkoppelen\" werkt.</string>
     <string name="profile_preferences_volumeSoundMode">Geluidsmodus</string>
     <string name="array_pref_soundModeArray_sound">Geluid</string>
@@ -1424,8 +1419,9 @@
     <string name="run_applications_error_dialog_text_application">Fout bij het starten van het programma.</string>
     <string name="run_applications_error_dialog_text_shortcut">Fout bij starten snelkoppeling.</string>
     <string name="run_applications_error_dialog_text_intent">Fout bij het starten van de intent.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Uitzondering voor volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Voor echt stille meldingsgolume, configureer meldingentoon naar \"PhoneProfiles Silent\" of \"Geen\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1698,4 +1694,8 @@
     <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+    <!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+    <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 </resources>

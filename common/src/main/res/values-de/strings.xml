@@ -379,8 +379,6 @@
     <string name="permissions_for_profile_text_notification">Berechtigungsanforderung</string>
     <string name="permissions_for_profile_big_text_notification">Erfordert die Erteilung einiger Berechtigungen.</string>
     <string name="permissions_notification_text">Berechtigungsanforderung</string>
-    <string name="toast_tone_installation_installed_ok">Ton \"PhoneProfiles Lautlos\" installiert.</string>
-    <string name="toast_tone_installation_installed_error">Fehler bei der Installation des Klingeltons „PhoneProfiles Lautlos”!</string>
     <string name="toast_permissions_granted">Berechtigungen sind bereits erteilt.</string>
     <string name="toast_permissions_not_granted">Berechtigungen wurden nicht erteilt.</string>
     <string name="permissions_for_wallpaper_text1">Die Einstellung des Hintergrundbildes erfordert Berechtigungen.</string>
@@ -671,7 +669,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Aktivierungsparameter</string>
     <string name="profile_preferences_category_profileDeviceParameters">Geräte-Parameter</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Benachrichtigungston ändern</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Benachrichtigungston \"PhoneProfiles Lautlos\" ist konfiguriert.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Dein Gerät hat verbundene Anruf- und Benachrichtigungs-Lautstärke. Klicke hier, wenn du sie trennen willst.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Ihr Gerät verfügt über verbundene Rufton- und Benachrichtigungs-Lautstärke. Aktivieren Sie diese Option, um sie getrennt festzulegen.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Prioritäten verwenden</string>
@@ -1196,8 +1193,6 @@
     <string name="important_info_profile_type_of_preferences">Art der Einstellungen:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Benachrichtigungston festlegen:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Benachrichtigungston „Kein” ist festgelegt.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für eine lautlose Benachrichtigung legen Sie den Benachrichtigungston auf „PhoneProfile Lautlos” oder „Kein” fest.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Der Benachrichtigungston „PhoneProfiles Lautlos” ist nicht installiert. Bitte installieren Sie es im Profilparameter „Töne”.</string>
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Hier klicken, um die Funktionsweise von „Ruftonlautstärke und Benachrichtigungslautstärke getrennt festlegen” zu veranschaulichen.</string>
     <string name="profile_preferences_volumeSoundMode">Audiomodus</string>
     <string name="array_pref_soundModeArray_sound">Töne</string>
@@ -1426,6 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für eine lautlose Benachrichtigung legen Sie den Benachrichtigungston auf „PhoneProfile Lautlos” oder „Kein” fest.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1698,4 +1694,8 @@
     <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+    <!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+    <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 </resources>

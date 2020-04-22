@@ -16,7 +16,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.AttributeSet;
-import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
@@ -328,7 +327,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         Context appContext = prefContext.getApplicationContext();
 
-                        if (TonesHandler.isPhoneProfilesSilent(_ringtoneUri, appContext)) {
+                        /*if (TonesHandler.isPhoneProfilesSilent(_ringtoneUri, appContext)) {
                             //String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
                             //File soundFile = new File(appContext.getFilesDir(), filename);
                             // /data/user/0/sk.henrichg.phoneprofilesplus/files
@@ -337,7 +336,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             Log.e("RingtonePreferenceX.playRingtone", "phoneprofiles_silent.ogg");
                             return;
                         }
-                        else {
+                        else*/ {
                             if (mediaPlayer == null)
                                 mediaPlayer = new MediaPlayer();
 

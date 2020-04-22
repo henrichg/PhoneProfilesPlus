@@ -21,7 +21,7 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
     private NotificationVolume0DialogPreferenceX preference;
 
-    private RadioButton phoneProfilesSilentRB;
+    //private RadioButton phoneProfilesSilentRB;
 
     @NonNull
     @Override
@@ -34,7 +34,7 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         //Log.d("NotificationVolume0DialogPreferenceFragmentX.showDialog","toneInstalled="+ToneHandler.isToneInstalled(TonesHandler.TONE_ID, _context));
 
-        final String uriId = TonesHandler.getPhoneProfilesSilentUri(preference.prefContext, RingtoneManager.TYPE_NOTIFICATION);
+        //final String uriId = TonesHandler.getPhoneProfilesSilentUri(preference.prefContext, RingtoneManager.TYPE_NOTIFICATION);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.prefContext);
 
@@ -53,8 +53,8 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "before configure builder");
 
-        if (uriId.isEmpty())
-            message = getString(R.string.profile_preferences_volumeNotificationVolume0_toneNotInstalled) + "\n\n";
+        //if (uriId.isEmpty())
+        //    message = getString(R.string.profile_preferences_volumeNotificationVolume0_toneNotInstalled) + "\n\n";
 
         String notificationToneChange = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
         String notificationTone = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
@@ -76,9 +76,9 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
             public void onClick(DialogInterface dialogInterface, int i) {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "1");
-                if ((!uriId.isEmpty()) && (phoneProfilesSilentRB.isChecked()))
-                    editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
-                else
+                //if ((!uriId.isEmpty()) && (phoneProfilesSilentRB.isChecked()))
+                //    editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
+                //else
                     editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
                 editor.apply();
             }
@@ -104,32 +104,32 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
         TextView text = layout.findViewById(R.id.notification_0_pref_dialog_text);
         text.setText(message);
 
-        phoneProfilesSilentRB = layout.findViewById(R.id.notification_0_pref_dialog_PhoneProfilesSilent_rb);
+        //phoneProfilesSilentRB = layout.findViewById(R.id.notification_0_pref_dialog_PhoneProfilesSilent_rb);
         final RadioButton noneRB = layout.findViewById(R.id.notification_0_pref_dialog_None_rb);
 
-        if (uriId.isEmpty()) {
-            phoneProfilesSilentRB.setVisibility(View.GONE);
+        //if (uriId.isEmpty()) {
+        //    phoneProfilesSilentRB.setVisibility(View.GONE);
             noneRB.setChecked(true);
-        }
-        else {
-            phoneProfilesSilentRB.setText(TonesHandler.TONE_NAME);
-            phoneProfilesSilentRB.setChecked(true);
-            phoneProfilesSilentRB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    noneRB.setChecked(false);
-                }
-            });
-        }
+        //}
+        //else {
+        //    phoneProfilesSilentRB.setText(TonesHandler.TONE_NAME);
+        //    phoneProfilesSilentRB.setChecked(true);
+        //    phoneProfilesSilentRB.setOnClickListener(new View.OnClickListener() {
+        //        @Override
+        //        public void onClick(View v) {
+        //            noneRB.setChecked(false);
+        //        }
+        //    });
+        //}
 
         noneRB.setText(R.string.ringtone_preference_none);
-        noneRB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!uriId.isEmpty())
-                    phoneProfilesSilentRB.setChecked(false);
-            }
-        });
+        //noneRB.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        if (!uriId.isEmpty())
+        //            phoneProfilesSilentRB.setChecked(false);
+        //    }
+        //});
 
         return dialog;
     }

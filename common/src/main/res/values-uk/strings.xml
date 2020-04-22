@@ -379,8 +379,6 @@
     <string name="permissions_for_profile_text_notification">Запит дозволів</string>
     <string name="permissions_for_profile_big_text_notification">потребує додаткових дозволів.</string>
     <string name="permissions_notification_text">Запит дозволів</string>
-    <string name="toast_tone_installation_installed_ok">Звук «PhoneProfiles Silent» встановлено.</string>
-    <string name="toast_tone_installation_installed_error">Помилка встановлення звуку «PhoneProfiles Silent»!</string>
     <string name="toast_permissions_granted">Дозволи надано</string>
     <string name="toast_permissions_not_granted">Дозволів не надано</string>
     <string name="permissions_for_wallpaper_text1">Вибір шпалер потребує додаткових дозволів.</string>
@@ -671,7 +669,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Параметри активації</string>
     <string name="profile_preferences_category_profileDeviceParameters">Параметри пристрою</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Змінити сигнал сповіщення</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Сигнал сповіщення «PhoneProfiles Silent» встановлено.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">На Вашому пристрої об\'єднано рівні гучності дзвінка і сповіщень. Можна використовувати «Роз\'єднані рівні гучності дзвінка та сповіщень». Натисніть тут, щоб налаштувати.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Рівні гучності дзвінка і сповіщень на Вашому пристрої об\'єднані. Якщо ви хочете розділити їх, увімкніть цей параметр.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Пріоритет використання</string>
@@ -1196,8 +1193,6 @@
     <string name="important_info_profile_type_of_preferences">Тип налаштувань:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Встановити сигнал сповіщення на:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Сигнал сповіщення \"Немає\" встановлено.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Тиша\" або \"Немає\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Сигнал сповіщення \"Тиша\" НЕ встановлено. Будь ласка, встановіть його в параметрах профілю \"Звуки\".</string>
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Натисніть тут щоб побачити як \"Об\'єднання рівнів гучності для дзвінків та сповіщень\" працює.</string>
     <string name="profile_preferences_volumeSoundMode">Режим звуку</string>
     <string name="array_pref_soundModeArray_sound">Звук</string>
@@ -1426,6 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Помилка при запуску intent.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Тиша\" або \"Немає\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1698,4 +1694,8 @@
     <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+    <!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+    <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 </resources>

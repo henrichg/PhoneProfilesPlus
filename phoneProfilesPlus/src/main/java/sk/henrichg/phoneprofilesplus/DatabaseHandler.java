@@ -4662,9 +4662,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.beginTransaction();
 
                     // get "PhoneProfiles Silent" uris from system
-                    String ppSilentRingtoneUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_RINGTONE);
-                    String ppSilentNotificationUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
-                    String ppSilentAlarmUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_ALARM);
+                    //String ppSilentRingtoneUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_RINGTONE);
+                    //String ppSilentNotificationUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
+                    //String ppSilentAlarmUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_ALARM);
 
                     // looping through all rows and adding to list
                     if (cursor.moveToFirst()) {
@@ -4685,7 +4685,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if (TonesHandler.searchUri(context, RingtoneManager.TYPE_RINGTONE, splits[0]).isEmpty()) {
                                     // ringtone uri not exists in RingtoneManager, maybe it is "PhoneProfiles Silent"
                                     //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_RINGTONE="+ppSilentRingtoneUri);
-                                    values.put(KEY_SOUND_RINGTONE, ppSilentRingtoneUri);
+                                    values.put(KEY_SOUND_RINGTONE, "");
                                 }
                             }
                             splits = soundNotification.split("\\|");
@@ -4696,7 +4696,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if (TonesHandler.searchUri(context, RingtoneManager.TYPE_NOTIFICATION, splits[0]).isEmpty()) {
                                     // ringtone uri not exists in RingtoneManager, maybe it is "PhoneProfiles Silent"
                                     //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_NOTIFICATION="+ppSilentNotificationUri);
-                                    values.put(KEY_SOUND_NOTIFICATION, ppSilentNotificationUri);
+                                    values.put(KEY_SOUND_NOTIFICATION, "");
                                 }
                             }
                             splits = soundAlarm.split("\\|");
@@ -4707,7 +4707,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if (TonesHandler.searchUri(context, RingtoneManager.TYPE_ALARM, splits[0]).isEmpty()) {
                                     // ringtone uri not exists in RingtoneManager, maybe it is "PhoneProfiles Silent"
                                     //PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_ALARM="+ppSilentAlarmUri);
-                                    values.put(KEY_SOUND_ALARM, ppSilentAlarmUri);
+                                    values.put(KEY_SOUND_ALARM, "");
                                 }
                             }
 

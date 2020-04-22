@@ -379,8 +379,6 @@
     <string name="permissions_for_profile_text_notification">Engedély kérelem</string>
     <string name="permissions_for_profile_big_text_notification">engedéllyel kell rendelkeznie.</string>
     <string name="permissions_notification_text">Engedély kérelem</string>
-    <string name="toast_tone_installation_installed_ok">\"Csendes PhoneProfiles\" hangok telepítve.</string>
-    <string name="toast_tone_installation_installed_error">Hiba történt a \"Csendes PhoneProfiles\" hang telepítésénél!</string>
     <string name="toast_permissions_granted">Már engedélyezett</string>
     <string name="toast_permissions_not_granted">Nem engedélyezett</string>
     <string name="permissions_for_wallpaper_text1">Háttér módosításához, néhány engedéllyel kell rendelkeznie.</string>
@@ -671,7 +669,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Aktiválási paraméterek</string>
     <string name="profile_preferences_category_profileDeviceParameters">Készülék paraméterek</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Értesítési hang módosítása</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">\"Csendes PhoneProfiles\" értesítési hang van konfigurálva.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">A készülék egyesíti a csengetési és értesítési hangerőket. Akarod a \"Csengetési és értesítési hangerők szétválasztását\". Kattintson ide a változtatáshoz.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">A készülék összevonta a csengetési és értesítési hangerőket. Ha akarja szétválaszthatja a hangerő paramétereket.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Prioritás használata</string>
@@ -1196,8 +1193,6 @@
     <string name="important_info_profile_type_of_preferences">Beállítási lehetőségek:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Konfigurálja az értesítési hangot:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">A \"Nincs\" értesítési hang konfigurálva.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Az igazán csendes értesítési hangerő érdekében konfigurálja az értesítési hangot \"PhoneProfiles Silent\" vagy \"Nincs\" értékre.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">A \"PhoneProfiles Silent\" értesítési hang nincs telepítve. Kérjük, telepítse a \"Hangok\" profilparaméterbe.</string>
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Kattintson ide, hogy megmutatja, hogyan működik a \"Csengő és az értesítési hangerő lekapcsolása\".</string>
     <string name="profile_preferences_volumeSoundMode">Hang üzemmód</string>
     <string name="array_pref_soundModeArray_sound">Hang</string>
@@ -1426,6 +1421,7 @@
     <string name="run_applications_error_dialog_text_intent">Hiba a szándék kezdetekor.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Az igazán csendes értesítési hangerő érdekében konfigurálja az értesítési hangot \"PhoneProfiles Silent\" vagy \"Nincs\" értékre.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1698,4 +1694,8 @@
     <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
     <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+    <!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+    <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 </resources>

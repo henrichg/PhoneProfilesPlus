@@ -384,8 +384,6 @@
     <string name="permissions_for_profile_text_notification">Permissions request</string>
     <string name="permissions_for_profile_big_text_notification">requires some permissions to be granted.</string>
     <string name="permissions_notification_text">Permissions request</string>
-    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>
-    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Permissions are already granted</string>
     <string name="toast_permissions_not_granted">Permissions are not granted</string>
     <string name="permissions_for_wallpaper_text1">Selecting wallpaper requires some permissions.</string>
@@ -676,7 +674,6 @@
     <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
     <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Your device has linked volume levels for ringtone and notifications. You can use \"Unlink ringer and notification volumes\". Click here to configure it.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has linked volumes for ringtone and notifications. If you want unlinked volumes, enable this parameter.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
@@ -1219,8 +1216,6 @@
     <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
 
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
 
@@ -1515,6 +1510,8 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
 
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1803,6 +1800,11 @@
 <!--    <string name="array_pref_soundModeArray_silentL">Priority mode</string>-->
 <!--    <string name="array_pref_soundModeArray_ZenModeL_Off">Interruptions off</string>-->
 <!--    <string name="array_pref_soundModeArray_ZenModeL_On">Interruptions on</string>-->
+
+<!--    <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>-->
+<!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
+<!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
+<!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 
 </resources>
 
