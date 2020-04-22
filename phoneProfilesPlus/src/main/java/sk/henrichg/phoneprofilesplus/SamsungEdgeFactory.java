@@ -32,16 +32,21 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
   
     private void createProfilesDataWrapper()
     {
+        String applicationWidgetListIconLightness;
+        String applicationSamsungEdgeIconColor;
+        boolean applicationSamsungEdgeCustomIconLightness;
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
+            applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
+            applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
+        }
+
         int monochromeValue = 0xFF;
-        String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
         if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
         if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
         if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
         if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
         //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
-
-        String applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
-        boolean applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
 
         if (dataWrapper == null)
         {
@@ -110,8 +115,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         Profile profile = getItem(position);
 
         if (profile != null) {
-            String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
-            boolean applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
+            String applicationWidgetListLightnessT;
+            boolean applicationSamsungEdgeHeader;
+            synchronized (PPApplication.applicationPreferencesMutex) {
+                applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
+                applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
+            }
 
             if (profile.getIsIconResourceID()) {
                 if (profile._iconBitmap != null)
@@ -212,7 +221,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
         dataWrapper.getEventTimelineList(true);
 
-        if (!ApplicationPreferences.applicationSamsungEdgeHeader)
+        boolean applicationSamsungEdgeHeader;
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
+        }
+
+        if (!applicationSamsungEdgeHeader)
         {
             // show activated profile in list if is not showed in activator
             Profile profile = dataWrapper.getActivatedProfile(newProfileList);

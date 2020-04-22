@@ -28,16 +28,28 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         RemoteViews widget;
 
-        boolean applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
-        boolean applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;
-        String applicationSamsungEdgeBackgroundColor = ApplicationPreferences.applicationSamsungEdgeBackgroundColor;
-        String applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB;
-        String applicationWidgetListBackground = ApplicationPreferences.applicationSamsungEdgeBackground;
-        String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
-        String applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
-        boolean applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
-        String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
-        String applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition;
+        boolean applicationSamsungEdgeHeader;
+        boolean applicationSamsungEdgeBackgroundType;
+        String applicationSamsungEdgeBackgroundColor;
+        String applicationWidgetListLightnessB;
+        String applicationWidgetListBackground;
+        String applicationWidgetListIconLightness;
+        String applicationSamsungEdgeIconColor;
+        boolean applicationSamsungEdgeCustomIconLightness;
+        String applicationWidgetListLightnessT;
+        String applicationSamsungEdgeVerticalPosition;
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
+            applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;
+            applicationSamsungEdgeBackgroundColor = ApplicationPreferences.applicationSamsungEdgeBackgroundColor;
+            applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB;
+            applicationWidgetListBackground = ApplicationPreferences.applicationSamsungEdgeBackground;
+            applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
+            applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
+            applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
+            applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
+            applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition;
+        }
 
         if (applicationSamsungEdgeHeader)
         {

@@ -4298,19 +4298,34 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile changed");
         }*/
 
-        String notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
-        boolean notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon && (Build.VERSION.SDK_INT >= 24);
-        boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
-        //boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
-        //boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
-        boolean notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
-        boolean notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator;
-        boolean notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
-        String notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle;
-        String notificationTextColor = ApplicationPreferences.notificationTextColor;
-        String notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor;
-        int notificationBackgroundCustomColor = ApplicationPreferences.notificationBackgroundCustomColor;
-        boolean notificationNightMode = ApplicationPreferences.notificationNightMode;
+        String notificationNotificationStyle;
+        boolean notificationShowProfileIcon;
+        boolean notificationShowInStatusBar;
+        //boolean notificationStatusBarPermanent;
+        //boolean notificationDarkBackground;
+        boolean notificationUseDecoration;
+        boolean notificationPrefIndicator;
+        boolean notificationHideInLockScreen;
+        String notificationStatusBarStyle;
+        String notificationTextColor;
+        String notificationBackgroundColor;
+        int notificationBackgroundCustomColor;
+        boolean notificationNightMode;
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+            notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon && (Build.VERSION.SDK_INT >= 24);
+            notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
+            //notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
+            //notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
+            notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
+            notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator;
+            notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
+            notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle;
+            notificationTextColor = ApplicationPreferences.notificationTextColor;
+            notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor;
+            notificationBackgroundCustomColor = ApplicationPreferences.notificationBackgroundCustomColor;
+            notificationNightMode = ApplicationPreferences.notificationNightMode;
+        }
 
         Notification.Builder notificationBuilder;
 
