@@ -3080,7 +3080,7 @@ public class DataWrapper {
                                         (_event._eventPreferencesBattery._levelHight < 100);
                             }
                             break;
-                        case DatabaseHandler.ETYPE_ALL_SENSORS:
+                        case DatabaseHandler.ETYPE_ALL_SCANNER_SENSORS:
                             sensorEnabled = _event._eventPreferencesWifi._enabled &&
                                     ((_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                                      (_event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY));

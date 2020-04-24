@@ -103,7 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_ALARM_CLOCK = 27;
     static final int ETYPE_TIME_TWILIGHT = 28;
     static final int ETYPE_BATTERY_WITH_LEVEL = 29;
-    static final int ETYPE_ALL_SENSORS = 30;
+    static final int ETYPE_ALL_SCANNER_SENSORS = 30;
     static final int ETYPE_DEVICE_BOOT = 31;
 
     // Profiles Table Columns names
