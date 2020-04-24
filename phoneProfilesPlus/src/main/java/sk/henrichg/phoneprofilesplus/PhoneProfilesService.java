@@ -470,7 +470,7 @@ public class PhoneProfilesService extends Service
         applicationFullyStarted = false;
 
         // cancel works
-        cancelAllWorks(appContext);
+        //cancelAllWorks(appContext);
     }
 
     static void cancelWork(String name, Context context) {
