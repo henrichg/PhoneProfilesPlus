@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidClearChroma/AndroidClearChroma.iml" filepath="$PROJECT_DIR$/AndroidClearChroma/AndroidClearChroma.iml" group="PhoneProfilesPlus/AndroidClearChroma" />
       <module fileurl="file://$PROJECT_DIR$/PhoneProfilesPlus.iml" filepath="$PROJECT_DIR$/PhoneProfilesPlus.iml" group="PhoneProfilesPlus" />
-      <module fileurl="file://$PROJECT_DIR$/android-betterpickers/PhoneProfilesPlus-android-betterpickers.iml" filepath="$PROJECT_DIR$/android-betterpickers/PhoneProfilesPlus-android-betterpickers.iml" group="PhoneProfilesPlus/android-betterpickers" />
       <module fileurl="file://$PROJECT_DIR$/RootShell/RootShell.iml" filepath="$PROJECT_DIR$/RootShell/RootShell.iml" group="PhoneProfilesPlus/RootShell" />
       <module fileurl="file://$PROJECT_DIR$/RootTools/RootTools.iml" filepath="$PROJECT_DIR$/RootTools/RootTools.iml" group="PhoneProfilesPlus/RootTools" />
       <module fileurl="file://$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" filepath="$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" group="PhoneProfilesPlus/android-betterpickers" />
