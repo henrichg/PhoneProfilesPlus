@@ -1297,8 +1297,10 @@ class ActivateProfileHelper {
                 if (!profile._soundRingtone.isEmpty()) {
                     try {
                         String[] splits = profile._soundRingtone.split("\\|");
-                        //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, Uri.parse(splits[0]));
+                        if (!splits[0].isEmpty()) {
+                            //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, Uri.parse(splits[0]));
+                        }
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
@@ -1330,8 +1332,10 @@ class ActivateProfileHelper {
                 if (!profile._soundNotification.isEmpty()) {
                     try {
                         String[] splits = profile._soundNotification.split("\\|");
-                        //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, splits[0]);
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(splits[0]));
+                        if (!splits[0].isEmpty()) {
+                            //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, splits[0]);
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(splits[0]));
+                        }
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
@@ -1363,8 +1367,10 @@ class ActivateProfileHelper {
                 if (!profile._soundAlarm.isEmpty()) {
                     try {
                         String[] splits = profile._soundAlarm.split("\\|");
-                        //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, splits[0]);
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, Uri.parse(splits[0]));
+                        if (!splits[0].isEmpty()) {
+                            //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, splits[0]);
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, Uri.parse(splits[0]));
+                        }
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
