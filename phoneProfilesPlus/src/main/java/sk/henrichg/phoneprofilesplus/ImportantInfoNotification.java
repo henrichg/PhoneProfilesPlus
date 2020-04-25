@@ -32,7 +32,15 @@ class ImportantInfoNotification {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = PPApplication.getVersionCode(pInfo);
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
-            if ((packageVersionCode > savedVersionCode)){
+
+            // do not show notification, version code is not saved
+            // typically it is for new users
+            if (savedVersionCode == 0) {
+                setShowInfoNotificationOnStart(context, false, packageVersionCode);
+                return;
+            }
+
+            if ((packageVersionCode > savedVersionCode)) {
                 show = canShowNotification(packageVersionCode, savedVersionCode, context);
                 //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
                 setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
@@ -55,12 +63,12 @@ class ImportantInfoNotification {
             //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
 
             if (show == 1)
-                showNotification(context, savedVersionCode == 0,
+                showNotification(context, false/*savedVersionCode == 0*/,
                         context.getString(R.string.info_notification_title),
                         context.getString(R.string.info_notification_text));
             else
             if (show == 2)
-                showNotification(context, savedVersionCode == 0,
+                showNotification(context, false/*savedVersionCode == 0*/,
                         context.getString(R.string.info_notification_title),
                         context.getString(R.string.important_info_accessibility_service_new_version));
 
@@ -163,7 +171,9 @@ class ImportantInfoNotification {
             return 0;
     }
 
-    static private void showNotification(Context context, boolean firstInstallation, String title, String text) {
+    static private void showNotification(Context context,
+                                         @SuppressWarnings("SameParameterValue") boolean firstInstallation,
+                                         String title, String text) {
         String nTitle = title;
         String nText = text;
         if (android.os.Build.VERSION.SDK_INT < 24) {
