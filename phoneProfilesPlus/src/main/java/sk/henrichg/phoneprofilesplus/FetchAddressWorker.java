@@ -35,6 +35,11 @@ public class FetchAddressWorker extends Worker {
     public Result doWork() {
         try {
             //PPApplication.logE("FetchAddressWorker.doWork", "xxx");
+
+            if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();
+
             Data outputData;
 
             // Get the input

@@ -55,6 +55,10 @@ public class WifiScanWorker extends Worker {
 
             //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
+            if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();
+
             if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false/*, null*/);

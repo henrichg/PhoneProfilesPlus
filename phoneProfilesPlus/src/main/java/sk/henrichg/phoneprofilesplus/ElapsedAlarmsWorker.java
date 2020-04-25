@@ -48,6 +48,10 @@ public class ElapsedAlarmsWorker extends Worker {
         try {
             //PPApplication.logE("ElapsedAlarmsWorker.doWork", "xxx");
 
+            if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();
+
             //Data outputData;
 
             // Get the input

@@ -63,6 +63,10 @@ public class BluetoothScanWorker extends Worker {
 
             //CallsCounter.logCounter(context, "BluetoothScanWorker.doWork", "BluetoothScanWorker_doWork");
 
+            if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();
+
             if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false/*, null*/);

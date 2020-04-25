@@ -41,6 +41,10 @@ public class GeofenceScanWorker extends Worker {
 
             //CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
 
+            if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();
+
             if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
                 cancelWork(context, false/*, null*/);

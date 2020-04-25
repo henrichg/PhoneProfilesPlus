@@ -27,6 +27,10 @@ public class RestartEventsWithDelayWorker extends Worker {
         try {
             //PPApplication.logE("[TEST BATTERY] RestartEventsWithDelayWorker.doWork", "xxx");
 
+            if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();
+
             //Data outputData;
 
             // Get the input
