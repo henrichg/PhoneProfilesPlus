@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -113,7 +112,7 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         //PPApplication.logE("LauncherActivity.endOnStart", "applicationFirstStart="+ApplicationPreferences.applicationFirstStart(getApplicationContext()));
-        if (ApplicationPreferences.applicationFirstStart(getApplicationContext())) {
+        /*if (ApplicationPreferences.applicationFirstStart(getApplicationContext())) {
             SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
             if (sharedPreferences != null) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -124,9 +123,7 @@ public class LauncherActivity extends AppCompatActivity {
             intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, true);
             startActivityForResult(intentLaunch, REQUEST_CODE_IMPORTANT_INFO);
         }
-        else {
-            finish();
-
+        else {*/
             if (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION)
                 intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK /*| Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
             else
@@ -135,7 +132,9 @@ public class LauncherActivity extends AppCompatActivity {
             getApplicationContext().startActivity(intentLaunch);
             // reset startupSource
             startupSource = 0;
-        }
+
+            finish();
+        //}
     }
 
     private boolean showNotStartedToast() {

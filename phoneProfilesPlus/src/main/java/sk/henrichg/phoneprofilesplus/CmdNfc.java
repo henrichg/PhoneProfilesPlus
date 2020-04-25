@@ -10,6 +10,7 @@ import android.util.Log;
  * A shell executable for NTC toggle.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class CmdNfc {
 
     public static void main(String[] args) {

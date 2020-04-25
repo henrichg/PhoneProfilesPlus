@@ -67,6 +67,7 @@ import dev.doubledot.doki.views.DokiContentView;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
+@SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {
 
     private static PPApplication instance;

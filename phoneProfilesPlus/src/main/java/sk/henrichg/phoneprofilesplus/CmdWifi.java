@@ -6,6 +6,7 @@ import android.util.Log;
 
 //import com.crashlytics.android.Crashlytics;
 
+@SuppressWarnings("WeakerAccess")
 public class CmdWifi {
 
     public static void main(String[] args) {

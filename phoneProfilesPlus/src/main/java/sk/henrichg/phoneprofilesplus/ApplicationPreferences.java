@@ -380,10 +380,11 @@ class ApplicationPreferences {
         return ApplicationPreferences.getSharedPreferences(context).getBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
     }
     */
-
+    /*
     static boolean applicationFirstStart(Context context) {
         return ApplicationPreferences.getSharedPreferences(context).getBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, true);
     }
+    */
 
     static String applicationTheme(Context context, boolean useNightMode) {
         synchronized (PPApplication.applicationPreferencesMutex) {
