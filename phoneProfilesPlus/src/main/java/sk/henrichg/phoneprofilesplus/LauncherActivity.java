@@ -124,6 +124,9 @@ public class LauncherActivity extends AppCompatActivity {
             startActivityForResult(intentLaunch, REQUEST_CODE_IMPORTANT_INFO);
         }
         else {*/
+            finish();
+            PPApplication.sleep(100);
+
             if (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION)
                 intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK /*| Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
             else
@@ -132,8 +135,6 @@ public class LauncherActivity extends AppCompatActivity {
             getApplicationContext().startActivity(intentLaunch);
             // reset startupSource
             startupSource = 0;
-
-            finish();
         //}
     }
 
