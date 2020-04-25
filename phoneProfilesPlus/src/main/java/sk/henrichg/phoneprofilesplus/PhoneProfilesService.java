@@ -3646,8 +3646,16 @@ public class PhoneProfilesService extends Service
 
                     AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
                     if (audioManager != null) {
-                        ActivateProfileHelper.setRingerVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_RING));
-                        ActivateProfileHelper.setNotificationVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+                        try {
+                            ActivateProfileHelper.setNotificationVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+                        } catch (Exception e10) {
+                            PPApplication.recordException(e10);
+                        }
+                        try {
+                            ActivateProfileHelper.setRingerVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_RING));
+                        } catch (Exception e10) {
+                            PPApplication.recordException(e10);
+                        }
                         RingerModeChangeReceiver.setRingerMode(appContext, audioManager);
                         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
                         PPNotificationListenerService.setZenMode(appContext, audioManager);
