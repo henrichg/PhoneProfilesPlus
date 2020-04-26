@@ -2016,7 +2016,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    private void importDataAlert(/*boolean remoteExport*/)
+    private void importData()
     {
         //final boolean _remoteExport = remoteExport;
 
@@ -2029,9 +2029,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
         else
         {*/
-            dialogBuilder2.setTitle(R.string.import_profiles_alert_title);
-            dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
-            //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+        dialogBuilder2.setTitle(R.string.import_profiles_alert_title);
+        dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
+        //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
         //}
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
@@ -2068,46 +2068,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (!isFinishing())
             dialog.show();
-    }
-
-    private void importData()
-    {
-        /*// test whether the PhoneProfile is installed
-        PackageManager packageManager = getApplicationContext().getPackageManager();
-        Intent phoneProfiles = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofiles");
-        if (phoneProfiles != null)
-        {
-            // PhoneProfiles is installed
-
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.import_profiles_from_phoneprofiles_alert_title);
-            dialogBuilder.setMessage(R.string.import_profiles_from_phoneprofiles_alert_message);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    importDataAlert(true);
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    importDataAlert(false);
-                }
-            });
-            AlertDialog dialog = dialogBuilder.create();
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
-            dialog.show();
-        }
-        else*/
-            importDataAlert();
     }
 
     @SuppressLint("ApplySharedPref")
