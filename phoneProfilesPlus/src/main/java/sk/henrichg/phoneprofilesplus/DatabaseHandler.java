@@ -13,8 +13,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -26,6 +24,8 @@ import java.util.TimeZone;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -11215,8 +11215,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     }
                                 }
 
+                                if (exportedDBObj.getVersion() < 2410) {
+                                    if (cursorImportDB.moveToFirst()) {
+                                        do {
+                                            profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndex(KEY_ID));
+                                            int screenTimeout = cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT));
+
+                                            if ((screenTimeout == 6) || (screenTimeout == 8)) {
+                                                values = new ContentValues();
+                                                values.put(KEY_DEVICE_SCREEN_TIMEOUT, 0);
+                                                values.put(KEY_SCREEN_ON_PERMANENT, 1);
+                                                if (values.size() > 0)
+                                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                            new String[]{String.valueOf(profileId)});
+                                            }
+                                        } while (cursorImportDB.moveToNext());
+                                    }
+                                }
+
+
                                 AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
                                 if (audioManager != null) {
+                                    // these values are saved during export of PPP data
                                     SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(context);
                                     int maximumVolumeRing = sharedPreferences.getInt("maximumVolume_ring", 0);
                                     int maximumVolumeNotification = sharedPreferences.getInt("maximumVolume_notification", 0);
@@ -11445,24 +11465,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             if (values.size() > 0)
                                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                                         new String[]{String.valueOf(profileId)});
-                                        } while (cursorImportDB.moveToNext());
-                                    }
-                                }
-
-                                if (exportedDBObj.getVersion() < 2410) {
-                                    if (cursorImportDB.moveToFirst()) {
-                                        do {
-                                            profileId = cursorImportDB.getLong(cursorImportDB.getColumnIndex(KEY_ID));
-                                            int screenTimeout = cursorImportDB.getInt(cursorImportDB.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT));
-
-                                            if ((screenTimeout == 6) || (screenTimeout == 8)) {
-                                                values = new ContentValues();
-                                                values.put(KEY_DEVICE_SCREEN_TIMEOUT, 0);
-                                                values.put(KEY_SCREEN_ON_PERMANENT, 1);
-                                                if (values.size() > 0)
-                                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                                            new String[]{String.valueOf(profileId)});
-                                            }
                                         } while (cursorImportDB.moveToNext());
                                     }
                                 }

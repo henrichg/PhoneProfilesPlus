@@ -1888,6 +1888,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (_dataWrapper != null) {
                         PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
 
+                        // import application preferences must be first,
+                        // because in DatabaseHandler.importDB is recompute of volumes in profiles
                         File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
@@ -2124,16 +2126,35 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
-                    editor.putInt("maximumVolume_ring", audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
-                    editor.putInt("maximumVolume_notification", audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
-                    editor.putInt("maximumVolume_music", audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
-                    editor.putInt("maximumVolume_alarm", audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
-                    editor.putInt("maximumVolume_system", audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
-                    editor.putInt("maximumVolume_voiceCall", audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
-                    editor.putInt("maximumVolume_dtmf", audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
-                    if (Build.VERSION.SDK_INT >= 26)
-                        editor.putInt("maximumVolume_accessibility", audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
-                    editor.putInt("maximumVolume_bluetoothSCO", audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
+                    try {
+                        editor.putInt("maximumVolume_ring", audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
+                    } catch (Exception ignored) {}
+                    try {
+                        editor.putInt("maximumVolume_notification", audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
+                    } catch (Exception ignored) {}
+                    try {
+                        editor.putInt("maximumVolume_music", audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+                    } catch (Exception ignored) {}
+                    try {
+                        editor.putInt("maximumVolume_alarm", audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+                    } catch (Exception ignored) {}
+                    try {
+                        editor.putInt("maximumVolume_system", audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+                    } catch (Exception ignored) {}
+                    try {
+                        editor.putInt("maximumVolume_voiceCall", audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
+                    } catch (Exception ignored) {}
+                    try {
+                        editor.putInt("maximumVolume_dtmf", audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
+                    } catch (Exception ignored) {}
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        try {
+                            editor.putInt("maximumVolume_accessibility", audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
+                        } catch (Exception ignored) {}
+                    }
+                    try {
+                        editor.putInt("maximumVolume_bluetoothSCO", audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
+                    } catch (Exception ignored) {}
                 }
 
                 editor.commit();
