@@ -17,11 +17,6 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
         if (action != null) {
             //PPApplication.logE("OrientationEventBroadcastReceiver.onReceive", "action=" + action);
             doWork(/*true,*/ context);
-            if (PhoneProfilesService.getInstance() != null) {
-                PhoneProfilesService service = PhoneProfilesService.getInstance();
-                if (service.isOrientationScannerStarted())
-                    service.setOrientationSensorAlarm(context.getApplicationContext());
-            }
         }
     }
 
@@ -55,6 +50,12 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
+                        if (PhoneProfilesService.getInstance() != null) {
+                            PhoneProfilesService service = PhoneProfilesService.getInstance();
+                            if (service.isOrientationScannerStarted())
+                                service.setOrientationSensorAlarm(appContext.getApplicationContext());
+                        }
+
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=SMSEventEndBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -68,10 +69,14 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
             });
             /*}
             else {
-                if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
+                PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
+
+                if (PhoneProfilesService.getInstance() != null) {
+                    PhoneProfilesService service = PhoneProfilesService.getInstance();
+                    if (service.isOrientationScannerStarted())
+                        service.setOrientationSensorAlarm(context.getApplicationContext());
                 }
             }*/
         }
