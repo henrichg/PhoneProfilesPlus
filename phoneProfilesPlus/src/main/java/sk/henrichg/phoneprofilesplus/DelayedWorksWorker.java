@@ -10,17 +10,17 @@ import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import java.util.Calendar;
+import java.util.List;
+
+//import com.crashlytics.android.Crashlytics;
 
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
@@ -79,9 +79,10 @@ public class DelayedWorksWorker extends Worker {
                     // this is required for some users, for example: francescocaldelli@gmail.com
                     PPApplication.applicationPackageReplaced = false;
                     if (fromDoFirstStart) {
-                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-                        if (instance != null)
-                            instance.setApplicationFullyStarted(/*true*/);
+                        //PhoneProfilesService instance = PhoneProfilesService.getInstance();
+                        //if (instance != null)
+                        //    instance.PhoneProfilesService.setApplicationFullyStarted(appContext/*true*/);
+                        PPApplication.setApplicationFullyStarted(appContext);
                     }
 
                     if (fromDoFirstStart) {

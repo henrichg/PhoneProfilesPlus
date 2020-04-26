@@ -50,13 +50,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -64,17 +57,23 @@ import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-//import me.drakeet.support.toast.ToastCompat;
+
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
+
+//import com.crashlytics.android.Crashlytics;
+//import me.drakeet.support.toast.ToastCompat;
 
 
 public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
     private boolean serviceHasFirstStart = false;
-    private boolean applicationFullyStarted = false;
 
     // must be in PPService !!!
     static boolean startForegroundNotification = true;
@@ -225,7 +224,7 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
-        applicationFullyStarted = false;
+        PPApplication.applicationFullyStarted = false;
         //ApplicationPreferences.forceNotUseAlarmClock = false;
 
         final Context appContext = getApplicationContext();
@@ -467,7 +466,7 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
-        applicationFullyStarted = false;
+        PPApplication.applicationFullyStarted = false;
 
         // cancel works
         //cancelAllWorks(appContext);
@@ -529,26 +528,9 @@ public class PhoneProfilesService extends Service
 //        return serviceRunning;
 //    }
 
-    boolean getApplicationFullyStarted() {
-        return applicationFullyStarted;
-    }
-
-    void setApplicationFullyStarted(/*boolean started, boolean showToast*/) {
-        applicationFullyStarted = true; //started;
-
-        final Context appContext = getApplicationContext();
-
-        //if (started)
-        PPApplication.updateGUI(appContext, true, true);
-
-        if (/*started && *//*showToast &&*/
-                //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
-                (!PPApplication.applicationPackageReplaced)) {
-
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_started_toast);
-            PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
-        }
-    }
+//    boolean getApplicationFullyStarted() {
+//        return applicationFullyStarted;
+//    }
 
     private void registerAllTheTimeRequiredReceivers(boolean register) {
         final Context appContext = getApplicationContext();
@@ -5106,10 +5088,11 @@ public class PhoneProfilesService extends Service
                         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                         Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
 
-                        boolean fullyStarted = false;
-                        if (PhoneProfilesService.getInstance() != null)
-                            fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                        //boolean fullyStarted = false;
+                        //if (PhoneProfilesService.getInstance() != null)
+                        //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
                         boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+                        boolean fullyStarted = PPApplication.applicationFullyStarted;
                         if ((!fullyStarted) || applicationPackageReplaced)
                             profile = null;
 

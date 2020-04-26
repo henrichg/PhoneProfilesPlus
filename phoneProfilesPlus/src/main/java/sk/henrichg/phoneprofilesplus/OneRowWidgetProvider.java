@@ -14,10 +14,10 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
-//import com.crashlytics.android.Crashlytics;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
@@ -100,9 +100,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
 
-                boolean fullyStarted = false;
-                if (PhoneProfilesService.getInstance() != null)
-                    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                //boolean fullyStarted = false;
+                //if (PhoneProfilesService.getInstance() != null)
+                //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                boolean fullyStarted = PPApplication.applicationFullyStarted;
                 boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
                 if ((!fullyStarted) || applicationPackageReplaced)
                     profile = null;

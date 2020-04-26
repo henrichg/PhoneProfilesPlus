@@ -1406,10 +1406,10 @@
     <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Konfiguration aller Benachrichtigungskategorien</string>
     <string name="phone_profiles_pref_notificationSystemSettingsAll_A7_summary">Konfiguration aller Mitteilungen</string>
     <string name="event_preferences_alarm_clock_info">Internally supported Alarm clock applications</string>
-    <string name="event_preferences_alarm_clock_applications">Alarm clock applications</string>
-    <string name="gui_items_help">Help with GUI items</string>
-    <string name="gui_items_help_alert_title">Start help with GUI items</string>
-    <string name="gui_items_help_alert_message">Is not possible to cancel this help. And will be invoked from all GUI. Start it?</string>
+    <string name="event_preferences_alarm_clock_applications">Wecker-Anwendungen</string>
+    <string name="gui_items_help">Hilfe bei Elementen der Benutzeroberfläche (GUI)</string>
+    <string name="gui_items_help_alert_title">Hilfe bei Elementen der Benutzeroberfläche (GUI) starten</string>
+    <string name="gui_items_help_alert_message">Diese Hilfe kann nicht abgebrochen werden und wird von allen GUIs aus aufgerufen. Dennoch ausführen?</string>
     <string name="alert_button_grant">Erlauben</string>
     <string name="alert_button_not_grant">Ablehnen</string>
     <string name="profile_preferences_screenDarkMode">(G1)(R) Dunkler Modus</string>
@@ -1418,9 +1418,9 @@
     <string name="permission_why_profile_screen_on_permanent">Um das Display eingeschaltet zu lassen</string>
     <string name="run_applications_error_dialog_text_application">Fehler beim Starten der Anwendung</string>
     <string name="run_applications_error_dialog_text_shortcut">Fehler beim Starten der Verknüpfung</string>
-    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="run_applications_error_dialog_text_intent">Fehler bei Beginn der Absicht.</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Ausnahme für Volumen</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Die in diesem Profil konfigurierten Klingelton- und Benachrichtigungslautstärken werden ignoriert, wenn im System der \"Lautlosmodus\" (nur Banachrichtigungen, Vibration) eingestellt ist.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für eine lautlose Benachrichtigung legen Sie den Benachrichtigungston auf „Kein” fest.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

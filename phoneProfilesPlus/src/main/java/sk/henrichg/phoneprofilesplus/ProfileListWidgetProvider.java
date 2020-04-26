@@ -19,10 +19,10 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
-//import com.crashlytics.android.Crashlytics;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 
@@ -297,9 +297,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
 
-            boolean fullyStarted = false;
-            if (PhoneProfilesService.getInstance() != null)
-                fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+            //boolean fullyStarted = false;
+            //if (PhoneProfilesService.getInstance() != null)
+            //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+            boolean fullyStarted = PPApplication.applicationFullyStarted;
             boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
             if ((!fullyStarted) || applicationPackageReplaced)
                 profile = null;

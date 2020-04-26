@@ -16,18 +16,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.TooltipCompat;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.TooltipCompat;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class ActivateProfileActivity extends AppCompatActivity {
@@ -324,19 +325,32 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     private boolean showNotStartedToast() {
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean fullyStarted = true;
+        boolean fullyStarted = PPApplication.applicationFullyStarted && (!PPApplication.applicationPackageReplaced);
+        if (!applicationStarted) {
+            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
+        if (!fullyStarted) {
+            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
+        /*//boolean fullyStarted = true;
         if (applicationStarted) {
-            PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            fullyStarted = instance.getApplicationFullyStarted();
+            //PhoneProfilesService instance = PhoneProfilesService.getInstance();
+            //fullyStarted = instance.getApplicationFullyStarted();
+            boolean fullyStarted = PPApplication.applicationFullyStarted;
             applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
         }
         if (!applicationStarted) {
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            boolean fullyStarted = PPApplication.applicationFullyStarted;
             if (!fullyStarted)
                 text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
-        }
+        }*/
         return false;
     }
 

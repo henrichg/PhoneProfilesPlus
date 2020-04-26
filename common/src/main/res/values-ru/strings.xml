@@ -1419,8 +1419,8 @@
     <string name="run_applications_error_dialog_text_application">Ошибка при запуске приложения.</string>
     <string name="run_applications_error_dialog_text_shortcut">Ошибка при запуске ярлыка.</string>
     <string name="run_applications_error_dialog_text_intent">Ошибка при запуске intent\'а.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Замечание об уровнях громкости</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Если система настроена в тихий режим (только будильники, вибрация), уровни громкости звонка и уведомлений, настроенные в этом профиле, будут игнорироваться.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Чтобы уведомление было по-настоящему бесшумным, настройте мелодию уведомления на \"None\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

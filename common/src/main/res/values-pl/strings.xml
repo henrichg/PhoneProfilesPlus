@@ -464,7 +464,7 @@
     <string name="event_preferences_locations_location">Lokalizacja</string>
     <string name="event_preferences_locations_location_not_selected">Nie wybrano</string>
     <string name="event_preferences_locations_cant_delete_location_title">Usuń lokalizację</string>
-    <string name="event_preferences_locations_cant_delete_location_text">Nie można usunąć, lokalizacja jest używana w pewnym zdarzeniu.</string>
+    <string name="event_preferences_locations_cant_delete_location_text">Nie można usunąć, lokalizacja jest używana w innym zdarzeniu.</string>
     <string name="location_editor_title">Edytor lokalizacji</string>
     <string name="permissions_for_location_geofence_editor_activity_text1">Lokalizacja wymaga pewnych uprawnień.</string>
     <string name="permissions_for_location_geofence_editor_activity_text2">Proszę przyznać je w kolejnych oknach. Następnie zmiana detekcji lokalizacji zostanie wykonane.</string>
@@ -697,7 +697,7 @@
     <string name="editor_activity_targetHelps_restartEvents_title">Zrestartuj zdarzenia</string>
     <string name="editor_activity_targetHelps_restartEvents_description">Kliknij tutaj, aby zresetować zdarzenia. Musisz zresetować zdarzenia jeśli masz ręcznie aktywowany profil.</string>
     <string name="editor_activity_targetHelps_activityLog_title">Dziennik aktywności</string>
-    <string name="editor_activity_targetHelps_activityLog_description">Kliknij tutaj, aby otworzyć dziennik aktywności. Elementami rejestrowanymi są działania o rozpoczęcie/pauza/koniec zdarzeń, profil aktywacji, uruchomione aplikacje, itp.</string>
+    <string name="editor_activity_targetHelps_activityLog_description">Kliknij tutaj, aby otworzyć dziennik aktywności. Elementami rejestrowanymi są działania typu rozpoczęcie/pauza/zatrzymanie zdarzeń, aktywacja profilu, uruchomione aplikacje, itp.</string>
     <string name="editor_activity_targetHelps_newProfileButton_title">Nowy profil</string>
     <string name="editor_activity_targetHelps_newProfileButton_description">Kliknij tutaj, aby dodać nowy profil.</string>
     <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Usuń wszystkie profile</string>
@@ -1350,7 +1350,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="preferences_red_texts_text_click">Kliknij to powiadomienie, aby je otworzyć.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Okno dialogowe potwierdzania Wi-Fi i Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Dla \"ColorOs\" możliwe jest wyłączenie tych okien dialogowych. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">W ustawieniach systemu:\n1. Opcje programisty\\Opcje programisty = włącz\n2. Opcje dewelopera\\Debugging\\USB debugging = włącz\n3. Opcje dewelopera\\Apps\\Wyłącza monitorowanie autoryzacji = włączone.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">W ustawieniach systemu:\n1. Opcje programisty\\Opcje programisty = włącz\n2. Opcje programisty\\Debugowanie\\debugowanie USB= włącz\n3. Opcje programisty\\Aplikacje\\Wyłącz monitorowanie autoryzacji = włączone.</string>
     <string name="important_info_android_look_application_settings">Otwórz ustawienia PhoneProfilesPlus i skonfiguruj. Szczególnie parametry oznaczone pogrubionym tekstem.</string>
     <string name="profile_preferences_red_texts_text_2">Brak możliwości jego aktywowania.</string>
     <string name="event_preferences_red_texts_text_2">Brak możliwości zmiany aktywności.</string>
@@ -1418,10 +1418,10 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="profile_preferences_deviceScreenOnPermanent">Ekran stale włączony</string>
     <string name="permission_why_profile_screen_on_permanent">aby utrzymać włączony stale ekran</string>
     <string name="run_applications_error_dialog_text_application">Błąd przy uruchamianiu aplikacji.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
-    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="run_applications_error_dialog_text_shortcut">Błąd przy uruchamianiu skrótu.</string>
+    <string name="run_applications_error_dialog_text_intent">Błąd przy uruchamianiu intencji.</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Wyjątek dla głośności</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Głośność dzwonka i powiadomień skonfigurowane w tym profilu będą zignorowane, kiedy w systemie ustawiono \"cichy\" tryb (tylko alarmy, wibracje).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Dla wyciszenia powiadomień, ustaw dźwięk powiadomień na \"PhoneProfiles Silent\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

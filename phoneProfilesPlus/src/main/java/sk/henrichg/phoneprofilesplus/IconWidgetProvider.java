@@ -98,9 +98,10 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 //if (profile != null)
                 //    PPApplication.logE("IconWidgetProvider.onUpdate", "profile._name="+profile._name);
 
-                boolean fullyStarted = false;
-                if (PhoneProfilesService.getInstance() != null)
-                    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                //boolean fullyStarted = false;
+                //if (PhoneProfilesService.getInstance() != null)
+                //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+                boolean fullyStarted = PPApplication.applicationFullyStarted;
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "fullyStarted="+fullyStarted);
 
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "PPApplication.applicationPackageReplaced="+PPApplication.applicationPackageReplaced);

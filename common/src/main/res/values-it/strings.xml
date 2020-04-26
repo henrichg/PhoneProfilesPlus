@@ -1420,8 +1420,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="run_applications_error_dialog_text_application">Errore all\'inizio dell\'applicazione.</string>
     <string name="run_applications_error_dialog_text_shortcut">Errore all\'inizio del collegamento.</string>
     <string name="run_applications_error_dialog_text_intent">Errore all\'inizio di intent.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Eccezione per i volumi</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Il tono della suoneria e i volumi di notifica configurati in questo profilo verranno ignorati quando il sistema è impostato su \"silenzioso\" (solo allarmi, vibrazione).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"None\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

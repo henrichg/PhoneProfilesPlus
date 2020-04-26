@@ -1419,8 +1419,8 @@
     <string name="run_applications_error_dialog_text_application">Помилка при запуску додатка.</string>
     <string name="run_applications_error_dialog_text_shortcut">Помилка при запуску ярлика.</string>
     <string name="run_applications_error_dialog_text_intent">Помилка при запуску intent.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Виняток для гучності</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Гучність дзвінка та сповіщень налаштованих в цьому профілі, буде проігноровано, якщо встановлено режим \"тиша\" (лише будильники, вібрація).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Немає\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

@@ -1419,8 +1419,8 @@
     <string name="run_applications_error_dialog_text_application">Uygulama başlangıcında hata.</string>
     <string name="run_applications_error_dialog_text_shortcut">Kısayol başlangıcında hata.</string>
     <string name="run_applications_error_dialog_text_intent">Intent başlangıcında hata.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Ses seviyesi için istisna</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Zil ve bildirim ses seviyeleri sistemde \"sessiz\" ses modu (sadece alarmlar, titreşim) bu tercihte ihmal edilmiş şeklinde ayarlanmış.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Gerçek sessiz bildirim ses seviyesi için, bildirim sesini \"Yok\" olarak ayarlayın.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

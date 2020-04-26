@@ -25,7 +25,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.pm.PackageInfoCompat;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.multidex.MultiDex;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
@@ -53,25 +62,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.pm.PackageInfoCompat;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.multidex.MultiDex;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import dev.doubledot.doki.views.DokiContentView;
-//import io.fabric.sdk.android.Fabric;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
+
+//import com.crashlytics.android.Crashlytics;
+//import io.fabric.sdk.android.Fabric;
 
 @SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
+    static boolean applicationFullyStarted = false;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
@@ -1081,6 +1084,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
         PPApplication.logE("##### PPApplication.onCreate", "xxx");
 
+        applicationFullyStarted = false;
         instance = this;
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
@@ -1422,6 +1426,23 @@ public class PPApplication extends Application /*implements Application.Activity
     static int getVersionCode(PackageInfo pInfo) {
         //return pInfo.versionCode;
         return (int) PackageInfoCompat.getLongVersionCode(pInfo);
+    }
+
+    static void setApplicationFullyStarted(Context context/*boolean started, boolean showToast*/) {
+        applicationFullyStarted = true; //started;
+
+        final Context appContext = context.getApplicationContext();
+
+        //if (started)
+        updateGUI(appContext, true, true);
+
+        if (/*started && *//*showToast &&*/
+            //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
+                (!applicationPackageReplaced)) {
+
+            String text = context.getString(R.string.app_name) + " " + context.getString(R.string.application_is_started_toast);
+            showToast(appContext, text, Toast.LENGTH_SHORT);
+        }
     }
 
     //--------------------------------------------------------------

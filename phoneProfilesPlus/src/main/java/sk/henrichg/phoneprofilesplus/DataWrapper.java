@@ -23,7 +23,12 @@ import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,12 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class DataWrapper {
@@ -1565,9 +1565,10 @@ public class DataWrapper {
         if (_profile != null)
             Profile.saveProfileToSharedPreferences(_profile, context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
 
-        boolean fullyStarted = false;
-        if (PhoneProfilesService.getInstance() != null)
-            fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        //boolean fullyStarted = false;
+        //if (PhoneProfilesService.getInstance() != null)
+        //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        boolean fullyStarted = PPApplication.applicationFullyStarted;
         boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "fullyStarted=" + fullyStarted);
@@ -1780,9 +1781,10 @@ public class DataWrapper {
 
     private void showToastAfterActivation(Profile profile)
     {
-        boolean fullyStarted = false;
-        if (PhoneProfilesService.getInstance() != null)
-            fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        //boolean fullyStarted = false;
+        //if (PhoneProfilesService.getInstance() != null)
+        //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        boolean fullyStarted = PPApplication.applicationFullyStarted;
         fullyStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
 
         if (!fullyStarted)
