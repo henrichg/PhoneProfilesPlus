@@ -769,7 +769,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final int STARTUP_SOURCE_SERVICE = 6;
     static final int STARTUP_SOURCE_EDITOR = 8;
     static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
-    static final int STARTUP_SOURCE_LAUNCHER_START = 10;
+    //static final int STARTUP_SOURCE_LAUNCHER_START = 10;
     static final int STARTUP_SOURCE_LAUNCHER = 11;
     static final int STARTUP_SOURCE_SERVICE_MANUAL = 12;
     static final int STARTUP_SOURCE_EXTERNAL_APP = 13;

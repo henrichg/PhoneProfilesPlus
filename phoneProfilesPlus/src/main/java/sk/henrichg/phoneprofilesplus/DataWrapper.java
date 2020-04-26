@@ -1606,9 +1606,10 @@ public class DataWrapper {
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile._name=" + activatedProfile._name);
         }*/
 
-        if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
+        if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) //&&
             //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
-            (startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START))
+            //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
+        )
         {
             // manual profile activation
 
@@ -1649,8 +1650,9 @@ public class DataWrapper {
 
             // activation with duration
             if (((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
-                 (startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&
-                 (startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)) ||
+                 (startupSource != PPApplication.STARTUP_SOURCE_BOOT) //&&
+                 //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
+                ) ||
                 (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))
             {
                 /*if (mappedProfile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)
@@ -2003,7 +2005,7 @@ public class DataWrapper {
             if (profile_id == 0)
                 profile = null;
         }
-        else
+        /*else
         if (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START)
         {
             // activation is invoked from launcher
@@ -2023,14 +2025,14 @@ public class DataWrapper {
 
             if (profile_id == 0)
                 profile = null;
-        }
+        }*/
 
         if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SERVICE) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START) ||
+            //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START) ||
             (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER))
         {
             if (profile_id == 0)

@@ -1025,3 +1025,19 @@ Moze sa spustit hocikedy, dokonca aj ked neulozis udalost.
 
 
 --------------------
+
+Profile duration sa aplikuje:
+- ak startup source nie je servis, boot, launcher start (?),
+- ak je afterDurationDo = specific profile
+
+Co sa spravi pre duration:
+- ak je predtym aktivovany profil, zapise sa, aby sa vedelo, aky aktivovat na koniec duration
+- nastavi sa alarm
+
+Aky startup source sa pouzije na restart udalosti?
+Podla mna service, cize vtedy sa neuplatni duration.
+
+A teda je celkom mozne, ze restart znova aktivuje profil, ale bez duration.
+Napriklad, na zmenu time zony, na autobackup.
+
+--------------------

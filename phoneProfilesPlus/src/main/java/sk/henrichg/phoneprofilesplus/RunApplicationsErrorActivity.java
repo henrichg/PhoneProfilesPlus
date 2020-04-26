@@ -112,7 +112,7 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
 
     private boolean showNotStartedToast() {
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean fullyStarted = PPApplication.applicationFullyStarted && (!PPApplication.applicationPackageReplaced);;
+        boolean fullyStarted = PPApplication.applicationFullyStarted && (!PPApplication.applicationPackageReplaced);
         if (!applicationStarted) {
             String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
