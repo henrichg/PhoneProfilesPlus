@@ -11,7 +11,6 @@ import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -22,7 +21,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final Context context;
     //private int appWidgetId;
-    private List<Profile> profileList = new ArrayList<>();
+    //private List<Profile> profileList = new ArrayList<>();
 
     SamsungEdgeFactory(Context context, @SuppressWarnings("unused") Intent intent) {
         this.context = context;
@@ -72,11 +71,13 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
     public int getCount() {
         int count = 0;
-        if (profileList != null) {
-            for (Profile profile : profileList) {
-                if (profile._showInActivator)
-                    ++count;
-            }
+        if (dataWrapper != null) {
+            //if (dataWrapper.profileList != null) {
+                for (Profile profile : dataWrapper.profileList) {
+                    if (profile._showInActivator)
+                        ++count;
+                }
+            //}
         }
         return count;
     }
@@ -89,14 +90,16 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         {
             Profile _profile = null;
 
-            int pos = -1;
-            for (Profile profile : profileList) {
-                if (profile._showInActivator)
-                    ++pos;
+            if (dataWrapper != null) {
+                int pos = -1;
+                for (Profile profile : dataWrapper.profileList) {
+                    if (profile._showInActivator)
+                        ++pos;
 
-                if (pos == position) {
-                    _profile = profile;
-                    break;
+                    if (pos == position) {
+                        _profile = profile;
+                        break;
+                    }
                 }
             }
 
@@ -247,7 +250,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         //dataWrapper.invalidateProfileList();
         dataWrapper.setProfileList(newProfileList);
-        profileList = newProfileList;
+        //profileList = newProfileList;
     }
 
     private static class ProfileComparator implements Comparator<Profile> {

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -23,7 +22,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     private final Context context;
     //private int appWidgetId;
-    private List<Profile> profileList = new ArrayList<>();
+    //private List<Profile> profileList = new ArrayList<>();
 
     ProfileListWidgetFactory(Context context, @SuppressWarnings("unused") Intent intent) {
         this.context = context;
@@ -96,11 +95,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     public int getCount() {
         int count = 0;
-        if (profileList != null) {
-            for (Profile profile : profileList) {
-                if (profile._showInActivator)
-                    ++count;
-            }
+        if (dataWrapper != null) {
+            //if (dataWrapper.profileList != null) {
+                for (Profile profile : dataWrapper.profileList) {
+                    if (profile._showInActivator)
+                        ++count;
+                }
+            //}
         }
         return count;
     }
@@ -112,20 +113,18 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         else
         {
             Profile _profile = null;
+            if (dataWrapper != null) {
+                int pos = -1;
+                for (Profile profile : dataWrapper.profileList) {
+                    if (profile._showInActivator)
+                        ++pos;
 
-            int pos = -1;
-            for (Profile profile : profileList)
-            {
-                if (profile._showInActivator)
-                    ++pos;
-
-                if (pos == position)
-                {
-                    _profile = profile;
-                    break;
+                    if (pos == position) {
+                        _profile = profile;
+                        break;
+                    }
                 }
             }
-
             return _profile;
         }
     }
@@ -317,7 +316,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
             dataWrapper.setProfileList(newProfileList);
-            profileList = newProfileList;
+            //profileList = newProfileList;
         //}
     }
 
