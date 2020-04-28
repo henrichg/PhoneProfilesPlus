@@ -31,7 +31,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread("EventCalendarBroadcastReceiver.doWork");
+            PPApplication.startHandlerThread(/*"EventCalendarBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

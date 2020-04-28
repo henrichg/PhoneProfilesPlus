@@ -9,14 +9,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+//import com.crashlytics.android.Crashlytics;
 
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
@@ -186,7 +186,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (useHandler) {
-            PPApplication.startHandlerThread("ProfileDurationAlarmBroadcastReceiver.onReceive");
+            PPApplication.startHandlerThread(/*"ProfileDurationAlarmBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

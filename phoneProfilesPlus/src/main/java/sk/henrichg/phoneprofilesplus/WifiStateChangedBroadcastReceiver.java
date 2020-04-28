@@ -8,15 +8,15 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -43,7 +43,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
-                PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.1");
+                PPApplication.startHandlerThread(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

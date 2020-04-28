@@ -13,11 +13,11 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Set;
 
-import androidx.core.app.NotificationManagerCompat;
+//import com.crashlytics.android.Crashlytics;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 
@@ -123,7 +123,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
             }*/
 
-            PPApplication.startHandlerThread("PPNotificationListenerService.onNotificationPosted");
+            PPApplication.startHandlerThread(/*"PPNotificationListenerService.onNotificationPosted"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -181,7 +181,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning()) {
-            PPApplication.startHandlerThread("PPNotificationListenerService.onNotificationRemoved");
+            PPApplication.startHandlerThread(/*"PPNotificationListenerService.onNotificationRemoved"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

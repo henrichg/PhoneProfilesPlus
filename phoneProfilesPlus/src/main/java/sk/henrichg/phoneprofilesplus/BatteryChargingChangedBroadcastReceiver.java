@@ -115,7 +115,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
             */
 
             if (Event.getGlobalEventsRunning()) {
-                PPApplication.startHandlerThread("BatteryChargingChangedBroadcastReceiver.onReceive");
+                PPApplication.startHandlerThread(/*"BatteryChargingChangedBroadcastReceiver.onReceive"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

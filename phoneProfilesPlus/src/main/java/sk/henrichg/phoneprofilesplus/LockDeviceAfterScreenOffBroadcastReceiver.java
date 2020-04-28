@@ -9,15 +9,15 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
-
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver {
 
@@ -148,7 +148,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
         if (Event.getGlobalEventsRunning()) {
             if (useHandler) {
-                PPApplication.startHandlerThread("LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                PPApplication.startHandlerThread(/*"LockDeviceAfterScreenOffBroadcastReceiver.doWork"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

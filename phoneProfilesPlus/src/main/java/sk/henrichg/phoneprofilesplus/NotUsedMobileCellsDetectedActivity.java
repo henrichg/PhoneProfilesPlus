@@ -15,12 +15,12 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
@@ -87,7 +87,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 final String _cellName = cellNameTextView.getText().toString();
 
                 final Context appContext = getApplicationContext();
-                PPApplication.startHandlerThread("NotUsedMobileCellsDetectedActivity.onClick");
+                PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -186,7 +186,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 final String _cellName = cellNameTextView.getText().toString();
 
                 final Context appContext = getApplicationContext();
-                PPApplication.startHandlerThread("NotUsedMobileCellsDetectedActivity.onClick");
+                PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

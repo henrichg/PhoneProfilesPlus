@@ -27,7 +27,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                 if ((state == NfcAdapter.STATE_ON) || (state == NfcAdapter.STATE_OFF)) {
                     final Context appContext = context.getApplicationContext();
-                    PPApplication.startHandlerThread("NFCStateChangedBroadcastReceiver.onReceive");
+                    PPApplication.startHandlerThread(/*"NFCStateChangedBroadcastReceiver.onReceive"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

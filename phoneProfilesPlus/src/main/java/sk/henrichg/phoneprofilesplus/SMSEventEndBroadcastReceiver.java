@@ -31,7 +31,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread("SMSEventEndBroadcastReceiver.doWork");
+            PPApplication.startHandlerThread(/*"SMSEventEndBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

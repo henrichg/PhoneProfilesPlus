@@ -55,7 +55,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                 }
             }*/
 
-            PPApplication.startHandlerThread("BluetoothScanBroadcastReceiver.onReceive");
+            PPApplication.startHandlerThread(/*"BluetoothScanBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

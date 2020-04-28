@@ -13,16 +13,16 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+//import com.crashlytics.android.Crashlytics;
 
 class WifiBluetoothScanner {
 
@@ -104,7 +104,7 @@ class WifiBluetoothScanner {
                 }
             }
 
-            PPApplication.startHandlerThread("WifiBluetoothScanner.doScan.1");
+            PPApplication.startHandlerThread(/*"WifiBluetoothScanner.doScan.1"*/);
             final Handler wifiBluetoothChangeHandler = new Handler(PPApplication.handlerThread.getLooper());
 
             //synchronized (PPApplication.radioChangeStateMutex) {

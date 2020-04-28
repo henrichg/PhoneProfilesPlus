@@ -31,7 +31,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread("EventTimeBroadcastReceiver.doWork");
+            PPApplication.startHandlerThread(/*"EventTimeBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

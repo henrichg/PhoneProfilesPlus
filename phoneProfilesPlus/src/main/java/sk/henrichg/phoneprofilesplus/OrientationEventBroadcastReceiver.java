@@ -31,7 +31,7 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread("OrientationEventBroadcastReceiver.doWork");
+            PPApplication.startHandlerThread(/*"OrientationEventBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

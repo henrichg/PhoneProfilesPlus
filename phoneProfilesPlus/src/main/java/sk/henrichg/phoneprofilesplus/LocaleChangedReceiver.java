@@ -17,7 +17,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
             //final Context appContext = context.getApplicationContext();
 
             if (PPApplication.getApplicationStarted(false)) {
-                PPApplication.startHandlerThread("LocaleChangedReceiver.onReceive");
+                PPApplication.startHandlerThread(/*"LocaleChangedReceiver.onReceive"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

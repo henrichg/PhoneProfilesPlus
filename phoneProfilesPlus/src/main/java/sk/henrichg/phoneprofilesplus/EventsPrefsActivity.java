@@ -18,13 +18,6 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +25,14 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class EventsPrefsActivity extends AppCompatActivity {
 
@@ -546,7 +547,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (event.getStatus() == Event.ESTATUS_STOP)
         {
-            PPApplication.startHandlerThread("EventsPrefsActivity.savePreferences.1");
+            PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -589,7 +590,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             });
         }
         else {
-            PPApplication.startHandlerThread("EventsPrefsActivity.savePreferences.2");
+            PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

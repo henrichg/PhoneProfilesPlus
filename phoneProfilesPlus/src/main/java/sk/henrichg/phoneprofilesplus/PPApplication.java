@@ -1275,7 +1275,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
         //firstStartServiceStarted = false;
 
-        startHandlerThread("PPApplication.onCreate");
+        startHandlerThread(/*"PPApplication.onCreate"*/);
         //startHandlerThreadInternalChangeToFalse();
         startHandlerThreadPPScanners();
         startHandlerThreadPPCommand();
@@ -3521,7 +3521,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                  final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
         try {
             if (useHandler) {
-                PPApplication.startHandlerThread("PPApplication.exitApp");
+                PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -3589,7 +3589,7 @@ public class PPApplication extends Application /*implements Application.Activity
         dialog.show();
     }
 
-    static void startHandlerThread(@SuppressWarnings("unused") String from) {
+    static void startHandlerThread(/*String from*/) {
         //PPApplication.logE("PPApplication.startHandlerThread", "from="+from);
         if (handlerThread == null) {
             handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE); //);

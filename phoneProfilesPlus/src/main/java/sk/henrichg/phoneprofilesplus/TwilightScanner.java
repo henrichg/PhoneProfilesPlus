@@ -19,12 +19,12 @@ import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.work.WorkManager;
 
 import java.util.Calendar;
 import java.util.Iterator;
 
-import androidx.work.WorkManager;
+//import com.crashlytics.android.Crashlytics;
 
 class TwilightScanner {
 
@@ -85,7 +85,7 @@ class TwilightScanner {
                 if (Event.getGlobalEventsRunning()) {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
-                    PPApplication.startHandlerThread("TwilightScanner.setTwilightState");
+                    PPApplication.startHandlerThread(/*"TwilightScanner.setTwilightState"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

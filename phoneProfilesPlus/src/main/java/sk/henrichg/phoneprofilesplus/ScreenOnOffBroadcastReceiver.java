@@ -35,7 +35,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
             return;
 
         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "before start handler");
-        PPApplication.startHandlerThread("ScreenOnOffBroadcastReceiver.onReceive");
+        PPApplication.startHandlerThread(/*"ScreenOnOffBroadcastReceiver.onReceive"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

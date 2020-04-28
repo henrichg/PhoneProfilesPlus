@@ -22,7 +22,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
             final int mobileCellId = intent.getIntExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, 0);
             if (mobileCellId != 0) {
                 final Context appContext = context.getApplicationContext();
-                PPApplication.startHandlerThread("NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+                PPApplication.startHandlerThread(/*"NotUsedMobileCellsNotificationDeletedReceiver.onReceive"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

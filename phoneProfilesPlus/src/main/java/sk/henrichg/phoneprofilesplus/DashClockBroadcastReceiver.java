@@ -20,7 +20,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
         final boolean refresh = (intent == null) || intent.getBooleanExtra(EXTRA_REFRESH, true);
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread("DashClockBroadcastReceiver.onReceive");
+        PPApplication.startHandlerThread(/*"DashClockBroadcastReceiver.onReceive"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

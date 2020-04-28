@@ -186,7 +186,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             }*/
 
             if (Event.getGlobalEventsRunning()) {
-                PPApplication.startHandlerThread("BatteryLevelChangedBroadcastReceiver.onReceive");
+                PPApplication.startHandlerThread(/*"BatteryLevelChangedBroadcastReceiver.onReceive"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

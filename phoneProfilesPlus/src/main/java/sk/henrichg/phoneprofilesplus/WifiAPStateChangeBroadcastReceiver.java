@@ -21,7 +21,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning())
         {
-            PPApplication.startHandlerThread("WifiAPStateChangeBroadcastReceiver.onReceive");
+            PPApplication.startHandlerThread(/*"WifiAPStateChangeBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

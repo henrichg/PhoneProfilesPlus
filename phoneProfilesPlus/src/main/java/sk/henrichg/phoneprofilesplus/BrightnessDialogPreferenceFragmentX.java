@@ -14,11 +14,11 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.preference.PreferenceDialogFragmentCompat;
+
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
-
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
@@ -297,7 +297,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     Settings.System.putFloat(context.getContentResolver(),
                             ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
                 } catch (Exception ee) {
-                    PPApplication.startHandlerThread("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
+                    PPApplication.startHandlerThread(/*"BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

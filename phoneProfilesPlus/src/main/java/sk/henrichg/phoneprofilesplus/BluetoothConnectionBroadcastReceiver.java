@@ -9,12 +9,13 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
-//import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -69,7 +70,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-            PPApplication.startHandlerThread("BluetoothConnectionBroadcastReceiver.onReceive");
+            PPApplication.startHandlerThread(/*"BluetoothConnectionBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

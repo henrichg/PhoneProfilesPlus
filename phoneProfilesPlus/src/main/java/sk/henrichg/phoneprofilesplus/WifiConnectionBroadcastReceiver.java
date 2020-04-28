@@ -37,7 +37,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "connected or disconnected");
 
-                        PPApplication.startHandlerThread("WifiConnectionBroadcastReceiver.onReceive");
+                        PPApplication.startHandlerThread(/*"WifiConnectionBroadcastReceiver.onReceive"*/);
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override

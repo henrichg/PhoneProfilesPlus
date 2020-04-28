@@ -25,7 +25,9 @@ import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,9 +38,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+//import com.crashlytics.android.Crashlytics;
 
 class PhoneStateScanner extends PhoneStateListener {
 
@@ -337,7 +337,7 @@ class PhoneStateScanner extends PhoneStateListener {
         //CallsCounter.logCounter(context, "PhoneStateScanner.onCellInfoChanged", "PhoneStateScanner_onCellInfoChanged");
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread("PhoneStateScanner.onCellInfoChanged");
+        PPApplication.startHandlerThread(/*"PhoneStateScanner.onCellInfoChanged"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -381,7 +381,7 @@ class PhoneStateScanner extends PhoneStateListener {
         //CallsCounter.logCounter(context, "PhoneStateScanner.onServiceStateChanged", "PhoneStateScanner_onServiceStateChanged");
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread("PhoneStateScanner.onServiceStateChanged");
+        PPApplication.startHandlerThread(/*"PhoneStateScanner.onServiceStateChanged"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -505,7 +505,7 @@ class PhoneStateScanner extends PhoneStateListener {
         //CallsCounter.logCounter(context, "PhoneStateScanner.onCellLocationChanged", "PhoneStateScanner_onCellLocationChanged");
 
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread("PhoneStateScanner.onCellLocationChanged");
+        PPApplication.startHandlerThread(/*"PhoneStateScanner.onCellLocationChanged"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -574,7 +574,7 @@ class PhoneStateScanner extends PhoneStateListener {
             //PPApplication.logE("PhoneStateScanner.rescanMobileCells", "-----");
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread("PhoneStateScanner.rescanMobileCells");
+            PPApplication.startHandlerThread(/*"PhoneStateScanner.rescanMobileCells"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

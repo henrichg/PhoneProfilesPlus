@@ -31,7 +31,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread("AlarmClockEventEndBroadcastReceiver.doWork");
+            PPApplication.startHandlerThread(/*"AlarmClockEventEndBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

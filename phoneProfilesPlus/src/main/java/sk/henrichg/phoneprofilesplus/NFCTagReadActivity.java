@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
-import androidx.appcompat.app.AppCompatActivity;
+//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class NFCTagReadActivity extends AppCompatActivity {
@@ -72,7 +72,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                     final long _time = now.getTimeInMillis() + gmtOffset;
 
                     final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThread("NFCTagReadActivity.OnTagReadListener.onTagRead");
+                    PPApplication.startHandlerThread(/*"NFCTagReadActivity.OnTagReadListener.onTagRead"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

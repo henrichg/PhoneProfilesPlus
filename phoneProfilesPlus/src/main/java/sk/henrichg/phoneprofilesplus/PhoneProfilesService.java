@@ -3532,7 +3532,7 @@ public class PhoneProfilesService extends Service
         final boolean _startOnPackageReplace = startOnPackageReplace;
         final boolean _activateProfiles = activateProfiles;
         //final boolean _deactivateProfile = deactivateProfile;
-        PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart");
+        PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

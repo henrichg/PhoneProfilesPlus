@@ -31,7 +31,7 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread("MissedCallEventEndBroadcastReceiver.doWork");
+            PPApplication.startHandlerThread(/*"MissedCallEventEndBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

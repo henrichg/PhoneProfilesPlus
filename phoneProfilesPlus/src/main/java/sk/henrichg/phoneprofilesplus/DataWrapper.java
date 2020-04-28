@@ -825,7 +825,7 @@ public class DataWrapper {
         //PPApplication.logE("DataWrapper.setDynamicLauncherShortcutsFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        PPApplication.startHandlerThread("DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+        PPApplication.startHandlerThread(/*"DataWrapper.setDynamicLauncherShortcutsFromMainThread"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -979,7 +979,7 @@ public class DataWrapper {
                                             @SuppressWarnings("SameParameterValue") final boolean alsoUnlink) {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        PPApplication.startHandlerThread("DataWrapper.stopEventsForProfileFromMainThread");
+        PPApplication.startHandlerThread(/*"DataWrapper.stopEventsForProfileFromMainThread"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -1057,7 +1057,7 @@ public class DataWrapper {
     private void pauseAllEventsForGlobalStopEvents() {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        PPApplication.startHandlerThread("DataWrapper.pauseAllEventsForGlobalStopEvents");
+        PPApplication.startHandlerThread(/*"DataWrapper.pauseAllEventsForGlobalStopEvents"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -1111,7 +1111,7 @@ public class DataWrapper {
                                      final boolean alsoDelete) {
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        PPApplication.startHandlerThread("DataWrapper.stopAllEventsFromMainThread");
+        PPApplication.startHandlerThread(/*"DataWrapper.stopAllEventsFromMainThread"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -1731,7 +1731,7 @@ public class DataWrapper {
         //PPApplication.logE("$$$$$ DataWrapper.activateProfileFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
 
-        PPApplication.startHandlerThread("DataWrapper.activateProfileFromMainThread");
+        PPApplication.startHandlerThread(/*"DataWrapper.activateProfileFromMainThread"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override
@@ -2254,7 +2254,7 @@ public class DataWrapper {
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
 
-            PPApplication.startHandlerThread("DataWrapper.restartEventsWithRescan");
+            PPApplication.startHandlerThread(/*"DataWrapper.restartEventsWithRescan"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

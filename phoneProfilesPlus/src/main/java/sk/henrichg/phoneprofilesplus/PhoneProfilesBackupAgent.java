@@ -54,7 +54,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         }
         */
 
-        PPApplication.startHandlerThread("PhoneProfilesBackupAgent.onRestoreFinished");
+        PPApplication.startHandlerThread(/*"PhoneProfilesBackupAgent.onRestoreFinished"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

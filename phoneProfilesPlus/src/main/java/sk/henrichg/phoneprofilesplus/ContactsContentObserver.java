@@ -28,7 +28,7 @@ class ContactsContentObserver extends ContentObserver {
 
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
 
-        PPApplication.startHandlerThread("ContactsContentObserver.onChange");
+        PPApplication.startHandlerThread(/*"ContactsContentObserver.onChange"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
             @Override

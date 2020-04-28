@@ -7,14 +7,14 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.concurrent.TimeUnit;
-
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.concurrent.TimeUnit;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
@@ -64,7 +64,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                 if (Event.getGlobalEventsRunning() || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
-                    PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.1");
+                    PPApplication.startHandlerThread(/*"WifiScanBroadcastReceiver.onReceive.1"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override

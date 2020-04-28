@@ -31,7 +31,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             if (useHandler) {
-                PPApplication.startHandlerThread("EventDelayStartBroadcastReceiver.doWork");
+                PPApplication.startHandlerThread(/*"EventDelayStartBroadcastReceiver.doWork"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

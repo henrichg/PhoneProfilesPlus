@@ -11,10 +11,10 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+
+//import com.crashlytics.android.Crashlytics;
 
 class DrawOverAppsPermissionNotification {
 
@@ -25,7 +25,7 @@ class DrawOverAppsPermissionNotification {
             final Context appContext = context.getApplicationContext();
 
             if (useHandler) {
-                PPApplication.startHandlerThread("DrawOverAppsPermissionNotification.showNotification");
+                PPApplication.startHandlerThread(/*"DrawOverAppsPermissionNotification.showNotification"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override

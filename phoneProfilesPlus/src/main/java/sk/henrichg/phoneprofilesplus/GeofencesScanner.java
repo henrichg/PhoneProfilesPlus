@@ -11,7 +11,10 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,9 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
+//import com.crashlytics.android.Crashlytics;
 
 class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                          GoogleApiClient.OnConnectionFailedListener
@@ -164,7 +165,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 useGPS = true;
 
-                PPApplication.startHandlerThread("GeofenceScanner.onConnected");
+                PPApplication.startHandlerThread(/*"GeofenceScanner.onConnected"*/);
                 final Handler handler6 = new Handler(PPApplication.handlerThread.getLooper());
                 handler6.post(new Runnable() {
                     @Override
@@ -515,7 +516,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                                 lastLocation.set(location);
                             }
-                            PPApplication.startHandlerThread("GeofenceScanner.updateTransitionsByLastKnownLocation");
+                            PPApplication.startHandlerThread(/*"GeofenceScanner.updateTransitionsByLastKnownLocation"*/);
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
                                 @Override

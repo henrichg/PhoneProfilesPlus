@@ -8,11 +8,11 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
@@ -131,7 +131,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         final Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() != Event.ESTATUS_RUNNING) {
                             final DataWrapper _dataWrapper = dataWrapper;
-                            PPApplication.startHandlerThread("ActionForExternalApplicationActivity.onStart.1");
+                            PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
                                 @Override
@@ -192,7 +192,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         final Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() != Event.ESTATUS_STOP) {
                             final DataWrapper _dataWrapper = dataWrapper;
-                            PPApplication.startHandlerThread("ActionForExternalApplicationActivity.onStart.2");
+                            PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.2"*/);
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
                                 @Override

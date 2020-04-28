@@ -10,14 +10,14 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+//import com.crashlytics.android.Crashlytics;
 
 public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
@@ -166,7 +166,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (useHandler) {
-            PPApplication.startHandlerThread("UpdateGUIBroadcastReceiver.onReceive");
+            PPApplication.startHandlerThread(/*"UpdateGUIBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

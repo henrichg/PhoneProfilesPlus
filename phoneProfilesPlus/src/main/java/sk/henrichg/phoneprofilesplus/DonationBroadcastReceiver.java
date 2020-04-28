@@ -11,15 +11,15 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.work.WorkManager;
 
+import java.util.Calendar;
+
 import static android.app.Notification.DEFAULT_VIBRATE;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class DonationBroadcastReceiver extends BroadcastReceiver {
 
@@ -168,7 +168,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             return;
 
         //if (useHandler) {
-            PPApplication.startHandlerThread("DonationBroadcastReceiver.onReceive");
+            PPApplication.startHandlerThread(/*"DonationBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override

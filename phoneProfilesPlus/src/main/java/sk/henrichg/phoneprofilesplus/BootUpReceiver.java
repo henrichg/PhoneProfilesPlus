@@ -7,13 +7,13 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.concurrent.TimeUnit;
-
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.concurrent.TimeUnit;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class BootUpReceiver extends BroadcastReceiver {
 
@@ -52,7 +52,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
-            PPApplication.startHandlerThread("BootUpReceiver.onReceive2");
+            PPApplication.startHandlerThread(/*"BootUpReceiver.onReceive2"*/);
             final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
             handler2.post(new Runnable() {
                 @Override

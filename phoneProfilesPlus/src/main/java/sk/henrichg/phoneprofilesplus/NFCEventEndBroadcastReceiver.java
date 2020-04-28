@@ -31,7 +31,7 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread("NFCEventEndBroadcastReceiver.doWork");
+            PPApplication.startHandlerThread(/*"NFCEventEndBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
