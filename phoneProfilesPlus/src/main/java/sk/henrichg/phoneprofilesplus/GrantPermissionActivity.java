@@ -17,17 +17,17 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class GrantPermissionActivity extends AppCompatActivity {
@@ -1526,6 +1526,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private void finishGrant() {
         final Context context = getApplicationContext();
+
+        PPApplication.registerContentObservers(context);
 
         /*
         if (forGUI && (profile != null))

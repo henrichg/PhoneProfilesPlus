@@ -2932,6 +2932,19 @@ public class PPApplication extends Application /*implements Application.Activity
 
     // scanners ------------------------------------------
 
+    public static void registerContentObservers(Context context) {
+        try {
+            //PPApplication.logE("[RJS] PPApplication.registerContentObservers", "xxx");
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_CONTENT_OBSERVERS, true);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+            //Crashlytics.logException(e);
+        }
+    }
+
     public static void forceRegisterReceiversForWifiScanner(Context context) {
         try {
             //PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForWifiScanner", "xxx");

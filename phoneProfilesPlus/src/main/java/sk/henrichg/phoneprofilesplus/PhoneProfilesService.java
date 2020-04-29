@@ -121,6 +121,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_REGISTER_RECEIVERS_AND_WORKERS = "register_receivers_and_workers";
     static final String EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS = "unregister_receivers_and_workers";
     static final String EXTRA_REREGISTER_RECEIVERS_AND_WORKERS = "reregister_receivers_and_workers";
+    static final String EXTRA_REGISTER_CONTENT_OBSERVERS = "register_content_observers";
     static final String EXTRA_FROM_BATTERY_CHANGE = "from_battery_change";
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
@@ -627,16 +628,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.ringerModeChangeReceiver = null;
                 }
             }
-            if (PPApplication.settingsContentObserver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER settings content observer");
-                try {
-                    appContext.getContentResolver().unregisterContentObserver(PPApplication.settingsContentObserver);
-                    PPApplication.settingsContentObserver = null;
-                } catch (Exception e) {
-                    PPApplication.settingsContentObserver = null;
-                }
-            }
             if (PPApplication.deviceIdleModeReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER device idle mode", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER device idle mode");
@@ -769,16 +760,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.lockDeviceAfterScreenOffBroadcastReceiver = null;
                 }
             }
-            if (PPApplication.contactsContentObserver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER contacts content observer");
-                try {
-                    appContext.getContentResolver().unregisterContentObserver(PPApplication.contactsContentObserver);
-                    PPApplication.contactsContentObserver = null;
-                } catch (Exception e) {
-                    PPApplication.contactsContentObserver = null;
-                }
-            }
             if (PPApplication.wifiStateChangedBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER wifiStateChangedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER wifiStateChangedBroadcastReceiver");
@@ -897,21 +878,6 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter7 = new IntentFilter();
                 intentFilter7.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
                 appContext.registerReceiver(PPApplication.ringerModeChangeReceiver, intentFilter7);
-            }
-
-            // required for unlink ring and notification volume
-            if (PPApplication.settingsContentObserver == null) {
-                try {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER settings content observer");
-                    //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
-                    PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
-                    appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
-                } catch (Exception e) {
-                    PPApplication.settingsContentObserver = null;
-                    PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
-                }
             }
 
             // required for start EventsHandler in idle maintenance window
@@ -1043,22 +1009,6 @@ public class PhoneProfilesService extends Service
                 intentFilter14.addAction(LockDeviceAfterScreenOffBroadcastReceiver.ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
                 appContext.registerReceiver(PPApplication.lockDeviceAfterScreenOffBroadcastReceiver, intentFilter14);
             }
-
-            if (PPApplication.contactsContentObserver == null) {
-                try {
-                    if (Permissions.checkContacts(appContext)) {
-                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
-                        PPApplication.contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
-                        appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
-                    }
-                } catch (Exception e) {
-                    PPApplication.contactsContentObserver = null;
-                    PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
-                }
-            }
-
             if (PPApplication.wifiStateChangedBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER wifiStateChangedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER wifiStateChangedBroadcastReceiver");
@@ -1078,6 +1028,64 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
             }
 
+        }
+    }
+
+    private void registerContentObservers(boolean register) {
+        final Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerContentObservers", "PhoneProfilesService_registerContentObservers");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerContentObservers", "xxx");
+        if (!register) {
+            if (PPApplication.settingsContentObserver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER settings content observer");
+                try {
+                    appContext.getContentResolver().unregisterContentObserver(PPApplication.settingsContentObserver);
+                    PPApplication.settingsContentObserver = null;
+                } catch (Exception e) {
+                    PPApplication.settingsContentObserver = null;
+                }
+            }
+            if (PPApplication.contactsContentObserver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER contacts content observer");
+                try {
+                    appContext.getContentResolver().unregisterContentObserver(PPApplication.contactsContentObserver);
+                    PPApplication.contactsContentObserver = null;
+                } catch (Exception e) {
+                    PPApplication.contactsContentObserver = null;
+                }
+            }
+        }
+        if (register) {
+            // required for unlink ring and notification volume
+            if (PPApplication.settingsContentObserver == null) {
+                try {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER settings content observer");
+                    //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
+                    PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
+                    appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
+                } catch (Exception e) {
+                    PPApplication.settingsContentObserver = null;
+                    PPApplication.recordException(e);
+                    //Crashlytics.logException(e);
+                }
+            }
+            if (PPApplication.contactsContentObserver == null) {
+                try {
+                    if (Permissions.checkContacts(appContext)) {
+                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
+                        PPApplication.contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
+                        appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
+                    }
+                } catch (Exception e) {
+                    PPApplication.contactsContentObserver = null;
+                    PPApplication.recordException(e);
+                    //Crashlytics.logException(e);
+                }
+            }
         }
     }
 
@@ -3273,6 +3281,7 @@ public class PhoneProfilesService extends Service
         BatteryLevelChangedBroadcastReceiver.initialize(appContext);
 
         registerAllTheTimeRequiredReceivers(true);
+        registerContentObservers(true);
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
@@ -3405,6 +3414,7 @@ public class PhoneProfilesService extends Service
     private void unregisterReceiversAndWorkers() {
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
         registerAllTheTimeRequiredReceivers(false);
+        registerContentObservers(false);
         registerBatteryLevelChangedReceiver(false, null);
         registerBatteryChargingChangedReceiver(false, null);
         registerReceiverForPeripheralsSensor(false, null);
@@ -3457,6 +3467,9 @@ public class PhoneProfilesService extends Service
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
         //dataWrapper.fillProfileList(false, false);
+
+        registerAllTheTimeRequiredReceivers(true);
+        registerContentObservers(true);
 
         registerBatteryLevelChangedReceiver(true, dataWrapper);
         registerBatteryChargingChangedReceiver(true, dataWrapper);
@@ -3951,6 +3964,11 @@ public class PhoneProfilesService extends Service
                         if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
                             //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
                             reregisterReceiversAndWorkers();
+                        }
+                        else
+                        if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
+                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
+                            registerContentObservers(true);
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
