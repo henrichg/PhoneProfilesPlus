@@ -8,10 +8,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+
+//import com.crashlytics.android.Crashlytics;
 
 class ImportantInfoNotification {
 
@@ -25,13 +25,11 @@ class ImportantInfoNotification {
 
     static void showInfoNotification(Context context) {
         //PPApplication.logE("ImportantInfoNotification.showInfoNotification","xxx");
-        int packageVersionCode = 0;
-        int savedVersionCode = 0;
-        int show = 0;
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            packageVersionCode = PPApplication.getVersionCode(pInfo);
-            savedVersionCode = getShowInfoNotificationOnStartVersion(context);
+            int show = 0;
+            int packageVersionCode = PPApplication.getVersionCode(pInfo);
+            int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
 
             // do not show notification, version code is not saved
             // typically it is for new users
@@ -40,7 +38,7 @@ class ImportantInfoNotification {
                 return;
             }
 
-            if ((packageVersionCode > savedVersionCode)) {
+            if (packageVersionCode > savedVersionCode) {
                 show = canShowNotification(packageVersionCode, savedVersionCode, context);
                 //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
                 setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
@@ -50,29 +48,29 @@ class ImportantInfoNotification {
                 //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "extenderVersion="+extenderVersion);
                 if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
                     show = 2;
-                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
 
-                setShowInfoNotificationOnStartVersion(context, packageVersionCode);
+                //setShowInfoNotificationOnStartVersion(context, packageVersionCode);
+                setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
+            }
+
+            if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
+                //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
+
+                if (show == 1)
+                    showNotification(context, false/*savedVersionCode == 0*/,
+                            context.getString(R.string.info_notification_title),
+                            context.getString(R.string.info_notification_text));
+                else
+                if (show == 2)
+                    showNotification(context, false/*savedVersionCode == 0*/,
+                            context.getString(R.string.info_notification_title),
+                            context.getString(R.string.important_info_accessibility_service_new_version));
+
+                //setShowInfoNotificationOnStart(context, false, packageVersionCode);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
             //Crashlytics.logException(e);
-        }
-
-        if ((savedVersionCode == 0) || getShowInfoNotificationOnStart(context, packageVersionCode)) {
-            //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
-
-            if (show == 1)
-                showNotification(context, false/*savedVersionCode == 0*/,
-                        context.getString(R.string.info_notification_title),
-                        context.getString(R.string.info_notification_text));
-            else
-            if (show == 2)
-                showNotification(context, false/*savedVersionCode == 0*/,
-                        context.getString(R.string.info_notification_title),
-                        context.getString(R.string.important_info_accessibility_service_new_version));
-
-            //setShowInfoNotificationOnStart(context, false, packageVersionCode);
         }
     }
 
