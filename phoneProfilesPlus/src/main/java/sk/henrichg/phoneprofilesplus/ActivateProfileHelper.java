@@ -48,7 +48,13 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -58,14 +64,9 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 import static android.app.Notification.DEFAULT_VIBRATE;
+
+//import com.crashlytics.android.Crashlytics;
 
 class ActivateProfileHelper {
 
@@ -3179,9 +3180,10 @@ class ActivateProfileHelper {
             WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
             if (windowManager != null) {
                 int type;
-                if (android.os.Build.VERSION.SDK_INT < 25)
-                    type = WindowManager.LayoutParams.TYPE_TOAST;
-                else if (android.os.Build.VERSION.SDK_INT < 26)
+                //if (android.os.Build.VERSION.SDK_INT < 25)
+                //    type = WindowManager.LayoutParams.TYPE_TOAST;
+                //else
+                if (android.os.Build.VERSION.SDK_INT < 26)
                     type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 else
                     type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
@@ -3241,9 +3243,10 @@ class ActivateProfileHelper {
                     PhoneProfilesService.getInstance().brightnessView = null;
                 }
                 int type;
-                if (android.os.Build.VERSION.SDK_INT < 25)
-                    type = WindowManager.LayoutParams.TYPE_TOAST;
-                else if (android.os.Build.VERSION.SDK_INT < 26)
+                //if (android.os.Build.VERSION.SDK_INT < 25)
+                //    type = WindowManager.LayoutParams.TYPE_TOAST;
+                //else
+                if (android.os.Build.VERSION.SDK_INT < 26)
                     type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 else
                     type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
@@ -3344,9 +3347,10 @@ class ActivateProfileHelper {
         WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
         if (windowManager != null) {
             int type;
-            if (android.os.Build.VERSION.SDK_INT < 25)
-                type = WindowManager.LayoutParams.TYPE_TOAST;
-            else if (android.os.Build.VERSION.SDK_INT < 26)
+            //if (android.os.Build.VERSION.SDK_INT < 25)
+            //    type = WindowManager.LayoutParams.TYPE_TOAST;
+            //else
+            if (android.os.Build.VERSION.SDK_INT < 26)
                 type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             else
                 type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
