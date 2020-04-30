@@ -3567,8 +3567,6 @@ public class PhoneProfilesService extends Service
 
                     //PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
 
-                    PPApplication.createNotificationChannels(appContext);
-
                     /*if (_deactivateProfile) {
                         DatabaseHandler.getInstance(appContext).deactivateProfile();
                         ActivateProfileHelper.updateGUI(appContext, false, true);

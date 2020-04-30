@@ -2205,17 +2205,17 @@ public class PPApplication extends Application /*implements Application.Activity
 
     static void createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
-                    return;// true;
-            }
-            else
-                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - notificationManager=null");
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
+                        return;// true;
+                } else
+                    throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - notificationManager=null");
 
-            int importance;
-            //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
-            //if (ApplicationPreferences.notificationShowInStatusBar(context)) {
+                int importance;
+                //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
+                //if (ApplicationPreferences.notificationShowInStatusBar(context)) {
                 /*KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {
                     //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
@@ -2228,257 +2228,281 @@ public class PPApplication extends Application /*implements Application.Activity
                         importance = NotificationManager.IMPORTANCE_LOW;
                 }
                 else*/
-            //        importance = NotificationManager.IMPORTANCE_DEFAULT;
-            //}
-            //else
-            //    importance = NotificationManager.IMPORTANCE_MIN;
-            importance = NotificationManager.IMPORTANCE_LOW;
+                //        importance = NotificationManager.IMPORTANCE_DEFAULT;
+                //}
+                //else
+                //    importance = NotificationManager.IMPORTANCE_MIN;
+                importance = NotificationManager.IMPORTANCE_LOW;
 
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_activated_profile);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.notification_channel_activated_profile_description_ppp);
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_activated_profile);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_activated_profile_description_ppp);
 
-            NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, importance);
+                NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, importance);
 
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(false);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(false);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-            channel.setSound(null, null);
-            channel.setShowBadge(false);
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                channel.setSound(null, null);
+                channel.setShowBadge(false);
 
-            notificationManager.createNotificationChannel(channel);
-            NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
+                notificationManager.createNotificationChannel(channel);
+                NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
 
-            if (newChannel == null)
-                throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - newChannel=null");
+                if (newChannel == null)
+                    throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - newChannel=null");
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
         //return true;
     }
 
     static void createMobileCellsRegistrationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } else
                     return;
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_mobile_cells_registration_description);
+
+                NotificationChannel channel = new NotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                channel.setSound(null, null);
+                channel.setShowBadge(false);
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-            else
-                return;
-
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.notification_channel_mobile_cells_registration_description);
-
-            NotificationChannel channel = new NotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
-
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(false);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(false);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-            channel.setSound(null, null);
-            channel.setShowBadge(false);
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createInformationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(INFORMATION_NOTIFICATION_CHANNEL) != null)
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(INFORMATION_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } else
                     return;
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_information);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.empty_string);
+
+                NotificationChannel channel = new NotificationChannel(INFORMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-            else
-                return;
-
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_information);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.empty_string);
-
-            NotificationChannel channel = new NotificationChannel(INFORMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
-
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(false);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(false);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createExclamationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL) != null)
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } else
                     return;
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_exclamation);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.empty_string);
+
+                NotificationChannel channel = new NotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(true);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(true);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-            else
-                return;
-
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_exclamation);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.empty_string);
-
-            NotificationChannel channel = new NotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
-
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(true);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(true);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createGrantPermissionNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } else
                     return;
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_grant_permission);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_grant_permission_description);
+
+                NotificationChannel channel = new NotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(true);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(true);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-            else
-                return;
-
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_grant_permission);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.notification_channel_grant_permission_description);
-
-            NotificationChannel channel = new NotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
-
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(true);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(true);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createNotifyEventStartNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } else
                     return;
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_notify_event_start);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_notify_event_start_description);
+
+                NotificationChannel channel = new NotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                channel.setSound(null, null);
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-            else
-                return;
-
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_notify_event_start);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.notification_channel_notify_event_start_description);
-
-            NotificationChannel channel = new NotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
-
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(false);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(false);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-            channel.setSound(null, null);
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createMobileCellsNewCellNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } else
                     return;
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_not_used_mobile_cell);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_not_used_mobile_cell_description);
+
+                NotificationChannel channel = new NotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(true);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(true);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-            else
-                return;
-
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_not_used_mobile_cell);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.notification_channel_not_used_mobile_cell_description);
-
-            NotificationChannel channel = new NotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
-
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(true);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(true);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 
     static void createDonationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager)context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
+            try {
+                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
+                        return;
+                } else
                     return;
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_donation);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.empty_string);
+
+                NotificationChannel channel = new NotificationChannel(DONATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
-            else
-                return;
-
-            // The user-visible name of the channel.
-            CharSequence name = context.getString(R.string.notification_channel_donation);
-            // The user-visible description of the channel.
-            String description = context.getString(R.string.empty_string);
-
-            NotificationChannel channel = new NotificationChannel(DONATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
-
-            // Configure the notification channel.
-            //channel.setImportance(importance);
-            channel.setDescription(description);
-            channel.enableLights(false);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            //channel.setLightColor(Color.RED);
-            channel.enableVibration(false);
-            //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 

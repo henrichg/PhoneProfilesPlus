@@ -86,6 +86,8 @@ public class DelayedWorksWorker extends Worker {
                     }
 
                     if (fromDoFirstStart) {
+                        PPApplication.createNotificationChannels(appContext);
+
                         boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
 
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
