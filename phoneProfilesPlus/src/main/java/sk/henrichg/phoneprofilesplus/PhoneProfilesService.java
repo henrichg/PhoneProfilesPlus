@@ -4261,7 +4261,6 @@ public class PhoneProfilesService extends Service
 //            if (!PPApplication.createProfileNotificationChannel(appContext))
 //                return;
 //        }
-        PPApplication.createProfileNotificationChannel(appContext);
 
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "show enabled");
 
@@ -4523,6 +4522,7 @@ public class PhoneProfilesService extends Service
 
         // ----- create notificationBuilders
         if (Build.VERSION.SDK_INT >= 26) {
+            PPApplication.createProfileNotificationChannel(appContext);
             notificationBuilder = new Notification.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
             //notificationBuilder.setSettingsText("Test");
         }
