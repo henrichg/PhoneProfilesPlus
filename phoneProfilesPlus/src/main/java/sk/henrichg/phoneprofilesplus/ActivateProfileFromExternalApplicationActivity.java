@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class ActivateProfileFromExternalApplicationActivity extends AppCompatActivity {
 
@@ -71,8 +71,8 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profile="+profile);
             //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
             //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
-            if (EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, getApplicationContext())) {
-                dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, getApplicationContext())) {
+                dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
             }
             else
                 dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);

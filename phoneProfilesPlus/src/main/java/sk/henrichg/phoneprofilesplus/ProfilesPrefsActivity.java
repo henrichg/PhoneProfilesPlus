@@ -12,19 +12,20 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import com.crashlytics.android.Crashlytics;
 
 public class ProfilesPrefsActivity extends AppCompatActivity {
 
@@ -632,13 +633,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     }
                     else {
                         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                            dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null);
+                            dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                         }
                     }
                 }
                 else {
                     if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                        dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null);
+                        dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                     }
                 }
             }

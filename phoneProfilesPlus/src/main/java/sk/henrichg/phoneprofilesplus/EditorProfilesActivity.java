@@ -1488,7 +1488,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
                         //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                        EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, getApplicationContext());
+                        EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, getApplicationContext());
                     }
                 }
 
@@ -1528,7 +1528,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     redrawEventListFragment(event, newEventMode);
 
                     //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
-                    EditorProfilesActivity.displayRedTextToPreferencesNotification(null, event, getApplicationContext());
+                    EditorProfilesActivity.displayNotGrantedPermissionsNotification(null, event, getApplicationContext());
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -3222,14 +3222,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    static boolean displayRedTextToPreferencesNotification(Profile profile, Event event, Context context) {
+    static boolean displayNotGrantedPermissionsNotification(Profile profile, Event event, Context context) {
         if ((profile == null) && (event == null))
-            return true;
+            return false;
 
         if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)))
-            return true;
+            return false;
         if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context)))
-            return true;
+            return false;
 
         int notificationID = 0;
 
@@ -3322,7 +3322,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
-        return false;
+        return true;
     }
 
     static void showDialogAboutRedText(Profile profile, Event event, boolean forShowInActivator, boolean forRunStopEvent, Activity activity) {

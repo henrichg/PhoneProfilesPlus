@@ -8,13 +8,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+//import com.crashlytics.android.Crashlytics;
 
 class EventsHandler {
     
@@ -1106,7 +1106,7 @@ class EventsHandler {
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
             /*boolean reactivate,*/ Profile mergedProfile, DataWrapper dataWrapper)
     {
-        if (!EditorProfilesActivity.displayRedTextToPreferencesNotification(null, event, context)) {
+        if (EditorProfilesActivity.displayNotGrantedPermissionsNotification(null, event, context)) {
             event.setStatus(Event.ESTATUS_STOP);
             return;
         }

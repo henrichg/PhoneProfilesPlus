@@ -12,14 +12,15 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
+
+import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
@@ -111,8 +112,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
-                if (EditorProfilesActivity.displayRedTextToPreferencesNotification(mProfile, null, mActivity.getApplicationContext()))
-                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity);
+                if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(mProfile, null, mActivity.getApplicationContext()))
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
             }
@@ -335,8 +336,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
-                if (EditorProfilesActivity.displayRedTextToPreferencesNotification(mProfile, null, mActivity.getApplicationContext()))
-                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity);
+                if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(mProfile, null, mActivity.getApplicationContext()))
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
 

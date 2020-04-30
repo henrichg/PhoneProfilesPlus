@@ -962,7 +962,7 @@ public class EditorProfileListFragment extends Fragment
     public void activateProfile(Profile profile/*, boolean interactive*/)
     {
         if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
-            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
+            activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         else
             EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, getActivity());
     }

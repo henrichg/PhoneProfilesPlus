@@ -526,7 +526,7 @@ public class DataWrapper {
         //if (Permissions.grantProfilePermissions(context, profile, merged, true,
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
-        if (EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, context)) {
+        if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context)) {
             //PPApplication.logE("DataWrapper.activateProfileFromEvent", "***********");
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
@@ -1192,10 +1192,10 @@ public class DataWrapper {
                     profileId = 0;
             }
 
-            activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
+            activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null, true);
         }
         else
-            activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
+            activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null, true);
     }
 
     private void startEventsOnBoot(boolean startedFromService, boolean useHandler)
@@ -1726,7 +1726,7 @@ public class DataWrapper {
     }
 
     void activateProfileFromMainThread(final Profile profile, final boolean merged, final int startupSource,
-                                    final boolean interactive, final Activity _activity)
+                                    final boolean interactive, final Activity _activity, final boolean testGrant)
     {
         //PPApplication.logE("$$$$$ DataWrapper.activateProfileFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
@@ -1746,10 +1746,15 @@ public class DataWrapper {
 
                     //PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
-                    dataWrapper._activateProfile(profile, merged, startupSource, false);
-                    if (interactive) {
-                        DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
-                        dataWrapper.setDynamicLauncherShortcuts();
+                    boolean granted = true;
+                    if (testGrant)
+                        granted = !EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context);
+                    if (granted) {
+                        dataWrapper._activateProfile(profile, merged, startupSource, false);
+                        if (interactive) {
+                            DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
+                            dataWrapper.setDynamicLauncherShortcuts();
+                        }
                     }
 
                     //PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "END run - from=DataWrapper.activateProfileFromMainThread");
@@ -1841,8 +1846,8 @@ public class DataWrapper {
                             //if (Permissions.grantProfilePermissions(context, _profile, false, true,
                             //        /*false, monochrome, monochromeValue,*/
                             //        _startupSource, true, true, false))
-                            if (EditorProfilesActivity.displayRedTextToPreferencesNotification(_profile, null, context))
-                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity);
+                            if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(_profile, null, context))
+                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
                             else {
                                 Intent returnIntent = new Intent();
                                 _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1899,14 +1904,8 @@ public class DataWrapper {
                 }
             }
             else {
-                boolean granted;
-
-                //granted = Permissions.grantProfilePermissions(context, profile, false, true,
-                //        /*false, monochrome, monochromeValue,*/
-                //        startupSource, true, true, false);
-                granted = EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, context);
-                if (granted)
-                    activateProfileFromMainThread(profile, false, startupSource, true, activity);
+                if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context))
+                    activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
                 else {
                     Intent returnIntent = new Intent();
                     activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1962,7 +1961,7 @@ public class DataWrapper {
         }
     }
 
-    public void activateProfile(final long profile_id, final int startupSource, final Activity activity)
+    public void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
     {
         Profile profile;
 
@@ -2047,7 +2046,7 @@ public class DataWrapper {
             // profile activation
             if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
                 activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
-                                        false, null);
+                                        false, null, testGrant);
             else
                 activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
         }
@@ -2089,7 +2088,7 @@ public class DataWrapper {
         //if (Permissions.grantProfilePermissions(context, profile, false, true,
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, true,true, false)) {
-        if (EditorProfilesActivity.displayRedTextToPreferencesNotification(profile, null, context)) {
+        if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context)) {
             // activateProfileAfterDuration is already called from handlerThread
             //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
             _activateProfile(profile, false, startupSource, false);

@@ -65,7 +65,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                     } else
                         finish();
                 } else
-                    dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
+                    dataWrapper.activateProfile(profile_id, startupSource, this, true);
             }
         }
         else {
