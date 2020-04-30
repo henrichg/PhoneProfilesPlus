@@ -4749,17 +4749,26 @@ public class PhoneProfilesService extends Service
             }
         }
 
+        // notification title
         if (notificationNotificationStyle.equals("0")) {
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
             if (contentView != null)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
 
             // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
-            //notificationBuilder.setContentText(profileName);
+            try {
+                notificationBuilder.setContentTitle(profileName);
+                notificationBuilder.setContentText(profileName);
+            } catch (Exception e) {
+                Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            }
         }
-        // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
-        //notificationBuilder.setContentTitle(profileName);
+        else {
+            notificationBuilder.setContentTitle(profileName);
+        }
 
+        // profile preferences indicator
         try {
             if (notificationNotificationStyle.equals("0")) {
                 if ((preferencesIndicator != null) && (notificationPrefIndicator)) {
@@ -4775,7 +4784,6 @@ public class PhoneProfilesService extends Service
                 }
             }
             else {
-                notificationBuilder.setContentTitle(profileName);
                 if (notificationPrefIndicator) {
                     notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
                 }
