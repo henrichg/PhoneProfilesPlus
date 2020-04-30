@@ -238,11 +238,12 @@ class ImportantInfoNotification {
                 getSharedPreferences(context).getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, 0);
     }
 
+    /*
     private static void setShowInfoNotificationOnStartVersion(Context context, int version)
     {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
         editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
         editor.apply();
     }
-
+    */
 }

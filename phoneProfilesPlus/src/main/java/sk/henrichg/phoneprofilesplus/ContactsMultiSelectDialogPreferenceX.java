@@ -8,9 +8,9 @@ import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
 
-import java.util.List;
-
 import androidx.preference.DialogPreference;
+
+import java.util.List;
 
 public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
 {
@@ -32,8 +32,8 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         _context = context;
 
         TypedArray locationGeofenceType = context.obtainStyledAttributes(attrs,
-                R.styleable.ContactsMultiSelectDialogPreference, 0, 0);
-        withoutNumbers = locationGeofenceType.getBoolean(R.styleable.ContactsMultiSelectDialogPreference_withoutNumbers, false);
+                R.styleable.PPContactsMultiSelectDialogPreference, 0, 0);
+        withoutNumbers = locationGeofenceType.getBoolean(R.styleable.PPContactsMultiSelectDialogPreference_withoutNumbers, false);
 
         locationGeofenceType.recycle();
 

@@ -6,9 +6,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
-import java.util.Calendar;
-
 import androidx.preference.DialogPreference;
+
+import java.util.Calendar;
 
 public class TimeDialogPreferenceX extends DialogPreference {
 
@@ -23,13 +23,13 @@ public class TimeDialogPreferenceX extends DialogPreference {
     public TimeDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray durationDialogType = context.obtainStyledAttributes(attrs,
-                R.styleable.DurationDialogPreference, 0, 0);
+        //TypedArray durationDialogType = context.obtainStyledAttributes(attrs,
+        //        R.styleable.PPDurationDialogPreference, 0, 0);
 
         mMax = 23 * 60 + 59;
         mMin = 0;
 
-        durationDialogType.recycle();
+        //durationDialogType.recycle();
 
         //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
         //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);

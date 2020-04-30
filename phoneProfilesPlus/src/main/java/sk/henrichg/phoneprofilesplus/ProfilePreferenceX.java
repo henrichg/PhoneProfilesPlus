@@ -31,11 +31,11 @@ public class ProfilePreferenceX extends DialogPreference {
 
         //PPApplication.logE("ProfilePreferenceX.ProfilePreferenceX", "xxx");
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProfilePreference);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PPProfilePreference);
 
-        addNoActivateItem = typedArray.getInt(R.styleable.ProfilePreference_addNoActivateItem, 0);
-        noActivateAsDoNotApply = typedArray.getInt(R.styleable.ProfilePreference_noActivateAsDoNotApply, 0);
-        showDuration = typedArray.getInt(R.styleable.ProfilePreference_showDuration, 0);
+        addNoActivateItem = typedArray.getInt(R.styleable.PPProfilePreference_addNoActivateItem, 0);
+        noActivateAsDoNotApply = typedArray.getInt(R.styleable.PPProfilePreference_noActivateAsDoNotApply, 0);
+        showDuration = typedArray.getInt(R.styleable.PPProfilePreference_showDuration, 0);
 
         profileId = "0";
         prefContext = context;

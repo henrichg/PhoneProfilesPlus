@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+
 import androidx.preference.DialogPreference;
 
 public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
@@ -24,10 +25,10 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
     public MobileCellsRegistrationDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray durationDialogType = context.obtainStyledAttributes(attrs,
-                R.styleable.DurationDialogPreference, 0, 0);
+                R.styleable.PPDurationDialogPreference, 0, 0);
 
-        mMax = durationDialogType.getInt(R.styleable.DurationDialogPreference_dMax, 5);
-        mMin = durationDialogType.getInt(R.styleable.DurationDialogPreference_dMin, 0);
+        mMax = durationDialogType.getInt(R.styleable.PPDurationDialogPreference_dMax, 5);
+        mMin = durationDialogType.getInt(R.styleable.PPDurationDialogPreference_dMin, 0);
 
         durationDialogType.recycle();
 

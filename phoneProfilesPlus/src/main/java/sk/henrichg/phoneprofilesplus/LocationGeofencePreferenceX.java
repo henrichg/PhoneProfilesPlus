@@ -31,9 +31,9 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     public LocationGeofencePreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray locationGeofenceType = context.obtainStyledAttributes(attrs,
-                R.styleable.LocationGeofencePreference, 0, 0);
+                R.styleable.PPLocationGeofencePreference, 0, 0);
 
-        onlyEdit = locationGeofenceType.getInt(R.styleable.LocationGeofencePreference_onlyEdit, 0);
+        onlyEdit = locationGeofenceType.getInt(R.styleable.PPLocationGeofencePreference_onlyEdit, 0);
 
         locationGeofenceType.recycle();
 

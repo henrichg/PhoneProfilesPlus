@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
-@SuppressWarnings("WeakerAccess")
 public class InfoDialogPreferenceX extends DialogPreference {
 
     InfoDialogPreferenceFragmentX fragment;
@@ -18,9 +17,9 @@ public class InfoDialogPreferenceX extends DialogPreference {
         super(context, attrs);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.InfoDialogPreference);
+                R.styleable.PPInfoDialogPreference);
 
-        infoText = typedArray.getString(R.styleable.InfoDialogPreference_infoText);
+        infoText = typedArray.getString(R.styleable.PPInfoDialogPreference_infoText);
         isHtml = false;
 
         typedArray.recycle();

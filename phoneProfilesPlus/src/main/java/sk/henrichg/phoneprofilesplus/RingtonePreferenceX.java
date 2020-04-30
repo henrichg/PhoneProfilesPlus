@@ -17,7 +17,11 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.AttributeSet;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.preference.DialogPreference;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,11 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.NonNull;
-import androidx.preference.DialogPreference;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+//import com.crashlytics.android.Crashlytics;
 
 public class RingtonePreferenceX extends DialogPreference {
 
@@ -59,11 +59,11 @@ public class RingtonePreferenceX extends DialogPreference {
     {
         super(context, attrs);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RingtonePreference);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PPRingtonePreference);
 
-        ringtoneType = typedArray.getString(R.styleable.RingtonePreference_ringtoneType);
-        showSilent = typedArray.getBoolean(R.styleable.RingtonePreference_showSilent, false);
-        showDefault = typedArray.getBoolean(R.styleable.RingtonePreference_showDefault, false);
+        ringtoneType = typedArray.getString(R.styleable.PPRingtonePreference_ringtoneType);
+        showSilent = typedArray.getBoolean(R.styleable.PPRingtonePreference_showSilent, false);
+        showDefault = typedArray.getBoolean(R.styleable.PPRingtonePreference_showDefault, false);
 
         // set ringtoneUri to default
         ringtoneUri = "";

@@ -22,10 +22,10 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
         super(context, attrs);
 
         TypedArray numberPickerType = context.obtainStyledAttributes(attrs,
-                R.styleable.BetterNumberPickerPreference, 0, 0);
+                R.styleable.PPBetterNumberPickerPreference, 0, 0);
 
-        mMax = numberPickerType.getInt(R.styleable.BetterNumberPickerPreference_max, 5);
-        mMin = numberPickerType.getInt(R.styleable.BetterNumberPickerPreference_min, 0);
+        mMax = numberPickerType.getInt(R.styleable.PPBetterNumberPickerPreference_max, 5);
+        mMin = numberPickerType.getInt(R.styleable.PPBetterNumberPickerPreference_min, 0);
 
         numberPickerType.recycle();
     }

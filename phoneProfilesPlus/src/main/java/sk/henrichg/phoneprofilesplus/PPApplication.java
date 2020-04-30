@@ -81,7 +81,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
-    static final boolean crashIntoFile = true;// && DebugVersion.enabled;
+    static final boolean crashIntoFile = true && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"

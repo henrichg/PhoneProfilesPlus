@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <declare-styleable name="SeekBarDialogPreference">
+    <!--
+    <declare-styleable name="PPSeekBarDialogPreference">
         <attr name="maximumValue" format="integer" />
         <attr name="minimumValue" format="integer" />
         <attr name="stepSize" format="integer" />
         <attr name="units" format="string" />
     </declare-styleable>
-    <declare-styleable name="VolumeDialogPreference">
+    -->
+    <declare-styleable name="PPVolumeDialogPreference">
         <attr name="volumeType" format="string" />
         <attr name="vNoChange" format="integer" />
     </declare-styleable>
-    <declare-styleable name="BrightnessDialogPreference">
+    <declare-styleable name="PPBrightnessDialogPreference">
         <attr name="bNoChange" format="integer" />
         <attr name="bAutomatic" format="integer" />
         <attr name="bChangeLevel" format="integer" />
     </declare-styleable>
-    <declare-styleable name="EventTypePreference">
+    <!--
+    <declare-styleable name="PPEventTypePreference">
     </declare-styleable>
-    <declare-styleable name="ProfilePreference">
+    -->
+    <declare-styleable name="PPProfilePreference">
         <attr name="addNoActivateItem" format="integer" />
         <attr name="noActivateAsDoNotApply" format="integer" />
         <attr name="showDuration" format="integer" />
     </declare-styleable>
-    <declare-styleable name="BetterNumberPickerPreference">
+    <declare-styleable name="PPBetterNumberPickerPreference">
         <attr name="max" format="integer" />
         <attr name="min" format="integer" />
         <attr name="maxExternal" format="string" />
         <attr name="minExternal" format="string" />
     </declare-styleable>
-    <declare-styleable name="DurationDialogPreference">
+    <declare-styleable name="PPDurationDialogPreference">
         <attr name="dMax" format="integer" />
         <attr name="dMin" format="integer" />
     </declare-styleable>
-    <declare-styleable name="LocationGeofencePreference">
+    <declare-styleable name="PPLocationGeofencePreference">
         <attr name="onlyEdit" format="integer" />
     </declare-styleable>
-    <declare-styleable name="ApplicationsMultiSelectDialogPreference">
+    <declare-styleable name="PPApplicationsMultiSelectDialogPreference">
         <attr name="removePPApplications" format="integer" />
         <attr name="systemSettings" format="string" />
     </declare-styleable>
-    <declare-styleable name="InfoDialogPreference">
+    <declare-styleable name="PPInfoDialogPreference">
         <attr name="infoText" format="string" />
     </declare-styleable>
-    <declare-styleable name="RingtonePreference">
+    <declare-styleable name="PPRingtonePreference">
         <attr name="ringtoneType" format="string" />
         <attr name="showSilent" format="boolean" />
         <attr name="showDefault" format="boolean" />
@@ -53,7 +57,7 @@
         <attr format="reference|color" name="insetForeground" />
     </declare-styleable>
     -->
-    <declare-styleable name="ContactsMultiSelectDialogPreference">
+    <declare-styleable name="PPContactsMultiSelectDialogPreference">
         <attr name="withoutNumbers" format="boolean" />
     </declare-styleable>
 

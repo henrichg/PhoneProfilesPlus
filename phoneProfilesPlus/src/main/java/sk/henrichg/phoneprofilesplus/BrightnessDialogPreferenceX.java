@@ -43,18 +43,18 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         _context = context;
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.BrightnessDialogPreference);
+                R.styleable.PPBrightnessDialogPreference);
 
         noChange = typedArray.getInteger(
-                R.styleable.BrightnessDialogPreference_bNoChange, 1);
+                R.styleable.PPBrightnessDialogPreference_bNoChange, 1);
         automatic = typedArray.getInteger(
-                R.styleable.BrightnessDialogPreference_bAutomatic, 1);
+                R.styleable.PPBrightnessDialogPreference_bAutomatic, 1);
         /*sharedProfile = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bSharedProfile, 0);
         disableSharedProfile = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bDisableSharedProfile, 0);*/
         changeLevel = typedArray.getInteger(
-                R.styleable.BrightnessDialogPreference_bChangeLevel, 1);
+                R.styleable.PPBrightnessDialogPreference_bChangeLevel, 1);
 
         typedArray.recycle();
 
