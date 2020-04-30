@@ -28,7 +28,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -41,19 +50,11 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-//import me.drakeet.support.toast.ToastCompat;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+
+//import com.crashlytics.android.Crashlytics;
+//import me.drakeet.support.toast.ToastCompat;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -1058,7 +1059,7 @@ public class EditorEventListFragment extends Fragment
         }.execute();
     }
 
-    void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)
+    void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition/*, long loadEventId*/)
     {
         /*if (listView != null)
             listView.cancelDrag();*/
@@ -1087,13 +1088,13 @@ public class EditorEventListFragment extends Fragment
             //else
             //    eventPos = listView.getCheckedItemPosition();
 
-            if (loadEventId != 0) {
+            /*if (loadEventId != 0) {
                 if (getActivity() != null) {
                     Event eventFromDB = DatabaseHandler.getInstance(getActivity().getApplicationContext()).getEvent(loadEventId);
                     activityDataWrapper.updateEvent(eventFromDB);
                     refreshIcons = true;
                 }
-            }
+            }*/
             eventListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (setPosition || newEvent) {
@@ -1287,14 +1288,110 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long eventId)
+    void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long eventId)
     {
         if (activityDataWrapper == null)
             return;
 
         //PPApplication.logE("EditorEventListFragment.refreshGUI", "refresh="+refresh);
 
-        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+        new AsyncTask<Void, Integer, Void>() {
+
+            Profile profileFromDB;
+            Profile profileFromDataWrapper;
+            boolean _refreshIcons;
+
+            boolean doNotRefresh = false;
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                _refreshIcons = refreshIcons;
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+                activityDataWrapper.getEventTimelineList(true);
+
+                String pName;
+                if (profileFromDB != null) {
+                    profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                            ApplicationPreferences.applicationEditorPrefIndicator, false);
+                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
+                }
+                else
+                    pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
+
+                if (!refresh) {
+                    String pNameHeader = PPApplication.prefActivityProfileName3;
+                    //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
+
+                    if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
+                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
+                        doNotRefresh = true;
+                        return null;
+                    }
+                }
+
+                PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
+                PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
+
+                synchronized (activityDataWrapper.eventList) {
+                    if (!activityDataWrapper.eventListFilled) {
+                        doNotRefresh = true;
+                        return null;
+                    }
+
+                    //noinspection ForLoopReplaceableByForEach
+                    for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
+                        Event event = it.next();
+                        int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
+                        event.setStatus(status);
+                        event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
+                        event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
+                        DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
+                        DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
+                        //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
+                        DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
+                        DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
+                        DatabaseHandler.getInstance(activityDataWrapper.context).getAlarmClockStartTime(event);
+                        DatabaseHandler.getInstance(activityDataWrapper.context).getDeviceBootStartTime(event);
+                    }
+                }
+
+                if (eventId != 0) {
+                    Event eventFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getEvent(eventId);
+                    activityDataWrapper.updateEvent(eventFromDB);
+                    _refreshIcons = true;
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+                if (!doNotRefresh) {
+                    if (profileFromDB != null) {
+                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
+                        if (profileFromDataWrapper != null)
+                            profileFromDataWrapper._checked = true;
+                        updateHeader(profileFromDataWrapper);
+                    } else {
+                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
+                        updateHeader(null);
+                    }
+                    updateListView(null, false, _refreshIcons, setPosition/*, eventId*/);
+                }
+            }
+
+        }.execute();
+
+        /*Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         activityDataWrapper.getEventTimelineList(true);
 
         String pName;
@@ -1349,7 +1446,7 @@ public class EditorEventListFragment extends Fragment
             //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
         }
-        updateListView(null, false, refreshIcons, setPosition, eventId);
+        updateListView(null, false, refreshIcons, setPosition, eventId);*/
     }
 
     void removeAdapter() {

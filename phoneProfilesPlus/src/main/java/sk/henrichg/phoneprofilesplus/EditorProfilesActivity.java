@@ -2416,7 +2416,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                         (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
-                fragment.updateListView(profile, newProfile, false, false, 0);
+                fragment.updateListView(profile, newProfile, false, false/*, 0*/);
 
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
@@ -2618,7 +2618,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                         (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
-                fragment.updateListView(event, newEvent, false, false, 0);
+                fragment.updateListView(event, newEvent, false, false/*, 0*/);
 
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
@@ -2737,9 +2737,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
     {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
                 if (doImport)
                     return;
 
@@ -2753,8 +2753,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     else
                         ((EditorEventListFragment) fragment).refreshGUI(refresh, refreshIcons, setPosition, eventId);
                 }
-            }
-        });
+//            }
+//        });
     }
 
     /*

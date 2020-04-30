@@ -27,7 +27,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -39,17 +46,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-//import me.drakeet.support.toast.ToastCompat;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+
+//import com.crashlytics.android.Crashlytics;
+//import me.drakeet.support.toast.ToastCompat;
 
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -997,7 +998,7 @@ public class EditorProfileListFragment extends Fragment
             showAdapterTargetHelps();
     }*/
 
-    void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition, long loadProfileId)
+    void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition/*, long loadProfileId*/)
     {
         /*if (listView != null)
             listView.cancelDrag();*/
@@ -1030,13 +1031,13 @@ public class EditorProfileListFragment extends Fragment
             //else
             //    profilePos = listView.getCheckedItemPosition();
 
-            if (loadProfileId != 0) {
+            /*if (loadProfileId != 0) {
                 if (getActivity() != null) {
                     Profile profileFromDB = DatabaseHandler.getInstance(getActivity().getApplicationContext()).getProfile(loadProfileId, false);
                     activityDataWrapper.updateProfile(profileFromDB);
                     refreshIcons = true;
                 }
-            }
+            }*/
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (setPosition || newProfile) {
@@ -1096,14 +1097,93 @@ public class EditorProfileListFragment extends Fragment
         Collections.sort(profileList, new ByPOrderComparator());
     }
 
-    void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long profileId)
+    void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long profileId)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
         //PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh="+refresh);
 
-        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+        new AsyncTask<Void, Integer, Void>() {
+
+            Profile profileFromDB;
+            Profile profileFromDataWrapper;
+            boolean _refreshIcons;
+
+            boolean doNotRefresh = false;
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                _refreshIcons = refreshIcons;
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+
+                String pName;
+                if (profileFromDB != null) {
+                    profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                            ApplicationPreferences.applicationEditorPrefIndicator, false);
+                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
+                }
+                else
+                    pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
+
+                if (!refresh) {
+                    String pNameHeader = PPApplication.prefActivityProfileName2;
+                    //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
+
+                    if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
+                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
+                        doNotRefresh = true;
+                        return null;
+                    }
+                }
+
+                PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
+                PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
+
+                if (profileId != 0) {
+                    //if (getActivity() != null) {
+                        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getProfile(profileId, false);
+                        activityDataWrapper.updateProfile(profileFromDB);
+                        _refreshIcons = true;
+                    //}
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+                if (!doNotRefresh) {
+                    Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
+                    if (profileFromAdapter != null)
+                        profileFromAdapter._checked = false;
+
+                    if (profileFromDB != null) {
+                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
+                        if (profileFromDataWrapper != null)
+                            profileFromDataWrapper._checked = true;
+                        updateHeader(profileFromDataWrapper);
+                        updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition/*, profileId*/);
+                    } else {
+                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
+                        updateHeader(null);
+                        updateListView(null, false, _refreshIcons, setPosition/*, 0*/);
+                    }
+                }
+            }
+
+        }.execute();
+
+        /*Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
 
         String pName;
         if (profileFromDB != null)
@@ -1141,7 +1221,7 @@ public class EditorProfileListFragment extends Fragment
             //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
             updateListView(null, false, refreshIcons, setPosition, 0);
-        }
+        }*/
     }
 
     void removeAdapter() {

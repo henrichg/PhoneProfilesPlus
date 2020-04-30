@@ -20,16 +20,16 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import static android.view.View.GONE;
+
+//import com.crashlytics.android.Crashlytics;
 
 @SuppressWarnings("WeakerAccess")
 public class ActivateProfileListFragment extends Fragment {
@@ -411,7 +411,9 @@ public class ActivateProfileListFragment extends Fragment {
         Profile profile = activityDataWrapper.getActivatedProfile(true, ApplicationPreferences.applicationEditorPrefIndicator);
 
         updateHeader(profile);
-        setProfileSelection(profile, false);
+        if (profileListAdapter != null)
+            profileListAdapter.notifyDataSetChanged(false);
+        //setProfileSelection(profile, false);
 
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onStart");
     }
@@ -516,65 +518,88 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    private void setProfileSelection(@SuppressWarnings("unused") Profile profile, boolean refreshIcons) {
-        if (profileListAdapter != null)
-        {
-            /*
-            int profilePos = ListView.INVALID_POSITION;
-
-            boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context);
-
-            if (profile != null)
-                profilePos = profileListAdapter.getItemPosition(profile);
-            else {
-                if (!applicationActivatorGridLayout) {
-                    if (listView != null)
-                        profilePos = listView.getCheckedItemPosition();
-                }
-                else {
-                    if (gridView != null)
-                        profilePos = gridView.getCheckedItemPosition();
-                }
-            }
-            */
-
-            profileListAdapter.notifyDataSetChanged(refreshIcons);
-
-            /*
-            if ((!ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
-            {
-                // set profile visible in list
-                if (!applicationActivatorGridLayout) {
-                    if (listView != null) {
-                        listView.setItemChecked(profilePos, true);
-                        int last = listView.getLastVisiblePosition();
-                        int first = listView.getFirstVisiblePosition();
-                        if ((profilePos <= first) || (profilePos >= last)) {
-                            listView.setSelection(profilePos);
-                        }
-                    }
-                }
-                else {
-                    if (gridView != null) {
-                        gridView.setItemChecked(profilePos, true);
-                        int last = gridView.getLastVisiblePosition();
-                        int first = gridView.getFirstVisiblePosition();
-                        if ((profilePos <= first) || (profilePos >= last)) {
-                            gridView.setSelection(profilePos);
-                        }
-                    }
-                }
-            }
-            */
-        }
-    }
-
-    void refreshGUI(boolean refresh, boolean refreshIcons)
+    void refreshGUI(final boolean refresh, final boolean refreshIcons)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
-        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+        new AsyncTask<Void, Integer, Void>() {
+
+            Profile profileFromDB;
+            Profile profileFromDataWrapper;
+            boolean _refreshIcons;
+
+            boolean doNotRefresh = false;
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                _refreshIcons = refreshIcons;
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+                activityDataWrapper.getEventTimelineList(true);
+
+                String pName;
+                if (profileFromDB != null) {
+                    profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                            ApplicationPreferences.applicationEditorPrefIndicator, false);
+                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
+                }
+                else
+                    pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+                if (!refresh) {
+                    String pNameHeader = PPApplication.prefActivityProfileName1;
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
+                        PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
+                    }*/
+
+                    if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
+                        //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
+                        doNotRefresh = true;
+                        return null;
+                    }
+                }
+
+                PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+                if (!doNotRefresh) {
+                    //noinspection ConstantConditions
+                    ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
+
+                    Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
+                    if (profileFromAdapter != null)
+                        profileFromAdapter._checked = false;
+
+                    if (profileFromDB != null) {
+                        if (profileFromDataWrapper != null)
+                            profileFromDataWrapper._checked = true;
+                        updateHeader(profileFromDataWrapper);
+                        //setProfileSelection(profileFromDataWrapper, refreshIcons);
+                    } else {
+                        updateHeader(null);
+                        //setProfileSelection(null, refreshIcons);
+                    }
+
+                    profileListAdapter.notifyDataSetChanged(refreshIcons);
+                }
+            }
+
+        }.execute();
+
+        /*Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         activityDataWrapper.getEventTimelineList(true);
 
         String pName;
@@ -585,10 +610,10 @@ public class ActivateProfileListFragment extends Fragment {
 
         if (!refresh) {
             String pNameHeader = PPApplication.prefActivityProfileName1;
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
-                PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
-            }*/
+            //if (PPApplication.logEnabled()) {
+            //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
+            //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
+            //}
 
             if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
                 //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
@@ -619,7 +644,7 @@ public class ActivateProfileListFragment extends Fragment {
             setProfileSelection(null, refreshIcons);
         }
 
-        profileListAdapter.notifyDataSetChanged(refreshIcons);
+        profileListAdapter.notifyDataSetChanged(refreshIcons);*/
     }
 
     void showTargetHelps() {
