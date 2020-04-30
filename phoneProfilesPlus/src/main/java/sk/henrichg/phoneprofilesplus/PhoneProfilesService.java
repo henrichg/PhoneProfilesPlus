@@ -4773,7 +4773,6 @@ public class PhoneProfilesService extends Service
             // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
             try {
                 notificationBuilder.setContentTitle(profileName);
-                notificationBuilder.setContentText(profileName);
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
@@ -4786,22 +4785,45 @@ public class PhoneProfilesService extends Service
         // profile preferences indicator
         try {
             if (notificationNotificationStyle.equals("0")) {
-                if ((preferencesIndicator != null) && (notificationPrefIndicator)) {
-                    if (preferencesIndicatorExistsLarge) {
-                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
-                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
+                if (notificationPrefIndicator) {
+                    if (preferencesIndicator != null) {
+                        if (preferencesIndicatorExistsLarge) {
+                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
+                            contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
+                        }
+                    } else {
+                        if (preferencesIndicatorExistsLarge) {
+                            //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
+                            contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
+                        }
                     }
-                } else {
+                    // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
+                    try {
+                        notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
+                    } catch (Exception e) {
+                        Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    }
+                }
+                else {
                     if (preferencesIndicatorExistsLarge) {
                         //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
                     }
+                    // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
+                    try {
+                        notificationBuilder.setContentText(null);
+                    } catch (Exception e) {
+                        Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    }
                 }
             }
             else {
-                if (notificationPrefIndicator) {
+                if (notificationPrefIndicator)
                     notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
-                }
+                else
+                    notificationBuilder.setContentText(null);
             }
         } catch (Exception e) {
             Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
