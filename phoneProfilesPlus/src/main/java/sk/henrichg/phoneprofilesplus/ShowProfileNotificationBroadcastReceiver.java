@@ -9,14 +9,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+//import com.crashlytics.android.Crashlytics;
 
 public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver {
 
@@ -188,7 +188,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
             //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "_showProfileNotification()");
             if (PhoneProfilesService.getInstance() != null) {
                 //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "handler");
-                PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper, false  /*, cleared*/);
+                PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper, false, false/*, cleared*/);
             }
             //dataWrapper.invalidateDataWrapper();
         }

@@ -518,9 +518,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     private void refreshGUI(final boolean refresh, final boolean refreshIcons)
     {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        //runOnUiThread(new Runnable() {
+        //    @Override
+        //    public void run() {
                 setEventsRunStopIndicator();
                 invalidateOptionsMenu();
 
@@ -529,8 +529,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 if (fragment != null) {
                     ((ActivateProfileListFragment) fragment).refreshGUI(refresh, refreshIcons);
                 }
-            }
-        });
+        //    }
+        //});
     }
 
     private DataWrapper getDataWrapper()

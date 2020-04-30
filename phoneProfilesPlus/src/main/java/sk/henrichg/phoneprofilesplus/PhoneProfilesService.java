@@ -210,6 +210,13 @@ public class PhoneProfilesService extends Service
         }
         startForegroundNotification = true;
 
+        PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
+
+        // show empty notification to avoid ANR in api level 26
+        showProfileNotification(true, true/*, false*/);
+
+        PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
+
         if (PPApplication.getInstance() == null) {
             PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
             PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
@@ -244,14 +251,6 @@ public class PhoneProfilesService extends Service
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.dashClockBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver"));
-
-        PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
-
-        // show empty notification to avoid ANR in api level 26
-        showProfileNotification(true, true/*, false*/);
-
-        PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
-
 
         PPApplication.setNotificationProfileName(appContext, "");
         PPApplication.setWidgetProfileName(appContext, 1, "");
@@ -4238,7 +4237,7 @@ public class PhoneProfilesService extends Service
 
     @SuppressLint("NewApi")
     void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper,
-                                          boolean refresh/*, boolean cleared*/)
+                                          boolean refresh, boolean forFirstStart/*, boolean cleared*/)
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
@@ -4316,20 +4315,36 @@ public class PhoneProfilesService extends Service
         String notificationBackgroundColor;
         int notificationBackgroundCustomColor;
         boolean notificationNightMode;
-        synchronized (PPApplication.applicationPreferencesMutex) {
-            notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
-            notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon && (Build.VERSION.SDK_INT >= 24);
-            notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
-            //notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
-            //notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
-            notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
-            notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator;
-            notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
-            notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle;
-            notificationTextColor = ApplicationPreferences.notificationTextColor;
-            notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor;
-            notificationBackgroundCustomColor = ApplicationPreferences.notificationBackgroundCustomColor;
-            notificationNightMode = ApplicationPreferences.notificationNightMode;
+        if (forFirstStart) {
+            //ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
+            notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
+            notificationShowProfileIcon = true;// && (Build.VERSION.SDK_INT >= 24);
+            notificationShowInStatusBar = true;
+            notificationUseDecoration = true;
+            notificationPrefIndicator = false;
+            notificationHideInLockScreen = false;
+            notificationStatusBarStyle = "1";
+            notificationTextColor = "0";
+            notificationBackgroundColor = "0";
+            notificationBackgroundCustomColor = 0xFFFFFFFF;
+            notificationNightMode = false;
+        }
+        else {
+            synchronized (PPApplication.applicationPreferencesMutex) {
+                notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+                notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon || (Build.VERSION.SDK_INT < 24);
+                notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
+                //notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
+                //notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
+                notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
+                notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator;
+                notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
+                notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle;
+                notificationTextColor = ApplicationPreferences.notificationTextColor;
+                notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor;
+                notificationBackgroundCustomColor = ApplicationPreferences.notificationBackgroundCustomColor;
+                notificationNightMode = ApplicationPreferences.notificationNightMode;
+            }
         }
 
         Notification.Builder notificationBuilder;
@@ -5067,6 +5082,22 @@ public class PhoneProfilesService extends Service
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
+        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+(clear || refresh));
+
+        //if (!runningInForeground) {
+            if (forServiceStart) {
+                //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                _showProfileNotification(null, false, dataWrapper, true, true/*, cleared*/);
+                //dataWrapper.invalidateDataWrapper();
+                return;
+            }
+        //}
+
+        //if (DebugVersion.enabled)
+        //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+
+        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
         boolean clear = false;
         if (Build.MANUFACTURER.equals("HMD Global"))
@@ -5079,22 +5110,6 @@ public class PhoneProfilesService extends Service
             // next show will be with startForeground()
             clearProfileNotification(/*getApplicationContext(), true*/);
         }
-
-        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+(clear || refresh));
-
-        //if (!runningInForeground) {
-            if (forServiceStart) {
-                //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                _showProfileNotification(null, false, dataWrapper, true/*, cleared*/);
-                //dataWrapper.invalidateDataWrapper();
-            }
-        //}
-
-        //if (DebugVersion.enabled)
-        //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
-
-        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
         long now = SystemClock.elapsedRealtime();
 
@@ -5121,7 +5136,7 @@ public class PhoneProfilesService extends Service
                             profile = null;
 
                         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                        _showProfileNotification(profile, true, dataWrapper, _clear || refresh  /*, cleared*/);
+                        _showProfileNotification(profile, true, dataWrapper, _clear || refresh, false/*, cleared*/);
                         //dataWrapper.invalidateDataWrapper();
                     }
                 });
