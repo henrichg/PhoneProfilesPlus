@@ -906,6 +906,11 @@ class EventPreferencesNotification extends EventPreferences {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
+
+                            // ignore PPP notification
+                            if (statusBarNotification.getPackageName().equals(context.getApplicationContext().getPackageName()))
+                                continue;
+
                             if (this._inCall) {
                                 // Nexus/Pixel??? stock ROM
                                 StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);

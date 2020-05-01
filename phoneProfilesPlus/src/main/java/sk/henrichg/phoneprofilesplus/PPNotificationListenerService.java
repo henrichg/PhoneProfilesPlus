@@ -76,8 +76,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         final Context appContext = getApplicationContext();
 
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "appContext.getPackageName()="+appContext.getPackageName());
+
         if (sbn.getPackageName().equals(appContext.getPackageName()))
             return;
+
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
 
 //        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 //        long time = sbn.getPostTime() + gmtOffset;

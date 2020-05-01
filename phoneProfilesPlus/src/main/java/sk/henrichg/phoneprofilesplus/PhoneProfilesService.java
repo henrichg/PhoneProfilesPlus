@@ -4736,6 +4736,7 @@ public class PhoneProfilesService extends Service
             // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
             try {
                 notificationBuilder.setContentTitle(profileName);
+                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentTitle()="+profileName);
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
@@ -4762,7 +4763,9 @@ public class PhoneProfilesService extends Service
                     }
                     // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
                     try {
-                        notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
+                        String indicators = ProfilePreferencesIndicator.getString(profile, 0, appContext);
+                        notificationBuilder.setContentText(indicators);
+                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()="+indicators);
                     } catch (Exception e) {
                         Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -4776,6 +4779,7 @@ public class PhoneProfilesService extends Service
                     // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
                     try {
                         notificationBuilder.setContentText(null);
+                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()=null");
                     } catch (Exception e) {
                         Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -4783,10 +4787,15 @@ public class PhoneProfilesService extends Service
                 }
             }
             else {
-                if (notificationPrefIndicator)
-                    notificationBuilder.setContentText(ProfilePreferencesIndicator.getString(profile, 0, appContext));
-                else
+                if (notificationPrefIndicator) {
+                    String indicators = ProfilePreferencesIndicator.getString(profile, 0, appContext);
+                    notificationBuilder.setContentText(indicators);
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()="+indicators);
+                }
+                else {
                     notificationBuilder.setContentText(null);
+                    //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()=null");
+                }
             }
         } catch (Exception e) {
             Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
