@@ -1187,7 +1187,8 @@ public class PPApplication extends Application /*implements Application.Activity
         try {
             PPApplication.setCustomKey("DEBUG", DebugVersion.enabled);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
         }
 
         //if (DebugVersion.enabled) {
@@ -2505,7 +2506,8 @@ public class PPApplication extends Application /*implements Application.Activity
             try {
                 PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                // https://github.com/firebase/firebase-android-sdk/issues/1226
+                //PPApplication.recordException(e);
             }
             return rootMutex.rooted;
         }
@@ -2534,7 +2536,8 @@ public class PPApplication extends Application /*implements Application.Activity
             try {
                 PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                // https://github.com/firebase/firebase-android-sdk/issues/1226
+                //PPApplication.recordException(e);
             }
         } catch (Exception e) {
             Log.e("PPApplication._isRooted", Log.getStackTraceString(e));

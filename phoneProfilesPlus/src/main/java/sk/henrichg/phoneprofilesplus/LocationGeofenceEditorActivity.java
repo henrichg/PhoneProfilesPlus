@@ -485,7 +485,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
@@ -502,7 +503,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
         }
         //mGoogleApiClient.connect();
     }
@@ -513,7 +515,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
         }
         //noinspection StatementWithEmptyBody
         if (mResolvingError) {

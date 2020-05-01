@@ -146,7 +146,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
         }
         /*if (PPApplication.logEnabled()) {
             if (PhoneProfilesService.getInstance() != null)
@@ -211,7 +212,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
         }
 
         // The connection has been interrupted.
@@ -232,7 +234,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
         }
         try {
             //noinspection StatementWithEmptyBody
