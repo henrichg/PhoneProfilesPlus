@@ -5037,8 +5037,9 @@ public class PhoneProfilesService extends Service
             }
 
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
-                //notification.flags |= Notification.FLAG_NO_CLEAR;
-                phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+                // do not use Notification.FLAG_ONGOING_EVENT,
+                // with this flag, is not possible to minimize this notification
+                phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR;// | Notification.FLAG_ONGOING_EVENT;
             /*} else {
             //    setAlarmForNotificationCancel(appContext);
             }*/
