@@ -36,7 +36,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class DataWrapper {
@@ -815,7 +814,6 @@ public class DataWrapper {
             } catch (Exception e) {
                 Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }
@@ -1806,7 +1804,6 @@ public class DataWrapper {
         }
         catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         //Log.d("DataWrapper.showToastAfterActivation", "-- end");
     }
@@ -1954,7 +1951,6 @@ public class DataWrapper {
                             _activity.finish();
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             });
@@ -2402,7 +2398,6 @@ public class DataWrapper {
                             activity.finish();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 });
@@ -2483,7 +2478,6 @@ public class DataWrapper {
                 workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
 
             /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");

@@ -19,8 +19,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
-//import com.crashlytics.android.Crashlytics;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -3341,7 +3339,6 @@ public class Profile {
                     // java.lang.NullPointerException: missing IConnectivityManager
                     // Dual SIM?? Bug in Android ???
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
                 if (connManager != null) {
                     //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -3367,7 +3364,6 @@ public class Profile {
                                     }
                                 } catch (Exception ee) {
                                     PPApplication.recordException(ee);
-                                    //Crashlytics.logException(ee);
                                 }
                             }
                         }
@@ -4430,7 +4426,6 @@ public class Profile {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         return iconResource;
     }

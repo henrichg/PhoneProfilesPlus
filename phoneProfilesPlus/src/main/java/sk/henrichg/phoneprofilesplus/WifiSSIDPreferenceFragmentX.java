@@ -23,17 +23,15 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
+import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.TooltipCompat;
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -258,7 +256,6 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                                     ok = true;
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
                             }
                             if (!ok) {

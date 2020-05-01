@@ -16,8 +16,6 @@ import androidx.work.WorkManager;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -119,7 +117,6 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, worker);
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
-                                                //Crashlytics.logException(e);
                                             }
 
                                             /*PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");

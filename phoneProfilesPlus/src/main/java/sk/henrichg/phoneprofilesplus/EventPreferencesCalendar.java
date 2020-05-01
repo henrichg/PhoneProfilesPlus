@@ -15,19 +15,17 @@ import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceManager;
-import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.WorkManager;
 
 class EventPreferencesCalendar extends EventPreferences {
 
@@ -452,7 +450,6 @@ class EventPreferencesCalendar extends EventPreferences {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -460,7 +457,6 @@ class EventPreferencesCalendar extends EventPreferences {
             workManager.cancelAllWorkByTag("elapsedAlarmsCalendarSensorWork_"+(int)_event._id);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -787,12 +783,10 @@ class EventPreferencesCalendar extends EventPreferences {
         } catch (SecurityException e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             cur = null;
         } catch (Exception e) {
             Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             cur = null;
         }
 

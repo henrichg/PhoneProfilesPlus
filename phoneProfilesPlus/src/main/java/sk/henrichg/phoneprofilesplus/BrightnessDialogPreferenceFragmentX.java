@@ -317,7 +317,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                     } catch (Exception e) {
                                         // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
-                                        //Crashlytics.logException(e);
+                                        //PPApplication.recordException(e);
                                     }
                                 }
                             }

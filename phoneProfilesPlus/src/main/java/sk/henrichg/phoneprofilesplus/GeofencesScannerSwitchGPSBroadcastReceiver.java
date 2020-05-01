@@ -7,15 +7,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
-
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver {
     @Override
@@ -45,7 +43,6 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
 
         PhoneProfilesService.cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", context.getApplicationContext());
@@ -103,7 +100,6 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                 workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
 

@@ -13,8 +13,6 @@ import androidx.work.WorkManager;
 
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -78,7 +76,6 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                     workManager.enqueueUniqueWork("handleEventsBluetoothLEScannerWork", ExistingWorkPolicy.REPLACE, worker);
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
 
                                 /*PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive");

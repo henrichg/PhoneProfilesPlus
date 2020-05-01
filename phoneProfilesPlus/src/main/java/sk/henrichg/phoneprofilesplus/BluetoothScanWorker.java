@@ -12,16 +12,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-
 import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -30,6 +20,15 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class BluetoothScanWorker extends Worker {
@@ -110,7 +109,6 @@ public class BluetoothScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
@@ -173,7 +171,6 @@ public class BluetoothScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("BluetoothScanWorker._scheduleWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -220,7 +217,6 @@ public class BluetoothScanWorker extends Worker {
             } catch (Exception e) {
                 Log.e("BluetoothScanWorker._cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }
@@ -268,7 +264,6 @@ public class BluetoothScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -315,7 +310,6 @@ public class BluetoothScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -346,7 +340,6 @@ public class BluetoothScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -578,7 +571,6 @@ public class BluetoothScanWorker extends Worker {
                             //PPApplication.logE("BluetoothScanWorker.startLEScan", "scanStarted=" + startScan);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     setLEScanRequest(context, false);
@@ -609,7 +601,6 @@ public class BluetoothScanWorker extends Worker {
                         //PPApplication.logE("BluetoothScanWorker.stopLEScan", "stopped");
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }
@@ -989,7 +980,6 @@ public class BluetoothScanWorker extends Worker {
                         workManager.enqueueUniqueWork("handleEventsBluetoothCLScannerWork", ExistingWorkPolicy.REPLACE, worker);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
 
                     /*PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");

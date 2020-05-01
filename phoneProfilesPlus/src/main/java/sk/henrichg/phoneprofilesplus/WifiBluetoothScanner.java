@@ -22,8 +22,6 @@ import androidx.work.WorkManager;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 class WifiBluetoothScanner {
 
     private final Context context;
@@ -177,7 +175,6 @@ class WifiBluetoothScanner {
                                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
-                                            //Crashlytics.logException(e);
                                         }
                                     }
                                 });
@@ -244,7 +241,6 @@ class WifiBluetoothScanner {
                                                 workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, worker);
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
-                                                //Crashlytics.logException(e);
                                             }
 
                                             /*PPApplication.startHandlerThread("WifiBluetoothScanner.doScan");
@@ -301,7 +297,6 @@ class WifiBluetoothScanner {
                                             WifiScanWorker.wifi.setWifiEnabled(false);
                                     } catch (Exception e) {
                                         PPApplication.recordException(e);
-                                        //Crashlytics.logException(e);
                                     }
                                 } //else
                                     //PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
@@ -384,7 +379,6 @@ class WifiBluetoothScanner {
                                                     BluetoothScanWorker.bluetooth.disable();
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
-                                                    //Crashlytics.logException(e);
                                                 }
                                             }
                                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
@@ -516,7 +510,6 @@ class WifiBluetoothScanner {
                                                     BluetoothScanWorker.bluetooth.disable();
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
-                                                    //Crashlytics.logException(e);
                                                 }
                                             }
                                         } //else
@@ -704,7 +697,6 @@ class WifiBluetoothScanner {
                         wifiApManager = new WifiApManager(context);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     if (wifiApManager != null)
                         isWifiAPEnabled = wifiApManager.isWifiAPEnabled();

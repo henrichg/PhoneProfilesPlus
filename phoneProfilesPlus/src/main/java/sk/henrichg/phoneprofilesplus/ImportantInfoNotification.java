@@ -11,8 +11,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-//import com.crashlytics.android.Crashlytics;
-
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
@@ -70,7 +68,6 @@ class ImportantInfoNotification {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -204,7 +201,6 @@ class ImportantInfoNotification {
             } catch (Exception e) {
                 Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }

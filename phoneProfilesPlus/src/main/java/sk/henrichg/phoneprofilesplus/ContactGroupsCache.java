@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +110,6 @@ class ContactGroupsCache {
         } catch (SecurityException e) {
             Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
-            //Crashlytics.logException(e);
 
             _contactGroupList.clear();
             contactsCache.clearGroups(_contactList);
@@ -122,7 +119,6 @@ class ContactGroupsCache {
         } catch (Exception e) {
             Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
 
             _contactGroupList.clear();
             contactsCache.clearGroups(_contactList);

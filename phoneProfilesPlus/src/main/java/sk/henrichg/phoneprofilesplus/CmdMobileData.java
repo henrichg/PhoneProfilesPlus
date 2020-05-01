@@ -7,7 +7,6 @@ import android.telephony.SubscriptionManager;
 import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
-//import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
 
@@ -47,7 +46,6 @@ public class CmdMobileData {
                         subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                     } catch (SecurityException e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     if (subscriptionList != null) {
                         for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
@@ -79,7 +77,6 @@ public class CmdMobileData {
         } catch (Throwable e) {
             Log.e("CmdMobileData.isEnabled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }

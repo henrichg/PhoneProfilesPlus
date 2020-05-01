@@ -29,8 +29,6 @@ import java.util.Comparator;
 
 import static android.view.View.GONE;
 
-//import com.crashlytics.android.Crashlytics;
-
 @SuppressWarnings("WeakerAccess")
 public class ActivateProfileListFragment extends Fragment {
 
@@ -359,7 +357,6 @@ public class ActivateProfileListFragment extends Fragment {
                             fragment.getActivity().finish();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
 
                         return;
@@ -699,7 +696,6 @@ public class ActivateProfileListFragment extends Fragment {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -746,7 +742,6 @@ public class ActivateProfileListFragment extends Fragment {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;

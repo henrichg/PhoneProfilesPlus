@@ -53,7 +53,6 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class EditorEventListFragment extends Fragment
@@ -1051,7 +1050,6 @@ public class EditorEventListFragment extends Fragment
                             redText.setVisibility(GONE);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }
@@ -1527,7 +1525,6 @@ public class EditorEventListFragment extends Fragment
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     try {
                         targets.add(
@@ -1542,7 +1539,6 @@ public class EditorEventListFragment extends Fragment
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
                 if (startTargetHelpsDefaultProfile) {
@@ -1559,7 +1555,6 @@ public class EditorEventListFragment extends Fragment
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
                 if (startTargetHelpsOrderSpinner) {
@@ -1579,7 +1574,6 @@ public class EditorEventListFragment extends Fragment
                             ++id;
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -1747,7 +1741,6 @@ public class EditorEventListFragment extends Fragment
             method.invoke(menuPopupHelper, new Object[]{true});
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
 
         final Event event = (Event)view.getTag();

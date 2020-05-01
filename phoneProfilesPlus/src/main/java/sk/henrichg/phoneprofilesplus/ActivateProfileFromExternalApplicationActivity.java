@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ActivateProfileFromExternalApplicationActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
@@ -137,7 +135,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             } catch (Exception e) {
                 Log.e("ActivateProfileFromExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }

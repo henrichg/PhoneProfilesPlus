@@ -14,8 +14,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-//import com.crashlytics.android.Crashlytics;
-
 class IgnoreBatteryOptimizationNotification {
 
     private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
@@ -156,7 +154,6 @@ class IgnoreBatteryOptimizationNotification {
             } catch (Exception e) {
                 Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }

@@ -28,7 +28,6 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class ActivateProfileActivity extends AppCompatActivity {
@@ -102,7 +101,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
                             ActivateProfileActivity.this.finishAffinity();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -430,7 +428,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
         } catch (Exception e) {
-            //Crashlytics.logException(e);
+            //PPApplication.recordException(e);
         }
     }
     @Override
@@ -633,7 +631,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     try {
                         View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
@@ -649,7 +646,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
 
                     sequence.targets(targets);
@@ -670,7 +666,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
 
                     sequence.targets(targets);
@@ -706,7 +701,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                         ActivatorTargetHelpsActivity.activity.finish();
                                     } catch (Exception e) {
                                         PPApplication.recordException(e);
-                                        //Crashlytics.logException(e);
                                     }
                                     ActivatorTargetHelpsActivity.activity = null;
                                     //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -758,7 +752,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
                             ActivatorTargetHelpsActivity.activity.finish();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;

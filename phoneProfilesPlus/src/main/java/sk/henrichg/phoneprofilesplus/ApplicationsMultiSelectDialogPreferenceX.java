@@ -21,8 +21,6 @@ import androidx.preference.PreferenceViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 {
     ApplicationsMultiSelectDialogPreferenceFragmentX fragment;
@@ -223,7 +221,6 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         } else {
                             Intent intent = new Intent();

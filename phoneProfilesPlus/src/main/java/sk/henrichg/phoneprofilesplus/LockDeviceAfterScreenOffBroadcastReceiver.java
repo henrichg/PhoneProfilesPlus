@@ -17,8 +17,6 @@ import androidx.work.WorkManager;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver {
 
     static final String ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF = PPApplication.PACKAGE_NAME + ".LockDeviceAfterScreenOffBroadcastReceiver.ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF";
@@ -89,7 +87,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                 workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.REPLACE, worker);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
 

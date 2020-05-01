@@ -8,8 +8,6 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -53,7 +51,6 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 batteryStatus = context.registerReceiver(null, iFilter);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
             if (batteryStatus != null) {
                 _status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
@@ -227,7 +224,6 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             batteryStatus = appContext.registerReceiver(null, filter);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);

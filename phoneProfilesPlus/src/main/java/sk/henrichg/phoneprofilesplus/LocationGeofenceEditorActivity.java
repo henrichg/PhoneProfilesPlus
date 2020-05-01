@@ -18,7 +18,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,21 +55,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.math.BigDecimal;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.TooltipCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
                                      implements GoogleApiClient.ConnectionCallbacks,
@@ -434,7 +433,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -448,7 +446,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -467,7 +464,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         }
@@ -488,10 +484,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
@@ -507,10 +501,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         //mGoogleApiClient.connect();
     }
@@ -520,10 +512,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-            //Crashlytics.setInt(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         //noinspection StatementWithEmptyBody
         if (mResolvingError) {
@@ -692,7 +682,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         });
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }
@@ -725,7 +714,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }
@@ -757,7 +745,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             //mAddressRequested = true;
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -825,7 +812,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         } catch (Exception e) {
             Log.e("LocationGeofenceEditorActivity.startIntentService", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
 
     }
@@ -884,11 +870,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
                 Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
             else {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
                 throw e;
             }
         }

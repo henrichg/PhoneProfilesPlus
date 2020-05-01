@@ -66,8 +66,6 @@ import java.util.concurrent.TimeUnit;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
 
-//import com.crashlytics.android.Crashlytics;
-
 class ActivateProfileHelper {
 
     static boolean disableScreenTimeoutInternalChange = false;
@@ -177,7 +175,6 @@ class ActivateProfileHelper {
                         wifiApManager = new WifiApManager(appContext);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     if (wifiApManager != null) {
                         boolean setWifiAPState = false;
@@ -310,7 +307,7 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
-                                    //Crashlytics.logException(e);
+                                    //PPApplication.recordException(e);;
                                 }
                                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
                                 //SystemClock.sleep(200);
@@ -339,7 +336,6 @@ class ActivateProfileHelper {
                                     // java.lang.NullPointerException: missing IConnectivityManager
                                     // Dual SIM?? Bug in Android ???
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
                                 if (connManager != null) {
                                     boolean wifiConnected = false;
@@ -363,7 +359,6 @@ class ActivateProfileHelper {
                                                 }
                                             } catch (Exception ee) {
                                                 PPApplication.recordException(ee);
-                                                //Crashlytics.logException(ee);
                                             }
                                         }
                                     }
@@ -464,7 +459,7 @@ class ActivateProfileHelper {
                         } catch (Exception e) {
                             // WTF?: DOOGEE - X5pro -> java.lang.SecurityException: Permission Denial: Enable bluetooth requires com.mediatek.permission.CTA_ENABLE_BT
                             //Log.e("ActivateProfileHelper.doExecuteForRadio", Log.getStackTraceString(e));
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);;
                         }
                     }
                 }
@@ -780,13 +775,11 @@ class ActivateProfileHelper {
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ee) {
                             PPApplication.recordException(ee);
-                            //Crashlytics.logException(ee);
                         }*/
 
                     }
                 } catch (Exception e) {
                     //PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             //}
         }
@@ -832,7 +825,6 @@ class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -854,7 +846,6 @@ class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (profile.getVolumeSystemChange()) {
@@ -865,7 +856,6 @@ class ActivateProfileHelper {
                             //correctVolume0(audioManager);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -895,7 +885,6 @@ class ActivateProfileHelper {
                                     setNotificationVolume(appContext, volume);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         volumesSet = true;
@@ -916,7 +905,6 @@ class ActivateProfileHelper {
                                     setNotificationVolume(appContext, volume);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         volume = ApplicationPreferences.prefNotificationVolume;
@@ -928,7 +916,6 @@ class ActivateProfileHelper {
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         //correctVolume0(audioManager);
@@ -950,7 +937,6 @@ class ActivateProfileHelper {
                                     setNotificationVolume(appContext, volume);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         volume = ApplicationPreferences.prefNotificationVolume;
@@ -963,7 +949,6 @@ class ActivateProfileHelper {
                                 //correctVolume0(audioManager);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         volumesSet = true;
@@ -984,7 +969,6 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification volume set");
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -1000,7 +984,6 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer volume set");
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -1020,7 +1003,6 @@ class ActivateProfileHelper {
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
             if (profile.getVolumeVoiceChange()) {
@@ -1029,7 +1011,6 @@ class ActivateProfileHelper {
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
             if (profile.getVolumeBluetoothSCOChange()) {
@@ -1038,7 +1019,6 @@ class ActivateProfileHelper {
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         }
@@ -1058,7 +1038,6 @@ class ActivateProfileHelper {
         } catch (SecurityException e) {
             //Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             Context appContext = context.getApplicationContext();
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -1071,7 +1050,6 @@ class ActivateProfileHelper {
                 catch (Exception e2) {
                     Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e2);
                 }
             }
             else {
@@ -1089,7 +1067,7 @@ class ActivateProfileHelper {
                         } catch (Exception ee) {
                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(ee));
-                            //Crashlytics.logException(ee);
+                            //PPApplication.recordException(e);;
                         }
                     }
                 }
@@ -1097,7 +1075,6 @@ class ActivateProfileHelper {
         } catch (Exception e3) {
             Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e3));
             PPApplication.recordException(e3);
-            //Crashlytics.logException(e3);
         }
     }
 
@@ -1130,13 +1107,11 @@ class ActivateProfileHelper {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
-                                //Crashlytics.logException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
-                                //Crashlytics.logException(ee);
                             }
                         }
                         else {
@@ -1144,13 +1119,11 @@ class ActivateProfileHelper {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
-                                //Crashlytics.logException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
-                                //Crashlytics.logException(ee);
                             }
                         }
 
@@ -1178,7 +1151,6 @@ class ActivateProfileHelper {
                     */
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
 
             } else {
@@ -1214,7 +1186,6 @@ class ActivateProfileHelper {
                     // when changed is ringer mode in activated Do not disturb and
                     // GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context) returns false.
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         /*}
@@ -1258,7 +1229,7 @@ class ActivateProfileHelper {
                         } catch (Exception ee) {
                             // java.lang.IllegalArgumentException: You cannot change private secure settings.
                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
-                            //Crashlytics.logException(ee);
+                            //PPApplication.recordException(ee);
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -1274,7 +1245,7 @@ class ActivateProfileHelper {
                                     } catch (Exception e) {
                                         // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                        //Crashlytics.logException(e);
+                                        //PPApplication.recordException(e);
                                     }
                                 }
                             }
@@ -1306,11 +1277,9 @@ class ActivateProfileHelper {
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 } else {
                     // selected is None tone
@@ -1321,11 +1290,9 @@ class ActivateProfileHelper {
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }
@@ -1341,11 +1308,9 @@ class ActivateProfileHelper {
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 } else {
                     // selected is None tone
@@ -1356,11 +1321,9 @@ class ActivateProfileHelper {
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }
@@ -1376,11 +1339,9 @@ class ActivateProfileHelper {
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 } else {
                     // selected is None tone
@@ -1391,11 +1352,9 @@ class ActivateProfileHelper {
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     catch (Exception e){
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }
@@ -1494,7 +1453,6 @@ class ActivateProfileHelper {
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -1581,7 +1539,7 @@ class ActivateProfileHelper {
                                     } catch (Exception e) {
                                         // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
-                                        //Crashlytics.logException(e);
+                                        //PPApplication.recordException(e);;
                                     }
                                 }
                             }
@@ -1632,7 +1590,7 @@ class ActivateProfileHelper {
                                         } catch (Exception e) {
                                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));
-                                            //Crashlytics.logException(e);
+                                            //PPApplication.recordException(e);
                                         }
                                     }
                                 }
@@ -1686,7 +1644,7 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
-                                    //Crashlytics.logException(e);
+                                    //PPApplication.recordException(e);
                                 }
                             }
                         }
@@ -2052,7 +2010,6 @@ class ActivateProfileHelper {
                                 } catch (IOException e) {
                                     Log.e("ActivateProfileHelper.executeForWallpaper", Log.getStackTraceString(e));
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -2136,14 +2093,12 @@ class ActivateProfileHelper {
                                                         appContext.startActivity(intent);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
-                                                        //Crashlytics.logException(e);
                                                     }
                                                     //} else
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                                 }
                                             } catch (Exception ee) {
                                                 PPApplication.recordException(ee);
-                                                //Crashlytics.logException(ee);
                                             }
                                         }
                                     }
@@ -2174,14 +2129,12 @@ class ActivateProfileHelper {
                                                         appContext.startActivity(intent);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
-                                                        //Crashlytics.logException(e);
                                                     }
                                                 } else {
                                                     try {
                                                         appContext.sendBroadcast(intent);
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
-                                                        //Crashlytics.logException(e);
                                                     }
                                                 }
                                             }
@@ -2345,7 +2298,7 @@ class ActivateProfileHelper {
                             } catch (Exception e) {
                                 // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(e));
-                                //Crashlytics.logException(e);
+                                //PPApplication.recordException(e);
                             }
                         }
                     }
@@ -2390,7 +2343,7 @@ class ActivateProfileHelper {
                         ok = false;
                         // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
                         //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
-                        //Crashlytics.logException(e);
+                        //PPApplication.recordException(e);
                     }
                     if (!ok) {
                         ok = true;
@@ -2405,7 +2358,7 @@ class ActivateProfileHelper {
                             ok = false;
                             // Xiaomi: java.lang.SecurityException: Permission Denial: starting Intent { act=android.settings.DATA_ROAMING_SETTINGS flg=0x10000000 cmp=com.android.phone/.Settings } from ProcessRecord{215f88f 16252:sk.henrichg.phoneprofilesplus/u0a231} (pid=16252, uid=10231) not exported from uid 1001
                             //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "2. ERROR" + Log.getStackTraceString(e));
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -2416,7 +2369,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.executeForInteractivePreferences", "3. OK");
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                 }
@@ -2459,7 +2412,6 @@ class ActivateProfileHelper {
                         appContext.startActivity(intent);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
                 else {
@@ -2484,7 +2436,6 @@ class ActivateProfileHelper {
                     appContext.startActivity(intent);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
             else {
@@ -2508,7 +2459,6 @@ class ActivateProfileHelper {
                     appContext.startActivity(intent);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
             else {
@@ -2620,7 +2570,6 @@ class ActivateProfileHelper {
                 ContentResolver.setMasterSyncAutomatically(_isAutoSync);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
 
         // screen on permanent
@@ -2697,7 +2646,6 @@ class ActivateProfileHelper {
                             PPApplication.runCommand(appContext, commandIntent);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -2782,7 +2730,6 @@ class ActivateProfileHelper {
                     */
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         }
@@ -2987,7 +2934,6 @@ class ActivateProfileHelper {
                     workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         }
@@ -3047,7 +2993,6 @@ class ActivateProfileHelper {
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }
@@ -3150,7 +3095,6 @@ class ActivateProfileHelper {
             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
 
         /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -3327,7 +3271,6 @@ class ActivateProfileHelper {
                 PPApplication.keepScreenOnWakeLock = null;
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
             try {
                 if ((PPApplication.keepScreenOnWakeLock != null) && (!PPApplication.keepScreenOnWakeLock.isHeld())) {
@@ -3337,7 +3280,6 @@ class ActivateProfileHelper {
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
         */
@@ -3394,7 +3336,6 @@ class ActivateProfileHelper {
             } catch (Exception e) {
                 Log.e("ActivateProfileHelper.removeKeepScreenOnView", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
             PPApplication.keepScreenOnWakeLock = null;*/
 
@@ -3704,7 +3645,6 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList="+subscriptionList);
                         } catch (SecurityException e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         if (subscriptionList != null) {
                             //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList.size()="+subscriptionList.size());
@@ -3726,7 +3666,7 @@ class ActivateProfileHelper {
                                             } catch (Exception e) {
                                                 // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                                //Crashlytics.logException(e);
+                                                //PPApplication.recordException(e);
                                             }
                                         }
                                     }
@@ -3752,7 +3692,7 @@ class ActivateProfileHelper {
 //                            } catch (Exception e) {
 //                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
 //                                //og.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-//                                //Crashlytics.logException(e);
+//                                //PPApplication.recordException(e);
 //                            }
 //                        }
 //                    }
@@ -3863,7 +3803,6 @@ class ActivateProfileHelper {
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                             } catch (SecurityException e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                             if (subscriptionList != null) {
                                 for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
@@ -3881,7 +3820,7 @@ class ActivateProfileHelper {
                                                 } catch (Exception e) {
                                                     // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                                     //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
-                                                    //Crashlytics.logException(e);
+                                                    //PPApplication.recordException(e);
                                                 }
                                             }
                                         }
@@ -3900,7 +3839,7 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
-                                    //Crashlytics.logException(e);
+                                    //PPApplication.recordException(e);
                                 }
                             }
                         }
@@ -3908,7 +3847,6 @@ class ActivateProfileHelper {
                 }
             } catch(Exception ee) {
                 PPApplication.recordException(ee);
-                //Crashlytics.logException(ee);
             }
         }
     }
@@ -3927,7 +3865,6 @@ class ActivateProfileHelper {
         } catch(Exception e) {
             Log.e("ActivateProfileHelper.wifiServiceExists",Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -3992,7 +3929,7 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
-                                    //Crashlytics.logException(e);
+                                    //PPApplication.recordException(e);
                                     //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
                                 }
                             }
@@ -4001,7 +3938,6 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                     //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
             }
@@ -4039,7 +3975,7 @@ class ActivateProfileHelper {
                     } catch (Exception e) {
                         // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                         //Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
-                        //Crashlytics.logException(e);
+                        //PPApplication.recordException(e);
                     }
                 }
                 //String command = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
@@ -4153,7 +4089,7 @@ class ActivateProfileHelper {
                         } catch (Exception e) {
                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                             //PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
                     }
@@ -4172,7 +4108,7 @@ class ActivateProfileHelper {
                         } catch (Exception e) {
                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                 }
@@ -4275,7 +4211,7 @@ class ActivateProfileHelper {
                         } catch (Exception e) {
                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                             //PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
                     }
@@ -4294,7 +4230,7 @@ class ActivateProfileHelper {
                         } catch (Exception e) {
                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                 }
@@ -4357,7 +4293,7 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                     //Log.e("ActivateProfileHelper.setAirplaneMode_SDK17", Log.getStackTraceString(e));
-                    //Crashlytics.logException(e);
+                    //PPApplication.recordException(e);
                 }
                 //PPApplication.logE("ActivateProfileHelper.setAirplaneMode_SDK17", "done");
             }
@@ -4431,7 +4367,7 @@ class ActivateProfileHelper {
                                             } catch (Exception e) {
                                                 // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
-                                                //Crashlytics.logException(e);
+                                                //PPApplication.recordException(e);
                                             }
                                         }
                                     }
@@ -4488,7 +4424,6 @@ class ActivateProfileHelper {
                                         appContext.startActivity(intent);
                                     } catch (Exception e) {
                                         PPApplication.recordException(e);
-                                        //Crashlytics.logException(e);
                                     }
                                 }
                             }
@@ -4517,7 +4452,7 @@ class ActivateProfileHelper {
                                         } catch (Exception e) {
                                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                            //Crashlytics.logException(e);
+                                            //CPPApplication.recordException(e);
                                         }
                                     }
                                 }
@@ -4581,7 +4516,6 @@ class ActivateProfileHelper {
                     catch (Exception e2) {
                         Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
                         PPApplication.recordException(e2);
-                        //Crashlytics.logException(e2);
                     }
                 }
                 else {
@@ -4602,7 +4536,7 @@ class ActivateProfileHelper {
                             } catch (Exception ee) {
                                 // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(ee));
-                                //Crashlytics.logException(ee);
+                                //PPApplication.recordException(e);
                             }
                         }
                     }

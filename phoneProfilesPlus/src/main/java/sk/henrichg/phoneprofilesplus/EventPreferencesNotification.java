@@ -14,15 +14,13 @@ import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.List;
-
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.work.WorkManager;
+
+import java.util.List;
 
 class EventPreferencesNotification extends EventPreferences {
 
@@ -539,7 +537,6 @@ class EventPreferencesNotification extends EventPreferences {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -547,7 +544,6 @@ class EventPreferencesNotification extends EventPreferences {
             workManager.cancelAllWorkByTag("elapsedAlarmsNotificationSensorWork_"+(int)_event._id);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -896,7 +892,6 @@ class EventPreferencesNotification extends EventPreferences {
         } catch (Exception e) {
             Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         // package name not found
         return null;
@@ -1060,11 +1055,10 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                 } catch (Exception e) {
                     Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
-                    //PPApplication.recordException(e);
 
                     // Hm: java.lang.RuntimeException: Could not read bitmap blob.
                     //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
-                    //Crashlytics.logException(e);
+                    //PPApplication.recordException(e);
                 }
             }
         }

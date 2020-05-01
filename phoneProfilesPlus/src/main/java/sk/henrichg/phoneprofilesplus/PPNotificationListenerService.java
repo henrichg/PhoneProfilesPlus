@@ -17,8 +17,6 @@ import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Set;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class PPNotificationListenerService extends NotificationListenerService {
 
     private static final String ACTION_REQUEST_INTERRUPTION_FILTER = PPApplication.PACKAGE_NAME + ".PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER";
@@ -458,7 +456,6 @@ public class PPNotificationListenerService extends NotificationListenerService {
                                         // Fix disallowed call from unknown listener exception.
                                         // java.lang.SecurityException: Disallowed call from unknown listener
                                         PPApplication.recordException(e);
-                                        //Crashlytics.logException(e);
                                     }
                                     break;
                             }

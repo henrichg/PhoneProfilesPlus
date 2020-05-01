@@ -7,8 +7,6 @@ import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
@@ -98,7 +96,6 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                         PPApplication.setSavedVersionCode(appContext, actualVersionCode);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
 
                     Permissions.setAllShowRequestPermissions(appContext, true);

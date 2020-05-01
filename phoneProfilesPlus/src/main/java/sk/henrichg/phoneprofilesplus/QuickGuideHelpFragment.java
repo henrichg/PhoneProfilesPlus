@@ -17,8 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -95,7 +93,6 @@ public class QuickGuideHelpFragment extends Fragment {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         };

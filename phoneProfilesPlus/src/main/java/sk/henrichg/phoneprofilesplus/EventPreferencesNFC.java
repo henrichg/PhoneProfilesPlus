@@ -8,14 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.work.WorkManager;
+
+import java.util.Calendar;
 
 class EventPreferencesNFC extends EventPreferences {
 
@@ -325,7 +323,6 @@ class EventPreferencesNFC extends EventPreferences {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -333,7 +330,6 @@ class EventPreferencesNFC extends EventPreferences {
             workManager.cancelAllWorkByTag("elapsedAlarmsNFCSensorWork_"+(int)_event._id);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 

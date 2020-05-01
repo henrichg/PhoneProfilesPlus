@@ -69,7 +69,6 @@ import java.util.Map.Entry;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
-//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class EditorProfilesActivity extends AppCompatActivity
@@ -194,7 +193,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             EditorProfilesActivity.this.finishAffinity();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -758,7 +756,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
         } catch (Exception e) {
-            //Crashlytics.logException(e);
+            //PPApplication.recordException(e);
         }
     }
 
@@ -960,7 +958,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
                 intent.putExtra(Intent.EXTRA_TEXT, AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */this));
@@ -968,7 +965,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
 
                 return true;
@@ -1004,7 +1000,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -1027,7 +1022,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         startActivity(chooser);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
                 else {
@@ -1083,7 +1077,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 return true;
             case R.id.menu_test_crash:
                 throw new RuntimeException("Test Crash");
-                //Crashlytics.getInstance().crash();
                 //return true;
             case R.id.menu_test_nonFatal:
                 try {
@@ -1098,7 +1091,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
                     // throws more than 8 exceptions in a session, older exceptions are lost.
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
                 return true;
             case R.id.gui_items_help:
@@ -1780,7 +1772,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             PPApplication.setSavedVersionCode(appContext, actualVersionCode);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
 
@@ -1795,7 +1786,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             }*/ catch (Exception e) {
                 Log.e("EditorProfilesActivity.importApplicationPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
                 res = false;
             }
         }finally {
@@ -1805,7 +1795,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
             } catch (IOException e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
 
             WifiScanWorker.setScanRequest(getApplicationContext(), false);
@@ -2121,11 +2110,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 output.writeObject(pref.getAll());
             } catch (FileNotFoundException e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
                 // this is OK
             } catch (IOException e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
                 res = false;
             }
         } finally {
@@ -2136,7 +2123,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
             } catch (IOException e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
         return res;
@@ -2294,7 +2280,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             } catch (Exception e) {
                                 Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
                             emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -2320,7 +2305,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 } catch (Exception e) {
                                     Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
                             }
                         }
@@ -2905,7 +2889,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         try {
                             targets.add(
@@ -2920,7 +2903,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         try {
                             targets.add(
@@ -2935,7 +2917,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
 
                         targets.add(
@@ -3018,7 +2999,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         try {
                             targets.add(
@@ -3033,7 +3013,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         try {
                             targets.add(
@@ -3048,7 +3027,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ++id;
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
 
                         targets.add(
@@ -3318,7 +3296,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             } catch (Exception e) {
                 Log.e("EditorProfilesActivity.displayRedTextToPreferencesNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
 

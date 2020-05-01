@@ -27,7 +27,6 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class GrantPermissionActivity extends AppCompatActivity {
@@ -917,7 +916,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         }

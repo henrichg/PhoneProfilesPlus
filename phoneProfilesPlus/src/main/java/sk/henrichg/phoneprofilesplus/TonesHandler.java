@@ -6,8 +6,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.Settings;
 
-//import com.crashlytics.android.Crashlytics;
-
 //import me.drakeet.support.toast.ToastCompat;
 
 class TonesHandler {
@@ -45,7 +43,7 @@ class TonesHandler {
             // FC in manager.getCursor() for RingtoneManager.TYPE_NOTIFICATION.
             // Nokia 8 (HMD Global), hm
             //Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
-            //Crashlytics.logException(e);
+            //PPApplication.recordException(e);
         }
         return "";
     }
@@ -79,7 +77,7 @@ class TonesHandler {
             // FC in manager.getCursor() for RingtoneManager.TYPE_NOTIFICATION.
             // Nokia 8 (HMD Global), hm
             //Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
-            //Crashlytics.logException(e);
+            //PPApplication.recordException(e);
         }
         return "";
     }
@@ -139,10 +137,8 @@ class TonesHandler {
             }
         } catch (SecurityException e) {
             //PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
         //PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "END");
@@ -229,7 +225,6 @@ class TonesHandler {
                 } catch (Exception e) {
                     Log.e("TonesHandler._installTone", "Error writing " + filename, e);
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                     isError = true;
                 } finally {
                     // Close the streams
@@ -247,13 +242,11 @@ class TonesHandler {
             if (!outFile.exists()) {
                 Log.e("TonesHandler._installTone", "Error writing " + filename);
                 PPApplication.logToCrashlytics("E/TonesHandler._installTone: Error writing " + filename);
-                //Crashlytics.log("TonesHandler._installTone - Error writing " + filename);
                 isError = true;
             } else {
                 if (!outFile.setReadable(true, false)) {
                     Log.e("TonesHandler._installTone", "Error setting readable to all " + filename);
                     PPApplication.logToCrashlytics("E/TonesHandler._installTone: Error setting readable to all " + filename);
-                    //Crashlytics.log("TonesHandler._installTone - Error setting readable to all " + filename);
                 }
             }
             //}
@@ -289,7 +282,6 @@ class TonesHandler {
                         context.getContentResolver().delete(contentUri, MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
                     } catch (Exception eee) {
                         PPApplication.recordException(eee);
-                        //Crashlytics.logException(eee);
                     }
 
                     Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
@@ -319,7 +311,6 @@ class TonesHandler {
                     } else {
                         Log.e("TonesHandler._installTone", "newUri is empty");
                         PPApplication.logToCrashlytics("E/TonesHandler._installTone: newUri is empty");
-                        //Crashlytics.log("TonesHandler._installTone - newUri is empty");
                         isError = true;
                     }
 
@@ -387,7 +378,6 @@ class TonesHandler {
                 } catch (Exception e) {
                     Log.e("TonesHandler._installTone", "Error installing tone " + filename, e);
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                     isError = true;
                 }
             }

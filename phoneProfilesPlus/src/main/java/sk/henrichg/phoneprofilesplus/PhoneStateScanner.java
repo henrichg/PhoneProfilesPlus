@@ -38,8 +38,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 class PhoneStateScanner extends PhoneStateListener {
 
     private final Context context;
@@ -965,7 +963,6 @@ class PhoneStateScanner extends PhoneStateListener {
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -1019,7 +1016,6 @@ class PhoneStateScanner extends PhoneStateListener {
                 PPApplication.startPPService(context, serviceIntent, false);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }

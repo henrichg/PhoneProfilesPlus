@@ -5,13 +5,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-import com.google.common.util.concurrent.ListenableFuture;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -19,6 +12,12 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class GeofenceScanWorker extends Worker {
@@ -108,7 +107,6 @@ public class GeofenceScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
@@ -182,7 +180,6 @@ public class GeofenceScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("GeofenceScanWorker._scheduleWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -222,7 +219,6 @@ public class GeofenceScanWorker extends Worker {
             } catch (Exception e) {
                 Log.e("GeofenceScanWorker._cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }
@@ -270,7 +266,6 @@ public class GeofenceScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.waitForFinish", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -317,7 +312,6 @@ public class GeofenceScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkRunning", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -348,7 +342,6 @@ public class GeofenceScanWorker extends Worker {
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkScheduled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }

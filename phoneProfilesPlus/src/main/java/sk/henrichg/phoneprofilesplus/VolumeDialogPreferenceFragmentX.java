@@ -16,8 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -157,13 +155,11 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                                 preference.mediaPlayer.stop();
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         try {
                             preference.mediaPlayer.release();
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                 }
@@ -253,13 +249,11 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                                 preference.mediaPlayer.stop();
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         try {
                             preference.mediaPlayer.release();
                         } catch (Exception e) {
                             //PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
 
@@ -311,7 +305,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                     } catch (Exception e) {
                         Log.e("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             });

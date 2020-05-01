@@ -16,8 +16,6 @@ import androidx.work.WorkManager;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver {
 
     //static final String EXTRA_FROM_ALARM = "from_alarm";
@@ -78,7 +76,6 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                 workManager.enqueue(worker);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
 
@@ -132,7 +129,6 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsShowProfileNotificationWork", context.getApplicationContext());
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");

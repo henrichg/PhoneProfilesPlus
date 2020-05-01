@@ -6,17 +6,15 @@ import android.location.Geocoder;
 import android.text.TextUtils;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.work.Data;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.work.Data;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 @SuppressWarnings("WeakerAccess")
 public class FetchAddressWorker extends Worker {
@@ -59,14 +57,14 @@ public class FetchAddressWorker extends Worker {
             } catch (IOException ioException) {
                 // Catch network or other I/O problems.
                 //Log.e("FetchAddressWorker.doWork", "Service not available", ioException);
-                //Crashlytics.logException(ioException);
+                //PPApplication.recordException(e);
             } catch (IllegalArgumentException illegalArgumentException) {
                 // Catch invalid latitude or longitude values.
                 /*Log.e("FetchAddressWorker.doWork", "Invalid location. " +
                         "Latitude = " + latitude +
                         ", Longitude = " +
                         longitude, illegalArgumentException);
-                Crashlytics.logException(illegalArgumentException);*/
+                PPApplication.recordException(e);*/
             }
 
             // Handle case where no address was found.
@@ -102,7 +100,6 @@ public class FetchAddressWorker extends Worker {
         } catch (Exception e) {
             Log.e("FetchAddressWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return Result.failure();
         }
     }

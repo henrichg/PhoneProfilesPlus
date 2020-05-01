@@ -49,7 +49,6 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class EditorProfileListFragment extends Fragment
@@ -930,7 +929,6 @@ public class EditorProfileListFragment extends Fragment
                             redText.setVisibility(GONE);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }
@@ -1259,7 +1257,6 @@ public class EditorProfileListFragment extends Fragment
                 method.invoke(menuPopupHelper, new Object[]{true});
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
 
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -1391,7 +1388,6 @@ public class EditorProfileListFragment extends Fragment
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                     try {
                         targets.add(
@@ -1406,7 +1402,6 @@ public class EditorProfileListFragment extends Fragment
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
                 if (startTargetHelpsDefaultProfile) {
@@ -1423,7 +1418,6 @@ public class EditorProfileListFragment extends Fragment
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
 

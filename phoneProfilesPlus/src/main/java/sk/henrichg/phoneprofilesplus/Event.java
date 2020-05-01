@@ -13,12 +13,6 @@ import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
@@ -27,6 +21,10 @@ import androidx.preference.PreferenceManager;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -2217,7 +2215,6 @@ class Event {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), _context);
         PPApplication.elapsedAlarmsEventDelayStartWork.remove("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
@@ -2459,7 +2456,6 @@ class Event {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), _context);
         PPApplication.elapsedAlarmsEventDelayEndWork.remove("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
@@ -2806,7 +2802,6 @@ class Event {
                     } catch (Exception e) {
                         Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
 

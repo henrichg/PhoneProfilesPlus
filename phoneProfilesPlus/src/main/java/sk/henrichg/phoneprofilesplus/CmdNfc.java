@@ -4,8 +4,6 @@ import android.nfc.INfcAdapter;
 import android.os.ServiceManager;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 /**
  * A shell executable for NTC toggle.
  */
@@ -32,7 +30,6 @@ public class CmdNfc {
         } catch (Throwable e) {
             Log.e("CmdNfc.setNFC", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }

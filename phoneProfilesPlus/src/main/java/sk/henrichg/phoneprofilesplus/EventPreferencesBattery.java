@@ -5,27 +5,26 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.Preference.OnPreferenceChangeListener;
-//import android.preference.PreferenceManager;
-//import android.preference.MultiSelectListPreference;
 import android.os.BatteryManager;
 import android.widget.Toast;
-
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.Preference.OnPreferenceChangeListener;
+//import android.preference.PreferenceManager;
+//import android.preference.MultiSelectListPreference;
 //import me.drakeet.support.toast.ToastCompat;
 
 class EventPreferencesBattery extends EventPreferences {
@@ -448,7 +447,6 @@ class EventPreferencesBattery extends EventPreferences {
                     batteryStatus = eventsHandler.context.registerReceiver(null, filter);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
 
                 if (batteryStatus != null) {
@@ -508,7 +506,7 @@ class EventPreferencesBattery extends EventPreferences {
                                             break;
                                         }
                                     } catch (Exception e) {
-                                        //Crashlytics.logException(e);
+                                        //PPApplication.recordException(e);
                                     }
                                 }
                                 eventsHandler.batteryPassed = eventsHandler.batteryPassed && passed;

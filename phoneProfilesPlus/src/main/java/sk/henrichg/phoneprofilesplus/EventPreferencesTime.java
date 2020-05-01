@@ -9,17 +9,15 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.format.DateFormat;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.sql.Date;
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
-
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.work.WorkManager;
+
+import java.sql.Date;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
 
 class EventPreferencesTime extends EventPreferences {
 
@@ -1150,7 +1148,6 @@ class EventPreferencesTime extends EventPreferences {
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
 
                 try {
@@ -1167,12 +1164,10 @@ class EventPreferencesTime extends EventPreferences {
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);
-            //Crashlytics.logException(ee);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -1189,7 +1184,6 @@ class EventPreferencesTime extends EventPreferences {
                 //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
 
             try {
@@ -1199,14 +1193,12 @@ class EventPreferencesTime extends EventPreferences {
                 workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
 
             //if (testEvent)
             //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
         } catch (Exception ee) {
             PPApplication.recordException(ee);
-            //Crashlytics.logException(ee);
         }
     }
 

@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import androidx.preference.PreferenceDialogFragmentCompat;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -212,7 +212,7 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
                         if (calendar.calendarId == calendarId)
                             calendar.checked = true;
                     } catch (Exception e) {
-                        //Crashlytics.logException(e);
+                        //PPApplication.recordException(e);
                     }
                 }
             }

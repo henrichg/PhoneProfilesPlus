@@ -10,14 +10,12 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -120,7 +118,6 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
 
                 return null;
@@ -164,7 +161,6 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                                 //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifi disabled");
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         wifiEnabled = false;

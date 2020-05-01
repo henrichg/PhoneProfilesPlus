@@ -19,8 +19,6 @@ import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class DonationBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
@@ -148,7 +146,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -156,7 +153,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             workManager.cancelAllWorkByTag("elapsedAlarmsDonationWork");
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -321,7 +317,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                     } catch (Exception e) {
                         Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }

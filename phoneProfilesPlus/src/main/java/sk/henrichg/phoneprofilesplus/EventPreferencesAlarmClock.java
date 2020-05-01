@@ -11,14 +11,12 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.work.WorkManager;
+
+import java.util.Calendar;
 
 class EventPreferencesAlarmClock extends EventPreferences {
 
@@ -333,7 +331,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -341,7 +338,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
             workManager.cancelAllWorkByTag("elapsedAlarmsAlarmClockSensorWork_"+(int)_event._id);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 

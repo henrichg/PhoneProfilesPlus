@@ -25,18 +25,16 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceDialogFragmentCompat;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -389,7 +387,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                     ok = true;
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
                             }
                             if (!ok) {
@@ -560,7 +557,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0, "", "", false));
                                 //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - not found - add it to list");
                             } catch (Exception e) {
-                                //Crashlytics.logException(e);
+                                //PPApplication.recordException(e);
                             }
                         }
                         if (_registeredCellData != null) {

@@ -5,8 +5,6 @@ import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 @SuppressWarnings("WeakerAccess")
 public class CmdGoToSleep {
 
@@ -29,7 +27,6 @@ public class CmdGoToSleep {
         } catch (Throwable e) {
             Log.e("CmdGoToSleep.doSleep", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }

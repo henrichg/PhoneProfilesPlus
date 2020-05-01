@@ -18,13 +18,11 @@ import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.ArrayList;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
 
 import static android.Manifest.permission;
 
@@ -1448,7 +1446,6 @@ class Permissions {
                 } catch (Exception e) {
                     Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                     //return false;
                 }
             }
@@ -1698,7 +1695,6 @@ class Permissions {
                 } catch (Exception e) {
                     Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                     //return false;
                 }
             }

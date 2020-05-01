@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
@@ -299,7 +297,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }

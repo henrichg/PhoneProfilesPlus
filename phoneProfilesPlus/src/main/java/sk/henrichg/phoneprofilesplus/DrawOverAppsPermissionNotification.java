@@ -14,8 +14,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-//import com.crashlytics.android.Crashlytics;
-
 class DrawOverAppsPermissionNotification {
 
     static void showNotification(Context context, boolean useHandler) {
@@ -104,7 +102,6 @@ class DrawOverAppsPermissionNotification {
             } catch (Exception e) {
                 Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }

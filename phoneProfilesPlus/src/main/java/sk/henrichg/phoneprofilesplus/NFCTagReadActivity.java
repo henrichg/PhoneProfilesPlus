@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
-//import com.crashlytics.android.Crashlytics;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class NFCTagReadActivity extends AppCompatActivity {
@@ -91,7 +90,6 @@ public class NFCTagReadActivity extends AppCompatActivity {
                         NFCTagReadActivity.this.finish();
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             }

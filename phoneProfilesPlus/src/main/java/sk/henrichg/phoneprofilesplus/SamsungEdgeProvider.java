@@ -14,8 +14,6 @@ import android.widget.RemoteViews;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     private DataWrapper dataWrapper;
@@ -289,7 +287,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             cocktailBarManager.updateCocktail(cocktailId, widget);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -355,7 +352,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_grid);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -371,7 +367,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 

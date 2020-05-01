@@ -4,8 +4,6 @@ import android.net.wifi.IWifiManager;
 import android.os.ServiceManager;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 @SuppressWarnings("WeakerAccess")
 public class CmdWifi {
 
@@ -29,7 +27,6 @@ public class CmdWifi {
         } catch (Throwable e) {
             Log.e("CmdWifi.setWifi", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }
@@ -46,7 +43,6 @@ public class CmdWifi {
         } catch (Throwable e) {
             Log.e("CmdWifi.isEnabled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return false;
         }
     }

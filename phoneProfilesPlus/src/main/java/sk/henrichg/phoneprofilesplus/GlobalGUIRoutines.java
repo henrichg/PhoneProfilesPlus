@@ -25,8 +25,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.style.BulletSpan;
 import android.text.TextUtils;
+import android.text.style.BulletSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
@@ -38,7 +38,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.content.ContextCompat;
 
 import org.xml.sax.XMLReader;
 
@@ -50,10 +53,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.core.content.ContextCompat;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 
 import static android.os.Looper.getMainLooper;
@@ -281,7 +280,6 @@ class GlobalGUIRoutines {
                         switchNightMode(appContext);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             });
@@ -314,7 +312,6 @@ class GlobalGUIRoutines {
                         //activity.overridePendingTransition(0, 0);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             });
@@ -1125,7 +1122,6 @@ class GlobalGUIRoutines {
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -1135,7 +1131,6 @@ class GlobalGUIRoutines {
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 

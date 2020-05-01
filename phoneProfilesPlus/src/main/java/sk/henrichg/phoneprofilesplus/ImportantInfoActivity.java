@@ -7,13 +7,12 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-//import com.crashlytics.android.Crashlytics;
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
 
 
 public class ImportantInfoActivity extends AppCompatActivity {
@@ -38,7 +37,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
             ImportantInfoNotification.setShowInfoNotificationOnStart(getApplicationContext(), false, packageVersionCode);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
 
         /*

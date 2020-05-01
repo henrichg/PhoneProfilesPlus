@@ -7,9 +7,9 @@ import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
 
-import java.util.List;
-
 import androidx.preference.DialogPreference;
+
+import java.util.List;
 
 public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
 {
@@ -63,7 +63,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
                                 if (contactGroup.groupId == groupId)
                                     contactGroup.checked = true;
                             } catch (Exception e) {
-                                //Crashlytics.logException(e);
+                                //PPApplication.recordException(e);
                             }
                         }
                     }

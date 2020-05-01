@@ -17,8 +17,6 @@ import android.widget.RemoteViews;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
     private boolean refreshWidget = true;
@@ -416,12 +414,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     //}
                 } catch (Exception ee) {
                     PPApplication.recordException(ee);
-                    //Crashlytics.logException(ee);
                 }
 
                 //dataWrapper.invalidateDataWrapper();

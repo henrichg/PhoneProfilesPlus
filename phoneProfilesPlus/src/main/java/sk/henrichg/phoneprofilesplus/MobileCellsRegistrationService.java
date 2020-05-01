@@ -13,8 +13,6 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -155,7 +153,7 @@ public class MobileCellsRegistrationService extends Service {
                 try {
                     context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
                 } catch (IllegalArgumentException e) {
-                    //Crashlytics.logException(e);
+                    //PPApplication.recordException(e);
                 }
                 mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }
@@ -176,7 +174,6 @@ public class MobileCellsRegistrationService extends Service {
             context.sendBroadcast(new Intent(ACTION_STOP));
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
     */
@@ -272,7 +269,6 @@ public class MobileCellsRegistrationService extends Service {
             } catch (Exception e) {
                 Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
     }

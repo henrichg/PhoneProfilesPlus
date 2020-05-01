@@ -25,8 +25,6 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ProfilesPrefsActivity extends AppCompatActivity {
 
     long profile_id = 0;
@@ -715,7 +713,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
 
                     sequence.targets(targets);
@@ -736,7 +733,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         ++id;
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
 
                     sequence.targets(targets);

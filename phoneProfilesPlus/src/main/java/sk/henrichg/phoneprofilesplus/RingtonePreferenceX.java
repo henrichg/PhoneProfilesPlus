@@ -29,8 +29,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class RingtonePreferenceX extends DialogPreference {
 
     RingtonePreferenceFragmentX fragment;
@@ -204,7 +202,6 @@ public class RingtonePreferenceX extends DialogPreference {
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
 
                         return null;
@@ -290,13 +287,11 @@ public class RingtonePreferenceX extends DialogPreference {
                         mediaPlayer.stop();
                 } catch (Exception e) {
                     //PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
                 try {
                     mediaPlayer.release();
                 } catch (Exception e) {
                     //PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
                 ringtoneIsPlayed = false;
                 mediaPlayer = null;
@@ -315,7 +310,6 @@ public class RingtonePreferenceX extends DialogPreference {
         if (audioManager != null) {
 
             final Uri _ringtoneUri = Uri.parse(ringtoneUri);
-            //Crashlytics.log("RingtonePreferenceX.playRingtone - ringtoneUri="+ringtoneUri);
 
             PPApplication.startHandlerThreadPlayTone();
             final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
@@ -399,13 +393,11 @@ public class RingtonePreferenceX extends DialogPreference {
                                             mediaPlayer.stop();
                                     } catch (Exception e) {
                                         //PPApplication.recordException(e);
-                                        //Crashlytics.logException(e);
                                     }
                                     try {
                                         mediaPlayer.release();
                                     } catch (Exception e) {
                                         //PPApplication.recordException(e);
-                                        //Crashlytics.logException(e);
                                     }
 
                                     if (oldMediaVolume > -1)
@@ -427,7 +419,6 @@ public class RingtonePreferenceX extends DialogPreference {
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -473,7 +464,7 @@ public class RingtonePreferenceX extends DialogPreference {
  */
                     } catch (Exception e) {
                         //Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
-                        //Crashlytics.logException(e);
+                        //PPApplication.recordException(e);
                         stopPlayRingtone();
 
                         OneTimeWorkRequest disableInternalChangeWorker =
@@ -487,7 +478,6 @@ public class RingtonePreferenceX extends DialogPreference {
                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         } catch (Exception ee) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(ee);
                         }
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();

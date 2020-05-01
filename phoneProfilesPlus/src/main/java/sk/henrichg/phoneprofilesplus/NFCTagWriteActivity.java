@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 //import me.drakeet.support.toast.ToastCompat;
@@ -129,7 +127,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                         NFCTagWriteActivity.this.finish();
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
             });

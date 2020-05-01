@@ -21,11 +21,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import java.io.InputStream;
-
 import androidx.appcompat.content.res.AppCompatResources;
 
-//import com.crashlytics.android.Crashlytics;
+import java.io.InputStream;
 
 class BitmapManipulator {
 
@@ -57,7 +55,7 @@ class BitmapManipulator {
                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                     // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
                     //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
-                    //Crashlytics.logException(e);
+                    //PPApplication.recordException(e);
                     return null;
                 }
                 //if (!ok)
@@ -142,7 +140,6 @@ class BitmapManipulator {
             } catch (Exception ee) {
                 Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
                 PPApplication.recordException(ee);
-                //Crashlytics.logException(ee);
                 return null;
             }
         }
@@ -407,7 +404,6 @@ class BitmapManipulator {
         } catch (Exception e) {
             Log.e("BitmapManipulator.getBitmapFromDrawable", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             return null;
         }
     }

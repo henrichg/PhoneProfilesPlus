@@ -19,8 +19,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -314,7 +312,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -397,7 +394,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -456,7 +452,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -500,7 +495,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -554,7 +548,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -614,7 +607,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -712,7 +704,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -809,7 +800,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -880,7 +870,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -926,7 +915,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -972,7 +960,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -1032,7 +1019,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                         startActivity(intent);
                                     } catch (Exception ee) {
                                         PPApplication.recordException(ee);
-                                        //Crashlytics.logException(ee);
                                     }
                                 }
                             //}
@@ -1114,7 +1100,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -1677,7 +1662,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         });
@@ -1710,7 +1694,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 ok = true;
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
         if (!ok) {

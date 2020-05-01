@@ -12,8 +12,6 @@ import android.util.Log;
 
 import androidx.preference.DialogPreference;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class VolumeDialogPreferenceX extends DialogPreference {
 
     VolumeDialogPreferenceFragmentX fragment;
@@ -163,7 +161,6 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         } catch (Exception e) {
             Log.e("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             value = 0;
         }
         //value = value - minimumValue;

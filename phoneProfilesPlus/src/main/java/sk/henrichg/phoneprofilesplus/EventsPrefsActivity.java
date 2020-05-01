@@ -32,8 +32,6 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class EventsPrefsActivity extends AppCompatActivity {
 
     long event_id = 0;
@@ -136,7 +134,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             try {
                 unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
             } catch (IllegalArgumentException e) {
-                //Crashlytics.logException(e);
+                //PPApplication.recordException(e);
             }
             mobileCellsRegistrationCountDownBroadcastReceiver = null;
         }
@@ -145,7 +143,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             try {
                 unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
             } catch (IllegalArgumentException e) {
-                //Crashlytics.logException(e);
+                //PPApplication.recordException(e);
             }
             mobileCellsRegistrationNewCellsBroadcastReceiver = null;
         }
@@ -684,7 +682,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 ++id;
             } catch (Exception e) {
                 //PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
 
             sequence.targets(targets);

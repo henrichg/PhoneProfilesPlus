@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     private static List<BluetoothDeviceData> connectedDevices = null;
@@ -118,7 +116,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
 
                             saveConnectedDevices(appContext);

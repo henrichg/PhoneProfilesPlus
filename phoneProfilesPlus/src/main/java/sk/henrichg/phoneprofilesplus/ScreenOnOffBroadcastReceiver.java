@@ -8,8 +8,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -146,7 +144,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                                 PPApplication.lockDeviceActivity.finish();
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
-                                                //Crashlytics.logException(e);
                                             }
                                         }
                                     //}
@@ -192,7 +189,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.runCommand(appContext, commandIntent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
 
                             /*if ((wakeLock != null) && wakeLock.isHeld()) {

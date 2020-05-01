@@ -16,12 +16,10 @@ import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.io.File;
-
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
+
+import java.io.File;
 
 public class WallpaperViewPreferenceX extends Preference {
 
@@ -182,7 +180,6 @@ public class WallpaperViewPreferenceX extends Preference {
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         /*} catch (ActivityNotFoundException e) {
             try {

@@ -18,8 +18,6 @@ import android.view.accessibility.AccessibilityManager;
 
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_PACKAGE_NAME = PPApplication.PACKAGE_NAME_EXTENDER + ".package_name";
@@ -147,7 +145,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 } catch (Exception e) {
                     Log.e("PPPExtenderBroadcastReceiver.onReceive", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
@@ -373,7 +370,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         catch (Exception e) {
             // extender is not installed = package not found
             //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
-            //Crashlytics.logException(e);
+            //PPApplication.recordException(e);
             return 0;
         }
     }

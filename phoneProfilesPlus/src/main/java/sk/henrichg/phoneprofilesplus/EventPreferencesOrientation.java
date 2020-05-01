@@ -16,16 +16,14 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 class EventPreferencesOrientation extends EventPreferences {
 
@@ -787,7 +785,6 @@ class EventPreferencesOrientation extends EventPreferences {
                                                     }
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
-                                                    //Crashlytics.logException(e);
                                                 }
                                             }
                                         }
@@ -817,7 +814,6 @@ class EventPreferencesOrientation extends EventPreferences {
                                                     }
                                                 } catch (Exception e) {
                                                     PPApplication.recordException(e);
-                                                    //Crashlytics.logException(e);
                                                 }
                                             }
                                         }

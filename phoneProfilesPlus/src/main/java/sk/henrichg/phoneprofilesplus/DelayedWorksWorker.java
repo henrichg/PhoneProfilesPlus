@@ -20,8 +20,6 @@ import androidx.work.WorkerParameters;
 import java.util.Calendar;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
 
@@ -167,7 +165,6 @@ public class DelayedWorksWorker extends Worker {
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0, "");
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
@@ -506,7 +503,6 @@ public class DelayedWorksWorker extends Worker {
                         }
                     } catch (Exception ee) {
                         PPApplication.recordException(ee);
-                        //Crashlytics.logException(ee);
                     }
 
                     PPApplication.loadApplicationPreferences(appContext);
@@ -569,7 +565,6 @@ public class DelayedWorksWorker extends Worker {
                                 workManager.enqueue(worker);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
 
                             //instance.setApplicationFullyStarted(/*true, */true);
@@ -645,7 +640,6 @@ public class DelayedWorksWorker extends Worker {
                         } catch (Exception e) {
                             Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     break;
@@ -726,7 +720,6 @@ public class DelayedWorksWorker extends Worker {
         } catch (Exception e) {
             Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {

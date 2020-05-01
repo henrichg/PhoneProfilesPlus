@@ -16,8 +16,6 @@ import androidx.work.WorkManager;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -51,7 +49,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         PhoneProfilesService.cancelWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id, context.getApplicationContext());
         PPApplication.elapsedAlarmsStartEventNotificationWork.remove("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
@@ -114,7 +111,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.elapsedAlarmsStartEventNotificationWork.add("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
 

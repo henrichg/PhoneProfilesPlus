@@ -17,12 +17,11 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-import com.kunzisoft.androidclearchroma.ChromaUtil;
-
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
+
+import com.kunzisoft.androidclearchroma.ChromaUtil;
 
 public class CustomColorDialogPreferenceX extends DialogPreference {
 
@@ -121,7 +120,6 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         } catch (Exception e) {
             Log.e("CustomColorDialogPreferenceX.setColorInWidget", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 

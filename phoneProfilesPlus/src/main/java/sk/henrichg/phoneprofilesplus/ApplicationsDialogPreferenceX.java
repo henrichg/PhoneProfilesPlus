@@ -17,13 +17,11 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.preference.DialogPreference;
+import androidx.preference.PreferenceViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.DialogPreference;
-import androidx.preference.PreferenceViewHolder;
 
 public class ApplicationsDialogPreferenceX extends DialogPreference {
 
@@ -368,7 +366,6 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                                 prefSummary = packageManager.getApplicationLabel(app).toString();
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     else {

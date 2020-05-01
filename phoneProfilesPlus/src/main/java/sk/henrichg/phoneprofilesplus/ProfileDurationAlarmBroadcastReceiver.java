@@ -16,8 +16,6 @@ import androidx.work.WorkManager;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";
@@ -101,7 +99,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.elapsedAlarmsProfileDurationWork.add("elapsedAlarmsProfileDurationWork_"+(int)profile._id);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
 
@@ -168,7 +165,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
 
             PhoneProfilesService.cancelWork("elapsedAlarmsProfileDurationWork_"+(int) profile._id, context.getApplicationContext());

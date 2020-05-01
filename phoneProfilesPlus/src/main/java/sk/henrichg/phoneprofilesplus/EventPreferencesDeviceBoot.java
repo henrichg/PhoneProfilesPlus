@@ -8,14 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Calendar;
-
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.work.WorkManager;
+
+import java.util.Calendar;
 
 class EventPreferencesDeviceBoot extends EventPreferences {
 
@@ -255,7 +253,6 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -263,7 +260,6 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             workManager.cancelAllWorkByTag("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 

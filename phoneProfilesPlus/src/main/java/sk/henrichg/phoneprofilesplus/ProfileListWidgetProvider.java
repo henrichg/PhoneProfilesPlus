@@ -22,8 +22,6 @@ import android.widget.RemoteViews;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private DataWrapper dataWrapper;
@@ -561,7 +559,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -636,7 +633,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         appWidgetManager.updateAppWidget(appWidgetId, layout);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-                        //Crashlytics.logException(e);
                     }
                 }
                 else
@@ -842,7 +838,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.provider.Settings;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,8 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import androidx.annotation.NonNull;
 
 class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 

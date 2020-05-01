@@ -24,8 +24,6 @@ import androidx.work.WorkManager;
 import java.util.Calendar;
 import java.util.Iterator;
 
-//import com.crashlytics.android.Crashlytics;
-
 class TwilightScanner {
 
     //private static final String TAG = "TwilightScanner";
@@ -65,7 +63,7 @@ class TwilightScanner {
         try {
             context.unregisterReceiver(mUpdateLocationReceiver);
         } catch (Exception e) {
-            //Crashlytics.logException(e);
+            //PPApplication.recordException(e);
         }
     }
 
@@ -467,7 +465,6 @@ class TwilightScanner {
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(context);
@@ -475,7 +472,6 @@ class TwilightScanner {
                     workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
 
                 // set alarm

@@ -12,8 +12,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -226,7 +224,6 @@ public class ProfileIconPreferenceX extends DialogPreference {
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
         /*} catch (ActivityNotFoundException e) {
             try {

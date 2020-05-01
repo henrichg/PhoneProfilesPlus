@@ -15,14 +15,6 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-//import com.judemanutd.autostarter.AutoStartPermissionHelper;
-
-//import com.kunzisoft.androidclearchroma.ChromaPreferenceCompat;
-
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.concurrent.TimeUnit;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -37,6 +29,11 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
+
+import java.util.concurrent.TimeUnit;
+
+//import com.judemanutd.autostarter.AutoStartPermissionHelper;
+//import com.kunzisoft.androidclearchroma.ChromaPreferenceCompat;
 
 class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -357,7 +354,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok){
@@ -406,7 +402,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -513,7 +508,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -604,7 +598,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -649,7 +642,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -694,7 +686,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -739,7 +730,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -787,7 +777,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     ok = true;
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
                             }
                             if (!ok) {
@@ -971,7 +960,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -1179,7 +1167,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -1238,7 +1225,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             ok = true;
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                     }
                     if (!ok) {
@@ -1527,7 +1513,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                         startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
                                     } catch (Exception ee) {
                                         PPApplication.recordException(ee);
-                                        //Crashlytics.logException(ee);
                                     }
                                 }
                             //}
@@ -1574,7 +1559,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //editor.apply();
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -1589,7 +1573,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {

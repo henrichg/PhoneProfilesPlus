@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -20,15 +16,18 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.util.Arrays;
-import java.util.List;
-
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.util.Arrays;
+import java.util.List;
+
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 
 class EventPreferencesWifi extends EventPreferences {
 
@@ -401,7 +400,6 @@ class EventPreferencesWifi extends EventPreferences {
                             // java.lang.NullPointerException: missing IConnectivityManager
                             // Dual SIM?? Bug in Android ???
                             PPApplication.recordException(e);
-                            //Crashlytics.logException(e);
                         }
                         if (connManager != null) {
                             //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -431,7 +429,6 @@ class EventPreferencesWifi extends EventPreferences {
                                         }
                                     } catch (Exception e) {
                                         PPApplication.recordException(e);
-                                        //Crashlytics.logException(e);
                                     }
                                 }
                             }

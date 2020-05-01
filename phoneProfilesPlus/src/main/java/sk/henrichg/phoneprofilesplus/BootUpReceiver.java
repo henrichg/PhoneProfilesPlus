@@ -13,8 +13,6 @@ import androidx.work.WorkManager;
 
 import java.util.concurrent.TimeUnit;
 
-//import com.crashlytics.android.Crashlytics;
-
 public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
@@ -114,7 +112,6 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     workManager.enqueue(worker);
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
-                                    //Crashlytics.logException(e);
                                 }
                             }
                         } else {

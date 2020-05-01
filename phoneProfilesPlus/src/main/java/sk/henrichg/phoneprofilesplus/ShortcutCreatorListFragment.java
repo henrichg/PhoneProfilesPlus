@@ -23,17 +23,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-//import com.crashlytics.android.Crashlytics;
-
-import java.lang.ref.WeakReference;
-import java.util.Collections;
-import java.util.Comparator;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.Fragment;
+
+import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.Comparator;
 
 @SuppressWarnings("WeakerAccess")
 public class ShortcutCreatorListFragment extends Fragment {
@@ -422,7 +420,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                 } catch (Exception e) {
                     Log.e("ShortcutCreatorListFragment.createShortcut", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
 

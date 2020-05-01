@@ -117,7 +117,7 @@ class Application  implements Parcelable {
                         try {
                             shortcutId = Long.parseLong(activityShortcutIdDelay[1]);
                         } catch (Exception e) {
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                 }
             }
@@ -139,7 +139,7 @@ class Application  implements Parcelable {
                 try {
                     intentId = Long.parseLong(intentIdDelay[0].substring(3));
                 } catch (Exception e) {
-                    //Crashlytics.logException(e);
+                    //PPApplication.recordException(e);
                 }
             }
             //PPApplication.logE("@ Application.getIntentId", "intentId="+intentId);
@@ -165,7 +165,7 @@ class Application  implements Parcelable {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[2]);
                         } catch (Exception e) {
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                     else
@@ -173,7 +173,7 @@ class Application  implements Parcelable {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[1]);
                         } catch (Exception e) {
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                 }
@@ -184,7 +184,7 @@ class Application  implements Parcelable {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[1]);
                         } catch (Exception e) {
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                 }
@@ -195,7 +195,7 @@ class Application  implements Parcelable {
                     try {
                         startApplicationDelay = Integer.parseInt(packageNameActivity[0]);
                     } catch (Exception e) {
-                        //Crashlytics.logException(e);
+                        //PPApplication.recordException(e);
                     }
                 }
                 else {
@@ -204,7 +204,7 @@ class Application  implements Parcelable {
                         try {
                             startApplicationDelay = Integer.parseInt(packageNameDelay[1]);
                         } catch (Exception e) {
-                            //Crashlytics.logException(e);
+                            //PPApplication.recordException(e);
                         }
                     }
                 }

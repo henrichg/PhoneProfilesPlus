@@ -17,10 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +24,10 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
@@ -622,7 +622,6 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                             } catch (Exception e) {
                                 Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         } else {
                             try {

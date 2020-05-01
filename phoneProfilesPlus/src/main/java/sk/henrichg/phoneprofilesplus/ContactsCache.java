@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +106,6 @@ class ContactsCache {
         } catch (SecurityException e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
-            //Crashlytics.logException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -117,7 +114,6 @@ class ContactsCache {
         } catch (Exception e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();

@@ -14,8 +14,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-//import com.crashlytics.android.Crashlytics;
-
 class EventsHandler {
     
     final Context context;
@@ -1051,7 +1049,6 @@ class EventsHandler {
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
 

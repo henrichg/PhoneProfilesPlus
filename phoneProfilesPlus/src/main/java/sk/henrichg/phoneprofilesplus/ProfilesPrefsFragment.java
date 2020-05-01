@@ -22,8 +22,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-//import com.crashlytics.android.Crashlytics;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -345,7 +343,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         else
@@ -356,7 +353,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ok = true;
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                         if (!ok) {
@@ -689,7 +685,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -735,7 +730,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
-                                //Crashlytics.logException(e);
                             }
                         }
                     }
@@ -817,7 +811,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         } catch (Exception e) {
             PPApplication.recordException(e);
-            //Crashlytics.logException(e);
         }
     }
 
@@ -3494,7 +3487,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ok = true;
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
         else
@@ -3505,7 +3497,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ok = true;
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
         if (!ok) {
@@ -3552,7 +3543,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    //Crashlytics.logException(e);
                 }
             }
         });
@@ -3585,7 +3575,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ok = true;
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                //Crashlytics.logException(e);
             }
         }
         if (!ok) {
