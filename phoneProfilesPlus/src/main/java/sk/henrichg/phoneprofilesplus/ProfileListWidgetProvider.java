@@ -566,27 +566,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-
-        PPApplication.startHandlerThreadWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                createProfilesDataWrapper(context);
-
-                for (int appWidgetId : appWidgetIds) {
-                    doOnUpdate(context, appWidgetManager, appWidgetId);
-                }
-
-                //if (dataWrapper != null)
-                //    dataWrapper.invalidateDataWrapper();
-                dataWrapper = null;
-            }
-        });
-
-        /*
-        if (PPApplication.widgetHandler != null) {
-            PPApplication.widgetHandler.post(new Runnable() {
+        if (appWidgetIds.length > 0) {
+            PPApplication.startHandlerThreadWidget();
+            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            handler.post(new Runnable() {
+                @Override
                 public void run() {
                     createProfilesDataWrapper(context);
 
@@ -594,13 +578,30 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         doOnUpdate(context, appWidgetManager, appWidgetId);
                     }
 
-                    if (dataWrapper != null)
-                        dataWrapper.invalidateDataWrapper();
+                    //if (dataWrapper != null)
+                    //    dataWrapper.invalidateDataWrapper();
                     dataWrapper = null;
                 }
             });
+
+            /*
+            if (PPApplication.widgetHandler != null) {
+                PPApplication.widgetHandler.post(new Runnable() {
+                    public void run() {
+                        createProfilesDataWrapper(context);
+
+                        for (int appWidgetId : appWidgetIds) {
+                            doOnUpdate(context, appWidgetManager, appWidgetId);
+                        }
+
+                        if (dataWrapper != null)
+                            dataWrapper.invalidateDataWrapper();
+                        dataWrapper = null;
+                    }
+                });
+            }
+            */
         }
-        */
     }
 
     @Override

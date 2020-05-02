@@ -1954,7 +1954,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-                        PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
+                        //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
+                        PPApplication.updateGUI(_dataWrapper.context, true, true);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);
                         Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);

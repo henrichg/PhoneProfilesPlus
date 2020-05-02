@@ -122,7 +122,8 @@ public class DelayedWorksWorker extends Worker {
                                 }
                             }
 
-                            PPApplication.updateNotificationAndWidgets(true, true, appContext);
+                            //PPApplication.updateNotificationAndWidgets(true, true, appContext);
+                            PPApplication.updateGUI(appContext, true, true);
                         } else {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is not enabled, manually activate profile");
 
@@ -133,7 +134,8 @@ public class DelayedWorksWorker extends Worker {
                             }
 
                             dataWrapper.activateProfileOnBoot();
-                            PPApplication.updateNotificationAndWidgets(true, true, appContext);
+                            //PPApplication.updateNotificationAndWidgets(true, true, appContext);
+                            PPApplication.updateGUI(appContext, true, true);
                         }
                     }
 

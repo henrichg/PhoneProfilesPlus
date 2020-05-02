@@ -185,7 +185,9 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PPApplication.startHandlerThread"
 
                                                 //+"|DataWrapper.updateNotificationAndWidgets"
-                                                //+"|OneRowWidgetProvider.onUpdate"
+                                                +"|PPApplication.forceUpdateGUI"
+                                                +"|OneRowWidgetProvider.onUpdate"
+                                                +"|OneRowWidgetProvider._onUpdate"
 
                                                 //+"|%%%%%%% DataWrapper.doHandleEvents"
                                                 //+"|#### EventsHandler.handleEvents"
@@ -1633,9 +1635,9 @@ public class PPApplication extends Application /*implements Application.Activity
     //--------------------------------------------------------------
 
     static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification, boolean refresh) {
-        /*PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "xxx");
-        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "alsoEditor="+alsoEditor);
-        PPApplication.logE("##### ActivateProfileHelper.forceUpdateGUI", "refresh="+refresh);*/
+        PPApplication.logE("##### PPApplication.forceUpdateGUI", "xxx");
+        /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
+        PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
 
         if (alsoNotification)
             PPApplication.showProfileNotification(/*context*/refresh, false);
@@ -1708,12 +1710,14 @@ public class PPApplication extends Application /*implements Application.Activity
         context.sendBroadcast(intent5);
     }
 
+    /*
     static void updateNotificationAndWidgets(boolean refresh, boolean forService, Context context)
     {
-        PPApplication.showProfileNotification(/*context*/refresh, forService);
+        PPApplication.showProfileNotification(refresh, forService);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.updateNotificationAndWidgets");
         updateGUI(context, true, refresh);
     }
+    */
 
     static void showToast(final Context context, final String text, final int length) {
         Handler handler = new Handler(context.getApplicationContext().getMainLooper());

@@ -796,7 +796,8 @@ class EventsHandler {
                 //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                     // update only when will not be do restart events from paused events
                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
-                PPApplication.updateNotificationAndWidgets(false, false, context);
+                //PPApplication.updateNotificationAndWidgets(false, false, context);
+                PPApplication.updateGUI(context, true, false);
                 //}
             }
 
