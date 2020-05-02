@@ -834,8 +834,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
 
-            for (int appWidgetId : appWidgetIds) {
-                updateWidget(context, appWidgetId);
+            if (appWidgetIds != null) {
+                for (int appWidgetId : appWidgetIds) {
+                    updateWidget(context, appWidgetId);
+                }
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

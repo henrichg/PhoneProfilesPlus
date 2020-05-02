@@ -393,8 +393,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
 
+                    // widget update
                     for (int widgetId : appWidgetIds) {
-                        // widget update
                         try {
                             appWidgetManager.updateAppWidget(widgetId, remoteViews);
                             //ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
@@ -491,7 +491,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
             int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-            if (ids.length > 0)
+            if ((ids != null) && (ids.length > 0))
                 _onUpdate(context.getApplicationContext(), manager, profile, dataWrapper, ids);
         }
     }

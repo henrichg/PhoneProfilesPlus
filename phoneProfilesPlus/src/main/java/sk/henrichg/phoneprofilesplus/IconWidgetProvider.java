@@ -481,7 +481,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
             int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
-            if (ids.length > 0)
+            if ((ids != null) && (ids.length > 0))
                 _onUpdate(context, manager, profile, dataWrapper, ids);
         }
     }
