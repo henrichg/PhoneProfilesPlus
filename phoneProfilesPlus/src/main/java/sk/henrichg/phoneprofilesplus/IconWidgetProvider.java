@@ -20,11 +20,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0)
-            _onUpdate(context, appWidgetManager, null, null);
+            _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
     }
 
     public void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
-                          final Profile _profile, final DataWrapper _dataWrapper) {
+                          final Profile _profile, final DataWrapper _dataWrapper, final int[] appWidgetIds) {
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
@@ -118,7 +118,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 if ((!fullyStarted) || applicationPackageReplaced)
                     profile = null;
 
-                try {
+                //try {
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "refreshWidget="+refreshWidget);
                     // set background
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconBackgroundType="+applicationWidgetIconBackgroundType);
@@ -304,9 +304,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "allWidgetIds="+allWidgetIds);
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "allWidgetIds.length="+allWidgetIds.length);
 
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "appWidgetIds.length="+appWidgetIds.length);
-                    //for (int widgetId : appWidgetIds) {
-
                     // prepare view for widget update
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowProfileDuration="+applicationWidgetIconShowProfileDuration);
@@ -388,17 +385,19 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
 
                     // widget update
-                    try {
-                        //appWidgetManager.updateAppWidget(widgetId, remoteViews);
-                        ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
-                        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-                    } catch (Exception e) {
-                        //PPApplication.logE("IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "appWidgetIds.length="+appWidgetIds.length);
+                    for (int widgetId : appWidgetIds) {
+                        try {
+                            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                            //ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
+                            //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
                     }
-                    //}
-                } catch (Exception e) {
+                //} catch (Exception e) {
                     //PPApplication.logE("IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
-                }
+                //}
 
                 //dataWrapper.invalidateDataWrapper();
             }
@@ -481,8 +480,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
         context.sendBroadcast(intent);*/
         AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
-            //int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
-            _onUpdate(context, manager, profile, dataWrapper);
+            int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+            if (ids.length > 0)
+                _onUpdate(context, manager, profile, dataWrapper, ids);
         }
     }
 

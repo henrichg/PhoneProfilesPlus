@@ -25,12 +25,12 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
-            _onUpdate(context, appWidgetManager, null, null);
+            _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
         }
     }
 
     private void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
-                           final Profile _profile, final DataWrapper _dataWrapper)
+                           final Profile _profile, final DataWrapper _dataWrapper, final int[] appWidgetIds)
     {
         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
         PPApplication.startHandlerThreadWidget();
@@ -118,7 +118,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if ((!fullyStarted) || applicationPackageReplaced)
                     profile = null;
 
-                try {
+                //try {
                     // set background
                     int redBackground = 0x00;
                     int greenBackground;
@@ -393,19 +393,19 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
 
-                    //for (int widgetId : appWidgetIds) {
+                    for (int widgetId : appWidgetIds) {
                         // widget update
                         try {
-                            //appWidgetManager.updateAppWidget(widgetId, remoteViews);
-                            ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
-                            appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+                            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                            //ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
+                            //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }
-                    //}
-                } catch (Exception ee) {
-                    PPApplication.recordException(ee);
-                }
+                    }
+                //} catch (Exception ee) {
+                //    PPApplication.recordException(ee);
+                //}
 
                 //dataWrapper.invalidateDataWrapper();
             }
@@ -490,8 +490,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         context.sendBroadcast(intent);*/
         AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
-            //int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-            _onUpdate(context.getApplicationContext(), manager, profile, dataWrapper);
+            int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+            if (ids.length > 0)
+                _onUpdate(context.getApplicationContext(), manager, profile, dataWrapper, ids);
         }
     }
 
