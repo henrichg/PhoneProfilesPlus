@@ -217,6 +217,9 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT = "applicationNeverAskForGrantRoot";
     static final String PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION = "applicationNeverAskForGrantG1Permission";
 
+    static final String PREF_EDITOR_PROFILES_FIRST_START = "editorProfilesFirstStart";
+    static final String PREF_EDITOR_EVENTS_FIRST_START = "editorEventsFirstStart";
+
     static final String EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
     static final String EDITOR_SELECTED_VIEW = "editor_selected_view";
     static final String EDITOR_PROFILES_VIEW_SELECTED_ITEM = "editor_profiles_view_selected_item";

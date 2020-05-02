@@ -457,17 +457,24 @@ public class EditorProfileListFragment extends Fragment
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             if ((_dataWrapper.profileList.size() == 0) && PPApplication.restoreFinished)
             {
-                // no profiles in DB, generate default profiles and events
-                EditorProfileListFragment fragment = this.fragmentWeakRef.get();
-                if ((fragment != null) && (fragment.getActivity() != null)) {
-                    _dataWrapper.fillPredefinedProfileList(true, applicationEditorPrefIndicator, fragment.getActivity());
-                    defaultProfilesGenerated = true;
+                if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_PROFILES_FIRST_START, true)) {
+                    // no profiles in DB, generate default profiles
+                    // PPApplication.restoreFinished = Google auto-backup finished
+                    EditorProfileListFragment fragment = this.fragmentWeakRef.get();
+                    if ((fragment != null) && (fragment.getActivity() != null)) {
+                        _dataWrapper.fillPredefinedProfileList(true, applicationEditorPrefIndicator, fragment.getActivity());
+                        defaultProfilesGenerated = true;
+                    }
                 }
-                /*if ((fragment != null) && (fragment.getActivity() != null)) {
-                    _dataWrapper.generatePredefinedEventList(fragment.getActivity());
-                    defaultEventsGenerated = true;
-                }*/
             }
+
+            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(_dataWrapper.context);
+            if (sharedPreferences != null) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_EDITOR_PROFILES_FIRST_START, false);
+                editor.apply();
+            }
+
             // sort list
             if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
                 EditorProfileListFragment.sortAlphabetically(_dataWrapper.profileList);

@@ -493,12 +493,24 @@ public class EditorEventListFragment extends Fragment
             _dataWrapper.fillEventList();
             if ((_dataWrapper.eventList.size() == 0) && PPApplication.restoreFinished)
             {
-                final EditorEventListFragment fragment = this.fragmentWeakRef.get();
-                if ((fragment != null) && (fragment.getActivity() != null)) {
-                    _dataWrapper.generatePredefinedEventList(fragment.getActivity());
-                    defaultEventsGenerated = true;
+                if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, true)) {
+                    // no events in DB, generate default events
+                    // PPApplication.restoreFinished = Google auto-backup finished
+                    final EditorEventListFragment fragment = this.fragmentWeakRef.get();
+                    if ((fragment != null) && (fragment.getActivity() != null)) {
+                        _dataWrapper.generatePredefinedEventList(fragment.getActivity());
+                        defaultEventsGenerated = true;
+                    }
                 }
             }
+
+            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(_dataWrapper.context);
+            if (sharedPreferences != null) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, false);
+                editor.apply();
+            }
+
             _dataWrapper.getEventTimelineList(true);
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
