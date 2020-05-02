@@ -4365,6 +4365,33 @@ public class PhoneProfilesService extends Service
             if ((Build.VERSION.SDK_INT >= 24) && (Build.VERSION.SDK_INT < 29))
                 useDecorator = useDecorator && (!notificationNightMode) && notificationBackgroundColor.equals("0");
 
+            boolean powerShadeInstalled = false;
+            PackageManager pm = getPackageManager();
+            try {
+                pm.getPackageInfo("com.treydev.pns", PackageManager.GET_ACTIVITIES);
+                powerShadeInstalled = true;
+            } catch (Exception ignored) {}
+
+            if (powerShadeInstalled) {
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    if (!useDecorator)
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_no_decorator);
+                    else
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    if (!useDecorator) {
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_no_decorator);
+                        //preferencesIndicatorExists = false;
+                    }
+                    else {
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                        profileIconExists = false;
+                        //preferencesIndicatorExists = false;
+                    }
+                } else
+                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "Power Shade installed");
+            }
+            else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator) {
