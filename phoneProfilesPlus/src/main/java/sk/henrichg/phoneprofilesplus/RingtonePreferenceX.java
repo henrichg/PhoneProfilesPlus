@@ -120,26 +120,28 @@ public class RingtonePreferenceX extends DialogPreference {
                         RingtoneManager manager = new RingtoneManager(prefContext);
 
                         Uri uri;// = null;
-                    /*//noinspection ConstantConditions
-                    switch (ringtoneType) {
-                        case "ringtone":
-                            uri = Settings.System.DEFAULT_RINGTONE_URI;
-                            break;
-                        case "notification":
-                            uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                            break;
-                        case "alarm":
-                            uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
-                            break;
-                    }
+                        /*//noinspection ConstantConditions
+                        switch (ringtoneType) {
+                            case "ringtone":
+                                uri = Settings.System.DEFAULT_RINGTONE_URI;
+                                break;
+                            case "notification":
+                                uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                                break;
+                            case "alarm":
+                                uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                                break;
+                        }
 
-                    defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);*/
+                        defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);*/
 
-                        Ringtone _ringtone;
+                        Ringtone _ringtone = null;
+                        boolean typeIsSet = false;
 
                         switch (ringtoneType) {
                             case "ringtone":
                                 manager.setType(RingtoneManager.TYPE_RINGTONE);
+                                typeIsSet  = true;
                                 if (showDefault) {
                                     uri = Settings.System.DEFAULT_RINGTONE_URI;
                                     _ringtone = RingtoneManager.getRingtone(prefContext, uri);
@@ -154,6 +156,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                 break;
                             case "notification":
                                 manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+                                typeIsSet  = true;
                                 if (showDefault) {
                                     uri = Settings.System.DEFAULT_NOTIFICATION_URI;
                                     _ringtone = RingtoneManager.getRingtone(prefContext, uri);
@@ -168,6 +171,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                 break;
                             case "alarm":
                                 manager.setType(RingtoneManager.TYPE_ALARM);
+                                typeIsSet  = true;
                                 if (showDefault) {
                                     uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
                                     _ringtone = RingtoneManager.getRingtone(prefContext, uri);
@@ -185,23 +189,25 @@ public class RingtonePreferenceX extends DialogPreference {
                         if (showSilent)
                             _toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
 
-                        try {
-                            Cursor cursor = manager.getCursor();
+                        if (typeIsSet) {
+                            try {
+                                Cursor cursor = manager.getCursor();
 
-                            /*
-                            profile._soundRingtone=content://settings/system/ringtone
-                            profile._soundNotification=content://settings/system/notification_sound
-                            profile._soundAlarm=content://settings/system/alarm_alert
-                            */
+                                /*
+                                profile._soundRingtone=content://settings/system/ringtone
+                                profile._soundNotification=content://settings/system/notification_sound
+                                profile._soundAlarm=content://settings/system/alarm_alert
+                                */
 
-                            while (cursor.moveToNext()) {
-                                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                                String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-                                String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
-                                _toneList.put(_uri + "/" + _id, _title);
+                                while (cursor.moveToNext()) {
+                                    String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                    String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+                                    String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                    _toneList.put(_uri + "/" + _id, _title);
+                                }
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
                             }
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
                         }
 
                         return null;
