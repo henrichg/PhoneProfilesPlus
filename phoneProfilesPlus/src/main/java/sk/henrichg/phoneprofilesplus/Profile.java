@@ -3347,6 +3347,7 @@ public class Profile {
                             for (Network network : networks) {
                                 try {
                                     if (Build.VERSION.SDK_INT < 28) {
+                                        //noinspection deprecation,deprecation
                                         NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                         if (ntkInfo != null) {
                                             if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {

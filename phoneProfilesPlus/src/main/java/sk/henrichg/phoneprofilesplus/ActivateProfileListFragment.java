@@ -524,16 +524,8 @@ public class ActivateProfileListFragment extends Fragment {
 
             Profile profileFromDB;
             Profile profileFromDataWrapper;
-            boolean _refreshIcons;
 
             boolean doNotRefresh = false;
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                _refreshIcons = refreshIcons;
-            }
 
             @Override
             protected Void doInBackground(Void... params) {

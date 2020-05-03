@@ -17,15 +17,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -95,12 +95,12 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                        addIcon, R.drawable.ic_button_add, prefContext.getApplicationContext());
+                        addIcon, prefContext.getApplicationContext());
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                addIcon, R.drawable.ic_button_add, prefContext.getApplicationContext());
+                addIcon, prefContext.getApplicationContext());
 
         nfcTagListView = view.findViewById(R.id.nfc_tag_pref_dlg_listview);
         listAdapter = new NFCTagPreferenceAdapterX(prefContext, preference);

@@ -113,12 +113,12 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
-                        addIcon, R.drawable.ic_button_add, prefContext.getApplicationContext());
+                        addIcon, prefContext.getApplicationContext());
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
-                addIcon, R.drawable.ic_button_add, prefContext.getApplicationContext());
+                addIcon, prefContext.getApplicationContext());
 
         bluetoothListView = view.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapterX(prefContext, preference);

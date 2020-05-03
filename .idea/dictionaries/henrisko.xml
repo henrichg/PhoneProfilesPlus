@@ -5,16 +5,41 @@
       <w>aaaaaa</w>
       <w>abcdef</w>
       <w>acch</w>
+      <w>acivity</w>
       <w>actionoverflowmenu</w>
       <w>activateprofile</w>
       <w>activitylog</w>
       <w>adaway</w>
       <w>afterduration</w>
       <w>afterdurationdo</w>
+      <w>akom</w>
+      <w>aktivacia</w>
+      <w>aktivaciou</w>
+      <w>aktivaciu</w>
+      <w>aktivatore</w>
+      <w>aktivita</w>
+      <w>aktivite</w>
+      <w>aktivity</w>
+      <w>aktivovala</w>
+      <w>aktivovalo</w>
+      <w>aktivovaneho</w>
+      <w>aktivovany</w>
+      <w>aktivovaný</w>
+      <w>aktivovat</w>
+      <w>aktivovať</w>
+      <w>aktivuje</w>
+      <w>aktivácia</w>
+      <w>aktiváciu</w>
+      <w>aktivátora</w>
+      <w>aktivátore</w>
+      <w>aktualizované</w>
+      <w>akurat</w>
       <w>alarmclock</w>
       <w>alarmclocknew</w>
       <w>alarmdroid</w>
+      <w>alarmu</w>
       <w>alarmy</w>
+      <w>alebo</w>
       <w>alleventsdeleted</w>
       <w>allprofilesdeleted</w>
       <w>altype</w>
@@ -24,15 +49,38 @@
       <w>ampm</w>
       <w>anbuild</w>
       <w>androidclearchroma</w>
+      <w>androidoch</w>
       <w>angrydoughnuts</w>
       <w>anrwatchdog</w>
       <w>aosp</w>
       <w>apalon</w>
+      <w>apka</w>
+      <w>apliakcie</w>
+      <w>aplikace</w>
+      <w>aplikacie</w>
+      <w>aplikacii</w>
+      <w>aplikaciu</w>
+      <w>aplikacnym</w>
+      <w>aplikačných</w>
+      <w>aplikuje</w>
+      <w>aplikácia</w>
+      <w>aplikácie</w>
+      <w>aplikáciou</w>
+      <w>aplikácií</w>
+      <w>applicatiin</w>
       <w>applicationexit</w>
       <w>applicationstart</w>
       <w>applicationstartonboot</w>
       <w>applicationupgrade</w>
+      <w>argumenty</w>
+      <w>aspon</w>
+      <w>aspoň</w>
       <w>audiofocus</w>
+      <w>autobackup</w>
+      <w>automaticky</w>
+      <w>autoregistracia</w>
+      <w>autoregistracie</w>
+      <w>autoregistraciu</w>
       <w>autoregistration</w>
       <w>autorotation</w>
       <w>autostart</w>
@@ -43,59 +91,161 @@
       <w>backgrounprofile</w>
       <w>bahasa</w>
       <w>basestation</w>
+      <w>baterie</w>
+      <w>behu</w>
+      <w>berie</w>
       <w>betterpickers</w>
+      <w>bezat</w>
+      <w>bezi</w>
+      <w>bežala</w>
+      <w>beží</w>
       <w>bitspin</w>
+      <w>blablabla</w>
+      <w>blbost</w>
+      <w>blby</w>
+      <w>blokovana</w>
+      <w>blokovanie</w>
+      <w>blokuje</w>
+      <w>blokuju</w>
       <w>bluetoothconnected</w>
       <w>bluetoothinfront</w>
       <w>bluetoothsco</w>
+      <w>bluetootk</w>
+      <w>bolo</w>
+      <w>bolor</w>
+      <w>bootup</w>
       <w>bottombar</w>
       <w>boxapplets</w>
+      <w>bočnéh</w>
+      <w>bočného</w>
       <w>brasil</w>
+      <w>broadcastami</w>
+      <w>broadcaste</w>
+      <w>broadcastom</w>
+      <w>broadcastu</w>
+      <w>broadcasty</w>
       <w>browsable</w>
       <w>brsd</w>
       <w>bssid</w>
+      <w>bublín</w>
+      <w>bude</w>
+      <w>budem</w>
+      <w>budes</w>
+      <w>budikoch</w>
+      <w>budu</w>
+      <w>budú</w>
+      <w>buniek</w>
       <w>busybox</w>
+      <w>buttonom</w>
       <w>caap</w>
+      <w>caka</w>
+      <w>cance</w>
       <w>cardview</w>
+      <w>casto</w>
       <w>català</w>
       <w>cccccc</w>
       <w>cdma</w>
+      <w>celkom</w>
+      <w>cely</w>
       <w>chainfire</w>
+      <w>chce</w>
+      <w>chcem</w>
+      <w>chcu</w>
+      <w>chvíľu</w>
+      <w>chyba</w>
+      <w>chyby</w>
+      <w>ciastocny</w>
+      <w>cislo</w>
+      <w>cita</w>
+      <w>citalo</w>
+      <w>citani</w>
+      <w>citanie</w>
+      <w>citanir</w>
+      <w>citat</w>
+      <w>cize</w>
+      <w>clinit</w>
       <w>clockpackage</w>
       <w>cmyk</w>
       <w>codetroopers</w>
       <w>connecttossid</w>
+      <w>constraintlayout</w>
       <w>crashlytics</w>
       <w>crowdin</w>
       <w>ctype</w>
       <w>cust</w>
+      <w>cykle</w>
+      <w>dajú</w>
+      <w>dakde</w>
+      <w>daku</w>
+      <w>daky</w>
+      <w>dalej</w>
+      <w>dalsi</w>
+      <w>dalsie</w>
+      <w>dalsiu</w>
       <w>dalvikvm</w>
       <w>dansk</w>
+      <w>dasboard</w>
       <w>dashclock</w>
+      <w>databaza</w>
+      <w>databazy</w>
       <w>dataimport</w>
+      <w>datat</w>
+      <w>dava</w>
+      <w>davas</w>
       <w>dbfilename</w>
+      <w>dealy</w>
       <w>defaultprofile</w>
       <w>defprof</w>
       <w>deinitialize</w>
+      <w>dekorator</w>
+      <w>denne</w>
       <w>descr</w>
       <w>deskclock</w>
       <w>desourced</w>
       <w>deutsch</w>
       <w>dialpad</w>
+      <w>dialóg</w>
+      <w>disablovat</w>
       <w>dlight</w>
+      <w>docasne</w>
+      <w>docasnej</w>
+      <w>docasnych</w>
+      <w>dodržané</w>
       <w>doki</w>
+      <w>dokonca</w>
+      <w>dolu</w>
       <w>doma</w>
       <w>doogee</w>
+      <w>dorob</w>
+      <w>dostať</w>
+      <w>dostupnost</w>
+      <w>dostupnosť</w>
       <w>doubledot</w>
+      <w>dovodov</w>
+      <w>dovol</w>
+      <w>dočasných</w>
+      <w>dpnpf</w>
       <w>drakeet</w>
       <w>droom</w>
       <w>dropshadow</w>
+      <w>druhou</w>
+      <w>druhy</w>
       <w>dstart</w>
       <w>dtmf</w>
       <w>dtype</w>
+      <w>dufam</w>
+      <w>duplikovať</w>
+      <w>dvoch</w>
+      <w>dôjde</w>
+      <w>dôjsť</w>
+      <w>dôležité</w>
+      <w>eaaaaip</w>
+      <w>eacces</w>
       <w>earlybirdalarm</w>
       <w>eatenddo</w>
       <w>edgepanel</w>
+      <w>editora</w>
+      <w>editore</w>
       <w>eestlane</w>
       <w>emailnotification</w>
       <w>emotionui</w>
@@ -105,7 +255,9 @@
       <w>epriority</w>
       <w>español</w>
       <w>estatus</w>
+      <w>este</w>
       <w>etype</w>
+      <w>evemt</w>
       <w>eventdeleted</w>
       <w>eventend</w>
       <w>eventenddelay</w>
@@ -114,112 +266,507 @@
       <w>eventstartdelay</w>
       <w>eventstop</w>
       <w>eventtime</w>
+      <w>eventy</w>
       <w>evernote</w>
+      <w>existuje</w>
+      <w>existujú</w>
+      <w>exitcode</w>
       <w>exportdata</w>
+      <w>exportovat</w>
+      <w>extendera</w>
+      <w>extenderu</w>
       <w>externalstorage</w>
+      <w>ešte</w>
       <w>failsafe</w>
       <w>false;</w>
+      <w>farba</w>
       <w>fblack</w>
       <w>fcst</w>
+      <w>fdzp</w>
       <w>ffffff</w>
       <w>fffffff</w>
       <w>fgui</w>
+      <w>fiktra</w>
+      <w>filtra</w>
+      <w>filtrom</w>
+      <w>filtruje</w>
       <w>firebase</w>
       <w>fmobil</w>
+      <w>fragmentu</w>
       <w>français</w>
       <w>fstype</w>
       <w>funanduseful</w>
+      <w>fungovať</w>
+      <w>funkcia</w>
+      <w>funkciami</w>
+      <w>funkciu</w>
       <w>gaeilge</w>
+      <w>generovanu</w>
+      <w>generovat</w>
       <w>gentlealarm</w>
       <w>geofence</w>
       <w>geofences</w>
       <w>getevent</w>
       <w>getprop</w>
+      <w>globálne</w>
+      <w>googlu</w>
       <w>gridview</w>
       <w>gron</w>
       <w>gson</w>
       <w>gsym</w>
+      <w>headeri</w>
       <w>henrich</w>
       <w>henrichg</w>
+      <w>heslo</w>
       <w>hhmm</w>
       <w>hhmmss</w>
       <w>hight</w>
+      <w>hladaj</w>
+      <w>hlavne</w>
+      <w>hned</w>
+      <w>hneď</w>
+      <w>hocikedy</w>
+      <w>hodnota</w>
+      <w>hodnoty</w>
       <w>homescreen</w>
+      <w>honoty</w>
+      <w>hore</w>
       <w>horiz</w>
+      <w>hornom</w>
+      <w>hotovo</w>
+      <w>hovor</w>
+      <w>hovoru</w>
+      <w>hovory</w>
+      <w>hromadnému</w>
+      <w>hrozilo</w>
       <w>hrvatski</w>
       <w>huawei</w>
+      <w>identifikaciu</w>
+      <w>ignorovala</w>
+      <w>ignoruje</w>
+      <w>ikona</w>
+      <w>ikonou</w>
+      <w>ikonu</w>
+      <w>ikony</w>
       <w>imageview</w>
+      <w>importnute</w>
+      <w>importnutych</w>
+      <w>importu</w>
+      <w>inac</w>
       <w>inapp</w>
       <w>incall</w>
       <w>incallui</w>
+      <w>inde</w>
+      <w>indikaciu</w>
+      <w>indikatorom</w>
+      <w>indikatory</w>
       <w>informations</w>
+      <w>informovat</w>
+      <w>informuje</w>
+      <w>informácie</w>
       <w>infos</w>
       <w>infront</w>
+      <w>inicializuje</w>
+      <w>iniciačná</w>
       <w>inode</w>
       <w>inodes</w>
+      <w>inou</w>
+      <w>instalaciu</w>
+      <w>installedint</w>
+      <w>interne</w>
+      <w>inych</w>
+      <w>inštaluje</w>
+      <w>ipprtovat</w>
       <w>islog</w>
+      <w>iste</w>
+      <w>isté</w>
       <w>italiano</w>
+      <w>jeden</w>
+      <w>jediny</w>
+      <w>jediný</w>
+      <w>jedna</w>
+      <w>jednej</w>
+      <w>jedno</w>
+      <w>jednoduchsie</w>
+      <w>jednorázová</w>
+      <w>jednotlivé</w>
+      <w>jednu</w>
+      <w>jeho</w>
       <w>jodd</w>
       <w>judemanutd</w>
       <w>justany</w>
       <w>justcreatedfilesdirectory</w>
+      <w>kanala</w>
+      <w>kandidat</w>
+      <w>kasdej</w>
+      <w>kazde</w>
+      <w>kazdom</w>
+      <w>kazdy</w>
+      <w>každá</w>
+      <w>každého</w>
+      <w>každú</w>
+      <w>každý</w>
+      <w>kedy</w>
+      <w>kedykoľvek</w>
+      <w>kedze</w>
       <w>keyevent</w>
+      <w>kilknes</w>
+      <w>klikacích</w>
+      <w>kliknete</w>
+      <w>kliknite</w>
+      <w>kliknut</w>
+      <w>kliknutie</w>
+      <w>kliknutím</w>
+      <w>kliknúť</w>
+      <w>klikom</w>
       <w>klock</w>
+      <w>kludne</w>
+      <w>kode</w>
+      <w>kolko</w>
+      <w>kompatibilita</w>
+      <w>kompletne</w>
+      <w>kompletní</w>
+      <w>kompletný</w>
+      <w>konca</w>
+      <w>konci</w>
+      <w>koncom</w>
+      <w>koniec</w>
+      <w>konkrétnym</w>
+      <w>konta</w>
+      <w>kopu</w>
+      <w>krasne</w>
+      <w>krat</w>
+      <w>kroky</w>
+      <w>krát</w>
+      <w>ktohovie</w>
+      <w>ktora</w>
+      <w>ktore</w>
+      <w>ktoreho</w>
+      <w>ktorou</w>
+      <w>ktoru</w>
+      <w>ktory</w>
+      <w>ktorá</w>
+      <w>ktoré</w>
+      <w>ktorú</w>
+      <w>ktorý</w>
+      <w>ktorým</w>
+      <w>kukjy</w>
+      <w>kukni</w>
+      <w>kuknut</w>
       <w>kunzisoft</w>
       <w>kurdî</w>
+      <w>kvoli</w>
       <w>latinica</w>
       <w>latn</w>
       <w>latvis</w>
       <w>layouting</w>
       <w>leakcanary</w>
+      <w>lebo</w>
       <w>leftright</w>
       <w>lerp</w>
       <w>libandroid</w>
+      <w>libcore</w>
       <w>libsuperuser</w>
       <w>linkmode</w>
       <w>linla</w>
       <w>linlayout</w>
+      <w>lisia</w>
       <w>listview</w>
       <w>listwidget</w>
       <w>llew</w>
+      <w>lockovat</w>
       <w>lockscreen</w>
+      <w>lockscreene</w>
+      <w>locksettings</w>
+      <w>logický</w>
+      <w>logu</w>
+      <w>lokalnej</w>
+      <w>loknuti</w>
       <w>lopr</w>
       <w>lëtzebuergesch</w>
       <w>macosx</w>
       <w>magisk</w>
+      <w>maju</w>
+      <w>majú</w>
+      <w>maka</w>
+      <w>makky</w>
+      <w>malo</w>
+      <w>malom</w>
+      <w>malé</w>
+      <w>managera</w>
+      <w>managovat</w>
+      <w>manifeste</w>
+      <w>manualna</w>
+      <w>manualne</w>
+      <w>manualny</w>
+      <w>manuálna</w>
+      <w>manuálne</w>
+      <w>manuálnu</w>
+      <w>mapovanie</w>
       <w>masshardt</w>
+      <w>mazat</w>
       <w>mdpr</w>
       <w>mdroid</w>
       <w>mediatek</w>
+      <w>medzi</w>
+      <w>mejaké</w>
       <w>melayu</w>
+      <w>meneniu</w>
+      <w>meni</w>
+      <w>menia</w>
+      <w>meniť</w>
+      <w>merat</w>
+      <w>mergnuteho</w>
+      <w>merguju</w>
       <w>messager</w>
+      <w>milisekundy</w>
+      <w>milión</w>
       <w>mimetype</w>
+      <w>minut</w>
       <w>minwidth</w>
       <w>mirek</w>
       <w>miui</w>
       <w>miuirom</w>
       <w>mmss</w>
       <w>mobi</w>
+      <w>mobilnych</w>
+      <w>mobilných</w>
+      <w>mobiloch</w>
+      <w>mobilu</w>
+      <w>mobily</w>
       <w>mobitobi</w>
+      <w>moct</w>
       <w>modversion</w>
+      <w>mohlo</w>
+      <w>momentálne</w>
       <w>mono</w>
+      <w>movnut</w>
+      <w>moze</w>
+      <w>mozem</w>
+      <w>mozne</w>
+      <w>mozno</w>
+      <w>možné</w>
+      <w>mrte</w>
       <w>multiselect</w>
+      <w>musel</w>
+      <w>musi</w>
+      <w>musia</w>
+      <w>musiet</w>
+      <w>musis</w>
+      <w>musí</w>
+      <w>musíte</w>
+      <w>môže</w>
+      <w>môžete</w>
+      <w>nacitalo</w>
+      <w>nacitanie</w>
+      <w>nacitatavat</w>
+      <w>nahadzujem</w>
+      <w>nahodim</w>
+      <w>nahovno</w>
+      <w>nahádže</w>
+      <w>nainstaloany</w>
+      <w>nainstalovane</w>
+      <w>nainštalovať</w>
+      <w>najprv</w>
+      <w>najst</w>
+      <w>najviac</w>
+      <w>nakonfigurovane</w>
+      <w>namapovat</w>
+      <w>nanovo</w>
+      <w>naozaj</w>
+      <w>napr</w>
+      <w>napriklad</w>
+      <w>napríklad</w>
+      <w>napísané</w>
+      <w>napísať</w>
+      <w>naraz</w>
+      <w>nastartovat</w>
+      <w>nastartuje</w>
+      <w>nastavenaich</w>
+      <w>nastavene</w>
+      <w>nastaveneho</w>
+      <w>nastaveni</w>
+      <w>nastavenia</w>
+      <w>nastaveniach</w>
+      <w>nastaveniu</w>
+      <w>nastavené</w>
+      <w>nastavení</w>
+      <w>nastavený</w>
+      <w>nastavi</w>
+      <w>nastavim</w>
+      <w>nastavit</w>
+      <w>nastavitelnu</w>
+      <w>nastaviť</w>
+      <w>nastavuje</w>
+      <w>nastavujú</w>
+      <w>nastaví</w>
       <w>nativetools</w>
+      <w>nativna</w>
+      <w>natrvalo</w>
+      <w>natvrdo</w>
+      <w>navždy</w>
+      <w>nazaloguje</w>
+      <w>nazov</w>
+      <w>nazvu</w>
+      <w>naľavo</w>
       <w>ndef</w>
+      <w>neautobackupovali</w>
+      <w>nebezi</w>
+      <w>nebeží</w>
+      <w>nebude</w>
+      <w>nebudem</w>
+      <w>nebudú</w>
+      <w>nech</w>
+      <w>necha</w>
+      <w>necham</w>
+      <w>nechat</w>
       <w>nederlands</w>
+      <w>nedovol</w>
+      <w>nedá</w>
+      <w>nefunguje</w>
+      <w>neho</w>
+      <w>nejaký</w>
+      <w>nejde</w>
+      <w>neloguje</w>
+      <w>nema</w>
+      <w>nemajú</w>
+      <w>nemal</w>
+      <w>nemenim</w>
+      <w>nemoe</w>
+      <w>nemoze</w>
+      <w>nemozem</w>
+      <w>nemuseli</w>
+      <w>nemá</w>
+      <w>nenastartuje</w>
+      <w>nenastavi</w>
+      <w>nenejdem</w>
+      <w>neodblokuju</w>
+      <w>neoptimalizoval</w>
+      <w>nepodporuje</w>
+      <w>nepouzivam</w>
+      <w>nepoužívate</w>
+      <w>nepošle</w>
+      <w>nepride</w>
+      <w>nepuzijes</w>
+      <w>nerobi</w>
+      <w>nerobia</w>
+      <w>nerusit</w>
+      <w>nesedi</w>
+      <w>neskúšal</w>
+      <w>nesmie</w>
+      <w>nespravi</w>
+      <w>nespustia</w>
+      <w>nespustí</w>
+      <w>netreba</w>
+      <w>neulozis</w>
+      <w>neuplatni</w>
+      <w>neurčuje</w>
+      <w>neviem</w>
       <w>nexec</w>
+      <w>nexuse</w>
+      <w>nezaloguje</w>
+      <w>nezmenil</w>
+      <w>nezmenili</w>
+      <w>nezmení</w>
+      <w>nezmestia</w>
+      <w>nezrusi</w>
+      <w>nieco</w>
+      <w>niekde</w>
+      <w>niektoré</w>
+      <w>niektorý</w>
+      <w>niečo</w>
+      <w>nijako</w>
+      <w>nikde</w>
+      <w>nikdy</w>
+      <w>nižšiu</w>
       <w>nokia</w>
+      <w>normalna</w>
+      <w>norml</w>
+      <w>normálne</w>
       <w>norsk</w>
       <w>notconnected</w>
       <w>notif</w>
+      <w>notifikacia</w>
+      <w>notifikacii</w>
+      <w>notifikaciu</w>
+      <w>notifikácia</w>
+      <w>notifikácie</w>
       <w>notinfront</w>
+      <w>nove</w>
+      <w>noveho</w>
+      <w>novej</w>
+      <w>novinky</w>
+      <w>novom</w>
+      <w>novy</w>
+      <w>nové</w>
       <w>ntpr</w>
       <w>ntyp</w>
+      <w>názov</w>
+      <w>názvom</w>
+      <w>názvy</w>
+      <w>obmedzenia</w>
+      <w>obrazovke</w>
+      <w>obrazovku</w>
+      <w>obrazovkám</w>
+      <w>obsah</w>
+      <w>obísť</w>
+      <w>odblokovat</w>
+      <w>odignorujem</w>
+      <w>odlinkovanie</w>
+      <w>odporucam</w>
+      <w>odpovede</w>
+      <w>odpovie</w>
+      <w>odscrolovat</w>
+      <w>odtiaľ</w>
+      <w>odtlacok</w>
+      <w>odznova</w>
+      <w>offhook</w>
+      <w>okienko</w>
+      <w>okienku</w>
+      <w>okno</w>
+      <w>okrem</w>
+      <w>omnoho</w>
       <w>onepane</w>
       <w>oneplus</w>
+      <w>opacnom</w>
       <w>oppo</w>
+      <w>opravnenia</w>
+      <w>opravy</w>
+      <w>optimalizacia</w>
+      <w>optimalizacii</w>
+      <w>oranžová</w>
+      <w>orientacny</w>
+      <w>orientaton</w>
+      <w>orientácie</w>
+      <w>ostatne</w>
+      <w>ostatnym</w>
+      <w>ostatné</w>
+      <w>ostrych</w>
+      <w>ostrých</w>
+      <w>otazka</w>
+      <w>otravny</w>
+      <w>otvori</w>
+      <w>otvorit</w>
+      <w>otvorí</w>
       <w>outcall</w>
+      <w>pada</w>
+      <w>pamata</w>
+      <w>pamatam</w>
+      <w>pamati</w>
+      <w>panela</w>
+      <w>paneli</w>
+      <w>panelu</w>
+      <w>parameteri</w>
+      <w>parametre</w>
+      <w>parametri</w>
+      <w>parametroch</w>
+      <w>parametrom</w>
+      <w>parametrov</w>
+      <w>partametre</w>
+      <w>partametroch</w>
       <w>pausedlogging</w>
+      <w>pauzovat</w>
+      <w>pauzuje</w>
       <w>paypal</w>
       <w>pdisplay</w>
       <w>pdus</w>
@@ -232,118 +779,562 @@
       <w>pidof</w>
       <w>pids</w>
       <w>pkgname</w>
+      <w>plati</w>
+      <w>platí</w>
+      <w>pocas</w>
+      <w>pocasd</w>
+      <w>pocit</w>
+      <w>podla</w>
+      <w>podmienky</w>
+      <w>podobne</w>
+      <w>podobnych</w>
+      <w>podporovanych</w>
+      <w>podporovat</w>
+      <w>podporu</w>
+      <w>pohlad</w>
+      <w>polohy</w>
+      <w>poloziek</w>
+      <w>polozka</w>
+      <w>polozke</w>
+      <w>polozkou</w>
+      <w>polozku</w>
+      <w>položka</w>
+      <w>položku</w>
+      <w>položky</w>
       <w>polski</w>
+      <w>polzku</w>
+      <w>pomocných</w>
+      <w>pomohlo</w>
+      <w>popisovať</w>
+      <w>popredi</w>
       <w>popupmenu</w>
+      <w>poradi</w>
+      <w>poradia</w>
+      <w>poradie</w>
+      <w>poradí</w>
       <w>porder</w>
       <w>português</w>
+      <w>posielal</w>
+      <w>posielat</w>
+      <w>posielať</w>
+      <w>poslalo</w>
+      <w>poslani</w>
+      <w>poslany</w>
+      <w>posle</w>
+      <w>posledne</w>
+      <w>posles</w>
+      <w>postupne</w>
+      <w>potom</w>
+      <w>potreba</w>
+      <w>potrebný</w>
+      <w>potrebuje</w>
+      <w>pouizvat</w>
+      <w>pouzije</w>
+      <w>pouzit</w>
+      <w>pouziva</w>
+      <w>pouzivaj</w>
+      <w>pouzivaju</w>
+      <w>pouzivanie</w>
+      <w>pouzivat</w>
+      <w>použije</w>
+      <w>používajú</w>
+      <w>povinný</w>
+      <w>povolenia</w>
+      <w>povolenie</w>
+      <w>povolené</w>
+      <w>povolený</w>
+      <w>povolit</w>
+      <w>povoliť</w>
+      <w>povolt</w>
+      <w>povoľ</w>
       <w>poweroff</w>
       <w>poweron</w>
       <w>powersaving</w>
+      <w>pozadi</w>
+      <w>pozadí</w>
+      <w>pozastavená</w>
+      <w>pozerat</w>
+      <w>pozri</w>
+      <w>pozriet</w>
+      <w>pozriete</w>
+      <w>pozrieť</w>
+      <w>pošle</w>
       <w>pphelper</w>
       <w>pppe</w>
+      <w>pravach</w>
+      <w>pravo</w>
+      <w>prazdne</w>
+      <w>prechadza</w>
+      <w>precitane</w>
+      <w>precitas</w>
+      <w>preco</w>
+      <w>pred</w>
+      <w>predcasne</w>
+      <w>prednastavenych</w>
+      <w>prednastavené</w>
+      <w>prednastavených</w>
+      <w>predtym</w>
+      <w>predvoleny</w>
+      <w>predvolený</w>
+      <w>predčasne</w>
+      <w>preferences_applicatio</w>
+      <w>preinstalled</w>
+      <w>prejdem</w>
+      <w>preklady</w>
       <w>preloader</w>
+      <w>premenne</w>
+      <w>premennej</w>
+      <w>premenovanie</w>
+      <w>prepinanie</w>
+      <w>prepisat</w>
+      <w>preplo</w>
+      <w>prepnut</w>
+      <w>prepnúť</w>
+      <w>presny</w>
+      <w>presúvaním</w>
+      <w>presúvať</w>
+      <w>preto</w>
+      <w>pretoze</w>
+      <w>priamo</w>
+      <w>pribudne</w>
+      <w>pridaj</w>
+      <w>pridam</w>
+      <w>pridanie</w>
+      <w>pridat</w>
+      <w>pridávať</w>
+      <w>prijatymi</w>
+      <w>prijimom</w>
+      <w>prilozim</w>
+      <w>prioritou</w>
+      <w>prioritu</w>
+      <w>pripadoch</w>
+      <w>pripojene</w>
+      <w>priprava</w>
+      <w>prislusenstva</w>
+      <w>prislusenstvo</w>
+      <w>prislusne</w>
+      <w>prislusneho</w>
+      <w>pristup</w>
+      <w>pritom</w>
       <w>priviliges</w>
       <w>priyesh</w>
+      <w>problém</w>
       <w>proc</w>
+      <w>procesech</w>
+      <w>procesoch</w>
+      <w>procesov</w>
+      <w>procesů</w>
+      <w>profil</w>
       <w>profileactivation</w>
       <w>profiledeleted</w>
       <w>profileicon</w>
       <w>profilepreferenceschanged</w>
+      <w>profilmi</w>
+      <w>profiloch</w>
+      <w>profilom</w>
+      <w>profilov</w>
+      <w>profilu</w>
+      <w>profily</w>
       <w>proleptic</w>
+      <w>proste</w>
+      <w>prstu</w>
+      <w>prvom</w>
+      <w>prvy</w>
+      <w>prvá</w>
+      <w>prvý</w>
+      <w>práva</w>
+      <w>práve</w>
+      <w>právo</w>
+      <w>prázdna</w>
+      <w>prázdny</w>
+      <w>prípade</w>
+      <w>príslušný</w>
+      <w>príslušných</w>
+      <w>pstate</w>
       <w>ptype</w>
+      <w>pádov</w>
+      <w>pádů</w>
+      <w>písmom</w>
+      <w>píše</w>
+      <w>píšu</w>
+      <w>překlady</w>
       <w>quickboot</w>
       <w>quickscroll</w>
       <w>radiobtn</w>
       <w>ravenscroft</w>
+      <w>reactivte</w>
       <w>realtime</w>
+      <w>recdeiver</w>
+      <w>receicver</w>
       <w>recents</w>
+      <w>recveiver</w>
       <w>reenable</w>
+      <w>registracie</w>
+      <w>registraciu</w>
+      <w>registracny</w>
       <w>rella</w>
+      <w>remoteviews</w>
       <w>remounter</w>
       <w>reregister</w>
+      <w>restarte</w>
       <w>restartevents</w>
+      <w>restartuju</w>
+      <w>rezim</w>
+      <w>reštart</w>
+      <w>reštartovanie</w>
+      <w>riadok</w>
       <w>ringermode</w>
       <w>ringtones</w>
+      <w>robene</w>
+      <w>robi</w>
+      <w>robit</w>
+      <w>robí</w>
       <w>română</w>
+      <w>roznych</w>
+      <w>rozumie</w>
       <w>rssi</w>
       <w>ruap</w>
       <w>runevents</w>
       <w>runnables</w>
+      <w>ručne</w>
+      <w>rôzne</w>
+      <w>samotnu</w>
+      <w>samotny</w>
+      <w>samozrejme</w>
       <w>samsung</w>
+      <w>samsungoch</w>
       <w>scannig</w>
+      <w>schovavat</w>
       <w>schuermann</w>
       <w>screenlayout</w>
       <w>screenoff</w>
       <w>screenon</w>
       <w>sctm</w>
+      <w>seba</w>
+      <w>sebe</w>
       <w>securitycenter</w>
       <w>seekbar</w>
+      <w>sekcia</w>
+      <w>sekcie</w>
+      <w>sekcii</w>
+      <w>sekund</w>
       <w>selinux</w>
+      <w>semafórik</w>
+      <w>semafórika</w>
       <w>sendto</w>
+      <w>senzor</w>
+      <w>senzora</w>
+      <w>senzormi</w>
+      <w>senzoroch</w>
+      <w>senzorov</w>
+      <w>senzory</w>
+      <w>serviceset</w>
+      <w>servis</w>
+      <w>setric</w>
+      <w>seznam</w>
       <w>sharedpref</w>
       <w>sharedprofile</w>
       <w>sharedprofilepreferenceschanged</w>
+      <w>sice</w>
+      <w>signalizuje</w>
       <w>sikun</w>
       <w>sipcall</w>
+      <w>skener</w>
+      <w>skenera</w>
+      <w>skeneri</w>
+      <w>skenerov</w>
+      <w>skenery</w>
+      <w>skonci</w>
+      <w>skontoluj</w>
+      <w>skončí</w>
       <w>skus</w>
+      <w>skôr</w>
+      <w>sledovat</w>
+      <w>sleduje</w>
       <w>slnt</w>
       <w>slook</w>
       <w>slovenčina</w>
       <w>slovenščina</w>
+      <w>sluzby</w>
+      <w>slúži</w>
+      <w>slúžia</w>
+      <w>snzim</w>
+      <w>snímajú</w>
       <w>sond</w>
       <w>sonification</w>
       <w>sonyericsson</w>
+      <w>sortujem</w>
+      <w>spadne</w>
+      <w>spatna</w>
+      <w>splnené</w>
+      <w>splnený</w>
+      <w>splniť</w>
       <w>splunchy</w>
+      <w>spodnom</w>
+      <w>spoločný</w>
+      <w>sposobit</w>
+      <w>sposobuje</w>
+      <w>spracovanie</w>
+      <w>sprav</w>
+      <w>spravene</w>
+      <w>spravi</w>
+      <w>spravit</w>
+      <w>spraviť</w>
+      <w>spusta</w>
+      <w>spustena</w>
+      <w>spustene</w>
+      <w>spustenej</w>
+      <w>spustenia</w>
+      <w>spustenie</w>
+      <w>spusteniu</w>
+      <w>spustená</w>
+      <w>spustení</w>
+      <w>spustením</w>
+      <w>spustia</w>
+      <w>spustila</w>
+      <w>spustit</w>
+      <w>spustiť</w>
+      <w>spustí</w>
+      <w>spytaj</w>
+      <w>späť</w>
+      <w>spúšťanie</w>
+      <w>spúšťať</w>
       <w>sqlite</w>
       <w>squareup</w>
       <w>srpski</w>
       <w>ssid</w>
       <w>ssids</w>
+      <w>stane</w>
+      <w>starsich</w>
+      <w>starte</w>
       <w>startedlogging</w>
+      <w>startol</w>
+      <w>startu</w>
+      <w>stary</w>
+      <w>starymi</w>
+      <w>staticke</w>
+      <w>stav</w>
+      <w>stavovy</w>
+      <w>stavu</w>
+      <w>stavy</w>
+      <w>stačí</w>
       <w>stericson</w>
+      <w>stiahnut</w>
+      <w>stiahnuti</w>
+      <w>stiahnutí</w>
+      <w>strasne</w>
       <w>stylers</w>
+      <w>subscreens</w>
       <w>suomalainen</w>
       <w>supersu</w>
       <w>svenska</w>
+      <w>svoj</w>
+      <w>svoje</w>
+      <w>symblom</w>
       <w>sysfs</w>
       <w>sysprop</w>
+      <w>systemove</w>
+      <w>systemu</w>
+      <w>súčasnému</w>
+      <w>tabulke</w>
+      <w>tabulku</w>
+      <w>tabuľky</w>
+      <w>tagmi</w>
+      <w>tagu</w>
+      <w>taka</w>
+      <w>takat</w>
+      <w>takom</w>
+      <w>takto</w>
+      <w>taky</w>
+      <w>takzvaný</w>
+      <w>takéto</w>
+      <w>takže</w>
       <w>tasker</w>
+      <w>taskera</w>
+      <w>tasku</w>
+      <w>teda</w>
       <w>telecom</w>
+      <w>tento</w>
+      <w>teraz</w>
+      <w>testne</w>
+      <w>testni</w>
+      <w>testnut</w>
+      <w>testovat</w>
+      <w>testuje</w>
+      <w>textom</w>
       <w>textpadding</w>
       <w>textsize</w>
       <w>textview</w>
+      <w>texty</w>
       <w>theming</w>
+      <w>tiahnuti</w>
+      <w>tieto</w>
+      <w>tiez</w>
       <w>timedurationpicker</w>
       <w>timelines</w>
       <w>tiếng</w>
+      <w>tkačítkami</w>
+      <w>tlacitko</w>
       <w>toastcompat</w>
+      <w>toho</w>
+      <w>tohoto</w>
       <w>topbar</w>
       <w>topjohnwu</w>
+      <w>totizto</w>
+      <w>totižto</w>
+      <w>totot</w>
       <w>toybox</w>
+      <w>treba</w>
       <w>treme</w>
+      <w>treydev</w>
       <w>true;</w>
+      <w>trvania</w>
+      <w>tvar</w>
+      <w>tvrdy</w>
       <w>twopane</w>
+      <w>tych</w>
+      <w>tyka</w>
+      <w>tymito</w>
+      <w>tymto</w>
+      <w>typov</w>
+      <w>typu</w>
+      <w>túto</w>
       <w>türkçe</w>
+      <w>týchto</w>
+      <w>týmto</w>
+      <w>udalost</w>
+      <w>udalosti</w>
+      <w>udalostiach</w>
+      <w>udalostiam</w>
+      <w>udalostí</w>
+      <w>udalosť</w>
+      <w>udalosťou</w>
+      <w>ukoncenie</w>
+      <w>ukonci</w>
+      <w>ukoncit</w>
+      <w>ukoncovat</w>
+      <w>ukoncuje</w>
+      <w>ukončenie</w>
+      <w>ukončiť</w>
+      <w>ukončí</w>
+      <w>ulozenia</w>
       <w>uncheck</w>
       <w>undoprofile</w>
       <w>unselect</w>
+      <w>upgradnut</w>
+      <w>uplne</w>
       <w>upod</w>
+      <w>upozornenie</w>
+      <w>upozrneniam</w>
+      <w>uprava</w>
       <w>urbandroid</w>
+      <w>urobiť</w>
+      <w>určenie</w>
+      <w>určené</w>
+      <w>určiť</w>
+      <w>určuje</w>
+      <w>určujú</w>
       <w>usagestats</w>
       <w>userid</w>
+      <w>uzamknutej</w>
+      <w>uzivatel</w>
+      <w>uzivatela</w>
+      <w>užívateľ</w>
+      <w>veci</w>
+      <w>vedelo</w>
+      <w>vediet</w>
+      <w>vedieť</w>
+      <w>velkost</w>
+      <w>velky</w>
       <w>vert</w>
+      <w>verze</w>
+      <w>verzia</w>
+      <w>verzie</w>
+      <w>verzii</w>
+      <w>verziu</w>
+      <w>veľmi</w>
+      <w>viac</w>
       <w>vibr</w>
+      <w>vidim</w>
+      <w>vidím</w>
       <w>viewsandroid</w>
       <w>visibile</w>
       <w>visiblity</w>
       <w>việt</w>
+      <w>vlastne</w>
+      <w>vlastnosti</w>
+      <w>vlastosť</w>
+      <w>vola</w>
+      <w>volal</w>
+      <w>volane</w>
+      <w>volanie</w>
+      <w>volany</w>
       <w>volu</w>
+      <w>volá</w>
+      <w>vpravo</w>
+      <w>vraj</w>
+      <w>vroadcast</w>
+      <w>vráť</w>
+      <w>vsak</w>
+      <w>vsetko</w>
+      <w>vsetky</w>
+      <w>vtedy</w>
+      <w>vygenerujú</w>
+      <w>vyhodil</w>
+      <w>vyhodit</w>
+      <w>vykonu</w>
+      <w>vykreslit</w>
+      <w>vymaze</w>
+      <w>vymazem</w>
+      <w>vymazávať</w>
+      <w>vynimku</w>
+      <w>vynútiť</w>
+      <w>vypada</w>
+      <w>vypadá</w>
+      <w>vyplnené</w>
+      <w>vyplniť</w>
+      <w>vypne</w>
+      <w>vypnut</w>
+      <w>vypnute</w>
+      <w>vypol</w>
+      <w>vyprsal</w>
+      <w>vyriesenu</w>
+      <w>vyriesit</w>
+      <w>vysledok</w>
+      <w>vysvetlením</w>
+      <w>vytvarani</w>
+      <w>vytvarat</w>
+      <w>vytvorený</w>
+      <w>vytvori</w>
+      <w>vytvorit</w>
+      <w>vyvola</w>
+      <w>vyvolať</w>
+      <w>vyzadovana</w>
+      <w>vyzadovany</w>
+      <w>vyzadujes</w>
+      <w>vyššou</w>
+      <w>vyžadovaná</w>
+      <w>vyžadujú</w>
+      <w>vzdy</w>
+      <w>vôbec</w>
+      <w>výnimka</w>
+      <w>výnimku</w>
+      <w>všetko</w>
+      <w>všetky</w>
+      <w>všetkých</w>
+      <w>wallpapper</w>
+      <w>wallpappers</w>
       <w>walp</w>
       <w>wapr</w>
       <w>wcdma</w>
+      <w>widgetoch</w>
+      <w>widgetu</w>
       <w>wificonnected</w>
       <w>wifiinfront</w>
+      <w>workmanager</w>
       <w>worldclock</w>
+      <w>wraper</w>
+      <w>writre</w>
       <w>xbin</w>
       <w>xiaomi</w>
       <w>xlint</w>
@@ -351,9 +1342,126 @@
       <w>xtreme</w>
       <w>xxxk</w>
       <w>xxxm</w>
+      <w>yrqkov</w>
+      <w>zacal</w>
+      <w>zacat</w>
+      <w>zacatie</w>
+      <w>zachovat</w>
+      <w>zachyteni</w>
+      <w>zachytil</w>
+      <w>zachytí</w>
+      <w>zaciatku</w>
+      <w>zacne</w>
+      <w>zadat</w>
+      <w>zahodim</w>
+      <w>zakaz</w>
+      <w>zakazat</w>
+      <w>zakázal</w>
+      <w>zakázaná</w>
+      <w>zakázané</w>
+      <w>zakázaný</w>
+      <w>zakázať</w>
+      <w>zaloguje</w>
+      <w>zamen</w>
+      <w>zamknutie</w>
+      <w>zapis</w>
+      <w>zapisat</w>
+      <w>zapise</w>
+      <w>zapisem</w>
+      <w>zapisu</w>
+      <w>zapisuje</w>
+      <w>zapnute</w>
+      <w>zaporny</w>
+      <w>zaregistruje</w>
+      <w>zariadenia</w>
+      <w>zaroven</w>
+      <w>zaručené</w>
+      <w>zasa</w>
+      <w>zasadny</w>
+      <w>zastav</w>
+      <w>zastavenie</w>
+      <w>zastavená</w>
+      <w>zastavené</w>
+      <w>zastavi</w>
+      <w>zastavia</w>
+      <w>zastavit</w>
+      <w>zastavovat</w>
+      <w>zastavuje</w>
+      <w>zastaví</w>
+      <w>zatial</w>
+      <w>zaujima</w>
+      <w>zavola</w>
+      <w>zavolas</w>
+      <w>zavolat</w>
+      <w>zavretie</w>
+      <w>zavriet</w>
+      <w>začiatku</w>
+      <w>začne</w>
+      <w>zelená</w>
+      <w>zelenú</w>
       <w>zenmode</w>
+      <w>ziadna</w>
+      <w>ziskam</w>
+      <w>zisti</w>
+      <w>zistit</w>
+      <w>zistíte</w>
+      <w>zmene</w>
+      <w>zmeni</w>
+      <w>zmenil</w>
+      <w>zmenila</w>
+      <w>zmenit</w>
+      <w>zmeniť</w>
+      <w>zmenu</w>
+      <w>zmeny</w>
+      <w>zmení</w>
+      <w>zmien</w>
+      <w>změn</w>
+      <w>změny</w>
+      <w>znamená</w>
+      <w>znova</w>
+      <w>zobrazenia</w>
+      <w>zobrazené</w>
+      <w>zobrazi</w>
+      <w>zobrazila</w>
+      <w>zobrazit</w>
+      <w>zobrazovanie</w>
+      <w>zobrazovat</w>
+      <w>zobrazovať</w>
+      <w>zobrazuj</w>
+      <w>zobrazuje</w>
+      <w>zobrazujú</w>
+      <w>zobrazí</w>
+      <w>zony</w>
+      <w>zoznam</w>
+      <w>zozname</w>
+      <w>zoznamom</w>
+      <w>zrus</w>
+      <w>zrusim</w>
+      <w>zrušenie</w>
+      <w>zvlast</w>
+      <w>zvonenia</w>
+      <w>zároveň</w>
+      <w>zátvorke</w>
       <w>íslensku</w>
+      <w>úplne</w>
+      <w>červená</w>
+      <w>červené</w>
+      <w>červenú</w>
+      <w>červený</w>
+      <w>červeným</w>
       <w>čeština</w>
+      <w>čiže</w>
+      <w>ďalej</w>
+      <w>ďalšia</w>
+      <w>ďalším</w>
+      <w>šedé</w>
+      <w>špeciálny</w>
+      <w>štart</w>
+      <w>štarte</w>
+      <w>štartom</w>
+      <w>štartu</w>
+      <w>žiadané</w>
+      <w>žiadna</w>
     </words>
   </dictionary>
 </component>

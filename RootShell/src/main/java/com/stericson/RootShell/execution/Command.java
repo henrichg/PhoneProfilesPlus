@@ -135,7 +135,7 @@ public class Command {
     }
 
     @SuppressWarnings("unused")
-    public void commandCompleted(int id, int exitcode) {
+    public void commandCompleted(int id, int exitCode) {
         //pass
     }
 

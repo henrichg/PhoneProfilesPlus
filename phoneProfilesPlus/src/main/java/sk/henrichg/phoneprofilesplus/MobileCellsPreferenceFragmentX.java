@@ -672,7 +672,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 }
                 connectedCell.setText(connectedCellName);
                 GlobalGUIRoutines.setImageButtonEnabled((preference.registeredCellData != null) && !(preference.registeredCellInTable && preference.registeredCellInValue),
-                        addCellButton, R.drawable.ic_button_add, prefContext);
+                        addCellButton, prefContext);
             }
 
         };

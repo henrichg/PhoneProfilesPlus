@@ -108,12 +108,12 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
-                        addIcon, R.drawable.ic_button_add, prefContext.getApplicationContext());
+                        addIcon, prefContext.getApplicationContext());
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!SSIDName.getText().toString().isEmpty(),
-                addIcon, R.drawable.ic_button_add, prefContext.getApplicationContext());
+                addIcon, prefContext.getApplicationContext());
 
         SSIDListView = view.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapterX(prefContext, preference);

@@ -1,7 +1,5 @@
 package mobi.upod.timedurationpicker;
 
-import android.annotation.SuppressLint;
-
 /**
  * Utility class for handling duration values.
  */
@@ -73,33 +71,33 @@ class TimeDurationUtil {
         return hours * MILLIS_PER_HOUR + minutes * MILLIS_PER_MINUTE + seconds * MILLIS_PER_SECOND;
     }
 
-    /**
-     * Returns a string representing the specified duration in the format {@code h:mm:ss}.
-     * @param duration duration in milliseconds
+    /*
+      Returns a string representing the specified duration in the format {@code h:mm:ss}.
+      @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    @SuppressLint("DefaultLocale")
+    /*@SuppressLint("DefaultLocale")
     static String formatHoursMinutesSeconds(long duration) {
         return String.format("%d:%02d:%02d", hoursOf(duration), minutesInHourOf(duration), secondsInMinuteOf(duration));
-    }
+    }*/
 
-    /**
-     * Returns a string representing the specified duration in the format {@code m:ss}.
-     * @param duration duration in milliseconds
+    /*
+      Returns a string representing the specified duration in the format {@code m:ss}.
+      @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    @SuppressLint("DefaultLocale")
+    /*@SuppressLint("DefaultLocale")
     static String formatMinutesSeconds(long duration) {
         return String.format("%d:%02d", minutesOf(duration), secondsInMinuteOf(duration));
-    }
+    }*/
 
-    /**
-     * Returns a string representing the specified duration in the format {@code s}.
-     * @param duration duration in milliseconds
+    /*
+      Returns a string representing the specified duration in the format {@code s}.
+      @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    @SuppressLint("DefaultLocale")
+    /*@SuppressLint("DefaultLocale")
     static String formatSeconds(long duration) {
         return String.format("%d", secondsInMinuteOf(duration));
-    }
+    }*/
 }

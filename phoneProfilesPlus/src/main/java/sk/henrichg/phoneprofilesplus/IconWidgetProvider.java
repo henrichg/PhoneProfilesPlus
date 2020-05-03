@@ -23,7 +23,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
     }
 
-    public void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
+    private void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
                           final Profile _profile, final DataWrapper _dataWrapper, final int[] appWidgetIds) {
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
@@ -166,7 +166,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         blueBackground = redBackground;
                     }
 
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconBackground="+ApplicationPreferencesapplicationWidgetIconBackground);
+                    //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconBackground="+ApplicationPreferences_applicationWidgetIconBackground);
                     int alphaBackground = 0x40;
                     switch (applicationWidgetIconBackground) {
                         case "0":

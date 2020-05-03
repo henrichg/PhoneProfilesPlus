@@ -26,6 +26,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
@@ -1018,18 +1019,24 @@ public final class RootToolsInternalMethods {
         if (!status.equals(Environment.MEDIA_MOUNTED)) {
             return false;
         }
-        File path = Environment.getExternalStorageDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize;// = 0;
-        long availableBlocks;// = 0;
-        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            blockSize = stat.getBlockSize();
-            availableBlocks = stat.getAvailableBlocks();
-        } else {*/
+        if (Build.VERSION.SDK_INT < 29) {
+            //noinspection deprecation
+            File path = Environment.getExternalStorageDirectory();
+
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize;// = 0;
+            long availableBlocks;// = 0;
+            /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                blockSize = stat.getBlockSize();
+                availableBlocks = stat.getAvailableBlocks();
+            } else {*/
             blockSize = stat.getBlockSizeLong();
             availableBlocks = stat.getAvailableBlocksLong();
-        //}
-        return (updateSize < availableBlocks * blockSize);
+            //}
+            return (updateSize < availableBlocks * blockSize);
+        }
+        else
+            return true;
     }
 
     /**

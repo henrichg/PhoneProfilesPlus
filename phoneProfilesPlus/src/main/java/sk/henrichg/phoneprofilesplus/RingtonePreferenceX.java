@@ -135,7 +135,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);*/
 
-                        Ringtone _ringtone = null;
+                        Ringtone _ringtone;
                         boolean typeIsSet = false;
 
                         switch (ringtoneType) {

@@ -340,7 +340,9 @@ class ActivateProfileHelper {
                                 if (connManager != null) {
                                     boolean wifiConnected = false;
                                     if (Build.VERSION.SDK_INT < 28) {
+                                        //noinspection deprecation
                                         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+                                        //noinspection deprecation
                                         wifiConnected = (activeNetwork != null) &&
                                                 (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
                                                 activeNetwork.isConnected();

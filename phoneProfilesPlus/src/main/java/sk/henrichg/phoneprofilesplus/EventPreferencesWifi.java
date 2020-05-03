@@ -408,8 +408,10 @@ class EventPreferencesWifi extends EventPreferences {
                                 for (Network network : networks) {
                                     try {
                                         if (Build.VERSION.SDK_INT < 28) {
+                                            //noinspection deprecation
                                             NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                             if (ntkInfo != null) {
+                                                //noinspection deprecation
                                                 if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
                                                     if (wifiInfo != null) {
                                                         wifiConnected = true;

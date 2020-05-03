@@ -1419,8 +1419,8 @@
     <string name="run_applications_error_dialog_text_application">Pogreška pri startu aplikacije.</string>
     <string name="run_applications_error_dialog_text_shortcut">Pogreška pri startu prečaca.</string>
     <string name="run_applications_error_dialog_text_intent">Pogreška pri startu namere.</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Izuzetak kod glasnoće</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Glasnoća obavijesti i zvuka zvona podešena u ovome profilu biće ignorirana , kada je sistem u modu \"tišina\" (samo za alarme i vibraciju).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Za potpuno bezvučnu obavijest, postavite zvuk obavijesti na \"Nijedan\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

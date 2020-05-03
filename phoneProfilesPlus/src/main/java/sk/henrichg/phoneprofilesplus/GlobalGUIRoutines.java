@@ -11,7 +11,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -426,37 +425,25 @@ class GlobalGUIRoutines {
         }
     }
 
-    /**
-     * Sets the specified image button to the given state, while modifying or
-     * "graying-out" the icon as well
-     *
-     * @param enabled The state of the menu item
-     * @param item The menu item to modify
-     * @param iconResId The icon ID
-     */
-    static void setImageButtonEnabled(boolean enabled, AppCompatImageButton item, int iconResId, Context context) {
+    static void setImageButtonEnabled(boolean enabled, AppCompatImageButton item, /*int iconResId,*/ Context context) {
         item.setEnabled(enabled);
-        Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
-        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
-        item.setImageDrawable(icon);
+        //Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
+        //Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+        //item.setImageDrawable(icon);
+        if (enabled)
+            item.setColorFilter(null);
+        else
+            item.setColorFilter(context.getColor(R.color.activityDisabledTextColor), PorterDuff.Mode.SRC_IN);
     }
 
-    /**
-     * Mutates and applies a filter that converts the given drawable to a Gray
-     * image. This method may be used to simulate the color of disable icons in
-     * Honeycomb's ActionBar.
-     *
-     * @return a mutated version of the given drawable with a color filter
-     *         applied.
-     */
-    private static Drawable convertDrawableToGrayScale(Drawable drawable) {
+/*    private static Drawable convertDrawableToGrayScale(Drawable drawable) {
         if (drawable == null) {
             return null;
         }
         Drawable res = drawable.mutate();
         res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         return res;
-    }
+    } */
 
     /*
     static float pixelsToSp(Context context, float px) {
