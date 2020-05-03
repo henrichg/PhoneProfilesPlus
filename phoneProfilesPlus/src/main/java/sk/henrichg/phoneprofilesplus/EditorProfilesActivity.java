@@ -1709,6 +1709,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialog.show();
     }
 
+    @SuppressLint("SetWorldReadable")
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean importApplicationPreferences(File src, int what) {
         boolean res = true;
@@ -1716,6 +1717,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         try {
             try {
                 if (src.exists()) {
+                    //noinspection ResultOfMethodCallIgnored
+                    src.setReadable(true, false);
+
                     input = new ObjectInputStream(new FileInputStream(src));
                     Editor prefEdit;
                     if (what == 1)
@@ -1871,6 +1875,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                 }
 
+                @SuppressLint("SetWorldReadable")
                 @Override
                 protected Integer doInBackground(Void... params) {
                     //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
@@ -1881,6 +1886,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // because in DatabaseHandler.importDB is recompute of volumes in profiles
                         File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+
+                        try {
+                            File exportPath = new File(sd, _applicationDataPath);
+                            if (exportPath.exists()) {
+                                //noinspection ResultOfMethodCallIgnored
+                                exportPath.setReadable(true, false);
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         appSettingsError = !importApplicationPreferences(exportFile, 1);
                         exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -2060,7 +2076,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialog.show();
     }
 
-    @SuppressLint("ApplySharedPref")
+    @SuppressLint({"ApplySharedPref", "SetWorldReadable"})
     private boolean exportApplicationPreferences(File dst/*, int what*/) {
         boolean res = true;
         ObjectOutputStream output = null;
@@ -2109,6 +2125,12 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 editor.commit();
                 output.writeObject(pref.getAll());
+
+                output.flush();
+
+                //noinspection ResultOfMethodCallIgnored
+                dst.setReadable(true, false);
+
             } catch (FileNotFoundException e) {
                 PPApplication.recordException(e);
                 // this is OK
@@ -2212,6 +2234,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected Integer doInBackground(Void... params) {
 
                     if (this.dataWrapper != null) {
+                        // Must be first. This also create subdirectory
                         int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
                         if (ret == 1) {
                             File sd = Environment.getExternalStorageDirectory();

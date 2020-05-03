@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10552,6 +10553,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //@SuppressWarnings("resource")
+    @SuppressLint("SetWorldReadable")
     int importDB(String applicationDataPath) {
         importExportLock.lock();
         try {
@@ -10577,6 +10579,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (exportedDB.exists()) {
                         //PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
+
+                        //noinspection ResultOfMethodCallIgnored
+                        exportedDB.setReadable(true, false);
+
                         SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
 
                         if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
@@ -12174,7 +12180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    @SuppressWarnings("resource")
+    @SuppressLint("SetWorldReadable")
     int exportDB()
     {
         importExportLock.lock();
@@ -12203,6 +12209,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             if (!(exportDir.exists() && exportDir.isDirectory())) {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportDir.mkdirs();
+                                //noinspection ResultOfMethodCallIgnored
+                                exportDir.setReadable(true, false);
                             }
 
                             src = new FileInputStream(dataDB);
@@ -12218,6 +12226,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                             src.close();
                             dst.close();
+
+                            //noinspection ResultOfMethodCallIgnored
+                            exportedDB.setReadable(true, false);
 
                             ret = 1;
                         }
