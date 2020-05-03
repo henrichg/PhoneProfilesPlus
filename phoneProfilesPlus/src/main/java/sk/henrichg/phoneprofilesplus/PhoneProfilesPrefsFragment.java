@@ -1735,7 +1735,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         //Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
                         //dataWrapper.refreshProfileIcon(activatedProfile);
-                        PPApplication.showProfileNotification(/*context*/true, false);
+                        //PPApplication.showProfileNotification(/*context*/true, false);
                         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsFragment.doOnActivityResult");
                         PPApplication.updateGUI(context, !finishActivity, true);
 

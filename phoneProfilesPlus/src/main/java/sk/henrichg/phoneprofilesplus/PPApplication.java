@@ -112,6 +112,14 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
+                                                +"|OneRowWidgetProvider.updateWidgets"
+                                                +"|PPApplication.forceUpdateGUI"
+                                                +"|OneRowWidgetProvider.onUpdate"
+                                                +"|OneRowWidgetProvider._onUpdate"
+
+                                                +"|DataWrapper._activateProfile"
+                                                +"|EventsHandler.handleEvents"
+
                                                 //+"|PPApplication.getServicesList"
 
                                                 //+"|[ACTIVATOR]"
@@ -185,9 +193,6 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PPApplication.startHandlerThread"
 
                                                 //+"|DataWrapper.updateNotificationAndWidgets"
-                                                +"|PPApplication.forceUpdateGUI"
-                                                +"|OneRowWidgetProvider.onUpdate"
-                                                +"|OneRowWidgetProvider._onUpdate"
 
                                                 //+"|%%%%%%% DataWrapper.doHandleEvents"
                                                 //+"|#### EventsHandler.handleEvents"
@@ -1639,9 +1644,6 @@ public class PPApplication extends Application /*implements Application.Activity
         /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
 
-        if (alsoNotification)
-            PPApplication.showProfileNotification(/*context*/refresh, false);
-
         // icon widget
         try {
             IconWidgetProvider myWidget = new IconWidgetProvider();
@@ -1686,6 +1688,9 @@ public class PPApplication extends Application /*implements Application.Activity
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
+
+        if (alsoNotification)
+            PPApplication.showProfileNotification(/*context*/refresh);
     }
 
     static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
@@ -2469,12 +2474,12 @@ public class PPApplication extends Application /*implements Application.Activity
         PPApplication.createDonationNotificationChannel(appContext);
     }
 
-    static void showProfileNotification(/*Context context,*/ final boolean refresh, final boolean forService) {
+    static void showProfileNotification(/*Context context,*/ final boolean refresh) {
         try {
             //PPApplication.logE("PPApplication.showProfileNotification", "xxx");
 
             if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().showProfileNotification(refresh, forService/*, false*/);
+                PhoneProfilesService.getInstance().showProfileNotification(refresh, false/*, false*/);
 
         } catch (Exception e) {
             PPApplication.recordException(e);

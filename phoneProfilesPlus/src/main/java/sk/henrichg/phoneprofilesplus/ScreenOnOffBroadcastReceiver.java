@@ -151,7 +151,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             });
 
                             if (!Event.getGlobalEventsRunning()) {
-                                PPApplication.showProfileNotification(/*appContext*/true, false);
+                                PPApplication.showProfileNotification(/*appContext*/true);
                             }
                             break;
                         }
@@ -160,7 +160,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             if (ApplicationPreferences.notificationShowInStatusBar &&
                                     ApplicationPreferences.notificationHideInLockScreen) {
-                                PPApplication.showProfileNotification(/*appContext*/true, false);
+                                PPApplication.showProfileNotification(/*appContext*/true);
                             }
 
                             // change screen timeout
@@ -208,7 +208,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     if (action.equals(Intent.ACTION_SCREEN_ON)) {
                         if (ApplicationPreferences.notificationShowInStatusBar &&
                                 ApplicationPreferences.notificationHideInLockScreen) {
-                            PPApplication.showProfileNotification(/*appContext*/true, false);
+                            PPApplication.showProfileNotification(/*appContext*/true);
                         }
                     }
 

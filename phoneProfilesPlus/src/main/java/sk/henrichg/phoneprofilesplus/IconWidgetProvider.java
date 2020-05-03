@@ -16,7 +16,7 @@ import android.widget.RemoteViews;
 public class IconWidgetProvider extends AppWidgetProvider {
 
     @Override
-    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0)
@@ -305,88 +305,88 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "allWidgetIds.length="+allWidgetIds.length);
 
                     // prepare view for widget update
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowProfileDuration="+applicationWidgetIconShowProfileDuration);
-                    RemoteViews remoteViews;
-                    if (applicationWidgetIconHideProfileName) {
-                        //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
-                        remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
-                    }
-                    else {
-                        if ((profile._duration > 0) && (applicationWidgetIconShowProfileDuration)) {
-                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
-                            remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
-                        }
-                        else {
-                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
-                            remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_one_line_text);
-                        }
-                    }
-
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconRoundedCorners="+applicationWidgetIconRoundedCorners);
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowBorder="+applicationWidgetIconShowBorder);
-                    if (applicationWidgetIconRoundedCorners) {
-                        remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
-                        remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
-                        if (applicationWidgetIconShowBorder)
-                            remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.VISIBLE);
-                        else
-                            remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
-                        remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
-                        remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
-                        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                        remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alphaBackground);
-                        //else
-                        //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", alpha);
-                        if (applicationWidgetIconShowBorder)
-                            remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                    } else {
-                        remoteViews.setViewVisibility(R.id.widget_icon_background, View.INVISIBLE);
-                        remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
-                        if (applicationWidgetIconShowBorder)
-                            remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.VISIBLE);
-                        else
-                            remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
-                        remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
-                            /*remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", 0x00000000);
-                            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                            remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", 0);
-                            //else
-                            //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);*/
-                        if (applicationWidgetIconShowBorder)
-                            remoteViews.setInt(R.id.widget_icon_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                    }
-
-                    if (isIconResourceID) {
-                        if (profile._iconBitmap != null)
-                            remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
-                        else {
-                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
-                            int iconResource = Profile.getIconResource(iconIdentifier);
-                            remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
-                        }
-                    } else {
-                        remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
-                    }
-
-                    remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, redText, greenText, blueText));
-
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
-                    if (!applicationWidgetIconHideProfileName)
-                        remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
-
-                    // intent for start LauncherActivity on widget click
-                    Intent intent = new Intent(context, LauncherActivity.class);
-                    // clear all opened activities
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
-                    remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
-
-                    // widget update
-                    //PPApplication.logE("IconWidgetProvider.onUpdate", "appWidgetIds.length="+appWidgetIds.length);
                     for (int widgetId : appWidgetIds) {
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowProfileDuration="+applicationWidgetIconShowProfileDuration);
+                        RemoteViews remoteViews;
+                        if (applicationWidgetIconHideProfileName) {
+                            //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
+                            remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
+                        }
+                        else {
+                            if ((profile._duration > 0) && (applicationWidgetIconShowProfileDuration)) {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                                remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
+                            }
+                            else {
+                                //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
+                                remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_one_line_text);
+                            }
+                        }
+
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconRoundedCorners="+applicationWidgetIconRoundedCorners);
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowBorder="+applicationWidgetIconShowBorder);
+                        if (applicationWidgetIconRoundedCorners) {
+                            remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
+                            if (applicationWidgetIconShowBorder)
+                                remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.VISIBLE);
+                            else
+                                remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
+                            remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
+                            remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+                            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                            remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alphaBackground);
+                            //else
+                            //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", alpha);
+                            if (applicationWidgetIconShowBorder)
+                                remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                        } else {
+                            remoteViews.setViewVisibility(R.id.widget_icon_background, View.INVISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
+                            if (applicationWidgetIconShowBorder)
+                                remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.VISIBLE);
+                            else
+                                remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
+                            remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
+                                /*remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", 0x00000000);
+                                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                                remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", 0);
+                                //else
+                                //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);*/
+                            if (applicationWidgetIconShowBorder)
+                                remoteViews.setInt(R.id.widget_icon_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                        }
+
+                        if (isIconResourceID) {
+                            if (profile._iconBitmap != null)
+                                remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
+                            else {
+                                //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                                int iconResource = Profile.getIconResource(iconIdentifier);
+                                remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
+                            }
+                        } else {
+                            remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
+                        }
+
+                        remoteViews.setTextColor(R.id.icon_widget_name, Color.argb(0xFF, redText, greenText, blueText));
+
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconHideProfileName="+applicationWidgetIconHideProfileName);
+                        if (!applicationWidgetIconHideProfileName)
+                            remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
+
+                        // intent for start LauncherActivity on widget click
+                        Intent intent = new Intent(context, LauncherActivity.class);
+                        // clear all opened activities
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
+                        remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
+
+                        // widget update
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "appWidgetIds.length="+appWidgetIds.length);
                         try {
                             appWidgetManager.updateAppWidget(widgetId, remoteViews);
                             //ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);

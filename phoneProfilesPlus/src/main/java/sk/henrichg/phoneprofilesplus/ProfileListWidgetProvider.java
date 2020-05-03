@@ -563,19 +563,24 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
+
+            final Context _context = context;
+            final AppWidgetManager _appWidgetManager = appWidgetManager;
+            final int[] _appWidgetIds = appWidgetIds;
+
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    createProfilesDataWrapper(context);
+                    createProfilesDataWrapper(_context);
 
-                    for (int appWidgetId : appWidgetIds) {
-                        doOnUpdate(context, appWidgetManager, appWidgetId);
+                    for (int appWidgetId : _appWidgetIds) {
+                        doOnUpdate(_context, _appWidgetManager, appWidgetId);
                     }
 
                     //if (dataWrapper != null)

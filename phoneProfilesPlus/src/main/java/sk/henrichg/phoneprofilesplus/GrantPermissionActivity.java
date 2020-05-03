@@ -1284,7 +1284,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //PPApplication.logE("GrantPermissionActivity.onActivityResult", "permissionsChanged="+permissionsChanged);
 
             if (permissionsChanged) {
-                PPApplication.showProfileNotification(/*context*/true, false);
+                //PPApplication.showProfileNotification(/*context*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.onActivityResult");
                 PPApplication.updateGUI(context, !finishActivity, true);
 
@@ -1746,7 +1746,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.clearMergedPermissions(context);*/
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
-            PPApplication.showProfileNotification(/*context*/true, false);
+            //PPApplication.showProfileNotification(/*context*/true, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.finishGrant");
             PPApplication.updateGUI(getApplicationContext(), true, true);
         //}

@@ -239,20 +239,25 @@ class EventsHandler {
             }
             */
 
+            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+
             if (!eventsExists(sensorType, dataWrapper)) {
                 // events not exists
 
                 doEndHandler(dataWrapper);
                 //dataWrapper.invalidateDataWrapper();
 
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
+                if (isRestart)
+                    PPApplication.updateGUI(context, true, true);
+                else
+                    PPApplication.updateGUI(context, true, false);
+
+                PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
                 return;
             }
 
-            //PPApplication.logE("#### EventsHandler.handleEvents", "do EventsHandler");
-
-            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+            PPApplication.logE("#### EventsHandler.handleEvents", "do EventsHandler");
 
             //interactive = (!isRestart) || _interactive;
 
@@ -757,28 +762,28 @@ class EventsHandler {
 
             boolean doSleep = false;
 
-            //PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
+            PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
 
             if (mergedProfile._id != 0) {
                 // activate merged profile
-                /*if (PPApplication.logEnabled()) {
+                if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileName=" + oldActivatedProfile._name);
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileId=" + oldActivatedProfile._id);
+                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileId=" + oldActivatedProfile._id);
 
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-profileName=" + mergedProfile._name);
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-profileId=" + mergedProfile._id);
+                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-profileId=" + mergedProfile._id);
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingerMode=" + mergedProfile._volumeRingerMode);
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeZenMode=" + mergedProfile._volumeZenMode);
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingtone=" + mergedProfile._volumeRingtone);
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeNotification=" + mergedProfile._volumeNotification);
-                }*/
+                }
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
 
                 //if (mergedProfile._id != oldActivatedProfileId)
                 if (!mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
-                //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
-                //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### isRestart=" + isRestart);
+                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
+                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### isRestart=" + isRestart);
 
                 if (profileChanged || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
                     // log only when merged profile is not the same as last activated
@@ -793,11 +798,16 @@ class EventsHandler {
                     doSleep = true;
                 }
             } else {
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
+
                 //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                     // update only when will not be do restart events from paused events
                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
                 //PPApplication.updateNotificationAndWidgets(false, false, context);
-                PPApplication.updateGUI(context, true, false);
+                if (isRestart)
+                    PPApplication.updateGUI(context, true, true);
+                else
+                    PPApplication.updateGUI(context, true, false);
                 //}
             }
 

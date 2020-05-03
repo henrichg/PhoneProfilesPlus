@@ -291,18 +291,23 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
 
     @Override
-    public void onUpdate(final Context context, final SlookCocktailManager cocktailBarManager, final int[] cocktailIds) {
+    public void onUpdate(Context context, SlookCocktailManager cocktailBarManager, int[] cocktailIds) {
         super.onUpdate(context, cocktailBarManager, cocktailIds);
         if (cocktailIds.length > 0) {
+            final Context _context = context;
+            final SlookCocktailManager _cocktailBarManager = cocktailBarManager;
+            final int[] _cocktailIds = cocktailIds;
+
+
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    createProfilesDataWrapper(context);
+                    createProfilesDataWrapper(_context);
 
-                    for (int cocktailId : cocktailIds) {
-                        doOnUpdate(context, cocktailBarManager, cocktailId);
+                    for (int cocktailId : _cocktailIds) {
+                        doOnUpdate(_context, _cocktailBarManager, cocktailId);
                     }
 
                     //if (dataWrapper != null)

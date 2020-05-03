@@ -668,7 +668,7 @@ public class EditorProfileListFragment extends Fragment
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
-            PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
+            //PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteProfile");
             PPApplication.updateGUI(activityDataWrapper.context, true, true);
         }
@@ -799,7 +799,7 @@ public class EditorProfileListFragment extends Fragment
                     //Profile profile = databaseHandler.getActivatedProfile();
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
-                    PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
+                    //PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
                     //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
                     PPApplication.updateGUI(activityDataWrapper.context, true, true);
 

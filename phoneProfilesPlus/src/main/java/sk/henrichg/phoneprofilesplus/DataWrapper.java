@@ -1535,14 +1535,14 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile=" + _profile);
             if (_profile != null)
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "merged=" + merged);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "startupSource=" + startupSource);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "forRestartEvents=" + forRestartEvents);
-        }*/
+        }
 
         // show notification when battery optimization is not enabled
         DrawOverAppsPermissionNotification.showNotification(context, false);
@@ -1574,9 +1574,9 @@ public class DataWrapper {
         }*/
         if ((!fullyStarted) || applicationPackageReplaced) {
             // do not activate profile during application start
-            PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
+            //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-            PPApplication.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+            PPApplication.updateGUI(context, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT));
             return;
         }
         //PPApplication.logE("DataWrapper._activateProfile", "activate");
@@ -1687,9 +1687,9 @@ public class DataWrapper {
         }
 
         //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "update gui");
-        PPApplication.showProfileNotification(/*context*/startupSource == PPApplication.STARTUP_SOURCE_BOOT, false);
+        //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-        PPApplication.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
+        PPApplication.updateGUI(context, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT));
 
         //if (mappedProfile != null) {
             //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "call execute");
@@ -2051,7 +2051,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).activateProfile(profile);
             setProfileActive(profile);
 
-            PPApplication.showProfileNotification(/*context*/false, false);
+            //PPApplication.showProfileNotification(/*context*/false, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
             PPApplication.updateGUI(context, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT);
 
@@ -2076,7 +2076,7 @@ public class DataWrapper {
             //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             Profile.setActivatedProfileForDuration(context, 0);
-            PPApplication.showProfileNotification(/*context*/false, false);
+            //PPApplication.showProfileNotification(/*context*/false, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
             PPApplication.updateGUI(context, true, false);
             return;
@@ -2754,7 +2754,7 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialog, int which) {
                     //PPApplication.logE("DataWrapper.runStopEventsWithAlert", "stop");
                     if (globalRunStopEvents(true)) {
-                        PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
+                        //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
 
                         /*if (activity instanceof EditorProfilesActivity)
                             ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
@@ -2789,7 +2789,7 @@ public class DataWrapper {
         }
         else {
             if (globalRunStopEvents(false)) {
-                PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
+                //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
                 /*if (activity instanceof EditorProfilesActivity)
                     ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
                 else if (activity instanceof ActivateProfileActivity)

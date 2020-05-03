@@ -2429,7 +2429,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
-                PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
+                //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
                 PPApplication.updateGUI(fragment.activityDataWrapper.context, true, true);
 

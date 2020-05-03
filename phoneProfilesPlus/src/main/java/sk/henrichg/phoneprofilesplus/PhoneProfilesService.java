@@ -3817,7 +3817,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
         startForegroundNotification = true;
-        PPApplication.showProfileNotification(true, true/*, false*/);
+        showProfileNotification(true, true/*, false*/);
 
         if (!serviceHasFirstStart) {
             Context appContext = getApplicationContext();
@@ -4161,7 +4161,7 @@ public class PhoneProfilesService extends Service
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         //PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
-        PPApplication.showProfileNotification(true, false/*, false*/);
+        //PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         PPApplication.updateGUI(getApplicationContext(), true, true);
     }
