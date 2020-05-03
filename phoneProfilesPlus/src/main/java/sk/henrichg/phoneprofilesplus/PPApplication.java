@@ -112,13 +112,13 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|OneRowWidgetProvider.updateWidgets"
-                                                +"|PPApplication.forceUpdateGUI"
-                                                +"|OneRowWidgetProvider.onUpdate"
-                                                +"|OneRowWidgetProvider._onUpdate"
+                                                //+"|OneRowWidgetProvider.updateWidgets"
+                                                //+"|PPApplication.forceUpdateGUI"
+                                                //+"|OneRowWidgetProvider.onUpdate"
+                                                //+"|OneRowWidgetProvider._onUpdate"
 
-                                                +"|DataWrapper._activateProfile"
-                                                +"|EventsHandler.handleEvents"
+                                                //+"|DataWrapper._activateProfile"
+                                                //+"|EventsHandler.handleEvents"
 
                                                 //+"|PPApplication.getServicesList"
 
@@ -1640,7 +1640,7 @@ public class PPApplication extends Application /*implements Application.Activity
     //--------------------------------------------------------------
 
     static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification, boolean refresh) {
-        PPApplication.logE("##### PPApplication.forceUpdateGUI", "xxx");
+        //PPApplication.logE("##### PPApplication.forceUpdateGUI", "xxx");
         /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
 

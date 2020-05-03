@@ -252,12 +252,12 @@ class EventsHandler {
                 else
                     PPApplication.updateGUI(context, true, false);
 
-                PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
+                //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
                 return;
             }
 
-            PPApplication.logE("#### EventsHandler.handleEvents", "do EventsHandler");
+            //PPApplication.logE("#### EventsHandler.handleEvents", "do EventsHandler");
 
             //interactive = (!isRestart) || _interactive;
 
@@ -762,11 +762,11 @@ class EventsHandler {
 
             boolean doSleep = false;
 
-            PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
+            //PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
 
             if (mergedProfile._id != 0) {
                 // activate merged profile
-                if (PPApplication.logEnabled()) {
+                /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileName=" + oldActivatedProfile._name);
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileId=" + oldActivatedProfile._id);
 
@@ -776,7 +776,7 @@ class EventsHandler {
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeZenMode=" + mergedProfile._volumeZenMode);
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingtone=" + mergedProfile._volumeRingtone);
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeNotification=" + mergedProfile._volumeNotification);
-                }
+                }*/
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
 
                 //if (mergedProfile._id != oldActivatedProfileId)
@@ -798,7 +798,7 @@ class EventsHandler {
                     doSleep = true;
                 }
             } else {
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
+                //PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
 
                 //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                     // update only when will not be do restart events from paused events

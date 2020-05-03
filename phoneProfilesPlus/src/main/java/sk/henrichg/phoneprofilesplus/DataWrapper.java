@@ -1535,14 +1535,14 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile=" + _profile);
             if (_profile != null)
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "merged=" + merged);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "startupSource=" + startupSource);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "forRestartEvents=" + forRestartEvents);
-        }
+        }*/
 
         // show notification when battery optimization is not enabled
         DrawOverAppsPermissionNotification.showNotification(context, false);

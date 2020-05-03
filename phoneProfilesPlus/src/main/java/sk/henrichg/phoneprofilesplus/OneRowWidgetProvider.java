@@ -24,7 +24,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
-            PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
+            //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
             _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
         }
     }
@@ -38,7 +38,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("##### OneRowWidgetProvider._onUpdate", "in handler");
+                //PPApplication.logE("##### OneRowWidgetProvider._onUpdate", "in handler");
 
                 String applicationWidgetOneRowIconLightness;
                 String applicationWidgetOneRowIconColor;
@@ -471,7 +471,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         else
             pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
-        PPApplication.logE("OneRowWidgetProvider.updateWidgets", "pName="+pName);
+        //PPApplication.logE("OneRowWidgetProvider.updateWidgets", "pName="+pName);
 
         if (!refresh) {
             String pNameWidget = PPApplication.prefWidgetProfileName2;
