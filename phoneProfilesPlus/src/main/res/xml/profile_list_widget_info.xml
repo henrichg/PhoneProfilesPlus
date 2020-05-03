@@ -2,7 +2,6 @@
 <!-- size = (74 x n) - 2 --> 
 <!-- old size (70 x n) - 30 --> 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:minWidth="250dp"
     android:minHeight="250dp"
     android:minResizeWidth="110dp"
@@ -10,6 +9,5 @@
     android:initialLayout="@layout/empty_widget"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
-    android:widgetCategory="keyguard|home_screen"
-    tools:ignore="UnusedAttribute">
+    android:widgetCategory="keyguard|home_screen">
 </appwidget-provider>
