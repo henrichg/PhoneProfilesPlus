@@ -7,10 +7,8 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -407,7 +405,7 @@ class EventPreferencesWifi extends EventPreferences {
                             if ((networks != null) && (networks.length > 0)) {
                                 for (Network network : networks) {
                                     try {
-                                        if (Build.VERSION.SDK_INT < 28) {
+                                        /*if (Build.VERSION.SDK_INT < 28) {
                                             //noinspection deprecation
                                             NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                             if (ntkInfo != null) {
@@ -419,15 +417,15 @@ class EventPreferencesWifi extends EventPreferences {
                                                     }
                                                 }
                                             }
-                                        } else {
-                                            NetworkInfo networkInfo = connManager.getNetworkInfo(network);
-                                            if ((networkInfo != null) && networkInfo.isConnected()) {
+                                        } else*/ {
+                                            //NetworkInfo networkInfo = connManager.getNetworkInfo(network);
+                                            //if ((networkInfo != null) && networkInfo.isConnected()) {
                                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                                                    wifiConnected = true;
+                                                    wifiConnected = PPWifiNetworkCallback.connected;
                                                     break;
                                                 }
-                                            }
+                                            //}
                                         }
                                     } catch (Exception e) {
                                         PPApplication.recordException(e);

@@ -1526,6 +1526,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         final Context context = getApplicationContext();
 
         PPApplication.registerContentObservers(context);
+        PPApplication.registerCallbacks(context);
 
         /*
         if (forGUI && (profile != null))

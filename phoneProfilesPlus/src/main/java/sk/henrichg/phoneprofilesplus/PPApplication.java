@@ -112,6 +112,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
+                                                +"|PPWifiNetworkCallback"
+
                                                 //+"|OneRowWidgetProvider.updateWidgets"
                                                 //+"|PPApplication.forceUpdateGUI"
                                                 //+"|OneRowWidgetProvider.onUpdate"
@@ -954,7 +956,8 @@ public class PPApplication extends Application /*implements Application.Activity
     static HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
     static NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
     static DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
-    static WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
+    //static WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
+    static PPWifiNetworkCallback wifiConnectionCallback = null;
     static BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
     static BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
     static WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
@@ -2912,6 +2915,18 @@ public class PPApplication extends Application /*implements Application.Activity
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_CONTENT_OBSERVERS, true);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
+    public static void registerCallbacks(Context context) {
+        try {
+            //PPApplication.logE("[RJS] PPApplication.registerContentObservers", "xxx");
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_CALLBACKS, true);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);

@@ -29,6 +29,9 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
@@ -121,6 +124,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS = "unregister_receivers_and_workers";
     static final String EXTRA_REREGISTER_RECEIVERS_AND_WORKERS = "reregister_receivers_and_workers";
     static final String EXTRA_REGISTER_CONTENT_OBSERVERS = "register_content_observers";
+    static final String EXTRA_REGISTER_CALLBACKS = "register_callbacks";
     static final String EXTRA_FROM_BATTERY_CHANGE = "from_battery_change";
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
@@ -1015,8 +1019,6 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("[RJS] PhoneProfilesService.registerContentObservers", "xxx");
         if (!register) {
             if (PPApplication.settingsContentObserver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER settings content observer");
                 try {
                     appContext.getContentResolver().unregisterContentObserver(PPApplication.settingsContentObserver);
                     PPApplication.settingsContentObserver = null;
@@ -1036,7 +1038,6 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            // required for unlink ring and notification volume
             if (PPApplication.settingsContentObserver == null) {
                 try {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
@@ -1060,6 +1061,35 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.contactsContentObserver = null;
                     PPApplication.recordException(e);
+                }
+            }
+        }
+    }
+
+    private void registerCallbacks(boolean register) {
+        final Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerCallbacks", "PhoneProfilesService_registerCallbacks");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerCallbacks", "xxx");
+        if (!register) {
+            if (PPApplication.wifiConnectionCallback != null) {
+                ConnectivityManager connectivityManager =
+                        (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (connectivityManager != null) {
+                    connectivityManager.unregisterNetworkCallback(PPApplication.wifiConnectionCallback);
+                }
+            }
+        }
+        if (register) {
+            if (PPApplication.wifiConnectionCallback == null) {
+                ConnectivityManager connectivityManager =
+                        (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (connectivityManager != null) {
+                    NetworkRequest networkRequest = new NetworkRequest.Builder()
+                            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                            .build();
+
+                    PPApplication.wifiConnectionCallback = new PPWifiNetworkCallback(appContext);
+                    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
                 }
             }
         }
@@ -2565,6 +2595,7 @@ public class PhoneProfilesService extends Service
         }
     }*/
 
+    /*
     private void registerWifiConnectionBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "PhoneProfilesService_registerWifiConnectionBroadcastReceiver");
@@ -2596,7 +2627,7 @@ public class PhoneProfilesService extends Service
             }
             else {
                 dataWrapper.fillProfileList(false, false);
-                boolean profileExists = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_CONNECT_TO_SSID/*, false*/);
+                boolean profileExists = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_CONNECT_TO_SSID);
                 if (profileExists)
                     profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, appContext).allowed ==
                             PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -2605,9 +2636,9 @@ public class PhoneProfilesService extends Service
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
                         // start only for screen On
                         dataWrapper.fillEventList();
-                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
+                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY);
                         if (!eventsExists)
-                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_CONNECTED/*, false*/);
+                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_CONNECTED);
                         if (eventsExists)
                             eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -2630,6 +2661,7 @@ public class PhoneProfilesService extends Service
                 registerWifiConnectionBroadcastReceiver(false, dataWrapper, forceRegister);
         }
     }
+    */
 
     private void registerWifiScannerReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
@@ -3258,6 +3290,7 @@ public class PhoneProfilesService extends Service
 
         registerAllTheTimeRequiredReceivers(true);
         registerContentObservers(true);
+        registerCallbacks(true);
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
@@ -3324,7 +3357,7 @@ public class PhoneProfilesService extends Service
         // required for Connect to SSID profile preference +
         // required for wifi connection type = (dis)connected event +
         // wifi scanner
-        registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
+        //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
 
         // required for wifi scanner
         registerWifiScannerReceiver(true, dataWrapper, false);
@@ -3391,6 +3424,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
         registerAllTheTimeRequiredReceivers(false);
         registerContentObservers(false);
+        registerCallbacks(false);
         registerBatteryLevelChangedReceiver(false, null);
         registerBatteryChargingChangedReceiver(false, null);
         registerReceiverForPeripheralsSensor(false, null);
@@ -3409,7 +3443,7 @@ public class PhoneProfilesService extends Service
         registerWifiAPStateChangeBroadcastReceiver(false, null, false);
         //registerPowerSaveModeReceiver(false, null);
         //registerWifiStateChangedBroadcastReceiver(false, false, false);
-        registerWifiConnectionBroadcastReceiver(false, null, false);
+        //registerWifiConnectionBroadcastReceiver(false, null, false);
         registerWifiScannerReceiver(false, null, false);
         registerReceiverForTimeSensor(false, null);
         registerReceiverForNFCSensor(false, null);
@@ -3446,6 +3480,7 @@ public class PhoneProfilesService extends Service
 
         registerAllTheTimeRequiredReceivers(true);
         registerContentObservers(true);
+        registerCallbacks(true);
 
         registerBatteryLevelChangedReceiver(true, dataWrapper);
         registerBatteryChargingChangedReceiver(true, dataWrapper);
@@ -3465,7 +3500,7 @@ public class PhoneProfilesService extends Service
         registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
         //registerPowerSaveModeReceiver(true, dataWrapper);
         //registerWifiStateChangedBroadcastReceiver(true, true, false);
-        registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
+        //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
         registerWifiScannerReceiver(true, dataWrapper, false);
         registerReceiverForTimeSensor(true, dataWrapper);
         registerReceiverForNFCSensor(true, dataWrapper);
@@ -3935,8 +3970,13 @@ public class PhoneProfilesService extends Service
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
-                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
+                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REGISTER_CONTENT_OBSERVERS");
                             registerContentObservers(true);
+                        }
+                        else
+                        if (intent.getBooleanExtra(EXTRA_REGISTER_CALLBACKS, false)) {
+                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REGISTER_CALLBACKS");
+                            registerCallbacks(true);
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
@@ -3990,14 +4030,14 @@ public class PhoneProfilesService extends Service
                                     break;*/
                                 case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                                    registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
+                                    //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                     //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
                                     registerWifiScannerReceiver(true, dataWrapper, false);
                                     break;
                                 case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                                    registerWifiConnectionBroadcastReceiver(true, dataWrapper, true);
+                                    //registerWifiConnectionBroadcastReceiver(true, dataWrapper, true);
                                     //registerWifiStateChangedBroadcastReceiver(true, false, true);
                                     registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, true);
                                     registerWifiScannerReceiver(true, dataWrapper, true);
@@ -4016,7 +4056,7 @@ public class PhoneProfilesService extends Service
                                     break;
                                 case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
-                                    registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
+                                    //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                     //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
                                     registerWifiScannerReceiver(true, dataWrapper, false);
@@ -4067,7 +4107,7 @@ public class PhoneProfilesService extends Service
                                         PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "wifi - canRestart="+canRestart);*/
                                         if ((!fromBatteryChange) || canRestart) {
                                             //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "wifi - restart");
-                                            registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
+                                            //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                             //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                             registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
                                             registerWifiScannerReceiver(true, dataWrapper, false);
