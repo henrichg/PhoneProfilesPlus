@@ -2792,7 +2792,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 try {
                     //RootTools.getShell(false).add(command);
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
+                    commandWait(command, "PPApplication.getServicesList");
                 } catch (Exception e) {
                     Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
                 }
@@ -2871,7 +2871,7 @@ public class PPApplication extends Application /*implements Application.Activity
             return null;
     }
 
-    static void commandWait(Command cmd) /*throws Exception*/ {
+    static void commandWait(Command cmd, String calledFrom) /*throws Exception*/ {
         int waitTill = 50;
         int waitTillMultiplier = 2;
         int waitTillLimit = 3200; // 6350 milliseconds (3200 * 2 - 50)
@@ -2900,8 +2900,8 @@ public class PPApplication extends Application /*implements Application.Activity
             }
         }
         if (!cmd.isFinished()){
-            Log.e("PPApplication.commandWait", "Could not finish root command in " + (waitTill/waitTillMultiplier));
-            PPApplication.logToCrashlytics("E/PPApplication.commandWait: Could not finish root command in " + (waitTill/waitTillMultiplier));
+            Log.e("PPApplication.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            PPApplication.logToCrashlytics("E/PPApplication.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 

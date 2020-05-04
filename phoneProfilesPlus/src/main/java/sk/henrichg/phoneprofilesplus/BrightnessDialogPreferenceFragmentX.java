@@ -313,7 +313,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                     Command command = new Command(0, false, command1); //, command2);
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        PPApplication.commandWait(command);
+                                        PPApplication.commandWait(command, "BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                                     } catch (Exception e) {
                                         // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
