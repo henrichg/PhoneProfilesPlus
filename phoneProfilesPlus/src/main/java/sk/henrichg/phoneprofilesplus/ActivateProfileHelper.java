@@ -354,7 +354,7 @@ class ActivateProfileHelper {
                                                 //if ((networkInfo != null) && networkInfo.isConnected()) {
                                                     NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                     if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                                                        wifiConnected = true;
+                                                        wifiConnected = PPWifiNetworkCallback.connected;
                                                         break;
                                                     }
                                                 //}
