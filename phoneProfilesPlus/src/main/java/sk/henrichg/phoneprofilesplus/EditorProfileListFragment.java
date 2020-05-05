@@ -572,7 +572,7 @@ public class EditorProfileListFragment extends Fragment
 
         //if (activityDataWrapper != null)
         //    activityDataWrapper.invalidateDataWrapper();
-        activityDataWrapper = null;
+        //activityDataWrapper = null;
     }
 
     @Override
