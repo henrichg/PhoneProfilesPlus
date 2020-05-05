@@ -3318,7 +3318,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             try {
                 mNotificationManager.notify(notificationID, mBuilder.build());
             } catch (Exception e) {
-                Log.e("EditorProfilesActivity.displayRedTextToPreferencesNotification", Log.getStackTraceString(e));
+                Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }

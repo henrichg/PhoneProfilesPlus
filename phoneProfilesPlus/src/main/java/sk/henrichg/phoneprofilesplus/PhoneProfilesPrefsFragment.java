@@ -82,7 +82,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_ORIENTATION_POWER_SAVE_MODE_SETTINGS = "applicationOrientationPowerSaveMode";
     private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -1000,18 +999,27 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((preferenceScreen != null) && (preferenceCategory != null))
                 preferenceScreen.removePreference(preferenceCategory);
         }
-        /*preference = findPreference(PREF_AUTOSTART_MANAGER);
+
+        /*
+        preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
+            Log.e("****** PhoneProfilesPreferencesFragment.onActivityCreated", "xxx");
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
-            if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity())) {
+            if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity().getApplicationContext())) {
+                Log.e("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @SuppressWarnings("ConstantConditions")
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        boolean success;
                         try {
-                            autoStartPermissionHelper.getAutoStartPermission(getActivity());
+                            success = autoStartPermissionHelper.getAutoStartPermission(getActivity());
+                            Log.e("****** PhoneProfilesPreferencesFragment.onActivityCreated", "success="+success);
                         }catch (Exception e) {
-                            PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
+                            success = false;
+                        }
+                        if (!success) {
+                            //PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1033,11 +1041,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 });
             } else {
-                PreferenceScreen preferenceCategory = findPreference("categoryApplicationStart");
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
+                PreferenceScreen preferenceScreen = findPreference("categorySystem");
+                if (preferenceScreen != null) {
+                    PreferenceCategory preferenceCategory = findPreference("applicationAutostartCategory");
+                    if (preferenceCategory != null)
+                        preferenceScreen.removePreference(preferenceCategory);
+                }
             }
-        }*/
+        }
+        */
+
         long workMinInterval = TimeUnit.MILLISECONDS.toMinutes(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS);
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
                 workMinInterval + " " +

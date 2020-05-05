@@ -1806,5 +1806,9 @@
 <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
 <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
 
+<!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
+<!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
+<!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+
 </resources>
 
