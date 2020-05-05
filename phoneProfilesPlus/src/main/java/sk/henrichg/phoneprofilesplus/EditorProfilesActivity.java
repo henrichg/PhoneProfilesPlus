@@ -218,7 +218,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             setContentView(R.layout.activity_editor_list_onepane_19);
         else*/
             setContentView(R.layout.activity_editor_list_onepane);
-        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
@@ -639,12 +639,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted && (!PPApplication.applicationPackageReplaced);
         if (!applicationStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }
         if (!fullyStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }
@@ -656,10 +656,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
         }
         if (!applicationStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
             boolean fullyStarted = PPApplication.applicationFullyStarted;
             if (!fullyStarted)
-                text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+                text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }*/
@@ -3263,7 +3263,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     context.getString(R.string.preferences_red_texts_text_2) + " " +
                     context.getString(R.string.preferences_red_texts_text_click);
             if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = context.getString(R.string.app_name);
+                nTitle = context.getString(R.string.ppp_app_name);
                 nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
                         context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
                         "\"" + profile._name + "\" " +
@@ -3282,7 +3282,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     context.getString(R.string.preferences_red_texts_text_2) + " " +
                     context.getString(R.string.preferences_red_texts_text_click);
             if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = context.getString(R.string.app_name);
+                nTitle = context.getString(R.string.ppp_app_name);
                 nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
                         context.getString(R.string.event_preferences_red_texts_text_1) + " " +
                         "\"" + event._name + "\" " +
@@ -3339,7 +3339,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     "\"" + profile._name + "\" " +
                     activity.getString(R.string.preferences_red_texts_text_2);
             if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = activity.getString(R.string.app_name);
+                nTitle = activity.getString(R.string.ppp_app_name);
                 nText = activity.getString(R.string.profile_preferences_red_texts_title) + ": " +
                         activity.getString(R.string.profile_preferences_red_texts_text_1) + " " +
                         "\"" + profile._name + "\" " +
@@ -3357,7 +3357,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     "\"" + event._name + "\" " +
                     activity.getString(R.string.preferences_red_texts_text_2);
             if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = activity.getString(R.string.app_name);
+                nTitle = activity.getString(R.string.ppp_app_name);
                 nText = activity.getString(R.string.event_preferences_red_texts_title) + ": " +
                         activity.getString(R.string.event_preferences_red_texts_text_1) + " " +
                         "\"" + event._name + "\" " +

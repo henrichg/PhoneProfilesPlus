@@ -6,7 +6,7 @@
     <string name="empty_string" translatable="false"></string>
     <string name="dash_string" translatable="false">-</string>
     <string name="activator_string" translatable="false">activator</string>
-    <string name="app_name" translatable="false">PhoneProfilesPlus</string>
+    <string name="ppp_app_name" translatable="false">PhoneProfilesPlus</string>
     <string name="menu_edit_profiles">Editor</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>

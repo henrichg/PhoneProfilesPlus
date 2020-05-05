@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 import sk.henrichg.phoneprofilesplus.billing.BillingManager;
 import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
 
@@ -25,7 +26,7 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_donation);
-        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         /*
         if Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

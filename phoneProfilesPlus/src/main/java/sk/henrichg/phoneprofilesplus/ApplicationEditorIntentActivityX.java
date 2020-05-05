@@ -82,7 +82,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_application_editor_intent);
-        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

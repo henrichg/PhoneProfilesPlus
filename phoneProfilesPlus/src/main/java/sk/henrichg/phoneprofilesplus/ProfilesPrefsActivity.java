@@ -48,7 +48,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_preferences);
-        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);

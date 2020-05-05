@@ -38,7 +38,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_about_application);
-        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
+        setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

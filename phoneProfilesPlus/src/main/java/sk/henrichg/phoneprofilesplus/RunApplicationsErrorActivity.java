@@ -114,12 +114,12 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted && (!PPApplication.applicationPackageReplaced);
         if (!applicationStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }
         if (!fullyStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }
@@ -132,10 +132,10 @@ public class RunApplicationsErrorActivity extends AppCompatActivity {
             applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
         }
         if (!applicationStarted) {
-            String text = getString(R.string.app_name) + " " + getString(R.string.application_is_not_started);
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
             boolean fullyStarted = PPApplication.applicationFullyStarted;
             if (!fullyStarted)
-                text = getString(R.string.app_name) + " " + getString(R.string.application_is_starting_toast);
+                text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             return true;
         }

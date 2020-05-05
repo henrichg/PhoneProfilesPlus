@@ -37,6 +37,6 @@
         android:layout_above="@id/activity_lockDevice_screenOff"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/lockDevice_textColor"
-        android:text="@string/app_name"/>
+        android:text="@string/ppp_app_name"/>
 
 </RelativeLayout>

@@ -775,7 +775,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_install_tone_big_text_notification);
                 if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.app_name);
+                    nTitle = context.getString(R.string.ppp_app_name);
                     nText = context.getString(R.string.permissions_notification_text) + ": " +
                             context.getString(R.string.permissions_for_install_tone_big_text_notification);
                 }
@@ -791,7 +791,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
                 if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.app_name);
+                    nTitle = context.getString(R.string.ppp_app_name);
                     nText = context.getString(R.string.permissions_notification_text) + ": " +
                             context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
                 }
@@ -807,7 +807,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_log_to_file_big_text_notification);
                 if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.app_name);
+                    nTitle = context.getString(R.string.ppp_app_name);
                     nText = context.getString(R.string.permissions_notification_text) + ": " +
                             context.getString(R.string.permissions_for_log_to_file_big_text_notification);
                 }
@@ -823,7 +823,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String nTitle = context.getString(R.string.permissions_for_event_text_notification);
                 String nText = "";
                 if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.app_name);
+                    nTitle = context.getString(R.string.ppp_app_name);
                     nText = context.getString(R.string.permissions_for_event_text_notification) + ": ";
                 }
             /*if (mergedNotification) {
@@ -856,7 +856,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String nTitle = context.getString(R.string.permissions_for_profile_text_notification);
                 String nText = "";
                 if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.app_name);
+                    nTitle = context.getString(R.string.ppp_app_name);
                     nText = context.getString(R.string.permissions_for_profile_text_notification) + ": ";
                 }
                 if (mergedProfile/* || mergedNotification*/) {

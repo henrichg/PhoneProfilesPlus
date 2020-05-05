@@ -1405,7 +1405,7 @@ public class PPApplication extends Application /*implements Application.Activity
             //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
                 (!applicationPackageReplaced)) {
 
-            String text = context.getString(R.string.app_name) + " " + context.getString(R.string.application_is_started_toast);
+            String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_started_toast);
             showToast(appContext, text, Toast.LENGTH_SHORT);
         }
     }

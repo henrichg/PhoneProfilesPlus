@@ -115,7 +115,7 @@ class IgnoreBatteryOptimizationNotification {
         String nTitle = title;
         String nText = text;
         if (Build.VERSION.SDK_INT < 24) {
-            nTitle = context.getString(R.string.app_name);
+            nTitle = context.getString(R.string.ppp_app_name);
             nText = title+": "+text;
         }
         PPApplication.createExclamationNotificationChannel(context);

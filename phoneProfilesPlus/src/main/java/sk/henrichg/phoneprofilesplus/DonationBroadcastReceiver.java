@@ -286,7 +286,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 String nTitle = appContext.getString(R.string.about_application_donate_button);
                 String nText = appContext.getString(R.string.donation_description);
                 if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = appContext.getString(R.string.app_name);
+                    nTitle = appContext.getString(R.string.ppp_app_name);
                     nText = appContext.getString(R.string.about_application_donate_button) + ": " +
                             appContext.getString(R.string.donation_description);
                 }

@@ -3856,7 +3856,7 @@ public class PhoneProfilesService extends Service
 
         if (!serviceHasFirstStart) {
             Context appContext = getApplicationContext();
-            String text = appContext.getString(R.string.app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
+            String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
             PPApplication.showToast(appContext.getApplicationContext(), text, Toast.LENGTH_SHORT);
 
             doForFirstStart(intent);

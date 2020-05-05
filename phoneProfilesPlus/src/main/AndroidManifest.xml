@@ -106,7 +106,7 @@
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/ppp_app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:resizeableActivity="true"
@@ -355,7 +355,7 @@
         </activity>
         <activity
             android:name=".LockDeviceActivity"
-            android:label="@string/app_name"
+            android:label="@string/ppp_app_name"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.lockDevice"
             android:theme="@style/LockDeviceActivity">
@@ -574,7 +574,7 @@
             android:enabled="true"
             android:exported="true"
             android:icon="@drawable/ic_dashclock"
-            android:label="@string/app_name"
+            android:label="@string/ppp_app_name"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension"/>
@@ -595,7 +595,7 @@
             android:name=".PPNotificationListenerService"
             android:enabled="true"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/ppp_app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService"/>

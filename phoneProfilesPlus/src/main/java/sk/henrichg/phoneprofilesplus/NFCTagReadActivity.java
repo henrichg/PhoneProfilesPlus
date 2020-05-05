@@ -29,7 +29,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
             /*
             @Override
             public void onUidRead(String uid) {
-                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+uid, Toast.LENGTH_LONG).show();
+                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.ppp_app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+uid, Toast.LENGTH_LONG).show();
 
                 final String _uid = uid;
 
@@ -62,7 +62,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
             @Override
             public void onTagRead(String tagData) {
                 if (Event.getGlobalEventsRunning()) {
-                    PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.app_name) + ") " + getString(R.string.read_nfc_tag_read) + ": " + tagData, Toast.LENGTH_LONG);
+                    PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + ": " + tagData, Toast.LENGTH_LONG);
 
                     final String _tagData = tagData;
 
@@ -109,7 +109,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
             @Override
             public void onTagWriteError(NFCTagWriteException exception) {
                 //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
-                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.write_nfc_tag_error), Toast.LENGTH_LONG).show();
+                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.ppp_app_name)+") "+getString(R.string.write_nfc_tag_error), Toast.LENGTH_LONG).show();
                 try {
                     NFCTagReadActivity.this.finish();
                 } catch (Exception ignored) {};

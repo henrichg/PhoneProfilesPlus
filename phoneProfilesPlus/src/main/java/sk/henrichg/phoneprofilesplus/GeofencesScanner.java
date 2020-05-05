@@ -555,7 +555,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         String nTitle = context.getString(R.string.event_preferences_location_google_api_connection_error_title);
         String nText = context.getString(R.string.event_preferences_location_google_api_connection_error_text);
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = context.getString(R.string.app_name);
+            nTitle = context.getString(R.string.ppp_app_name);
             nText = context.getString(R.string.event_preferences_location_google_api_connection_error_title)+": "+
                     context.getString(R.string.event_preferences_location_google_api_connection_error_text);
         }

@@ -107,7 +107,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         String nTitle = title;
         String nText = text;
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = getString(R.string.app_name);
+            nTitle = getString(R.string.ppp_app_name);
             nText = title+": "+text;
         }
         PPApplication.createExclamationNotificationChannel(getApplicationContext());

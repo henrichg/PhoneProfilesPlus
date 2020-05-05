@@ -185,7 +185,7 @@ public class MobileCellsRegistrationService extends Service {
         time = time + ": " + GlobalGUIRoutines.getDurationString((int)iValue);
         text = text + "; " + time;
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            text = text+" ("+getString(R.string.app_name)+")";
+            text = text+" ("+getString(R.string.ppp_app_name)+")";
         }
 
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
@@ -243,7 +243,7 @@ public class MobileCellsRegistrationService extends Service {
         newCount = newCount + " " + iValue;
         text = text + "; " + newCount;
         if (android.os.Build.VERSION.SDK_INT < 24) {
-            text = text+" ("+getString(R.string.app_name)+")";
+            text = text+" ("+getString(R.string.ppp_app_name)+")";
         }
 
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
