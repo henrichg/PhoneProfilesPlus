@@ -28,7 +28,6 @@ class BluetoothConnectedDevices {
     */
 
     private static BluetoothHeadset bluetoothHeadset = null;
-    @SuppressWarnings("deprecation")
     private static BluetoothHealth bluetoothHealth = null;
     private static BluetoothA2dp bluetoothA2dp = null;
 
@@ -93,12 +92,10 @@ class BluetoothConnectedDevices {
 //                            }
 //                        });
                         }
-                        //noinspection deprecation
                         if (profile == BluetoothProfile.HEALTH) {
                             //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEALTH service connected");
 
                             //bluetoothHealthStarted = true;
-                            //noinspection deprecation
                             bluetoothHealth = (BluetoothHealth) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -130,7 +127,6 @@ class BluetoothConnectedDevices {
                                 }
                                 //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH end");
                                 //bluetoothHealthEnd = true;
-                                //noinspection deprecation
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
                             }
 //                                } finally {
@@ -198,7 +194,6 @@ class BluetoothConnectedDevices {
                             //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEADSET service disconnected");
                             bluetoothHeadset = null;
                         }
-                        //noinspection deprecation
                         if (profile == BluetoothProfile.HEALTH) {
                             //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEALTH service disconnected");
                             bluetoothHealth = null;
@@ -235,7 +230,6 @@ class BluetoothConnectedDevices {
                 //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start="+okHEADSET);
 
                 if (Build.VERSION.SDK_INT < 29) {
-                    /*boolean okHEALTH =*/ //noinspection deprecation
                     bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
                     //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start=" + okHEALTH);
                 }
