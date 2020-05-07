@@ -436,7 +436,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         //if (activityDataWrapper != null)
         //    activityDataWrapper.invalidateDataWrapper();
-        activityDataWrapper = null;
+        //activityDataWrapper = null;
     }
 
     private void updateHeader(Profile profile)
@@ -529,34 +529,37 @@ public class ActivateProfileListFragment extends Fragment {
 
             @Override
             protected Void doInBackground(Void... params) {
-                profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-                activityDataWrapper.getEventTimelineList(true);
+                try {
+                    profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+                    activityDataWrapper.getEventTimelineList(true);
 
-                String pName;
-                if (profileFromDB != null) {
-                    profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator, false);
-                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-                }
-                else
-                    pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                    String pName;
+                    if (profileFromDB != null) {
+                        profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                                ApplicationPreferences.applicationEditorPrefIndicator, false);
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
+                    } else
+                        pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
-                if (!refresh) {
-                    String pNameHeader = PPApplication.prefActivityProfileName1;
+                    if (!refresh) {
+                        String pNameHeader = PPApplication.prefActivityProfileName1;
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
                         PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
                     }*/
 
-                    if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                        //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
-                        doNotRefresh = true;
-                        return null;
+                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
+                            //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
+                            doNotRefresh = true;
+                            return null;
+                        }
                     }
+
+                    PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
+                } catch (Exception e) {
+                    if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
+                        PPApplication.recordException(e);
                 }
-
-                PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
-
                 return null;
             }
 

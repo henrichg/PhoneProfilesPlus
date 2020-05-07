@@ -1322,62 +1322,65 @@ public class EditorEventListFragment extends Fragment
 
             @Override
             protected Void doInBackground(Void... params) {
-                profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-                activityDataWrapper.getEventTimelineList(true);
+                try {
+                    profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+                    activityDataWrapper.getEventTimelineList(true);
 
-                String pName;
-                if (profileFromDB != null) {
-                    profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator, false);
-                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-                }
-                else
-                    pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
-                //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
+                    String pName;
+                    if (profileFromDB != null) {
+                        profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                                ApplicationPreferences.applicationEditorPrefIndicator, false);
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
+                    } else
+                        pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                    //PPApplication.logE("EditorEventListFragment.refreshGUI", "pName="+pName);
 
-                if (!refresh) {
-                    String pNameHeader = PPApplication.prefActivityProfileName3;
-                    //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
+                    if (!refresh) {
+                        String pNameHeader = PPApplication.prefActivityProfileName3;
+                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
-                    if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
-                        doNotRefresh = true;
-                        return null;
-                    }
-                }
-
-                PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
-                PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
-
-                synchronized (activityDataWrapper.eventList) {
-                    if (!activityDataWrapper.eventListFilled) {
-                        doNotRefresh = true;
-                        return null;
+                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
+                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
+                            doNotRefresh = true;
+                            return null;
+                        }
                     }
 
-                    //noinspection ForLoopReplaceableByForEach
-                    for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
-                        Event event = it.next();
-                        int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
-                        event.setStatus(status);
-                        event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
-                        event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
-                        DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
-                        DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
-                        //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
-                        DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
-                        DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
-                        DatabaseHandler.getInstance(activityDataWrapper.context).getAlarmClockStartTime(event);
-                        DatabaseHandler.getInstance(activityDataWrapper.context).getDeviceBootStartTime(event);
+                    PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
+                    PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
+
+                    synchronized (activityDataWrapper.eventList) {
+                        if (!activityDataWrapper.eventListFilled) {
+                            doNotRefresh = true;
+                            return null;
+                        }
+
+                        //noinspection ForLoopReplaceableByForEach
+                        for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
+                            Event event = it.next();
+                            int status = DatabaseHandler.getInstance(activityDataWrapper.context).getEventStatus(event);
+                            event.setStatus(status);
+                            event._isInDelayStart = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayStart(event);
+                            event._isInDelayEnd = DatabaseHandler.getInstance(activityDataWrapper.context).getEventInDelayEnd(event);
+                            DatabaseHandler.getInstance(activityDataWrapper.context).setEventCalendarTimes(event);
+                            DatabaseHandler.getInstance(activityDataWrapper.context).getSMSStartTime(event);
+                            //DatabaseHandler.getInstance(activityDataWrapper.context).getNotificationStartTime(event);
+                            DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
+                            DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
+                            DatabaseHandler.getInstance(activityDataWrapper.context).getAlarmClockStartTime(event);
+                            DatabaseHandler.getInstance(activityDataWrapper.context).getDeviceBootStartTime(event);
+                        }
                     }
-                }
 
-                if (eventId != 0) {
-                    Event eventFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getEvent(eventId);
-                    activityDataWrapper.updateEvent(eventFromDB);
-                    _refreshIcons = true;
+                    if (eventId != 0) {
+                        Event eventFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getEvent(eventId);
+                        activityDataWrapper.updateEvent(eventFromDB);
+                        _refreshIcons = true;
+                    }
+                } catch (Exception e) {
+                    if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
+                        PPApplication.recordException(e);
                 }
-
                 return null;
             }
 

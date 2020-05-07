@@ -1126,40 +1126,43 @@ public class EditorProfileListFragment extends Fragment
 
             @Override
             protected Void doInBackground(Void... params) {
-                profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+                try {
+                    profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
 
-                String pName;
-                if (profileFromDB != null) {
-                    profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator, false);
-                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-                }
-                else
-                    pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
-                //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
+                    String pName;
+                    if (profileFromDB != null) {
+                        profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                                ApplicationPreferences.applicationEditorPrefIndicator, false);
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
+                    } else
+                        pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                    //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
-                if (!refresh) {
-                    String pNameHeader = PPApplication.prefActivityProfileName2;
-                    //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
+                    if (!refresh) {
+                        String pNameHeader = PPApplication.prefActivityProfileName2;
+                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pNameHeader="+pNameHeader);
 
-                    if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
-                        doNotRefresh = true;
-                        return null;
+                        if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
+                            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
+                            doNotRefresh = true;
+                            return null;
+                        }
                     }
-                }
 
-                PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
-                PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
+                    PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
+                    PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
 
-                if (profileId != 0) {
-                    //if (getActivity() != null) {
+                    if (profileId != 0) {
+                        //if (getActivity() != null) {
                         Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getProfile(profileId, false);
                         activityDataWrapper.updateProfile(profileFromDB);
                         _refreshIcons = true;
-                    //}
+                        //}
+                    }
+                } catch (Exception e) {
+                    if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
+                        PPApplication.recordException(e);
                 }
-
                 return null;
             }
 
