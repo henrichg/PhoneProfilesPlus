@@ -3875,7 +3875,8 @@ public class PhoneProfilesService extends Service
             doForFirstStart(intent);
         }
 
-        return START_REDELIVER_INTENT;
+        // do not use START_REDELIVER_INTENT because this remains intent and this is not good for me
+        return START_STICKY;
     }
 
     private void doCommand(final Intent intent) {
