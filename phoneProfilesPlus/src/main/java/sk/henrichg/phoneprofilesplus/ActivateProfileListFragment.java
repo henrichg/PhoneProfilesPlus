@@ -567,25 +567,26 @@ public class ActivateProfileListFragment extends Fragment {
             protected void onPostExecute(Void result)
             {
                 super.onPostExecute(result);
-                if (!doNotRefresh) {
-                    //noinspection ConstantConditions
-                    ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
+                if ((getActivity() != null) && (!getActivity().isFinishing())) {
+                    if (!doNotRefresh) {
+                        ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
 
-                    Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
-                    if (profileFromAdapter != null)
-                        profileFromAdapter._checked = false;
+                        Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
+                        if (profileFromAdapter != null)
+                            profileFromAdapter._checked = false;
 
-                    if (profileFromDB != null) {
-                        if (profileFromDataWrapper != null)
-                            profileFromDataWrapper._checked = true;
-                        updateHeader(profileFromDataWrapper);
-                        //setProfileSelection(profileFromDataWrapper, refreshIcons);
-                    } else {
-                        updateHeader(null);
-                        //setProfileSelection(null, refreshIcons);
+                        if (profileFromDB != null) {
+                            if (profileFromDataWrapper != null)
+                                profileFromDataWrapper._checked = true;
+                            updateHeader(profileFromDataWrapper);
+                            //setProfileSelection(profileFromDataWrapper, refreshIcons);
+                        } else {
+                            updateHeader(null);
+                            //setProfileSelection(null, refreshIcons);
+                        }
+
+                        profileListAdapter.notifyDataSetChanged(refreshIcons);
                     }
-
-                    profileListAdapter.notifyDataSetChanged(refreshIcons);
                 }
             }
 

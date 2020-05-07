@@ -1170,21 +1170,23 @@ public class EditorProfileListFragment extends Fragment
             protected void onPostExecute(Void result)
             {
                 super.onPostExecute(result);
-                if (!doNotRefresh) {
-                    Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
-                    if (profileFromAdapter != null)
-                        profileFromAdapter._checked = false;
+                if ((getActivity() != null) && (!getActivity().isFinishing())) {
+                    if (!doNotRefresh) {
+                        Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
+                        if (profileFromAdapter != null)
+                            profileFromAdapter._checked = false;
 
-                    if (profileFromDB != null) {
-                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
-                        if (profileFromDataWrapper != null)
-                            profileFromDataWrapper._checked = true;
-                        updateHeader(profileFromDataWrapper);
-                        updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition/*, profileId*/);
-                    } else {
-                        //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
-                        updateHeader(null);
-                        updateListView(null, false, _refreshIcons, setPosition/*, 0*/);
+                        if (profileFromDB != null) {
+                            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
+                            if (profileFromDataWrapper != null)
+                                profileFromDataWrapper._checked = true;
+                            updateHeader(profileFromDataWrapper);
+                            updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition/*, profileId*/);
+                        } else {
+                            //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
+                            updateHeader(null);
+                            updateListView(null, false, _refreshIcons, setPosition/*, 0*/);
+                        }
                     }
                 }
             }

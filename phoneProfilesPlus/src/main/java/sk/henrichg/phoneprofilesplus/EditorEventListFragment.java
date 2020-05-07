@@ -1388,17 +1388,19 @@ public class EditorEventListFragment extends Fragment
             protected void onPostExecute(Void result)
             {
                 super.onPostExecute(result);
-                if (!doNotRefresh) {
-                    if (profileFromDB != null) {
-                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
-                        if (profileFromDataWrapper != null)
-                            profileFromDataWrapper._checked = true;
-                        updateHeader(profileFromDataWrapper);
-                    } else {
-                        //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
-                        updateHeader(null);
+                if ((getActivity() != null) && (!getActivity().isFinishing())) {
+                    if (!doNotRefresh) {
+                        if (profileFromDB != null) {
+                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
+                            if (profileFromDataWrapper != null)
+                                profileFromDataWrapper._checked = true;
+                            updateHeader(profileFromDataWrapper);
+                        } else {
+                            //PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
+                            updateHeader(null);
+                        }
+                        updateListView(null, false, _refreshIcons, setPosition/*, eventId*/);
                     }
-                    updateListView(null, false, _refreshIcons, setPosition/*, eventId*/);
                 }
             }
 
