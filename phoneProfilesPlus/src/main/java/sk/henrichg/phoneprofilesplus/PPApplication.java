@@ -650,23 +650,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
     // activity log types
     static final int ALTYPE_UNDEFINED = 0;
+
     static final int ALTYPE_PROFILE_ACTIVATION = 1;
-    static final int ALTYPE_MERGED_PROFILE_ACTIVATION = 2;
-    static final int ALTYPE_AFTER_DURATION_UNDO_PROFILE = 21;
-    static final int ALTYPE_AFTER_DURATION_DEFAULT_PROFILE = 22;
-    static final int ALTYPE_AFTER_DURATION_RESTART_EVENTS = 23;
-    static final int ALTYPE_EVENT_START = 3;
-    static final int ALTYPE_EVENT_START_DELAY = 4;
-    static final int ALTYPE_EVENT_END_NONE = 51;
-    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE = 52;
-    static final int ALTYPE_EVENT_END_UNDO_PROFILE = 53;
-    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE = 54;
-    static final int ALTYPE_EVENT_END_RESTART_EVENTS = 55;
-    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS = 56;
-    static final int ALTYPE_RESTART_EVENTS = 6;
-    static final int ALTYPE_RUN_EVENTS_DISABLE = 7;
-    static final int ALTYPE_RUN_EVENTS_ENABLE = 8;
-    static final int ALTYPE_APPLICATION_START = 9;
     static final int ALTYPE_APPLICATION_EXIT = 10;
     static final int ALTYPE_DATA_IMPORT = 11;
     static final int ALTYPE_PAUSED_LOGGING = 12;
@@ -677,13 +662,34 @@ public class PPApplication extends Application /*implements Application.Activity
     static final int ALTYPE_EVENT_PREFERENCES_CHANGED = 17;
     static final int ALTYPE_EVENT_DELETED = 18;
     static final int ALTYPE_PROFILE_DELETED = 19;
+
+    static final int ALTYPE_MERGED_PROFILE_ACTIVATION = 2;
     static final int ALTYPE_MANUAL_RESTART_EVENTS = 20;
+    static final int ALTYPE_AFTER_DURATION_UNDO_PROFILE = 21;
+    static final int ALTYPE_AFTER_DURATION_DEFAULT_PROFILE = 22;
+    static final int ALTYPE_AFTER_DURATION_RESTART_EVENTS = 23;
+
+    static final int ALTYPE_EVENT_START = 3;
     static final int ALTYPE_PROFILE_PREFERENCES_CHANGED = 30;
     static final int ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED = 31;
     static final int ALTYPE_ALL_EVENTS_DELETED = 32;
     static final int ALTYPE_ALL_PROFILES_DELETED = 33;
     static final int ALTYPE_APPLICATION_UPGRADE = 34;
     static final int ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE = 35;
+
+    static final int ALTYPE_EVENT_START_DELAY = 4;
+
+    static final int ALTYPE_EVENT_END_NONE = 51;
+    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE = 52;
+    static final int ALTYPE_EVENT_END_UNDO_PROFILE = 53;
+    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE = 54;
+    static final int ALTYPE_EVENT_END_RESTART_EVENTS = 55;
+    static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS = 56;
+
+    static final int ALTYPE_RESTART_EVENTS = 6;
+    static final int ALTYPE_RUN_EVENTS_DISABLE = 7;
+    static final int ALTYPE_RUN_EVENTS_ENABLE = 8;
+    static final int ALTYPE_APPLICATION_START = 9;
 
 
     private static boolean applicationStarted = false;
@@ -767,6 +773,8 @@ public class PPApplication extends Application /*implements Application.Activity
     static final String EXTRA_EVENT_ID = "event_id";
     static final String EXTRA_STARTUP_SOURCE = "startup_source";
     static final String EXTRA_EVENT_STATUS = "event_status";
+    static final String EXTRA_APPLICATION_START = "application_start";
+    static final String EXTRA_DEVICE_BOOT = "device_boot";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -1316,6 +1324,9 @@ public class PPApplication extends Application /*implements Application.Activity
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+                serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, false);
+                serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                 startPPService(getApplicationContext(), serviceIntent, true);
             } catch (Exception e) {
                 PPApplication.recordException(e);

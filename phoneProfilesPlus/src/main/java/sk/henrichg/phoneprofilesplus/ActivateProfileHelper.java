@@ -1280,6 +1280,10 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
+                        String[] splits = profile._soundRingtone.split("\\|");
+                        if (!splits[0].isEmpty()) {
+                            PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                        }
                         PPApplication.recordException(e);
                     }
                 } else {
@@ -1311,6 +1315,10 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
+                        String[] splits = profile._soundRingtone.split("\\|");
+                        if (!splits[0].isEmpty()) {
+                            PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                        }
                         PPApplication.recordException(e);
                     }
                 } else {
@@ -1342,6 +1350,10 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
+                        String[] splits = profile._soundRingtone.split("\\|");
+                        if (!splits[0].isEmpty()) {
+                            PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                        }
                         PPApplication.recordException(e);
                     }
                 } else {

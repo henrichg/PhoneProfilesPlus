@@ -611,7 +611,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        super.onReceive(context, intent);
+        super.onReceive(context, intent); // calls onUpdate, is required for widget
 
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());

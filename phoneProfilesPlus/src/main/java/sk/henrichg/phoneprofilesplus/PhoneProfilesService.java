@@ -104,7 +104,6 @@ public class PhoneProfilesService extends Service
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
-    static final String EXTRA_START_ON_BOOT = "start_on_boot";
     static final String EXTRA_START_ON_PACKAGE_REPLACE = "start_on_package_replace";
     //static final String EXTRA_ONLY_START = "only_start";
     //static final String EXTRA_DEACTIVATE_PROFILE = "deactivate_profile";
@@ -3539,30 +3538,35 @@ public class PhoneProfilesService extends Service
 
         serviceHasFirstStart = true;
 
+        boolean applicationStart = false;
         //boolean deactivateProfile = false;
         boolean activateProfiles = false;
-        boolean startOnBoot = false;
+        boolean deviceBoot = false;
         boolean startOnPackageReplace = false;
 
         if (intent != null) {
+            applicationStart = intent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
             //deactivateProfile = intent.getBooleanExtra(EXTRA_DEACTIVATE_PROFILE, false);
             activateProfiles = intent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
-            startOnBoot = intent.getBooleanExtra(EXTRA_START_ON_BOOT, false);
+            deviceBoot = intent.getBooleanExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
         if (PPApplication.logEnabled()) {
+            if (deviceBoot)
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_DEVICE_BOOT");
+            if (applicationStart)
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_APPLICATION_START");
+            if (startOnPackageReplace)
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
             //if (deactivateProfile)
             //    PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
             if (activateProfiles)
                 PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
-            if (startOnBoot)
-                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
-            if (startOnPackageReplace)
-                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
         }
 
-        final boolean _startOnBoot = startOnBoot;
+        final boolean _applicationStart = applicationStart;
+        final boolean _deviceBoot = deviceBoot;
         final boolean _startOnPackageReplace = startOnPackageReplace;
         final boolean _activateProfiles = activateProfiles;
         //final boolean _deactivateProfile = deactivateProfile;
@@ -3761,10 +3765,9 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
-                    if (_startOnBoot)
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
-                    else if (_activateProfiles)
+                    if ((!_deviceBoot) && (_applicationStart)) {
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START, null, null, null, 0, "");
+                    }
 
                     // start events
 

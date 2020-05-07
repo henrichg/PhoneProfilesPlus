@@ -70,6 +70,8 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                             PPApplication.deviceBoot = true;
 
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
+
                             //PPApplication.sleep(3000);
                             if (!PPApplication.getApplicationStarted(true)) {
                                 // service is not started
@@ -80,7 +82,9 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, true);
+                                serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, true);
+                                serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                                 PPApplication.startPPService(appContext, serviceIntent, true);
                             }
                             else {
@@ -89,8 +93,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                 //if (PhoneProfilesService.getInstance() != null)
                                 //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
-
-                                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
 
                                 PPApplication.logE("BootUpReceiver.onReceive", "called work for first start");
 
