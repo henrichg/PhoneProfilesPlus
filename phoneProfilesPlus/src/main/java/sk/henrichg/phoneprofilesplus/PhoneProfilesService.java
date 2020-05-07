@@ -1072,24 +1072,34 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("[RJS] PhoneProfilesService.registerCallbacks", "xxx");
         if (!register) {
             if (PPApplication.wifiConnectionCallback != null) {
-                ConnectivityManager connectivityManager =
-                        (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (connectivityManager != null) {
-                    connectivityManager.unregisterNetworkCallback(PPApplication.wifiConnectionCallback);
+                try {
+                    ConnectivityManager connectivityManager =
+                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (connectivityManager != null) {
+                        connectivityManager.unregisterNetworkCallback(PPApplication.wifiConnectionCallback);
+                    }
+                    PPApplication.wifiConnectionCallback = null;
+                } catch (Exception e) {
+                    PPApplication.wifiConnectionCallback = null;
                 }
             }
         }
         if (register) {
             if (PPApplication.wifiConnectionCallback == null) {
-                ConnectivityManager connectivityManager =
-                        (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (connectivityManager != null) {
-                    NetworkRequest networkRequest = new NetworkRequest.Builder()
-                            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                            .build();
+                try {
+                    ConnectivityManager connectivityManager =
+                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (connectivityManager != null) {
+                        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                                .build();
 
-                    PPApplication.wifiConnectionCallback = new PPWifiNetworkCallback(appContext);
-                    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
+                        PPApplication.wifiConnectionCallback = new PPWifiNetworkCallback(appContext);
+                        connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
+                    }
+                } catch (Exception e) {
+                    PPApplication.wifiConnectionCallback = null;
+                    PPApplication.recordException(e);
                 }
             }
         }
