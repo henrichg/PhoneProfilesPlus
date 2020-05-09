@@ -19,6 +19,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
@@ -1282,9 +1283,23 @@ class ActivateProfileHelper {
                     catch (Exception e){
                         String[] splits = profile._soundRingtone.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
-                        }
-                        PPApplication.recordException(e);
+                            boolean found = false;
+                            RingtoneManager manager = new RingtoneManager(context);
+                            Cursor cursor = manager.getCursor();
+                            while (cursor.moveToNext()) {
+                                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                if (_uri.equals(splits[0])) {
+                                    // uri exists in RingtoneManager
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (found) {
+                                PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                                PPApplication.recordException(e);
+                            }
+                        } else
+                            PPApplication.recordException(e);
                     }
                 } else {
                     // selected is None tone
@@ -1315,11 +1330,25 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
-                        String[] splits = profile._soundRingtone.split("\\|");
+                        String[] splits = profile._soundNotification.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
-                        }
-                        PPApplication.recordException(e);
+                            boolean found = false;
+                            RingtoneManager manager = new RingtoneManager(context);
+                            Cursor cursor = manager.getCursor();
+                            while (cursor.moveToNext()) {
+                                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                if (_uri.equals(splits[0])) {
+                                    // uri exists in RingtoneManager
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (found) {
+                                PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                                PPApplication.recordException(e);
+                            }
+                        } else
+                            PPApplication.recordException(e);
                     }
                 } else {
                     // selected is None tone
@@ -1350,11 +1379,25 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
-                        String[] splits = profile._soundRingtone.split("\\|");
+                        String[] splits = profile._soundAlarm.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
-                        }
-                        PPApplication.recordException(e);
+                            boolean found = false;
+                            RingtoneManager manager = new RingtoneManager(context);
+                            Cursor cursor = manager.getCursor();
+                            while (cursor.moveToNext()) {
+                                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                if (_uri.equals(splits[0])) {
+                                    // uri exists in RingtoneManager
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (found) {
+                                PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                                PPApplication.recordException(e);
+                            }
+                        } else
+                            PPApplication.recordException(e);
                     }
                 } else {
                     // selected is None tone
