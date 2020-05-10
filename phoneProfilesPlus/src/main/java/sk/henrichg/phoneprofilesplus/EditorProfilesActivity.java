@@ -859,6 +859,16 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(DebugVersion.enabled);
         }
 
+        menuItem = menu.findItem(R.id.menu_import);
+        if (menuItem != null) {
+            File sd = Environment.getExternalStorageDirectory();
+            File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+            boolean dbExists = exportedDB.exists();
+            File exportedAppPreferences = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+            boolean appPreferencesExists = exportedAppPreferences.exists();
+            menuItem.setEnabled(dbExists && appPreferencesExists);
+        }
+
         onNextLayout(editorToolbar, new Runnable() {
             @Override
             public void run() {
