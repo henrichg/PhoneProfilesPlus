@@ -10552,7 +10552,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    //@SuppressWarnings("resource")
     @SuppressLint("SetWorldReadable")
     int importDB(String applicationDataPath) {
         importExportLock.lock();
@@ -12193,7 +12192,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 FileOutputStream dst = null;
                 try {
                     try {
-
                         File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                         File data = Environment.getDataDirectory();

@@ -226,11 +226,32 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
                             }
+                        } else {
+                            //TODO show alert dialog with error
+                            appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                            appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                            appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                            context.startActivity(appIntent);
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
+                } else {
+                    //TODO show alert dialog with error
+                    appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                    appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                    context.startActivity(appIntent);
                 }
+            } else {
+                //TODO show alert dialog with error
+                appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                context.startActivity(appIntent);
             }
         }
         else
@@ -270,8 +291,29 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 PPApplication.recordException(e);
                             }
                         }
+                    } else {
+                        //TODO show alert dialog with error
+                        appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                        appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                        appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                        context.startActivity(appIntent);
                     }
+                } else {
+                    //TODO show alert dialog with error
+                    appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                    appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                    context.startActivity(appIntent);
                 }
+            } else {
+                //TODO show alert dialog with error
+                appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                context.startActivity(appIntent);
             }
         } else {
             String packageName = Application.getPackageName(runApplicationData);
@@ -298,6 +340,13 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+            } else {
+                //TODO show alert dialog with error
+                appIntent = new Intent(context, RunApplicationsErrorActivity.class);
+                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                appIntent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                appIntent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
+                context.startActivity(appIntent);
             }
         }
     }

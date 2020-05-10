@@ -1277,7 +1277,7 @@ class ActivateProfileHelper {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                PPApplication.logE("ActivateProfileHelper.setTones", "ring tone granted");
+                                //PPApplication.logE("ActivateProfileHelper.setTones", "ring tone granted");
                             } catch (Exception e) {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
@@ -1344,7 +1344,7 @@ class ActivateProfileHelper {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                PPApplication.logE("ActivateProfileHelper.setTones", "notification tone granted");
+                                //PPApplication.logE("ActivateProfileHelper.setTones", "notification tone granted");
                             } catch (Exception e) {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
@@ -1411,7 +1411,7 @@ class ActivateProfileHelper {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                PPApplication.logE("ActivateProfileHelper.setTones", "alarm tone granted");
+                                //PPApplication.logE("ActivateProfileHelper.setTones", "alarm tone granted");
                             } catch (Exception e) {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
@@ -2170,9 +2170,9 @@ class ActivateProfileHelper {
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
                                 if (Application.isShortcut(split)) {
-                                    //Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut");
                                     long shortcutId = Application.getShortcutId(split);
-                                    //Log.d("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
                                     if (shortcutId > 0) {
                                         //Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
                                         Shortcut shortcut = DatabaseHandler.getInstance(appContext).getShortcut(shortcutId);
@@ -2206,13 +2206,35 @@ class ActivateProfileHelper {
                                                     }
                                                     //} else
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
+                                                } else {
+                                                    //TODO show alert dialog with error
+                                                    intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
+                                                    intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                                                    appContext.startActivity(intent);
                                                 }
                                             } catch (Exception ee) {
                                                 PPApplication.recordException(ee);
                                             }
+                                        } else {
+                                            //TODO show alert dialog with error
+                                            intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
+                                            intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                                            appContext.startActivity(intent);
                                         }
+                                    } else {
+                                        //TODO show alert dialog with error
+                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
+                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
+                                        appContext.startActivity(intent);
                                     }
                                 } else if (Application.isIntent(split)) {
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent");
                                     long intentId = Application.getIntentId(split);
                                     if (intentId > 0) {
                                         PPIntent ppIntent = DatabaseHandler.getInstance(appContext).getIntent(intentId);
@@ -2247,13 +2269,35 @@ class ActivateProfileHelper {
                                                         PPApplication.recordException(e);
                                                     }
                                                 }
+                                            } else {
+                                                //TODO show alert dialog with error
+                                                intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
+                                                intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                                                appContext.startActivity(intent);
                                             }
+                                        } else {
+                                            //TODO show alert dialog with error
+                                            intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
+                                            intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                                            appContext.startActivity(intent);
                                         }
+                                    } else {
+                                        //TODO show alert dialog with error
+                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
+                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
+                                        appContext.startActivity(intent);
                                     }
                                 } else {
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","no shortcut");
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application");
                                     String packageName = Application.getPackageName(split);
                                     intent = packageManager.getLaunchIntentForPackage(packageName);
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                     if (intent != null) {
                                         //if (!isRunning(procInfo, packageName)) {
                                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
@@ -2283,6 +2327,14 @@ class ActivateProfileHelper {
                                         //}
                                         //else
                                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": running");
+                                    }
+                                    else {
+                                        //TODO show alert dialog with error
+                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
+                                        intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
+                                        appContext.startActivity(intent);
                                     }
                                 }
                             }
