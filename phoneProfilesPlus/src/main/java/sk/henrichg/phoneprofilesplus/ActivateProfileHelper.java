@@ -340,9 +340,7 @@ class ActivateProfileHelper {
                                 if (connManager != null) {
                                     boolean wifiConnected = false;
                                     /*if (Build.VERSION.SDK_INT < 28) {
-                                        //noinspection deprecation
                                         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-                                        //noinspection deprecation
                                         wifiConnected = (activeNetwork != null) &&
                                                 (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
                                                 activeNetwork.isConnected();
@@ -3426,7 +3424,6 @@ class ActivateProfileHelper {
             try {
                 Log.e("ActivateProfileHelper.createKeepScreenOnView", "keepScreenOnWakeLock="+PPApplication.keepScreenOnWakeLock);
                 if (PPApplication.keepScreenOnWakeLock == null)
-                    //noinspection deprecation
                     PPApplication.keepScreenOnWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK |
                             PowerManager.ACQUIRE_CAUSES_WAKEUP, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_createKeepScreenOnView");
             } catch(Exception e) {
@@ -4195,7 +4192,6 @@ class ActivateProfileHelper {
         return false;
     }
 
-    @SuppressWarnings("deprecation")
     private static void setGPS(Context context, boolean enable)
     {
         Context appContext = context.getApplicationContext();
@@ -4241,6 +4237,7 @@ class ActivateProfileHelper {
                 }
                 else*/
                     newSet = "+gps";
+                //noinspection deprecation
                 Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else
@@ -4354,6 +4351,7 @@ class ActivateProfileHelper {
                 }
                 else*/
                     newSet = "-gps";
+                //noinspection deprecation
                 Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else

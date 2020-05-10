@@ -178,7 +178,6 @@ public class PhoneProfilesService extends Service
         public void onReceive(Context context, Intent intent) {
             //PPApplication.logE("PhoneProfilesService.stopReceiver", "xxx");
             try {
-                //noinspection deprecation
                 context.removeStickyBroadcast(intent);
             } catch (Exception e) {
                 Log.e("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));

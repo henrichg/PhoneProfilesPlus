@@ -184,7 +184,6 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         mBuilder.setContentIntent(pi);
-                        //noinspection deprecation
                         mBuilder.setPriority(Notification.PRIORITY_MAX);
                         mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);

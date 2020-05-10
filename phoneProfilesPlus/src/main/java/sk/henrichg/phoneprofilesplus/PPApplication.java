@@ -3999,7 +3999,6 @@ public class PPApplication extends Application /*implements Application.Activity
             bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, itemName);
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType);
-            //noinspection deprecation
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         } catch (Exception e) {
             //recordException(e);

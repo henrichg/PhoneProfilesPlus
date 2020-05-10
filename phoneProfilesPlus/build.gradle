@@ -49,7 +49,7 @@ android {
         // but continue the build even when errors are found:
         //abortOnError false
         //disable 'MissingTranslation'
-        disable 'ManifestResource'
+        //disable 'ManifestResource'
         disable 'LongLogTag'
     }
 }
