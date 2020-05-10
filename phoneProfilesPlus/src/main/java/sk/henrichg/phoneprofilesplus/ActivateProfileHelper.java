@@ -1272,8 +1272,21 @@ class ActivateProfileHelper {
                     try {
                         String[] splits = profile._soundRingtone.split("\\|");
                         if (!splits[0].isEmpty()) {
+                            Uri uri = Uri.parse(splits[0]);
+                            try {
+                                ContentResolver contentResolver = context.getContentResolver();
+                                context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                PPApplication.logE("ActivateProfileHelper.setTones", "ring tone granted");
+                            } catch (Exception e) {
+                                // java.lang.SecurityException: UID 10157 does not have permission to
+                                // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
+                                // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
+                                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
                             //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, Uri.parse(splits[0]));
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
                         }
                     }
                     catch (IllegalArgumentException e) {
@@ -1283,18 +1296,23 @@ class ActivateProfileHelper {
                     catch (Exception e){
                         String[] splits = profile._soundRingtone.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            boolean found = false;
-                            RingtoneManager manager = new RingtoneManager(context);
-                            Cursor cursor = manager.getCursor();
-                            while (cursor.moveToNext()) {
-                                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                                if (_uri.equals(splits[0])) {
-                                    // uri exists in RingtoneManager
-                                    found = true;
-                                    break;
+                            try {
+                                boolean found = false;
+                                RingtoneManager manager = new RingtoneManager(context);
+                                Cursor cursor = manager.getCursor();
+                                while (cursor.moveToNext()) {
+                                    String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                    if (_uri.equals(splits[0])) {
+                                        // uri exists in RingtoneManager
+                                        found = true;
+                                        break;
+                                    }
                                 }
-                            }
-                            if (found) {
+                                if (found) {
+                                    PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                                    PPApplication.recordException(e);
+                                }
+                            } catch (Exception ee) {
                                 PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
                                 PPApplication.recordException(e);
                             }
@@ -1321,8 +1339,21 @@ class ActivateProfileHelper {
                     try {
                         String[] splits = profile._soundNotification.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, splits[0]);
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(splits[0]));
+                            Uri uri = Uri.parse(splits[0]);
+                            try {
+                                ContentResolver contentResolver = context.getContentResolver();
+                                context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                PPApplication.logE("ActivateProfileHelper.setTones", "notification tone granted");
+                            } catch (Exception e) {
+                                // java.lang.SecurityException: UID 10157 does not have permission to
+                                // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
+                                // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
+                                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                            //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
                     }
                     catch (IllegalArgumentException e) {
@@ -1332,18 +1363,23 @@ class ActivateProfileHelper {
                     catch (Exception e){
                         String[] splits = profile._soundNotification.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            boolean found = false;
-                            RingtoneManager manager = new RingtoneManager(context);
-                            Cursor cursor = manager.getCursor();
-                            while (cursor.moveToNext()) {
-                                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                                if (_uri.equals(splits[0])) {
-                                    // uri exists in RingtoneManager
-                                    found = true;
-                                    break;
+                            try {
+                                boolean found = false;
+                                RingtoneManager manager = new RingtoneManager(context);
+                                Cursor cursor = manager.getCursor();
+                                while (cursor.moveToNext()) {
+                                    String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                    if (_uri.equals(splits[0])) {
+                                        // uri exists in RingtoneManager
+                                        found = true;
+                                        break;
+                                    }
                                 }
-                            }
-                            if (found) {
+                                if (found) {
+                                    PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                                    PPApplication.recordException(e);
+                                }
+                            } catch (Exception ee) {
                                 PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
                                 PPApplication.recordException(e);
                             }
@@ -1370,8 +1406,21 @@ class ActivateProfileHelper {
                     try {
                         String[] splits = profile._soundAlarm.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, splits[0]);
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, Uri.parse(splits[0]));
+                            Uri uri = Uri.parse(splits[0]);
+                            try {
+                                ContentResolver contentResolver = context.getContentResolver();
+                                context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                PPApplication.logE("ActivateProfileHelper.setTones", "alarm tone granted");
+                            } catch (Exception e) {
+                                // java.lang.SecurityException: UID 10157 does not have permission to
+                                // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
+                                // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
+                                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                            //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_ALARM, uri);
                         }
                     }
                     catch (IllegalArgumentException e) {
@@ -1381,18 +1430,23 @@ class ActivateProfileHelper {
                     catch (Exception e){
                         String[] splits = profile._soundAlarm.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            boolean found = false;
-                            RingtoneManager manager = new RingtoneManager(context);
-                            Cursor cursor = manager.getCursor();
-                            while (cursor.moveToNext()) {
-                                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                                if (_uri.equals(splits[0])) {
-                                    // uri exists in RingtoneManager
-                                    found = true;
-                                    break;
+                            try {
+                                boolean found = false;
+                                RingtoneManager manager = new RingtoneManager(context);
+                                Cursor cursor = manager.getCursor();
+                                while (cursor.moveToNext()) {
+                                    String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                    if (_uri.equals(splits[0])) {
+                                        // uri exists in RingtoneManager
+                                        found = true;
+                                        break;
+                                    }
                                 }
-                            }
-                            if (found) {
+                                if (found) {
+                                    PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
+                                    PPApplication.recordException(e);
+                                }
+                            } catch (Exception ee) {
                                 PPApplication.setCustomKey("ActivateProfileHelper_setTone", splits[0]);
                                 PPApplication.recordException(e);
                             }
