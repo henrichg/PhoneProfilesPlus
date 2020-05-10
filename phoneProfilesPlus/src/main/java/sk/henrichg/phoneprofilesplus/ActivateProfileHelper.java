@@ -2187,18 +2187,18 @@ class ActivateProfileHelper {
                                                         appContext.startActivity(intent);
                                                     } catch (ActivityNotFoundException e) {
                                                         //TODO show alert dialog with error
-                                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
-                                                        appContext.startActivity(intent);
+                                                        appContext.startActivity(intent);*/
                                                     } catch (SecurityException e) {
-                                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
-                                                        appContext.startActivity(intent);
+                                                        appContext.startActivity(intent);*/
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
                                                     }
@@ -2206,30 +2206,30 @@ class ActivateProfileHelper {
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                                 } else {
                                                     //TODO show alert dialog with error
-                                                    intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                    /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                     intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
-                                                    appContext.startActivity(intent);
+                                                    appContext.startActivity(intent);*/
                                                 }
                                             } catch (Exception ee) {
                                                 PPApplication.recordException(ee);
                                             }
                                         } else {
                                             //TODO show alert dialog with error
-                                            intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
-                                            appContext.startActivity(intent);
+                                            appContext.startActivity(intent);*/
                                         }
                                     } else {
                                         //TODO show alert dialog with error
-                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                        /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 2);
-                                        appContext.startActivity(intent);
+                                        appContext.startActivity(intent);*/
                                     }
                                 } else if (Application.isIntent(split)) {
                                     //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent");
@@ -2245,18 +2245,18 @@ class ActivateProfileHelper {
                                                         appContext.startActivity(intent);
                                                     } catch (ActivityNotFoundException e) {
                                                         //TODO show alert dialog with error
-                                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
-                                                        appContext.startActivity(intent);
+                                                        appContext.startActivity(intent);*/
                                                     } catch (SecurityException e) {
-                                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                        /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
                                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
-                                                        appContext.startActivity(intent);
+                                                        appContext.startActivity(intent);*/
                                                     } catch (Exception e) {
                                                         PPApplication.recordException(e);
                                                     }
@@ -2269,27 +2269,27 @@ class ActivateProfileHelper {
                                                 }
                                             } else {
                                                 //TODO show alert dialog with error
-                                                intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                                /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                                 intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
-                                                appContext.startActivity(intent);
+                                                appContext.startActivity(intent);*/
                                             }
                                         } else {
                                             //TODO show alert dialog with error
-                                            intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
-                                            appContext.startActivity(intent);
+                                            appContext.startActivity(intent);*/
                                         }
                                     } else {
                                         //TODO show alert dialog with error
-                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                        /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 3);
-                                        appContext.startActivity(intent);
+                                        appContext.startActivity(intent);*/
                                     }
                                 } else {
                                     //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application");
@@ -2307,18 +2307,18 @@ class ActivateProfileHelper {
                                             //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application started");
                                         } catch (ActivityNotFoundException e) {
                                             //TODO show alert dialog with error
-                                            intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
-                                            appContext.startActivity(intent);
+                                            appContext.startActivity(intent);*/
                                         } catch (SecurityException e) {
-                                            intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                            /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
                                             intent.putExtra(RunApplicationsErrorActivity.EXTRA_EXCEPTION, e.getMessage());
-                                            appContext.startActivity(intent);
+                                            appContext.startActivity(intent);*/
                                         } catch (Exception e) {
                                             //Log.e("ActivateProfileHelper.executeForRunApplications", Log.getStackTraceString(e));
                                         }
@@ -2328,11 +2328,11 @@ class ActivateProfileHelper {
                                     }
                                     else {
                                         //TODO show alert dialog with error
-                                        intent = new Intent(appContext, RunApplicationsErrorActivity.class);
+                                        /*intent = new Intent(appContext, RunApplicationsErrorActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME, profile._name);
                                         intent.putExtra(RunApplicationsErrorActivity.EXTRA_ACTIVITY_TYPE, 1);
-                                        appContext.startActivity(intent);
+                                        appContext.startActivity(intent);*/
                                     }
                                 }
                             }

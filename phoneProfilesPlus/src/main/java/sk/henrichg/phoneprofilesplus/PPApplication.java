@@ -115,7 +115,6 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 //+"|PPWifiNetworkCallback"
                                                 //+"|ActivateProfileHelper.setTones"
                                                 //+"|ActivateProfileHelper.executeForRunApplications"
-                                                //+"|RunApplicationsErrorActivity.onDismiss"
 
                                                 //+"|OneRowWidgetProvider.updateWidgets"
                                                 //+"|PPApplication.forceUpdateGUI"
