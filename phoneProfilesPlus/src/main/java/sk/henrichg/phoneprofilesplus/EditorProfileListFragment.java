@@ -1135,7 +1135,7 @@ public class EditorProfileListFragment extends Fragment
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
                         pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
                     } else
-                        pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                        pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
                     //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
                     if (!refresh) {
