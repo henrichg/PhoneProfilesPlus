@@ -10582,9 +10582,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         //noinspection ResultOfMethodCallIgnored
                         exportedDB.setReadable(true, false);
 
-                        SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
+                        SQLiteDatabase exportedDBObj;
+                        //if (Build.VERSION.SDK_INT < 27)
+                            exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
+                        /*else {
+                            SQLiteDatabase.OpenParams openParams = new SQLiteDatabase.OpenParams.Builder()
+                                    .setOpenFlags(SQLiteDatabase.OPEN_READONLY)
+                                    .build();
+                            exportedDBObj = SQLiteDatabase.openDatabase(exportedDB, openParams);
+                        }*/
+                        int version = 0;
+                        try {
+                            version = exportedDBObj.getVersion();
+                        } catch (Exception ignored) {}
 
-                        if (exportedDBObj.getVersion() <= DATABASE_VERSION) {
+                        if (version <= DATABASE_VERSION) {
                             SQLiteDatabase db = getMyWritableDatabase();
 
                             Cursor cursorExportedDB = null;
