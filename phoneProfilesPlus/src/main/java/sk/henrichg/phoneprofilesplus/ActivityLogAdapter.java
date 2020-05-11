@@ -10,9 +10,9 @@ import android.widget.CursorAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.util.HashMap;
-
 import androidx.core.content.ContextCompat;
+
+import java.util.HashMap;
 
 class ActivityLogAdapter extends CursorAdapter {
 
@@ -74,6 +74,13 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, R.string.altype_allProfilesDeleted);
         activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, R.string.altype_applicationUpgrade);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, R.string.altype_afterDuration_specificProfile);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, R.string.altype_profileError_runApplication_application);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, R.string.altype_profileError_runApplication_shortcut);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, R.string.altype_profileError_runApplication_intent);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, R.string.altype_profileError_setTone_ringtone);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, R.string.altype_profileError_setTone_notification);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.string.altype_profileError_setTone_alarm);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.string.altype_profileError_setWallpaper);
 
         int otherColor = R.color.altype_other;
         /*//noinspection SwitchStatementWithTooFewBranches
@@ -123,6 +130,14 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, otherColor);
+
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.color.altype_error);
 
     }
 

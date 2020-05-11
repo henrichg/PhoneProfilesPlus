@@ -693,6 +693,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static final int ALTYPE_RUN_EVENTS_ENABLE = 8;
     static final int ALTYPE_APPLICATION_START = 9;
 
+    static final int ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION = 1000;
+    static final int ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT = 1001;
+    static final int ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT = 1002;
+    static final int ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE = 1003;
+    static final int ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION = 1004;
+    static final int ALTYPE_PROFILE_ERROR_SET_TONE_ALARM = 1005;
+    static final int ALTYPE_PROFILE_ERROR_SET_WALLPAPER = 1006;
 
     private static boolean applicationStarted = false;
     static boolean globalEventsRunStop = true;

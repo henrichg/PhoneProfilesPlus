@@ -1503,14 +1503,18 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Keep screen on</string>
     <string name="permission_why_profile_screen_on_permanent">for keep screen on</string>
 
-    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>
-    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>
-
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception for volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Ringtone and notification volumes configured in this profile will be ignored, when in system is set \"silent\" sound mode (alarms only, vibration).</string>
 
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"None\".</string>
+
+    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
+    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
+    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
+    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
+    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
+    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
+    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
 
     <!-- **************************************************************************************** -->
 
@@ -1809,6 +1813,11 @@
 <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
 <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
 <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+
+<!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
+<!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
+<!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
+
 
 </resources>
 

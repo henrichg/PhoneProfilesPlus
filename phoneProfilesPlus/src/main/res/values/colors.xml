@@ -5,8 +5,9 @@
 
     <color name="altype_profile">#FF0000FF</color>
     <color name="altype_eventStart">#FF00C000</color>
-    <color name="altype_eventEnd">#FFFF0000</color>
+    <color name="altype_eventEnd">#FFB0B000</color>
     <color name="altype_eventDelayStartEnd">#FFFFB000</color>
+    <color name="altype_error">#FFFF0000</color>
 
     <color name="lockDevice_textColor">#FFFFFFFF</color>
 

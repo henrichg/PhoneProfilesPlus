@@ -543,17 +543,16 @@
         -->
 
         <!-- main service -->
-        <service
+        <!--<service
             android:name=".PhoneProfilesService"
             android:exported="false"
-            android:stopWithTask="false"/>
-        <!-- TODO: Android 10
+            android:stopWithTask="false"/> -->
+        <!--TODO: Android 10 -->
         <service
             android:name=".PhoneProfilesService"
             android:exported="false"
             android:stopWithTask="false"
             android:foregroundServiceType="location|connectedDevice"/>
-        -->
 
         <!-- widget services -->
         <service
