@@ -1416,12 +1416,16 @@
     <string name="donation_activity_close">Zatvori</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Zadrži uključen ekran</string>
     <string name="permission_why_profile_screen_on_permanent">dozvola da se zadrži uključen ekran</string>
-    <string name="run_applications_error_dialog_text_application">Greška pri startu aplikacije.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Greška pri startu prečice.</string>
-    <string name="run_applications_error_dialog_text_intent">Greška pri startu namere.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Izuzetak kod glasnoće</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Јачина звука обавештења и мелодија звона постављени у овом профилу биће занемарени када је систем у нечујном режиму (само аларм и вибрацијa).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Za potpuno bezvučno obaveštenje, postavite zvuk obaveštenja na \"Nijedan\".</string>
+    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
+    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
+    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
+    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
+    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
+    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
+    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1698,4 +1702,10 @@
     <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
 </resources>

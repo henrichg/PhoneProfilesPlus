@@ -1416,12 +1416,16 @@
     <string name="donation_activity_close">Zavrieť</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Udržať obrazovku zapnutú</string>
     <string name="permission_why_profile_screen_on_permanent">pre udržanie zapnutej obrazovky</string>
-    <string name="run_applications_error_dialog_text_application">Chyba pri spustení aplikácie.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Chyba pri spustení odkazu.</string>
-    <string name="run_applications_error_dialog_text_intent">Chyba pri spustení intentu.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Výnimka pre hlasitosti</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Hlasitosti zvonenia a notifikácie nakonfigurované v tomto profile budú ignorované, ak v systéme je nastavený \"tichý\" mód zvuku (iba budíky, vibrovanie).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pre úplne tichú hlasitosť notifikácií, nakonfigurujte tón notifikácie na \"Žiadny\".</string>
+    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
+    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
+    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
+    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
+    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
+    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
+    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1698,4 +1702,10 @@
     <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
 </resources>

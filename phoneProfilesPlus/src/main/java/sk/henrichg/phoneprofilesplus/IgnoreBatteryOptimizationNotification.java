@@ -140,7 +140,6 @@ class IgnoreBatteryOptimizationNotification {
 
         Intent disableIntent = new Intent(IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION);
         PendingIntent pDisableIntent = PendingIntent.getBroadcast(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                 R.drawable.ic_action_exit_app_white,
                 context.getString(R.string.ignore_battery_optimization_notification_disable_button),

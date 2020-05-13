@@ -36,7 +36,8 @@ public class CmdMobileData {
             boolean enabled = false;
             boolean ok = false;
             ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
-            //if (Build.VERSION.SDK_INT >= 22) {
+            if (adapter != null) {
+                //if (Build.VERSION.SDK_INT >= 22) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(context);
                 if (mSubscriptionManager != null) {
@@ -65,13 +66,14 @@ public class CmdMobileData {
                         }
                     }
                 }
-            //}
-            if (!ok) {
-                enabled = adapter.getDataEnabled(1);
+                //}
+                if (!ok) {
+                    enabled = adapter.getDataEnabled(1);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=0");
                     PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
                 }*/
+                }
             }
             return enabled;
         } catch (Throwable e) {

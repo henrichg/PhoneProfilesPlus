@@ -1416,12 +1416,16 @@
     <string name="donation_activity_close">Afsluiten</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Scherm aan houden</string>
     <string name="permission_why_profile_screen_on_permanent">om het scherm aan te houden</string>
-    <string name="run_applications_error_dialog_text_application">Fout bij het starten van het programma.</string>
-    <string name="run_applications_error_dialog_text_shortcut">Fout bij starten snelkoppeling.</string>
-    <string name="run_applications_error_dialog_text_intent">Fout bij het starten van de intent.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Uitzondering voor volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Negeer beltoon- en meldingsvolume in dit profiel als in het systeem de \"stille\" geluidsmodus is ingesteld (alleen alarmen, trillingen).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Voor echt stille meldingsgolume, configureer meldingentoon naar \"Geen\".</string>
+    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
+    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
+    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
+    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
+    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
+    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
+    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1698,4 +1702,10 @@
     <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
 </resources>

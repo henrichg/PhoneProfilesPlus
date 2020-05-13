@@ -1416,12 +1416,16 @@
     <string name="donation_activity_close">Schließen</string>
     <string name="profile_preferences_deviceScreenOnPermanent">Display eingeschaltet lassen</string>
     <string name="permission_why_profile_screen_on_permanent">Um das Display eingeschaltet zu lassen</string>
-    <string name="run_applications_error_dialog_text_application">Fehler beim Starten der Anwendung</string>
-    <string name="run_applications_error_dialog_text_shortcut">Fehler beim Starten der Verknüpfung</string>
-    <string name="run_applications_error_dialog_text_intent">Fehler bei Beginn der Absicht.</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Ausnahme für Volumen</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Die in diesem Profil konfigurierten Klingelton- und Benachrichtigungslautstärken werden ignoriert, wenn im System der \"Lautlosmodus\" (nur Banachrichtigungen, Vibration) eingestellt ist.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für eine lautlose Benachrichtigung legen Sie den Benachrichtigungston auf „Kein” fest.</string>
+    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
+    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
+    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
+    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
+    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
+    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
+    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1698,4 +1702,10 @@
     <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
+    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
+    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
+    <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
+    <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
 </resources>
