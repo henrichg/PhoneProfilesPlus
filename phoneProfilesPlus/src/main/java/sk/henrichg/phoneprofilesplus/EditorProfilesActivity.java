@@ -1060,7 +1060,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int which) {
                         //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
 
-                        IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
+                        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
                         SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
@@ -2021,7 +2021,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             GlobalGUIRoutines.reloadActivity(activity, true);
 
                         DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
-                        IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
+                        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
                         IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
                     } else {
                         //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");

@@ -15,7 +15,7 @@ public class IgnoreBatteryOptimizationDisableReceiver extends BroadcastReceiver 
 
         //CallsCounter.logCounter(context, "IgnoreBatteryOptimizationDisableReceiver.onReceive", "IgnoreBatteryOptimizationDisableReceiver_onReceive");
 
-        IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(context.getApplicationContext(), false);
+        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(context.getApplicationContext(), false);
 
         //if (Build.VERSION.SDK_INT >= 23) {
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

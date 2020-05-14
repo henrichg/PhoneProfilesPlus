@@ -18,7 +18,7 @@ class ApplicationPreferences {
     static boolean prefMergedRingNotificationVolumes;
     static long prefActivatedProfileForDuration;
     static long prefActivatedProfileEndDurationTime;
-    static boolean prefShowIgnoreBatteryOptimizationNotificationOnStart;
+    //static boolean prefShowIgnoreBatteryOptimizationNotificationOnStart;
     static boolean prefEventsBlocked;
     static boolean prefForceRunEventRunning;
     static String prefApplicationInForeground;

@@ -40,7 +40,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
 
                 Context appContext = getApplicationContext();
 
-                IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
+                //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(appContext);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);

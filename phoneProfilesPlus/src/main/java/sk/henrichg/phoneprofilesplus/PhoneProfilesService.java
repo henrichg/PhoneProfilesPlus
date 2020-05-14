@@ -720,6 +720,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.donationBroadcastReceiver = null;
                 }
             }
+            /*
             if (PPApplication.ignoreBatteryOptimizationDisableReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER ignoreBatteryOptimizationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER ignoreBatteryOptimizationDisableReceiver");
@@ -730,6 +731,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.ignoreBatteryOptimizationDisableReceiver = null;
                 }
             }
+            */
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver");
@@ -972,6 +974,7 @@ public class PhoneProfilesService extends Service
                 appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
             }
 
+            /*
             if (PPApplication.ignoreBatteryOptimizationDisableReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER ignoreBatteryOptimizationDisableReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER ignoreBatteryOptimizationDisableReceiver");
@@ -980,6 +983,7 @@ public class PhoneProfilesService extends Service
                 intentFilter5.addAction(IgnoreBatteryOptimizationNotification.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION);
                 appContext.registerReceiver(PPApplication.ignoreBatteryOptimizationDisableReceiver, intentFilter5);
             }
+            */
 
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");

@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -16,8 +15,8 @@ import androidx.core.content.ContextCompat;
 
 class IgnoreBatteryOptimizationNotification {
 
-    private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
-    static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IgnoreBatteryOptimizationNotification.DISABLE_ACTION";
+    //private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
+    //static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IgnoreBatteryOptimizationNotification.DISABLE_ACTION";
 
     static void showNotification(Context context, boolean useHandler) {
         //if (Build.VERSION.SDK_INT >= 23) {
@@ -42,7 +41,7 @@ class IgnoreBatteryOptimizationNotification {
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
-                            boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
+                            //boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
                             /*if (Event.getGlobalEventsRunning()) {
                                 //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
@@ -54,7 +53,7 @@ class IgnoreBatteryOptimizationNotification {
                             else
                             show = false;*/
 
-                            if (show) {
+                            //if (show) {
                                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 try {
                                     if (pm != null) {
@@ -66,7 +65,7 @@ class IgnoreBatteryOptimizationNotification {
                                     }
                                 } catch (Exception ignore) {
                                 }
-                            }
+                            //}
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
                         } finally {
@@ -82,7 +81,7 @@ class IgnoreBatteryOptimizationNotification {
 
             }
             else {
-                boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
+                //boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
                 //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
                 /*if (Event.getGlobalEventsRunning()) {
                     //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
@@ -94,7 +93,7 @@ class IgnoreBatteryOptimizationNotification {
                 else
                 show = false;*/
 
-                if (show) {
+                //if (show) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     try {
                         if (pm != null) {
@@ -106,7 +105,7 @@ class IgnoreBatteryOptimizationNotification {
                         }
                     } catch (Exception ignore) {
                     }
-                }
+                //}
             }
         //}
     }
@@ -138,6 +137,7 @@ class IgnoreBatteryOptimizationNotification {
         //}
         mBuilder.setOnlyAlertOnce(true);
 
+        /*
         Intent disableIntent = new Intent(IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION);
         PendingIntent pDisableIntent = PendingIntent.getBroadcast(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
@@ -145,6 +145,7 @@ class IgnoreBatteryOptimizationNotification {
                 context.getString(R.string.ignore_battery_optimization_notification_disable_button),
                 pDisableIntent);
         mBuilder.addAction(actionBuilder.build());
+        */
 
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null) {
@@ -164,6 +165,7 @@ class IgnoreBatteryOptimizationNotification {
             notificationManager.cancel(PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID);
     }
 
+    /*
     static void getShowIgnoreBatteryOptimizationNotificationOnStart(Context context)
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
@@ -181,5 +183,5 @@ class IgnoreBatteryOptimizationNotification {
             ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart = show;
         }
     }
-
+    */
 }
