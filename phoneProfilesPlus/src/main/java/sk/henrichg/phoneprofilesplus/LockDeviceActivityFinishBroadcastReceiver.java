@@ -94,9 +94,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
-                workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceFinishActivity", ExistingWorkPolicy.REPLACE, worker);
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
+                    workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceFinishActivity", ExistingWorkPolicy.REPLACE, worker);
+                }
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }

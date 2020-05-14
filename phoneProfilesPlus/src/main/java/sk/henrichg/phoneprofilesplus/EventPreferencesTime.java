@@ -1170,33 +1170,35 @@ class EventPreferencesTime extends EventPreferences {
             PPApplication.recordException(ee);
         }
         try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
-            //if (testEvent)
-            //    PPApplication.logE("EventPreferencesTime.removeAlarm", "from work manager");
-
-            try {
                 //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
-                //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
-                workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
+                //    PPApplication.logE("EventPreferencesTime.removeAlarm", "from work manager");
+
+                try {
+                    //if (testEvent)
+                    //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove start alarm, requestCode=" + (int) _event._id);
+                    //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
+                    workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
+                    //if (testEvent)
+                    //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+
+                try {
+                    //if (testEvent)
+                    //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode=" + (-(int) _event._id));
+                    //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
+                    workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+
                 //if (testEvent)
                 //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
-            } catch (Exception e) {
-                PPApplication.recordException(e);
             }
-
-            try {
-                //if (testEvent)
-                //    PPApplication.logE("EventPreferencesTime.removeAlarm", "remove end alarm, requestCode=" + (-(int) _event._id));
-                //workManager.cancelUniqueWork("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
-                workManager.cancelAllWorkByTag("elapsedAlarmsTimeSensorWork_" + (-(int) _event._id));
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-
-            //if (testEvent)
-            //    PPApplication.logE("EventPreferencesTime.removeAlarm", "event=" + _event._name + " alarm removed");
         } catch (Exception ee) {
             PPApplication.recordException(ee);
         }

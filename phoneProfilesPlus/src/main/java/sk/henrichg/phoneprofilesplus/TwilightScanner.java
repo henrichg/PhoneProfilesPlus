@@ -467,9 +467,11 @@ class TwilightScanner {
                     PPApplication.recordException(e);
                 }
                 try {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                    workManager.cancelUniqueWork("elapsedAlarmsTwilightScannerWork");
-                    workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                        workManager.cancelUniqueWork("elapsedAlarmsTwilightScannerWork");
+                        workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
+                    }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

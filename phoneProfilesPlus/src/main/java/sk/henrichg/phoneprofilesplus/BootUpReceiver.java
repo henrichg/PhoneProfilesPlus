@@ -110,8 +110,10 @@ public class BootUpReceiver extends BroadcastReceiver {
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
                                                 .build();
                                 try {
-                                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                                    workManager.enqueue(worker);
+                                    if (PPApplication.getApplicationStarted(true)) {
+                                        WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                        workManager.enqueue(worker);
+                                    }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }

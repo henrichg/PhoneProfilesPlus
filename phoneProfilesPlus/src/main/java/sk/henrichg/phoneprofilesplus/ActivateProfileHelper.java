@@ -1571,8 +1571,10 @@ class ActivateProfileHelper {
                                                 .build();
                                 PhoneProfilesService.cancelWork("disableInternalChangeWork", appContext);
                                 try {
-                                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                    if (PPApplication.getApplicationStarted(true)) {
+                                        WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                    }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
@@ -3067,8 +3069,10 @@ class ActivateProfileHelper {
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                    workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                        workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
+                    }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -3228,8 +3232,10 @@ class ActivateProfileHelper {
                         .build();
         PhoneProfilesService.cancelWork("disableInternalChangeWork", appContext);
         try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+            }
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

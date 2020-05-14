@@ -126,12 +126,13 @@ public class GeofenceScanWorker extends Worker {
 
     private static void _scheduleWork(final Context context, boolean shortInterval/*, final boolean forScreenOn*/) {
         try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
-            //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- START");
+                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- START");
 
-            int interval;
-            synchronized (PPApplication.geofenceScannerMutex) {
+                int interval;
+                synchronized (PPApplication.geofenceScannerMutex) {
                 /*if (PPApplication.logEnabled()) {
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
                         PPApplication.logE("GeofenceScanWorker._scheduleWork", "mUpdatesStarted=" + PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted);
@@ -141,42 +142,43 @@ public class GeofenceScanWorker extends Worker {
                     }
                 }*/
 
-                // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
-                //int updateDuration = 30;
+                    // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
+                    //int updateDuration = 30;
 
-                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
-                        PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted) {
-                    interval = ApplicationPreferences.applicationEventLocationUpdateInterval * 60;
-                    //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                    if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
-                        interval = 2 * interval;
-                    //interval = interval - updateDuration;
-                } else {
-                    interval = 5;
-                    shortInterval = true;
+                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
+                            PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted) {
+                        interval = ApplicationPreferences.applicationEventLocationUpdateInterval * 60;
+                        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+                            interval = 2 * interval;
+                        //interval = interval - updateDuration;
+                    } else {
+                        interval = 5;
+                        shortInterval = true;
+                    }
+
+                    //PPApplication.logE("GeofenceScanWorker._scheduleWork", "interval=" + interval);
                 }
 
-                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "interval=" + interval);
-            }
+                if (!shortInterval) {
+                    //PPApplication.logE("GeofenceScanWorker._scheduleWork", "delay work");
+                    OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
+                            .setInitialDelay(interval, TimeUnit.SECONDS)
+                            .addTag(WORK_TAG)
+                            .build();
+                    workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                } else {
+                    //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
+                    waitForFinish(context);
+                    OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
+                            .addTag(WORK_TAG)
+                            .build();
+                    workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                }
 
-            if (!shortInterval) {
-                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "delay work");
-                OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
-                        .setInitialDelay(interval, TimeUnit.SECONDS)
-                        .addTag(WORK_TAG)
-                        .build();
-                workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
-            } else {
-                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
-                waitForFinish(context);
-                OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
-                        .addTag(WORK_TAG)
-                        .build();
-                workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");
             }
-
-            //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");
         } catch (Exception e) {
             Log.e("GeofenceScanWorker._scheduleWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -230,39 +232,41 @@ public class GeofenceScanWorker extends Worker {
         }
 
         try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
 
-            //PPApplication.logE("GeofenceScanWorker.waitForFinish", "START WAIT FOR FINISH");
-            long start = SystemClock.uptimeMillis();
-            do {
+                //PPApplication.logE("GeofenceScanWorker.waitForFinish", "START WAIT FOR FINISH");
+                long start = SystemClock.uptimeMillis();
+                do {
 
-                ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
-                boolean allFinished = true;
-                //noinspection TryWithIdenticalCatches
-                try {
-                    List<WorkInfo> workInfoList = statuses.get();
-                    for (WorkInfo workInfo : workInfoList) {
-                        WorkInfo.State state = workInfo.getState();
-                        if (!state.isFinished()) {
-                            allFinished = false;
-                            break;
+                    ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                    boolean allFinished = true;
+                    //noinspection TryWithIdenticalCatches
+                    try {
+                        List<WorkInfo> workInfoList = statuses.get();
+                        for (WorkInfo workInfo : workInfoList) {
+                            WorkInfo.State state = workInfo.getState();
+                            if (!state.isFinished()) {
+                                allFinished = false;
+                                break;
+                            }
                         }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (allFinished) {
-                    //PPApplication.logE("GeofenceScanWorker.waitForFinish", "FINISHED");
-                    break;
-                }
+                    if (allFinished) {
+                        //PPApplication.logE("GeofenceScanWorker.waitForFinish", "FINISHED");
+                        break;
+                    }
 
-                //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                SystemClock.sleep(100);
-            } while (SystemClock.uptimeMillis() - start < 10 * 1000);
+                    //try { Thread.sleep(100); } catch (InterruptedException e) { }
+                    SystemClock.sleep(100);
+                } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
-            //PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
+                //PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
+            }
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.waitForFinish", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -289,26 +293,30 @@ public class GeofenceScanWorker extends Worker {
 
     private static boolean isWorkRunning(Context context) {
         try {
-            WorkManager instance = PPApplication.getWorkManagerInstance(context);
-            ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
-            //noinspection TryWithIdenticalCatches
-            try {
-                List<WorkInfo> workInfoList = statuses.get();
-                //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                //return workInfoList.size() != 0;
-                boolean running = false;
-                for (WorkInfo workInfo : workInfoList) {
-                    WorkInfo.State state = workInfo.getState();
-                    running = state == WorkInfo.State.RUNNING;
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager instance = PPApplication.getWorkManagerInstance(context);
+                ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
+                    //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+                    //return workInfoList.size() != 0;
+                    boolean running = false;
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        running = state == WorkInfo.State.RUNNING;
+                    }
+                    return running;
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                    return false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return false;
                 }
-                return running;
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                return false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return false;
             }
+            else
+                return false;
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkRunning", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -319,26 +327,30 @@ public class GeofenceScanWorker extends Worker {
     static boolean isWorkScheduled(Context context) {
         //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "xxx");
         try {
-            WorkManager instance = PPApplication.getWorkManagerInstance(context);
-            ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
-            //noinspection TryWithIdenticalCatches
-            try {
-                List<WorkInfo> workInfoList = statuses.get();
-                //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                //return workInfoList.size() != 0;
-                boolean running = false;
-                for (WorkInfo workInfo : workInfoList) {
-                    WorkInfo.State state = workInfo.getState();
-                    running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager instance = PPApplication.getWorkManagerInstance(context);
+                ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
+                    //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+                    //return workInfoList.size() != 0;
+                    boolean running = false;
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                    }
+                    return running;
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                    return false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return false;
                 }
-                return running;
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                return false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return false;
             }
+            else
+                return false;
         } catch (Exception e) {
             Log.e("GeofenceScanWorker.isWorkScheduled", Log.getStackTraceString(e));
             PPApplication.recordException(e);

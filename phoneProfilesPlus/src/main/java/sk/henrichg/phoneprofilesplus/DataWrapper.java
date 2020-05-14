@@ -2477,9 +2477,11 @@ public class DataWrapper {
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
-                workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                    workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                }
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }

@@ -82,9 +82,11 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                             .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
                             .build();
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
-                workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.REPLACE, worker);
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
+                    workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.REPLACE, worker);
+                }
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }

@@ -421,9 +421,11 @@ class EventPreferencesSMS extends EventPreferences {
             PPApplication.recordException(e);
         }
         try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-            //workManager.cancelUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
-            workManager.cancelAllWorkByTag("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                //workManager.cancelUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id);
+                workManager.cancelAllWorkByTag("elapsedAlarmsSMSSensorWork_" + (int) _event._id);
+            }
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

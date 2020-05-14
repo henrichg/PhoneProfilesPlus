@@ -88,15 +88,17 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
-                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
-                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
-                        PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
-                    }*/
-                    workManager.enqueue(worker);
-                    PPApplication.elapsedAlarmsProfileDurationWork.add("elapsedAlarmsProfileDurationWork_"+(int)profile._id);
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                        /*if (PPApplication.logEnabled()) {
+                            PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
+                            PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
+                            PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
+                            PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
+                        }*/
+                        workManager.enqueue(worker);
+                        PPApplication.elapsedAlarmsProfileDurationWork.add("elapsedAlarmsProfileDurationWork_" + (int) profile._id);
+                    }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

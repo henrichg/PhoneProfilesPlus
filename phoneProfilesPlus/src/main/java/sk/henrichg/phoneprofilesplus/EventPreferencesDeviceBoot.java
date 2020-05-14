@@ -255,9 +255,11 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             PPApplication.recordException(e);
         }
         try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-            //workManager.cancelUniqueWork("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id);
-            workManager.cancelAllWorkByTag("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id);
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                //workManager.cancelUniqueWork("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id);
+                workManager.cancelAllWorkByTag("elapsedAlarmsDeviceBootSensorWork_" + (int) _event._id);
+            }
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

@@ -237,8 +237,10 @@ class WifiBluetoothScanner {
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             .build();
                                             try {
-                                                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                                                workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, worker);
+                                                if (PPApplication.getApplicationStarted(true)) {
+                                                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                                                    workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, worker);
+                                                }
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
                                             }

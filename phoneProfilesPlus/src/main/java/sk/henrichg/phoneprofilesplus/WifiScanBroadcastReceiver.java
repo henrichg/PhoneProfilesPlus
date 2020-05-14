@@ -119,8 +119,10 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
                                                         .build();
                                         try {
-                                            WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                                            workManager.enqueueUniqueWork("handleEventsWifiScannerFromReceiverWork", ExistingWorkPolicy.REPLACE, worker);
+                                            if (PPApplication.getApplicationStarted(true)) {
+                                                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                                workManager.enqueueUniqueWork("handleEventsWifiScannerFromReceiverWork", ExistingWorkPolicy.REPLACE, worker);
+                                            }
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
                                         }

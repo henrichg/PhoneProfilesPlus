@@ -3778,8 +3778,10 @@ public class PPApplication extends Application /*implements Application.Activity
                             .setInitialDelay(30, TimeUnit.SECONDS)
                             .build();
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context.getApplicationContext());
-                workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context.getApplicationContext());
+                    workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
+                }
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }

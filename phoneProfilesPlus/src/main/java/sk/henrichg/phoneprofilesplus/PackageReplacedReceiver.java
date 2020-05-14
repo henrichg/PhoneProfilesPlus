@@ -52,8 +52,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             //.setInitialDelay(5, TimeUnit.SECONDS)
                             .build();
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                // do not test start of PPP, because is not started in this receiver
+                //if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                    workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                //}
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }

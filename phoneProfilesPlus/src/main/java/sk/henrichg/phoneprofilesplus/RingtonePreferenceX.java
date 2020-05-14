@@ -421,8 +421,10 @@ public class RingtonePreferenceX extends DialogPreference {
                                                 .build();
                                 PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
                                 try {
-                                    WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
-                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                    if (PPApplication.getApplicationStarted(true)) {
+                                        WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
+                                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                    }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
@@ -480,8 +482,10 @@ public class RingtonePreferenceX extends DialogPreference {
                                         .build();
                         PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
                         try {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
-                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                            if (PPApplication.getApplicationStarted(true)) {
+                                WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
+                                workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                            }
                         } catch (Exception ee) {
                             PPApplication.recordException(e);
                         }
