@@ -38,8 +38,8 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     };
                     // TODO maybe will be fixed in next Samsung update, because also in another
                     // application (not One Ui2) is the same bug
-                    if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 29) &&
-                            ApplicationPreferences.applicationWidgetLauncher.equals("activator"))
+                    //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "PPApplication.deviceIsSamsung="+PPApplication.deviceIsSamsung);
+                    if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 29))
                         _handler.postDelayed(r, 1000);
                     else
                         _handler.post(r);
