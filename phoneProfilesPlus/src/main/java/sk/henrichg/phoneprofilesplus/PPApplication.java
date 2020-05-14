@@ -112,6 +112,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
+                                                //+"|StartLauncherFromNotificationReceiver"
                                                 //+"|PPWifiNetworkCallback"
                                                 //+"|ActivateProfileHelper.setTones"
                                                 //+"|ActivateProfileHelper.executeForRunApplications"

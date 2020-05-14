@@ -11,14 +11,12 @@ public class LauncherActivity extends AppCompatActivity {
 
     private boolean activityStarted = false;
     private int startupSource;
-    private DataWrapper dataWrapper;
 
     private static final int REQUEST_CODE_IMPORTANT_INFO = 1620;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //overridePendingTransition(0, 0);
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
@@ -32,8 +30,6 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         activityStarted = true;
-
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
@@ -64,7 +60,7 @@ public class LauncherActivity extends AppCompatActivity {
 
                 //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from LauncherActivity.onStart");
-                PPApplication.updateGUI(dataWrapper.context, true, true);
+                PPApplication.updateGUI(getApplicationContext(), true, true);
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }
 
@@ -125,14 +121,15 @@ public class LauncherActivity extends AppCompatActivity {
         }
         else {*/
             finish();
-            PPApplication.sleep(100);
+            //PPApplication.sleep(100);
 
-            if (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION)
-                intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK /*| Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
-            else
+            //if (startupSource == PPApplication.STARTUP_SOURCE_NOTIFICATION)
+            //    intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK /*| Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+            //else
                 intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
             getApplicationContext().startActivity(intentLaunch);
+
             // reset startupSource
             startupSource = 0;
         //}
@@ -219,15 +216,6 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-
-        //dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -237,14 +225,5 @@ public class LauncherActivity extends AppCompatActivity {
             endOnStart();
         }
     }
-
-    /*
-    @Override
-    public void finish()
-    {
-        super.finish();
-        //overridePendingTransition(0, 0);
-    }
-    */
 
 }
