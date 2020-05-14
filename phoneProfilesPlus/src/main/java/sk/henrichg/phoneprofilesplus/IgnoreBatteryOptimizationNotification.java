@@ -20,7 +20,7 @@ class IgnoreBatteryOptimizationNotification {
 
     static void showNotification(Context context, boolean useHandler) {
         //if (Build.VERSION.SDK_INT >= 23) {
-            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
+            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "xxx");
 
             final Context appContext = context.getApplicationContext();
 
@@ -57,11 +57,16 @@ class IgnoreBatteryOptimizationNotification {
                                 PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 try {
                                     if (pm != null) {
+                                        PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
+
                                         if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
                                             showNotification(appContext,
                                                     appContext.getString(R.string.ignore_battery_optimization_notification_title),
                                                     appContext.getString(R.string.ignore_battery_optimization_notification_text));
                                         }
+                                        else
+                                            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
                                     }
                                 } catch (Exception ignore) {
                                 }
@@ -97,11 +102,16 @@ class IgnoreBatteryOptimizationNotification {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     try {
                         if (pm != null) {
+                            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
+
                             if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
                                 showNotification(appContext,
                                         appContext.getString(R.string.ignore_battery_optimization_notification_title),
                                         appContext.getString(R.string.ignore_battery_optimization_notification_text));
                             }
+                            else
+                                PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
                         }
                     } catch (Exception ignore) {
                     }

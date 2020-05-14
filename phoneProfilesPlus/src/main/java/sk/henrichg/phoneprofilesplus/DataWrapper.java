@@ -2238,6 +2238,7 @@ public class DataWrapper {
         }
 
         DrawOverAppsPermissionNotification.showNotification(context, false);
+        IgnoreBatteryOptimizationNotification.showNotification(context, false);
     }
 
     void restartEventsWithRescan(final boolean alsoRescan,
