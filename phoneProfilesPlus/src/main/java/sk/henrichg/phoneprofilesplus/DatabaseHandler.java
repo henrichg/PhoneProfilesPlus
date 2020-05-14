@@ -4284,128 +4284,120 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    // this is called only from onUpgrade and importDB
+    // for this, is not needed calling importExportLock.lock();
     private void changePictureFilePathToUri(SQLiteDatabase database/*, boolean lock*/) {
-        //if (lock)
-        //    importExportLock.lock();
-        //try {
+        try {
+            SQLiteDatabase db;
+            if (database == null) {
+                //SQLiteDatabase db = this.getWritableDatabase();
+                db = getMyWritableDatabase();
+            } else
+                db = database;
+
+            final String selectQuery = "SELECT " + KEY_ID + "," +
+                    KEY_ICON + "," +
+                    KEY_DEVICE_WALLPAPER_CHANGE + "," +
+                    KEY_DEVICE_WALLPAPER +
+                    " FROM " + TABLE_PROFILES;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (database == null)
+                db.beginTransaction();
+            //noinspection TryFinallyCanBeTryWithResources
             try {
-                //if (lock)
-                //    startRunningCommand();
 
-                SQLiteDatabase db;
-                if (database == null) {
-                    //SQLiteDatabase db = this.getWritableDatabase();
-                    db = getMyWritableDatabase();
-                } else
-                    db = database;
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
+                        String icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
+                        int wallpaperChange = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE));
+                        String wallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
 
-                final String selectQuery = "SELECT " + KEY_ID + "," +
-                        KEY_ICON + "," +
-                        KEY_DEVICE_WALLPAPER_CHANGE + "," +
-                        KEY_DEVICE_WALLPAPER +
-                        " FROM " + TABLE_PROFILES;
+                        /*if (PPApplication.logEnabled()) {
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
+                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
+                        }*/
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                        ContentValues values = new ContentValues();
 
-                if (database == null)
-                    db.beginTransaction();
-                //noinspection TryFinallyCanBeTryWithResources
-                try {
+                        try {
+                            String[] splits = icon.split("\\|");
+                            String iconIdentifier = splits[0];
+                            String isIconResourceId = splits[1];
+                            String useCustomColorForIcon = "0";
+                            String iconCustomColor = "0";
+                            if (splits.length == 4) {
+                                useCustomColorForIcon = splits[2];
+                                iconCustomColor = splits[3];
+                            }
 
-                    if (cursor.moveToFirst()) {
-                        do {
-                            long id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
-                            String icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
-                            int wallpaperChange = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE));
-                            String wallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
+                            //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
 
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
-                                PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
-                            }*/
-
-                            ContentValues values = new ContentValues();
-
+                            if (!isIconResourceId.equals("1")) {
+                                Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, iconIdentifier);
+                                //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
+                                if (imageUri != null)
+                                    values.put(KEY_ICON, imageUri.toString() + "|" +
+                                            isIconResourceId + "|" +
+                                            useCustomColorForIcon + "|" +
+                                            iconCustomColor);
+                                else
+                                    values.put(KEY_ICON, "ic_profile_default|1|0|0");
+                            }
+                        } catch (Exception e) {
+                            Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                            values.put(KEY_ICON, "ic_profile_default|1|0|0");
+                        }
+                        if (wallpaperChange == 1) {
                             try {
-                                String[] splits = icon.split("\\|");
-                                String iconIdentifier = splits[0];
-                                String isIconResourceId = splits[1];
-                                String useCustomColorForIcon = "0";
-                                String iconCustomColor = "0";
-                                if (splits.length == 4) {
-                                    useCustomColorForIcon = splits[2];
-                                    iconCustomColor = splits[3];
-                                }
-
-                                //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
-
-                                if (!isIconResourceId.equals("1")) {
-                                    Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, iconIdentifier);
-                                    //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
-                                    if (imageUri != null)
-                                        values.put(KEY_ICON, imageUri.toString() + "|" +
-                                                isIconResourceId + "|" +
-                                                useCustomColorForIcon + "|" +
-                                                iconCustomColor);
-                                    else
-                                        values.put(KEY_ICON, "ic_profile_default|1|0|0");
+                                String[] splits = wallpaper.split("\\|");
+                                Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, splits[0]);
+                                //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
+                                if (imageUri != null)
+                                    values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
+                                else {
+                                    values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
+                                    values.put(KEY_DEVICE_WALLPAPER, "-");
                                 }
                             } catch (Exception e) {
                                 Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
-                                values.put(KEY_ICON, "ic_profile_default|1|0|0");
-                            }
-                            if (wallpaperChange == 1) {
-                                try {
-                                    String[] splits = wallpaper.split("\\|");
-                                    Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, splits[0]);
-                                    //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
-                                    if (imageUri != null)
-                                        values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
-                                    else {
-                                        values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
-                                        values.put(KEY_DEVICE_WALLPAPER, "-");
-                                    }
-                                } catch (Exception e) {
-                                    Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
-                                    values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
-                                    values.put(KEY_DEVICE_WALLPAPER, "-");
-                                }
-                            } else
+                                values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
                                 values.put(KEY_DEVICE_WALLPAPER, "-");
-
-                            //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
-                            if (values.size() > 0) {
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
                             }
+                        } else
+                            values.put(KEY_DEVICE_WALLPAPER, "-");
 
-                        } while (cursor.moveToNext());
-                    }
+                        //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
+                        if (values.size() > 0) {
+                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
+                        }
 
-                    if (database == null)
-                        db.setTransactionSuccessful();
-
-                } catch (Exception e) {
-                    //Error in between database transaction
-                    PPApplication.recordException(e);
-                    Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
-                } finally {
-                    if (database == null)
-                        db.endTransaction();
-                    cursor.close();
+                    } while (cursor.moveToNext());
                 }
 
-                //db.close();
+                if (database == null)
+                    db.setTransactionSuccessful();
+
             } catch (Exception e) {
+                //Error in between database transaction
                 PPApplication.recordException(e);
+                Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
+            } finally {
+                if (database == null)
+                    db.endTransaction();
+                cursor.close();
             }
-        //} finally {
-        //    if (lock)
-        //        stopRunningCommand();
-        //}
+
+            //db.close();
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
     /*
@@ -5261,6 +5253,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    // this is called only from getEvent and getAllEvents
+    // for this is not needed to calling importExportLock.lock();
     private void getEventPreferences(Event event, SQLiteDatabase db) {
         getEventPreferencesTime(event, db);
         getEventPreferencesBattery(event, db);
@@ -5889,6 +5883,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    // this is called only from addEvent and updateEvent.
+    // for this is not needed to calling importExportLock.lock();
     private void updateEventPreferences(Event event, SQLiteDatabase db) {
         updateEventPreferencesTime(event, db);
         updateEventPreferencesBattery(event, db);
@@ -12228,9 +12224,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                             FileChannel srcCh = new FileInputStream(dataDB).getChannel();
                             FileChannel dstCh = new FileOutputStream(exportedDB).getChannel();
+
+                            srcCh.force(true);
                             dstCh.force(true);
 
                             dstCh.transferFrom(srcCh, 0, srcCh.size());
+
+                            srcCh.close();
+                            dstCh.close();
 
                             dst.flush();
 
