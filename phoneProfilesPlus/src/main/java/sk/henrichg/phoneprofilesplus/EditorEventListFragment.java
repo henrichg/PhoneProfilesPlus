@@ -669,7 +669,7 @@ public class EditorEventListFragment extends Fragment
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
                     // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                     event.pauseEvent(activityDataWrapper, false, false,
-                            false, true, null, false, false);
+                            false, true, null, false, false, true);
                 }
                 else {
                     EditorProfilesActivity.showDialogAboutRedText(null, event, false, true, getActivity());
@@ -679,7 +679,7 @@ public class EditorEventListFragment extends Fragment
                 // stop event
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                 event.stopEvent(activityDataWrapper, false, false,
-                        true, true); // activate return profile
+                        true, true, true); // activate return profile
             }
 
             // redraw event list

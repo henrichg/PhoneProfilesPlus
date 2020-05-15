@@ -3411,14 +3411,11 @@ public class PPApplication extends Application /*implements Application.Activity
                                final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
-            // stop all events
-            //if (removeAlarmClock)
-            //    ApplicationPreferences.forceNotUseAlarmClock = true;
 
             PhoneProfilesService.cancelAllWorks(context);
 
             if (dataWrapper != null)
-                dataWrapper.stopAllEvents(false, false, false);
+                dataWrapper.stopAllEvents(false, false, false, false);
 
             if (!shutdown) {
 
@@ -3485,11 +3482,8 @@ public class PPApplication extends Application /*implements Application.Activity
             //PhoneStateScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
             //ActivateProfileHelper.setScreenUnlocked(context, true);
 
-            PPApplication.logE("PPApplication._exitApp", "set application started = false");
-            PPApplication.setApplicationStarted(context, false);
-
             if (!shutdown) {
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
+                //PPApplication.logE("PPApplication._exitApp", "forceUpdateGUI");
                 //ActivateProfileHelper.updateGUI(context, false, true);
                 PPApplication.forceUpdateGUI(context, false, false, true);
 
@@ -3515,6 +3509,9 @@ public class PPApplication extends Application /*implements Application.Activity
                     _handler.postDelayed(r, 1000);
                 }*/
             }
+
+            PPApplication.logE("PPApplication._exitApp", "set application started = false");
+            PPApplication.setApplicationStarted(context, false);
 
         } catch (Exception e) {
             Log.e("PPApplication._exitApp", Log.getStackTraceString(e));

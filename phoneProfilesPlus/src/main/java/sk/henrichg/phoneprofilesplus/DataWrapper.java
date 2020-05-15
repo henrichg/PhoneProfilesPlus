@@ -960,7 +960,7 @@ public class DataWrapper {
                 //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
                 //	(event._fkProfileStart == profile._id))
                 if (event._fkProfileStart == profile._id)
-                    event.stopEvent(this, false, true, true/*saveEventStatus*/, false);
+                    event.stopEvent(this, false, true, true/*saveEventStatus*/, false, true);
             }
         }
         if (alsoUnlink) {
@@ -1029,7 +1029,7 @@ public class DataWrapper {
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._forceRun && event._noPauseByManualActivation)) {
-                            event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false);
+                            event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false, true);
                         }
                     }
 
@@ -1086,7 +1086,7 @@ public class DataWrapper {
     }
 
     // stops all events
-    void stopAllEvents(boolean saveEventStatus, boolean alsoDelete/*, boolean activateReturnProfile*/, boolean log)
+    void stopAllEvents(boolean saveEventStatus, boolean alsoDelete, boolean log, boolean updateGUI)
     {
         getEventTimelineList(true);
         synchronized (eventList) {
@@ -1096,7 +1096,7 @@ public class DataWrapper {
                 Event event = it.next();
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
                 event.stopEvent(this, false/*activateReturnProfile*/,
-                        true, saveEventStatus, log);
+                        true, saveEventStatus, log, updateGUI);
             }
         }
         if (alsoDelete) {
@@ -1125,7 +1125,7 @@ public class DataWrapper {
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
 
-                    dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true);
+                    dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true, true);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.stopAllEventsFromMainThread");
                 } finally {

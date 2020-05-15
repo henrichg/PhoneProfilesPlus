@@ -5162,7 +5162,7 @@ public class PhoneProfilesService extends Service
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
-        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+(clear || refresh));
+        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+refresh);
 
         //if (!runningInForeground) {
             if (forServiceStart) {

@@ -1508,7 +1508,8 @@ class Event {
                                         boolean activateReturnProfile,
                                         Profile mergedProfile,
                                         boolean allowRestart,
-                                        boolean forRestartEvents)
+                                        boolean forRestartEvents,
+                                        boolean updateGUI)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-activateReturnProfile=" + activateReturnProfile);
@@ -1622,7 +1623,7 @@ class Event {
 
         }
 
-        if (!profileActivated)
+        if ((!profileActivated) && updateGUI)
         {
             //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
             //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
@@ -1638,7 +1639,8 @@ class Event {
                             boolean log,
                             Profile mergedProfile,
                             boolean allowRestart,
-                            boolean forRestartEvents)
+                            boolean forRestartEvents,
+                            boolean updateGUI)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1748,7 +1750,8 @@ class Event {
         {
             doActivateEndProfile(dataWrapper, eventPosition, timeLineSize,
                     eventTimelineList, eventTimeline,
-                    activateReturnProfile, mergedProfile, allowRestart, forRestartEvents);
+                    activateReturnProfile, mergedProfile, allowRestart,
+                    forRestartEvents, updateGUI);
 
         }
 
@@ -1781,8 +1784,8 @@ class Event {
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean saveEventStatus,
-                            boolean log)
-                            //boolean allowRestart)
+                            boolean log,
+                            boolean updateGUI)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1800,7 +1803,8 @@ class Event {
 
         if (this._status != ESTATUS_STOP)
         {
-            pauseEvent(dataWrapper, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/, false);
+            pauseEvent(dataWrapper, activateReturnProfile, ignoreGlobalPref, true, false,
+                    null, false/*allowRestart*/, false, updateGUI);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);

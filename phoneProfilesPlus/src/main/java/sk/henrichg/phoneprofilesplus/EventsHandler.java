@@ -1444,7 +1444,7 @@ class EventsHandler {
                                 // pause event
                                 long oldMergedProfile = mergedProfile._id;
                                 event.pauseEvent(dataWrapper, true, false,
-                                        false, true, mergedProfile, !forRestartEvents, forRestartEvents);
+                                        false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
                                 endProfileMerged = oldMergedProfile != mergedProfile._id;
                             }
                         }
@@ -1454,7 +1454,7 @@ class EventsHandler {
                             // pause event
                             long oldMergedProfile = mergedProfile._id;
                             event.pauseEvent(dataWrapper, true, false,
-                                    false, true, mergedProfile, !forRestartEvents, forRestartEvents);
+                                    false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
                             endProfileMerged = oldMergedProfile != mergedProfile._id;
                         }
                     }

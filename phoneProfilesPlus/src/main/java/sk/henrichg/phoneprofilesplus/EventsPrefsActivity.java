@@ -563,10 +563,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         if (old_event_status != Event.ESTATUS_STOP) {
                             // pause event - must be called, because status is ESTATUS_STOP
                             event.pauseEvent(dataWrapper, true, false,
-                                    false, false, null, false, false);
+                                    false, false, null, false, false, true);
                             // stop event
                             event.stopEvent(dataWrapper, true, false,
-                                    true, true);
+                                    true, true, true);
 
                             // restart Events
                             //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
@@ -605,7 +605,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                         // pause event
                         event.pauseEvent(dataWrapper, true, false,
-                                false, false, null, false, false);
+                                false, false, null, false, false, true);
                         // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
                         // ESTATUS_PAUSE is set in Event.saveSharedPreferences()
                         event.doLogForPauseEvent(dataWrapper.context, false);
