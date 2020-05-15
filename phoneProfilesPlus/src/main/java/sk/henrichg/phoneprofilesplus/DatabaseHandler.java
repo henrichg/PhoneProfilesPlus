@@ -4312,13 +4312,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         long id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
                         String icon = cursor.getString(cursor.getColumnIndex(KEY_ICON));
                         int wallpaperChange = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE));
-                        String wallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER));
 
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "id=" + id);
                             PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon=" + icon);
                             PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaperChange=" + wallpaperChange);
-                            PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper=" + wallpaper);
                         }*/
 
                         ContentValues values = new ContentValues();

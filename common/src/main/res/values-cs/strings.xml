@@ -1251,7 +1251,6 @@
     <string name="menu_email_to_author">Poslat e-mail autorovi</string>
     <string name="ignore_battery_optimization_notification_title">Konfigurace optimalizace baterie</string>
     <string name="ignore_battery_optimization_notification_text">Prosím klikněte sem a přidejte PhoneProfilesPlus do \"Neoptimalizované\". Je to vyžadováno pro správnou funkci s vypnutou obrazovkou.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Příště nezobrazovat</string>
     <string name="array_show_profile_in_activator_not_show">Nezobrazovat</string>
     <string name="array_show_profile_in_activator_show">Zobrazovat</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Zobrazit profil v Aktivátoru</string>
@@ -1708,4 +1707,5 @@
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
 </resources>

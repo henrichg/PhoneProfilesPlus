@@ -1251,7 +1251,6 @@
     <string name="menu_email_to_author">E-mail aan auteur</string>
     <string name="ignore_battery_optimization_notification_title">Batterij optimalisatie configuratie</string>
     <string name="ignore_battery_optimization_notification_text">Klik hier en voeg PhoneProfilesPlus toe aan \"Niet geoptimaliseerd\". Dit is nodig om PhoneProfilesPlus goed te laten werken met het scherm uit.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Niet opnieuw weergeven</string>
     <string name="array_show_profile_in_activator_not_show">Niet weergeven</string>
     <string name="array_show_profile_in_activator_show">Weergeven</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Profiel in Activator weergeven</string>
@@ -1419,13 +1418,13 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Uitzondering voor volumes</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Negeer beltoon- en meldingsvolume in dit profiel als in het systeem de \"stille\" geluidsmodus is ingesteld (alleen alarmen, trillingen).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Voor echt stille meldingsgolume, configureer meldingentoon naar \"Geen\".</string>
-    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
-    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
-    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
-    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
-    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
-    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
-    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
+    <string name="altype_profileError_runApplication_application">profiel - fout bij starten van toepassing</string>
+    <string name="altype_profileError_runApplication_shortcut">profiel - fout bij starten van snelkoppeling</string>
+    <string name="altype_profileError_runApplication_intent">profiel - fout bij starten van intent</string>
+    <string name="altype_profileError_setTone_ringtone">profiel - fout bij instellen beltoon geluid</string>
+    <string name="altype_profileError_setTone_notification">profiel - fout bij instellen meldingsgeluid</string>
+    <string name="altype_profileError_setTone_alarm">profiel - fout bij instellen alarm geluid</string>
+    <string name="altype_profileError_setWallpaper">profiel - fout bij instellen achtergrond</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1708,4 +1707,5 @@
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
 </resources>

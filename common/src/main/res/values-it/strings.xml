@@ -1252,7 +1252,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="menu_email_to_author">E-mail to author</string>
     <string name="ignore_battery_optimization_notification_title">Battery optimization configuration</string>
     <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
     <string name="array_show_profile_in_activator_not_show">Do not show</string>
     <string name="array_show_profile_in_activator_show">Show</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
@@ -1420,13 +1419,13 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Eccezione per i volumi</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Il tono della suoneria e i volumi di notifica configurati in questo profilo verranno ignorati quando il sistema è impostato su \"silenzioso\" (solo allarmi, vibrazione).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"None\".</string>
-    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
-    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
-    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
-    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
-    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
-    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
-    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
+    <string name="altype_profileError_runApplication_application">profilo - errore all\'inizio dell\'applicazione</string>
+    <string name="altype_profileError_runApplication_shortcut">profilo - errore all\'avvio della scorciatoia</string>
+    <string name="altype_profileError_runApplication_intent">profilo - errore all\'inizio dell\'intento</string>
+    <string name="altype_profileError_setTone_ringtone">profilo - errore nell\'impostazione della suoneria</string>
+    <string name="altype_profileError_setTone_notification">profilo - errore nell\'impostazione del suono di notifica</string>
+    <string name="altype_profileError_setTone_alarm">profilo - errore nell\'impostazione della sveglia</string>
+    <string name="altype_profileError_setWallpaper">profilo - errore nell\'impostazione dello sfondo</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1709,4 +1708,5 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
 </resources>

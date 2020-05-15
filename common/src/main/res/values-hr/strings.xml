@@ -1251,7 +1251,6 @@
     <string name="menu_email_to_author">Slanje e-pošte autoru</string>
     <string name="ignore_battery_optimization_notification_title">Postavke optimizacije baterije</string>
     <string name="ignore_battery_optimization_notification_text">Klikni ovdje i dodaj PhoneProfilesPlus u \"Ne optimizuj\". Ovo je neophodno za normalan rad sa isključenim zaslonom.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Ne prikazuj ponovno</string>
     <string name="array_show_profile_in_activator_not_show">Ne prikazuj</string>
     <string name="array_show_profile_in_activator_show">Prikaži</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Prikaži profil u Aktivatoru</string>
@@ -1419,13 +1418,13 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Izuzetak kod glasnoće</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Glasnoća obavijesti i zvuka zvona podešena u ovome profilu biće ignorirana , kada je sistem u modu \"tišina\" (samo za alarme i vibraciju).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Za potpuno bezvučnu obavijest, postavite zvuk obavijesti na \"Nijedan\".</string>
-    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
-    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
-    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
-    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
-    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
-    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
-    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
+    <string name="altype_profileError_runApplication_application">profil - pogreška pri startu aplikacije</string>
+    <string name="altype_profileError_runApplication_shortcut">profil - pogreška pri startu prečaca</string>
+    <string name="altype_profileError_runApplication_intent">profil - pogreška pri startu namere</string>
+    <string name="altype_profileError_setTone_ringtone">profil - pogreška pri nameštanju zvuka zvona</string>
+    <string name="altype_profileError_setTone_notification">profil - pogreška pri nameštanju zvuka obavijesti</string>
+    <string name="altype_profileError_setTone_alarm">profil - pogreška pri nameštanju zvuka alarma</string>
+    <string name="altype_profileError_setWallpaper">profil - pogreška pri nameštanju tapeta</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1708,4 +1707,5 @@
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
 </resources>

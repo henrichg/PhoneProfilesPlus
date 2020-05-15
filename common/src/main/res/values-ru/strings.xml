@@ -1251,7 +1251,6 @@
     <string name="menu_email_to_author">Отправить письмо автору</string>
     <string name="ignore_battery_optimization_notification_title">Настройка оптимизации батареи</string>
     <string name="ignore_battery_optimization_notification_text">Нажмите сюда и добавьте PhoneProfilesPlus в список \"Не экономят заряд\". Это нужно для правильной работы программы при выключенном экране.</string>
-    <string name="ignore_battery_optimization_notification_disable_button">Больше не показывать</string>
     <string name="array_show_profile_in_activator_not_show">Не показывать</string>
     <string name="array_show_profile_in_activator_show">Показывать</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Показывать профиль в Активаторе</string>
@@ -1419,13 +1418,13 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Замечание об уровнях громкости</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Если система настроена в тихий режим (только будильники, вибрация), уровни громкости звонка и уведомлений, настроенные в этом профиле, будут игнорироваться.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Чтобы уведомление было по-настоящему бесшумным, настройте мелодию уведомления на \"None\".</string>
-    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
-    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
-    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
-    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
-    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
-    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
-    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
+    <string name="altype_profileError_runApplication_application">профиль - ошибка при запуске приложения</string>
+    <string name="altype_profileError_runApplication_shortcut">профиль - ошибка при запуске ярлыка</string>
+    <string name="altype_profileError_runApplication_intent">профиль - ошибка при запуске intent\'а</string>
+    <string name="altype_profileError_setTone_ringtone">профиль - ошибка при установке мелодии звонка</string>
+    <string name="altype_profileError_setTone_notification">профиль - ошибка при установке мелодии уведомления</string>
+    <string name="altype_profileError_setTone_alarm">профиль - ошибка при установке мелодии будильника</string>
+    <string name="altype_profileError_setWallpaper">профиль - ошибка при установке обоев</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1708,4 +1707,5 @@
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
+    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
 </resources>
