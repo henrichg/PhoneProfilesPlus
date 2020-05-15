@@ -2,24 +2,18 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
-
-import java.io.File;
 
 public class WallpaperViewPreferenceX extends Preference {
 
@@ -241,6 +235,7 @@ public class WallpaperViewPreferenceX extends Preference {
 
 //---------------------------------------------------------------------------------------------
 
+    /*
     static Uri getImageContentUri(Context context, String imageFile) {
         Cursor cursor = context.getApplicationContext().getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -265,11 +260,11 @@ public class WallpaperViewPreferenceX extends Preference {
                 //noinspection UnnecessaryLocalVariable
                 Uri uri = context.getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                    ContentResolver resolver = context.getApplicationContext().getContentResolver();
-                    resolver.takePersistableUriPermission(uri, takeFlags);
-                }*/
+                //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                //    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                //    ContentResolver resolver = context.getApplicationContext().getContentResolver();
+                //    resolver.takePersistableUriPermission(uri, takeFlags);
+                //}
                 //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri2="+uri);
                 return uri;
             } else {
@@ -277,5 +272,6 @@ public class WallpaperViewPreferenceX extends Preference {
             }
         }
     }
+    */
 
 }

@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -4326,27 +4325,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                         try {
                             String[] splits = icon.split("\\|");
-                            String iconIdentifier = splits[0];
                             String isIconResourceId = splits[1];
-                            String useCustomColorForIcon = "0";
-                            String iconCustomColor = "0";
-                            if (splits.length == 4) {
-                                useCustomColorForIcon = splits[2];
-                                iconCustomColor = splits[3];
-                            }
-
                             //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
-
                             if (!isIconResourceId.equals("1")) {
-                                Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, iconIdentifier);
-                                //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
-                                if (imageUri != null)
-                                    values.put(KEY_ICON, imageUri.toString() + "|" +
-                                            isIconResourceId + "|" +
-                                            useCustomColorForIcon + "|" +
-                                            iconCustomColor);
-                                else
-                                    values.put(KEY_ICON, "ic_profile_default|1|0|0");
+                                values.put(KEY_ICON, "ic_profile_default|1|0|0");
                             }
                         } catch (Exception e) {
                             Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
@@ -4354,22 +4336,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_ICON, "ic_profile_default|1|0|0");
                         }
                         if (wallpaperChange == 1) {
-                            try {
-                                String[] splits = wallpaper.split("\\|");
-                                Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, splits[0]);
-                                //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
-                                if (imageUri != null)
-                                    values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());
-                                else {
-                                    values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
-                                    values.put(KEY_DEVICE_WALLPAPER, "-");
-                                }
-                            } catch (Exception e) {
-                                Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                                values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
-                                values.put(KEY_DEVICE_WALLPAPER, "-");
-                            }
+                            values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
+                            values.put(KEY_DEVICE_WALLPAPER, "-");
                         } else
                             values.put(KEY_DEVICE_WALLPAPER, "-");
 
