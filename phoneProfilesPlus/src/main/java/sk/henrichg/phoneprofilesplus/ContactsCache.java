@@ -121,9 +121,11 @@ class ContactsCache {
             cached = false;
         }
 
-        synchronized (PPApplication.contactsCacheMutex) {
-            updateContacts(_contactList/*, false*/);
-            //updateContacts(_contactListWithoutNumber, true);
+        if (cached) {
+            synchronized (PPApplication.contactsCacheMutex) {
+                updateContacts(_contactList/*, false*/);
+                //updateContacts(_contactListWithoutNumber, true);
+            }
         }
 
         caching = false;

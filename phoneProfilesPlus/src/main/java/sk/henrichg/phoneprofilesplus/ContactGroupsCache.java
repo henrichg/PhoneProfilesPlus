@@ -127,12 +127,14 @@ class ContactGroupsCache {
             cached = false;
         }
 
-        synchronized (PPApplication.contactGroupsCacheMutex) {
-            contactsCache.updateContacts(_contactList/*, false*/);
-            //contactsCache.updateContacts(_contactListWithoutNumber, true);
+        if (cached) {
+            synchronized (PPApplication.contactGroupsCacheMutex) {
+                contactsCache.updateContacts(_contactList/*, false*/);
+                //contactsCache.updateContacts(_contactListWithoutNumber, true);
 
-            contactGroupList.clear();
-            contactGroupList.addAll(_contactGroupList);
+                contactGroupList.clear();
+                contactGroupList.addAll(_contactGroupList);
+            }
         }
 
         caching = false;
