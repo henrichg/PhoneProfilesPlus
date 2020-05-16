@@ -1047,7 +1047,9 @@ Android 10
 1. ako nahradit wifiManager.getConfiguredNetworks();
 - V Extenderi:
   - bude si pamatat ako globalnu staticku premenu zoznam typu List<WifiConfiguration>
-  - spravit alarm, ktory v pravidelnych intervaloch, napr. kazdych 5 minut bude robit:
+  - spravit alarm, ktory v pravidelnych intervaloch, napr. kazdych 5 minut bude robit
+    (mozno netreba alarm, staci ze to spravi samotny servis, ktory sa tak ci tak vola pri kazdej
+     zmene gui, testni):
     - zavola wifiManager.getConfiguredNetworks();
     - porovna vysledok s tou globalnou premennou
     - ak sa nieco zmeni posle broadcast do PP a PPP so zoznamom
@@ -1057,3 +1059,4 @@ Android 10
   - v doFirstStart posle do Extendera broadcast so ziadostou na aktualizaciu
     - tato ziadost sa vybai tak, ze vzdy posle zoznam, cize akoby sa nieco zmenilo
   - vsade bude pouzivat tento list, cize nebude volat wifiManager.getConfiguredNetworks();
+- Treba zistit, kde vsade je potrebny tento list a podla toho pytat extender ako povinny v PP a PPP.
