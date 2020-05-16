@@ -1041,3 +1041,19 @@ A teda je celkom mozne, ze restart znova aktivuje profil, ale bez duration.
 Napriklad, na zmenu time zony, na autobackup.
 
 --------------------
+
+Android 10
+
+1. ako nahradit wifiManager.getConfiguredNetworks();
+- V Extenderi:
+  - bude si pamatat ako globalnu staticku premenu zoznam typu List<WifiConfiguration>
+  - spravit alarm, ktory v pravidelnych intervaloch, napr. kazdych 5 minut bude robit:
+    - zavola wifiManager.getConfiguredNetworks();
+    - porovna vysledok s tou globalnou premennou
+    - ak sa nieco zmeni posle broadcast do PP a PPP so zoznamom
+  - toto spravi aj na start Extendera, aby PP a PPP mali aktualizovane udaje
+- V PP a PPP:
+  - bude si pamatat ako globalnu staticku premenu zoznam typu List<WifiConfiguration>
+  - v doFirstStart posle do Extendera broadcast so ziadostou na aktualizaciu
+    - tato ziadost sa vybai tak, ze vzdy posle zoznam, cize akoby sa nieco zmenilo
+  - vsade bude pouzivat tento list, cize nebude volat wifiManager.getConfiguredNetworks();
