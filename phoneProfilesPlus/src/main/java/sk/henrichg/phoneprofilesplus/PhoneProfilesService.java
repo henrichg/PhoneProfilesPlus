@@ -3612,6 +3612,20 @@ public class PhoneProfilesService extends Service
                             if (PPApplication.rootMutex.rootChecked) {
                                 try {
                                     PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
+                                    if (PPApplication.rootMutex.rooted) {
+                                        PackageManager packageManager = appContext.getPackageManager();
+                                        // SuperSU
+                                        Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+                                        if (intent != null)
+                                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
+                                        else {
+                                            intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+                                            if (intent != null)
+                                                PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
+                                            else
+                                                PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
+                                        }
+                                    }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }

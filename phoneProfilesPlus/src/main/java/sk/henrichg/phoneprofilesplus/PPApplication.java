@@ -928,6 +928,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final String EXTRA_APPLICATIONS = "extra_applications";
 
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
+    static final String CRASHLYTICS_LOG_DEVICE_ROOTED_WITH = "ROOTED_WITH";
     static final String CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION = "GOOGLE_PLAY_SERVICES_VERSION";
 
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
@@ -2538,6 +2539,20 @@ public class PPApplication extends Application /*implements Application.Activity
         if (rootMutex.rootChecked) {
             try {
                 PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                if (PPApplication.rootMutex.rooted) {
+                    PackageManager packageManager = PPApplication.getInstance().getPackageManager();
+                    // SuperSU
+                    Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+                    if (intent != null)
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
+                    else {
+                        intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+                        if (intent != null)
+                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
+                        else
+                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
+                    }
+                }
             } catch (Exception e) {
                 // https://github.com/firebase/firebase-android-sdk/issues/1226
                 //PPApplication.recordException(e);
@@ -2568,6 +2583,20 @@ public class PPApplication extends Application /*implements Application.Activity
             rootMutex.rootChecked = true;
             try {
                 PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(rootMutex.rooted));
+                if (PPApplication.rootMutex.rooted) {
+                    PackageManager packageManager = PPApplication.getInstance().getPackageManager();
+                    // SuperSU
+                    Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+                    if (intent != null)
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
+                    else {
+                        intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+                        if (intent != null)
+                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
+                        else
+                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
+                    }
+                }
             } catch (Exception e) {
                 // https://github.com/firebase/firebase-android-sdk/issues/1226
                 //PPApplication.recordException(e);
