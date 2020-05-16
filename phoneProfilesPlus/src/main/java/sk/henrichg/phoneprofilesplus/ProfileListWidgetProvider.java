@@ -29,7 +29,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     private static final String INTENT_REFRESH_LISTWIDGET = PPApplication.PACKAGE_NAME + ".REFRESH_LISTWIDGET";
 
     private boolean isLargeLayout;
-    private boolean isKeyguard;
 
     private RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, boolean largeLayout)
     {
@@ -100,20 +99,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
         else
         {
-            if (isKeyguard)
-            {
-                if (applicationWidgetListPrefIndicator)
-                    widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small_keyguard);
-                else
-                    widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small_no_indicator_keyguard);
-            }
+            if (applicationWidgetListPrefIndicator)
+                widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small);
             else
-            {
-                if (applicationWidgetListPrefIndicator)
-                    widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small);
-                else
-                    widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small_no_indicator);
-            }
+                widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_small_no_indicator);
         }
 
         // set background
@@ -551,9 +540,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private void doOnUpdate(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
     {
-        Bundle myOptions;
-        myOptions = appWidgetManager.getAppWidgetOptions (appWidgetId);
-        setLayoutParams(context, appWidgetManager, appWidgetId, myOptions);
+        Bundle widgetIdOptions;
+        widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
+        setLayoutParams(context, appWidgetManager, appWidgetId, widgetIdOptions);
         RemoteViews widget = buildLayout(context, appWidgetId, isLargeLayout);
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
@@ -692,34 +681,27 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
 
     private void setLayoutParams(Context context, AppWidgetManager appWidgetManager,
-            int appWidgetId, Bundle newOptions)
+            int appWidgetId, Bundle widgetIdOptions)
     {
         String preferenceKey = "isLargeLayout_"+appWidgetId;
 
         AppWidgetProviderInfo appWidgetProviderInfo = appWidgetManager.getAppWidgetInfo(appWidgetId);
 
         int minHeight;
-        if (newOptions != null)
+        if (widgetIdOptions != null)
         {
-            // Get the value of OPTION_APPWIDGET_HOST_CATEGORY
-            int category = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, -1);
-            // If the value is WIDGET_CATEGORY_KEYGUARD, it's a lock screen widget
-            isKeyguard = category == AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
-
             //int minWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
             //int maxWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH);
-            minHeight = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+            minHeight = widgetIdOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
             //int maxHeight = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT);
 
             if ((minHeight == 0) && (appWidgetProviderInfo != null))
             {
                 minHeight = appWidgetProviderInfo.minHeight;
             }
-
         }
         else
         {
-            isKeyguard = false;
             if (appWidgetProviderInfo != null)
                 minHeight = appWidgetProviderInfo.minHeight;
             else
@@ -729,14 +711,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //	return;
         }
 
-        if (isKeyguard)
-        {
-            isLargeLayout = minHeight >= 250;
-        }
-        else
-        {
-            isLargeLayout = minHeight >= 110;
-        }
+        isLargeLayout = minHeight >= 110;
 
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
         if (preferences.contains(preferenceKey))
@@ -752,7 +727,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private void setLayoutParamsMotorola(Context context, @SuppressWarnings("unused") int spanX, int spanY, int appWidgetId)
     {
-        isKeyguard = false;
         isLargeLayout = spanY != 1;
         
         String preferenceKey = "isLargeLayout_"+appWidgetId;
