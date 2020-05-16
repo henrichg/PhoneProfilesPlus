@@ -1044,7 +1044,7 @@ Napriklad, na zmenu time zony, na autobackup.
 
 Android 10
 
-1. ako nahradit wifiManager.getConfiguredNetworks();
+1. wifiManager.getConfiguredNetworks();
 - V Extenderi:
   - bude si pamatat ako globalnu staticku premenu zoznam typu List<WifiConfiguration>
   - spravit alarm, ktory v pravidelnych intervaloch, napr. kazdych 5 minut bude robit
@@ -1060,3 +1060,22 @@ Android 10
     - tato ziadost sa vybai tak, ze vzdy posle zoznam, cize akoby sa nieco zmenilo
   - vsade bude pouzivat tento list, cize nebude volat wifiManager.getConfiguredNetworks();
 - Treba zistit, kde vsade je potrebny tento list a podla toho pytat extender ako povinny v PP a PPP.
+
+2. Wifi scanning
+- Rozdel WifiBluetoothScanner na WifiScanner a BluetoothScanner
+- ...
+
+3. wifiManager.setWifiEnabled()
+- ...
+
+4. Wifi AP
+- CmdWifiAP - testni, ci ho netreba volat s Extendera
+- android.net.wifi.WIFI_AP_STATE_CHANGED - testni, ci ho netreba volat s Extendera
+- ...
+
+5. Environment.getExternalStorageDirectory()
+- pouzivane len pre import/export
+- testni pre target 29
+- pozri, ci nejde toto spravit inac, napriklad presunut do Documents.
+- ...
+
