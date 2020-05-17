@@ -292,7 +292,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     @Override
     public void onUpdate(Context context, SlookCocktailManager cocktailBarManager, int[] cocktailIds) {
-        super.onUpdate(context, cocktailBarManager, cocktailIds);
+        //super.onUpdate(context, cocktailBarManager, cocktailIds);
         if (cocktailIds.length > 0) {
             final Context _context = context;
             final SlookCocktailManager _cocktailBarManager = cocktailBarManager;
@@ -312,7 +312,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                     //if (dataWrapper != null)
                     //    dataWrapper.invalidateDataWrapper();
-                    dataWrapper = null;
+                    //dataWrapper = null;
                 }
             });
         }

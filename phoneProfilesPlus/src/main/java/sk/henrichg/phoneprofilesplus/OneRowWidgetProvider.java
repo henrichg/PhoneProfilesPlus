@@ -22,7 +22,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
+        //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
             _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
