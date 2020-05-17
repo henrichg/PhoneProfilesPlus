@@ -133,10 +133,10 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|EventPreferencesWifi"
                                                 //+"|[TEST BATTERY]"
-                                                +"|WifiScanBroadcastReceiver"
+                                                //+"|WifiScanBroadcastReceiver"
                                                 //+"|DelayedWorksWorker.doWork"
                                                 //+"|WifiBluetoothScanner.enableWifi"
-                                                +"|WifiScanWorker.fillScanResults"
+                                                //+"|WifiScanWorker.fillScanResults"
                                                 //+"|WifiScanWorker.startScan"
                                                 //+"|WifiScanWorker.doWork"
                                                 //+"|WifiStateChangedBroadcastReceiver.onReceive"

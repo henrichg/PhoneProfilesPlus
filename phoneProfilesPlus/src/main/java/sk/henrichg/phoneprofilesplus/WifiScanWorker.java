@@ -642,12 +642,12 @@ public class WifiScanWorker extends Worker {
 
         if (Permissions.checkLocation(context)) {
             List<ScanResult> _scanResults = wifi.getScanResults();
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 //int wifiState = wifi.getWifiState();
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
                 PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "getScanResults() called");
-            }
+            }*/
             if (_scanResults != null) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 //boolean isScreenOn = PPApplication.isScreenOn(pm);
@@ -656,8 +656,10 @@ public class WifiScanWorker extends Worker {
                 save = true;
                 scanResults.clear();
                 for (ScanResult _device : _scanResults) {
-                    if (_device.SSID.equals("OLIN"))
-                        PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_device=" + _device.SSID);
+                    /*if (_device.SSID.equals("OLIN")) {
+                        PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_device.SSID=" + _device.SSID);
+                        PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_device.BSSID=" + _device.BSSID);
+                    }*/
                     boolean found = false;
                     for (WifiSSIDData device : scanResults) {
                         /*if (device.bssid.equals(_device.BSSID)) {
