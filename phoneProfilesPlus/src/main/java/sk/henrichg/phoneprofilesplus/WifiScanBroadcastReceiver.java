@@ -31,7 +31,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (ApplicationPreferences.prefForceOneWifiScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+        if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
             if (!ApplicationPreferences.applicationEventWifiEnableScanning)
                 // scanning is disabled
                 return;
@@ -61,7 +61,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 final int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
-                if (Event.getGlobalEventsRunning() || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                if (Event.getGlobalEventsRunning() || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
                     PPApplication.startHandlerThread(/*"WifiScanBroadcastReceiver.onReceive.1"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
@@ -101,9 +101,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                                 if (scanStarted) {
                                     WifiScanWorker.setWaitForResults(appContext, false);
-                                    WifiBluetoothScanner.setForceOneWifiScan(appContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                                    WifiScanner.setForceOneWifiScan(appContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                                    if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
+                                    if (forceOneScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
                                         //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start work");
 

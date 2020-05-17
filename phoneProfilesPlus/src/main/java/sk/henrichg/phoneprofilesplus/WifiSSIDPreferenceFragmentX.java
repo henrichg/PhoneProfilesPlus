@@ -224,7 +224,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
         WifiScanWorker.setScanRequest(prefContext, false);
         WifiScanWorker.setWaitForResults(prefContext, false);
-        WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+        WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)))
             rescanAsyncTask.cancel(true);
@@ -327,7 +327,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
                 if (_forRescan) {
                     //PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start rescan");
-                    WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                    WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiScanWorker.startScanner(prefContext, true);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
@@ -445,7 +445,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                 if (_forRescan) {
                     WifiScanWorker.setScanRequest(prefContext, false);
                     WifiScanWorker.setWaitForResults(prefContext, false);
-                    WifiBluetoothScanner.setForceOneWifiScan(prefContext, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                    WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
                     progressLinearLayout.setVisibility(View.GONE);
                     dataRelativeLayout.setVisibility(View.VISIBLE);
                 }

@@ -33,7 +33,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
-        if (ApplicationPreferences.prefForceOneBluetoothScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+        if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
             if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 // scanning is disabled
                 return;
@@ -117,7 +117,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             // application is not started
             return;
 
-        if (ApplicationPreferences.prefForceOneBluetoothLEScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+        if (ApplicationPreferences.prefForceOneBluetoothLEScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
             if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 // scanning is disabled
                 return;

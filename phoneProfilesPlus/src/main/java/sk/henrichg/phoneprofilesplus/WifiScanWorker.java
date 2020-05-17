@@ -127,7 +127,7 @@ public class WifiScanWorker extends Worker {
 
         setScanRequest(context, false);
         setWaitForResults(context, false);
-        WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+        WifiScanner.setForceOneWifiScan(context, WifiScanner.FORCE_ONE_SCAN_DISABLED);
     }
 
     private static void _scheduleWork(final Context context, final boolean shortInterval) {
@@ -202,7 +202,7 @@ public class WifiScanWorker extends Worker {
 
                 setScanRequest(context, false);
                 setWaitForResults(context, false);
-                WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                WifiScanner.setForceOneWifiScan(context, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
                 PhoneProfilesService.cancelWork(WORK_TAG, context);
 
@@ -253,7 +253,7 @@ public class WifiScanWorker extends Worker {
 
                     //try { Thread.sleep(100); } catch (InterruptedException e) { }
                     SystemClock.sleep(100);
-                } while (SystemClock.uptimeMillis() - start < WifiBluetoothScanner.wifiScanDuration * 1000);
+                } while (SystemClock.uptimeMillis() - start < WifiScanner.wifiScanDuration * 1000);
 
                 //PPApplication.logE("WifiScanWorker.waitForFinish", "END WAIT FOR FINISH");
             }
@@ -524,8 +524,8 @@ public class WifiScanWorker extends Worker {
             if (fromDialog)
                 setScanRequest(context, true);
 
-            WifiBluetoothScanner wifiBluetoothScanner = new WifiBluetoothScanner(context);
-            wifiBluetoothScanner.doScan(WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+            WifiScanner wifiBluetoothScanner = new WifiScanner(context);
+            wifiBluetoothScanner.doScan();
         }
         //dataWrapper.invalidateDataWrapper();
     }

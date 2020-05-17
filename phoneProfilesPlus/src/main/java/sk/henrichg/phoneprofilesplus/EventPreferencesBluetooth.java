@@ -5,22 +5,23 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import java.util.Arrays;
-import java.util.List;
-
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.util.Arrays;
+import java.util.List;
+
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 
 class EventPreferencesBluetooth extends EventPreferences {
 
@@ -285,7 +286,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 listPreference.setSummary(summary);
             }
 
-            boolean btLESupported = WifiBluetoothScanner.bluetoothLESupported(context);
+            boolean btLESupported = BluetoothScanner.bluetoothLESupported(context);
             listPreference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
             if (listPreference != null) {
                 if ((!btLESupported) || value.equals("0") || value.equals("2"))
@@ -298,7 +299,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                boolean btLESupported = WifiBluetoothScanner.bluetoothLESupported(context);
+                boolean btLESupported = BluetoothScanner.bluetoothLESupported(context);
 
                 if (!btLESupported) {
                     listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+

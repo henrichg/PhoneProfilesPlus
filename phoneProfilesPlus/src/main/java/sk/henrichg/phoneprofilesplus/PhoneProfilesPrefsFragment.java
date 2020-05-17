@@ -937,7 +937,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
-        if (!WifiBluetoothScanner.bluetoothLESupported(getActivity().getApplicationContext())) {
+        if (!BluetoothScanner.bluetoothLESupported(getActivity().getApplicationContext())) {
             PreferenceScreen preferenceCategory = findPreference("bluetoothScanningCategory");
             preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
             if ((preferenceCategory != null) && (preference != null))

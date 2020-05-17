@@ -731,7 +731,6 @@ public class PPApplication extends Application /*implements Application.Activity
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
     static final EventPeripheralsSensorMutex eventPeripheralsSensorMutex = new EventPeripheralsSensorMutex();
-    static final EventWifiBluetoothSensorMutex eventWifiBluetoothSensorMutex = new EventWifiBluetoothSensorMutex();
     static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
     static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
     static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
@@ -745,7 +744,8 @@ public class PPApplication extends Application /*implements Application.Activity
     static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
     static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
     static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
-    static final WifiBluetoothScannerMutex wifiBluetoothscannerMutex = new WifiBluetoothScannerMutex();
+    static final WifiScannerMutex wifiScannerMutex = new WifiScannerMutex();
+    static final BluetoothScannerMutex bluetoothScannerMutex = new BluetoothScannerMutex();
     static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
     static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
@@ -1788,9 +1788,9 @@ public class PPApplication extends Application /*implements Application.Activity
         EventPreferencesCall.getEventCallEventTime(context);
         EventPreferencesCall.getEventCallPhoneNumber(context);
         HeadsetConnectionBroadcastReceiver.getEventHeadsetParameters(context);
-        WifiBluetoothScanner.getForceOneWifiScan(context);
-        WifiBluetoothScanner.getForceOneBluetoothScan(context);
-        WifiBluetoothScanner.getForceOneLEBluetoothScan(context);
+        WifiScanner.getForceOneWifiScan(context);
+        BluetoothScanner.getForceOneBluetoothScan(context);
+        BluetoothScanner.getForceOneLEBluetoothScan(context);
         BluetoothScanWorker.getBluetoothEnabledForScan(context);
         BluetoothScanWorker.getScanRequest(context);
         BluetoothScanWorker.getLEScanRequest(context);
