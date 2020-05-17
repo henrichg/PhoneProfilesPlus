@@ -171,7 +171,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                                 //if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null)) {
                                 // bssid is null from configuration list
                                 if (wifiConfiguration.ssid != null)
-                                    _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false, true, false));
+                                    _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, /*wifiConfiguration.bssid,*/ false, true, false));
                             }
                         //}
 
@@ -179,7 +179,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 
                         //if (preference.disableSharedProfile == 0)
                         //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
-                        _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false, false, false));
+                        _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, /*"",*/ false, false, false));
 
                         return null;
                     }

@@ -623,7 +623,7 @@ public class WifiScanWorker extends Worker {
                     }
                     if (!found) {
                         //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","device NOT found, add it");
-                        wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID, false, true, false));
+                        wifiConfigurationList.add(new WifiSSIDData(device.SSID, /*device.BSSID,*/ false, true, false));
                     }
                 }
             }
@@ -642,12 +642,12 @@ public class WifiScanWorker extends Worker {
 
         if (Permissions.checkLocation(context)) {
             List<ScanResult> _scanResults = wifi.getScanResults();
-            /*if (PPApplication.logEnabled()) {
+            if (PPApplication.logEnabled()) {
                 //int wifiState = wifi.getWifiState();
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
-                //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
-                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "getScanResults() called");
-            }*/
+                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
+                //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "getScanResults() called");
+            }
             if (_scanResults != null) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 //boolean isScreenOn = PPApplication.isScreenOn(pm);
@@ -656,16 +656,23 @@ public class WifiScanWorker extends Worker {
                 save = true;
                 scanResults.clear();
                 for (ScanResult _device : _scanResults) {
+                    if (_device.SSID.equals("OLIN"))
+                        PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_device=" + _device.SSID);
                     boolean found = false;
                     for (WifiSSIDData device : scanResults) {
-                        if (device.bssid.equals(_device.BSSID)) {
+                        /*if (device.bssid.equals(_device.BSSID)) {
+                            // is already in scanResults
+                            found = true;
+                            break;
+                        }*/
+                        if (device.ssid.equals(_device.SSID)) {
                             // is already in scanResults
                             found = true;
                             break;
                         }
                     }
                     if (!found) {
-                        scanResults.add(new WifiSSIDData(_device.SSID, _device.BSSID, false, false, true));
+                        scanResults.add(new WifiSSIDData(_device.SSID, /*_device.BSSID,*/ false, false, true));
                     }
                 }
                 //}
@@ -815,8 +822,11 @@ public class WifiScanWorker extends Worker {
             {
                 for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                 {
-                    if ((wifiConfiguration.bssid != null) &&
+                    /*if ((wifiConfiguration.bssid != null) &&
                             (wifiConfiguration.bssid.equals(wifiInfo.getBSSID())))
+                        return wifiConfiguration.ssid.replace("\"", "");*/
+                    if ((wifiConfiguration.ssid != null) &&
+                            (wifiConfiguration.ssid.equals(wifiInfo.getSSID())))
                         return wifiConfiguration.ssid.replace("\"", "");
                 }
             }
@@ -860,8 +870,11 @@ public class WifiScanWorker extends Worker {
             {
                 for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                 {
-                    if ((wifiConfiguration.bssid != null) &&
+                    /*if ((wifiConfiguration.bssid != null) &&
                             (wifiConfiguration.bssid.equals(result.bssid)))
+                        return wifiConfiguration.ssid.replace("\"", "");*/
+                    if ((wifiConfiguration.ssid != null) &&
+                            (wifiConfiguration.ssid.equals(result.ssid)))
                         return wifiConfiguration.ssid.replace("\"", "");
                 }
             }

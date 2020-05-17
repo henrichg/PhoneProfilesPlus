@@ -90,7 +90,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     }
                 }
                 if (!found)
-                    preference.customSSIDList.add(new WifiSSIDData(ssid, "", true, false, false));
+                    preference.customSSIDList.add(new WifiSSIDData(ssid, /*"",*/ true, false, false));
                 refreshListView(false, ssid);
             }
         });
@@ -343,7 +343,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                         //if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
                         // bssid is null from configuration list
                         if (wifiConfiguration.ssid != null)
-                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid, false, true, false));
+                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), /*wifiConfiguration.bssid,*/ false, true, false));
                     }
                 //}
 
@@ -361,7 +361,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                                 }
                             }
                             if (!exists) {
-                                _SSIDList.add(new WifiSSIDData(WifiScanWorker.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false, false, true));
+                                _SSIDList.add(new WifiSSIDData(WifiScanWorker.getSSID(scanResult, wifiConfigurationList), /*scanResult.bssid,*/ false, false, true));
                             }
                         }
                     }
@@ -382,7 +382,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                             }
                         }
                         if (!found) {
-                            _SSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
+                            _SSIDList.add(new WifiSSIDData(_ssid, /*"",*/ true, false, false));
                         }
 
                         found = false;
@@ -393,7 +393,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                             }
                         }
                         if (!found) {
-                            preference.customSSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
+                            preference.customSSIDList.add(new WifiSSIDData(_ssid, /*"",*/ true, false, false));
                         }
                     }
                 }
@@ -409,15 +409,15 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                             }
                         }
                         if (!exists) {
-                            _SSIDList.add(new WifiSSIDData(customSSID.ssid, customSSID.bssid, true, false, false));
+                            _SSIDList.add(new WifiSSIDData(customSSID.ssid, /*customSSID.bssid,*/ true, false, false));
                         }
                     }
                 }
 
                 Collections.sort(_SSIDList, new SortList());
 
-                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false, false, false));
-                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false, false, false));
+                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, /*"",*/ false, false, false));
+                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, /*"",*/ false, false, false));
 
                 // move checked on top
                 int i = 0;
