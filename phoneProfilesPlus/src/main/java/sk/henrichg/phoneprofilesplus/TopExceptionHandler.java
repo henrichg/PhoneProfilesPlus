@@ -32,50 +32,51 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
         try {
-            //if (PhoneProfilesService.getInstance() != null) {
-                if (PPApplication.lockDeviceActivity != null) {
-                    boolean canWriteSettings;// = true;
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
-                        canWriteSettings = Settings.System.canWrite(applicationContext);
-                    if (canWriteSettings)
-                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
-                }
-            //}
+            if (PPApplication.lockDeviceActivity != null) {
+                boolean canWriteSettings;// = true;
+                canWriteSettings = Settings.System.canWrite(applicationContext);
+                if (canWriteSettings)
+                    Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+            }
         } catch (Exception ee) {
             Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
         }
 
-        if (PPApplication.crashIntoFile) {
-            StackTraceElement[] arr = e.getStackTrace();
-            String report = e.toString() + "\n\n";
+        try {
+            if (PPApplication.crashIntoFile) {
+                StackTraceElement[] arr = e.getStackTrace();
+                String report = e.toString() + "\n\n";
 
-            report += "----- App version code: " + actualVersionCode + "\n\n";
+                report += "----- App version code: " + actualVersionCode + "\n\n";
 
-            for (StackTraceElement anArr : arr) {
-                report += "    " + anArr.toString() + "\n";
-            }
-            report += "-------------------------------\n\n";
-
-            report += "--------- Stack trace ---------\n\n";
-            for (StackTraceElement anArr : arr) {
-                report += "    " + anArr.toString() + "\n";
-            }
-            report += "-------------------------------\n\n";
-
-            // If the exception was thrown in a background thread inside
-            // AsyncTask, then the actual exception can be found with getCause
-            report += "--------- Cause ---------------\n\n";
-            Throwable cause = e.getCause();
-            if (cause != null) {
-                report += cause.toString() + "\n\n";
-                arr = cause.getStackTrace();
                 for (StackTraceElement anArr : arr) {
                     report += "    " + anArr.toString() + "\n";
                 }
-            }
-            report += "-------------------------------\n\n";
+                report += "-------------------------------\n\n";
 
-            logIntoFile("E", "TopExceptionHandler", report);
+                report += "--------- Stack trace ---------\n\n";
+                for (StackTraceElement anArr : arr) {
+                    report += "    " + anArr.toString() + "\n";
+                }
+                report += "-------------------------------\n\n";
+
+                // If the exception was thrown in a background thread inside
+                // AsyncTask, then the actual exception can be found with getCause
+                report += "--------- Cause ---------------\n\n";
+                Throwable cause = e.getCause();
+                if (cause != null) {
+                    report += cause.toString() + "\n\n";
+                    arr = cause.getStackTrace();
+                    for (StackTraceElement anArr : arr) {
+                        report += "    " + anArr.toString() + "\n";
+                    }
+                }
+                report += "-------------------------------\n\n";
+
+                logIntoFile("E", "TopExceptionHandler", report);
+            }
+        } catch (Exception ee) {
+            Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
         }
 
         if (defaultUEH != null)

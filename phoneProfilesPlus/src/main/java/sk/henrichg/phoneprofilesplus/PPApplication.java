@@ -1112,6 +1112,15 @@ public class PPApplication extends Application /*implements Application.Activity
         applicationFullyStarted = false;
         instance = this;
 
+        //if (DebugVersion.enabled) {
+        int actualVersionCode = 0;
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            actualVersionCode = PPApplication.getVersionCode(pInfo);
+        } catch (Exception ignored) {}
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
+        //}
+
         //registerActivityLifecycleCallbacks(PPApplication.this);
 
         /*try {
@@ -1219,17 +1228,6 @@ public class PPApplication extends Application /*implements Application.Activity
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
         }
-
-        //if (DebugVersion.enabled) {
-        int actualVersionCode = 0;
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            actualVersionCode = PPApplication.getVersionCode(pInfo);
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
-        //}
 
         //lastUptimeTime = SystemClock.elapsedRealtime();
         //lastEpochTime = System.currentTimeMillis();
