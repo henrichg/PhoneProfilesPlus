@@ -305,14 +305,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (applicationWidgetOneRowRoundedCorners) {
                             //PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
-                            remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.INVISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
                             if (applicationWidgetOneRowShowBorder) {
                                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
                             }
                             else {
                                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
-                                remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.INVISIBLE);
+                                remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
                             }
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
                             remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
@@ -324,15 +324,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         } else {
                             //PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
-                            remoteViews.setViewVisibility(R.id.widget_one_row_background, View.INVISIBLE);
-                            remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.INVISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_background, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
                             if (applicationWidgetOneRowShowBorder) {
                                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, VISIBLE);
                             }
                             else {
                                 //PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
-                                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.INVISIBLE);
+                                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
                             }
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
                                 /*remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);

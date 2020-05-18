@@ -328,11 +328,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowBorder="+applicationWidgetIconShowBorder);
                         if (applicationWidgetIconRoundedCorners) {
                             remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
-                            remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.GONE);
                             if (applicationWidgetIconShowBorder)
                                 remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.VISIBLE);
                             else
-                                remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
+                                remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.GONE);
                             remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
                             remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -342,12 +342,12 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             if (applicationWidgetIconShowBorder)
                                 remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         } else {
-                            remoteViews.setViewVisibility(R.id.widget_icon_background, View.INVISIBLE);
-                            remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.INVISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_background, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.GONE);
                             if (applicationWidgetIconShowBorder)
                                 remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.VISIBLE);
                             else
-                                remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.INVISIBLE);
+                                remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.GONE);
                             remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", Color.argb(alphaBackground, redBackground, greenBackground, blueBackground));
                                 /*remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", 0x00000000);
                                 //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
