@@ -119,7 +119,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|OneRowWidgetProvider.updateWidgets"
                                                 //+"|PPApplication.forceUpdateGUI"
-                                                +"|OneRowWidgetProvider.onUpdate"
+                                                //+"|OneRowWidgetProvider.onUpdate"
                                                 //+"|OneRowWidgetProvider._onUpdate"
 
                                                 //+"|DataWrapper._activateProfile"
