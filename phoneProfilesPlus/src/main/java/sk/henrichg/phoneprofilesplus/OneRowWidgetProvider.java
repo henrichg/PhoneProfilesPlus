@@ -22,9 +22,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
+        PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
-            //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
+            PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
             _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
         }
     }
@@ -400,6 +401,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             appWidgetManager.updateAppWidget(widgetId, remoteViews);
                             //ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
                             //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+                            //appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, remoteViews);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }
