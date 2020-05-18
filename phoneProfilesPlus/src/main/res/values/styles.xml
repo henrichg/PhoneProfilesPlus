@@ -1,6 +1,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <style name="EmptyAppCompatActivity" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
         <item name="android:background">#00000000</item>
@@ -11,6 +12,7 @@
         <item name="android:windowIsFloating">true</item>
     </style>
     <style name="EmptyTargetHelpsActivity" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
         <item name="android:background">#00000000</item>
@@ -21,6 +23,7 @@
         <item name="android:windowIsFloating">false</item>
     </style>
     <style name="LockDeviceActivity" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
@@ -30,6 +33,7 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
     <style name="BackgroundBrightnessActivity" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
         <item name="android:background">#00000000</item>
@@ -56,22 +60,27 @@
     -->
 
     <!--<style name="AlertDialogStyleColor" parent="Theme.AppCompat.Light.Dialog.Alert">-->
+        <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
         <!--<item name="colorAccent">@color/accent</item>-->
     <!--</style>-->
     <!--<style name="AlertDialogStyleDLight" parent="Theme.AppCompat.Light.Dialog.Alert">-->
+        <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
         <!--<item name="colorAccent">@color/accent</item>-->
     <!--</style>-->
     <!--<style name="AlertDialogStyleDark" parent="Theme.AppCompat.Dialog.Alert">-->
+        <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor_dark</item>-->
         <!--<item name="colorAccent">@color/accent_dark</item>-->
     <!--</style>-->
     <!--<style name="AlertDialogStyleWhite" parent="Theme.AppCompat.Light.Dialog.Alert">-->
+        <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor_white</item>-->
         <!--<item name="colorAccent">@color/accent_white</item>-->
     <!--</style>-->
     <style name="AlertDialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:background">@color/activityBackgroundColor</item>
         <item name="colorAccent">@color/accent</item>
     </style>
@@ -93,6 +102,7 @@
         <!--<item name="colorAccent">@color/accent_white</item>-->
     <!--</style>-->
     <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:background">@color/activityBackgroundColor</item>
         <item name="colorAccent">@color/accent</item>
     </style>
