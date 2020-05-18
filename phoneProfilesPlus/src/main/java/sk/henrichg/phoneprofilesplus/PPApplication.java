@@ -119,7 +119,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
                                                 //+"|OneRowWidgetProvider.updateWidgets"
                                                 //+"|PPApplication.forceUpdateGUI"
-                                                //+"|OneRowWidgetProvider.onUpdate"
+                                                +"|OneRowWidgetProvider.onUpdate"
                                                 //+"|OneRowWidgetProvider._onUpdate"
 
                                                 //+"|DataWrapper._activateProfile"
@@ -1679,6 +1679,11 @@ public class PPApplication extends Application /*implements Application.Activity
 
         // one row widget
         try {
+            /*Intent intent = new Intent(context, OneRowWidgetProvider.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            context.sendBroadcast(intent);*/
             OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
             myWidget.updateWidgets(context, refresh);
         } catch (Exception e) {
