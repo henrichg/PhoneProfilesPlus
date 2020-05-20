@@ -154,6 +154,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
     static void doWork(boolean useHandler, Context context, final boolean refresh, final boolean alsoEditor/*, final boolean fromAlarm*/) {
         /*PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "xxx");
+        PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "useHandler="+useHandler);
         PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "refresh="+refresh);
         PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "alsoEditor="+alsoEditor);*/
 
@@ -162,6 +163,8 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
+
+        //PPApplication.logE("##### UpdateGUIBroadcastReceiver.doWork", "do update");
 
         if (useHandler) {
             PPApplication.startHandlerThread(/*"UpdateGUIBroadcastReceiver.onReceive"*/);
@@ -204,6 +207,8 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                 // no refresh widgets
                 return;
         }
+
+        //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "do update");
 
         /*if (PPApplication.logEnabled()) {
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "ActivateProfileHelper.lockRefresh=" + ActivateProfileHelper.lockRefresh);
