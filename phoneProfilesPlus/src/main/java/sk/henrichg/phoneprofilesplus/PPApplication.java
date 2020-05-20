@@ -1753,12 +1753,13 @@ public class PPApplication extends Application /*implements Application.Activity
     */
 
     static void showToast(final Context context, final String text, final int length) {
+        final Context appContext = context.getApplicationContext();
         Handler handler = new Handler(context.getApplicationContext().getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Toast msg = Toast/*Compat*/.makeText(context.getApplicationContext(), text, length);
+                    Toast msg = Toast/*Compat*/.makeText(appContext, text, length);
                     msg.show();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
