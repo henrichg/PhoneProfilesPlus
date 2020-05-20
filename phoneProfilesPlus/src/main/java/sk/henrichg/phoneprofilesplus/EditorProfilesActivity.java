@@ -1725,7 +1725,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialog.show();
     }
 
-    @SuppressLint("SetWorldReadable")
+    @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean importApplicationPreferences(File src, int what) {
         boolean res = true;
@@ -1733,8 +1733,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         try {
             try {
                 if (src.exists()) {
-                    //noinspection ResultOfMethodCallIgnored
-                    src.setReadable(true, false);
+                    try {
+                        //noinspection ResultOfMethodCallIgnored
+                        src.setReadable(true, false);
+                        //noinspection ResultOfMethodCallIgnored
+                        src.setWritable(true, false);
+                    } catch (Exception ee) {
+                        PPApplication.recordException(ee);
+                    }
 
                     input = new ObjectInputStream(new FileInputStream(src));
                     Editor prefEdit;
@@ -1891,7 +1897,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                 }
 
-                @SuppressLint("SetWorldReadable")
+                @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
                 @Override
                 protected Integer doInBackground(Void... params) {
                     //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
@@ -1908,6 +1914,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (exportPath.exists()) {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportPath.setReadable(true, false);
+                                //noinspection ResultOfMethodCallIgnored
+                                exportPath.setWritable(true, false);
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -2095,8 +2103,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialog.show();
     }
 
-    @SuppressLint({"ApplySharedPref", "SetWorldReadable"})
-    private boolean exportApplicationPreferences(File dst/*, int what*/) {
+    @SuppressLint({"ApplySharedPref", "SetWorldReadable", "SetWorldWritable"})
+    private boolean exportApplicationPreferences(File dst, boolean runStopEvents/*, int what*/) {
         boolean res = true;
         ObjectOutputStream output = null;
         try {
@@ -2108,6 +2116,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //else
                 //    pref = getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
+
+                editor.putBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, runStopEvents);
 
                 AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
@@ -2147,8 +2157,14 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 output.flush();
 
-                //noinspection ResultOfMethodCallIgnored
-                dst.setReadable(true, false);
+                try {
+                    //noinspection ResultOfMethodCallIgnored
+                    dst.setReadable(true, false);
+                    //noinspection ResultOfMethodCallIgnored
+                    dst.setWritable(true, false);
+                } catch (Exception ee) {
+                    PPApplication.recordException(ee);
+                }
 
             } catch (FileNotFoundException e) {
                 PPApplication.recordException(e);
@@ -2213,6 +2229,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             @SuppressLint("StaticFieldLeak")
             class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
                 private final DataWrapper dataWrapper;
+                private boolean runStopEvents;
 
                 private ExportAsyncTask() {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2247,6 +2264,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                     exportProgressDialog.setCanceledOnTouchOutside(false);
                     if (!activity.isFinishing())
                         exportProgressDialog.show();
+
+                    runStopEvents = Event.getGlobalEventsRunning();
+                    //noinspection ConstantConditions
+                    dataWrapper.globalRunStopEvents(true);
                 }
 
                 @Override
@@ -2259,7 +2280,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             File sd = Environment.getExternalStorageDirectory();
                             //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                             File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                            if (exportApplicationPreferences(exportFile/*, 1*/)) {
+                            if (exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
                                 ret = 0;*/
@@ -2267,6 +2288,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             } else
                                 ret = 0;
                         }
+
+                        Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
 
                         return ret;
                     }
@@ -2293,6 +2316,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // toast notification
                         if (!isFinishing())
                             PPApplication.showToast(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
+
+                        dataWrapper.restartEventsWithRescan(false, false, true, false, false, false);
 
                         if (email) {
                             // email backup

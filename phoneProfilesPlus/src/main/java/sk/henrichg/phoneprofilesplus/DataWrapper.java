@@ -2806,7 +2806,7 @@ public class DataWrapper {
         }
     }
 
-    private boolean globalRunStopEvents(boolean stop) {
+    boolean globalRunStopEvents(boolean stop) {
         if (stop) {
             if (Event.getGlobalEventsRunning()) {
                 PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0, "");

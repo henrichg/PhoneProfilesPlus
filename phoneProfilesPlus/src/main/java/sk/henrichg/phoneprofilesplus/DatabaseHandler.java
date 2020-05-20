@@ -12172,7 +12172,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    @SuppressLint("SetWorldReadable")
+    @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     int importDB(String applicationDataPath) {
         importExportLock.lock();
         try {
@@ -12198,8 +12198,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (exportedDB.exists()) {
                         //PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
 
-                        //noinspection ResultOfMethodCallIgnored
-                        exportedDB.setReadable(true, false);
+                        try {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportedDB.setReadable(true, false);
+                            //noinspection ResultOfMethodCallIgnored
+                            exportedDB.setWritable(true, false);
+                        } catch (Exception ee) {
+                            PPApplication.recordException(ee);
+                        }
 
                         SQLiteDatabase exportedDBObj;
                         //if (Build.VERSION.SDK_INT < 27)
@@ -12261,7 +12267,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    @SuppressLint("SetWorldReadable")
+    @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     int exportDB()
     {
         importExportLock.lock();
@@ -12289,8 +12295,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             if (!(exportDir.exists() && exportDir.isDirectory())) {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportDir.mkdirs();
-                                //noinspection ResultOfMethodCallIgnored
-                                exportDir.setReadable(true, false);
+                                try {
+                                    //noinspection ResultOfMethodCallIgnored
+                                    exportDir.setReadable(true, false);
+                                    //noinspection ResultOfMethodCallIgnored
+                                    exportDir.setWritable(true, false);
+                                } catch (Exception ee) {
+                                    PPApplication.recordException(ee);
+                                }
                             }
 
                             src = new FileInputStream(dataDB);
@@ -12312,8 +12324,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             src.close();
                             dst.close();
 
-                            //noinspection ResultOfMethodCallIgnored
-                            exportedDB.setReadable(true, false);
+                            try {
+                                //noinspection ResultOfMethodCallIgnored
+                                exportedDB.setReadable(true, false);
+                                //noinspection ResultOfMethodCallIgnored
+                                exportedDB.setWritable(true, false);
+                            } catch (Exception ee) {
+                                PPApplication.recordException(ee);
+                            }
 
                             ret = 1;
                         }
