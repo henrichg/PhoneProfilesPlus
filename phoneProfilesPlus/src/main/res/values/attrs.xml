@@ -95,7 +95,7 @@
     <!--<attr name="editorDrawerListHeaderBackground" format="reference" />-->
     <attr name="editorDrawerListHeaderTitle" format="reference" />
     <attr name="dialogDivider" format="reference" />
-    <!--<attr name="actionActivityLogIcon" format="reference" />-->
+    <attr name="actionActivityLogEditorIcon" format="reference" />
     <attr name="actionActivityLogReloadIcon" format="reference" />
     <!--<attr name="actionSharedProfileIcon" format="reference" />-->
     <attr name="actionHelpIcon" format="reference" />

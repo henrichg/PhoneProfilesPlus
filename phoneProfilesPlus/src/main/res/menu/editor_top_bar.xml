@@ -12,10 +12,15 @@
         android:orderInCategory="101"
         android:icon="?attr/actionRunStopEventsIcon"
         app:showAsAction="always" />
+    <item android:id="@+id/menu_activity_log"
+        android:title="@string/menu_activity_log"
+        android:orderInCategory="102"
+        android:icon="?attr/actionActivityLogEditorIcon"
+        app:showAsAction="always" />
 
     <item android:id="@+id/important_info_menu"
         android:title="@string/important_info_activity_title"
-        android:orderInCategory="102"
+        android:orderInCategory="103"
         app:showAsAction="always"
         android:icon="?attr/actionHelpIcon">
 
@@ -32,11 +37,6 @@
 
     </item>
 
-    <item android:id="@+id/menu_activity_log"
-        android:title="@string/menu_activity_log"
-        android:orderInCategory="103"
-        app:showAsAction="never"
-        tools:ignore="AlwaysShowAction" />
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="210"

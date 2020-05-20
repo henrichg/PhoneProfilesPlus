@@ -55,7 +55,7 @@
 <!--        <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>-->
         <!--<item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg</item>-->
         <item name="dialogDivider">@color/dialog_divider</item>
-        <!--<item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>-->
+        <item name="actionActivityLogEditorIcon">@drawable/ic_action_activity_log_editor</item>
         <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
         <item name="actionActivityLogPlayIcon">@drawable/ic_action_play</item>
         <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
