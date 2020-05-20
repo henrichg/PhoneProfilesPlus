@@ -2607,16 +2607,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
         if (key.equals(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS)) {
-            String summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
-            if (PhoneProfilesService.isWifiSleepPolicySetToNever(context)) {
-                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
-                        summary;
+            if (Build.VERSION.SDK_INT < 27) {
+                String summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
+                if (PhoneProfilesService.isWifiSleepPolicySetToNever(context)) {
+                    summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
+                            summary;
+                } else {
+                    summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
+                            summary;
+                }
+                preference.setSummary(summary);
             }
-            else {
-                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
-                        summary;
-            }
-            preference.setSummary(summary);
         }
     }
 

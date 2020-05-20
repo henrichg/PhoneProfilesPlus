@@ -9,6 +9,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -216,18 +217,19 @@ class EventPreferencesWifi extends EventPreferences {
             }
         }
         if (key.equals(PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                String summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
-                if (PhoneProfilesService.isWifiSleepPolicySetToNever(context.getApplicationContext())) {
-                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n"+
-                            summary;
+            if (Build.VERSION.SDK_INT < 27) {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    String summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
+                    if (PhoneProfilesService.isWifiSleepPolicySetToNever(context.getApplicationContext())) {
+                        summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
+                                summary;
+                    } else {
+                        summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
+                                summary;
+                    }
+                    preference.setSummary(summary);
                 }
-                else {
-                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n"+
-                            summary;
-                }
-                preference.setSummary(summary);
             }
         }
         if (key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE))
