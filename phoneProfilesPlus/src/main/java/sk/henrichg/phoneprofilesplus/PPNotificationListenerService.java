@@ -25,6 +25,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     //private static final String TAG = PPNotificationListenerService.class.getSimpleName();
 
     private static volatile PPNotificationListenerService instance;
+    private static volatile boolean connected;
 
     private NLServiceReceiver nlservicereceiver;
 
@@ -37,6 +38,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         synchronized (PPApplication.ppNotificationListenerService) {
             instance = this;
+            connected = false;
         }
 
         nlservicereceiver = new NLServiceReceiver();
@@ -55,6 +57,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         synchronized (PPApplication.ppNotificationListenerService) {
             instance = null;
+            connected = false;
         }
     }
 
@@ -216,14 +219,23 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
     }
 
-    // Android 5.0 Lollipop
-
-    /*
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
+        synchronized (PPApplication.ppNotificationListenerService) {
+            connected = true;
+        }
     }
 
+    @Override
+    public void onListenerDisconnected() {
+        super.onListenerDisconnected();
+        synchronized (PPApplication.ppNotificationListenerService) {
+            connected = false;
+        }
+    }
+
+    /*
     @Override
     public void onListenerHintsChanged(int hints) {
         super.onListenerHintsChanged(hints);
@@ -350,7 +362,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         String packageName = context.getPackageName();
 
         //if (packageNames != null) {
-            return packageNames.contains(packageName);
+            return packageNames.contains(packageName) && connected;
 
             /*for (String pkgName : packageNames) {
                 //if (className.contains(pkgName)) {
