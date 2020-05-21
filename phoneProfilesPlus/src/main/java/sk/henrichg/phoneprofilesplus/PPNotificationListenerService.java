@@ -223,6 +223,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onListenerConnected() {
         super.onListenerConnected();
         synchronized (PPApplication.ppNotificationListenerService) {
+            //PPApplication.logE("PPNotificationListenerService.onListenerConnected","xxx");
             connected = true;
         }
     }
@@ -231,6 +232,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onListenerDisconnected() {
         super.onListenerDisconnected();
         synchronized (PPApplication.ppNotificationListenerService) {
+            //PPApplication.logE("PPNotificationListenerService.onListenerDisconnected","xxx");
             connected = false;
         }
     }
