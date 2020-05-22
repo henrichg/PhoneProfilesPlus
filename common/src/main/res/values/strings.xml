@@ -1515,6 +1515,8 @@
     <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
     <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
 
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

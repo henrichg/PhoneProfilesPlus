@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -2531,9 +2532,16 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_BLUETOOTH))
+            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_BLUETOOTH)) {
                 // device has bluetooth
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH) &&
+                    (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH_ADMIN)))
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                else {
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_bluetooth_permission);
+                }
+            }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             return preferenceAllowed;
