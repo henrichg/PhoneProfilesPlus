@@ -4361,12 +4361,13 @@ public class PhoneProfilesService extends Service
         String notificationBackgroundColor;
         int notificationBackgroundCustomColor;
         boolean notificationNightMode;
+        boolean notificationShowButtonExit;
+        String notificationLayoutType;
         if (forFirstStart) {
-            //ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
             notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
-            notificationShowProfileIcon = true;// && (Build.VERSION.SDK_INT >= 24);
+            notificationShowProfileIcon = false; // for small notification at start
             notificationShowInStatusBar = true;
-            notificationUseDecoration = true;
+            notificationUseDecoration = false;
             notificationPrefIndicator = false;
             notificationHideInLockScreen = false;
             notificationStatusBarStyle = "1";
@@ -4374,6 +4375,8 @@ public class PhoneProfilesService extends Service
             notificationBackgroundColor = "0";
             notificationBackgroundCustomColor = 0xFFFFFFFF;
             notificationNightMode = false;
+            notificationShowButtonExit = false;
+            notificationLayoutType = "2"; // only small layout
         }
         else {
             synchronized (PPApplication.applicationPreferencesMutex) {
@@ -4390,6 +4393,8 @@ public class PhoneProfilesService extends Service
                 notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor;
                 notificationBackgroundCustomColor = ApplicationPreferences.notificationBackgroundCustomColor;
                 notificationNightMode = ApplicationPreferences.notificationNightMode;
+                notificationShowButtonExit = ApplicationPreferences.notificationShowButtonExit;
+                notificationLayoutType = ApplicationPreferences.notificationLayoutType;
             }
         }
 
@@ -5061,8 +5066,7 @@ public class PhoneProfilesService extends Service
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 if (useDecorator)
                     notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
-                String layoutType = ApplicationPreferences.notificationLayoutType;
-                switch (layoutType) {
+                switch (notificationLayoutType) {
                     case "1":
                         // only large layout
                         notificationBuilder.setCustomContentView(contentViewLarge);
@@ -5083,12 +5087,7 @@ public class PhoneProfilesService extends Service
             }
         }
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("PhoneProfilesService._showProfileNotification", "useDecorator=" + useDecorator);
-            PPApplication.logE("PhoneProfilesService._showProfileNotification", "ApplicationPreferences.notificationShowButtonExit(appContext)=" + ApplicationPreferences.notificationShowButtonExit(appContext));
-        }*/
-
-        if ((ApplicationPreferences.notificationShowButtonExit) && useDecorator) {
+        if ((notificationShowButtonExit) && useDecorator) {
             // add action button to stop application
 
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "add action button");
@@ -5255,21 +5254,11 @@ public class PhoneProfilesService extends Service
         }
         else {*/
             try {
-                //final Context appContext = getApplicationContext();
-                //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext))
-                /*if (onlyEmpty) {
-                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (notificationManager != null)
-                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-                }
-                else {*/
-                    startForegroundNotification = true;
-                    stopForeground(true);
-                    NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (notificationManager != null)
-                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-
-                //}
+                startForegroundNotification = true;
+                stopForeground(true);
+                NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null)
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
             } catch (Exception e) {
                 Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);

@@ -61,7 +61,7 @@ class ApplicationPreferences {
     static boolean applicationEditorPrefIndicator;
     //static boolean applicationActivatorHeader;
     //static boolean applicationEditorHeader;
-    static boolean notificationsToast;
+    static boolean notificationsToast = true;
     //static boolean notificationStatusBar;
     //static boolean notificationStatusBarPermanent;
     //static String notificationStatusBarCancel;
