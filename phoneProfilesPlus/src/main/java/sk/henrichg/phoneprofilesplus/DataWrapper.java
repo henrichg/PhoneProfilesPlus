@@ -943,7 +943,8 @@ public class DataWrapper {
         if (event != null)
         {
             Event origEvent = getEventById(event._id);
-            origEvent.copyEvent(event);
+            if (origEvent != null)
+                origEvent.copyEvent(event);
         }
     }
 
