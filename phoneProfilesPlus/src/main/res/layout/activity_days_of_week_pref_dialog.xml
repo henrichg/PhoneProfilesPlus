@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/days_of_week_pref_dlg_listview"
     android:layout_width="fill_parent"
