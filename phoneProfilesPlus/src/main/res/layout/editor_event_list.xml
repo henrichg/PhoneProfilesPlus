@@ -155,6 +155,7 @@
             android:id="@+id/editor_list_bottom_bar_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="-3dp"
             android:entries="@array/emptyArray"
             android:popupElevation="0dp"
             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
