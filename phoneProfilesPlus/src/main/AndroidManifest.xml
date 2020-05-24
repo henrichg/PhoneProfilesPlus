@@ -545,12 +545,12 @@
         <!-- main service -->
         <!--<service
             android:name=".PhoneProfilesService"
-            android:exported="false"
+            android:enabled="true"
             android:stopWithTask="false"/> -->
         <!--TODO: Android 10 -->
         <service
             android:name=".PhoneProfilesService"
-            android:exported="false"
+            android:enabled="true"
             android:stopWithTask="false"
             android:foregroundServiceType="location|connectedDevice"/>
 
