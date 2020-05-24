@@ -51,6 +51,7 @@ import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -4282,7 +4283,7 @@ public class PhoneProfilesService extends Service
     // profile notification -------------------
 
     @SuppressLint("NewApi")
-    void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper,
+    void _showProfileNotification(Profile profile, /*boolean inHandlerThread,*/ final DataWrapper dataWrapper,
                                           boolean refresh, boolean forFirstStart/*, boolean cleared*/)
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
@@ -4311,10 +4312,10 @@ public class PhoneProfilesService extends Service
         Intent launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
 
         int requestCode = 0;
-        if (inHandlerThread && (profile != null))
+        if (profile != null)
             requestCode = (int)profile._id;
 
-        if (!refresh && inHandlerThread) {
+        if ((!refresh) && (!forFirstStart)) {
             // not redraw notification when activated profile is not changed
             // activated profile is in requestCode
 
@@ -4577,7 +4578,7 @@ public class PhoneProfilesService extends Service
             }
             pName = sbt.toString();
 
-            if (inHandlerThread) {
+            if (!forFirstStart) {
                 //if (notificationStatusBarStyle.equals("0"))
                 profile.generateIconBitmap(appContext, false, 0, false);
                 if (notificationPrefIndicator && (notificationNotificationStyle.equals("0")))
@@ -4594,7 +4595,7 @@ public class PhoneProfilesService extends Service
         {
             isIconResourceID = true;
             iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
-            if (inHandlerThread)
+            if (!forFirstStart)
                 pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
             else
                 pName = "";
@@ -4650,7 +4651,7 @@ public class PhoneProfilesService extends Service
 
         // ----- set icons
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "inHandlerThread="+inHandlerThread);
-        if (inHandlerThread) {
+        if (!forFirstStart) {
             if (isIconResourceID) {
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is internal resource");
                 int iconSmallResource;
@@ -4817,6 +4818,7 @@ public class PhoneProfilesService extends Service
         else {
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
             notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+            //noinspection ConstantConditions
             if (notificationNotificationStyle.equals("0")) {
                 try {
                     contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
@@ -4829,6 +4831,7 @@ public class PhoneProfilesService extends Service
                 }
             }
             else {
+                //noinspection ConstantConditions
                 if (notificationShowProfileIcon)
                     notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty));
             }
@@ -4909,7 +4912,7 @@ public class PhoneProfilesService extends Service
             PPApplication.recordException(e);
         }
 
-        if (inHandlerThread) {
+        if (!forFirstStart) {
             if (Event.getGlobalEventsRunning() &&
                     PPApplication.getApplicationStarted(true)) {
 
@@ -4983,8 +4986,10 @@ public class PhoneProfilesService extends Service
         }
         else {
             try {
+                //noinspection ConstantConditions
                 if (contentViewLarge != null)
                     contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                //noinspection ConstantConditions
                 if (contentView != null)
                     contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
             } catch (Exception e) {
@@ -5057,6 +5062,20 @@ public class PhoneProfilesService extends Service
                     //else
                     //    contentView.setTextColor(R.id.notification_activated_profile_name,
                     //            ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
+            }
+            else {
+                if (dataWrapper != null) {
+                    TextView textView = new TextView(dataWrapper.context);
+                    textView.setTextAppearance(android.R.style.TextAppearance_Material_Notification_Title);
+
+                    contentViewLarge.setTextColor(R.id.notification_activated_profile_name, textView.getCurrentTextColor());
+                    //contentViewLarge.setFloat(R.id.notification_activated_profile_name, "setTextSize", textView.getTextSize());
+                    if (contentView != null) {
+                        //if (Build.VERSION.SDK_INT < 25)
+                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, textView.getCurrentTextColor());
+                        //contentViewLarge.setFloat(R.id.notification_activated_profile_name, "setTextSize", textView.getTextSize());
+                    }
+                }
             }
 
             //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "after set text color");
@@ -5181,7 +5200,7 @@ public class PhoneProfilesService extends Service
             if (forServiceStart) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                _showProfileNotification(null, false, dataWrapper, true, true/*, cleared*/);
+                _showProfileNotification(null, dataWrapper, true, true/*, cleared*/);
                 //dataWrapper.invalidateDataWrapper();
                 return;
             }
@@ -5229,7 +5248,7 @@ public class PhoneProfilesService extends Service
                             profile = null;
 
                         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                        _showProfileNotification(profile, true, dataWrapper, _clear || refresh, false/*, cleared*/);
+                        _showProfileNotification(profile, dataWrapper, _clear || refresh, false/*, cleared*/);
                         //dataWrapper.invalidateDataWrapper();
                     }
                 });

@@ -186,7 +186,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
             //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "_showProfileNotification()");
             if (PhoneProfilesService.getInstance() != null) {
                 //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "handler");
-                PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper, false, false/*, cleared*/);
+                PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, false, false/*, cleared*/);
             }
             //dataWrapper.invalidateDataWrapper();
         }
