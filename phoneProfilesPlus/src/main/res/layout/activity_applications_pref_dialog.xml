@@ -68,8 +68,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_above="@id/applications_pref_dlg_et_btn"
-            android:layout_alignParentTop="true"
-            >
+            android:layout_alignParentTop="true" >
 
             <View
                 android:id="@+id/applications_pref_dlg_titleBarDivider"
@@ -80,7 +79,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/applications_pref_dlg_listview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:padding="5dp"
                 android:scrollbars="vertical"
                 android:scrollbarStyle="outsideOverlay" />

@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ringtone_pref_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/alert_dialog_top_padding" >
+
+    <View
+        android:id="@+id/ringtone_pref_dlg_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/dialogDivider"
+        android:layout_alignParentTop="true" />
+
+    <View
+        android:id="@+id/ringtone_pref_dlg_bottomBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/dialogDivider"
+        android:layout_alignParentBottom="true" />
 
     <ListView
         android:id="@+id/ringtone_pref_dlg_listview"
@@ -16,4 +30,4 @@
         android:scrollbarStyle="outsideOverlay"
         android:divider="@android:color/transparent" />
 
-</LinearLayout>
+</RelativeLayout>
