@@ -239,7 +239,8 @@ class EventsHandler {
             }
             */
 
-            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+            boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
             if (!eventsExists(sensorType, dataWrapper)) {
                 // events not exists
@@ -472,7 +473,7 @@ class EventsHandler {
                         }*/
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, true, /*interactive,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -513,7 +514,7 @@ class EventsHandler {
 
                         // start all events
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, true, /*interactive,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -559,7 +560,7 @@ class EventsHandler {
                         }*/
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -615,7 +616,7 @@ class EventsHandler {
                         }*/
 
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -1110,9 +1111,9 @@ class EventsHandler {
 
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
     private void doHandleEvent(Event event, boolean statePause,
-                               boolean forRestartEvents, /*boolean interactive,*/
+                               boolean forRestartEvents, /*boolean manualRestart,*/
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
-            /*boolean reactivate,*/ Profile mergedProfile, DataWrapper dataWrapper)
+                               Profile mergedProfile, DataWrapper dataWrapper)
     {
         if (EditorProfilesActivity.displayNotGrantedPermissionsNotification(null, event, context)) {
             event.setStatus(Event.ESTATUS_STOP);
@@ -1342,8 +1343,25 @@ class EventsHandler {
                 //if (event._name.equals("Event"))
                 //    PPApplication.logE("[***] EventsHandler.doHandleEvents", " do new event status");
 
-                if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
+                if (((newEventStatus == Event.ESTATUS_RUNNING) || forRestartEvents) && (!statePause)) {
                     // do start of events, all sensors are passed
+
+                    boolean continueHandle = true;
+                    if (newEventStatus == Event.ESTATUS_PAUSE) {
+                        continueHandle = false;
+                    }
+
+                    boolean isInDelayEnd = false;
+                    if (continueHandle) {
+                        if (event._isInDelayEnd) {
+                            event.removeDelayEndAlarm(dataWrapper);
+                            isInDelayEnd = true;
+                        }
+                    }
+
+                    if (!continueHandle) {
+                        return;
+                    }
 
                     /*if (PPApplication.logEnabled()) {
                         if (event._name.equals("Event")) {
@@ -1352,9 +1370,7 @@ class EventsHandler {
                         }
                     }*/
 
-                    if (event._isInDelayEnd)
-                        event.removeDelayEndAlarm(dataWrapper);
-                    else {
+                    if ((!isInDelayEnd) || forRestartEvents) {
                         if (!forDelayStartAlarm) {
                             // called not for delay alarm
                             /*if (forRestartEvents) {
@@ -1396,16 +1412,17 @@ class EventsHandler {
                             //PPApplication.logE("[DSTART] EventsHandler.doHandleEvents", "mergedProfile=" + mergedProfile._name);
                         }
                     }
-                } else if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
+                }
+                if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
                     // do end of events, some sensors are not passed
                     // when pausing and it is for restart events (forRestartEvent=true), force pause
 
-                    if (newEventStatus == Event.ESTATUS_RUNNING) {
-                        //event must be running, all sensors are passed
-                        //noinspection ConstantConditions
-                        if (!forRestartEvents)
-                            // it is not restart event, do not pause this event
-                            return;
+                    boolean isInDelayStart = false;
+                    if (event._isInDelayStart) {
+                        //if (event._name.equals("Event"))
+                        //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "isInDelayStart");
+                        event.removeDelayStartAlarm(dataWrapper);
+                        isInDelayStart = true;
                     }
 
                     /*if (PPApplication.logEnabled()) {
@@ -1415,12 +1432,7 @@ class EventsHandler {
                         }
                     }*/
 
-                    if (event._isInDelayStart) {
-                        //if (event._name.equals("Event"))
-                        //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "isInDelayStart");
-                        event.removeDelayStartAlarm(dataWrapper);
-                    }
-                    else {
+                    if ((!isInDelayStart) || forRestartEvents) {
                         if (!forDelayEndAlarm) {
                             //if (event._name.equals("Event"))
                             //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "!forDelayEndAlarm");
