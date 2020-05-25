@@ -854,8 +854,6 @@
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Izaberi sve vidljive</string>
     <string name="array_pref_mobile_cells_rename_all_visible">Svi vidljivi</string>
     <string name="import_profiles_alert_error_database_newer_version">Siguronosna kopija baze je u novoj verziji.</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Podrazumevani profil: Zvuk obaveštenja</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Podrazumevani profil: Javi sa vibracijom</string>
     <string name="profile_preferences_durationNotificationSound">Zvuk obaveštenja</string>
     <string name="profile_preferences_durationNotificationVibrate">Javi sa vibracijom</string>
     <string name="array_event_pref_missed_call">Propušteni poziv</string>
@@ -1425,6 +1423,7 @@
     <string name="altype_profileError_setTone_notification">profil - greška pri nameštanju zvuka obaveštenja</string>
     <string name="altype_profileError_setTone_alarm">profil - greška pri nameštanju zvuka alarma</string>
     <string name="altype_profileError_setWallpaper">profil - pogreška pri nameštanju pozadine</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1708,4 +1707,6 @@
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
 </resources>

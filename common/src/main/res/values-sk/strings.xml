@@ -854,8 +854,6 @@
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Vybrať všetky viditeľné</string>
     <string name="array_pref_mobile_cells_rename_all_visible">Všetky viditeľné</string>
     <string name="import_profiles_alert_error_database_newer_version">Zálohovaná databáza je v novšej verzii.</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Predvolený profil: tón notifikácie</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Predvolený profil: upozorni vibráciami</string>
     <string name="profile_preferences_durationNotificationSound">Tón notifikácie</string>
     <string name="profile_preferences_durationNotificationVibrate">Upozorni vibráciami</string>
     <string name="array_event_pref_missed_call">Zmeškaný hovor</string>
@@ -1418,13 +1416,14 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Výnimka pre hlasitosti</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Hlasitosti zvonenia a notifikácie nakonfigurované v tomto profile budú ignorované, ak v systéme je nastavený \"tichý\" mód zvuku (iba budíky, vibrovanie).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pre úplne tichú hlasitosť notifikácií, nakonfigurujte tón notifikácie na \"Žiadny\".</string>
-    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
-    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
-    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
-    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
-    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
-    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
-    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
+    <string name="altype_profileError_runApplication_application">profil - chyba pri spustení aplikácie</string>
+    <string name="altype_profileError_runApplication_shortcut">profil - chyba pri spustení odkazu</string>
+    <string name="altype_profileError_runApplication_intent">profil - chyba pri spustení intentu</string>
+    <string name="altype_profileError_setTone_ringtone">profil - chyba pri nastavení tónu zvonenia</string>
+    <string name="altype_profileError_setTone_notification">profil - chyba pri nastavení tónu notifikácie</string>
+    <string name="altype_profileError_setTone_alarm">profil - chyba pri nastavení tónu budíka</string>
+    <string name="altype_profileError_setWallpaper">profil - chyba pri nastavení obrázku pozadia</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">neudelené Bluetooth povolenie</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1708,4 +1707,6 @@
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
 </resources>

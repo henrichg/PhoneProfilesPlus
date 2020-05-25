@@ -854,8 +854,6 @@
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Выбрать все видимые</string>
     <string name="array_pref_mobile_cells_rename_all_visible">Все видимые</string>
     <string name="import_profiles_alert_error_database_newer_version">Резервная копия базы данных имеет более позднюю версию.</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Профиль по умолчанию: звук уведомлений</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Профиль по умолчанию: уведомлять вибрацией</string>
     <string name="profile_preferences_durationNotificationSound">Звуковое уведомление</string>
     <string name="profile_preferences_durationNotificationVibrate">Вибро уведомление</string>
     <string name="array_event_pref_missed_call">Пропущенный вызов</string>
@@ -1425,6 +1423,7 @@
     <string name="altype_profileError_setTone_notification">профиль - ошибка при установке мелодии уведомления</string>
     <string name="altype_profileError_setTone_alarm">профиль - ошибка при установке мелодии будильника</string>
     <string name="altype_profileError_setWallpaper">профиль - ошибка при установке обоев</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1708,4 +1707,6 @@
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
 </resources>

@@ -854,8 +854,6 @@
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Zaznacz wszystkie widoczne</string>
     <string name="array_pref_mobile_cells_rename_all_visible">Wszystkie widoczne</string>
     <string name="import_profiles_alert_error_database_newer_version">Uwaga. Kopia zapasowa bazy danych jest w nowszej wersji.</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Domyślny profil: Dźwięk powiadomienia</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Domyślny profil: Powiadom wibracją</string>
     <string name="profile_preferences_durationNotificationSound">Wybierz dźwięk powiadomienia o zakończeniu</string>
     <string name="profile_preferences_durationNotificationVibrate">Powiadom wibracjami o zakończeniu</string>
     <string name="array_event_pref_missed_call">Nieodebrane połączenie</string>
@@ -1426,6 +1424,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="altype_profileError_setTone_notification">profil - błąd podczas ustawiania dźwięku powiadomienia</string>
     <string name="altype_profileError_setTone_alarm">profil - błąd podczas ustawiania dźwięku alarmu</string>
     <string name="altype_profileError_setWallpaper">profil - błąd podczas ustawiania tapety</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1709,4 +1708,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
 </resources>

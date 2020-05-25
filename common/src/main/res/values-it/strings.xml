@@ -855,8 +855,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Seleziona tutte visibili</string>
     <string name="array_pref_mobile_cells_rename_all_visible">Tutte visibili</string>
     <string name="import_profiles_alert_error_database_newer_version">Il backup è in versione più recente.</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Profilo predefinito: Notifica con suono</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Profilo predefinito: Notifica con vibrazione</string>
     <string name="profile_preferences_durationNotificationSound">Notifica con suono</string>
     <string name="profile_preferences_durationNotificationVibrate">Notifica con vibrazione</string>
     <string name="array_event_pref_missed_call">Chiamata persa</string>
@@ -1426,6 +1424,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="altype_profileError_setTone_notification">profilo - errore nell\'impostazione del suono di notifica</string>
     <string name="altype_profileError_setTone_alarm">profilo - errore nell\'impostazione della sveglia</string>
     <string name="altype_profileError_setWallpaper">profilo - errore nell\'impostazione dello sfondo</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1709,4 +1708,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
 </resources>

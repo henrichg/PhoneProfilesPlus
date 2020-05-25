@@ -854,8 +854,6 @@
     <string name="array_pref_change_selection_mobile_cells_select_all_visible">Vybrat všechny viditelné</string>
     <string name="array_pref_mobile_cells_rename_all_visible">Všechny viditelné</string>
     <string name="import_profiles_alert_error_database_newer_version">Zálohovaná databáze je v novější verzi.</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Předvolený profil: Zvuk notifikace</string>
-    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Předvolený profil: Oznamovat vibracemi</string>
     <string name="profile_preferences_durationNotificationSound">Zvuk notifikace</string>
     <string name="profile_preferences_durationNotificationVibrate">Oznamovat vibracemi</string>
     <string name="array_event_pref_missed_call">Zmeškaný hovor</string>
@@ -1418,13 +1416,14 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Výjimka pro hlasitosti</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Hlasitosti vyzvánění a notifikace nakonfigurované v tomto profilu budou ignorovány, pokud v systému je nastaven \"tichý\" mód zvuku (pouze budíky, vibrování).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pro zcela tichou hlasitost notifikací, nakonfigurujte tón notifikací na \"Žádný\".</string>
-    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
-    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
-    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
-    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
-    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
-    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
-    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
+    <string name="altype_profileError_runApplication_application">profil - chyba při spuštění aplikace</string>
+    <string name="altype_profileError_runApplication_shortcut">profil - chyba při spuštění odkazu</string>
+    <string name="altype_profileError_runApplication_intent">profil - chyba při spuštění intentu</string>
+    <string name="altype_profileError_setTone_ringtone">profil - chyba při nastavení vyzváněcího tónu</string>
+    <string name="altype_profileError_setTone_notification">profil - chyba při nastavení tónu oznámení</string>
+    <string name="altype_profileError_setTone_alarm">profil - chyba při nastavení tónu budíku</string>
+    <string name="altype_profileError_setWallpaper">profil - chyba při nastavení obrázku pozadí</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">udělena Bluetooth povolení</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1708,4 +1707,6 @@
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
 </resources>
