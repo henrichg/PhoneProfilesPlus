@@ -485,7 +485,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -503,7 +502,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
         }
         //mGoogleApiClient.connect();
@@ -515,7 +513,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
         } catch (Exception e) {
-            // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
         }
         //noinspection StatementWithEmptyBody
@@ -577,6 +574,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 }
             });
         }
+        //else {
+        //    Log.e("LocationGeofenceEditorActivity.onMapReady", "mMap==null");
+        //}
     }
 
     private void updateEditedMarker(boolean setMapCamera) {
@@ -641,6 +641,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 }
             }
         }
+        //else {
+        //    Log.e("LocationGeofenceEditorActivity.updateEditedMarker", "mMap==null");
+        //}
     }
 
     //----------------------------------------------------
