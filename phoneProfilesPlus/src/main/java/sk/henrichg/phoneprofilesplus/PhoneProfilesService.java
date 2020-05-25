@@ -4633,10 +4633,10 @@ public class PhoneProfilesService extends Service
                             ((profile != null) && profile._hideStatusBarIcon))
                         notificationBuilder.setPriority(Notification.PRIORITY_MIN);
                     else
-                        notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+                        notificationBuilder.setPriority(Notification.PRIORITY_LOW);
                 }
                 else
-                    notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+                    notificationBuilder.setPriority(Notification.PRIORITY_LOW);
             }
             else
                 notificationBuilder.setPriority(Notification.PRIORITY_MIN);
