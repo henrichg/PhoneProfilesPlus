@@ -2198,13 +2198,13 @@ class Event {
 
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-        //long nowTime = now.getTimeInMillis() - gmtOffset;
-        long startTime = this._startStatusTime;
-        now.add(Calendar.SECOND, this._delayStart);
-        long delayTime = now.getTimeInMillis() - gmtOffset;
+        long nowTime = now.getTimeInMillis() - gmtOffset;
 
-        //if (nowTime > delayTime)
-        if (startTime > delayTime)
+        now.setTimeInMillis(this._startStatusTime);
+        now.add(Calendar.SECOND, this._delayStart);
+        long delayTime = now.getTimeInMillis();
+
+        if (nowTime > delayTime)
             this._isInDelayStart = false;
     }
 
@@ -2433,8 +2433,9 @@ class Event {
 
         Calendar now = Calendar.getInstance();
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-        //long nowTime = now.getTimeInMillis() - gmtOffset;
-        long pauseTime = this._pauseStatusTime;
+        long nowTime = now.getTimeInMillis() - gmtOffset;
+
+        now.setTimeInMillis(this._pauseStatusTime);
         now.add(Calendar.SECOND, this._delayEnd);
         long delayTime = now.getTimeInMillis() - gmtOffset;
 
@@ -2451,8 +2452,7 @@ class Event {
         PPApplication.logE("Event.checkDelayEnd","delayTime="+result);
         */
 
-        //if (nowTime > delayTime)
-        if (pauseTime > delayTime)
+        if (nowTime > delayTime)
             this._isInDelayEnd = false;
 
         //PPApplication.logE("Event.checkDelayEnd","this._isInDelayEnd="+this._isInDelayEnd);
