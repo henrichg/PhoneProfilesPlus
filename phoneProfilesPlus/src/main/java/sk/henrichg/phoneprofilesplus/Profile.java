@@ -4351,10 +4351,10 @@ public class Profile {
             if (extenderVersion == 0)
                 accessibilityEnabled = -2;
             else
-            if ((Build.VERSION.SDK_INT < 29) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
+            if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
                 accessibilityEnabled = -1;
             else
-            if ((Build.VERSION.SDK_INT >= 29) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_2))
+            if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1))
                 accessibilityEnabled = -1;
             else
             if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
