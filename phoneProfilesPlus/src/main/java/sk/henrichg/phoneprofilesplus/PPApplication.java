@@ -763,6 +763,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static final boolean deviceIsLG = isLG();
     static final boolean deviceIsOnePlus = isOnePlus();
     static final boolean deviceIsOppo = isOppo();
+    static final boolean deviceIsRealme = isRealme();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
 
@@ -1157,6 +1158,7 @@ public class PPApplication extends Application /*implements Application.Activity
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsLG=" + deviceIsLG);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus=" + deviceIsOnePlus);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOppo=" + deviceIsOppo);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsRealme=" + deviceIsRealme);
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -3388,6 +3390,12 @@ public class PPApplication extends Application /*implements Application.Activity
         return Build.BRAND.equalsIgnoreCase("oppo") ||
                 Build.MANUFACTURER.equalsIgnoreCase("oppo") ||
                 Build.FINGERPRINT.toLowerCase().contains("oppo");
+    }
+
+    private static boolean isRealme() {
+        return Build.BRAND.equalsIgnoreCase("realme") ||
+                Build.MANUFACTURER.equalsIgnoreCase("realme") ||
+                Build.FINGERPRINT.toLowerCase().contains("realme");
     }
 
     private static String getReadableModVersion() {

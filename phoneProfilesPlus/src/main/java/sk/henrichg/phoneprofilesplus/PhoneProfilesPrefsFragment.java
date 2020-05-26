@@ -1432,7 +1432,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }*/
 
-        if (PPApplication.deviceIsOppo) {
+        if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
             preference = findPreference("applicationColorOsWifiBluetoothDialogsInfo");
             if (preference != null) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
