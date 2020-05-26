@@ -1441,7 +1441,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     public boolean onPreferenceClick(Preference preference) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                         dialogBuilder.setTitle(preference.getTitle());
-                        dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message);
+                        dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();

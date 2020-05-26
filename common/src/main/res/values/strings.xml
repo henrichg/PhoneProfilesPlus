@@ -1404,6 +1404,7 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disable permission monitoring = enable.</string>
 
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
 
