@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
@@ -66,8 +67,10 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
             return;
 
         synchronized (PPApplication.contactsCacheMutex) {
-            contactList = contactsCache.getList(/*withoutNumbers*/);
-            if (contactList != null) {
+            List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
+            if (localContactList != null) {
+                contactList = new ArrayList<>();
+                contactList.addAll(localContactList);
                 String[] splits = value.split("\\|");
                 for (Contact contact : contactList) {
                     if (withoutNumbers || (contact.phoneId != 0)) {
