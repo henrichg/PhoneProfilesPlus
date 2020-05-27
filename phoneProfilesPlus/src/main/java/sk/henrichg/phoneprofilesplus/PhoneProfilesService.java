@@ -51,7 +51,6 @@ import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -4236,7 +4235,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        //PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
+        PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
         //PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         PPApplication.updateGUI(getApplicationContext(), true, true);
@@ -4998,7 +4997,7 @@ public class PhoneProfilesService extends Service
         }
 
         if (notificationNotificationStyle.equals("0")) {
-            //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background not 2 or 4");
+            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
             switch (notificationBackgroundColor) {
                 case "3":
                     //if (!notificationNightMode || (useNightColor == 1)) {
@@ -5016,13 +5015,11 @@ public class PhoneProfilesService extends Service
                     break;
                 case "5":
                     //if (!notificationNightMode || (useNightColor == 1)) {
-                    //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "background color 5");
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                     break;
                 default:
-                    //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "transparent background");
                     //int color = getResources().getColor(R.color.notificationBackground);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                     if (contentView != null)
@@ -5063,7 +5060,7 @@ public class PhoneProfilesService extends Service
                     //    contentView.setTextColor(R.id.notification_activated_profile_name,
                     //            ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
             }
-            else {
+            /*else {
                 if (dataWrapper != null) {
                     TextView textView = new TextView(dataWrapper.context);
                     textView.setTextAppearance(android.R.style.TextAppearance_Material_Notification_Title);
@@ -5076,7 +5073,7 @@ public class PhoneProfilesService extends Service
                         //contentViewLarge.setFloat(R.id.notification_activated_profile_name, "setTextSize", textView.getTextSize());
                     }
                 }
-            }
+            }*/
 
             //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "after set text color");
         }
@@ -5263,7 +5260,7 @@ public class PhoneProfilesService extends Service
         PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }
 
-    private void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
+    void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();

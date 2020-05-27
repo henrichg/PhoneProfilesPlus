@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -299,11 +298,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         super.onStop();
         //PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
 
-        /*if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext());*/
-        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().clearProfileNotification();
+
+        // do not use this, background color will not be changed with this
+        /*NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null)
-            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
 
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
