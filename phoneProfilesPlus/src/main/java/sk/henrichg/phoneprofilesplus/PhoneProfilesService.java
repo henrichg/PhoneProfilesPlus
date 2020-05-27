@@ -4235,7 +4235,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
+        //PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
         //PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         PPApplication.updateGUI(getApplicationContext(), true, true);
@@ -4997,7 +4997,7 @@ public class PhoneProfilesService extends Service
         }
 
         if (notificationNotificationStyle.equals("0")) {
-            PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
+            //PPApplication.logE("[CUST] PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
             switch (notificationBackgroundColor) {
                 case "3":
                     //if (!notificationNightMode || (useNightColor == 1)) {
@@ -5061,16 +5061,15 @@ public class PhoneProfilesService extends Service
                     //            ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
             }
             /*else {
+                // this not working when night mode was changed in system
                 if (dataWrapper != null) {
                     TextView textView = new TextView(dataWrapper.context);
                     textView.setTextAppearance(android.R.style.TextAppearance_Material_Notification_Title);
 
                     contentViewLarge.setTextColor(R.id.notification_activated_profile_name, textView.getCurrentTextColor());
-                    //contentViewLarge.setFloat(R.id.notification_activated_profile_name, "setTextSize", textView.getTextSize());
                     if (contentView != null) {
                         //if (Build.VERSION.SDK_INT < 25)
-                        contentViewLarge.setTextColor(R.id.notification_activated_profile_name, textView.getCurrentTextColor());
-                        //contentViewLarge.setFloat(R.id.notification_activated_profile_name, "setTextSize", textView.getTextSize());
+                        contentView.setTextColor(R.id.notification_activated_profile_name, textView.getCurrentTextColor());
                     }
                 }
             }*/
