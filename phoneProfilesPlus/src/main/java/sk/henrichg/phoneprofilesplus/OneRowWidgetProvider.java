@@ -19,6 +19,8 @@ import static android.view.View.VISIBLE;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
+    static final String ACTION_REFRESH_ONEROWWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWWIDGET";
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
@@ -415,8 +417,32 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         });
     }
 
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        super.onReceive(context, intent); // calls onUpdate, is required for widget
+
+        final String action = intent.getAction();
+
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if ((action != null) &&
+                        (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
+                    AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
+                    if (manager != null) {
+                        int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+                        if ((ids != null) && (ids.length > 0))
+                            _onUpdate(context, manager, null, null, ids);
+                    }
+                }
+            }
+        });
+    }
+
     static void updateWidgets(Context context, boolean refresh) {
-        String applicationWidgetOneRowIconLightness;
+        /*String applicationWidgetOneRowIconLightness;
         String applicationWidgetOneRowIconColor;
         boolean applicationWidgetOneRowCustomIconLightness;
         boolean applicationWidgetOneRowPrefIndicator;
@@ -463,8 +489,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                 applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                 applicationWidgetOneRowCustomIconLightness);
-
         Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
+        */
+
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        Profile profile = dataWrapper.getActivatedProfile(false, false);
 
         String pName;
 
@@ -488,17 +517,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         PPApplication.setWidgetProfileName(context, 2, pName);
 
-        /*Intent intent = new Intent(context, OneRowWidgetProvider.class);
-        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-        context.sendBroadcast(intent);*/
-        AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
+        Intent intent = new Intent(context, OneRowWidgetProvider.class);
+        intent.setAction(ACTION_REFRESH_ONEROWWIDGET);
+        context.sendBroadcast(intent);
+        /*AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
             int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
             if ((ids != null) && (ids.length > 0))
                 _onUpdate(context.getApplicationContext(), manager, profile, dataWrapper, ids);
-        }
+        }*/
     }
 
 }

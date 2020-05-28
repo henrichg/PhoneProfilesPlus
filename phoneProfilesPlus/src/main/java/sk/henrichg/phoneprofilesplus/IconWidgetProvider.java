@@ -15,6 +15,8 @@ import android.widget.RemoteViews;
 
 public class IconWidgetProvider extends AppWidgetProvider {
 
+    static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
@@ -404,8 +406,32 @@ public class IconWidgetProvider extends AppWidgetProvider {
         });
     }
 
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        super.onReceive(context, intent); // calls onUpdate, is required for widget
+
+        final String action = intent.getAction();
+
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if ((action != null) &&
+                        (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
+                    AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
+                    if (manager != null) {
+                        int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+                        if ((ids != null) && (ids.length > 0))
+                            _onUpdate(context, manager, null, null, ids);
+                    }
+                }
+            }
+        });
+    }
+
     static void updateWidgets(Context context, boolean refresh) {
-        String applicationWidgetIconLightness;
+        /*String applicationWidgetIconLightness;
         String applicationWidgetIconColor;
         boolean applicationWidgetIconCustomIconLightness;
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -449,8 +475,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 applicationWidgetIconColor.equals("1"),
                 monochromeValue,
                 applicationWidgetIconCustomIconLightness);
-
         Profile profile = dataWrapper.getActivatedProfile(true, false);
+        */
+
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        Profile profile = dataWrapper.getActivatedProfile(false, false);
 
         String pName;
 
@@ -473,17 +502,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         PPApplication.setWidgetProfileName(context.getApplicationContext(), 1, pName);
 
-        /*Intent intent = new Intent(context, IconWidgetProvider.class);
-        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-        context.sendBroadcast(intent);*/
-        AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
+        Intent intent = new Intent(context, IconWidgetProvider.class);
+        intent.setAction(ACTION_REFRESH_ICONWIDGET);
+        context.sendBroadcast(intent);
+        /*AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
             int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
             if ((ids != null) && (ids.length > 0))
                 _onUpdate(context, manager, profile, dataWrapper, ids);
-        }
+        }*/
     }
 
 }

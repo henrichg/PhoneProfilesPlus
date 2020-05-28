@@ -26,7 +26,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     //private DataWrapper dataWrapper;
 
-    //private static final String INTENT_REFRESH_LISTWIDGET = PPApplication.PACKAGE_NAME + ".REFRESH_LISTWIDGET";
+    static final String ACTION_REFRESH_LISTWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_LISTWIDGET";
 
     //private boolean isLargeLayout;
 
@@ -605,15 +605,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
 
+        final String action = intent.getAction();
+
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-                String action = intent.getAction();
-
-                int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                        AppWidgetManager.INVALID_APPWIDGET_ID);
+                //int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                //        AppWidgetManager.INVALID_APPWIDGET_ID);
 
                 //createProfilesDataWrapper(context);
 
@@ -624,20 +624,34 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     int spanY = intent.getIntExtra("spanY", 1);
 
                     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                    boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
-                    RemoteViews layout;
-                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-                    layout = buildLayout(context, appWidgetId, isLargeLayout, dataWrapper);
-                    try {
-                        appWidgetManager.updateAppWidget(appWidgetId, layout);
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
+                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
+
+                    if (appWidgetIds != null) {
+                        for (int appWidgetId : appWidgetIds) {
+                            boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
+                            RemoteViews layout;
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                            layout = buildLayout(context, appWidgetId, isLargeLayout, dataWrapper);
+                            try {
+                                appWidgetManager.updateAppWidget(appWidgetId, layout);
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
                     }
                 }
-                /*else
+                else
                 if ((action != null) &&
-                        (action.equalsIgnoreCase(INTENT_REFRESH_LISTWIDGET)))
-                    _updateWidgets(context);*/
+                        (action.equalsIgnoreCase(ACTION_REFRESH_LISTWIDGET))) {
+                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
+
+                    if (appWidgetIds != null) {
+                        for (int appWidgetId : appWidgetIds) {
+                            doOnUpdate(context, appWidgetManager, appWidgetId);
+                        }
+                    }
+                }
 
                 //if (dataWrapper != null)
                 //    dataWrapper.invalidateDataWrapper();
@@ -777,6 +791,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //}
     }
 
+    /*
     private static void _updateWidgets(Context context) {
         try {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -791,6 +806,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             PPApplication.recordException(e);
         }
     }
+    */
 
     static void updateWidgets(final Context context, final boolean refresh) {
         //PPApplication.startHandlerThreadWidget();
@@ -824,7 +840,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                 PPApplication.setWidgetProfileName(context, 3, pName);
 
-                _updateWidgets(context);
+                Intent intent = new Intent(context, ProfileListWidgetProvider.class);
+                intent.setAction(ACTION_REFRESH_LISTWIDGET);
+                context.sendBroadcast(intent);
+                //_updateWidgets(context);
 
                 //if (dataWrapper != null)
                 //    dataWrapper.invalidateDataWrapper();

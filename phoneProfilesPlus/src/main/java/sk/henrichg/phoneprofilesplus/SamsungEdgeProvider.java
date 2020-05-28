@@ -18,7 +18,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     //private DataWrapper dataWrapper;
 
-    //private static final String INTENT_REFRESH_EDGEPANEL = PPApplication.PACKAGE_NAME + ".REFRESH_EDGEPANEL";
+    static final String ACTION_REFRESH_EDGEPANEL = PPApplication.PACKAGE_NAME + ".REFRESH_EDGEPANEL";
 
     private static RemoteViews buildLayout(Context context/*, SlookCocktailManager cocktailBarManager, int appWidgetId*/)
     {
@@ -321,35 +321,40 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
     }
 
-    /*
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
+
+        final String action = intent.getAction();
 
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (EditorProfilesActivity.doImport)
-                    return;
+                //if (EditorProfilesActivity.doImport)
+                //    return;
 
-                String action = intent.getAction();
-
-                createProfilesDataWrapper(context);
+                //createProfilesDataWrapper(context);
 
                 if ((action != null) &&
-                        (action.equalsIgnoreCase(INTENT_REFRESH_EDGEPANEL))) {
-                    _updateWidgets(context);
+                        (action.equalsIgnoreCase(ACTION_REFRESH_EDGEPANEL))) {
+                    SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
+                    int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
+
+                    if (cocktailIds != null) {
+                        for (int cocktailId : cocktailIds) {
+                            updateWidget(context, cocktailId);
+                        }
+                    }
                 }
 
                 //if (dataWrapper != null)
                 //    dataWrapper.invalidateDataWrapper();
-                dataWrapper = null;
+                //dataWrapper = null;
             }
         });
     }
-    */
 
     private static void updateWidget(Context context, int cocktailId) {
         try {
@@ -366,6 +371,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
     }
 
+    /*
     private static void _updateWidgets(Context context) {
         try {
             SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
@@ -380,18 +386,21 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             PPApplication.recordException(e);
         }
     }
+    */
 
+    /*
     @Override
     public void onVisibilityChanged(Context context, int cocktailId, int visibility) {
 
     }
+    */
 
     static void updateWidgets(final Context context, final boolean refresh) {
-        PPApplication.startHandlerThreadWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        //PPApplication.startHandlerThreadWidget();
+        //final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        //handler.post(new Runnable() {
+        //    @Override
+        //    public void run() {
 
                 //createProfilesDataWrapper(context);
 
@@ -418,13 +427,16 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                 PPApplication.setWidgetProfileName(context, 4, pName);
 
-                _updateWidgets(context);
+                Intent intent = new Intent(context, SamsungEdgeProvider.class);
+                intent.setAction(ACTION_REFRESH_EDGEPANEL);
+                context.sendBroadcast(intent);
+                //_updateWidgets(context);
 
                 //if (dataWrapper != null)
                 //    dataWrapper.invalidateDataWrapper();
                 //dataWrapper = null;
-            }
-        });
+        //    }
+        //});
     }
 
 }
