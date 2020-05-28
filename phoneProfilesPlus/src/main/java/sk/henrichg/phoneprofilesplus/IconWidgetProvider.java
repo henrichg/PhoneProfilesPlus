@@ -27,14 +27,14 @@ public class IconWidgetProvider extends AppWidgetProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
+                    _onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             });
         }
     }
 
-    private static void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
-                          final Profile _profile, final DataWrapper _dataWrapper, final int[] appWidgetIds) {
+    private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
+                          /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds) {
         String applicationWidgetIconLightness;
         String applicationWidgetIconColor;
         boolean applicationWidgetIconCustomIconLightness;
@@ -96,18 +96,18 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 break;
         }
 
-        DataWrapper dataWrapper = _dataWrapper;
-        Profile profile = _profile;
-        if (dataWrapper == null) {
+        //DataWrapper dataWrapper = _dataWrapper;
+        //Profile profile = _profile;
+        //if (dataWrapper == null) {
             //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconColor="+applicationWidgetIconColor);
             //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconCustomIconLightness="+applicationWidgetIconCustomIconLightness);
-            dataWrapper = new DataWrapper(context.getApplicationContext(),
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetIconColor.equals("1"),
                     monochromeValue,
                     applicationWidgetIconCustomIconLightness);
 
-            profile = dataWrapper.getActivatedProfile(true, false);
-        }
+        Profile profile = dataWrapper.getActivatedProfile(true, false);
+        //}
         //PPApplication.logE("IconWidgetProvider.onUpdate", "profile="+profile);
         //if (profile != null)
         //    PPApplication.logE("IconWidgetProvider.onUpdate", "profile._name="+profile._name);
@@ -420,11 +420,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
             public void run() {
                 if ((action != null) &&
                         (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
-                    AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
+                    AppWidgetManager manager = AppWidgetManager.getInstance(context);
                     if (manager != null) {
                         int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
                         if ((ids != null) && (ids.length > 0))
-                            _onUpdate(context, manager, null, null, ids);
+                            _onUpdate(context, manager, ids);
                     }
                 }
             }

@@ -34,14 +34,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _onUpdate(context, appWidgetManager, null, null, appWidgetIds);
+                    _onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             });
         }
     }
 
-    private static void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
-                           final Profile _profile, final DataWrapper _dataWrapper, final int[] appWidgetIds)
+    private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
+                           /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds)
     {
         //PPApplication.logE("##### OneRowWidgetProvider._onUpdate", "in handler");
 
@@ -105,15 +105,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 break;
         }
 
-        DataWrapper dataWrapper = _dataWrapper;
-        Profile profile = _profile;
-        if (dataWrapper == null) {
-            dataWrapper = new DataWrapper(context.getApplicationContext(),
+        //DataWrapper dataWrapper = _dataWrapper;
+        //Profile profile = _profile;
+        //if (dataWrapper == null) {
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowCustomIconLightness);
 
-            profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
-        }
+        Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
+        //}
 
         //boolean fullyStarted = false;
         //if (PhoneProfilesService.getInstance() != null)
@@ -430,11 +430,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             public void run() {
                 if ((action != null) &&
                         (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
-                    AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
+                    AppWidgetManager manager = AppWidgetManager.getInstance(context);
                     if (manager != null) {
                         int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
                         if ((ids != null) && (ids.length > 0))
-                            _onUpdate(context, manager, null, null, ids);
+                            _onUpdate(context, manager, ids);
                     }
                 }
             }
