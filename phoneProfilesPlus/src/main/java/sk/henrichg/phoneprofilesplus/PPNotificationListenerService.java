@@ -364,7 +364,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         String packageName = context.getPackageName();
 
         //if (packageNames != null) {
-            return packageNames.contains(packageName) && connected;
+            synchronized (PPApplication.ppNotificationListenerService) {
+                return packageNames.contains(packageName) && connected;
+            }
 
             /*for (String pkgName : packageNames) {
                 //if (className.contains(pkgName)) {
