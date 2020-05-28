@@ -1929,12 +1929,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (geofenceId > 0) {
                         values.put(KEY_E_LOCATION_GEOFENCES, String.valueOf(geofenceId));
-                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                     }
                     else {
                         values.put(KEY_E_LOCATION_GEOFENCES, "");
-                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                     }
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
 
                 } while (cursor.moveToNext());
             }
@@ -4335,9 +4334,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         }
                         if (wallpaperChange == 1) {
                             values.put(KEY_DEVICE_WALLPAPER_CHANGE, 0);
-                            values.put(KEY_DEVICE_WALLPAPER, "-");
-                        } else
-                            values.put(KEY_DEVICE_WALLPAPER, "-");
+                        }
+                        values.put(KEY_DEVICE_WALLPAPER, "-");
 
                         //PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "values.size()=" + values.size());
                         if (values.size() > 0) {

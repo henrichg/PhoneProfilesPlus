@@ -9,11 +9,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 @SuppressWarnings("WeakerAccess")
 public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -27,6 +27,7 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
 
     private ContactsMultiSelectPreferenceAdapterX listAdapter;
 
+    @SuppressWarnings("rawtypes")
     private AsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")

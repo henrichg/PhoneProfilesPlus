@@ -89,7 +89,7 @@ class ApplicationPreferences {
     static long applicationDefaultProfile;
     static String applicationDefaultProfileNotificationSound;
     static boolean applicationDefaultProfileNotificationVibrate;
-    static boolean applicationDefaultProfileUsage;
+    //static boolean applicationDefaultProfileUsage;
     static boolean applicationActivatorGridLayout;
     static boolean applicationWidgetListGridLayout;
     static int applicationEventBluetoothScanInterval;
@@ -331,7 +331,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING = "applicationEventOrientationEnableScannig";
     static final String PREF_APPLICATION_USE_ALARM_CLOCK = "applicationUseAlarmClock";
     static final String PREF_NOTIFICATION_SHOW_BUTTON_EXIT = "notificationShowButtonExit";
-    static final String PREF_APPLICATION_DEFAULT_PROFILE_USAGE = "applicationBackgroundProfileUsage";
+    //static final String PREF_APPLICATION_DEFAULT_PROFILE_USAGE = "applicationBackgroundProfileUsage";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND = "applicationWidgetOneRowBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B = "applicationWidgetOneRowLightnessB";
@@ -638,9 +638,11 @@ class ApplicationPreferences {
         applicationDefaultProfileNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE, false);
     }
 
+    /*
     static void applicationDefaultProfileUsage(Context context) {
         applicationDefaultProfileUsage = getSharedPreferences(context).getBoolean(PREF_APPLICATION_DEFAULT_PROFILE_USAGE, false);
     }
+    */
 
     static void applicationActivatorGridLayout(Context context) {
         applicationActivatorGridLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, true);

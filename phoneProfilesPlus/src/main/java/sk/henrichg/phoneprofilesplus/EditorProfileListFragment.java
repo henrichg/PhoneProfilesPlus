@@ -321,7 +321,6 @@ public class EditorProfileListFragment extends Fragment
                                 ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
                         //listView.getRecycledViewPool().clear();
-                        profileListAdapter.notifyDataSetChanged(false);
                     }
                     else {
                         if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
@@ -343,9 +342,8 @@ public class EditorProfileListFragment extends Fragment
                         itemTouchHelper.attachToRecyclerView(listView);
 
                         listView.setAdapter(profileListAdapter);
-
-                        profileListAdapter.notifyDataSetChanged(false);
                     }
+                    profileListAdapter.notifyDataSetChanged(false);
                 }
             }
         }

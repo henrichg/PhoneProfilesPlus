@@ -233,13 +233,14 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             intent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofenceId);
 
             // is not possible to get activity from preference, used is static method
-            if (preference.onlyEdit == 0) {
+            /*if (preference.onlyEdit == 0) {
                 //EventPrefsFragment.setChangedLocationGeofencePreference(this);
                 getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
             } else {
                 //PhoneProfilesPrefsFragment.setChangedLocationGeofencePreference(this);
                 getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
-            }
+            }*/
+            getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
         }
     }
 

@@ -44,6 +44,7 @@ public class RingtonePreferenceX extends DialogPreference {
     private final boolean showDefault;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
+    @SuppressWarnings("rawtypes")
     AsyncTask asyncTask = null;
 
     private final Context prefContext;

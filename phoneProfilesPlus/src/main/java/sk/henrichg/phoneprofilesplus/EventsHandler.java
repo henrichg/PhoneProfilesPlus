@@ -683,20 +683,20 @@ class EventsHandler {
                             if (activatedProfile != null)
                                 activatedProfileId = activatedProfile._id;
 
-                            if (ApplicationPreferences.applicationDefaultProfileUsage) {
+                            /*if (ApplicationPreferences.applicationDefaultProfileUsage) {
                                 // do not activate default profile when not any event is paused and no any profile is activated
                                 // for example for screen on/off broadcast, when no any event is running
                                 //if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
                                 //    activateProfileAtEnd = true;
 
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
-                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
-                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
-                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
-                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
-                                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
-                                }*/
+                                //if (PPApplication.logEnabled()) {
+                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
+                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
+                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
+                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
+                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
+                                //}
                                 if ((activatedProfileId == 0) ||
                                         isRestart ||
                                         // activate default profile when is not activated profile at end of events
@@ -706,7 +706,7 @@ class EventsHandler {
                                 )
                                 {
                                     notifyDefaultProfile = true;
-                                    mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                                    mergedProfile.mergeProfiles(defaultProfileId, dataWrapper);
                                     mergedProfilesCount++;
 
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
@@ -716,10 +716,18 @@ class EventsHandler {
                                         isRestart ||
                                         (activatedProfileId != defaultProfileId)) {
                                     notifyDefaultProfile = true;
-                                    mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                                    mergedProfile.mergeProfiles(defaultProfileId, dataWrapper);
                                     mergedProfilesCount++;
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
+                            }*/
+                            if ((activatedProfileId == 0) ||
+                                    isRestart ||
+                                    (activatedProfileId != defaultProfileId)) {
+                                notifyDefaultProfile = true;
+                                mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                                mergedProfilesCount++;
+                                //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                             }
                         }
                     //}

@@ -563,32 +563,32 @@
     <string name="event_preferences_mobile_cells_when_outside_pref_name">Започните када сте изван мобилне ћелије</string>
     <string name="event_preferences_mobile_cells_when_outside_description">Када сте изван локације</string>
     <string name="permissions_for_mobile_cells_scan_dialog_text1">Mobile cell scanning requires some permissions.</string>
-    <string name="mobile_cells_pref_dlg_rescan_button">Re-scan</string>
-    <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) new cell, (C) connected to cell.</string>
-    <string name="mobile_cells_pref_dlg_cell_name_hint">Cell name</string>
-    <string name="mobile_cells_pref_dlg_cell_rename_title">Rename cells</string>
+    <string name="mobile_cells_pref_dlg_rescan_button">Скенирај опед</string>
+    <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(Н) нова ћелија, (Ц) повезан на ћелију.</string>
+    <string name="mobile_cells_pref_dlg_cell_name_hint">Име ћелије</string>
+    <string name="mobile_cells_pref_dlg_cell_rename_title">Промени име ћелије</string>
     <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
     <string name="phone_profiles_pref_category_mobile_cells_scanning">Mobile cell scanning</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Cell registration</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Mobile cell scan in Power Save mode</string>
-    <string name="array_pref_scanInPowerSaveMode_scan">Scan</string>
-    <string name="mobile_cells_registration_pref_dlg_start_button">Start</string>
-    <string name="mobile_cells_registration_pref_dlg_stop_button">Stop</string>
-    <string name="mobile_cells_registration_pref_dlg_status_started">Started</string>
-    <string name="mobile_cells_registration_pref_dlg_status_stopped">Stopped</string>
-    <string name="mobile_cells_registration_pref_dlg_status_remaining_time">Remaining time</string>
-    <string name="array_pref_mobile_cells_rename_new">New (N)</string>
-    <string name="array_pref_mobile_cells_rename_selected">Selected</string>
-    <string name="preference_not_allowed_reason_no_hardware">no hardware</string>
-    <string name="preference_not_allowed_reason_not_rooted">not rooted</string>
-    <string name="preference_not_allowed_reason_settings_not_found">\"settings\" utility not found</string>
+    <string name="array_pref_scanInPowerSaveMode_scan">Скенирај</string>
+    <string name="mobile_cells_registration_pref_dlg_start_button">Покрени</string>
+    <string name="mobile_cells_registration_pref_dlg_stop_button">Заустави</string>
+    <string name="mobile_cells_registration_pref_dlg_status_started">Започето</string>
+    <string name="mobile_cells_registration_pref_dlg_status_stopped">Заустављено</string>
+    <string name="mobile_cells_registration_pref_dlg_status_remaining_time">Преостало време</string>
+    <string name="array_pref_mobile_cells_rename_new">Ново (Н)</string>
+    <string name="array_pref_mobile_cells_rename_selected">Изабрано</string>
+    <string name="preference_not_allowed_reason_no_hardware">нема хардвера</string>
+    <string name="preference_not_allowed_reason_not_rooted">без роота</string>
+    <string name="preference_not_allowed_reason_settings_not_found">алат \" подешавања\" није пронађен</string>
     <string name="preference_not_allowed_reason_service_not_found">\"service\" utility not found</string>
     <string name="preference_not_allowed_reason_not_supported">not supported by system</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Mobile cell registration</string>
     <string name="wifi_ssid_pref_dlg_configured_ssids_chb">All SSIDs configured in system</string>
     <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">All Bluetooth names configured in system</string>
-    <string name="wifi_ssid_pref_dlg_all_ssids_chb">All SSIDs</string>
-    <string name="bluetooth_name_pref_dlg_all_bt_names_chb">All Bluetooth names</string>
+    <string name="wifi_ssid_pref_dlg_all_ssids_chb">Си SSID-oвi</string>
+    <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Сви Bluetooth називи</string>
     <string name="editor_drawer_list_item_events_start_order">Редослед</string>
     <string name="editor_drawer_order_start_order">Редослед</string>
     <string name="info_notification_event_priority_new">Each event has \"Priority\". Event will not start if a currently running event has a higher priority value.</string>
@@ -600,7 +600,7 @@
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Background opaqueness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Background lightness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Text lightness (widget)</string>
-    <string name="altype_eventStop">stop event</string>
+    <string name="altype_eventStop">заустави догађај</string>
     <string name="info_notification_manage_events_from_tasker">You can manage events through Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">restart events:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">омогући старт догађаја:</string>
@@ -1052,8 +1052,6 @@
     <string name="widget_label_icon">Icon</string>
     <string name="widget_label_one_row">Single row</string>
     <string name="widget_label_list">List</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>
     <string name="phone_profiles_pref_manualProfileActivation">Manual profile activation</string>
     <string name="phone_profiles_pref_category_widget_one_row">Widget: Single row</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Border lightness</string>
@@ -1347,6 +1345,7 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disable permission monitoring = enable.</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
     <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
@@ -1709,4 +1708,6 @@
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
 </resources>

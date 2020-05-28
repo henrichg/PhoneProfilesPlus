@@ -4,18 +4,19 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.Preference.OnPreferenceChangeListener;
-//import android.preference.PreferenceManager;
-
-import java.util.Arrays;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.util.Arrays;
+
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.Preference.OnPreferenceChangeListener;
+//import android.preference.PreferenceManager;
 
 class EventPreferencesScreen extends EventPreferences {
 
@@ -267,11 +268,7 @@ class EventPreferencesScreen extends EventPreferences {
                         // event type = screen is off
                         if (_whenUnlocked) {
                             // passed if screen is off and locked
-                            if (!PPApplication.isScreenOn) {
-                                eventsHandler.screenPassed = keyguardShowing;
-                            } else {
-                                eventsHandler.screenPassed = keyguardShowing;
-                            }
+                            eventsHandler.screenPassed = keyguardShowing;
                             //screenPassed = (!PPApplication.isScreenOn) && keyguardShowing;
                         } else
                             eventsHandler.screenPassed = !PPApplication.isScreenOn;

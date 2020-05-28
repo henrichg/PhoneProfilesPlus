@@ -1052,8 +1052,6 @@
     <string name="widget_label_icon">Simge</string>
     <string name="widget_label_one_row">Tek satır</string>
     <string name="widget_label_list">Liste</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage">Varsayılan tercih ne zaman faaliyete geçecek</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Sadece durumun sonunda herhangi bir tercih faaliyette değilken ve durumları yeniden başlatmada faaliyete geçir.</string>
     <string name="phone_profiles_pref_manualProfileActivation">El ile tercihi faaliyete geçirmek</string>
     <string name="phone_profiles_pref_category_widget_one_row">Widget: Tek satır</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Kenar rengi açıklığı</string>
@@ -1347,6 +1345,7 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi ve Bluetooth doğrulama pencereleri</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">\"ColorOs\" için bu pencereleri devre dışı bırakmak mümkündür. Nasıl yapıldığını görmek için buraya dokunun.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">Cihaz sistem ayarlarında:\n1. Geliştirici seçenekleri\\Geliştirici seçenekleri = açık\n2. Geliştirici seçenekleri\\Hata ayıklama\\USB hata ayıklama = açık\n3. Geliştirici seçenekleri\\Uygulamalar\\Yetkilendirme izlemeyi devre dışı kılabilir = açık.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disable permission monitoring = enable.</string>
     <string name="important_info_android_look_application_settings">Lutfen PhoneProfilesPlus Ayarlarını açın ve yapılandırın. (Hususan kalın olarak işaretlenmiş değerleri.)</string>
     <string name="profile_preferences_red_texts_text_2">Bunu faaliyete geçirmek mümkün değil.</string>
     <string name="event_preferences_red_texts_text_2">Bunun çalışmasını değiştirmek mümkün değil.</string>
@@ -1416,14 +1415,14 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Ses seviyesi için istisna</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Zil ve bildirim ses seviyeleri sistemde \"sessiz\" ses modu (sadece alarmlar, titreşim) bu tercihte ihmal edilmiş şeklinde ayarlanmış.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Gerçek sessiz bildirim ses seviyesi için, bildirim sesini \"Yok\" olarak ayarlayın.</string>
-    <string name="altype_profileError_runApplication_application">profile - error on start of application</string>
-    <string name="altype_profileError_runApplication_shortcut">profile - error on start of shortcut</string>
-    <string name="altype_profileError_runApplication_intent">profile - error on start of intent</string>
-    <string name="altype_profileError_setTone_ringtone">profile - error on set ringtone sound</string>
-    <string name="altype_profileError_setTone_notification">profile - error on set notification sound</string>
-    <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
-    <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
+    <string name="altype_profileError_runApplication_application">tercih - uygulama başlangıcında hata</string>
+    <string name="altype_profileError_runApplication_shortcut">tercih - kısayol başlangıcında hata</string>
+    <string name="altype_profileError_runApplication_intent">tercih - intent başlangıcında hata</string>
+    <string name="altype_profileError_setTone_ringtone">tercih - telefon zil sesi ayarlamada hata</string>
+    <string name="altype_profileError_setTone_notification">tercih - bildirim sesini ayarlamada hata</string>
+    <string name="altype_profileError_setTone_alarm">tercih - alarm sesi ayarlamada hata</string>
+    <string name="altype_profileError_setWallpaper">tercih - duvar kağıdı ayarlamada hata</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth için izinler verilmedi</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1709,4 +1708,6 @@
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
 </resources>

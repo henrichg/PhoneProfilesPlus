@@ -15,11 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class MobileCellNamesDialogX {
 
@@ -37,6 +37,7 @@ class MobileCellNamesDialogX {
 
     private final MobileCellNamesDialogAdapterX listAdapter;
 
+    @SuppressWarnings("rawtypes")
     private AsyncTask asyncTask = null;
 
     MobileCellNamesDialogX(final Activity activity, final DialogPreference preference, final boolean showFilterItems) {

@@ -8,14 +8,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import java.util.List;
-
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements OnStartDragItemListener {
@@ -31,6 +31,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
     private LinearLayout linlaProgress;
     private RelativeLayout rellaDialog;
 
+    @SuppressWarnings("rawtypes")
     private AsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")

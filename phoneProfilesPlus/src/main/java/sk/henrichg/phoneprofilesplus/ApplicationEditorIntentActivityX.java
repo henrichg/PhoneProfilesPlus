@@ -478,7 +478,6 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
             if ((ppIntent._action == null) || ppIntent._action.isEmpty()) {
                 intentActionSpinner.setSelection(0);
                 intentActionEdit.setText(R.string.empty_string);
-                intentActionEdit.setEnabled(false);
             } else {
                 boolean custom = true;
                 for (String action : actionsArray) {
@@ -490,13 +489,12 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                 if (custom) {
                     intentActionSpinner.setSelection(1);
                     intentActionEdit.setText(ppIntent._action);
-                    intentActionEdit.setEnabled(false);
                 } else {
                     intentActionSpinner.setSelection(Arrays.asList(actionsArray).indexOf(ppIntent._action));
                     intentActionEdit.setText(R.string.empty_string);
-                    intentActionEdit.setEnabled(false);
                 }
             }
+            intentActionEdit.setEnabled(false);
 
             if (ppIntent._categories != null) {
                 String categoryValue = ppIntent._categories.replaceAll("\\|", "\n");

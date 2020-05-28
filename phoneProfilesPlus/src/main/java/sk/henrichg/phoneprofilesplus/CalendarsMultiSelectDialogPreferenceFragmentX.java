@@ -33,6 +33,7 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
 
     private CalendarsMultiSelectPreferenceAdapterX listAdapter;
 
+    @SuppressWarnings("rawtypes")
     private AsyncTask asyncTask = null;
 
     static final String[] CALENDAR_PROJECTION = new String[] {

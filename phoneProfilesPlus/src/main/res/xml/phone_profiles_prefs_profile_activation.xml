@@ -18,12 +18,12 @@
             app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
             app:layout="@layout/mp_preference_material_widget"
             app:addNoActivateItem="1" />
-        <SwitchPreferenceCompat
-            app:key="applicationBackgroundProfileUsage"
-            app:title="@string/phone_profiles_pref_backgroundProfileUsage"
-            app:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"
-            app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget"/>
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="applicationBackgroundProfileUsage"-->
+<!--            app:title="@string/phone_profiles_pref_backgroundProfileUsage"-->
+<!--            app:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"-->
+<!--            app:defaultValue="false"-->
+<!--            app:layout="@layout/mp_preference_material_widget"/>-->
         <Preference
             app:key="applicationBackgroundProfileNotificationSoundInfo"
             app:title="@string/profile_preferences_durationNotificationSound"

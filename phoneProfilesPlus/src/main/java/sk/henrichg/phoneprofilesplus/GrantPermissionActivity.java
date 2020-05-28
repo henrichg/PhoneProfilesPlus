@@ -405,14 +405,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else {
                 if (mergedProfile/* || mergedNotification*/) {
                     showRequestString = context.getString(R.string.permissions_for_profile_text1m) + " ";
-                    showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
                 }
                 else {
                     showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
                     if (profile != null)
                         showRequestString = showRequestString + "\"" + profile._name + "\" ";
-                    showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
                 }
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
             }
 
             String whyString = "";

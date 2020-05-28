@@ -146,9 +146,10 @@ public class Shell {
         this.shellTimeout = shellTimeout > 0 ? shellTimeout : this.shellTimeout;
         this.shellContext = shellContext;
 
-        if (this.shellContext == ShellContext.NORMAL) {
-            this.proc = Runtime.getRuntime().exec(cmd);
-        } else {
+        //if (this.shellContext == ShellContext.NORMAL) {
+        //    this.proc = Runtime.getRuntime().exec(cmd);
+        //} else {
+        if (this.shellContext != ShellContext.NORMAL) {
             String display = getSuVersion(false);
             String internal = getSuVersion(true);
 
@@ -167,9 +168,10 @@ public class Shell {
                 RootShell.log("SELinuxEnforcing: " + isSELinuxEnforcing());
             }
 
-            this.proc = Runtime.getRuntime().exec(cmd);
+            //this.proc = Runtime.getRuntime().exec(cmd);
 
         }
+        this.proc = Runtime.getRuntime().exec(cmd);
 
         this.inputStream = new BufferedReader(new InputStreamReader(this.proc.getInputStream(), StandardCharsets.UTF_8));
         this.errorStream = new BufferedReader(new InputStreamReader(this.proc.getErrorStream(), StandardCharsets.UTF_8));

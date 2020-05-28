@@ -1052,8 +1052,6 @@
     <string name="widget_label_icon">Ikona</string>
     <string name="widget_label_one_row">Jedan red</string>
     <string name="widget_label_list">Popis</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage">Kada aktivirati podrazumevani profil</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Aktivirajte samo onda kada na kraju događaja nije aktiviran nijedan profil i za restart događaja.</string>
     <string name="phone_profiles_pref_manualProfileActivation">Ručna aktivacija profila</string>
     <string name="phone_profiles_pref_category_widget_one_row">Vidžet: Jedan red</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Lako na okviru</string>
@@ -1347,6 +1345,7 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi i Bluetooth potvrdni dijalozi</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Za \"ColorOs\" je moguće onemogućiti ove dijaloge. Klikni ovdje da vidiš na koji način.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">U postavkama sustava uređaja:\n1. Opcije za programere\\Opcije programere = omogućite\n2. Opcije za programere\\ispravljanje pogrešaka\\USB ispravljanje pogrešaka = omogući\n3. Opcije za programere\\Aplikacije\\Onemogućuje nadzor autorizacije = omogući.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">U postavkama sustava uređaja:\n1. Opcije za programere\\Opcije programere = omogućite\n2. Opcije za programere\\ispravljanje pogrešaka\\USB ispravljanje pogrešaka = omogući\n3. Opcije za programere\\Aplikacije\\Onemogućuje nadzor autorizacije = omogući.</string>
     <string name="important_info_android_look_application_settings">Otvorite PhoneProfilesPlus postavke i podesite ih. Pogotovo parametre označene podebljanim tekstom.</string>
     <string name="profile_preferences_red_texts_text_2">Za ovo, ovu opciju nije moguće aktivirati.</string>
     <string name="event_preferences_red_texts_text_2">Za ovo nije moguće promeniti način rada.</string>
@@ -1423,7 +1422,7 @@
     <string name="altype_profileError_setTone_notification">profil - pogreška pri nameštanju zvuka obavijesti</string>
     <string name="altype_profileError_setTone_alarm">profil - pogreška pri nameštanju zvuka alarma</string>
     <string name="altype_profileError_setWallpaper">profil - pogreška pri nameštanju tapeta</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">nije odobrena Bluethooth dozvola</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1709,4 +1708,6 @@
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
 </resources>

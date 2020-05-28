@@ -1999,7 +1999,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_AUTOSTART_MANAGER);
         setSummary(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY);
         setSummary(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING);
@@ -2409,9 +2409,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE);
             if (_preference != null)
                 _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
-            if (_preference != null)
-                _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+            //_preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
+            //if (_preference != null)
+            //    _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
         } else if (preference instanceof ListPreference) {
             // For list preferences, look up the correct display value in
             // the preference's 'entries' list.
@@ -2728,8 +2728,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("profileActivationCategoryRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_backgroundProfileUsage);
+            //if (!summary.isEmpty()) summary = summary + " • ";
+            //summary = summary + getString(R.string.phone_profiles_pref_backgroundProfileUsage);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationAlert);
             if (!summary.isEmpty()) summary = summary + " • ";
@@ -2765,11 +2765,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             summary = summary + "\n\n";
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsEditor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationScanInterval);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsUseGPS);
         }
         if (key.equals("wifiScanningCategoryRoot")) {
@@ -2812,9 +2812,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 summary = summary + "\n\n";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanInterval);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
             }
         }
@@ -2847,11 +2847,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 summary = summary + "\n\n";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanInterval);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
             }
         }
@@ -2907,7 +2907,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 summary = summary + "\n\n";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
             }
         }

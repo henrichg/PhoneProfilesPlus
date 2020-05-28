@@ -17,16 +17,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
+
 import com.codetroopers.betterpickers.R;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.Arrays;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.TooltipCompat;
-import androidx.core.content.ContextCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class NumberPicker extends LinearLayout implements Button.OnClickListener/*,
@@ -403,16 +403,14 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     private void addClickedNumber(int val) {
         if (mInputPointer < mInputSize - 1) {
             // For 0 we need to check if we have a value of zero or not
-            if (mInput[0] == 0 && mInput[1] == -1 && !containsDecimal() && val != CLICKED_DECIMAL) {
-                mInput[0] = val;
-            } else {
+            if (!(mInput[0] == 0 && mInput[1] == -1 && !containsDecimal() && val != CLICKED_DECIMAL)) {
                 //noinspection ManualArrayCopy
                 for (int i = mInputPointer; i >= 0; i--) {
                     mInput[i + 1] = mInput[i];
                 }
                 mInputPointer++;
-                mInput[0] = val;
             }
+            mInput[0] = val;
         }
     }
 

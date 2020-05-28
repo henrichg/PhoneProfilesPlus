@@ -195,36 +195,43 @@ public final class RootToolsInternalMethods {
 
                 if (preserveFileAttributes) {
                     command = new Command(0, false, "cp -fp " + source + " " + destination);
-                    Shell.startRootShell().add(command);
-                    commandWait(Shell.startRootShell(), command);
+                    //Shell.startRootShell().add(command);
+                    //commandWait(Shell.startRootShell(), command);
 
                     //ensure that the file was copied, an exitcode of zero means success
-                    result = command.getExitCode() == 0;
+                    //result = command.getExitCode() == 0;
 
                 } else {
                     command = new Command(0, false, "cp -f " + source + " " + destination);
-                    Shell.startRootShell().add(command);
-                    commandWait(Shell.startRootShell(), command);
+                    //Shell.startRootShell().add(command);
+                    //commandWait(Shell.startRootShell(), command);
 
                     //ensure that the file was copied, an exitcode of zero means success
-                    result = command.getExitCode() == 0;
+                    //result = command.getExitCode() == 0;
 
                 }
+                Shell.startRootShell().add(command);
+                commandWait(Shell.startRootShell(), command);
+
+                //ensure that the file was copied, an exitcode of zero means success
+                result = command.getExitCode() == 0;
             } else {
                 if (checkUtil("busybox") && hasUtil("cp", "busybox")) {
                     RootTools.log("busybox cp command is available!");
 
                     if (preserveFileAttributes) {
                         command = new Command(0, false, "busybox cp -fp " + source + " " + destination);
-                        Shell.startRootShell().add(command);
-                        commandWait(Shell.startRootShell(), command);
+                        //Shell.startRootShell().add(command);
+                        //commandWait(Shell.startRootShell(), command);
 
                     } else {
                         command = new Command(0, false, "busybox cp -f " + source + " " + destination);
-                        Shell.startRootShell().add(command);
-                        commandWait(Shell.startRootShell(), command);
+                        //Shell.startRootShell().add(command);
+                        //commandWait(Shell.startRootShell(), command);
 
                     }
+                    Shell.startRootShell().add(command);
+                    commandWait(Shell.startRootShell(), command);
                 } else { // if cp is not available use cat
                     // if cat is available and has appropriate permissions
                     if (checkUtil("cat")) {
@@ -804,10 +811,10 @@ public final class RootToolsInternalMethods {
                 }
             }
 
+            //throw new Exception();
+        } //else {
             throw new Exception();
-        } else {
-            throw new Exception();
-        }
+        //}
     }
 
     /**

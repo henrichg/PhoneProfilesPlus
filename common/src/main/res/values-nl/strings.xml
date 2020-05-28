@@ -1052,8 +1052,6 @@
     <string name="widget_label_icon">Icoon</string>
     <string name="widget_label_one_row">Enkele rij</string>
     <string name="widget_label_list">Lijst</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage">Wanneer standaard profiel activeren</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activeer het alleen wanneer het einde bij het evenement geen profiel is geactiveerd en voor het herstarten van events.</string>
     <string name="phone_profiles_pref_manualProfileActivation">Handmatige profiel activeren</string>
     <string name="phone_profiles_pref_category_widget_one_row">Widget: Enkele rij</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Rand helderheid</string>
@@ -1347,6 +1345,7 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi- en Bluetooth bevestigingsscherm</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Voor \"ColorOs\" is het mogelijk om deze schermen uit te schakelen. Klik hier om te zien hoe.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In apparaatsysteeminstellingen:\n1. Ontwikkelaarsopties\\Developer opties = inschakelen\n2. Ontwikkelaarsopties\\\Debugging\\USB debugging = inschakelen\n3. Ontwikkelaar opties\\Apps\\Uitschakelen autorisatie monitoring = inschakelen.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In apparaat systeeminstellingen:\n1. Ontwikkelaarsopties\\Ontwikkelaarsopties = inschakelen\n2. Ontwikkelaarsopties\\\Debugging\\USB debugging = inschakelen\n3. Ontwikkelaarsopties\\Apps\\Uitschakelen autorisatie monitoring = inschakelen.</string>
     <string name="important_info_android_look_application_settings">Open PhoneProfilesPlus Instellingen en configureer. Speciale parameters zijn gemarkeerd met vetgedrukte tekst.</string>
     <string name="profile_preferences_red_texts_text_2">Voor dit is het niet mogelijk om het te activeren.</string>
     <string name="event_preferences_red_texts_text_2">Voor dit is het niet mogelijk om uitvoeren te activeren.</string>
@@ -1423,7 +1422,7 @@
     <string name="altype_profileError_setTone_notification">profiel - fout bij instellen meldingsgeluid</string>
     <string name="altype_profileError_setTone_alarm">profiel - fout bij instellen alarm geluid</string>
     <string name="altype_profileError_setWallpaper">profiel - fout bij instellen achtergrond</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">geen Bluetooth-machtiging verleend</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1709,4 +1708,6 @@
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
 </resources>

@@ -1868,7 +1868,7 @@ public class PPApplication extends Application /*implements Application.Activity
             ApplicationPreferences.applicationDefaultProfile(context);
             ApplicationPreferences.applicationDefaultProfileNotificationSound(context);
             ApplicationPreferences.applicationDefaultProfileNotificationVibrate(context);
-            ApplicationPreferences.applicationDefaultProfileUsage(context);
+            //ApplicationPreferences.applicationDefaultProfileUsage(context);
             ApplicationPreferences.applicationActivatorGridLayout(context);
             ApplicationPreferences.applicationWidgetListGridLayout(context);
             ApplicationPreferences.applicationEventBluetoothScanInterval(context);
@@ -2871,6 +2871,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static Object getServiceManager(String serviceType) {
         synchronized (PPApplication.serviceListMutex) {
             if (serviceListMutex.serviceList != null) {
+                //noinspection rawtypes
                 for (Pair pair : serviceListMutex.serviceList) {
                     if (serviceType.equals(pair.first)) {
                         return pair.second;
@@ -2884,6 +2885,7 @@ public class PPApplication extends Application /*implements Application.Activity
     static int getTransactionCode(String serviceManager, String method) {
         int code = -1;
         try {
+            //noinspection rawtypes
             for (Class declaredFields : Class.forName(serviceManager).getDeclaredClasses()) {
                 Field[] declaredFields2 = declaredFields.getDeclaredFields();
                 int length = declaredFields2.length;

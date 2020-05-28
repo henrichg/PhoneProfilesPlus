@@ -418,10 +418,8 @@ class GlobalGUIRoutines {
                 }
                 if (errorColor && enabled)
                     sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                preference.setTitle(sbt);
-            } else {
-                preference.setTitle(sbt);
             }
+            preference.setTitle(sbt);
         }
     }
 

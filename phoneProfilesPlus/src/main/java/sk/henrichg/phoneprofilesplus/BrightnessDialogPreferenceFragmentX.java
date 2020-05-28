@@ -272,12 +272,10 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             if (preference.adaptiveAllowed) {
                 //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
                 levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
-                levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
                 //} else
                 //    levelText.setVisibility(View.GONE);
-            } else {
-                levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
             }
+            levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
         } else {
             valueText.setEnabled(false);
             seekBar.setEnabled(false);

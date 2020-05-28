@@ -1052,8 +1052,6 @@
     <string name="widget_label_icon">Ikona</string>
     <string name="widget_label_one_row">Jednoriadková</string>
     <string name="widget_label_list">Zoznam</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage">Kedy aktivovať predvolený profil</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Aktivovať ho len vtedy, keď na konci udalosti nie je aktivovaný žiadny profil a pri reštarte udalostí.</string>
     <string name="phone_profiles_pref_manualProfileActivation">Manuálna aktivácia profilu</string>
     <string name="phone_profiles_pref_category_widget_one_row">Miniaplikácia: Jednoriadková</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Svetlosť okraja</string>
@@ -1347,6 +1345,7 @@
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi a Bluetooth potvrdzovací dialóg</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pre \"ColorOs\" je možné zakázať tieto dialógy. Kliknite sem, pre zobrazenie, ako.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">V parametroch zariadenia:\n1. Vývojárske možnosti\Vývojárske možnosti = povoliť\n2. Vývojárske možnosti\Ladenie\Ladenie cez USB = povoliť\n3. Vývojárske možnosti\Aplikácie\Zakáže sledovanie autorizácie = povoliť.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametroch zariadenia:\n1. Vývojárske možnosti\Vývojárske možnosti = povoliť\n2. Vývojárske možnosti\Ladenie\Ladenie cez USB = povoliť\n3. Vývojárske možnosti\Aplikácie\Zakáž sledovanie povolení = povoliť.</string>
     <string name="important_info_android_look_application_settings">Prosím otvorte Nastavenia PhoneProfilesPlus a nakonfigurujte ich. Špeciálne parametre označené hrubým písmom.</string>
     <string name="profile_preferences_red_texts_text_2">Pre toto, nie je možné ho aktivovať.</string>
     <string name="event_preferences_red_texts_text_2">Pre toto, nie je možné zmeniť jej beh.</string>
@@ -1709,4 +1708,6 @@
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
 </resources>

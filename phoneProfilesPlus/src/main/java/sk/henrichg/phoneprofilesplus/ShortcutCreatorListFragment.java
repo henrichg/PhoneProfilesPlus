@@ -323,9 +323,6 @@ public class ShortcutCreatorListFragment extends Fragment {
                             //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
                             profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                         }
-                        if (Build.VERSION.SDK_INT < 26)
-                            //shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);
-                            shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
                     } else {
                         int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
                         int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
@@ -336,10 +333,9 @@ public class ShortcutCreatorListFragment extends Fragment {
                             //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
                             profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                         }
-                        if (Build.VERSION.SDK_INT < 26)
-                            //shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
-                            shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
                     }
+                    if (Build.VERSION.SDK_INT < 26)
+                        shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
 
                     if (ApplicationPreferences.applicationWidgetIconColor.equals("1")) {
                         /*if (PPApplication.logEnabled()) {

@@ -85,7 +85,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private static ApplicationsCache applicationsCache;
 
+    @SuppressWarnings("rawtypes")
     private AsyncTask importAsyncTask = null;
+    @SuppressWarnings("rawtypes")
     private AsyncTask exportAsyncTask = null;
     static boolean doImport = false;
     private AlertDialog importProgressDialog = null;
@@ -1232,14 +1234,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             editorSelectedView = selectedView;
             if (editorSelectedView == 0) {
                 filterProfilesSelectedItem = position;
-                filterSelectedItem = position;
-                //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
             }
             else {
                 filterEventsSelectedItem = position;
-                filterSelectedItem = position;
-                //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
             }
+            filterSelectedItem = position;
+            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
 
             // save into shared preferences
             Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
@@ -2266,7 +2266,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         exportProgressDialog.show();
 
                     runStopEvents = Event.getGlobalEventsRunning();
-                    //noinspection ConstantConditions
                     dataWrapper.globalRunStopEvents(true);
                 }
 

@@ -1060,8 +1060,6 @@
     <string name="widget_label_one_row">Single row</string>
     <string name="widget_label_list">List</string>
 
-    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>
     <string name="phone_profiles_pref_manualProfileActivation">Manual profile activation</string>
     <string name="phone_profiles_pref_category_widget_one_row">Widget: Single row</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Border lightness</string>
@@ -1821,6 +1819,9 @@
 
 <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
 <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
+
+<!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
+<!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
 
 </resources>
 

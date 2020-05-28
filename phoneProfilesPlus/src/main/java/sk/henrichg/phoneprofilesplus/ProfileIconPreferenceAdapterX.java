@@ -121,6 +121,7 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
 
     static String getImageResourceName(int position) {
         int iconResource = Profile.profileIconId[position];
+        //noinspection rawtypes
         for(Map.Entry entry: Profile.profileIconIdMap.entrySet()){
             if (entry.getValue().equals(iconResource)) {
                 return entry.getKey().toString();

@@ -298,14 +298,13 @@ public class MobileCellsRegistrationService extends Service {
             PhoneStateScanner.cellsNameForAutoRegistration = "";
             PhoneStateScanner.enabledAutoRegistration = false;
             PhoneStateScanner.clearEventList();
-            PhoneStateScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
         }
         else {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneStateScanner.durationForAutoRegistration);
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneStateScanner.cellsNameForAutoRegistration);
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneStateScanner.enabledAutoRegistration);
-            PhoneStateScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
         }
+        PhoneStateScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
         editor.apply();
     }
 

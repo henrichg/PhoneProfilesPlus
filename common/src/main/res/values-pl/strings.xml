@@ -1052,8 +1052,6 @@
     <string name="widget_label_icon">Ikona</string>
     <string name="widget_label_one_row">Pojedynczy rząd</string>
     <string name="widget_label_list">Lista</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage">Kiedy aktywować domyślny profil</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Aktywuj domyślny profil, jeżeli po zakończeniu zdarzenia żaden profil nie jest aktywowany oraz dla restartu zdarzeń.</string>
     <string name="phone_profiles_pref_manualProfileActivation">Ręczna aktywacja profilu</string>
     <string name="phone_profiles_pref_category_widget_one_row">Widżet: Pojedynczy rząd</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Jasność obramowania</string>
@@ -1348,6 +1346,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Okno dialogowe potwierdzania Wi-Fi i Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Dla \"ColorOs\" możliwe jest wyłączenie tych okien dialogowych. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">W ustawieniach systemu:\n1. Opcje programisty\\Opcje programisty = włącz\n2. Opcje programisty\\Debugowanie\\debugowanie USB= włącz\n3. Opcje programisty\\Aplikacje\\Wyłącz monitorowanie autoryzacji = włączone.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">W ustawieniach systemu:\n1. Opcje programisty\\Opcje programisty = włącz\n2. Opcje programisty\\Debugowanie\\debugowanie USB= włącz\n3. Opcje programisty\\Aplikacje\\Wyłącz monitorowanie autoryzacji = włączone.</string>
     <string name="important_info_android_look_application_settings">Otwórz ustawienia PhoneProfilesPlus i skonfiguruj. Szczególnie parametry oznaczone pogrubionym tekstem.</string>
     <string name="profile_preferences_red_texts_text_2">Brak możliwości jego aktywowania.</string>
     <string name="event_preferences_red_texts_text_2">Brak możliwości zmiany aktywności.</string>
@@ -1424,7 +1423,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="altype_profileError_setTone_notification">profil - błąd podczas ustawiania dźwięku powiadomienia</string>
     <string name="altype_profileError_setTone_alarm">profil - błąd podczas ustawiania dźwięku alarmu</string>
     <string name="altype_profileError_setWallpaper">profil - błąd podczas ustawiania tapety</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">nie przyznano uprawnień Bluetooth</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1710,4 +1709,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
+    <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
 </resources>

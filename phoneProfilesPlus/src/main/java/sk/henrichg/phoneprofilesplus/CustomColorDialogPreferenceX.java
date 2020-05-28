@@ -184,12 +184,11 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         final CustomColorDialogPreferenceX.SavedState myState = new CustomColorDialogPreferenceX.SavedState(superState);
         if (fragment != null) {
             myState.value = fragment.chromaColorView.getCurrentColor();
-            myState.defaultValue = defaultValue;
         }
         else {
             myState.value = value;
-            myState.defaultValue = defaultValue;
         }
+        myState.defaultValue = defaultValue;
         return myState;
     }
 

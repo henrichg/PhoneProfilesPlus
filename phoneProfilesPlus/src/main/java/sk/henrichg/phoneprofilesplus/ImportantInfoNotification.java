@@ -39,7 +39,6 @@ class ImportantInfoNotification {
             if (packageVersionCode > savedVersionCode) {
                 show = canShowNotification(packageVersionCode, savedVersionCode, context);
                 //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
-                setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
             }
             else {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -48,8 +47,8 @@ class ImportantInfoNotification {
                     show = 2;
 
                 //setShowInfoNotificationOnStartVersion(context, packageVersionCode);
-                setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
             }
+            setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
 
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
                 //PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");

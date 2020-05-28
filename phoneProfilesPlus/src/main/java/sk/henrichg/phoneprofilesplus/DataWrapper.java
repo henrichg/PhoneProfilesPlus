@@ -460,9 +460,7 @@ public class DataWrapper {
     public Profile getActivatedProfile(boolean generateIcon, boolean generateIndicators)
     {
         synchronized (profileList) {
-            if (!profileListFilled) {
-                return getActivatedProfileFromDB(generateIcon, generateIndicators);
-            } else {
+            if (profileListFilled) {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
@@ -470,24 +468,21 @@ public class DataWrapper {
                         return profile;
                     }
                 }
-                // when profile not found, get profile from db
-                return getActivatedProfileFromDB(generateIcon, generateIndicators);
             }
+            return getActivatedProfileFromDB(generateIcon, generateIndicators);
         }
     }
 
     public Profile getActivatedProfile(List<Profile> profileList) {
-        if (profileList == null) {
-            return null;
-        } else {
+        if (profileList != null) {
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
                 Profile profile = it.next();
                 if (profile._checked)
                     return profile;
             }
-            return null;
         }
+        return null;
     }
 
     void setProfileActive(Profile profile)
@@ -751,13 +746,12 @@ public class DataWrapper {
         if (restartEvents) {
             id = "restart_events";
             profileName = context.getString(R.string.menu_restart_events);
-            longLabel = profileName;
         }
         else {
             id = "profile_" + profile._id;
             profileName = profile._name;
-            longLabel = /*context.getString(R.string.shortcut_activate_profile) + */profileName;
         }
+        longLabel = profileName;
         if (profileName.isEmpty())
             profileName = " ";
         if (longLabel.isEmpty())
@@ -900,9 +894,7 @@ public class DataWrapper {
     Event getEventById(long id)
     {
         synchronized (eventList) {
-            if (!eventListFilled) {
-                return DatabaseHandler.getInstance(context).getEvent(id);
-            } else {
+            if (eventListFilled) {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
@@ -911,8 +903,8 @@ public class DataWrapper {
                 }
 
                 // when filter is set and profile not found, get profile from db
-                return DatabaseHandler.getInstance(context).getEvent(id);
             }
+            return DatabaseHandler.getInstance(context).getEvent(id);
         }
     }
 
@@ -1255,16 +1247,14 @@ public class DataWrapper {
 
         if (!getIsManualProfileActivation(false/*, context*/)) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
-
-            startEventsOnBoot(startedFromService, useHandler);
         }
         else
         {
             PPApplication.logE("DataWrapper.firstStartEvents", "manual profile activation, activate profile");
 
             activateProfileOnBoot();
-            startEventsOnBoot(startedFromService, useHandler);
         }
+        startEventsOnBoot(startedFromService, useHandler);
     }
 
     static Event getNonInitializedEvent(String name, int startOrder)

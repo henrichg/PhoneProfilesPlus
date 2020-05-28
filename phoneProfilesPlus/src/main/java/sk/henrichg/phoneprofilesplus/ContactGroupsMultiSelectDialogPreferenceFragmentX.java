@@ -25,6 +25,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
 
     private ContactGroupsMultiSelectPreferenceAdapterX listAdapter;
 
+    @SuppressWarnings("rawtypes")
     private AsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")

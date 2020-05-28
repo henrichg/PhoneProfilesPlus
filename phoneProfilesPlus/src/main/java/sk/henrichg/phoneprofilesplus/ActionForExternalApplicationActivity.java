@@ -165,13 +165,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                        dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     } else {
                         showNotification(getString(R.string.action_for_external_application_notification_title),
                                 getString(R.string.action_for_external_application_notification_no_event_text));
 
-                        dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     }
+                    dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 case ACTION_PAUSE_EVENT:
                     if (event_id != 0) {
@@ -180,13 +179,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                             event.pauseEvent(dataWrapper, true, false,
                                     false, true, null, true, false, true);
                         }
-                        dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     } else {
                         showNotification(getString(R.string.action_for_external_application_notification_title),
                                 getString(R.string.action_for_external_application_notification_no_event_text));
 
-                        dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     }
+                    dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 case ACTION_STOP_EVENT:
                     if (event_id != 0) {
@@ -226,13 +224,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                        dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     } else {
                         showNotification(getString(R.string.action_for_external_application_notification_title),
                                 getString(R.string.action_for_external_application_notification_no_event_text));
 
-                        dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     }
+                    dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 default:
                     showNotification(getString(R.string.action_for_external_application_notification_title),

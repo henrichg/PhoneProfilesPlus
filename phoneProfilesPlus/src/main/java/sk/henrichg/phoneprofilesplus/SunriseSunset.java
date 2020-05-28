@@ -634,6 +634,7 @@ public final class SunriseSunset {
         if (isCivilTwilight(calendar, latitude, longitude)) return DayPeriod.CIVIL_TWILIGHT;
         if (isNauticalTwilight(calendar, latitude, longitude)) return DayPeriod.NAUTICAL_TWILIGHT;
         if (isAstronomicalTwilight(calendar, latitude, longitude)) return DayPeriod.ASTRONOMICAL_TWILIGHT;
+        //noinspection IfStatementWithIdenticalBranches
         if (isNight(calendar, latitude, longitude)) return DayPeriod.NIGHT;
         return DayPeriod.NIGHT;
     }

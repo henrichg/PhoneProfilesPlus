@@ -197,6 +197,7 @@ final class WifiApManager {
     private void callStartTethering(Object internalConnectivityManager) throws ReflectiveOperationException {
         //PPApplication.logE("WifiApManager.callStartTethering", "START");
 
+        @SuppressWarnings("rawtypes")
         Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
         ResultReceiver dummyResultReceiver = new ResultReceiver(null);
         try {
@@ -235,6 +236,7 @@ final class WifiApManager {
         try {
             canExploitWifiAP(context);
             ConnectivityManager.class.getDeclaredField("mService");
+            //noinspection rawtypes
             Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
             try {
                 internalConnectivityManagerClass.getDeclaredMethod("startTethering",

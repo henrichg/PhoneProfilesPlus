@@ -128,10 +128,8 @@ class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder im
             }
             if (errorColor) {
                 sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                textView.setText(sbt);
-            } else {
-                textView.setText(sbt);
             }
+            textView.setText(sbt);
         }
     }
 

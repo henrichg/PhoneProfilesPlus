@@ -29,7 +29,9 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
     private ConnectToSSIDPreferenceAdapterX listAdapter;
 
     boolean wifiEnabled;
+    @SuppressWarnings("rawtypes")
     private AsyncTask asyncTask1 = null;
+    @SuppressWarnings("rawtypes")
     private AsyncTask asyncTask2 = null;
 
     @SuppressLint("InflateParams")

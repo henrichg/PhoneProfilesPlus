@@ -1160,7 +1160,6 @@ public class EditorEventListFragment extends Fragment
                             updateHeader(profile);
                         }
                         //listView.getRecycledViewPool().clear();
-                        eventListAdapter.notifyDataSetChanged();
                     }
                     else {
                         if (filterType == FILTER_TYPE_START_ORDER)
@@ -1183,9 +1182,8 @@ public class EditorEventListFragment extends Fragment
                         itemTouchHelper.attachToRecyclerView(listView);
 
                         listView.setAdapter(eventListAdapter);
-
-                        eventListAdapter.notifyDataSetChanged();
                     }
+                    eventListAdapter.notifyDataSetChanged();
                 }
             }
         }
