@@ -29,7 +29,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                                        AppWidgetManager.INVALID_APPWIDGET_ID);*/
     }
   
-    private void createProfilesDataWrapper()
+    private DataWrapper createProfilesDataWrapper(boolean local)
     {
         String applicationWidgetListIconLightness;
         String applicationSamsungEdgeIconColor;
@@ -47,17 +47,20 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
         //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
-        if (dataWrapper == null)
-        {
-            dataWrapper = new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
-                                            monochromeValue, applicationSamsungEdgeCustomIconLightness);
+        if (local) {
+            return new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
+                    monochromeValue, applicationSamsungEdgeCustomIconLightness);
         }
-        else
-        {
-            dataWrapper.setParameters(applicationSamsungEdgeIconColor.equals("1"),
-                                        monochromeValue, applicationSamsungEdgeCustomIconLightness);
+        else {
+            if (dataWrapper == null) {
+                dataWrapper = new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
+                        monochromeValue, applicationSamsungEdgeCustomIconLightness);
+            } else {
+                dataWrapper.setParameters(applicationSamsungEdgeIconColor.equals("1"),
+                        monochromeValue, applicationSamsungEdgeCustomIconLightness);
+            }
+            return dataWrapper;
         }
-
     }
 
     public void onCreate() {
@@ -219,10 +222,10 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     public void onDataSetChanged() {
-        createProfilesDataWrapper();
+        DataWrapper _dataWrapper = createProfilesDataWrapper(true);
 
-        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
-        dataWrapper.getEventTimelineList(true);
+        List<Profile> newProfileList = _dataWrapper.getNewProfileList(true, false);
+        _dataWrapper.getEventTimelineList(true);
 
         boolean applicationSamsungEdgeHeader;
         synchronized (PPApplication.applicationPreferencesMutex) {
@@ -232,7 +235,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         if (!applicationSamsungEdgeHeader)
         {
             // show activated profile in list if is not showed in activator
-            Profile profile = dataWrapper.getActivatedProfile(newProfileList);
+            Profile profile = _dataWrapper.getActivatedProfile(newProfileList);
             if ((profile != null) && (!profile._showInActivator))
             {
                 profile._showInActivator = true;
@@ -248,6 +251,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             newProfileList.add(0, restartEvents);
         }
 
+        createProfilesDataWrapper(false);
         //dataWrapper.invalidateProfileList();
         dataWrapper.setProfileList(newProfileList);
         //profileList = newProfileList;

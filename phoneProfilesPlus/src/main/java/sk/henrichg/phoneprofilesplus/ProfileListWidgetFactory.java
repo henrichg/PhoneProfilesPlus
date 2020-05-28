@@ -30,7 +30,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                        AppWidgetManager.INVALID_APPWIDGET_ID);*/
     }
   
-    private void createProfilesDataWrapper()
+    private DataWrapper createProfilesDataWrapper(boolean local)
     {
         String applicationWidgetListIconLightness;
         String applicationWidgetListIconColor;
@@ -72,15 +72,19 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 break;
         }
 
-        if (dataWrapper == null)
-        {
-            dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
-                                            monochromeValue, applicationWidgetListCustomIconLightness);
+        if (local) {
+            return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
+                    monochromeValue, applicationWidgetListCustomIconLightness);
         }
-        else
-        {
-            dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
-                                        monochromeValue, applicationWidgetListCustomIconLightness);
+        else {
+            if (dataWrapper == null) {
+                dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
+                        monochromeValue, applicationWidgetListCustomIconLightness);
+            } else {
+                dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
+                        monochromeValue, applicationWidgetListCustomIconLightness);
+            }
+            return dataWrapper;
         }
     }
 
@@ -281,7 +285,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         the old data will be displayed within the widget.
     */
     public void onDataSetChanged() {
-        createProfilesDataWrapper();
+        DataWrapper _dataWrapper = createProfilesDataWrapper(true);
 
         boolean applicationWidgetListPrefIndicator;
         boolean applicationWidgetListHeader;
@@ -290,14 +294,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
         }
 
-        List<Profile> newProfileList = dataWrapper.getNewProfileList(true,
+        List<Profile> newProfileList = _dataWrapper.getNewProfileList(true,
                 applicationWidgetListPrefIndicator);
-        dataWrapper.getEventTimelineList(true);
+        _dataWrapper.getEventTimelineList(true);
 
         if (!applicationWidgetListHeader)
         {
             // show activated profile in list if is not showed in activator
-            Profile profile = dataWrapper.getActivatedProfile(newProfileList);
+            Profile profile = _dataWrapper.getActivatedProfile(newProfileList);
             if ((profile != null) && (!profile._showInActivator))
             {
                 profile._showInActivator = true;
@@ -313,6 +317,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             newProfileList.add(0, restartEvents);
         }
 
+        createProfilesDataWrapper(false);
         //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
             dataWrapper.setProfileList(newProfileList);
