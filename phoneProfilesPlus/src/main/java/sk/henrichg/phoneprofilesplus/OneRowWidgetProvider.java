@@ -30,7 +30,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    private void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
+    private static void _onUpdate(final Context context, final AppWidgetManager appWidgetManager,
                            final Profile _profile, final DataWrapper _dataWrapper, final int[] appWidgetIds)
     {
         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
@@ -415,7 +415,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         });
     }
 
-    void updateWidgets(Context context, boolean refresh) {
+    static void updateWidgets(Context context, boolean refresh) {
         String applicationWidgetOneRowIconLightness;
         String applicationWidgetOneRowIconColor;
         boolean applicationWidgetOneRowCustomIconLightness;

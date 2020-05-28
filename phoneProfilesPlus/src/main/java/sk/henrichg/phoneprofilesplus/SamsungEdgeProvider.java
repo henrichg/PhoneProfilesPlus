@@ -16,11 +16,11 @@ import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
 public class SamsungEdgeProvider extends SlookCocktailProvider {
 
-    private DataWrapper dataWrapper;
+    //private DataWrapper dataWrapper;
 
-    private static final String INTENT_REFRESH_EDGEPANEL = PPApplication.PACKAGE_NAME + ".REFRESH_EDGEPANEL";
+    //private static final String INTENT_REFRESH_EDGEPANEL = PPApplication.PACKAGE_NAME + ".REFRESH_EDGEPANEL";
 
-    private RemoteViews buildLayout(Context context/*, SlookCocktailManager cocktailBarManager, int appWidgetId*/)
+    private static RemoteViews buildLayout(Context context/*, SlookCocktailManager cocktailBarManager, int appWidgetId*/)
     {
         Intent svcIntent=new Intent(context, SamsungEdgeService.class);
         svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
@@ -117,6 +117,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
             //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
 
             //boolean fullyStarted = false;
@@ -272,6 +273,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         return widget;
     }
 
+    /*
     private void createProfilesDataWrapper(Context context)
     {
         if (dataWrapper == null)
@@ -279,8 +281,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
         }
     }
+    */
 
-    private void doOnUpdate(Context context, SlookCocktailManager cocktailBarManager, int cocktailId)
+    private static void doOnUpdate(Context context, SlookCocktailManager cocktailBarManager, int cocktailId)
     {
         RemoteViews widget = buildLayout(context);
         try {
@@ -304,7 +307,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    createProfilesDataWrapper(_context);
+                    //createProfilesDataWrapper(_context);
 
                     for (int cocktailId : _cocktailIds) {
                         doOnUpdate(_context, _cocktailBarManager, cocktailId);
@@ -318,6 +321,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
     }
 
+    /*
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
@@ -345,8 +349,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
         });
     }
+    */
 
-    private void updateWidget(Context context, int cocktailId) {
+    private static void updateWidget(Context context, int cocktailId) {
         try {
             SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
 
@@ -361,7 +366,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
     }
 
-    private void _updateWidgets(Context context) {
+    private static void _updateWidgets(Context context) {
         try {
             SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
             int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
@@ -381,15 +386,16 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     }
 
-    void updateWidgets(final Context context, final boolean refresh) {
+    static void updateWidgets(final Context context, final boolean refresh) {
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
 
-                createProfilesDataWrapper(context);
+                //createProfilesDataWrapper(context);
 
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
                 Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                 //dataWrapper.getEventTimelineList(true);
 
@@ -416,7 +422,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                 //if (dataWrapper != null)
                 //    dataWrapper.invalidateDataWrapper();
-                dataWrapper = null;
+                //dataWrapper = null;
             }
         });
     }

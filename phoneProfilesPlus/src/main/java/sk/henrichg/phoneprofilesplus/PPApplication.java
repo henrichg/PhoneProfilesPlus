@@ -1673,8 +1673,9 @@ public class PPApplication extends Application /*implements Application.Activity
 
         // icon widget
         try {
-            IconWidgetProvider myWidget = new IconWidgetProvider();
-            myWidget.updateWidgets(context, refresh);
+            //IconWidgetProvider myWidget = new IconWidgetProvider();
+            //myWidget.updateWidgets(context, refresh);
+            IconWidgetProvider.updateWidgets(context, refresh);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1686,16 +1687,18 @@ public class PPApplication extends Application /*implements Application.Activity
             int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
             context.sendBroadcast(intent);*/
-            OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
-            myWidget.updateWidgets(context, refresh);
+            //OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
+            //myWidget.updateWidgets(context, refresh);
+            OneRowWidgetProvider.updateWidgets(context, refresh);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
 
         // list widget
         try {
-            ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
-            myWidget.updateWidgets(context, refresh);
+            //ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
+            //myWidget.updateWidgets(context, refresh);
+            ProfileListWidgetProvider.updateWidgets(context, refresh);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1703,8 +1706,9 @@ public class PPApplication extends Application /*implements Application.Activity
         // Samsung edge panel
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
             try {
-                SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
-                myWidget.updateWidgets(context, refresh);
+                //SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
+                //myWidget.updateWidgets(context, refresh);
+                SamsungEdgeProvider.updateWidgets(context, refresh);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
