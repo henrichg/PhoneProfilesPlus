@@ -564,8 +564,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             final AppWidgetManager _appWidgetManager = appWidgetManager;
             final int[] _appWidgetIds = appWidgetIds;
 
-            PPApplication.startHandlerThreadWidget();
-            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            PPApplication.startHandlerThreadListWidget();
+            final Handler handler = new Handler(PPApplication.handlerThreadListWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -607,8 +607,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        PPApplication.startHandlerThreadListWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadListWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -723,8 +723,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     public void onAppWidgetOptionsChanged(final Context context, final AppWidgetManager appWidgetManager,
             final int appWidgetId, final Bundle newOptions)
     {
-        PPApplication.startHandlerThreadWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        PPApplication.startHandlerThreadListWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadListWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -809,47 +809,39 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     */
 
     static void updateWidgets(final Context context, final boolean refresh) {
-        //PPApplication.startHandlerThreadWidget();
-        //final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        //handler.post(new Runnable() {
-        //    @Override
-        //    public void run() {
+        //createProfilesDataWrapper(context);
 
-                //createProfilesDataWrapper(context);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        Profile profile = dataWrapper.getActivatedProfile/*FromDB*/(false, false);
+        //dataWrapper.getEventTimelineList(true);
 
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-                Profile profile = dataWrapper.getActivatedProfile/*FromDB*/(false, false);
-                //dataWrapper.getEventTimelineList(true);
+        String pName;
+        if (profile != null)
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
+        else
+            pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
-                String pName;
-                if (profile != null)
-                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
-                else
-                    pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+        if (!refresh) {
+            String pNameWidget = PPApplication.prefWidgetProfileName3;
 
-                if (!refresh) {
-                    String pNameWidget = PPApplication.prefWidgetProfileName3;
-
-                    if (!pNameWidget.isEmpty()) {
-                        if (pName.equals(pNameWidget)) {
-                            //PPApplication.logE("ProfileListWidgetProvider.onUpdate", "activated profile NOT changed");
-                            return;
-                        }
-                    }
+            if (!pNameWidget.isEmpty()) {
+                if (pName.equals(pNameWidget)) {
+                    //PPApplication.logE("ProfileListWidgetProvider.onUpdate", "activated profile NOT changed");
+                    return;
                 }
+            }
+        }
 
-                PPApplication.setWidgetProfileName(context, 3, pName);
+        PPApplication.setWidgetProfileName(context, 3, pName);
 
-                Intent intent = new Intent(context, ProfileListWidgetProvider.class);
-                intent.setAction(ACTION_REFRESH_LISTWIDGET);
-                context.sendBroadcast(intent);
-                //_updateWidgets(context);
+        Intent intent = new Intent(context, ProfileListWidgetProvider.class);
+        intent.setAction(ACTION_REFRESH_LISTWIDGET);
+        context.sendBroadcast(intent);
+        //_updateWidgets(context);
 
-                //if (dataWrapper != null)
-                //    dataWrapper.invalidateDataWrapper();
-                //dataWrapper = null;
-        //    }
-        //});
+        //if (dataWrapper != null)
+        //    dataWrapper.invalidateDataWrapper();
+        //dataWrapper = null;
     }
 
 }

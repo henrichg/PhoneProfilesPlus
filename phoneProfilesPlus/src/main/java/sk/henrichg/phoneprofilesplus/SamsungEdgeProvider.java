@@ -302,8 +302,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             final int[] _cocktailIds = cocktailIds;
 
 
-            PPApplication.startHandlerThreadWidget();
-            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            PPApplication.startHandlerThreadEdgePanelWidget();
+            final Handler handler = new Handler(PPApplication.handlerThreadEdgePanelWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -327,8 +327,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        PPApplication.startHandlerThreadEdgePanelWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadEdgePanelWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -396,47 +396,39 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     */
 
     static void updateWidgets(final Context context, final boolean refresh) {
-        //PPApplication.startHandlerThreadWidget();
-        //final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        //handler.post(new Runnable() {
-        //    @Override
-        //    public void run() {
+        //createProfilesDataWrapper(context);
 
-                //createProfilesDataWrapper(context);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+        //dataWrapper.getEventTimelineList(true);
 
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-                Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                //dataWrapper.getEventTimelineList(true);
+        String pName;
+        if (profile != null)
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
+        else
+            pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 
-                String pName;
-                if (profile != null)
-                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
-                else
-                    pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+        if (!refresh) {
+            String pNameWidget = PPApplication.prefWidgetProfileName4;
 
-                if (!refresh) {
-                    String pNameWidget = PPApplication.prefWidgetProfileName4;
-
-                    if (!pNameWidget.isEmpty()) {
-                        if (pName.equals(pNameWidget)) {
-                            //PPApplication.logE("SamsungEdgeProvider.onUpdate", "activated profile NOT changed");
-                            return;
-                        }
-                    }
+            if (!pNameWidget.isEmpty()) {
+                if (pName.equals(pNameWidget)) {
+                    //PPApplication.logE("SamsungEdgeProvider.onUpdate", "activated profile NOT changed");
+                    return;
                 }
+            }
+        }
 
-                PPApplication.setWidgetProfileName(context, 4, pName);
+        PPApplication.setWidgetProfileName(context, 4, pName);
 
-                Intent intent = new Intent(context, SamsungEdgeProvider.class);
-                intent.setAction(ACTION_REFRESH_EDGEPANEL);
-                context.sendBroadcast(intent);
-                //_updateWidgets(context);
+        Intent intent = new Intent(context, SamsungEdgeProvider.class);
+        intent.setAction(ACTION_REFRESH_EDGEPANEL);
+        context.sendBroadcast(intent);
+        //_updateWidgets(context);
 
-                //if (dataWrapper != null)
-                //    dataWrapper.invalidateDataWrapper();
-                //dataWrapper = null;
-        //    }
-        //});
+        //if (dataWrapper != null)
+        //    dataWrapper.invalidateDataWrapper();
+        //dataWrapper = null;
     }
 
 }

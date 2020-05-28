@@ -1042,7 +1042,10 @@ public class PPApplication extends Application /*implements Application.Activity
 
     public static HandlerThread handlerThread = null;
     //public static HandlerThread handlerThreadInternalChangeToFalse = null;
-    public static HandlerThread handlerThreadWidget = null;
+    public static HandlerThread handlerThreadIconWidget = null;
+    public static HandlerThread handlerThreadOneRowWidget = null;
+    public static HandlerThread handlerThreadListWidget = null;
+    public static HandlerThread handlerThreadEdgePanelWidget = null;
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
     public static HandlerThread handlerThreadPPScanners = null;
@@ -1268,7 +1271,10 @@ public class PPApplication extends Application /*implements Application.Activity
         startHandlerThreadPPScanners();
         startHandlerThreadPPCommand();
         //startHandlerThreadRoot();
-        startHandlerThreadWidget();
+        startHandlerThreadIconWidget();
+        startHandlerThreadOneRowWidget();
+        startHandlerThreadListWidget();
+        startHandlerThreadEdgePanelWidget();
         startHandlerThreadProfileNotification();
         startHandlerThreadPlayTone();
         startHandlerThreadVolumes();
@@ -3676,12 +3682,31 @@ public class PPApplication extends Application /*implements Application.Activity
     }
     */
 
-    static void startHandlerThreadWidget() {
-        if (handlerThreadWidget == null) {
-            handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadWidget.start();
+    static void startHandlerThreadIconWidget() {
+        if (handlerThreadIconWidget == null) {
+            handlerThreadIconWidget = new HandlerThread("PPHandlerThreadIconWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadIconWidget.start();
         }
     }
+    static void startHandlerThreadOneRowWidget() {
+        if (handlerThreadOneRowWidget == null) {
+            handlerThreadOneRowWidget = new HandlerThread("PPHandlerThreadOneRowWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadOneRowWidget.start();
+        }
+    }
+    static void startHandlerThreadListWidget() {
+        if (handlerThreadListWidget == null) {
+            handlerThreadListWidget = new HandlerThread("PPHandlerThreadListWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadListWidget.start();
+        }
+    }
+    static void startHandlerThreadEdgePanelWidget() {
+        if (handlerThreadEdgePanelWidget == null) {
+            handlerThreadEdgePanelWidget = new HandlerThread("PPHandlerThreadEdgePanelWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadEdgePanelWidget.start();
+        }
+    }
+
 
     static void startHandlerThreadProfileNotification() {
         if (handlerThreadProfileNotification == null) {
