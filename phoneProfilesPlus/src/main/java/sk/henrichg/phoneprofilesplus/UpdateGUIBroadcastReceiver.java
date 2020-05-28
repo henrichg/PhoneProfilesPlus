@@ -222,7 +222,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
         if (refresh || (now - PPApplication.lastRefreshOfGUI) >= PPApplication.DURATION_FOR_GUI_REFRESH) {
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "refresh");
-            PPApplication.forceUpdateGUI(context, alsoEditor, true, refresh);
+            PPApplication.forceUpdateGUI(context.getApplicationContext(), alsoEditor, true, refresh);
         } else {
             //PPApplication.logE("UpdateGUIBroadcastReceiver._doWork", "do not refresh");
             setAlarm(alsoEditor, /*refresh,*/ context);

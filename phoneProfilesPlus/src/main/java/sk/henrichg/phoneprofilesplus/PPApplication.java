@@ -3532,7 +3532,7 @@ public class PPApplication extends Application /*implements Application.Activity
             if (!shutdown) {
                 //PPApplication.logE("PPApplication._exitApp", "forceUpdateGUI");
                 //ActivateProfileHelper.updateGUI(context, false, true);
-                PPApplication.forceUpdateGUI(context, false, false, true);
+                PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false, true);
 
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {
