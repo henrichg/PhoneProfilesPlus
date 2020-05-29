@@ -72,7 +72,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
 
     implementation 'androidx.preference:preference:1.1.1'
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
     implementation 'com.google.android.material:material:1.1.0'
