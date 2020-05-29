@@ -3226,15 +3226,15 @@ class ActivateProfileHelper {
         setActivatedProfileScreenTimeout(appContext, 0);
 
         OneTimeWorkRequest disableInternalChangeWorker =
-                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                        .addTag("disableInternalChangeWork")
+                new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
+                        .addTag("disableScreenTimeoutInternalChangeWork")
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
-        PhoneProfilesService.cancelWork("disableInternalChangeWork", appContext);
+        PhoneProfilesService.cancelWork("disableScreenTimeoutInternalChangeWork", appContext);
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                workManager.enqueueUniqueWork("disableScreenTimeoutInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
