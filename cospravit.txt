@@ -1175,3 +1175,27 @@ buildLayout()
 12. nastavuje sa intent ikony restartu udalosti
 13. nastavuje sa adapter pre grid/list intentom pre ProfileListWidgetService
 14. nastavuje sa intent pre klik na item widgetu, aktivita BackgroundActivateProfileActivity
+
+--------
+
+Aktivacia profilu vyvola onUpdate, je jedno ci je to z 4x1 alebo 4x4 widgetu.
+Co je vetedy volane?
+Na ikona restartu udalosti onUpdate nevyvola.
+
+Toto sa spravi na aktivacu z Aktivatora po kliku na 4x1 widget:
+
+05-29 16:47:03.826 23571-23571/sk.henrichg.phoneprofilesplus E/ProfileListWidgetProvider.onReceive: action=sk.henrichg.phoneprofilesplus.ACTION_REFRESH_LISTWIDGET
+05-29 16:47:14.062 23571-23571/sk.henrichg.phoneprofilesplus E/ProfileListWidgetProvider.onReceive: action=android.appwidget.action.APPWIDGET_UPDATE
+
+To iste sa udeje aj po aktivacii z notifikacie:
+05-29 16:48:39.878 23571-23571/sk.henrichg.phoneprofilesplus E/ProfileListWidgetProvider.onReceive: action=android.appwidget.action.APPWIDGET_UPDATE
+Tu sa ale nevyvola sk.henrichg.phoneprofilesplus.ACTION_REFRESH_LISTWIDGET
+
+Cize problem je s aktivaciou profilu, je jedno, ci to je na refresh alebo nie.
+Samotne prekreslenie widgetu cez PPApplication.forceUpdateGUI() to nerobi. Musi to robit nieco v aktivacii profilu.
+Napadlo ma volanie background aktivity, kuknem sa, co sa vola na aktivaciu.
+Profil sa aktivuje aj z notifikacie, teda toast sa zobrazi.
+
+Chyba je v tom, ze WirkManager mi vyvolava action=android.appwidget.action.APPWIDGET_UPDATE. Je to uplne
+podivne, ale vypada to tak, ze toto je ten problem.
+Zatial vobec netusim, ze preco. :-(
