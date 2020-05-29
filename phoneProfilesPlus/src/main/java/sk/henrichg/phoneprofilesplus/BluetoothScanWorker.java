@@ -62,6 +62,9 @@ public class BluetoothScanWorker extends Worker {
 
             //CallsCounter.logCounter(context, "BluetoothScanWorker.doWork", "BluetoothScanWorker_doWork");
 
+            Log.e("BluetoothScanWorker.doWork", "xxx");
+
+
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();

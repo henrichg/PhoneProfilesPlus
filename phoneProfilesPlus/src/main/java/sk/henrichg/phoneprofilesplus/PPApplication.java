@@ -1677,6 +1677,7 @@ public class PPApplication extends Application /*implements Application.Activity
         /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
 
+        /*
         // icon widget
         try {
             //IconWidgetProvider myWidget = new IconWidgetProvider();
@@ -1688,13 +1689,6 @@ public class PPApplication extends Application /*implements Application.Activity
 
         // one row widget
         try {
-            /*Intent intent = new Intent(context, OneRowWidgetProvider.class);
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-            context.sendBroadcast(intent);*/
-            //OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
-            //myWidget.updateWidgets(context, refresh);
             OneRowWidgetProvider.updateWidgets(context, refresh);
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -1719,6 +1713,7 @@ public class PPApplication extends Application /*implements Application.Activity
                 PPApplication.recordException(e);
             }
         }
+        */
 
         // dash clock extension
         Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");

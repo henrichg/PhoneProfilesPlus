@@ -40,6 +40,8 @@ public class SearchCalendarEventsWorker extends Worker {
 
             //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.doWork", "SearchCalendarEventsWorker_doWork");
 
+            Log.e("SearchCalendarEventsWorker.doWork", "xxx");
+
             if (!PPApplication.getApplicationStarted(true)) {
                 // application is not started
                 //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");

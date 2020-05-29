@@ -40,6 +40,8 @@ public class GeofenceScanWorker extends Worker {
 
             //CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
 
+            Log.e("GeofenceScanWorker.doWork", "xxx");
+
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();

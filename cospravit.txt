@@ -1199,3 +1199,15 @@ Profil sa aktivuje aj z notifikacie, teda toast sa zobrazi.
 Chyba je v tom, ze WirkManager mi vyvolava action=android.appwidget.action.APPWIDGET_UPDATE. Je to uplne
 podivne, ale vypada to tak, ze toto je ten problem.
 Zatial vobec netusim, ze preco. :-(
+
+Uz vem preco:
+Problem je vo WorkMangeri. Ten resheduleruje receivre a to sposobi, ze sa zavola onUpdate widgetov.
+Najdolezitejsie je, ze NESMIES equeueovat worky priamo vo widgetoch! Lebo to sposobi nekonecnu slucku!
+Ale ako zabranit zavolaniu onUpdate?
+
+Skus toto (z linku 2): One other thing you could do is to schedule another WorkRequest really far out into the future.
+So, you could create a OneTimeWorkRequest with an initial delay of 10 years.
+
+Linky:
+https://commonsware.com/blog/2018/11/24/workmanager-app-widgets-side-effects.html
+https://issuetracker.google.com/issues/115575872#comment4
