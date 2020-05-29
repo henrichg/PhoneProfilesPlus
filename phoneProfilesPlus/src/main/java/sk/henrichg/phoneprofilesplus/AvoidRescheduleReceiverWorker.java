@@ -8,9 +8,9 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 @SuppressWarnings("WeakerAccess")
-public class DisableInternalChangeWorker extends Worker {
+public class AvoidRescheduleReceiverWorker extends Worker {
 
-    public DisableInternalChangeWorker(
+    public AvoidRescheduleReceiverWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
@@ -20,13 +20,10 @@ public class DisableInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
-
-            RingerModeChangeReceiver.internalChange = false;
 
             return Result.success();
         } catch (Exception e) {
-            Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));
+            Log.e("AvoidRescheduleReceiverWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {

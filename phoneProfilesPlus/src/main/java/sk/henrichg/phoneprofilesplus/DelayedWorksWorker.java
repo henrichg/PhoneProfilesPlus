@@ -46,8 +46,6 @@ public class DelayedWorksWorker extends Worker {
         try {
             //PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
 
-            Log.e("DelayedWorksWorker.doWork", "xxx");
-
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();

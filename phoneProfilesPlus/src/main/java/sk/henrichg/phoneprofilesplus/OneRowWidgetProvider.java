@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -420,8 +419,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
 
         final String action = intent.getAction();
-
-        Log.e("OneRowWidgetProvider.onReceive", "action="+action);
 
         PPApplication.startHandlerThreadOneRowWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadOneRowWidget.getLooper());

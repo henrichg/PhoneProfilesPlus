@@ -1146,6 +1146,19 @@ public class PPApplication extends Application /*implements Application.Activity
 
         PPApplication.logE("##### PPApplication.onCreate", "continue onCreate()");
 
+        // https://issuetracker.google.com/issues/115575872#comment16
+        OneTimeWorkRequest avoidRescheduleReceiverWorker =
+                new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
+                        .addTag("avoidRescheduleReceiverWorker")
+                        .setInitialDelay(365 * 10, TimeUnit.DAYS)
+                        .build();
+        try {
+            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+            workManager.enqueue(avoidRescheduleReceiverWorker);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
         magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
@@ -1677,7 +1690,6 @@ public class PPApplication extends Application /*implements Application.Activity
         /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
 
-        /*
         // icon widget
         try {
             //IconWidgetProvider myWidget = new IconWidgetProvider();
@@ -1713,7 +1725,6 @@ public class PPApplication extends Application /*implements Application.Activity
                 PPApplication.recordException(e);
             }
         }
-        */
 
         // dash clock extension
         Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");

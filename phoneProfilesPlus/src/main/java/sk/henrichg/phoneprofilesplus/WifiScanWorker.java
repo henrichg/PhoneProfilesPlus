@@ -54,8 +54,6 @@ public class WifiScanWorker extends Worker {
 
             //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
-            Log.e("WifiScanWorker.doWork", "xxx");
-
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();

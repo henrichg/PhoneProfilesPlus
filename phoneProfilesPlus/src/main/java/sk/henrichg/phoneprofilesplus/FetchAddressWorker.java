@@ -34,8 +34,6 @@ public class FetchAddressWorker extends Worker {
         try {
             //PPApplication.logE("FetchAddressWorker.doWork", "xxx");
 
-            Log.e("FetchAddressWorker.doWork", "xxx");
-
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();
