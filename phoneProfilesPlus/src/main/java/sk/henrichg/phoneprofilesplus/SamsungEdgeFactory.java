@@ -218,7 +218,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     public boolean hasStableIds() {
-        return(true);
+        return false;
     }
 
     public void onDataSetChanged() {

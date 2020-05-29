@@ -128,8 +128,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if ((!fullyStarted) || applicationPackageReplaced)
                 profile = null;
 
-            dataWrapper.getEventTimelineList(true);
-
             boolean isIconResourceID;
             String iconIdentifier;
             Spannable profileName;
@@ -295,7 +293,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     @Override
     public void onUpdate(Context context, SlookCocktailManager cocktailBarManager, int[] cocktailIds) {
-        //super.onUpdate(context, cocktailBarManager, cocktailIds);
+        super.onUpdate(context, cocktailBarManager, cocktailIds);
         if (cocktailIds.length > 0) {
             final Context _context = context;
             final SlookCocktailManager _cocktailBarManager = cocktailBarManager;
@@ -344,7 +342,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                     if (cocktailIds != null) {
                         for (int cocktailId : cocktailIds) {
-                            updateWidget(context, cocktailId);
+                            updateAfterWidgetOptionsChanged(context, cocktailId);
                         }
                     }
                 }
@@ -356,7 +354,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         });
     }
 
-    private static void updateWidget(Context context, int cocktailId) {
+    private static void updateAfterWidgetOptionsChanged(Context context, int cocktailId) {
         try {
             SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
 

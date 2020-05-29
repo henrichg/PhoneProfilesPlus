@@ -17,7 +17,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";
 
-    @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
@@ -106,22 +105,14 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     monochromeValue,
                     applicationWidgetIconCustomIconLightness);
 
-        Profile profile = dataWrapper.getActivatedProfile(true, false);
-        //}
-        //PPApplication.logE("IconWidgetProvider.onUpdate", "profile="+profile);
-        //if (profile != null)
-        //    PPApplication.logE("IconWidgetProvider.onUpdate", "profile._name="+profile._name);
-
-        //boolean fullyStarted = false;
-        //if (PhoneProfilesService.getInstance() != null)
-        //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        Profile profile;
         boolean fullyStarted = PPApplication.applicationFullyStarted;
-        //PPApplication.logE("IconWidgetProvider.onUpdate", "fullyStarted="+fullyStarted);
-
-        //PPApplication.logE("IconWidgetProvider.onUpdate", "PPApplication.applicationPackageReplaced="+PPApplication.applicationPackageReplaced);
         boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
         if ((!fullyStarted) || applicationPackageReplaced)
             profile = null;
+        else
+            profile = dataWrapper.getActivatedProfile(true, false);
+        //}
 
         //try {
             //PPApplication.logE("IconWidgetProvider.onUpdate", "refreshWidget="+refreshWidget);

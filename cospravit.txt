@@ -1079,3 +1079,99 @@ Android 10
 - pozri, ci nejde toto spravit inac, napriklad presunut do Documents.
 - ...
 
+-------------
+
+IconWidgetProvider
+
+1. nacitava sa konfiguracia - pouzije sa mutex: PPApplication.applicationPreferencesMutex
+
+1.1. nastavuje sa lightness pre rozne veci
+
+2. vytvara sa DataWrapper s parametrami ci ma byt mono, hodnota mono, lightness custom ikon
+3. zistuje sa aktivovany profil, generuje ikona, indikatory nie, neppuzivaju sa
+
+4. zistuje sa, ci je aplikacia nastartovana - tu sa mutex nepouziva. Toto rob este pred bodom 3
+   a 3 rob len ak ja nastartovana
+
+5. podla parametrov widgetu sa nastavuje:
+   - background color, background alfa, border lightness, text lightness
+6. zistuju sa udaje o profile
+   - icon resource id, identifier
+   - profile name - pomocou getProfileNameWithManualIndicator() - bez event name
+   - ak je profile == null, vytvara sa prazdny profil, ktoremu sa generuje bitmapa ikony
+
+7. tu zacina cyklus po jednotlivych widgetId
+8. vytvori sa RemoteViews
+9. nastavuje sa pozadie, border, ci je rounded
+10. nastavuje sa ikona profilu
+11. nastavuje sa farba textu
+12. nastavuje sa intent pre lauch aktivity (Aktivator alebo Editor)
+13. zavola sa appWidgetManager.updateAppWidget()
+
+OneRowWidgetProvider
+
+1. nacitava sa konfiguracia - pouzije sa mutex: PPApplication.applicationPreferencesMutex
+
+1.1. nastavuje sa lightness pre rozne veci
+
+2. vytvara sa DataWrapper s parametrami ci ma byt mono, hodnota mono, lightness custom ikon
+3. zistuje sa aktivovany profil, generuje ikona, indikatory nie, neppuzivaju sa
+
+4. zistuje sa, ci je aplikacia nastartovana - tu sa mutex nepouziva. Toto rob este pred bodom 3
+   a 3 rob len ak ja nastartovana
+
+5. podla parametrov widgetu sa nastavuje:
+   - background color, background alfa, border lioghtness, text lightness
+6. zistuju sa udaje o profile
+   - icon resource id, identifier
+   - profile name - pomocou getProfileNameWithManualIndicator()
+     - DataWrapper nema vyplneny zoznam udalosti (je to lokalny DataWrapper widgetu), takze sa cita z databazy naozaj posledne
+       spustena udalost. Zisti posledne nastartovnu udalost z timeline tabulky a z tabulky eventov potom jej meno.
+   - ak je profile == null, vytvara sa prazdny profil, ktoremu sa generuje bitmapa ikony
+
+7. tu zacina cyklus po jednotlivych widgetId
+8. vytvori sa RemoteViews
+9. nastavuje sa pozadie, border, ci je rounded
+10. nastavuje sa ikona profilu
+11. nastavuje sa farba textu
+11.1. nastavuju sa indikatory profilu
+11.2. nastavuje sa ikona restartu udalosti
+      - zistava sa bitmapa z resource - BitmapManipulator.getBitmapFromResource()
+      - nastavuje sa jej monochrome farba - BitmapManipulator.monochromeBitmap()
+11.3. - nastavuje sa intent ikony restartu udalosti
+12. nastavuje sa intent pre lauch aktivity (Aktivator alebo Editor)
+13. zavola sa appWidgetManager.updateAppWidget()
+
+ProfileListWidgetProvider
+
+0. tu hned zacina cyklus po jednotlivych widgetId
+1. vypocita sa isLargeLayout
+2. vytvori DataWrapper - ignoruje mono hodnoty, lebo sa mono ikona generuje v buildLayout
+3. zavola sa buildLayout() - ??? tu sa pre kazdy widgetId ziskavaju parametre !!! OPRAV
+4. zavola sa appWidgetManager.updateAppWidget()
+
+buildLayout()
+1. nacitava sa konfiguracia - pouzije sa mutex: PPApplication.applicationPreferencesMutex
+1.1. nastavuje sa lightness pre rozne veci
+2. podla parametrov widgetu sa nastavuje:
+   - background color, background alfa, border lioghtness, text lightness, separator lightness
+3. nastavuje sa intent widgetId pre ProfileListWidgetService
+4. vytvara sa RemoteViews
+5. nastavuje sa pozadie, border, ci je rounded
+6. zistuje sa aktivovany profil, generuje ikona, indikatory (ak sa maju zobrazovat)
+7. zistuje sa, ci je aplikacia nastartovana - tu sa mutex nepouziva.
+8. zistuju sa udaje o profile
+   - icon resource id, identifier
+   - profile name - pomocou getProfileNameWithManualIndicator()
+     - DataWrapper nema vyplneny zoznam udalosti (je to lokalny DataWrapper widgetu), takze sa cita z databazy naozaj posledne
+       spustena udalost. Zisti posledne nastartovnu udalost z timeline tabulky a z tabulky eventov potom jej meno.
+   - ak je profile == null, vytvara sa prazdny profil, ktoremu sa generuje bitmapa ikony
+9. nastavuje sa ikona, indikatory, nazov profilu
+10. nastavuje sa ikona restartu udalosti
+      - zistava sa bitmapa z resource - BitmapManipulator.getBitmapFromResource()
+      - nastavuje sa jej monochrome farba - BitmapManipulator.monochromeBitmap()
+11. nastavuje sa intent pre launch aktivity Editora do headera
+    - ak je sa nezobrazuje largeLayout tak sa robi intent pre LauncherActivity
+12. nastavuje sa intent ikony restartu udalosti
+13. nastavuje sa adapter pre grid/list intentom pre ProfileListWidgetService
+14. nastavuje sa intent pre klik na item widgetu, aktivita BackgroundActivateProfileActivity

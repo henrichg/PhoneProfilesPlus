@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -21,7 +22,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ONEROWWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWWIDGET";
 
-    @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
         //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
@@ -112,16 +112,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowCustomIconLightness);
 
-        Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
-        //}
-
-        //boolean fullyStarted = false;
-        //if (PhoneProfilesService.getInstance() != null)
-        //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
+        Profile profile;
         boolean fullyStarted = PPApplication.applicationFullyStarted;
         boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
         if ((!fullyStarted) || applicationPackageReplaced)
             profile = null;
+        else
+            profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
+        //}
 
         //try {
             // set background
@@ -423,6 +421,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         final String action = intent.getAction();
 
+        Log.e("OneRowWidgetProvider.onReceive", "action="+action);
+
         PPApplication.startHandlerThreadOneRowWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadOneRowWidget.getLooper());
         handler.post(new Runnable() {
@@ -440,6 +440,26 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             }
         });
     }
+
+    /*
+    public void onDeleted (Context context, int[] appWidgetIds) {
+        Log.e("OneRowWidgetProvider.onDeleted", "xxx");
+    }
+
+    public void onDisabled (Context context) {
+        Log.e("OneRowWidgetProvider.onDisabled", "xxx");
+    }
+
+    public void onEnabled (Context context) {
+        Log.e("OneRowWidgetProvider.onEnabled", "xxx");
+    }
+
+    public void onRestored (Context context,
+                            int[] oldWidgetIds,
+                            int[] newWidgetIds) {
+        Log.e("OneRowWidgetProvider.onRestored", "xxx");
+    }
+    */
 
     static void updateWidgets(Context context, boolean refresh) {
         /*String applicationWidgetOneRowIconLightness;

@@ -29,64 +29,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         /*appWidgetId=intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                                        AppWidgetManager.INVALID_APPWIDGET_ID);*/
     }
-  
-    private DataWrapper createProfilesDataWrapper(boolean local)
-    {
-        String applicationWidgetListIconLightness;
-        String applicationWidgetListIconColor;
-        boolean applicationWidgetListCustomIconLightness;
-        synchronized (PPApplication.applicationPreferencesMutex) {
-            applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
-            applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
-            applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
-        }
-
-        int monochromeValue = 0xFF;
-        switch (applicationWidgetListIconLightness) {
-            case "0":
-                monochromeValue = 0x00;
-                break;
-            case "12":
-                monochromeValue = 0x20;
-                break;
-            case "25":
-                monochromeValue = 0x40;
-                break;
-            case "37":
-                monochromeValue = 0x60;
-                break;
-            case "50":
-                monochromeValue = 0x80;
-                break;
-            case "62":
-                monochromeValue = 0xA0;
-                break;
-            case "75":
-                monochromeValue = 0xC0;
-                break;
-            case "87":
-                monochromeValue = 0xE0;
-                break;
-            case "100":
-                monochromeValue = 0xFF;
-                break;
-        }
-
-        if (local) {
-            return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
-                    monochromeValue, applicationWidgetListCustomIconLightness);
-        }
-        else {
-            if (dataWrapper == null) {
-                dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
-                        monochromeValue, applicationWidgetListCustomIconLightness);
-            } else {
-                dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
-                        monochromeValue, applicationWidgetListCustomIconLightness);
-            }
-            return dataWrapper;
-        }
-    }
 
     public void onCreate() {
     }
@@ -266,15 +208,67 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     }
   
     public int getViewTypeCount() {
-        return(1);
+        return 1;
     }
 
     public long getItemId(int position) {
-        return(position);
+        return position;
     }
 
     public boolean hasStableIds() {
-        return(true);
+        return false;
+    }
+
+    private DataWrapper createProfilesDataWrapper(boolean local,
+                                                  String applicationWidgetListIconLightness,
+                                                  String applicationWidgetListIconColor,
+                                                  boolean applicationWidgetListCustomIconLightness)
+    {
+        int monochromeValue = 0xFF;
+        switch (applicationWidgetListIconLightness) {
+            case "0":
+                monochromeValue = 0x00;
+                break;
+            case "12":
+                monochromeValue = 0x20;
+                break;
+            case "25":
+                monochromeValue = 0x40;
+                break;
+            case "37":
+                monochromeValue = 0x60;
+                break;
+            case "50":
+                monochromeValue = 0x80;
+                break;
+            case "62":
+                monochromeValue = 0xA0;
+                break;
+            case "75":
+                monochromeValue = 0xC0;
+                break;
+            case "87":
+                monochromeValue = 0xE0;
+                break;
+            case "100":
+                monochromeValue = 0xFF;
+                break;
+        }
+
+        if (local) {
+            return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
+                    monochromeValue, applicationWidgetListCustomIconLightness);
+        }
+        else {
+            if (dataWrapper == null) {
+                dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
+                        monochromeValue, applicationWidgetListCustomIconLightness);
+            } else {
+                dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
+                        monochromeValue, applicationWidgetListCustomIconLightness);
+            }
+            return dataWrapper;
+        }
     }
 
     /*
@@ -285,17 +279,26 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         the old data will be displayed within the widget.
     */
     public void onDataSetChanged() {
-        DataWrapper _dataWrapper = createProfilesDataWrapper(true);
-
+        String applicationWidgetListIconLightness;
+        String applicationWidgetListIconColor;
+        boolean applicationWidgetListCustomIconLightness;
         boolean applicationWidgetListPrefIndicator;
         boolean applicationWidgetListHeader;
         synchronized (PPApplication.applicationPreferencesMutex) {
+            applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
+            applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
+            applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
         }
 
+        DataWrapper _dataWrapper = createProfilesDataWrapper(true,
+                                                applicationWidgetListIconLightness,
+                                                applicationWidgetListIconColor,
+                                                applicationWidgetListCustomIconLightness);
+
         List<Profile> newProfileList = _dataWrapper.getNewProfileList(true,
-                applicationWidgetListPrefIndicator);
+                                                        applicationWidgetListPrefIndicator);
         _dataWrapper.getEventTimelineList(true);
 
         if (!applicationWidgetListHeader)
@@ -317,7 +320,10 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             newProfileList.add(0, restartEvents);
         }
 
-        createProfilesDataWrapper(false);
+        createProfilesDataWrapper(false,
+                                    applicationWidgetListIconLightness,
+                                    applicationWidgetListIconColor,
+                                    applicationWidgetListCustomIconLightness);
         //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
             dataWrapper.setProfileList(newProfileList);
