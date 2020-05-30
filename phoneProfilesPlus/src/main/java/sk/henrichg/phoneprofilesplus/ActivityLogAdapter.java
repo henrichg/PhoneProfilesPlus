@@ -6,13 +6,15 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.cursoradapter.widget.CursorAdapter;
 
 import java.util.HashMap;
+
+//import android.widget.CursorAdapter;
 
 class ActivityLogAdapter extends CursorAdapter {
 

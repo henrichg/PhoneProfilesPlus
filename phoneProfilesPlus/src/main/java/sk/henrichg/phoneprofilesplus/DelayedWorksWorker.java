@@ -642,6 +642,8 @@ public class DelayedWorksWorker extends Worker {
                                 //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                                 appContext.startActivity(startMain);
                             //}
+                        } catch (SecurityException e) {
+                            Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                         } catch (Exception e) {
                             Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
