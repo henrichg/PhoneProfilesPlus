@@ -19,6 +19,7 @@ import androidx.work.WorkerParameters;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
@@ -92,6 +93,19 @@ public class DelayedWorksWorker extends Worker {
 
                         if (Event.getGlobalEventsRunning()) {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is enabled, first start events");
+
+                            // start of periodic events handler
+                            OneTimeWorkRequest periodicEventsHandlerWorker =
+                                    new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
+                                            .addTag("periodicEventsHandlerWorker")
+                                            .setInitialDelay(5, TimeUnit.SECONDS)
+                                            .build();
+                            try {
+                                WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                                workManager.enqueue(periodicEventsHandlerWorker);
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
 
                             if (activateProfiles) {
                                 if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {

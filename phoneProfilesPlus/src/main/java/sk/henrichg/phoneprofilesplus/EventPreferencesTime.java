@@ -1398,8 +1398,8 @@ class EventPreferencesTime extends EventPreferences {
                 daysOfWeek[Calendar.FRIDAY] = event._eventPreferencesTime._friday;
                 daysOfWeek[Calendar.SATURDAY] = event._eventPreferencesTime._saturday;*/
 
-                Calendar calStartTime = Calendar.getInstance();
-                calStartTime.setTimeInMillis(startAlarmTime);
+                //Calendar calStartTime = Calendar.getInstance();
+                //calStartTime.setTimeInMillis(startAlarmTime);
                 //int startDayOfWeek = calStartTime.get(Calendar.DAY_OF_WEEK);
                 //if (daysOfWeek[startDayOfWeek])
                 //{

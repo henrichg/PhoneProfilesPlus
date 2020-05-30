@@ -117,6 +117,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_ALARM_CLOCK_EVENT_END = "alarmClockEventEnd";
     static final String SENSOR_TYPE_DEVICE_BOOT = "deviceBoot";
     static final String SENSOR_TYPE_DEVICE_BOOT_EVENT_END = "deviceBootEventEnd";
+    static final String SENSOR_TYPE_PERIODIC_EVENTS_HANDLER = "periodicEventsHandler";
 
     public EventsHandler(Context context) {
         this.context = context.getApplicationContext();
@@ -990,6 +991,8 @@ class EventsHandler {
                         // call doEventService for all screen on/off changes
                         //eventType = DatabaseHandler.ETYPE_SCREEN;
                         //sensorEnabled = _event._eventPreferencesScreen._enabled;
+                    case SENSOR_TYPE_PERIODIC_EVENTS_HANDLER:
+                        //eventType = DatabaseHandler.ETYPE_???;
                     case SENSOR_TYPE_RESTART_EVENTS:
                         //eventType = DatabaseHandler.ETYPE_???;
                     case SENSOR_TYPE_EVENT_DELAY_START:

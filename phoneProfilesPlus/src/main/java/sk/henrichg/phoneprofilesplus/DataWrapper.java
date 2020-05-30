@@ -2802,6 +2802,8 @@ public class DataWrapper {
             if (Event.getGlobalEventsRunning()) {
                 PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0, "");
 
+                PhoneProfilesService.cancelWork("periodicEventsHandlerWorker", context);
+
                 // no setup for next start
                 resetAllEventsInDelayStart(false);
                 resetAllEventsInDelayEnd(false);
@@ -2836,6 +2838,19 @@ public class DataWrapper {
                 //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.runCommand(context, commandIntent);
+
+                // start of periodic events handler
+                OneTimeWorkRequest periodicEventsHandlerWorker =
+                        new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
+                                .addTag("periodicEventsHandlerWorker")
+                                .setInitialDelay(5, TimeUnit.SECONDS)
+                                .build();
+                try {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    workManager.enqueue(periodicEventsHandlerWorker);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
 
                 // setup for next start
                 firstStartEvents(false, true);

@@ -338,6 +338,7 @@ public class PhoneProfilesService extends Service
             cancelWork(tag, appContext);
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
         cancelWork("disableInternalChangeWork", appContext);
+        cancelWork("periodicEventsHandlerWorker", appContext);
         cancelWork("delayedWorkCloseAllApplications", appContext);
         cancelWork("handleEventsBluetoothLEScannerWork", appContext);
         cancelWork(BluetoothScanWorker.WORK_TAG, appContext);
