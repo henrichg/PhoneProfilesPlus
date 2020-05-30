@@ -48,15 +48,14 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
             //popupWidth = Math.round(popupWidth / 100f * 50f);
             //popupMaxHeight = Math.round(popupMaxHeight / 100f * 90f);
             popupWidth = popupWidth / 100f * 50f;
-            popupMaxHeight = popupMaxHeight / 100f * 90f;
         }
         else
         {
             //popupWidth = Math.round(popupWidth / 100f * 70f);
             //popupMaxHeight = Math.round(popupMaxHeight / 100f * 90f);
             popupWidth = popupWidth / 100f * 80f;
-            popupMaxHeight = popupMaxHeight / 100f * 90f;
         }
+        popupMaxHeight = popupMaxHeight / 100f * 90f;
 
         // add action bar height
         popupHeight = popupHeight + actionBarHeight;

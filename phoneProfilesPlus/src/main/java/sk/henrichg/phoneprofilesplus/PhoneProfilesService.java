@@ -2993,17 +2993,10 @@ public class PhoneProfilesService extends Service
                             PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             if (eventAllowed) {
-                if (!BluetoothScanWorker.isWorkScheduled(appContext)) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleBluetoothWorker->SCHEDULE", "PhoneProfilesService_scheduleBluetoothWorker");
-                    BluetoothScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "SCHEDULE 1");
-                } else {
-                    //if (rescan) {
+                if (BluetoothScanWorker.isWorkScheduled(appContext)) {
                     BluetoothScanWorker.cancelWork(appContext, true/*, null*/);
-                    BluetoothScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothWorker", "SCHEDULE 2");
-                    //}
                 }
+                BluetoothScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
             } else
                 cancelBluetoothWorker(appContext, true);
         } else
@@ -3043,28 +3036,17 @@ public class PhoneProfilesService extends Service
             }
             if (eventAllowed) {
                 // location scanner is enabled
-                if (!GeofenceScanWorker.isWorkScheduled(appContext)/* || rescan*/) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleGeofenceWorker->SCHEDULE", "PhoneProfilesService_scheduleGeofenceWorker");
-                    synchronized (PPApplication.geofenceScannerMutex) {
-                        if (isGeofenceScannerStarted()) {
-                            //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
-                            getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
-                        }
-                    }
-                    GeofenceScanWorker.scheduleWork(appContext, false, /*null,*/ true/*, forScreenOn*/);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "SCHEDULE 1");
-                } else {
-                    //if (rescan)
+                //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
+                if (GeofenceScanWorker.isWorkScheduled(appContext)/* || rescan*/) {
                     GeofenceScanWorker.cancelWork(appContext, true/*, null*/);
-                    synchronized (PPApplication.geofenceScannerMutex) {
-                        if (isGeofenceScannerStarted()) {
-                            //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
-                            getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
-                        }
-                    }
-                    GeofenceScanWorker.scheduleWork(appContext, false, /*null,*/ true/*, forScreenOn*/);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "SCHEDULE 2");
                 }
+                synchronized (PPApplication.geofenceScannerMutex) {
+                    if (isGeofenceScannerStarted()) {
+                        //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
+                        getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                    }
+                }
+                GeofenceScanWorker.scheduleWork(appContext, false, /*null,*/ true/*, forScreenOn*/);
             } else
                 cancelGeofenceWorker(appContext, true);
         } else

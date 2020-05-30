@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
-//import android.preference.CheckBoxPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -15,6 +12,10 @@ import android.text.style.ForegroundColorSpan;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+//import android.preference.CheckBoxPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 
 class EventPreferencesLocation extends EventPreferences {
 
@@ -166,11 +167,8 @@ class EventPreferencesLocation extends EventPreferences {
                 if (preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false)) {
                     if (titleColor != 0)
                         sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    preference.setTitle(sbt);
                 }
-                else {
-                    preference.setTitle(sbt);
-                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }

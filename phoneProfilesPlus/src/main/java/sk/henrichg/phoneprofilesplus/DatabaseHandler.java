@@ -8984,9 +8984,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
                         } while (cursor.moveToNext());
                     }
+                    MobileCell mobileCell = new MobileCell();
                     if (!found) {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "!found");
-                        MobileCell mobileCell = new MobileCell();
                         mobileCell._cellId = cell.cellId;
                         mobileCell._name = cell.name;
                         mobileCell._new = true;
@@ -8997,7 +8997,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         addMobileCell(mobileCell);
                     } else {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
-                        MobileCell mobileCell = new MobileCell();
                         mobileCell._id = foundedDbId;
                         mobileCell._cellId = cell.cellId;
                         mobileCell._name = cell.name;

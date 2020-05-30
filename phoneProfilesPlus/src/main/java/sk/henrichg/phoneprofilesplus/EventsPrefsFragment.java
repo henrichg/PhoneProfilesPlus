@@ -1492,8 +1492,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled accessibility service
             int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false);
+            Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (accessibilityEnabled == 1) {
-                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = findPreference("rootScreen");
                     if (preferenceCategory != null)
@@ -1501,7 +1501,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else {
-                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference("rootScreen");
                     if (preferenceCategory != null) {
@@ -1564,7 +1563,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not is runnable
             if (event.isRunnable(context, false)) {
-                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = findPreference("rootScreen");
                     if (preferenceCategory != null)
@@ -1572,7 +1571,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else {
-                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference("rootScreen");
                     if (preferenceCategory != null) {

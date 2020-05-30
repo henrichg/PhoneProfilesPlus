@@ -444,6 +444,7 @@ class EventsHandler {
 
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
+            sortEventsByStartOrderDesc(dataWrapper.eventList);
             if (isRestart) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
@@ -455,7 +456,6 @@ class EventsHandler {
                 //oldActivatedProfile = null;
 
                 // 1. pause events
-                sortEventsByStartOrderDesc(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
@@ -542,7 +542,6 @@ class EventsHandler {
                 //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
                 //1. pause events
-                sortEventsByStartOrderDesc(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "state PAUSE");

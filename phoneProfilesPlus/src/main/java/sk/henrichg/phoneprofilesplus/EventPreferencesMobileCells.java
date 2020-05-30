@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.Build;
-//import android.preference.CheckBoxPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -16,6 +13,10 @@ import android.text.style.ForegroundColorSpan;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+//import android.preference.CheckBoxPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 
 class EventPreferencesMobileCells extends EventPreferences {
 
@@ -164,11 +165,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                 if (preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                     if (titleColor != 0)
                         sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    preference.setTitle(sbt);
                 }
-                else {
-                    preference.setTitle(sbt);
-                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }
@@ -328,9 +326,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
                                 if (PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
                                     String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
+                                    String[] splits = _cells.split("\\|");
                                     if (_whenOutside) {
                                         // all mobile cells must not be registered
-                                        String[] splits = _cells.split("\\|");
                                         eventsHandler.mobileCellPassed = true;
                                         for (String cell : splits) {
                                             if (cell.equals(registeredCell)) {
@@ -342,7 +340,6 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     }
                                     else {
                                         // one mobile cell must be registered
-                                        String[] splits = _cells.split("\\|");
                                         eventsHandler.mobileCellPassed = false;
                                         for (String cell : splits) {
                                             if (cell.equals(registeredCell)) {

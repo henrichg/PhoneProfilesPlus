@@ -151,10 +151,10 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         }
         else {*/
+            TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
             if (Build.VERSION.SDK_INT >= 28) {
                 //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 //infoText21.setVisibility(View.GONE);
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
                 infoText22.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -193,8 +193,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 });
             }
             else {
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
-                infoText22.setVisibility(View.GONE);
+            infoText22.setVisibility(View.GONE);
                 //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 //infoText21.setVisibility(View.GONE);
             }
@@ -416,7 +415,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 });
                 //TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
                 //infoText21.setVisibility(View.GONE);
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
+                infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
                 infoText22.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

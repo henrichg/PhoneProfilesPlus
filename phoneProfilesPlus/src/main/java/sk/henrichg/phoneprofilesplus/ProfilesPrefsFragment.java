@@ -1139,10 +1139,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!title.isEmpty() && !title.contains("(S)"))
                     title = "(S) " + title;
             }
-            return title;
         }
-        else
-            return title;
+        return title;
     }
 
     private void setCategorySummary(String key, Context context) {
@@ -3384,15 +3382,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled accessibility service
                 int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext());
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (accessibilityEnabled == 1) {
-                    Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference("rootScreen");
                         if (preferenceCategory != null)
                             preferenceCategory.removePreference(preference);
                     }
                 } else {
-                    Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference("rootScreen");
                         if (preferenceCategory != null) {

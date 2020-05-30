@@ -389,12 +389,11 @@ class GlobalGUIRoutines {
                 }
             }
             //if (addBullet) {
+                String s = title.toString();
                 if (bold) {
-                    String s = title.toString();
                     if (!s.startsWith("• "))
                         title = TextUtils.concat("• ", title);
                 } else {
-                    String s = title.toString();
                     if (s.startsWith("• "))
                         title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
                 }

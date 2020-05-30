@@ -193,11 +193,8 @@ class EventPreferencesWifi extends EventPreferences {
                 if (preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false)) {
                     if (titleColor != 0)
                         sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    preference.setTitle(sbt);
                 }
-                else {
-                    preference.setTitle(sbt);
-                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }
