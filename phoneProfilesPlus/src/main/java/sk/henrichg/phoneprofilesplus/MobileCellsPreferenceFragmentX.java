@@ -12,6 +12,8 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -292,7 +294,41 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
         if (PPApplication.hasSystemFeature(prefContext, PackageManager.FEATURE_TELEPHONY)) {
             TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
-            if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)) {
+            boolean simIsReady = false;
+            if (telephonyManager != null) {
+                if (Build.VERSION.SDK_INT < 26) {
+                    if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
+                        // sim card is ready
+                        simIsReady = true;
+                } else {
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    //SubscriptionManager.from(context);
+                    if (mSubscriptionManager != null) {
+                        List<SubscriptionInfo> subscriptionList = null;
+                        try {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        } catch (SecurityException e) {
+                            PPApplication.recordException(e);
+                        }
+                        if (subscriptionList != null) {
+                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                // Get the active subscription ID for a given SIM card.
+                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                if (subscriptionInfo != null) {
+                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                        // sim card is ready
+                                        simIsReady = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (simIsReady) {
                 rescanButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -303,6 +339,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
             else
                 rescanButton.setEnabled(false);
+
         }
         else
             rescanButton.setEnabled(false);

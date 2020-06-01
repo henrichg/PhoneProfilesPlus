@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
@@ -22,6 +23,8 @@ import android.telephony.CellInfoWcdma;
 import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -111,21 +114,54 @@ class PhoneStateScanner extends PhoneStateListener {
 
         if ((telephonyManager != null) &&
                 PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) &&
-                (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) &&
                 Permissions.checkLocation(context.getApplicationContext())) {
-            //PPApplication.logE("PhoneStateScanner.connect", "telephonyManager.listen");
-            telephonyManager.listen(this,
-                    //  PhoneStateListener.LISTEN_CALL_STATE
-                    PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
-                            //| PhoneStateListener.LISTEN_CELL_LOCATION
-                            //| PhoneStateListener.LISTEN_DATA_ACTIVITY
-                            //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
-                            | PhoneStateListener.LISTEN_SERVICE_STATE
-                    //| PhoneStateListener.LISTEN_SIGNAL_STRENGTHS
-                    //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
-                    //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
-            );
-            //checkLocationEnabled();
+            boolean simIsReady = false;
+            if (Build.VERSION.SDK_INT < 26) {
+                if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
+                    // sim card is ready
+                    simIsReady = true;
+            } else {
+                SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                //SubscriptionManager.from(context);
+                if (mSubscriptionManager != null) {
+                    List<SubscriptionInfo> subscriptionList = null;
+                    try {
+                        // Loop through the subscription list i.e. SIM list.
+                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                    } catch (SecurityException e) {
+                        PPApplication.recordException(e);
+                    }
+                    if (subscriptionList != null) {
+                        for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            // Get the active subscription ID for a given SIM card.
+                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                            if (subscriptionInfo != null) {
+                                int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                    // sim card is ready
+                                    simIsReady = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (simIsReady) {
+                //PPApplication.logE("PhoneStateScanner.connect", "telephonyManager.listen");
+                telephonyManager.listen(this,
+                        //  PhoneStateListener.LISTEN_CALL_STATE
+                        PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
+                                //| PhoneStateListener.LISTEN_CELL_LOCATION
+                                //| PhoneStateListener.LISTEN_DATA_ACTIVITY
+                                //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+                                | PhoneStateListener.LISTEN_SERVICE_STATE
+                        //| PhoneStateListener.LISTEN_SIGNAL_STRENGTHS
+                        //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
+                        //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
+                );
+                //checkLocationEnabled();
+            }
         }
         startAutoRegistration(context, true);
     }
