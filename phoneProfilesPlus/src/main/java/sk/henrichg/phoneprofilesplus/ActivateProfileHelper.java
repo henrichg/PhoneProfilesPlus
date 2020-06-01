@@ -2806,11 +2806,13 @@ class ActivateProfileHelper {
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 1");
-                            Settings.System.putInt(appContext.getContentResolver(),
-                                    Settings.System.SCREEN_BRIGHTNESS,
-                                    profile.getDeviceBrightnessManualValue(appContext));
                             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, appContext).allowed
                                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+                                Settings.System.putInt(appContext.getContentResolver(),
+                                        Settings.System.SCREEN_BRIGHTNESS,
+                                        profile.getDeviceBrightnessManualValue(appContext));
+
                                 /*if (android.os.Build.VERSION.SDK_INT < 23) {   // Not working in Android M (exception)
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 1");
                                     Settings.System.putFloat(appContext.getContentResolver(),
