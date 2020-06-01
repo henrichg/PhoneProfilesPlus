@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -2674,11 +2677,41 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
-                        if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
-                            // sim card is ready
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        else
+                        if (Build.VERSION.SDK_INT < 26) {
+                            if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
+                                // sim card is ready
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                        else {
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            SubscriptionManager mSubscriptionManager = (SubscriptionManager)appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                            //SubscriptionManager.from(context);
+                            if (mSubscriptionManager != null) {
+                                List<SubscriptionInfo> subscriptionList = null;
+                                try {
+                                    // Loop through the subscription list i.e. SIM list.
+                                    subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                                } catch (SecurityException e) {
+                                    PPApplication.recordException(e);
+                                }
+                                if (subscriptionList != null) {
+                                    for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                        // Get the active subscription ID for a given SIM card.
+                                        SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                        if (subscriptionInfo != null) {
+                                            int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                            if (telephonyManager.getSimState(slotIndex)  == TelephonyManager.SIM_STATE_READY) {
+                                                // sim card is ready
+                                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
