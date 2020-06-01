@@ -121,12 +121,12 @@ class ContactsCache {
             cached = false;
         }
 
-        if (cached) {
+        //if (cached) {
             synchronized (PPApplication.contactsCacheMutex) {
                 updateContacts(_contactList/*, false*/);
                 //updateContacts(_contactListWithoutNumber, true);
             }
-        }
+        //}
 
         caching = false;
     }
