@@ -13,7 +13,6 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.work.WorkManager;
 
 import java.util.Calendar;
 
@@ -147,15 +146,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                workManager.cancelUniqueWork("elapsedAlarmsDonationWork");
-                workManager.cancelAllWorkByTag("elapsedAlarmsDonationWork");
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+        PhoneProfilesService.cancelWork("elapsedAlarmsDonationWork", context);
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {

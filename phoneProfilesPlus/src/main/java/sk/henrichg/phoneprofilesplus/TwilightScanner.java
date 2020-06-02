@@ -19,8 +19,6 @@ import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
-import androidx.work.WorkManager;
-
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -466,15 +464,7 @@ class TwilightScanner {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-                try {
-                    if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                        workManager.cancelUniqueWork("elapsedAlarmsTwilightScannerWork");
-                        workManager.cancelAllWorkByTag("elapsedAlarmsTwilightScannerWork");
-                    }
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
+                PhoneProfilesService.cancelWork("elapsedAlarmsTwilightScannerWork", context);
 
                 // set alarm
                 /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {

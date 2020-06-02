@@ -424,7 +424,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
-                                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                        if (workManager != null)
+                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -485,7 +486,8 @@ public class RingtonePreferenceX extends DialogPreference {
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
-                                workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                if (workManager != null)
+                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                             }
                         } catch (Exception ee) {
                             PPApplication.recordException(e);

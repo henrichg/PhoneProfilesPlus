@@ -1573,7 +1573,8 @@ class ActivateProfileHelper {
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                        if (workManager != null)
+                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -3073,7 +3074,8 @@ class ActivateProfileHelper {
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                        workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
+                        if (workManager != null)
+                            workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -3236,7 +3238,8 @@ class ActivateProfileHelper {
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                workManager.enqueueUniqueWork("disableScreenTimeoutInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                if (workManager != null)
+                    workManager.enqueueUniqueWork("disableScreenTimeoutInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

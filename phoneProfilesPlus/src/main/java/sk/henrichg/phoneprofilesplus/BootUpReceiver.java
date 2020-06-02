@@ -112,7 +112,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                                        workManager.enqueue(worker);
+                                        if (workManager != null)
+                                            workManager.enqueue(worker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);

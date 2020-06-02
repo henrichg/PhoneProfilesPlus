@@ -73,8 +73,10 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
             try {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                    //workManager.enqueueUniqueWork("elapsedAlarmsShowProfileNotificationWork", ExistingWorkPolicy.REPLACE, worker);
-                    workManager.enqueue(worker);
+                    if (workManager != null) {
+                        //workManager.enqueueUniqueWork("elapsedAlarmsShowProfileNotificationWork", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueue(worker);
+                    }
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);

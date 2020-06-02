@@ -776,46 +776,48 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
-                workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.REPLACE, fetchAddressWorker);
+                if (workManager != null) {
+                    workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.REPLACE, fetchAddressWorker);
 
-                workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
-                        .observe(this, new Observer<WorkInfo>() {
-                            @Override
-                            public void onChanged(@Nullable WorkInfo workInfo) {
-                                //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
+                    workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
+                            .observe(this, new Observer<WorkInfo>() {
+                                @Override
+                                public void onChanged(@Nullable WorkInfo workInfo) {
+                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
 
-                                if ((workInfo != null) && (workInfo.getState() == WorkInfo.State.SUCCEEDED)) {
-                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
+                                    if ((workInfo != null) && (workInfo.getState() == WorkInfo.State.SUCCEEDED)) {
+                                        //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
-                                    Data outputData = workInfo.getOutputData();
-                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData=" + outputData);
+                                        Data outputData = workInfo.getOutputData();
+                                        //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData=" + outputData);
 
-                                    int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
-                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
-
-                                    boolean enableAddressButton = false;
-                                    if (resultCode == SUCCESS_RESULT) {
+                                        int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
                                         //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
-                                        // Display the address string
-                                        // or an error message sent from the intent service.
-                                        String addressOutput = outputData.getString(RESULT_DATA_KEY);
-                                        //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
+                                        boolean enableAddressButton = false;
+                                        if (resultCode == SUCCESS_RESULT) {
+                                            //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
-                                        addressText.setText(addressOutput);
+                                            // Display the address string
+                                            // or an error message sent from the intent service.
+                                            String addressOutput = outputData.getString(RESULT_DATA_KEY);
+                                            //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
 
-                                        if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
-                                            geofenceNameEditText.setText(addressOutput);
+                                            addressText.setText(addressOutput);
 
-                                        updateEditedMarker(false);
+                                            if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
+                                                geofenceNameEditText.setText(addressOutput);
 
-                                        enableAddressButton = true;
+                                            updateEditedMarker(false);
+
+                                            enableAddressButton = true;
+                                        }
+
+                                        GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
                                     }
-
-                                    GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
                                 }
-                            }
-                        });
+                            });
+                }
             }
         } catch (Exception e) {
             Log.e("LocationGeofenceEditorActivity.startIntentService", Log.getStackTraceString(e));

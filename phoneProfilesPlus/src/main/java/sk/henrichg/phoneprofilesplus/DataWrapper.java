@@ -2470,8 +2470,10 @@ public class DataWrapper {
             try {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                    //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
-                    workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                    if (workManager != null) {
+                        //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                        workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                    }
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
@@ -2847,7 +2849,8 @@ public class DataWrapper {
                                 .build();
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                    workManager.enqueue(periodicEventsHandlerWorker);
+                    if (workManager != null)
+                        workManager.enqueue(periodicEventsHandlerWorker);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

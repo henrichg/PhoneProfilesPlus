@@ -13,7 +13,6 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.WorkManager;
 
 import java.util.Calendar;
 import java.util.List;
@@ -453,15 +452,7 @@ class EventPreferencesCall extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                //workManager.cancelUniqueWork("elapsedAlarmsCallSensorWork_"+(int)_event._id);
-                workManager.cancelAllWorkByTag("elapsedAlarmsCallSensorWork_" + (int) _event._id);
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+        PhoneProfilesService.cancelWork("elapsedAlarmsCallSensorWork_" + (int) _event._id, context);
     }
 
     @SuppressLint("NewApi")

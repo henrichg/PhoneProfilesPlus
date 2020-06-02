@@ -2109,14 +2109,20 @@ class Event {
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance(_context);
-                        //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
-                        workManager.enqueue(worker);
-                        PPApplication.elapsedAlarmsEventDelayStartWork.add("elapsedAlarmsEventDelayStartWork_" + (int) this._id);
+                        if (workManager != null) {
+                            //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
+                            workManager.enqueue(worker);
+                            PPApplication.elapsedAlarmsEventDelayStartWork.add("elapsedAlarmsEventDelayStartWork_" + (int) this._id);
 
-                        Calendar now = Calendar.getInstance();
-                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                        this._startStatusTime = now.getTimeInMillis() - gmtOffset;
-                        this._isInDelayStart = true;
+                            Calendar now = Calendar.getInstance();
+                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                            this._startStatusTime = now.getTimeInMillis() - gmtOffset;
+                            this._isInDelayStart = true;
+                        }
+                        else {
+                            this._startStatusTime = 0;
+                            this._isInDelayStart = false;
+                        }
                     }
                     else {
                         this._startStatusTime = 0;
@@ -2339,14 +2345,20 @@ class Event {
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance(_context);
-                        //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
-                        workManager.enqueue(worker);
-                        PPApplication.elapsedAlarmsEventDelayEndWork.add("elapsedAlarmsEventDelayEndWork_" + (int) this._id);
+                        if (workManager != null) {
+                            //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
+                            workManager.enqueue(worker);
+                            PPApplication.elapsedAlarmsEventDelayEndWork.add("elapsedAlarmsEventDelayEndWork_" + (int) this._id);
 
-                        Calendar now = Calendar.getInstance();
-                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                        this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
-                        this._isInDelayEnd = true;
+                            Calendar now = Calendar.getInstance();
+                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                            this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
+                            this._isInDelayEnd = true;
+                        }
+                        else {
+                            this._pauseStatusTime = 0;
+                            this._isInDelayEnd = false;
+                        }
                     }
                     else {
                         this._pauseStatusTime = 0;

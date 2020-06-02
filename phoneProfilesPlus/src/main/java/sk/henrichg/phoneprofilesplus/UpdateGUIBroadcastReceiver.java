@@ -84,12 +84,14 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
             try {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                    //if (PPApplication.logEnabled()) {
-                    //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
-                    //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);
-                    //}
-                    //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.REPLACE, worker);
-                    workManager.enqueue(worker);
+                    if (workManager != null) {
+                        //if (PPApplication.logEnabled()) {
+                        //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
+                        //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);
+                        //}
+                        //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueue(worker);
+                    }
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);

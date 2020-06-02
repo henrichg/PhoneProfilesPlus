@@ -11,7 +11,6 @@ import android.content.SharedPreferences.Editor;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.work.WorkManager;
 
 import java.util.Calendar;
 
@@ -254,15 +253,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                //workManager.cancelUniqueWork("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id);
-                workManager.cancelAllWorkByTag("elapsedAlarmsDeviceBootSensorWork_" + (int) _event._id);
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+        PhoneProfilesService.cancelWork("elapsedAlarmsDeviceBootSensorWork_" + (int) _event._id, context);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

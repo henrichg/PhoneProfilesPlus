@@ -138,40 +138,42 @@ public class BluetoothScanWorker extends Worker {
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                if (workManager != null) {
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- START");
-                PPApplication.logE("BluetoothScanWorker._scheduleWork", "shortInterval=" + shortInterval);
-            }*/
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- START");
+                        PPApplication.logE("BluetoothScanWorker._scheduleWork", "shortInterval=" + shortInterval);
+                    }*/
 
-                int interval = ApplicationPreferences.applicationEventBluetoothScanInterval;
-                //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
-                    interval = 2 * interval;
+                    int interval = ApplicationPreferences.applicationEventBluetoothScanInterval;
+                    //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
+                        interval = 2 * interval;
 
-                //PPApplication.logE("BluetoothScanWorker._scheduleWork", "interval=" + interval);
+                    //PPApplication.logE("BluetoothScanWorker._scheduleWork", "interval=" + interval);
 
-                if (!shortInterval) {
-                    //PPApplication.logE("BluetoothScanWorker._scheduleWork", "delay work");
-                    OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
-                            .setInitialDelay(interval, TimeUnit.MINUTES)
-                            .addTag(WORK_TAG)
-                            .build();
-                    if (PPApplication.getApplicationStarted(true)) {
-                        workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                    if (!shortInterval) {
+                        //PPApplication.logE("BluetoothScanWorker._scheduleWork", "delay work");
+                        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
+                                .setInitialDelay(interval, TimeUnit.MINUTES)
+                                .addTag(WORK_TAG)
+                                .build();
+                        if (PPApplication.getApplicationStarted(true)) {
+                            workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        }
+                    } else {
+                        //PPApplication.logE("BluetoothScanWorker._scheduleWork", "start now work");
+                        waitForFinish(context);
+                        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
+                                .addTag(WORK_TAG)
+                                .build();
+                        if (PPApplication.getApplicationStarted(true)) {
+                            workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        }
                     }
-                } else {
-                    //PPApplication.logE("BluetoothScanWorker._scheduleWork", "start now work");
-                    waitForFinish(context);
-                    OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
-                            .addTag(WORK_TAG)
-                            .build();
-                    if (PPApplication.getApplicationStarted(true)) {
-                        workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
-                    }
+                    //PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- END");
                 }
-                //PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- END");
             }
         } catch (Exception e) {
             Log.e("BluetoothScanWorker._scheduleWork", Log.getStackTraceString(e));
@@ -235,38 +237,40 @@ public class BluetoothScanWorker extends Worker {
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                if (workManager != null) {
 
-                //PPApplication.logE("BluetoothScanWorker.waitForFinish", "START WAIT FOR FINISH");
-                long start = SystemClock.uptimeMillis();
-                do {
+                    //PPApplication.logE("BluetoothScanWorker.waitForFinish", "START WAIT FOR FINISH");
+                    long start = SystemClock.uptimeMillis();
+                    do {
 
-                    ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
-                    boolean allFinished = true;
-                    //noinspection TryWithIdenticalCatches
-                    try {
-                        List<WorkInfo> workInfoList = statuses.get();
-                        for (WorkInfo workInfo : workInfoList) {
-                            WorkInfo.State state = workInfo.getState();
-                            if (!state.isFinished()) {
-                                allFinished = false;
-                                break;
+                        ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        boolean allFinished = true;
+                        //noinspection TryWithIdenticalCatches
+                        try {
+                            List<WorkInfo> workInfoList = statuses.get();
+                            for (WorkInfo workInfo : workInfoList) {
+                                WorkInfo.State state = workInfo.getState();
+                                if (!state.isFinished()) {
+                                    allFinished = false;
+                                    break;
+                                }
                             }
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (allFinished) {
-                        //PPApplication.logE("BluetoothScanWorker.waitForFinish", "FINISHED");
-                        break;
-                    }
+                        if (allFinished) {
+                            //PPApplication.logE("BluetoothScanWorker.waitForFinish", "FINISHED");
+                            break;
+                        }
 
-                    //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                    SystemClock.sleep(100);
-                } while (SystemClock.uptimeMillis() - start < BluetoothScanner.classicBTScanDuration * 1000);
+                        //try { Thread.sleep(100); } catch (InterruptedException e) { }
+                        SystemClock.sleep(100);
+                    } while (SystemClock.uptimeMillis() - start < BluetoothScanner.classicBTScanDuration * 1000);
 
-                //PPApplication.logE("BluetoothScanWorker.waitForFinish", "END WAIT FOR FINISH");
+                    //PPApplication.logE("BluetoothScanWorker.waitForFinish", "END WAIT FOR FINISH");
+                }
             }
         } catch (Exception e) {
             Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
@@ -295,26 +299,30 @@ public class BluetoothScanWorker extends Worker {
     private static boolean isWorkRunning(Context context) {
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager instance = PPApplication.getWorkManagerInstance(context);
-                ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
-                //noinspection TryWithIdenticalCatches
-                try {
-                    List<WorkInfo> workInfoList = statuses.get();
-                    //PPApplication.logE("BluetoothScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                    //return workInfoList.size() != 0;
-                    boolean running = false;
-                    for (WorkInfo workInfo : workInfoList) {
-                        WorkInfo.State state = workInfo.getState();
-                        running = state == WorkInfo.State.RUNNING;
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                if (workManager != null) {
+                    ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                    //noinspection TryWithIdenticalCatches
+                    try {
+                        List<WorkInfo> workInfoList = statuses.get();
+                        //PPApplication.logE("BluetoothScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+                        //return workInfoList.size() != 0;
+                        boolean running = false;
+                        for (WorkInfo workInfo : workInfoList) {
+                            WorkInfo.State state = workInfo.getState();
+                            running = state == WorkInfo.State.RUNNING;
+                        }
+                        return running;
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                        return false;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        return false;
                     }
-                    return running;
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                    return false;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    return false;
                 }
+                else
+                    return false;
             }
             else
                 return false;
@@ -329,26 +337,30 @@ public class BluetoothScanWorker extends Worker {
         //PPApplication.logE("BluetoothScanWorker.isWorkScheduled", "xxx");
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager instance = PPApplication.getWorkManagerInstance(context);
-                ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(WORK_TAG);
-                //noinspection TryWithIdenticalCatches
-                try {
-                    List<WorkInfo> workInfoList = statuses.get();
-                    //PPApplication.logE("BluetoothScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                    //return workInfoList.size() != 0;
-                    boolean running = false;
-                    for (WorkInfo workInfo : workInfoList) {
-                        WorkInfo.State state = workInfo.getState();
-                        running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                if (workManager != null) {
+                    ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                    //noinspection TryWithIdenticalCatches
+                    try {
+                        List<WorkInfo> workInfoList = statuses.get();
+                        //PPApplication.logE("BluetoothScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+                        //return workInfoList.size() != 0;
+                        boolean running = false;
+                        for (WorkInfo workInfo : workInfoList) {
+                            WorkInfo.State state = workInfo.getState();
+                            running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                        }
+                        return running;
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                        return false;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        return false;
                     }
-                    return running;
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                    return false;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    return false;
                 }
+                else
+                    return false;
             }
             else
                 return false;
@@ -995,7 +1007,8 @@ public class BluetoothScanWorker extends Worker {
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance(context);
-                            workManager.enqueueUniqueWork("handleEventsBluetoothCLScannerWork", ExistingWorkPolicy.REPLACE, worker);
+                            if (workManager != null)
+                                workManager.enqueueUniqueWork("handleEventsBluetoothCLScannerWork", ExistingWorkPolicy.REPLACE, worker);
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);

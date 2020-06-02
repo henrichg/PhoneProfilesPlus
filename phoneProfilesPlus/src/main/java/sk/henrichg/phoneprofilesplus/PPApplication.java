@@ -1146,6 +1146,8 @@ public class PPApplication extends Application /*implements Application.Activity
 
         PPApplication.logE("##### PPApplication.onCreate", "continue onCreate()");
 
+        workManagerInstance = WorkManager.getInstance(getApplicationContext());
+
         // https://issuetracker.google.com/issues/115575872#comment16
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
@@ -1154,7 +1156,8 @@ public class PPApplication extends Application /*implements Application.Activity
                         .build();
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
-            workManager.enqueue(avoidRescheduleReceiverWorker);
+            if (workManager != null)
+                workManager.enqueue(avoidRescheduleReceiverWorker);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1239,8 +1242,6 @@ public class PPApplication extends Application /*implements Application.Activity
         });
         anrWatchDog.start();
         */
-
-        workManagerInstance = getWorkManagerInstance(getApplicationContext());
 
         try {
             PPApplication.setCustomKey("DEBUG", DebugVersion.enabled);
@@ -1382,8 +1383,7 @@ public class PPApplication extends Application /*implements Application.Activity
     }
 
     static WorkManager getWorkManagerInstance(Context context) {
-        if (workManagerInstance == null)
-            workManagerInstance = WorkManager.getInstance(context.getApplicationContext());
+        //if (workManagerInstance == null)
         return workManagerInstance;
     }
 
@@ -3856,7 +3856,8 @@ public class PPApplication extends Application /*implements Application.Activity
             try {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance(context.getApplicationContext());
-                    workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
+                    if (workManager != null)
+                        workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);

@@ -40,7 +40,8 @@ public class PeriodicEventsHandlerWorker extends Worker {
                             .build();
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
-                workManager.enqueue(periodicEventsHandlerWorker);
+                if (workManager != null)
+                    workManager.enqueue(periodicEventsHandlerWorker);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
