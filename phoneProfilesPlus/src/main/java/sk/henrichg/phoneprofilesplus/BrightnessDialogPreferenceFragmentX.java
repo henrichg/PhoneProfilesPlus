@@ -1,14 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -112,6 +109,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             setAdaptiveBrightness(SettingsContentObserver.savedAdaptiveBrightness);
         }
 
+        /*
         Window win = ((Activity)context).getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
         //if (preference.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
@@ -119,6 +117,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         //else
         //    layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
         win.setAttributes(layoutParams);
+        */
 
         preference.fragment = null;
     }
@@ -188,6 +187,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 setAdaptiveBrightness(SettingsContentObserver.savedAdaptiveBrightness);
             }
 
+            /*
             Window win = ((Activity)context).getWindow();
             WindowManager.LayoutParams layoutParams = win.getAttributes();
             //if (preference.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
@@ -195,6 +195,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             //else
             //    layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
             win.setAttributes(layoutParams);
+            */
         }
         else
         {
@@ -209,24 +210,26 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                         PPApplication.logE("BrightnessDialogPreferenceFragmentX.onCheckedChanged", "computed value=" +
                                                         Profile.convertPercentsToBrightnessManualValue(_value, context));
                     }*/
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                            Profile.convertPercentsToBrightnessManualValue(_value, context));
+                    int __value = Profile.convertPercentsToBrightnessManualValue(_value, context);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
                     setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(_value, context));
                 }
             }
 
+            /*
             Window win = ((Activity)context).getWindow();
             WindowManager.LayoutParams layoutParams = win.getAttributes();
             //if (_automatic == 1)
                 layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-            /*else {
-                if (_changeLevel == 1)
-                    layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-                    //layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(_value, context) / (float) 255;
-                else
-                    layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
-            }*/
+            //else {
+            //    if (_changeLevel == 1)
+            //        layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+            //        //layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(_value, context) / (float) 255;
+            //    else
+            //        layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
+            //}
             win.setAttributes(layoutParams);
+            */
         }
 
         preference.callChangeListener(preference.getSValue());
@@ -340,24 +343,26 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             else
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
             if (preference.changeLevel == 1) {
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                        Profile.convertPercentsToBrightnessManualValue(value, context));
+                int __value = Profile.convertPercentsToBrightnessManualValue(value, context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, __value);
                 setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(value, context));
             }
         }
 
+        /*
         Window win = ((Activity)context).getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
         //if (preference.automatic == 1)
             layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-        /*else {
-            if (preference.changeLevel == 1)
-                //layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(value, context) / (float) 255;
-                layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-            else
-                layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
-        }*/
+        //else {
+        //    if (preference.changeLevel == 1)
+        //        //layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(value, context) / (float) 255;
+        //        layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+        //    else
+        //        layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
+        //}
         win.setAttributes(layoutParams);
+        */
     }
 
 }

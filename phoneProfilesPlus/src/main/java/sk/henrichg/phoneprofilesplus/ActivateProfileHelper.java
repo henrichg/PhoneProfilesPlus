@@ -2846,6 +2846,7 @@ class ActivateProfileHelper {
                         }
                     }
 
+                    /*
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start BackgroundBrightnessActivity");
                     Intent intent = new Intent(appContext, BackgroundBrightnessActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this is important
@@ -2858,6 +2859,7 @@ class ActivateProfileHelper {
                     intent.putExtra(BackgroundBrightnessActivity.EXTRA_BRIGHTNESS_VALUE, brightnessValue);
 
                     appContext.startActivity(intent);
+                    */
 
                     /*
                     if (PPApplication.brightnessHandler != null) {
