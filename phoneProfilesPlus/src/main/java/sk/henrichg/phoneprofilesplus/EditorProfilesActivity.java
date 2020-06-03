@@ -1734,6 +1734,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                     try {
                         //noinspection ResultOfMethodCallIgnored
                         src.setReadable(true, false);
+                    } catch (Exception ee) {
+                        PPApplication.recordException(ee);
+                    }
+                    try {
                         //noinspection ResultOfMethodCallIgnored
                         src.setWritable(true, false);
                     } catch (Exception ee) {
@@ -1912,6 +1916,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (exportPath.exists()) {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportPath.setReadable(true, false);
+                            }
+                            if (exportPath.exists()) {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportPath.setWritable(true, false);
                             }
@@ -2158,6 +2164,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 try {
                     //noinspection ResultOfMethodCallIgnored
                     dst.setReadable(true, false);
+                } catch (Exception ee) {
+                    PPApplication.recordException(ee);
+                }
+                try {
                     //noinspection ResultOfMethodCallIgnored
                     dst.setWritable(true, false);
                 } catch (Exception ee) {

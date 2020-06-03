@@ -12198,6 +12198,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         try {
                             //noinspection ResultOfMethodCallIgnored
                             exportedDB.setReadable(true, false);
+                        } catch (Exception ee) {
+                            PPApplication.recordException(ee);
+                        }
+                        try {
                             //noinspection ResultOfMethodCallIgnored
                             exportedDB.setWritable(true, false);
                         } catch (Exception ee) {
@@ -12295,6 +12299,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 try {
                                     //noinspection ResultOfMethodCallIgnored
                                     exportDir.setReadable(true, false);
+                                } catch (Exception ee) {
+                                    PPApplication.recordException(ee);
+                                }
+                                try {
                                     //noinspection ResultOfMethodCallIgnored
                                     exportDir.setWritable(true, false);
                                 } catch (Exception ee) {
@@ -12324,6 +12332,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             try {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportedDB.setReadable(true, false);
+                            } catch (Exception ee) {
+                                PPApplication.recordException(ee);
+                            }
+                            try {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportedDB.setWritable(true, false);
                             } catch (Exception ee) {
