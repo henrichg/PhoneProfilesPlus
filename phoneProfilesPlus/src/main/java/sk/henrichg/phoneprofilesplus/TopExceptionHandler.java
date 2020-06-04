@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeoutException;
 
 class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
@@ -79,9 +80,16 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
         }
 
-        if (defaultUEH != null)
-            //Delegates to Android's error handling
-            defaultUEH.uncaughtException(t, e);
+        if (defaultUEH != null) {
+            //noinspection StatementWithEmptyBody
+            if (t.getName().equals("FinalizerWatchdogDaemon") && (e instanceof TimeoutException)) {
+                // ignore these exceptions
+            }
+            else {
+                //Delegates to Android's error handling
+                defaultUEH.uncaughtException(t, e);
+            }
+        }
         else
             //Prevents the service/app from freezing
             System.exit(2);
