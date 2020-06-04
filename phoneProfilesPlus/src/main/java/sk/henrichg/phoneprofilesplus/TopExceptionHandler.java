@@ -84,6 +84,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             //noinspection StatementWithEmptyBody
             if (t.getName().equals("FinalizerWatchdogDaemon") && (e instanceof TimeoutException)) {
                 // ignore these exceptions
+                // java.util.concurrent.TimeoutException: com.android.internal.os.BinderInternal$GcWatcher.finalize() timed out after 10 seconds
+                // https://stackoverflow.com/a/55999687/2863059
             }
             else {
                 //Delegates to Android's error handling
