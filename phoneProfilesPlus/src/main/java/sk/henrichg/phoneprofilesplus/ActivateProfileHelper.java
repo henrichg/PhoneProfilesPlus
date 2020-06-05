@@ -1911,16 +1911,19 @@ class ActivateProfileHelper {
                 }
             }
             else {
-                int interruptionFilter = Settings.Global.getInt(appContext.getContentResolver(), "zen_mode", -1);
-                switch (interruptionFilter) {
-                    case 0:
-                        return ActivateProfileHelper.ZENMODE_ALL;
-                    case 1:
-                        return ActivateProfileHelper.ZENMODE_PRIORITY;
-                    case 2:
-                        return ActivateProfileHelper.ZENMODE_NONE;
-                    case 3:
-                        return ActivateProfileHelper.ZENMODE_ALARMS;
+                ContentResolver resolver = appContext.getContentResolver();
+                if (resolver != null) {
+                    int interruptionFilter = Settings.Global.getInt(resolver, "zen_mode", -1);
+                    switch (interruptionFilter) {
+                        case 0:
+                            return ActivateProfileHelper.ZENMODE_ALL;
+                        case 1:
+                            return ActivateProfileHelper.ZENMODE_PRIORITY;
+                        case 2:
+                            return ActivateProfileHelper.ZENMODE_NONE;
+                        case 3:
+                            return ActivateProfileHelper.ZENMODE_ALARMS;
+                    }
                 }
             }
         /*}
