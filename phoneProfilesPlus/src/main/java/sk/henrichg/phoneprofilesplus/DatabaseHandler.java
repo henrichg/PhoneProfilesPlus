@@ -12292,7 +12292,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             // close db
                             close();
 
-                            File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+                            /*File exportDir = new File(sd, PPApplication.EXPORT_PATH);
                             if (!(exportDir.exists() && exportDir.isDirectory())) {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportDir.mkdirs();
@@ -12308,7 +12308,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 } catch (Exception ee) {
                                     PPApplication.recordException(ee);
                                 }
-                            }
+                            }*/
 
                             src = new FileInputStream(dataDB);
                             dst = new FileOutputStream(exportedDB);

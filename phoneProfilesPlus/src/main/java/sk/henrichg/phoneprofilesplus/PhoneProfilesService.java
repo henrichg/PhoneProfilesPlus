@@ -36,6 +36,7 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -61,6 +62,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -3563,6 +3565,7 @@ public class PhoneProfilesService extends Service
         PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
+            @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
             @Override
             public void run() {
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart START");
@@ -3579,6 +3582,26 @@ public class PhoneProfilesService extends Service
                     }
 
                     PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
+
+                    // create application directory
+                    File sd = Environment.getExternalStorageDirectory();
+                    File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+                    if (!(exportDir.exists() && exportDir.isDirectory())) {
+                        //noinspection ResultOfMethodCallIgnored
+                        exportDir.mkdirs();
+                        try {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportDir.setReadable(true, false);
+                        } catch (Exception ee) {
+                            PPApplication.recordException(ee);
+                        }
+                        try {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportDir.setWritable(true, false);
+                        } catch (Exception ee) {
+                            PPApplication.recordException(ee);
+                        }
+                    }
 
                     //PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
 
