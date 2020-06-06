@@ -12319,7 +12319,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             srcCh.force(true);
                             dstCh.force(true);
 
-                            dstCh.transferFrom(srcCh, 0, srcCh.size());
+                            boolean ok = false;
+                            long transferredSize = dstCh.transferFrom(srcCh, 0, srcCh.size());
+                            if (transferredSize == dataDB.length())
+                                ok = true;
 
                             srcCh.close();
                             dstCh.close();
@@ -12342,7 +12345,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 PPApplication.recordException(ee);
                             }
 
-                            ret = 1;
+                            if (ok)
+                                ret = 1;
                         }
                     } catch (Exception e) {
                         Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
