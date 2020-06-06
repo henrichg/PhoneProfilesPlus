@@ -17,9 +17,9 @@
 #}
 
 # TabTargetView
-#-keep class android.support.v7.widget.Toolbar { *** mMenuView; }
-#-keep class android.support.v7.widget.ActionMenuView { *** mPresenter; }
-#-keep class android.support.v7.widget.ActionMenuPresenter { *** mOverflowButton; }
+#-keep class androidx.appcompat.widget.Toolbar { *** mMenuView; }
+#-keep class androidx.appcompat.widget.ActionMenuView { *** mPresenter; }
+#-keep class androidx.appcompat.widget.ActionMenuPresenter { *** mOverflowButton; }
 
 #android-job
 #-dontwarn com.evernote.android.job.gcm.**
