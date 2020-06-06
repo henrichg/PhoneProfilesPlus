@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
@@ -2052,9 +2052,12 @@ class Permissions {
 
     static void removeProfileNotification(Context context)
     {
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null)
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
             notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
     /*
@@ -2068,16 +2071,22 @@ class Permissions {
 
     static void removePlayRingtoneNotificationNotification(Context context)
     {
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null)
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
             notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
     static void removeEventNotification(Context context)
     {
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null)
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
             notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
     /*
@@ -2091,14 +2100,32 @@ class Permissions {
 
     static void removeNotifications(Context context)
     {
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
             notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
-            //notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
-            notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
-            notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
-            //notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
         }
+        //try {
+            //notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
+        //} catch (Exception e) {
+        //    PPApplication.recordException(e);
+        //}
+        try {
+            notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+        try {
+            notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+        //try {
+            //notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
+        //} catch (Exception e) {
+        //    PPApplication.recordException(e);
+        //}
     }
 
     /*

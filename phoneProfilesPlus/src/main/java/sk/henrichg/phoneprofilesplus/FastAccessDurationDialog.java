@@ -112,7 +112,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
-                if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(mProfile, null, mActivity.getApplicationContext()))
+                if (!EditorProfilesActivity.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext()))
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
@@ -336,7 +336,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
-                if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(mProfile, null, mActivity.getApplicationContext()))
+                if (!EditorProfilesActivity.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext()))
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 else
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);

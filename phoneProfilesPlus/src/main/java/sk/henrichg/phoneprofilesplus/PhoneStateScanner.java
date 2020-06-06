@@ -29,6 +29,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -991,14 +992,12 @@ class PhoneStateScanner extends PhoneStateListener {
                         mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-                        mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        if (mNotificationManager != null) {
-                            try {
-                                mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
-                            } catch (Exception e) {
-                                Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            }
+                        NotificationManagerCompat _mNotificationManager = NotificationManagerCompat.from(context);
+                        try {
+                            _mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
+                        } catch (Exception e) {
+                            Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
                         }
                     }
                 }

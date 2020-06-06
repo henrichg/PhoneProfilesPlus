@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +11,7 @@ import android.os.PowerManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
@@ -303,14 +303,12 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 notification.vibrate = null;
                 notification.defaults &= ~DEFAULT_VIBRATE;
 
-                NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null) {
-                    try {
-                        mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
-                    } catch (Exception e) {
-                        Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    }
+                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+                try {
+                    mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
+                } catch (Exception e) {
+                    Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 }
             }
 

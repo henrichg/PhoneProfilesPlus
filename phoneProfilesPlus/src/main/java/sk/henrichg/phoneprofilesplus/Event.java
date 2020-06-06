@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -2517,10 +2517,12 @@ class Event {
                 }
             }
             if (clearNotification) {*/
-                NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(dataWrapper.context);
+                try {
                     int notificationID = -(99999999 + (int) _id);
                     notificationManager.cancel(notificationID);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
                 }
                 StartEventNotificationBroadcastReceiver.removeAlarm(this, dataWrapper.context);
             //}
@@ -2929,15 +2931,13 @@ class Event {
                 notification.defaults &= ~DEFAULT_SOUND;
                 notification.defaults &= ~DEFAULT_VIBRATE;
 
-                NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (mNotificationManager != null) {
-                    try {
-                        int notificationID = -(99999999 + (int) _id);
-                        mNotificationManager.notify(notificationID, notification);
-                    } catch (Exception e) {
-                        Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    }
+                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+                try {
+                    int notificationID = -(99999999 + (int) _id);
+                    mNotificationManager.notify(notificationID, notification);
+                } catch (Exception e) {
+                    Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 }
 
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);

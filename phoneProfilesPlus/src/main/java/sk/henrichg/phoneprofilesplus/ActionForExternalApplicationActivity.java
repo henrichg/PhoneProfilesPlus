@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 public class ActionForExternalApplicationActivity extends AppCompatActivity {
@@ -111,7 +111,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                         //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
-                        if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, getApplicationContext())) {
+                        if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, getApplicationContext())) {
                             dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
                         } else
                             dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
@@ -290,14 +290,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
-        NotificationManager mNotificationManager = (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null) {
-            try {
-                mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
-            } catch (Exception e) {
-                Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(getApplicationContext());
+        try {
+            mNotificationManager.notify(PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
+        } catch (Exception e) {
+            Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
         }
     }
 

@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -780,9 +780,12 @@ public class EditorEventListFragment extends Fragment
 
         synchronized (activityDataWrapper.eventList) {
             // remove notifications about event parameters errors
-            NotificationManager notificationManager = (NotificationManager) activityDataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
+            try {
                 notificationManager.cancel(-(9999 + (int) event._id));
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
 
         eventListAdapter.deleteItemNoNotify(event);
@@ -913,12 +916,15 @@ public class EditorEventListFragment extends Fragment
 
                     synchronized (activityDataWrapper.eventList) {
                         // remove notifications about event parameters errors
-                        NotificationManager notificationManager = (NotificationManager) activityDataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
                         //noinspection ForLoopReplaceableByForEach
                         for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                             Event event = it.next();
-                            if (notificationManager != null)
+                            try {
                                 notificationManager.cancel(-(9999 + (int) event._id));
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
                         }
                     }
 

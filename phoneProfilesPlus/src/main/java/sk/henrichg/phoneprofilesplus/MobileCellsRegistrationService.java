@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -14,6 +13,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import static android.app.Notification.DEFAULT_SOUND;
@@ -143,9 +143,12 @@ public class MobileCellsRegistrationService extends Service {
             PPApplication.restartPhoneStateScanner(this);
 
             stopForeground(true);
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            try {
                 notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
 
             showResultNotification();
 
@@ -160,9 +163,12 @@ public class MobileCellsRegistrationService extends Service {
         }
         else {
             stopForeground(true);
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            try {
                 notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
 
         serviceStarted = false;
@@ -262,21 +268,22 @@ public class MobileCellsRegistrationService extends Service {
         //}
 
         Notification notification = mBuilder.build();
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null) {
-            try {
-                mNotificationManager.notify(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
-            } catch (Exception e) {
-                Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
+        try {
+            mNotificationManager.notify(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
+        } catch (Exception e) {
+            Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
         }
     }
 
     private void removeResultNotification() {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null)
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        try {
             notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
     static public void getMobileCellsAutoRegistration(Context context) {

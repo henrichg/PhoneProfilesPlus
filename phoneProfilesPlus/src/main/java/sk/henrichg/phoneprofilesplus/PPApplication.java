@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -2212,12 +2213,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
                         return;// true;
-                } else
+                } catch (Exception e) {
                     throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - notificationManager=null");
+                }
 
                 int importance;
                 //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
@@ -2274,12 +2276,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createMobileCellsRegistrationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
                         return;
-                } else
+                } catch (Exception e) {
                     return;
+                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification);
@@ -2310,12 +2313,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createInformationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(INFORMATION_NOTIFICATION_CHANNEL) != null)
                         return;
-                } else
+                } catch (Exception e) {
                     return;
+                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_information);
@@ -2344,12 +2348,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createExclamationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL) != null)
                         return;
-                } else
+                } catch (Exception e) {
                     return;
+                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_exclamation);
@@ -2378,12 +2383,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createGrantPermissionNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
                         return;
-                } else
+                } catch (Exception e) {
                     return;
+                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_grant_permission);
@@ -2412,12 +2418,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createNotifyEventStartNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
                         return;
-                } else
+                } catch (Exception e) {
                     return;
+                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_notify_event_start);
@@ -2447,12 +2454,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createMobileCellsNewCellNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
                         return;
-                } else
+                } catch (Exception e) {
                     return;
+                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_not_used_mobile_cell);
@@ -2481,12 +2489,13 @@ public class PPApplication extends Application /*implements Application.Activity
     static void createDonationNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
-                NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
                     if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
                         return;
-                } else
+                } catch (Exception e) {
                     return;
+                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_donation);

@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -520,7 +520,7 @@ public class DataWrapper {
         //if (Permissions.grantProfilePermissions(context, profile, merged, true,
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
-        if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context)) {
+        if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context)) {
             //PPApplication.logE("DataWrapper.activateProfileFromEvent", "***********");
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
@@ -574,9 +574,8 @@ public class DataWrapper {
 
         synchronized (profileList) {
             // remove notifications about profile parameters errors
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
-                notificationManager.cancel(9999 + (int) profile._id);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.cancel(9999 + (int) profile._id);
 
             profileList.remove(profile);
         }
@@ -620,13 +619,16 @@ public class DataWrapper {
     void deleteAllProfiles()
     {
         synchronized (profileList) {
-            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             // remove notifications about profile parameters errors
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                 Profile profile = it.next();
-                if (notificationManager != null)
+                try {
                     notificationManager.cancel(9999 + (int) profile._id);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
             profileList.clear();
         }
@@ -1737,7 +1739,7 @@ public class DataWrapper {
 
                     boolean granted = true;
                     if (testGrant)
-                        granted = !EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context);
+                        granted = !EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context);
                     if (granted) {
                         dataWrapper._activateProfile(profile, merged, startupSource, false);
                         if (interactive) {
@@ -1834,7 +1836,7 @@ public class DataWrapper {
                             //if (Permissions.grantProfilePermissions(context, _profile, false, true,
                             //        /*false, monochrome, monochromeValue,*/
                             //        _startupSource, true, true, false))
-                            if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(_profile, null, context))
+                            if (!EditorProfilesActivity.displayPreferencesErrorNotification(_profile, null, context))
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
                             else {
                                 Intent returnIntent = new Intent();
@@ -1892,7 +1894,7 @@ public class DataWrapper {
                 }
             }
             else {
-                if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context))
+                if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context))
                     activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
                 else {
                     Intent returnIntent = new Intent();
@@ -2075,7 +2077,7 @@ public class DataWrapper {
         //if (Permissions.grantProfilePermissions(context, profile, false, true,
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, true,true, false)) {
-        if (!EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, context)) {
+        if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context)) {
             // activateProfileAfterDuration is already called from handlerThread
             //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
             _activateProfile(profile, false, startupSource, false);

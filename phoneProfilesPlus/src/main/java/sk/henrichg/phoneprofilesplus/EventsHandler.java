@@ -1125,7 +1125,7 @@ class EventsHandler {
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                Profile mergedProfile, DataWrapper dataWrapper)
     {
-        if (EditorProfilesActivity.displayNotGrantedPermissionsNotification(null, event, context)) {
+        if (EditorProfilesActivity.displayPreferencesErrorNotification(null, event, context)) {
             event.setStatus(Event.ESTATUS_STOP);
             return;
         }

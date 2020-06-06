@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -578,14 +578,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         //}
-        NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null) {
-            try {
-                mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
-            } catch (Exception e) {
-                Log.e("GeofencesScanner.showErrorNotification", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+        try {
+            mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
+        } catch (Exception e) {
+            Log.e("GeofencesScanner.showErrorNotification", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
         }
     }
 

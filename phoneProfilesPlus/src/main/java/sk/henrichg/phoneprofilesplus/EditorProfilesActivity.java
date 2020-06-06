@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -44,6 +43,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -1494,7 +1494,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
                         //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                        EditorProfilesActivity.displayNotGrantedPermissionsNotification(profile, null, getApplicationContext());
+                        EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, getApplicationContext());
                     }
                 }
 
@@ -1534,7 +1534,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     redrawEventListFragment(event, newEventMode);
 
                     //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
-                    EditorProfilesActivity.displayNotGrantedPermissionsNotification(null, event, getApplicationContext());
+                    EditorProfilesActivity.displayPreferencesErrorNotification(null, event, getApplicationContext());
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -3275,14 +3275,32 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    static boolean displayNotGrantedPermissionsNotification(Profile profile, Event event, Context context) {
+    static boolean displayPreferencesErrorNotification(Profile profile, Event event, Context context) {
         if ((profile == null) && (event == null))
             return false;
 
-        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context)))
+        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context))) {
+            // clear notification
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            try {
+                notificationManager.cancel(9999 + (int) profile._id);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
             return false;
-        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context)))
+        }
+        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context))) {
+            // clear notification
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            try {
+                notificationManager.cancel(-(9999 + (int) event._id));
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
             return false;
+        }
 
         int notificationID = 0;
 
@@ -3364,14 +3382,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         mBuilder.setOnlyAlertOnce(true);
 
-        NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null) {
-            try {
-                mNotificationManager.notify(notificationID, mBuilder.build());
-            } catch (Exception e) {
-                Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+        try {
+            mNotificationManager.notify(notificationID, mBuilder.build());
+        } catch (Exception e) {
+            Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
         }
 
         return true;

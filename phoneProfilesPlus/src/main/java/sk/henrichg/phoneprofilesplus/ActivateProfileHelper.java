@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.UiModeManager;
 import android.app.WallpaperManager;
@@ -48,6 +47,7 @@ import android.view.Surface;
 import android.view.WindowManager;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -3136,14 +3136,12 @@ class ActivateProfileHelper {
         notification.vibrate = null;
         notification.defaults &= ~DEFAULT_VIBRATE;
 
-        NotificationManager mNotificationManager = (NotificationManager)appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null) {
-            try {
-                mNotificationManager.notify(notificationId, notification);
-            } catch (Exception e) {
-                Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        try {
+            mNotificationManager.notify(notificationId, notification);
+        } catch (Exception e) {
+            Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
         }
     }
 

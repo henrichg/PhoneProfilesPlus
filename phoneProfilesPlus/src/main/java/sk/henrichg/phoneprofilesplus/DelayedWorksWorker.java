@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -445,11 +446,15 @@ public class DelayedWorksWorker extends Worker {
                                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
 
                                     if (Build.VERSION.SDK_INT >= 26) {
-                                        NotificationManager manager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                                        if (manager != null) {
+                                        NotificationManagerCompat manager = NotificationManagerCompat.from(appContext);
+                                        try {
                                             NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
-                                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
-                                                    channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                                            if (channel != null) {
+                                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED,
+                                                        channel.getImportance() != NotificationManager.IMPORTANCE_NONE);
+                                            }
+                                        } catch (Exception e) {
+                                            PPApplication.recordException(e);
                                         }
                                     }
 

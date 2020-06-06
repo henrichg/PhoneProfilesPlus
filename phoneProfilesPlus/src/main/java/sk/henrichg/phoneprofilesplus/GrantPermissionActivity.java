@@ -22,6 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
@@ -908,14 +909,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             //}
-            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (mNotificationManager != null) {
-                try {
-                    mNotificationManager.notify(notificationID, mBuilder.build());
-                } catch (Exception e) {
-                    Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                }
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+            try {
+                mNotificationManager.notify(notificationID, mBuilder.build());
+            } catch (Exception e) {
+                Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
             }
         }
         finish();
