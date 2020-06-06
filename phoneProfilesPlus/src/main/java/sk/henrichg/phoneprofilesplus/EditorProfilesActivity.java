@@ -2277,15 +2277,33 @@ public class EditorProfilesActivity extends AppCompatActivity
                     dataWrapper.globalRunStopEvents(true);
                 }
 
+                @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
                 @Override
                 protected Integer doInBackground(Void... params) {
 
                     if (this.dataWrapper != null) {
-                        // Must be first. This also create subdirectory
+                        File sd = Environment.getExternalStorageDirectory();
+                        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                        File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+                        if (!(exportDir.exists() && exportDir.isDirectory())) {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportDir.mkdirs();
+                            try {
+                                //noinspection ResultOfMethodCallIgnored
+                                exportDir.setReadable(true, false);
+                            } catch (Exception ee) {
+                                PPApplication.recordException(ee);
+                            }
+                            try {
+                                //noinspection ResultOfMethodCallIgnored
+                                exportDir.setWritable(true, false);
+                            } catch (Exception ee) {
+                                PPApplication.recordException(ee);
+                            }
+                        }
+
                         int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
                         if (ret == 1) {
-                            File sd = Environment.getExternalStorageDirectory();
-                            //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                             File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                             if (exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
