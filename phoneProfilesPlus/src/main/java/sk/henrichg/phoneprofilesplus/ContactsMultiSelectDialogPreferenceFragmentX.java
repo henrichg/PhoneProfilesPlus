@@ -39,7 +39,7 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_contacts_multiselect_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_contacts_multiselect_preference, null, false);
     }
 
     @Override

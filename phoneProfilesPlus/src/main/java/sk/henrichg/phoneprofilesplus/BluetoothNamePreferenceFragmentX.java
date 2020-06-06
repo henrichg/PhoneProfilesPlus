@@ -63,7 +63,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_bluetooth_name_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_bluetooth_name_preference, null, false);
     }
 
     @Override

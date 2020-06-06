@@ -12,7 +12,7 @@ import androidx.appcompat.widget.SwitchCompat;
 class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
 
     RunStopIndicatorPopupWindow(final DataWrapper dataWrapper, final Activity activity) {
-        super(R.layout.run_stop_indicator_popup_window, R.string.editor_activity_targetHelps_trafficLightIcon_title, activity);
+        super(R.layout.popup_window_run_stop_indicator, R.string.editor_activity_targetHelps_trafficLightIcon_title, activity);
 
         // Disable default animation
         //setAnimationStyle(0);

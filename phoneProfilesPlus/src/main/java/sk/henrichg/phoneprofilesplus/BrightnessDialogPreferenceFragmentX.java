@@ -43,7 +43,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         ActivateProfileHelper.brightnessDialogInternalChange = true;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_brightness_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_brightness_preference, null, false);
     }
 
     @SuppressLint("SetTextI18n")

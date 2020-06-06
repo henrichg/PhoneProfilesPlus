@@ -39,7 +39,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                             .setInitialDelay(15, TimeUnit.MINUTES)
                             .build();
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
                     workManager.enqueue(periodicEventsHandlerWorker);
             } catch (Exception e) {

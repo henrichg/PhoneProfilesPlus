@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.preference.PreferenceDialogFragmentCompat;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -33,7 +33,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_ringtone_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_ringtone_preference, null, false);
     }
 
     @Override

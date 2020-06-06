@@ -419,7 +419,7 @@ class EventPreferencesSMS extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsSMSSensorWork_" + (int) _event._id, context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsSMSSensorWork_" + (int) _event._id);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

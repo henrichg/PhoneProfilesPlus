@@ -5,11 +5,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.preference.PreferenceDialogFragmentCompat;
+
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.colormode.ColorMode;
 import com.kunzisoft.androidclearchroma.view.ChromaColorView;
-
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -26,7 +26,7 @@ public class CustomColorDialogPreferenceFragmentX extends PreferenceDialogFragme
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_custom_color_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_custom_color_preference, null, false);
     }
 
     @SuppressLint("SetTextI18n")

@@ -83,7 +83,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //if (PPApplication.logEnabled()) {
                         //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
@@ -150,7 +150,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsUpdateGUIWork", context.getApplicationContext());
+        PhoneProfilesService.cancelWork("elapsedAlarmsUpdateGUIWork");
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 

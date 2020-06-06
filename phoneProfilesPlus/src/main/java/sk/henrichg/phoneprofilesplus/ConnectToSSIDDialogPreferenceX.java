@@ -6,10 +6,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
+import androidx.preference.DialogPreference;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.DialogPreference;
 
 public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
 
@@ -36,7 +36,7 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
 
         this.context = context;
 
-        //setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
+        //setWidgetLayoutResource(R.layout.widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
         //typedArray.recycle();
 

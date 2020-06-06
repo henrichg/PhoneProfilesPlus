@@ -11,10 +11,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AlertDialog;
 
 class AddProfileDialog
 {
@@ -38,7 +38,7 @@ class AddProfileDialog
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_profile_pref_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();

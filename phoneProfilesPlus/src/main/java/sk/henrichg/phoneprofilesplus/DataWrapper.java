@@ -1802,7 +1802,7 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
                                             Activity activity)
     {
-        PPApplication.setBlockProfileEventActions(false, context);
+        PPApplication.setBlockProfileEventActions(false);
 
         if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert ||
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
@@ -2295,7 +2295,7 @@ public class DataWrapper {
 
         //PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
 
-        PPApplication.setBlockProfileEventActions(false, context);
+        PPApplication.setBlockProfileEventActions(false);
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorProfilesActivity))
         {
@@ -2469,7 +2469,7 @@ public class DataWrapper {
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
                         workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
@@ -2804,7 +2804,7 @@ public class DataWrapper {
             if (Event.getGlobalEventsRunning()) {
                 PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0, "");
 
-                PhoneProfilesService.cancelWork("periodicEventsHandlerWorker", context);
+                PhoneProfilesService.cancelWork("periodicEventsHandlerWorker");
 
                 // no setup for next start
                 resetAllEventsInDelayStart(false);
@@ -2848,7 +2848,7 @@ public class DataWrapper {
                                 .setInitialDelay(5, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
                         workManager.enqueue(periodicEventsHandlerWorker);
                 } catch (Exception e) {

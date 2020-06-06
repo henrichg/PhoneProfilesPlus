@@ -101,7 +101,7 @@ public class DelayedWorksWorker extends Worker {
                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                             .build();
                             try {
-                                WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                                WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
                                     workManager.enqueue(periodicEventsHandlerWorker);
                             } catch (Exception e) {
@@ -580,7 +580,7 @@ public class DelayedWorksWorker extends Worker {
                                             .build();
                             try {
                                 if (PPApplication.getApplicationStarted(true)) {
-                                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                                     if (workManager != null)
                                         workManager.enqueue(worker);
                                 }

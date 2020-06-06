@@ -9,10 +9,10 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.preference.PreferenceDialogFragmentCompat;
+
 import java.util.Collections;
 import java.util.Comparator;
-
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -33,7 +33,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_profile_multiselect_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_profile_multiselect_preferences, null, false);
     }
 
     @Override

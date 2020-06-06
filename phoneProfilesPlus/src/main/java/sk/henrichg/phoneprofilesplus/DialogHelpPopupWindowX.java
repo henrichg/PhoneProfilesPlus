@@ -12,7 +12,7 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
     private final Dialog dialog;
 
     private DialogHelpPopupWindowX(int titleStringId, final Activity activity, final Dialog _dialog, String helpString) {
-        super(R.layout.dialog_help_popup_window, titleStringId, activity);
+        super(R.layout.popup_window_dialog_help, titleStringId, activity);
 
         dialog = _dialog;
 

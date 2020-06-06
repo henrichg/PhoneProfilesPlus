@@ -39,7 +39,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_applications_multiselect_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_applications_multiselect_preference, null, false);
     }
 
     @Override

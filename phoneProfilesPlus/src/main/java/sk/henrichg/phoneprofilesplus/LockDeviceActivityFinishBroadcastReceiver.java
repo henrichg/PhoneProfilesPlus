@@ -44,7 +44,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsLockDeviceFinishActivity", context.getApplicationContext());
+        PhoneProfilesService.cancelWork("elapsedAlarmsLockDeviceFinishActivity");
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -95,7 +95,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
                         workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceFinishActivity", ExistingWorkPolicy.REPLACE, worker);

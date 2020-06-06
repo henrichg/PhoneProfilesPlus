@@ -319,44 +319,44 @@ public class PhoneProfilesService extends Service
         });*/
     }
 
-    static void cancelAllWorks(Context appContext) {
-        cancelWork("elapsedAlarmsShowProfileNotificationWork", appContext);
-        cancelWork("elapsedAlarmsUpdateGUIWork", appContext);
+    static void cancelAllWorks() {
+        cancelWork("elapsedAlarmsShowProfileNotificationWork");
+        cancelWork("elapsedAlarmsUpdateGUIWork");
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
-            cancelWork(tag, appContext);
+            cancelWork(tag);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
         for (String tag : PPApplication.elapsedAlarmsRunApplicationWithDelayWork)
-            cancelWork(tag, appContext);
+            cancelWork(tag);
         PPApplication.elapsedAlarmsRunApplicationWithDelayWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayStartWork)
-            cancelWork(tag, appContext);
+            cancelWork(tag);
         PPApplication.elapsedAlarmsEventDelayStartWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayEndWork)
-            cancelWork(tag, appContext);
+            cancelWork(tag);
         PPApplication.elapsedAlarmsEventDelayEndWork.clear();
         for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
-            cancelWork(tag, appContext);
+            cancelWork(tag);
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
-        cancelWork("disableInternalChangeWork", appContext);
-        cancelWork("periodicEventsHandlerWorker", appContext);
-        cancelWork("delayedWorkCloseAllApplications", appContext);
-        cancelWork("handleEventsBluetoothLEScannerWork", appContext);
-        cancelWork(BluetoothScanWorker.WORK_TAG, appContext);
-        cancelWork("handleEventsBluetoothCLScannerWork", appContext);
-        cancelWork("restartEventsWithDelayWork", appContext);
-        cancelWork(GeofenceScanWorker.WORK_TAG, appContext);
-        cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", appContext);
-        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, appContext);
-        cancelWork("elapsedAlarmsLockDeviceFinishActivity", appContext);
-        cancelWork("elapsedAlarmsLockDeviceAfterScreenOff", appContext);
-        cancelWork("packageReplacedWork",appContext);
-        cancelWork("delayedWorkAfterFirstStartWork", appContext);
-        cancelWork("setBlockProfileEventsActionWork", appContext);
-        cancelWork(SearchCalendarEventsWorker.WORK_TAG, appContext);
-        cancelWork("handleEventsWifiScannerFromScannerWork", appContext);
-        cancelWork("handleEventsWifiScannerFromReceiverWork", appContext);
-        cancelWork(WifiScanWorker.WORK_TAG, appContext);
-        cancelWork("startWifiScanWork", appContext);
+        cancelWork("disableInternalChangeWork");
+        cancelWork("periodicEventsHandlerWorker");
+        cancelWork("delayedWorkCloseAllApplications");
+        cancelWork("handleEventsBluetoothLEScannerWork");
+        cancelWork(BluetoothScanWorker.WORK_TAG);
+        cancelWork("handleEventsBluetoothCLScannerWork");
+        cancelWork("restartEventsWithDelayWork");
+        cancelWork(GeofenceScanWorker.WORK_TAG);
+        cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
+        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
+        cancelWork("elapsedAlarmsLockDeviceFinishActivity");
+        cancelWork("elapsedAlarmsLockDeviceAfterScreenOff");
+        cancelWork("packageReplacedWork");
+        cancelWork("delayedWorkAfterFirstStartWork");
+        cancelWork("setBlockProfileEventsActionWork");
+        cancelWork(SearchCalendarEventsWorker.WORK_TAG);
+        cancelWork("handleEventsWifiScannerFromScannerWork");
+        cancelWork("handleEventsWifiScannerFromReceiverWork");
+        cancelWork(WifiScanWorker.WORK_TAG);
+        cancelWork("startWifiScanWork");
     }
 
     @Override
@@ -457,10 +457,10 @@ public class PhoneProfilesService extends Service
         //cancelAllWorks(appContext);
     }
 
-    static void cancelWork(String name, Context context) {
+    static void cancelWork(String name) {
         if (PPApplication.getApplicationStarted(true)) {
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
                     workManager.cancelAllWorkByTag(name);
             } catch (Exception e) {
@@ -468,7 +468,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.recordException(e);
             }
             try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
                     workManager.cancelUniqueWork(name);
             } catch (Exception e) {
@@ -2911,7 +2911,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelWifiWorker(final Context context, boolean forSchedule) {
-        if ((!forSchedule) || WifiScanWorker.isWorkScheduled(context)) {
+        if ((!forSchedule) || WifiScanWorker.isWorkScheduled()) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiWorker->CANCEL", "PhoneProfilesService_cancelWifiWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiWorker", "CANCEL");
             WifiScanWorker.cancelWork(context, true/*, null*/);
@@ -2943,7 +2943,7 @@ public class PhoneProfilesService extends Service
                             PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             if (eventAllowed) {
-                if (!WifiScanWorker.isWorkScheduled(appContext)) {
+                if (!WifiScanWorker.isWorkScheduled()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiWorker->SCHEDULE", "PhoneProfilesService_scheduleWifiWorker");
                     WifiScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn, afterEnableWifi*/);
                     //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 1");
@@ -2964,7 +2964,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelBluetoothWorker(final Context context, boolean forSchedule) {
-        if ((!forSchedule) || BluetoothScanWorker.isWorkScheduled(context)) {
+        if ((!forSchedule) || BluetoothScanWorker.isWorkScheduled()) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelBluetoothWorker->CANCEL", "PhoneProfilesService_cancelBluetoothWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothWorker", "CANCEL");
             BluetoothScanWorker.cancelWork(context, true/*, null*/);
@@ -2995,7 +2995,7 @@ public class PhoneProfilesService extends Service
                             PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             if (eventAllowed) {
-                if (BluetoothScanWorker.isWorkScheduled(appContext)) {
+                if (BluetoothScanWorker.isWorkScheduled()) {
                     BluetoothScanWorker.cancelWork(appContext, true/*, null*/);
                 }
                 BluetoothScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
@@ -3008,11 +3008,11 @@ public class PhoneProfilesService extends Service
         //    cancelBluetoothWorker(appContext, handler);
     }
 
-    private void cancelGeofenceWorker(final Context context, boolean forSchedule) {
-        if ((!forSchedule) || GeofenceScanWorker.isWorkScheduled(context)) {
+    private void cancelGeofenceWorker(boolean forSchedule) {
+        if ((!forSchedule) || GeofenceScanWorker.isWorkScheduled()) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelGeofenceWorker->CANCEL", "PhoneProfilesService_cancelGeofenceWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceWorker", "CANCEL");
-            GeofenceScanWorker.cancelWork(context, true/*, null*/);
+            GeofenceScanWorker.cancelWork(true/*, null*/);
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceWorker", "not scheduled");
@@ -3039,8 +3039,8 @@ public class PhoneProfilesService extends Service
             if (eventAllowed) {
                 // location scanner is enabled
                 //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
-                if (GeofenceScanWorker.isWorkScheduled(appContext)/* || rescan*/) {
-                    GeofenceScanWorker.cancelWork(appContext, true/*, null*/);
+                if (GeofenceScanWorker.isWorkScheduled()/* || rescan*/) {
+                    GeofenceScanWorker.cancelWork(true/*, null*/);
                 }
                 synchronized (PPApplication.geofenceScannerMutex) {
                     if (isGeofenceScannerStarted()) {
@@ -3050,19 +3050,19 @@ public class PhoneProfilesService extends Service
                 }
                 GeofenceScanWorker.scheduleWork(appContext, false, /*null,*/ true/*, forScreenOn*/);
             } else
-                cancelGeofenceWorker(appContext, true);
+                cancelGeofenceWorker(true);
         } else
-            cancelGeofenceWorker(appContext, true);
+            cancelGeofenceWorker(true);
         //}
         //else
         //    cancelGeofenceWorker(appContext, handler);
     }
 
-    private void cancelSearchCalendarEventsWorker(final Context context, boolean forSchedule) {
-        if ((!forSchedule) || SearchCalendarEventsWorker.isWorkScheduled(context)) {
+    private void cancelSearchCalendarEventsWorker(boolean forSchedule) {
+        if ((!forSchedule) || SearchCalendarEventsWorker.isWorkScheduled()) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelSearchCalendarEventsWorker->CANCEL", "PhoneProfilesService_cancelSearchCalendarEventsWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "CANCEL");
-            SearchCalendarEventsWorker.cancelWork(context, true/*, null*/);
+            SearchCalendarEventsWorker.cancelWork(true/*, null*/);
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "not scheduled");
@@ -3082,17 +3082,17 @@ public class PhoneProfilesService extends Service
             eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
                 PreferenceAllowed.PREFERENCE_ALLOWED;
         if (eventAllowed) {
-            if (!SearchCalendarEventsWorker.isWorkScheduled(appContext)/* || rescan*/) {
+            if (!SearchCalendarEventsWorker.isWorkScheduled()/* || rescan*/) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
                 //if (rescan)
-                SearchCalendarEventsWorker.cancelWork(appContext, true/*, null*/);
-                SearchCalendarEventsWorker.scheduleWork(appContext, true, /*null,*/ true);
+                SearchCalendarEventsWorker.cancelWork(true/*, null*/);
+                SearchCalendarEventsWorker.scheduleWork(true, /*null,*/ true);
                 //PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "SCHEDULE xxx");
             }
             //else
             //    PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsWorker", "scheduled");
         } else
-            cancelSearchCalendarEventsWorker(appContext, true);
+            cancelSearchCalendarEventsWorker(true);
         //}
         //else
         //    cancelSearchCalendarEventsWorker(appContext, handler);
@@ -3466,8 +3466,8 @@ public class PhoneProfilesService extends Service
 
         cancelWifiWorker(appContext, false);
         cancelBluetoothWorker(appContext, false);
-        cancelGeofenceWorker(appContext, false);
-        cancelSearchCalendarEventsWorker(appContext, false);
+        cancelGeofenceWorker(false);
+        cancelSearchCalendarEventsWorker(false);
     }
 
     private void reregisterReceiversAndWorkers() {
@@ -3813,7 +3813,7 @@ public class PhoneProfilesService extends Service
                                         .build();
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
-                                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
                                     workManager.enqueue(worker);
                             }
@@ -5549,7 +5549,7 @@ public class PhoneProfilesService extends Service
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsOrientationSensorWork", context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsOrientationSensorWork");
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -5979,10 +5979,10 @@ public class PhoneProfilesService extends Service
                                     .addTag("disableInternalChangeWork")
                                     .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
-                    PhoneProfilesService.cancelWork("disableInternalChangeWork", getApplicationContext());
+                    PhoneProfilesService.cancelWork("disableInternalChangeWork");
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
                                 workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                         }
@@ -6047,10 +6047,10 @@ public class PhoneProfilesService extends Service
                         .addTag("disableInternalChangeWork")
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
-        PhoneProfilesService.cancelWork("disableInternalChangeWork", getApplicationContext());
+        PhoneProfilesService.cancelWork("disableInternalChangeWork");
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
             }
@@ -6468,10 +6468,10 @@ public class PhoneProfilesService extends Service
                                                 .addTag("disableInternalChangeWork")
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
-                                PhoneProfilesService.cancelWork("disableInternalChangeWork", getApplicationContext());
+                                PhoneProfilesService.cancelWork("disableInternalChangeWork");
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
-                                        WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
                                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                     }
@@ -6533,10 +6533,10 @@ public class PhoneProfilesService extends Service
                                         .addTag("disableInternalChangeWork")
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
-                        PhoneProfilesService.cancelWork("disableInternalChangeWork", getApplicationContext());
+                        PhoneProfilesService.cancelWork("disableInternalChangeWork");
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
-                                WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                                WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                             }

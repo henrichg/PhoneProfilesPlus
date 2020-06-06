@@ -253,7 +253,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsDeviceBootSensorWork_" + (int) _event._id, context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsDeviceBootSensorWork_" + (int) _event._id);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

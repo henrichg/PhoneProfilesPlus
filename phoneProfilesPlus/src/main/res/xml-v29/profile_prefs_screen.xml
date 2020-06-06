@@ -10,7 +10,7 @@
         app:summary="@string/profile_preferences_deviceScreenTimeoutInfo_summary"
         app:shouldDisableView="false"
         app:enabled="false"
-        app:widgetLayout="@layout/info_preference"
+        app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />-->
     <ListPreference
         app:title="@string/profile_preferences_deviceScreenTimeout"
@@ -80,7 +80,7 @@
     <Preference
         app:title="@string/profile_preferences_lockDevice"
         app:key="prf_pref_lockDeviceCategoryRoot"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
 
@@ -88,7 +88,7 @@
         app:key="prf_pref_notificationLedInfo"
         app:title="@string/profile_preferences_notificationLed_23"
         app:summary="@string/profile_preferences_notificationLedInfo_summary"
-        app:widgetLayout="@layout/info_preference"
+        app:widgetLayout="@layout/widget_info_preference"
         app:dependency="prf_pref_notificationLed"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
@@ -112,7 +112,7 @@
         app:key="prf_pref_alwaysOnDisplayInfo"
         app:title="@string/profile_preferences_alwaysOnDisplay"
         app:summary="@string/profile_preferences_notificationLedInfo_summary"
-        app:widgetLayout="@layout/info_preference"
+        app:widgetLayout="@layout/widget_info_preference"
         app:dependency="prf_pref_alwaysOnDisplay"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

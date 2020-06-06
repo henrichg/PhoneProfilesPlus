@@ -16,18 +16,18 @@
         app:key="prf_pref_lockDeviceInstallExtender"
         app:title="@string/extender_app_name"
         app:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_lockDeviceAccessibilitySettings"
         app:title="@string/profile_preferences_lockDevice_AccessibilitySettings_title"
         app:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_lockDeviceLaunchExtender"
         app:title="@string/event_preferences_applications_LaunchExtender_title"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

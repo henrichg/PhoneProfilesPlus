@@ -40,7 +40,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
 
         dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
-        setWidgetLayoutResource(R.layout.profile_multiselect_preference);
+        setWidgetLayoutResource(R.layout.widget_profile_multiselect_preference);
     }
 
     @Override

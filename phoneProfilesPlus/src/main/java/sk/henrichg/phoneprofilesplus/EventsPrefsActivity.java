@@ -524,7 +524,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
             // restart Events
             //PPApplication.logE("$$$ restartEvents","from EventsPrefsActivity.savePreferences");
-            PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
+            PPApplication.setBlockProfileEventActions(true);
             //dataWrapper.restartEvents(false, true, true, true, true);
             //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.savePreferences()");
             dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
@@ -570,7 +570,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                             // restart Events
                             //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-                            PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
+                            PPApplication.setBlockProfileEventActions(true);
                             //dataWrapper.restartEvents(false, true, true, true, false);
                             //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 1");
                             dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
@@ -612,7 +612,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                         // restart Events
                         //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-                        PPApplication.setBlockProfileEventActions(true, dataWrapper.context);
+                        PPApplication.setBlockProfileEventActions(true);
                         //dataWrapper.restartEvents(false, true, true, true, false);
                         //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 2");
                         dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);

@@ -1168,7 +1168,7 @@ class EventPreferencesTime extends EventPreferences {
         } catch (Exception ee) {
             PPApplication.recordException(ee);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsTimeSensorWork_" + (int) _event._id, context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsTimeSensorWork_" + (int) _event._id);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

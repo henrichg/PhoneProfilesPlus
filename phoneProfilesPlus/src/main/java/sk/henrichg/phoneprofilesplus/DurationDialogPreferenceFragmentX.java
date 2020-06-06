@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
+
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
@@ -35,7 +36,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_duration_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_duration_preference, null, false);
     }
 
     @SuppressLint("SetTextI18n")

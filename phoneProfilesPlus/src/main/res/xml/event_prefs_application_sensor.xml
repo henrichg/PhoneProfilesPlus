@@ -22,20 +22,20 @@
         app:title="@string/extender_app_name"
         app:summary="@string/event_preferences_applications_PPPExtender_install_summary"
         app:dependency="eventApplicationEnabled"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventApplicationAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
         app:dependency="eventApplicationEnabled"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventApplicationLaunchExtender"
         app:title="@string/event_preferences_applications_LaunchExtender_title"
         app:dependency="eventApplicationEnabled"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

@@ -3206,7 +3206,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference = new Preference(context);
                             preference.setKey(PRF_GRANT_PERMISSIONS);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -3253,7 +3253,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference = new Preference(context);
                                 preference.setKey(PRF_GRANT_G1_PREFERENCES);
                                 preference.setIconSpaceReserved(false);
-                                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                                preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
                                 preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                 preference.setOrder(-100);
                                 preferenceCategory.addPreference(preference);
@@ -3298,7 +3298,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference = new Preference(context);
                                 preference.setKey(PRF_GRANT_ROOT);
                                 preference.setIconSpaceReserved(false);
-                                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                                preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
                                 preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                 preference.setOrder(-100);
                                 preferenceCategory.addPreference(preference);
@@ -3342,7 +3342,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference = new Preference(context);
                             preference.setKey(PRF_NOTIFICATION_ACCESS_ENABLED);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -3396,7 +3396,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference = new Preference(context);
                             preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-97);
                             preferenceCategory.addPreference(preference);

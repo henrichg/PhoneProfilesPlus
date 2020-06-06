@@ -45,7 +45,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_applications_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_applications_preference, null, false);
     }
 
     @Override

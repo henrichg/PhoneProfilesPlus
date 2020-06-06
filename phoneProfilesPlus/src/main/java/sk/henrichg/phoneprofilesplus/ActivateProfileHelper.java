@@ -1569,10 +1569,10 @@ class ActivateProfileHelper {
                                                 .addTag("disableInternalChangeWork")
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
-                                PhoneProfilesService.cancelWork("disableInternalChangeWork", appContext);
+                                PhoneProfilesService.cancelWork("disableInternalChangeWork");
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
-                                        WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
                                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                     }
@@ -3078,7 +3078,7 @@ class ActivateProfileHelper {
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null)
                             workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
                     }
@@ -3239,10 +3239,10 @@ class ActivateProfileHelper {
                         .addTag("disableScreenTimeoutInternalChangeWork")
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
-        PhoneProfilesService.cancelWork("disableScreenTimeoutInternalChangeWork", appContext);
+        PhoneProfilesService.cancelWork("disableScreenTimeoutInternalChangeWork");
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
                     workManager.enqueueUniqueWork("disableScreenTimeoutInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
             }

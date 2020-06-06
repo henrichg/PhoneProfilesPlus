@@ -70,7 +70,7 @@
         app:key="prf_pref_deviceWiFiAPInfo"
         app:title="@string/profile_preferences_deviceWiFiAP"
         app:summary="@string/profile_preferences_deviceWiFiAPInfo_summary"
-        app:widgetLayout="@layout/info_preference"
+        app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFiAP"

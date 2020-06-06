@@ -30,7 +30,7 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_profileicon_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_profileicon_preference, null, false);
     }
 
     @Override

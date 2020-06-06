@@ -331,7 +331,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsAlarmClockSensorWork_" + (int) _event._id, context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsAlarmClockSensorWork_" + (int) _event._id);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

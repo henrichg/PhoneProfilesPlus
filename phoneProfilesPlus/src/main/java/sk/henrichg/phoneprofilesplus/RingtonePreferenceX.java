@@ -420,10 +420,10 @@ public class RingtonePreferenceX extends DialogPreference {
                                                 .addTag("disableInternalChangeWork")
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
-                                PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
+                                PhoneProfilesService.cancelWork("disableInternalChangeWork");
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
-                                        WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
+                                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
                                             workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                                     }
@@ -482,10 +482,10 @@ public class RingtonePreferenceX extends DialogPreference {
                                         .addTag("disableInternalChangeWork")
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
-                        PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext());
+                        PhoneProfilesService.cancelWork("disableInternalChangeWork");
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
-                                WorkManager workManager = PPApplication.getWorkManagerInstance(prefContext.getApplicationContext());
+                                WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
                                     workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                             }

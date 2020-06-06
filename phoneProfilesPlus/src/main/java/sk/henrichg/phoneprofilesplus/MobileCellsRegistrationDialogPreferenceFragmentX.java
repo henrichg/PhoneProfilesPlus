@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
+
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
@@ -80,7 +81,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
 
         LayoutInflater inflater = ((Activity)prefContext).getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_mobile_cells_registration_pref_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_mobile_cells_registration_preference, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();

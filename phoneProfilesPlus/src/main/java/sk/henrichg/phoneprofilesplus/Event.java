@@ -2108,7 +2108,7 @@ class Event {
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance(_context);
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
                             workManager.enqueue(worker);
@@ -2240,7 +2240,7 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id), _context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
         PPApplication.elapsedAlarmsEventDelayStartWork.remove("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
 
         this._isInDelayStart = false;
@@ -2344,7 +2344,7 @@ class Event {
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance(_context);
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
                             workManager.enqueue(worker);
@@ -2495,7 +2495,7 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id), _context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
         PPApplication.elapsedAlarmsEventDelayEndWork.remove("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
 
         this._isInDelayEnd = false;

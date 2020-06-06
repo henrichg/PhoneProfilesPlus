@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customColorPrefDialogRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/dialog_color_chooser_pref_background_preview"
-        android:layout_width="@dimen/acch_shape_preference_width"
-        android:layout_height="@dimen/acch_shape_preference_width"
-        android:layout_gravity="center"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/dialog_color_chooser_pref_color_preview"
-        android:layout_margin="6dp"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:layout_width="@dimen/acch_shape_preference_width"
-        android:layout_height="@dimen/acch_shape_preference_width"
-        android:src="@drawable/acch_circle"
-        android:contentDescription="@null"/>
+    <com.kunzisoft.androidclearchroma.view.ChromaColorView
+        android:id="@+id/custom_color_chroma_color_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+</LinearLayout>

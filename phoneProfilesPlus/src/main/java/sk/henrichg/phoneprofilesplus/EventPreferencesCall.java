@@ -452,7 +452,7 @@ class EventPreferencesCall extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsCallSensorWork_" + (int) _event._id, context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsCallSensorWork_" + (int) _event._id);
     }
 
     @SuppressLint("NewApi")

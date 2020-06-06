@@ -14,7 +14,7 @@
         app:title="@string/event_preferences_radioSwitch_info_title"
         app:summary="@string/event_preferences_radioSwitch_info_summary"
         app:dependency="eventRadioSwitchEnabled"
-        app:widgetLayout="@layout/info_preference"
+        app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_wifi"

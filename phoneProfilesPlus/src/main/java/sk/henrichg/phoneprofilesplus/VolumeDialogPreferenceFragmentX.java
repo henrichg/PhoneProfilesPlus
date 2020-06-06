@@ -89,7 +89,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         */
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_volume_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_volume_preference, null, false);
     }
 
     @SuppressLint("SetTextI18n")

@@ -8,7 +8,7 @@
         app:key="notificationSystemSettingsAll"
         app:title="@string/phone_profiles_pref_notificationSystemSettings"
         app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_A7_summary"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
@@ -33,7 +33,7 @@
             app:summary="@string/phone_profiles_pref_notificationStatusBarInfo_summary"
             app:shouldDisableView="false"
             app:enabled="false"
-            app:widgetLayout="@layout/info_preference"
+            app:widgetLayout="@layout/widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationStatusBar"
@@ -64,7 +64,7 @@
             app:key="notificationStatusBarStyleInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
-            app:widgetLayout="@layout/info_preference"
+            app:widgetLayout="@layout/widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationStatusBarStyle"

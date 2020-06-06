@@ -1860,7 +1860,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     LayoutInflater inflater = (activity.getLayoutInflater());
                     @SuppressLint("InflateParams")
-                    View layout = inflater.inflate(R.layout.activity_progress_bar_dialog, null);
+                    View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
                     dialogBuilder.setView(layout);
 
                     importProgressDialog = dialogBuilder.create();
@@ -2245,7 +2245,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     LayoutInflater inflater = (activity.getLayoutInflater());
                     @SuppressLint("InflateParams")
-                    View layout = inflater.inflate(R.layout.activity_progress_bar_dialog, null);
+                    View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
                     dialogBuilder.setView(layout);
 
                     exportProgressDialog = dialogBuilder.create();

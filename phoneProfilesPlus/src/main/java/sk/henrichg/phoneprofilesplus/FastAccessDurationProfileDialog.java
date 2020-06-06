@@ -11,10 +11,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import java.util.Collections;
 import java.util.Comparator;
-
-import androidx.appcompat.app.AlertDialog;
 
 class FastAccessDurationProfileDialog
 {
@@ -42,7 +42,7 @@ class FastAccessDurationProfileDialog
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_profile_pref_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_profile_preference, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();

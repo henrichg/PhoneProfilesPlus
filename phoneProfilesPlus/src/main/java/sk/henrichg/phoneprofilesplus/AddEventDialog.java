@@ -13,10 +13,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AlertDialog;
 
 class AddEventDialog
 {
@@ -42,7 +42,7 @@ class AddEventDialog
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_event_pref_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_event_prefeference, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();

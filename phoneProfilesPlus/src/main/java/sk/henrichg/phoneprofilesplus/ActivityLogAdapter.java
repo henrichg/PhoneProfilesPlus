@@ -146,7 +146,7 @@ class ActivityLogAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.activity_log_row, parent, false);
+        View view = inflater.inflate(R.layout.activity_log_list_item, parent, false);
 
         MyRowViewHolder rowData  = new MyRowViewHolder();
 

@@ -46,7 +46,7 @@ public class GeofenceScanWorker extends Worker {
 
             if (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed !=
                     PreferenceAllowed.PREFERENCE_ALLOWED) {
-                cancelWork(context, false/*, null*/);
+                cancelWork(false/*, null*/);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("GeofenceScanWorker.doWork", "return - not allowed geofence scanning");
                     PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
@@ -58,7 +58,7 @@ public class GeofenceScanWorker extends Worker {
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
             if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
                 //PPApplication.logE("GeofenceScanWorker.doWork", "update in power save mode is not allowed");
-                cancelWork(context, false/*, null*/);
+                cancelWork(false/*, null*/);
                 //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
                 return Result.success();
             }
@@ -127,7 +127,7 @@ public class GeofenceScanWorker extends Worker {
     private static void _scheduleWork(final Context context, boolean shortInterval/*, final boolean forScreenOn*/) {
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
                     //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- START");
@@ -171,7 +171,7 @@ public class GeofenceScanWorker extends Worker {
                         workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                     } else {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
-                        waitForFinish(context);
+                        waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .addTag(WORK_TAG)
                                 .build();
@@ -211,12 +211,12 @@ public class GeofenceScanWorker extends Worker {
         //    PPApplication.logE("GeofenceScanWorker.scheduleWork", "scanner is not started");
     }
 
-    private static void _cancelWork(final Context context) {
-        if (isWorkScheduled(context)) {
+    private static void _cancelWork() {
+        if (isWorkScheduled()) {
             try {
-                waitForFinish(context);
+                waitForFinish();
 
-                PhoneProfilesService.cancelWork(WORK_TAG, context);
+                PhoneProfilesService.cancelWork(WORK_TAG);
 
                 //PPApplication.logE("GeofenceScanWorker._cancelWork", "CANCELED");
 
@@ -227,15 +227,15 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    private static void waitForFinish(Context context) {
-        if (!isWorkRunning(context)) {
+    private static void waitForFinish() {
+        if (!isWorkRunning()) {
             //PPApplication.logE("GeofenceScanWorker.waitForFinish", "NOT RUNNING");
             return;
         }
 
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
                     //PPApplication.logE("GeofenceScanWorker.waitForFinish", "START WAIT FOR FINISH");
@@ -277,7 +277,7 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    static void cancelWork(final Context context, final boolean useHandler/*, final Handler _handler*/) {
+    static void cancelWork(final boolean useHandler/*, final Handler _handler*/) {
         //PPApplication.logE("GeofenceScanWorker.cancelWork", "xxx");
 
         if (useHandler /*&& (_handler == null)*/) {
@@ -286,19 +286,19 @@ public class GeofenceScanWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _cancelWork(context);
+                    _cancelWork();
                 }
             });
         }
         else {
-            _cancelWork(context);
+            _cancelWork();
         }
     }
 
-    private static boolean isWorkRunning(Context context) {
+    private static boolean isWorkRunning() {
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
@@ -332,11 +332,11 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    static boolean isWorkScheduled(Context context) {
+    static boolean isWorkScheduled() {
         //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "xxx");
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches

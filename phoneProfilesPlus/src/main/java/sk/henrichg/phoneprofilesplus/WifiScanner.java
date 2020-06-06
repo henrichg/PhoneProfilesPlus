@@ -211,7 +211,7 @@ class WifiScanner {
                                                         .build();
                                         try {
                                             if (PPApplication.getApplicationStarted(true)) {
-                                                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                                                WorkManager workManager = PPApplication.getWorkManagerInstance();
                                                 if (workManager != null)
                                                     workManager.enqueueUniqueWork("handleEventsWifiScannerFromScannerWork", ExistingWorkPolicy.REPLACE, worker);
                                             }

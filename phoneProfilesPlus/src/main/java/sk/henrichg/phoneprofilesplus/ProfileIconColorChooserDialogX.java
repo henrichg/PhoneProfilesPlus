@@ -37,7 +37,7 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.profile_icon_color_chooser, null);
+        View layout = inflater.inflate(R.layout.dialog_profile_icon_color_chooser, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();

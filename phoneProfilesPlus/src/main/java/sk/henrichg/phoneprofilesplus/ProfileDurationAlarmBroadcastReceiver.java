@@ -89,7 +89,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             /*if (PPApplication.logEnabled()) {
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
@@ -171,7 +171,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.recordException(e);
             }
 
-            PhoneProfilesService.cancelWork("elapsedAlarmsProfileDurationWork_"+(int) profile._id, context.getApplicationContext());
+            PhoneProfilesService.cancelWork("elapsedAlarmsProfileDurationWork_"+(int) profile._id);
             PPApplication.elapsedAlarmsProfileDurationWork.remove("elapsedAlarmsProfileDurationWork_"+(int) profile._id);
         }
         Profile.setActivatedProfileEndDurationTime(context, 0);

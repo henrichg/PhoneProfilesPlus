@@ -18,7 +18,7 @@
         app:key="applicationEventOrientationScanIntervalInfo"
         app:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
-        app:widgetLayout="@layout/exclamation_preference"
+        app:widgetLayout="@layout/widget_exclamation_preference"
         app:dependency="applicationEventOrientationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
@@ -44,7 +44,7 @@
         app:title="@string/phone_profiles_pref_applicationBatterySaver"
         app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
         app:dependency="applicationEventOrientationEnableScannig"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"/>
     <SwitchPreferenceCompat
         app:key="applicationEventOrientationScanOnlyWhenScreenIsOn"

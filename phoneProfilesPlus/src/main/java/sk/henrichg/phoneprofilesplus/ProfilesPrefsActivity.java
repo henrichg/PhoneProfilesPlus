@@ -622,7 +622,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
                 // restart Events
                 //PPApplication.logE("$$$ restartEvents","from ProfilesPrefsActivity.savePreferences");
-                PPApplication.setBlockProfileEventActions(true, getApplicationContext());
+                PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning()) {
                     if (!DataWrapper.getIsManualProfileActivation(false/*, getApplicationContext()*/)) {
                         //dataWrapper.restartEvents(false, true, true, true, true);

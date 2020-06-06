@@ -38,7 +38,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-            PPApplication.setBlockProfileEventActions(true, context);
+            PPApplication.setBlockProfileEventActions(true);
 
             if (PPApplication.logEnabled()) {
                 PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot);
@@ -111,7 +111,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                                 .build();
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
-                                        WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
                                             workManager.enqueue(worker);
                                     }

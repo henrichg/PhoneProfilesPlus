@@ -269,7 +269,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         LayoutInflater inflater = getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_better_number_pref_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_better_number_preference, null);
         dialogBuilder.setView(layout);
 
         numberPicker = layout.findViewById(R.id.better_number_picker);
@@ -775,7 +775,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.REPLACE, fetchAddressWorker);
 

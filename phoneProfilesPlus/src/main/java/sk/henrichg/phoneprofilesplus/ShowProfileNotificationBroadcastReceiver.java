@@ -72,7 +72,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //workManager.enqueueUniqueWork("elapsedAlarmsShowProfileNotificationWork", ExistingWorkPolicy.REPLACE, worker);
                         workManager.enqueue(worker);
@@ -134,7 +134,7 @@ public class ShowProfileNotificationBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsShowProfileNotificationWork", context.getApplicationContext());
+        PhoneProfilesService.cancelWork("elapsedAlarmsShowProfileNotificationWork");
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 

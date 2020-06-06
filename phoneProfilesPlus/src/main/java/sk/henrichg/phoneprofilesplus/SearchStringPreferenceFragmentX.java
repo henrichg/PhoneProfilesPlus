@@ -28,7 +28,7 @@ public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCom
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_search_string_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_search_string_preference, null, false);
     }
 
     @Override

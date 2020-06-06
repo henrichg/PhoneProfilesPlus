@@ -60,7 +60,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 
         typedArray.recycle();
 
-        setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
         if (EditorProfilesActivity.getApplicationsCache() == null)
             EditorProfilesActivity.createApplicationsCache();

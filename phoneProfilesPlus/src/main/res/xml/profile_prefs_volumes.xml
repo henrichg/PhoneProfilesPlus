@@ -8,7 +8,7 @@
         app:key="prf_pref_volumeUnlinkVolumesAppSettings"
         app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
         app:summary="@string/info_notification_unlink_ringer_notification_volumes"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
     <PreferenceCategory
@@ -26,7 +26,7 @@
             app:key="prf_pref_volumeIgnoreSoundModeInfo2"
             app:title="@string/profile_preferences_volumeIgnoreSoundModeInfo_title"
             app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
-            app:widgetLayout="@layout/info_preference"
+            app:widgetLayout="@layout/widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
@@ -40,7 +40,7 @@
             app:key="prf_pref_volumeRingtone0Info"
             app:title="@string/profile_preferences_volumeRingtone0Info_title"
             app:summary="@string/profile_preferences_volumeRingtone0Info_summary"
-            app:widgetLayout="@layout/info_preference"
+            app:widgetLayout="@layout/widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeNotification"

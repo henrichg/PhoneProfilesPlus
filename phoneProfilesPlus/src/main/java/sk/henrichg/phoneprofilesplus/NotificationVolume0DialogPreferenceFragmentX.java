@@ -42,7 +42,7 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         LayoutInflater inflater = ((Activity)preference.prefContext).getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_notification_volume_0_pref_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_notification_volume_0_preference, null);
         dialogBuilder.setView(layout);
 
         //Log.e("NotificationVolume0DialogPreferenceFragmentX.onCreateDialog", "after layout inflater");

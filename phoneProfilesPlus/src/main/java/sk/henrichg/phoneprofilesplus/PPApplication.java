@@ -1155,7 +1155,7 @@ public class PPApplication extends Application /*implements Application.Activity
                         .setInitialDelay(365 * 10, TimeUnit.DAYS)
                         .build();
         try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null)
                 workManager.enqueue(avoidRescheduleReceiverWorker);
         } catch (Exception e) {
@@ -1382,7 +1382,7 @@ public class PPApplication extends Application /*implements Application.Activity
         MultiDex.install(this);
     }
 
-    static WorkManager getWorkManagerInstance(Context context) {
+    static WorkManager getWorkManagerInstance() {
         //if (workManagerInstance == null)
         return workManagerInstance;
     }
@@ -3473,7 +3473,7 @@ public class PPApplication extends Application /*implements Application.Activity
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
-            PhoneProfilesService.cancelAllWorks(context);
+            PhoneProfilesService.cancelAllWorks();
 
             if (dataWrapper != null)
                 dataWrapper.stopAllEvents(false, false, false, false);
@@ -3627,7 +3627,7 @@ public class PPApplication extends Application /*implements Application.Activity
 
         LayoutInflater inflater = fragment.getActivity().getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_do_not_kill_my_app_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_do_not_kill_my_app, null);
         dialogBuilder.setView(layout);
 
         DokiContentView doki = layout.findViewById(R.id.do_not_kill_my_app_dialog_dokiContentView);
@@ -3839,7 +3839,7 @@ public class PPApplication extends Application /*implements Application.Activity
         }
     }
 
-    static void setBlockProfileEventActions(boolean enable, Context context) {
+    static void setBlockProfileEventActions(boolean enable) {
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
         PPApplication.blockProfileEventActions = enable;
         if (enable) {
@@ -3855,7 +3855,7 @@ public class PPApplication extends Application /*implements Application.Activity
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context.getApplicationContext());
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
                         workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
                 }

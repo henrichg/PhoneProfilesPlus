@@ -323,7 +323,7 @@ class EventPreferencesNFC extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsNFCSensorWork_" + (int) _event._id, context);
+        PhoneProfilesService.cancelWork("elapsedAlarmsNFCSensorWork_" + (int) _event._id);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

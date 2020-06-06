@@ -17,12 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -30,6 +24,13 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
@@ -96,7 +97,7 @@ class ApplicationEditorDialogX
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_applications_editor_dialog, null);
+        View layout = inflater.inflate(R.layout.dialog_applications_editor, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();

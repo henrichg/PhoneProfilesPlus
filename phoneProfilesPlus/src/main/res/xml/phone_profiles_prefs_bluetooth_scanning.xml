@@ -18,7 +18,7 @@
         app:key="applicationEventBluetoothLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
@@ -31,7 +31,7 @@
         app:key="applicationEventBluetoothScanIntervalInfo"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
-        app:widgetLayout="@layout/exclamation_preference"
+        app:widgetLayout="@layout/widget_exclamation_preference"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
@@ -66,7 +66,7 @@
         app:title="@string/phone_profiles_pref_applicationBatterySaver"
         app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"/>
     <SwitchPreferenceCompat
         app:key="applicationEventBluetoothScanOnlyWhenScreenIsOn"

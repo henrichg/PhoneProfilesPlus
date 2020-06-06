@@ -43,7 +43,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_connect_to_ssid_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_connect_to_ssid_preference, null, false);
     }
 
     @Override

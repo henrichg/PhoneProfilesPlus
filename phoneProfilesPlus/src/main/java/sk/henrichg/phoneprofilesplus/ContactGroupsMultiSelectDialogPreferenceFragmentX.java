@@ -37,7 +37,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_contact_groups_multiselect_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_contact_groups_multiselect_preference, null, false);
     }
 
     @Override

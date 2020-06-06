@@ -14,13 +14,13 @@
         app:title="@string/phone_profiles_pref_category_bluetooth_scanning"
         app:summary="@string/phone_profiles_pref_eventBluetoothAppSettings_summary"
         app:dependency="eventBluetoothEnabled"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventBluetoothLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:dependency="eventBluetoothEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

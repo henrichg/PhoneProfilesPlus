@@ -53,7 +53,7 @@ public class SearchCalendarEventsWorker extends Worker {
             }
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
-            scheduleWork(context.getApplicationContext(), false, /*null,*/ false);
+            scheduleWork(false, /*null,*/ false);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -88,10 +88,10 @@ public class SearchCalendarEventsWorker extends Worker {
         //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
     }
 
-    private static void _scheduleWork(final Context context, final boolean shortInterval) {
+    private static void _scheduleWork(final boolean shortInterval) {
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
                     /*if (PPApplication.logEnabled()) {
@@ -108,7 +108,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                     } else {
                         //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "start now work");
-                        waitForFinish(context);
+                        waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
                                 .addTag(WORK_TAG)
                                 .build();
@@ -124,7 +124,7 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, final boolean useHandler, /*final Handler _handler,*/ final boolean shortInterval) {
+    static void scheduleWork(final boolean useHandler, /*final Handler _handler,*/ final boolean shortInterval) {
         //PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (useHandler/* && (_handler == null)*/) {
@@ -133,21 +133,21 @@ public class SearchCalendarEventsWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _scheduleWork(context, shortInterval);
+                    _scheduleWork(shortInterval);
                 }
             });
         }
         else {
-            _scheduleWork(context, shortInterval);
+            _scheduleWork(shortInterval);
         }
     }
 
-    private static void _cancelWork(final Context context) {
-        if (isWorkScheduled(context)) {
+    private static void _cancelWork() {
+        if (isWorkScheduled()) {
             try {
-                waitForFinish(context);
+                waitForFinish();
 
-                PhoneProfilesService.cancelWork(WORK_TAG, context);
+                PhoneProfilesService.cancelWork(WORK_TAG);
 
                 //PPApplication.logE("SearchCalendarEventsWorker._cancelWork", "CANCELED");
 
@@ -158,15 +158,15 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
-    private static void waitForFinish(Context context) {
-        if (!isWorkRunning(context)) {
+    private static void waitForFinish() {
+        if (!isWorkRunning()) {
             //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "NOT RUNNING");
             return;
         }
 
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
                     //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "START WAIT FOR FINISH");
@@ -208,8 +208,7 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
-    static void cancelWork(final Context context,
-                           @SuppressWarnings("SameParameterValue") final boolean useHandler/*,
+    static void cancelWork(@SuppressWarnings("SameParameterValue") final boolean useHandler/*,
                            final Handler _handler*/) {
         //PPApplication.logE("SearchCalendarEventsWorker.cancelWork", "xxx");
 
@@ -219,19 +218,19 @@ public class SearchCalendarEventsWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _cancelWork(context);
+                    _cancelWork();
                 }
             });
         }
         else {
-            _cancelWork(context);
+            _cancelWork();
         }
     }
 
-    private static boolean isWorkRunning(Context context) {
+    private static boolean isWorkRunning() {
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
@@ -265,11 +264,11 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
-    static boolean isWorkScheduled(Context context) {
+    static boolean isWorkScheduled() {
         //PPApplication.logE("SearchCalendarEventsWorker.isWorkScheduled", "xxx");
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches

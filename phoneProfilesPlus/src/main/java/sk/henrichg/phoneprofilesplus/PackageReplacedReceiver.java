@@ -22,9 +22,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
-            PPApplication.setBlockProfileEventActions(true, context);
+            PPApplication.setBlockProfileEventActions(true);
 
-            final Context appContext = context.getApplicationContext();
+            //final Context appContext = context.getApplicationContext();
 
             /*SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
             if (sharedPreferences != null) {
@@ -54,7 +54,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             try {
                 // do not test start of PPP, because is not started in this receiver
                 //if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
                         workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
                 //}

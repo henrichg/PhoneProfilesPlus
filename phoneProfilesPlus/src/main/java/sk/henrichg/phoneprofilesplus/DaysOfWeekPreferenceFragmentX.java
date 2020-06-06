@@ -26,7 +26,7 @@ public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompa
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_days_of_week_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_days_of_week_preference, null, false);
     }
 
     @Override

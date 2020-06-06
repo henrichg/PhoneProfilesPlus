@@ -14,7 +14,7 @@
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
         app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
         app:dependency="eventNotificationEnabled"
-        app:widgetLayout="@layout/start_activity_preference"
+        app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="eventNotificationInCall"

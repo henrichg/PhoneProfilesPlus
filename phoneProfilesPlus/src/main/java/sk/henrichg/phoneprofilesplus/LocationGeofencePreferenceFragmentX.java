@@ -44,7 +44,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.activity_location_pref_dialog, null, false);
+        return inflater.inflate(R.layout.dialog_location_preference, null, false);
     }
 
     @Override

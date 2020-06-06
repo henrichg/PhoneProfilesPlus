@@ -45,7 +45,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             PPApplication.recordException(e);
         }
 
-        PhoneProfilesService.cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", context.getApplicationContext());
+        PhoneProfilesService.cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -96,7 +96,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
                         workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.REPLACE, worker);

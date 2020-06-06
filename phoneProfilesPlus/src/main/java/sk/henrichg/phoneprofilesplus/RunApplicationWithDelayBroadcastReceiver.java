@@ -98,7 +98,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             /*if (PPApplication.logEnabled()) {
                                 PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
@@ -185,7 +185,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode, context.getApplicationContext());
+        PhoneProfilesService.cancelWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
         PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }

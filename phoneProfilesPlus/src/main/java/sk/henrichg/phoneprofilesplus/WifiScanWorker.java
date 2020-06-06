@@ -133,7 +133,7 @@ public class WifiScanWorker extends Worker {
     private static void _scheduleWork(final Context context, final boolean shortInterval) {
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
                     /*if (PPApplication.logEnabled()) {
@@ -158,7 +158,7 @@ public class WifiScanWorker extends Worker {
                         workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                     } else {
                         //PPApplication.logE("WifiScanWorker._scheduleWork", "start now work");
-                        waitForFinish(context);
+                        waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
                                 .addTag(WORK_TAG)
                                 .build();
@@ -198,15 +198,15 @@ public class WifiScanWorker extends Worker {
     }
 
     private static void _cancelWork(final Context context) {
-        if (isWorkScheduled(context)) {
+        if (isWorkScheduled()) {
             try {
-                waitForFinish(context);
+                waitForFinish();
 
                 setScanRequest(context, false);
                 setWaitForResults(context, false);
                 WifiScanner.setForceOneWifiScan(context, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                PhoneProfilesService.cancelWork(WORK_TAG, context);
+                PhoneProfilesService.cancelWork(WORK_TAG);
 
                 //PPApplication.logE("WifiScanWorker._cancelWork", "CANCELED");
 
@@ -217,15 +217,15 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    private static void waitForFinish(Context context) {
-        if (!isWorkRunning(context)) {
+    private static void waitForFinish() {
+        if (!isWorkRunning()) {
             //PPApplication.logE("WifiScanWorker.waitForFinish", "NOT RUNNING");
             return;
         }
 
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
                     //PPApplication.logE("WifiScanWorker.waitForFinish", "START WAIT FOR FINISH");
@@ -285,10 +285,10 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    private static boolean isWorkRunning(Context context) {
+    private static boolean isWorkRunning() {
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
@@ -322,11 +322,11 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static boolean isWorkScheduled(Context context) {
+    static boolean isWorkScheduled() {
         //PPApplication.logE("WifiScanWorker.isWorkScheduled", "xxx");
         try {
             if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance(context);
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches

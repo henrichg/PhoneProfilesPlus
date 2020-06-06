@@ -34,8 +34,8 @@ public class WallpaperViewPreferenceX extends Preference {
 
         //preferenceTitle = getTitle();
 
-        setWidgetLayoutResource(R.layout.imageview_preference);
-        //setLayoutResource(R.layout.imageview_preference);
+        setWidgetLayoutResource(R.layout.widget_imageview_preference);
+        //setLayoutResource(R.layout.widget_imageview_preference);
     }
 
     //@Override

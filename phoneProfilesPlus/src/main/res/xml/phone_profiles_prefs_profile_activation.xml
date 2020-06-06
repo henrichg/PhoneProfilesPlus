@@ -28,7 +28,7 @@
             app:key="applicationBackgroundProfileNotificationSoundInfo"
             app:title="@string/profile_preferences_durationNotificationSound"
             app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-            app:widgetLayout="@layout/info_preference"
+            app:widgetLayout="@layout/widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
             app:key="applicationBackgroundProfileNotificationSound"
