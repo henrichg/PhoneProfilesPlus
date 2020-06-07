@@ -3824,6 +3824,8 @@ public class PhoneProfilesService extends Service
 
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "called work for first start");
 
+                        PhoneProfilesService.cancelWork("afterFirstStartWork");
+
                         Data workData = new Data.Builder()
                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                                 .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true)
@@ -3839,6 +3841,7 @@ public class PhoneProfilesService extends Service
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
                                 if (workManager != null)
                                     workManager.enqueue(worker);
                             }

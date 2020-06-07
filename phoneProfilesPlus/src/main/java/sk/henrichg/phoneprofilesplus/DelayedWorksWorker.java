@@ -96,6 +96,7 @@ public class DelayedWorksWorker extends Worker {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is enabled, first start events");
 
                             // start of periodic events handler
+                            PhoneProfilesService.cancelWork("periodicEventsHandlerWorker");
                             OneTimeWorkRequest periodicEventsHandlerWorker =
                                     new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
                                             .addTag("periodicEventsHandlerWorker")
@@ -571,6 +572,7 @@ public class DelayedWorksWorker extends Worker {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null) {
                             // work after first start
+                            PhoneProfilesService.cancelWork("afterFirstStartWork");
                             Data workData = new Data.Builder()
                                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                                     .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)

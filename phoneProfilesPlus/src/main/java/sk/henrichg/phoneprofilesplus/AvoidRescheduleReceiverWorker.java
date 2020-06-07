@@ -20,7 +20,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-
+            PPApplication.logE("AvoidRescheduleReceiverWorker.doWork", "xxx");
             return Result.success();
         } catch (Exception e) {
             Log.e("AvoidRescheduleReceiverWorker.doWork", Log.getStackTraceString(e));

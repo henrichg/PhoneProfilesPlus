@@ -39,6 +39,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             PPApplication.logE("PackageReplacedReceiver.onReceive", "called work for package replaced");
             //PPApplication.logE("PackageReplacedReceiver.onReceive", "start of delayed work");
 
+            PhoneProfilesService.cancelWork("packageReplacedWork");
+
             // work for package replaced
             Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)

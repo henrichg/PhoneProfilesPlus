@@ -92,6 +92,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PPApplication.exitApp"
                                                 +"|PPApplication._exitApp"
                                                 //+"|PPApplication.createProfileNotificationChannel"
+                                                +"|AvoidRescheduleReceiverWorker"
                                                 +"|PhoneProfilesService.onCreate"
                                                 +"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
@@ -1148,8 +1149,10 @@ public class PPApplication extends Application /*implements Application.Activity
         PPApplication.logE("##### PPApplication.onCreate", "continue onCreate()");
 
         workManagerInstance = WorkManager.getInstance(getApplicationContext());
+        PPApplication.logE("##### PPApplication.onCreate", "workManagerInstance="+workManagerInstance);
 
         // https://issuetracker.google.com/issues/115575872#comment16
+        PhoneProfilesService.cancelWork("avoidRescheduleReceiverWorker");
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
                         .addTag("avoidRescheduleReceiverWorker")
@@ -1157,6 +1160,7 @@ public class PPApplication extends Application /*implements Application.Activity
                         .build();
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
+            PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
             if (workManager != null)
                 workManager.enqueue(avoidRescheduleReceiverWorker);
         } catch (Exception e) {
