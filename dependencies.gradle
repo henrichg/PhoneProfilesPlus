@@ -34,5 +34,5 @@ ext.ppVersions = [
     buildTools: '29.0.3',
 
     appcompatXLib: '1.1.0',
-    workXLib: '2.4.0-beta01'
+    workXLib: '2.3.4'
 ]

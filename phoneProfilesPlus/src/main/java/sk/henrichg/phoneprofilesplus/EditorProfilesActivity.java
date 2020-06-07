@@ -3297,6 +3297,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((profile == null) && (event == null))
             return false;
 
+        if (!PPApplication.getApplicationStarted(true))
+            return false;
+
         if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
