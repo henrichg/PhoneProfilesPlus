@@ -301,26 +301,36 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         // sim card is ready
                         simIsReady = true;
                 } else {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(context);
-                    if (mSubscriptionManager != null) {
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        } catch (SecurityException e) {
-                            PPApplication.recordException(e);
-                        }
-                        if (subscriptionList != null) {
-                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                        // sim card is ready
-                                        simIsReady = true;
-                                        break;
+                    if (Permissions.checkPhone(prefContext.getApplicationContext())) {
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) prefContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", "mSubscriptionManager=" + mSubscriptionManager);
+                        //SubscriptionManager.from(context);
+                        if (mSubscriptionManager != null) {
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            } catch (SecurityException e) {
+                                PPApplication.recordException(e);
+                                //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", Log.getStackTraceString(e));
+                            }
+                            //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", "subscriptionList=" + subscriptionList);
+                            if (subscriptionList != null) {
+                                //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", "subscriptionList.size()=" + subscriptionList.size());
+                                for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", "subscriptionInfo=" + subscriptionInfo);
+                                    if (subscriptionInfo != null) {
+                                        int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                        //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", "slotIndex=" + slotIndex);
+                                        //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", "telephonyManager.getSimState(slotIndex)=" + telephonyManager.getSimState(slotIndex));
+                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                            // sim card is ready
+                                            //PPApplication.logE("MobileCellsPreferenceFragmentX.onBindDialogView", "sim card is ready");
+                                            simIsReady = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }

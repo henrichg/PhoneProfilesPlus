@@ -252,7 +252,7 @@ class Permissions {
             checkProfileNotificationLed(context, profile, permissions);
             checkProfileWallpaper(context, profile, permissions);
             checkProfileRadioPreferences(context, profile, permissions);
-            checkProfilePhoneBroadcast(context, profile, permissions);
+            checkProfilePhoneState(context, profile, permissions);
             checkCustomProfileIcon(context, profile, permissions);
             //checkProfileAccessNotificationPolicy(context, profile, permissions);
             checkProfileLockDevice(context, profile, permissions);
@@ -768,13 +768,16 @@ class Permissions {
             return true;
     }
 
-    private static void checkProfilePhoneBroadcast(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+    private static void checkProfilePhoneState(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
-                if (unlinkEnabled || (profile._volumeSpeakerPhone != 0)) {
+                if (unlinkEnabled ||
+                        (profile._volumeSpeakerPhone != 0) ||
+                        (profile._deviceNetworkTypePrefs != 0) ||
+                        ((Build.VERSION.SDK_INT >= 28) && (profile._deviceMobileData != 0))) {
                     boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (!grantedReadPhoneState)
@@ -1015,7 +1018,7 @@ class Permissions {
         if (event == null) return permissions;
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             checkEventCalendar(context, event, permissions);
-            checkEventPhoneBroadcast(context, event, permissions);
+            checkEventPhoneState(context, event, permissions);
             checkEventCallContacts(context, event, permissions);
             checkEventSMSContacts(context, event, permissions);
             checkEventLocation(context, event, permissions);
@@ -1320,16 +1323,28 @@ class Permissions {
         }*/
     }
 
-    private static void checkEventPhoneBroadcast(Context context, Event event, ArrayList<PermissionType>  permissions) {
+    private static void checkEventPhoneState(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return /*true*/;
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
-                if (event._eventPreferencesCall._enabled) {
+                if (event._eventPreferencesCall._enabled ||
+                    event._eventPreferencesMobileCells._enabled ||
+                    event._eventPreferencesSMS._enabled) {
                     boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesCall._enabled) {
                             if (!grantedPhoneState)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
+                        }
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            if (event._eventPreferencesMobileCells._enabled) {
+                                if (!grantedPhoneState)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
+                            }
+                            if (event._eventPreferencesSMS._enabled) {
+                                if (!grantedPhoneState)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
+                            }
                         }
                     }
                     //return grantedPhoneState;
@@ -1899,6 +1914,8 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 26)
+                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

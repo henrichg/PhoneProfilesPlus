@@ -3959,20 +3959,21 @@ class ActivateProfileHelper {
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                 (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false)))
         {
-            try {
-                // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
-                Object serviceManager = PPApplication.getServiceManager("phone");
-                int transactionCode = -1;
-                if (serviceManager != null) {
-                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
-                }
+            if (Permissions.checkPhone(context.getApplicationContext())) {
+                try {
+                    // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
+                    Object serviceManager = PPApplication.getServiceManager("phone");
+                    int transactionCode = -1;
+                    if (serviceManager != null) {
+                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
+                    }
 
-                if (transactionCode != -1) {
-                    // Android 5.1?
-                    //if (Build.VERSION.SDK_INT >= 22) {
+                    if (transactionCode != -1) {
+                        // Android 5.1?
+                        //if (Build.VERSION.SDK_INT >= 22) {
                         Context appContext = context.getApplicationContext();
-                        SubscriptionManager mSubscriptionManager = (SubscriptionManager)appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                                //SubscriptionManager.from(context);
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(context);
                         if (mSubscriptionManager != null) {
                             List<SubscriptionInfo> subscriptionList = null;
                             try {
@@ -4021,9 +4022,10 @@ class ActivateProfileHelper {
                             }
                         }
                     }*/
+                    }
+                } catch (Exception ee) {
+                    PPApplication.recordException(ee);
                 }
-            } catch(Exception ee) {
-                PPApplication.recordException(ee);
             }
         }
     }

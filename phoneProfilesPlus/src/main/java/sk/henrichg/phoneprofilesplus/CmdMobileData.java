@@ -34,45 +34,47 @@ public class CmdMobileData {
     static boolean isEnabled(Context context) {
         try {
             boolean enabled = false;
-            boolean ok = false;
-            ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
-            if (adapter != null) {
-                //if (Build.VERSION.SDK_INT >= 22) {
-                SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                //SubscriptionManager.from(context);
-                if (mSubscriptionManager != null) {
-                    List<SubscriptionInfo> subscriptionList = null;
-                    try {
-                        // Loop through the subscription list i.e. SIM list.
-                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                    } catch (SecurityException e) {
-                        PPApplication.recordException(e);
-                    }
-                    if (subscriptionList != null) {
-                        for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
-                            // Get the active subscription ID for a given SIM card.
-                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                            if (subscriptionInfo != null) {
-                                int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                enabled = adapter.getDataEnabled(subscriptionId);
-                                ok = true;
+            if (Permissions.checkPhone(context.getApplicationContext())) {
+                boolean ok = false;
+                ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
+                if (adapter != null) {
+                    //if (Build.VERSION.SDK_INT >= 22) {
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    //SubscriptionManager.from(context);
+                    if (mSubscriptionManager != null) {
+                        List<SubscriptionInfo> subscriptionList = null;
+                        try {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        } catch (SecurityException e) {
+                            PPApplication.recordException(e);
+                        }
+                        if (subscriptionList != null) {
+                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                // Get the active subscription ID for a given SIM card.
+                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                if (subscriptionInfo != null) {
+                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                    enabled = adapter.getDataEnabled(subscriptionId);
+                                    ok = true;
                                 /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
                                     PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
                                 }*/
-                                if (enabled)
-                                    break;
+                                    if (enabled)
+                                        break;
+                                }
                             }
                         }
                     }
-                }
-                //}
-                if (!ok) {
-                    enabled = adapter.getDataEnabled(1);
+                    //}
+                    if (!ok) {
+                        enabled = adapter.getDataEnabled(1);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=0");
                     PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
                 }*/
+                    }
                 }
             }
             return enabled;
