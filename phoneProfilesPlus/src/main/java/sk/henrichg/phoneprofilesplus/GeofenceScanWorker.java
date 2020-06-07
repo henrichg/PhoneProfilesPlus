@@ -166,16 +166,16 @@ public class GeofenceScanWorker extends Worker {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "delay work");
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.SECONDS)
-                                .addTag(WORK_TAG)
+                                .addTag(GeofenceScanWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                     } else {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
                         waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
-                                .addTag(WORK_TAG)
+                                .addTag(GeofenceScanWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                     }
 
                     //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");

@@ -322,8 +322,9 @@ public class PhoneProfilesService extends Service
     }
 
     static void cancelAllWorks() {
-        cancelWork("elapsedAlarmsShowProfileNotificationWork");
-        cancelWork("elapsedAlarmsUpdateGUIWork");
+        //cancelWork("elapsedAlarmsShowProfileNotificationWork"); - do not cancel
+        //cancelWork("elapsedAlarmsUpdateGUIWork"); - do not cancel
+        //cancelWork("avoidRescheduleReceiverWorker"); - do not cancel
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
             cancelWork(tag);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
@@ -339,7 +340,8 @@ public class PhoneProfilesService extends Service
         for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
             cancelWork(tag);
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
-        cancelWork("disableInternalChangeWork");
+        //cancelWork("disableInternalChangeWork"); - do not cancel
+        //cancelWork("disableScreenTimeoutInternalChangeWork"); - do not cancel
         cancelWork("periodicEventsHandlerWorker");
         cancelWork("delayedWorkCloseAllApplications");
         cancelWork("handleEventsBluetoothLEScannerWork");
@@ -349,11 +351,11 @@ public class PhoneProfilesService extends Service
         cancelWork(GeofenceScanWorker.WORK_TAG);
         cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
         cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
-        cancelWork("elapsedAlarmsLockDeviceFinishActivity");
+        //cancelWork("elapsedAlarmsLockDeviceFinishActivity"); - do not cancel
         cancelWork("elapsedAlarmsLockDeviceAfterScreenOff");
-        cancelWork("packageReplacedWork");
-        cancelWork("delayedWorkAfterFirstStartWork");
-        cancelWork("setBlockProfileEventsActionWork");
+        //cancelWork("packageReplacedWork"); - do not cancel
+        //cancelWork("delayedWorkAfterFirstStartWork"); - do not cancel
+        //cancelWork("setBlockProfileEventsActionWork"); - do not cancel
         cancelWork(SearchCalendarEventsWorker.WORK_TAG);
         cancelWork("handleEventsWifiScannerFromScannerWork");
         cancelWork("handleEventsWifiScannerFromReceiverWork");

@@ -157,19 +157,19 @@ public class BluetoothScanWorker extends Worker {
                         //PPApplication.logE("BluetoothScanWorker._scheduleWork", "delay work");
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
-                                .addTag(WORK_TAG)
+                                .addTag(BluetoothScanWorker.WORK_TAG)
                                 .build();
                         if (PPApplication.getApplicationStarted(true)) {
-                            workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                            workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                         }
                     } else {
                         //PPApplication.logE("BluetoothScanWorker._scheduleWork", "start now work");
                         waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
-                                .addTag(WORK_TAG)
+                                .addTag(BluetoothScanWorker.WORK_TAG)
                                 .build();
                         if (PPApplication.getApplicationStarted(true)) {
-                            workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                            workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                         }
                     }
                     //PPApplication.logE("BluetoothScanWorker._scheduleWork", "---------------------------------------- END");

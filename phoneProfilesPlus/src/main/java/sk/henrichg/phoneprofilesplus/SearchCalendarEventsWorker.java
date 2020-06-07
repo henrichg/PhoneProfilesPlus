@@ -103,16 +103,16 @@ public class SearchCalendarEventsWorker extends Worker {
                         //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "delay work");
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
                                 .setInitialDelay(24, TimeUnit.HOURS)
-                                .addTag(WORK_TAG)
+                                .addTag(SearchCalendarEventsWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                     } else {
                         //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "start now work");
                         waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
-                                .addTag(WORK_TAG)
+                                .addTag(SearchCalendarEventsWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
                     }
 
                     //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "---------------------------------------- END");

@@ -769,7 +769,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         OneTimeWorkRequest fetchAddressWorker =
                 new OneTimeWorkRequest.Builder(FetchAddressWorker.class)
-                        .addTag(FETCH_ADDRESS_WORK_TAG)
+                        .addTag(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG)
                         .setInputData(workData)
                         .build();
 
@@ -777,7 +777,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.REPLACE, fetchAddressWorker);
+                    workManager.enqueueUniqueWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.REPLACE, fetchAddressWorker);
 
                     workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
                             .observe(this, new Observer<WorkInfo>() {
