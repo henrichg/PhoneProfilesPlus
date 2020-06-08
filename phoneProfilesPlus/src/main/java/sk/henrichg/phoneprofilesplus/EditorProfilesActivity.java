@@ -3381,7 +3381,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            notificationID = -(9999 + (int) event._id);
+            notificationID = -(9999 - (int) event._id);
         }
 
         intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
@@ -3405,6 +3405,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
+            mNotificationManager.cancel(notificationID);
             mNotificationManager.notify(notificationID, mBuilder.build());
         } catch (Exception e) {
             Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));

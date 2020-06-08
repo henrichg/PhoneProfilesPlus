@@ -996,6 +996,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         NotificationManagerCompat _mNotificationManager = NotificationManagerCompat.from(context);
                         try {
+                            _mNotificationManager.cancel(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID);
                             _mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
                         } catch (Exception e) {
                             Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
