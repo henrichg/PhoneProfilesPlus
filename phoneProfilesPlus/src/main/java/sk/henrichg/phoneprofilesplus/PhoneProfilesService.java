@@ -3841,7 +3841,7 @@ public class PhoneProfilesService extends Service
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
+                                //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
                                 if (workManager != null)
                                     workManager.enqueue(worker);
                             }
