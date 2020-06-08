@@ -56,6 +56,7 @@ import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -1162,7 +1163,7 @@ public class PPApplication extends Application /*implements Application.Activity
                         .build();
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
-            PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
+            //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
             if (workManager != null)
                 workManager.enqueue(avoidRescheduleReceiverWorker);
         } catch (Exception e) {
@@ -1251,11 +1252,24 @@ public class PPApplication extends Application /*implements Application.Activity
         */
 
         try {
+            // A list with valid installers package name
+            List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
+            // The package name of the app that has installed your app
+            final String installer = getPackageManager().getInstallerPackageName(getPackageName());
+            // true if your app has been downloaded from Play Store
+            boolean googlePlayInstaller = installer != null && validInstallers.contains(installer);
+            PPApplication.setCustomKey("FROM_GOOGLE_PLAY", googlePlayInstaller);
+        } catch (Exception e) {
+            // https://github.com/firebase/firebase-android-sdk/issues/1226
+            //PPApplication.recordException(e);
+        }
+        try {
             PPApplication.setCustomKey("DEBUG", DebugVersion.enabled);
         } catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
         }
+
 
         //lastUptimeTime = SystemClock.elapsedRealtime();
         //lastEpochTime = System.currentTimeMillis();
