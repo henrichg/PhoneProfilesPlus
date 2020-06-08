@@ -75,8 +75,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="15dip"
-        android:paddingEnd="15dip"
         android:paddingTop="5dp"
         android:paddingBottom="8dp" >
 
@@ -84,6 +82,8 @@
             android:id="@+id/act_prof_profiles_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingStart="15dip"
+            android:paddingEnd="15dip"
             android:columnWidth="80dp"
             android:gravity="center"
             android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
