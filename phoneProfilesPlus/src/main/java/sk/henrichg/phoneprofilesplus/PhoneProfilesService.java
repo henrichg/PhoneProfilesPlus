@@ -5904,15 +5904,22 @@ public class PhoneProfilesService extends Service
                 notificationMediaPlayer = null;
             }
 
+            // do not simulate ringing when ring or stream is muted
+            if (audioManager != null) {
+                if (audioManager.isStreamMute(AudioManager.STREAM_RING))
+                    return;
+            }
+
             if ((ringtone != null) && !ringtone.isEmpty()) {
                 RingerModeChangeReceiver.internalChange = true;
 
                 // play repeating: default ringtone with ringing volume level
                 try {
-                    AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                    if (am != null) {
-                        am.setMode(AudioManager.MODE_NORMAL);
-                        am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    //AudioManager am=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+                    if (audioManager != null) {
+                        audioManager.setMode(AudioManager.MODE_NORMAL);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     }
 
                     //int requestType = AudioManager.AUDIOFOCUS_GAIN;
