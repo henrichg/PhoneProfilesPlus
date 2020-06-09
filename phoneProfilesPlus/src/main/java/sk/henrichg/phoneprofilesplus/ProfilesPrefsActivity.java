@@ -468,6 +468,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, Long.toString(profile._afterDurationProfile));
             editor.putString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, Integer.toString(profile._alwaysOnDisplay));
             editor.putString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(profile._screenOnPermanent));
+            editor.putBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
             editor.apply();
         }
     }
@@ -484,7 +485,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             // save preferences into profile
             profile._name = preferences.getString(Profile.PREF_PROFILE_NAME, "");
             profile._icon = preferences.getString(Profile.PREF_PROFILE_ICON, "");
-            profile._showInActivator = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true);
+            profile._showInActivator = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
 
             profile._duration = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DURATION, ""));
             profile._afterDurationDo = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, ""));
@@ -590,6 +591,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._volumeBluetoothSCO = preferences.getString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, "");
             profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, ""));
             profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, ""));
+            profile._volumeMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

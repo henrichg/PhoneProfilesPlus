@@ -2844,9 +2844,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private void setSummary(String key) {
         String value;
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-                key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
-                key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
-                key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
+            key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
         }
@@ -2948,6 +2949,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO);
         setSummary(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY);
         setSummary(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT);
+        setSummary(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
@@ -2977,44 +2979,81 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         final String ON = "1";
 
-        if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE)) {
-            boolean enabled = getEnableVolumeNotificationByRingtone(sValue);
-            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
-            if (preference != null)
-                preference.setEnabled(enabled);
-            String notificationValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
-            enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue/*, context*/);
-            preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
-            if (preference != null)
-                preference.setEnabled(enabled);
-
-            String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
-            enabled = (Profile.getVolumeRingtoneChange(sValue) ||
-                    Profile.getVolumeRingtoneChange(notificationValue)) &&
-                    ringerMode.equals("0");
-            preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
-            if (preference != null)
-                preference.setEnabled(enabled);
+        boolean enabledMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
+        Preference _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGTONE);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        if (enabledMuteSound) {
+            _preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+            if (_preference != null)
+                _preference.setEnabled(false);
+            _preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
+            if (_preference != null)
+                _preference.setEnabled(false);
         }
-        if (key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
-            String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
-                    getEnableVolumeNotificationByRingtone(ringtoneValue);
-            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
-            if (preference != null)
-                preference.setEnabled(enabled);
-            enabled = getEnableVolumeNotificationVolume0(enabled, sValue/*, context*/);
-            preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
-            if (preference != null)
-                preference.setEnabled(enabled);
+        _preference = prefMng.findPreference("prf_pref_volumeRingtone0Info");
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference("prf_pref_volumeIgnoreSoundModeInfo2");
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_SYSTEM);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_MEDIA);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
+        _preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_DTMF);
+        if (_preference != null)
+            _preference.setEnabled(!enabledMuteSound);
 
-            String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
-            enabled = (Profile.getVolumeRingtoneChange(sValue) ||
-                    Profile.getVolumeRingtoneChange(ringtoneValue)) &&
-                    ringerMode.equals("0");
-            preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
-            if (preference != null)
-                preference.setEnabled(enabled);
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE)) {
+            if (!enabledMuteSound) {
+                boolean enabled = getEnableVolumeNotificationByRingtone(sValue);
+                Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+                if (preference != null)
+                    preference.setEnabled(enabled);
+                String notificationValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, "");
+                enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue/*, context*/);
+                preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+                if (preference != null)
+                    preference.setEnabled(enabled);
+
+                String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
+                enabled = (Profile.getVolumeRingtoneChange(sValue) ||
+                        Profile.getVolumeRingtoneChange(notificationValue)) &&
+                        ringerMode.equals("0");
+                preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
+                if (preference != null)
+                    preference.setEnabled(enabled);
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION)) {
+            if (!enabledMuteSound) {
+                String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
+                boolean enabled = (!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
+                        getEnableVolumeNotificationByRingtone(ringtoneValue);
+                Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+                if (preference != null)
+                    preference.setEnabled(enabled);
+                enabled = getEnableVolumeNotificationVolume0(enabled, sValue/*, context*/);
+                preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+                if (preference != null)
+                    preference.setEnabled(enabled);
+
+                String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
+                enabled = (Profile.getVolumeRingtoneChange(sValue) ||
+                        Profile.getVolumeRingtoneChange(ringtoneValue)) &&
+                        ringerMode.equals("0");
+                preference = prefMng.findPreference("prf_pref_volumeSoundMode_info");
+                if (preference != null)
+                    preference.setEnabled(enabled);
+            }
         }
         if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
         {
@@ -3143,7 +3182,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private void disableDependedPref(String key) {
         String value;
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
         }

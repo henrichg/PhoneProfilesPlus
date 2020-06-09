@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
+import android.util.Log;
 
 
 class ProfilePreferencesIndicator {
@@ -93,25 +94,50 @@ class ProfilePreferencesIndicator {
                 }
             }*/
             // volume level
-            if (profile.getVolumeAlarmChange() ||
-                profile.getVolumeMediaChange() ||
-                profile.getVolumeNotificationChange() ||
-                profile.getVolumeRingtoneChange() ||
-                profile.getVolumeSystemChange() ||
-                profile.getVolumeVoiceChange() ||
-                profile.getVolumeDTMFChange() ||
-                profile.getVolumeAccessibilityChange() ||
-                profile.getVolumeBluetoothSCOChange()) {
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
+            if (profile._volumeMuteSound &&
+                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                if (profile.getVolumeAlarmChange() ||
+                    profile.getVolumeVoiceChange() ||
+                    profile.getVolumeAccessibilityChange() ||
+                    profile.getVolumeBluetoothSCOChange()) {
+                    if (profile._name.equals("Profilexxx"))
+                        Log.e("ProfilePreferencesIndicator.paint", "(1)");
+                    if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                        if (profile._name.equals("Profilexxx"))
+                            Log.e("ProfilePreferencesIndicator.paint", "(2)");
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
+                    }
+                }
+            }
+            else {
+                if (profile.getVolumeAlarmChange() ||
+                    profile.getVolumeMediaChange() ||
+                    profile.getVolumeNotificationChange() ||
+                    profile.getVolumeRingtoneChange() ||
+                    profile.getVolumeSystemChange() ||
+                    profile.getVolumeVoiceChange() ||
+                    profile.getVolumeDTMFChange() ||
+                    profile.getVolumeAccessibilityChange() ||
+                    profile.getVolumeBluetoothSCOChange()) {
+                    if (profile._name.equals("Profilexxx"))
+                        Log.e("ProfilePreferencesIndicator.paint", "(3)");
+                    if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                        if (profile._name.equals("Profilexxx"))
+                            Log.e("ProfilePreferencesIndicator.paint", "(4)");
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
+                    }
+                }
             }
             // speaker phone
             if (profile._volumeSpeakerPhone != 0) {
@@ -618,16 +644,30 @@ class ProfilePreferencesIndicator {
                 }
             }*/
             // volume level
-            if (profile.getVolumeAlarmChange() ||
+            if (profile._volumeMuteSound &&
+                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                if (profile.getVolumeAlarmChange() ||
+                    profile.getVolumeVoiceChange() ||
+                    profile.getVolumeAccessibilityChange() ||
+                    profile.getVolumeBluetoothSCOChange()) {
+                    if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                        indicator1 = addIntoIndicator(indicator1, "volu", maxLineLength);
+                }
+            }
+            else {
+                if (profile.getVolumeAlarmChange() ||
                     profile.getVolumeMediaChange() ||
                     profile.getVolumeNotificationChange() ||
                     profile.getVolumeRingtoneChange() ||
                     profile.getVolumeSystemChange() ||
                     profile.getVolumeVoiceChange() ||
-                    profile.getVolumeDTMFChange()  ||
+                    profile.getVolumeDTMFChange() ||
                     profile.getVolumeAccessibilityChange() ||
                     profile.getVolumeBluetoothSCOChange()) {
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
@@ -636,7 +676,8 @@ class ProfilePreferencesIndicator {
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-                    indicator1 = addIntoIndicator(indicator1, "volu", maxLineLength);
+                        indicator1 = addIntoIndicator(indicator1, "volu", maxLineLength);
+                }
             }
             // speaker phone
             if (profile._volumeSpeakerPhone != 0) {
