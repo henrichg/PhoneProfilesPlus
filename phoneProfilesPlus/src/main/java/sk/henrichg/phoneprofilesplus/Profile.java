@@ -100,6 +100,7 @@ public class Profile {
     long _afterDurationProfile;
     int _alwaysOnDisplay;
     int _screenOnPermanent;
+    boolean _volumeMuteSound;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -181,6 +182,7 @@ public class Profile {
     static final String PREF_PROFILE_AFTER_DURATION_PROFILE = "prf_pref_afterDurationProfile";
     static final String PREF_PROFILE_ALWAYS_ON_DISPLAY = "prf_pref_alwaysOnDisplay";
     static final String PREF_PROFILE_SCREEN_ON_PERMANENT = "prf_pref_screenOnPermanent";
+    static final String PREF_PROFILE_VOLUME_MUTE_SOUND = "prf_pref_volumeMuteSound";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -190,6 +192,7 @@ public class Profile {
         defaultValuesBoolean.put("prf_pref_askForDuration", false);
         defaultValuesBoolean.put("prf_pref_durationNotificationVibrate", false);
         defaultValuesBoolean.put("prf_pref_hideStatusBarIcon", false);
+        defaultValuesBoolean.put("prf_pref_volumeMuteSound", false);
     }
     static final HashMap<String, String> defaultValuesString;
     static {
@@ -806,7 +809,8 @@ public class Profile {
                    String volumeBluetoothSCO,
                    long afterDurationProfile,
                    int alwaysOnDisplay,
-                   int screenOnPermanent)
+                   int screenOnPermanent,
+                   boolean volumeMuteSound)
     {
         this._id = id;
         this._name = name;
@@ -881,6 +885,7 @@ public class Profile {
         this._afterDurationProfile = afterDurationProfile;
         this._alwaysOnDisplay = alwaysOnDisplay;
         this._screenOnPermanent = screenOnPermanent;
+        this._volumeMuteSound = volumeMuteSound;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -960,7 +965,8 @@ public class Profile {
                    String volumeBluetoothSCO,
                    long afterDurationProfile,
                    int alwaysOnDisplay,
-                   int screenOnPermanent)
+                   int screenOnPermanent,
+                   boolean volumeMuteSound)
     {
         this._name = name;
         this._icon = icon;
@@ -1034,6 +1040,7 @@ public class Profile {
         this._afterDurationProfile = afterDurationProfile;
         this._alwaysOnDisplay = alwaysOnDisplay;
         this._screenOnPermanent = screenOnPermanent;
+        this._volumeMuteSound = volumeMuteSound;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1115,6 +1122,7 @@ public class Profile {
         this._afterDurationProfile = profile._afterDurationProfile;
         this._alwaysOnDisplay = profile._alwaysOnDisplay;
         this._screenOnPermanent = profile._screenOnPermanent;
+        this._volumeMuteSound = profile._volumeMuteSound;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1375,6 +1383,9 @@ public class Profile {
                     this._alwaysOnDisplay = withProfile._alwaysOnDisplay;
                 if (withProfile._screenOnPermanent != 0)
                     this._screenOnPermanent = withProfile._screenOnPermanent;
+
+                if (withProfile._volumeMuteSound)
+                    this._volumeMuteSound = true;
             }
 
             // set merged profile as activated
@@ -1681,6 +1692,11 @@ public class Profile {
             }
             if (this._screenOnPermanent != withProfile._screenOnPermanent) {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_screenOnPermanent");
+                return false;
+            }
+
+            if (this._volumeMuteSound != withProfile._volumeMuteSound) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeMuteSound");
                 return false;
             }
 
@@ -2925,6 +2941,7 @@ public class Profile {
         profile._volumeBluetoothSCO = preferences.getString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, getVolumeLevelString(80, maximumValueBluetoothSCO)+"|0|0");
         profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
         profile._screenOnPermanent = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_ON_PERMANENT, "0"));
+        profile._volumeMuteSound = preferences.getBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
 
         return profile;
     }
@@ -2998,6 +3015,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
         editor.putString(PREF_PROFILE_ALWAYS_ON_DISPLAY, String.valueOf(profile._alwaysOnDisplay));
         editor.putString(PREF_PROFILE_SCREEN_ON_PERMANENT, String.valueOf(profile._screenOnPermanent));
+        editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
 
         editor.apply();
     }
@@ -3085,7 +3103,8 @@ public class Profile {
                     profile._volumeBluetoothSCO,
                     profile._afterDurationProfile,
                     profile._alwaysOnDisplay,
-                    profile._screenOnPermanent);
+                    profile._screenOnPermanent,
+                    profile._volumeMuteSound);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {

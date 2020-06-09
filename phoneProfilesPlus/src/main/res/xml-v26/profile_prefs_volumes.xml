@@ -11,6 +11,12 @@
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <SwitchPreferenceCompat
+        app:key="prf_pref_volumeMuteSound"
+        app:title="@string/profile_preferences_volumeMuteSound"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <PreferenceCategory
         app:key="prf_pref_volumeCategory"
         app:title="@string/profile_preferences_category_volumeTypes"

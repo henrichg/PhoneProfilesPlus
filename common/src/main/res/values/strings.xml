@@ -1514,6 +1514,8 @@
 
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
 
+    <string name="profile_preferences_volumeMuteSound">Mute sound</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

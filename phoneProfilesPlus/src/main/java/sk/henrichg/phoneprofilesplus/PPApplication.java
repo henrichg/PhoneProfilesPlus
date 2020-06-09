@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -1203,6 +1204,12 @@ public class PPApplication extends Application /*implements Application.Activity
 
             PPApplication.logE("##### PPApplication.onCreate", "modVersion=" + getReadableModVersion());
             PPApplication.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
+
+            PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.System.getString(getContentResolver(), "device_name"));
+            PPApplication.logE("##### PPApplication.onCreate", "release="+ Build.VERSION.RELEASE);
+
+            PPApplication.logE("##### PPApplication.onCreate", "board="+ Build.BOARD);
+            PPApplication.logE("##### PPApplication.onCreate", "product="+ Build.PRODUCT);
         }
 
         // Fix for FC: java.lang.IllegalArgumentException: register too many Broadcast Receivers

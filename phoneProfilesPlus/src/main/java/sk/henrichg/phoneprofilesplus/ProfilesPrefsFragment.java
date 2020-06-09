@@ -840,7 +840,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
                 key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
                 key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
-                key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON)) {
+                key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
+                key.endsWith(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }
@@ -1084,8 +1085,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //if ((preference != null) && (preference.isEnabled())) {
         if (Profile.isProfilePreferenceAllowed(key, null, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (//key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
-                    key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
-                            key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
+                key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+                key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
                 /*boolean defaultValue =
                         getResources().getBoolean(
                                 GlobalGUIRoutines.getResourceId(key, "bool", context));*/
@@ -1313,56 +1315,63 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_RINGTONE, R.string.profile_preferences_volumeRingtone, false, context);
+            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, R.string.profile_preferences_volumeMuteSound, false, context);
+            boolean isMuteEnabled = false;
             if (!title.isEmpty()) {
                 _bold = true;
-
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGTONE));
-
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-
-                    summary = summary + title + ": <b>" + value + "</b>";
-                }
-                else
-                    summary = summary + title;
+                isMuteEnabled = true;
+                summary = summary + title;
             }
-            String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
-            if ((!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
-                    getEnableVolumeNotificationByRingtone(ringtoneValue)) {
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, R.string.profile_preferences_volumeNotification, false, context);
+            if (!isMuteEnabled) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_RINGTONE, R.string.profile_preferences_volumeRingtone, false, context);
+                if (!title.isEmpty()) {
+                    _bold = true;
+                    //if (!summary.isEmpty()) summary = summary + " • ";
+
+                    if (audioManager != null) {
+                        String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGTONE));
+
+                        value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+
+                        summary = summary + title + ": <b>" + value + "</b>";
+                    } else
+                        summary = summary + title;
+                }
+                String ringtoneValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
+                if ((!ActivateProfileHelper.getMergedRingNotificationVolumes() || ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) &&
+                        getEnableVolumeNotificationByRingtone(ringtoneValue)) {
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, R.string.profile_preferences_volumeNotification, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
+
+                        if (audioManager != null) {
+                            String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION,
+                                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_NOTIFICATION));
+
+                            value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+
+                            summary = summary + title + ": <b>" + value + "</b>";
+                        } else
+                            summary = summary + title;
+                    }
+                }
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_MEDIA, R.string.profile_preferences_volumeMedia, false, context);
                 if (!title.isEmpty()) {
                     _bold = true;
                     if (!summary.isEmpty()) summary = summary + " • ";
 
                     if (audioManager != null) {
-                        String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_NOTIFICATION));
+                        String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_MEDIA,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_MEDIA));
 
-                        value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                        value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
                         summary = summary + title + ": <b>" + value + "</b>";
-                    }
-                    else
+                    } else
                         summary = summary + title;
                 }
-            }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_MEDIA, R.string.profile_preferences_volumeMedia, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_MEDIA,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_MEDIA));
-
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-                    summary = summary + title + ": <b>" + value + "</b>";
-                }
-                else
-                    summary = summary + title;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ALARM, R.string.profile_preferences_volumeAlarm, false, context);
             if (!title.isEmpty()) {
@@ -1380,21 +1389,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 else
                     summary = summary + title;
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_SYSTEM, R.string.profile_preferences_volumeSystem, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
+            if (!isMuteEnabled) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_SYSTEM, R.string.profile_preferences_volumeSystem, false, context);
+                if (!title.isEmpty()) {
+                    _bold = true;
+                    if (!summary.isEmpty()) summary = summary + " • ";
 
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SYSTEM));
+                    if (audioManager != null) {
+                        String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SYSTEM));
 
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                        value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
 
-                    summary = summary + title + ": <b>" + value + "</b>";
+                        summary = summary + title + ": <b>" + value + "</b>";
+                    } else
+                        summary = summary + title;
                 }
-                else
-                    summary = summary + title;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_VOICE, R.string.profile_preferences_volumeVoiceCall, false, context);
             if (!title.isEmpty()) {
@@ -1412,21 +1422,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 else
                     summary = summary + title;
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_DTMF, R.string.profile_preferences_volumeDTMF, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
+            if (!isMuteEnabled) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_DTMF, R.string.profile_preferences_volumeDTMF, false, context);
+                if (!title.isEmpty()) {
+                    _bold = true;
+                    if (!summary.isEmpty()) summary = summary + " • ";
 
-                if (audioManager != null) {
-                    String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_DTMF));
+                    if (audioManager != null) {
+                        String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_DTMF));
 
-                    value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
+                        value = Profile.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
 
-                    summary = summary + title + ": <b>" + value + "</b>";
+                        summary = summary + title + ": <b>" + value + "</b>";
+                    } else
+                        summary = summary + title;
                 }
-                else
-                    summary = summary + title;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, R.string.profile_preferences_volumeAccessibility, false, context);
             if (!title.isEmpty()) {

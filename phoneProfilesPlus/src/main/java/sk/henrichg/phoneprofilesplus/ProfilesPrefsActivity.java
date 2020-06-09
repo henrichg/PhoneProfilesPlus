@@ -360,7 +360,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._volumeBluetoothSCO,
                         origProfile._afterDurationProfile,
                         origProfile._alwaysOnDisplay,
-                        origProfile._screenOnPermanent);
+                        origProfile._screenOnPermanent,
+                        origProfile._volumeMuteSound);
                 showSaveMenu = true;
             }
             else

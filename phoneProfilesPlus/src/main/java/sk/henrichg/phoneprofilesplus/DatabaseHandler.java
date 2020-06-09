@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2422;
+    private static final int DATABASE_VERSION = 2423;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -179,6 +179,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_AFTER_DURATION_PROFILE = "afterDurationProfile";
     private static final String KEY_ALWAYS_ON_DISPLAY = "alwaysOnDisplay";
     private static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
+    private static final String KEY_VOLUME_MUTE_SOUND = "volumeMuteSound";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -545,7 +546,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_VOLUME_BLUETOOTH_SCO + " TEXT,"
                 + KEY_AFTER_DURATION_PROFILE + " INTEGER,"
                 + KEY_ALWAYS_ON_DISPLAY + " INTEGER,"
-                + KEY_SCREEN_ON_PERMANENT + " INTEGER"
+                + KEY_SCREEN_ON_PERMANENT + " INTEGER,"
+                + KEY_VOLUME_MUTE_SOUND + " INTEGER"
                 + ")";
     }
 
@@ -2759,7 +2761,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             "-1|1|0",
                             Profile.PROFILE_NO_ACTIVATE,
                             0,
-                            0
+                            0,
+                            false
                     );
 
                     profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -3100,6 +3103,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_PACKAGE_NAME + "=\"\"");
         }
 
+        if (oldVersion < 2423)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_MUTE_SOUND + " INTEGER");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_VOLUME_MUTE_SOUND + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VOLUME_MUTE_SOUND + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VOLUME_MUTE_SOUND + "=0");
+        }
+
         //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -3205,6 +3219,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
                 values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
                 values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
+                values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
 
                 // Insert Row
                 if (!merged) {
@@ -3313,7 +3328,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_VOLUME_BLUETOOTH_SCO,
                                 KEY_AFTER_DURATION_PROFILE,
                                 KEY_ALWAYS_ON_DISPLAY,
-                                KEY_SCREEN_ON_PERMANENT
+                                KEY_SCREEN_ON_PERMANENT,
+                                KEY_VOLUME_MUTE_SOUND
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3395,7 +3411,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO)),
                                 cursor.getLong(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT))
+                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1
                         );
                     }
 
@@ -3497,7 +3514,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_VOLUME_BLUETOOTH_SCO + "," +
                         KEY_AFTER_DURATION_PROFILE + "," +
                         KEY_ALWAYS_ON_DISPLAY + "," +
-                        KEY_SCREEN_ON_PERMANENT +
+                        KEY_SCREEN_ON_PERMANENT + "," +
+                        KEY_VOLUME_MUTE_SOUND +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3583,6 +3601,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._afterDurationProfile = cursor.getLong(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE));
                         profile._alwaysOnDisplay = cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY));
                         profile._screenOnPermanent = cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT));
+                        profile._volumeMuteSound = cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1;
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -3686,6 +3705,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_AFTER_DURATION_PROFILE, profile._afterDurationProfile);
                 values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
                 values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
+                values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4039,7 +4059,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_VOLUME_BLUETOOTH_SCO,
                                 KEY_AFTER_DURATION_PROFILE,
                                 KEY_ALWAYS_ON_DISPLAY,
-                                KEY_SCREEN_ON_PERMANENT
+                                KEY_SCREEN_ON_PERMANENT,
+                                KEY_VOLUME_MUTE_SOUND
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4123,7 +4144,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_VOLUME_BLUETOOTH_SCO)),
                                 cursor.getLong(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT))
+                                cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1
                         );
                     }
 
@@ -10802,6 +10824,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.put(KEY_SCREEN_ON_PERMANENT, 0);
                     }
 
+                    if (exportedDBObj.getVersion() < 2423) {
+                        values.put(KEY_VOLUME_MUTE_SOUND, 0);
+                    }
+
                     ///////////////////////////////////////////////////////
 
                     // Inserting Row do db z SQLiteOpenHelper
@@ -10896,7 +10922,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 "-1|1|0",
                                 Profile.PROFILE_NO_ACTIVATE,
                                 0,
-                                0
+                                0,
+                                false
                         );
 
                         profile = Profile.getMappedProfile(profile, sharedProfile);

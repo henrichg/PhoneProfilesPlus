@@ -1106,24 +1106,24 @@ class ActivateProfileHelper {
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
                             } catch (Exception ee) {
-                                PPApplication.recordException(ee);
+                                //PPApplication.recordException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
                             } catch (Exception ee) {
-                                PPApplication.recordException(ee);
+                                //PPApplication.recordException(ee);
                             }
                         }
                         else {
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
                             } catch (Exception ee) {
-                                PPApplication.recordException(ee);
+                                //PPApplication.recordException(ee);
                             }
                             try {
                                 audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
                             } catch (Exception ee) {
-                                PPApplication.recordException(ee);
+                                //PPApplication.recordException(ee);
                             }
                         }
 
