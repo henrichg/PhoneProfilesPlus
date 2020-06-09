@@ -5904,11 +5904,11 @@ public class PhoneProfilesService extends Service
                 notificationMediaPlayer = null;
             }
 
-            // do not simulate ringing when ring or stream is muted
+            /*// do not simulate ringing when ring or stream is muted
             if (audioManager != null) {
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING))
                     return;
-            }
+            }*/
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
                 RingerModeChangeReceiver.internalChange = true;

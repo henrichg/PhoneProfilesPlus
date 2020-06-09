@@ -58,7 +58,9 @@ class SettingsContentObserver  extends ContentObserver {
     }
     */
 
-    private int volumeChangeDetect(int volumeStream, int previousVolume, AudioManager audioManager) {
+    private int volumeChangeDetect(int volumeStream, int previousVolume, boolean muted, AudioManager audioManager) {
+        if (muted)
+            return previousVolume;
 
         int currentVolume = audioManager.getStreamVolume(volumeStream);
         /*if (PPApplication.logEnabled()) {
@@ -120,29 +122,37 @@ class SettingsContentObserver  extends ContentObserver {
             int audioMode = audioManager.getMode();
 
             if ((audioMode == AudioManager.MODE_NORMAL) || (audioMode == AudioManager.MODE_RINGTONE)) {
-                int newVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, audioManager);
-                int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, audioManager);
+                boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
+                boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
+
+                int newVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, ringMuted, audioManager);
+                int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, notificationMuted, audioManager);
                 //previousVolumeMusic = volumeChangeDetect(AudioManager.STREAM_MUSIC, previousVolumeMusic, audioManager);
                 //previousVolumeAlarm = volumeChangeDetect(AudioManager.STREAM_ALARM, previousVolumeAlarm, audioManager);
                 //previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
 
-                if ((previousVolumeRing != newVolumeRing) || (previousVolumeNotification != newVolumeNotification)) {
+                if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
+                    ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
                     // volumes changed
 
-                    boolean merged = (newVolumeRing == newVolumeNotification) && (previousVolumeRing == previousVolumeNotification);
+                    if (!(ringMuted || notificationMuted)) {
+                        boolean merged = (newVolumeRing == newVolumeNotification) && (previousVolumeRing == previousVolumeNotification);
 
-                    if (!ApplicationPreferences.getSharedPreferences(context).contains(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES)) {
-                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                        if (!ApplicationPreferences.getSharedPreferences(context).contains(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES)) {
+                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
 
-                        editor.putBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
-                        ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+                            editor.putBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+                            ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
 
-                        editor.apply();
+                            editor.apply();
+                        }
                     }
                 }
 
-                previousVolumeRing = newVolumeRing;
-                previousVolumeNotification = newVolumeNotification;
+                if (!ringMuted)
+                    previousVolumeRing = newVolumeRing;
+                if (!notificationMuted)
+                    previousVolumeNotification = newVolumeNotification;
 
             }
             //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
