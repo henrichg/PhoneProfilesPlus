@@ -10251,7 +10251,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VOLUME_RINGER_MODE)) == 5) {
-                                boolean notRemove = ActivateProfileHelper.canChangeZenMode(context, true);
+                                boolean notRemove = ActivateProfileHelper.canChangeZenMode(context);
                                 if (!notRemove) {
                                     int zenMode = profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VOLUME_ZEN_MODE));
                                     int ringerMode = 0;

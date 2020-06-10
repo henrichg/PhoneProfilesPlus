@@ -296,7 +296,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                      (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                     );*/
-        final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), false);
+        final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
 
         /*ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
@@ -412,7 +412,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                             );*/
-                    final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
+                    final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
 
                     Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
                     if (zenModePreference != null) {
@@ -1265,7 +1265,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     titleRes = R.string.profile_preferences_volumeZenModeM;
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, titleRes, addS, context);
                 if (!title.isEmpty()) {
-                    final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), false);
+                    final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
                     if ((ringerMode != null) && (ringerMode.equals("5")) && canEnableZenMode) {
                         //noinspection ConstantConditions
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -2310,7 +2310,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                          (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                         );*/
-            final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context, false);
+            final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context);
 
             if (!canEnableZenMode)
             {
@@ -3209,7 +3209,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
                 grantedRoot = false;
         }
-        boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false);
+        boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context);
         boolean accessibilityNotRequired = true;
         if ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0))
             accessibilityNotRequired = false;
@@ -3378,7 +3378,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 // not enabled notification access
-                if ((profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context, false)) {
+                if ((profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context)) {
                     Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference("rootScreen");

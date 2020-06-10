@@ -1111,7 +1111,7 @@ class ActivateProfileHelper {
             //int systemRingerMode = audioManager.getRingerMode();
             //PPApplication.logE("ActivateProfileHelper.setZenMode", "systemRingerMode=" + systemRingerMode);
 
-            if ((zenMode != ZENMODE_SILENT) && canChangeZenMode(appContext, false)) {
+            if ((zenMode != ZENMODE_SILENT) && canChangeZenMode(appContext)) {
                 //PPApplication.logE("ActivateProfileHelper.setZenMode", "not ZENMODE_SILENT and can change zen mode");
 
                 try {
@@ -1181,7 +1181,7 @@ class ActivateProfileHelper {
                             //SystemClock.sleep(1000);
                             //PPApplication.sleep(1000);
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                            if ((systemZenMode != ZENMODE_ALL) && canChangeZenMode(appContext, false)) {
+                            if ((systemZenMode != ZENMODE_ALL) && canChangeZenMode(appContext)) {
                                 //PPApplication.logE("ActivateProfileHelper.setZenMode", "change zen mode");
                                 RingerModeChangeReceiver.notUnlinkVolumes = false;
                                 PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
@@ -1550,7 +1550,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
 
                             //if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
-                            if (canChangeZenMode(appContext, false)) {
+                            if (canChangeZenMode(appContext)) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "can change zen mode");
 
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
@@ -1864,14 +1864,14 @@ class ActivateProfileHelper {
         }
     }
 
-    static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
+    static boolean canChangeZenMode(Context context/*, boolean notCheckAccess*/) {
         Context appContext = context.getApplicationContext();
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                if (notCheckAccess)
-                    return true;
-                else
+                //if (notCheckAccess)
+                //    return true;
+                //else
                     return checkAccessNotificationPolicy(appContext);
                     //return Permissions.checkAccessNotificationPolicy(appContext);
             }
