@@ -3209,7 +3209,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
                 grantedRoot = false;
         }
-        boolean enabledNotificationAccess = (profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context);
+        boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
         boolean accessibilityNotRequired = true;
         if ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0))
             accessibilityNotRequired = false;
@@ -3378,7 +3378,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 // not enabled notification access
-                if ((profile._volumeRingerMode == 0) || ActivateProfileHelper.canChangeZenMode(context)) {
+                if (/*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context)) {
                     Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference("rootScreen");
