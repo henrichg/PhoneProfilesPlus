@@ -497,7 +497,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // The connection has been interrupted.
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
-        Log.i("LocationGeofenceEditorActivity", "Connection suspended");
+        //Log.i("LocationGeofenceEditorActivity", "Connection suspended");
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
@@ -879,7 +879,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 pkg = intent.getPackage();
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
                 Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
-                PPApplication.recordException(e);
+                //PPApplication.recordException(e);
             }
             else {
                 PPApplication.recordException(e);

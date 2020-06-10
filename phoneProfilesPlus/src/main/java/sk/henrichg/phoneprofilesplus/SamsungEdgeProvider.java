@@ -281,13 +281,19 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, SlookCocktailManager cocktailBarManager, int cocktailId)
+    private static void doOnUpdate(Context context, SlookCocktailManager cocktailBarManager, int cocktailId, boolean fromOnUpdate)
     {
         RemoteViews widget = buildLayout(context);
         try {
             cocktailBarManager.updateCocktail(cocktailId, widget);
         } catch (Exception e) {
             PPApplication.recordException(e);
+        }
+        if (!fromOnUpdate) {
+            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_list);
+            else*/
+            cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_grid);
         }
     }
 
@@ -308,7 +314,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //createProfilesDataWrapper(_context);
 
                     for (int cocktailId : _cocktailIds) {
-                        doOnUpdate(_context, _cocktailBarManager, cocktailId);
+                        doOnUpdate(_context, _cocktailBarManager, cocktailId, true);
                     }
 
                     //if (dataWrapper != null)
@@ -342,7 +348,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                     if (cocktailIds != null) {
                         for (int cocktailId : cocktailIds) {
-                            updateAfterWidgetOptionsChanged(context, cocktailId);
+                            doOnUpdate(context, cocktailManager, cocktailId, false);
                         }
                     }
                 }
@@ -354,20 +360,18 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         });
     }
 
+    /*
     private static void updateAfterWidgetOptionsChanged(Context context, int cocktailId) {
         try {
             SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
 
-            doOnUpdate(context, cocktailManager, cocktailId);
+            doOnUpdate(context, cocktailManager, cocktailId, false);
 
-            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
-                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_list);
-            else*/
-                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_profile_grid);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
     }
+    */
 
     /*
     private static void _updateWidgets(Context context) {

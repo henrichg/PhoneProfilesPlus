@@ -484,7 +484,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    private static void doOnUpdate(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
+    private static void doOnUpdate(Context context, AppWidgetManager appWidgetManager, int appWidgetId, boolean fromOnUpdate)
     {
         Bundle widgetIdOptions;
         widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
@@ -495,6 +495,15 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
         } catch (Exception e) {
             PPApplication.recordException(e);
+        }
+
+        if (!fromOnUpdate) {
+            if (isLargeLayout) {
+                if (!ApplicationPreferences.applicationWidgetListGridLayout)
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
+                else
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+            }
         }
     }
 
@@ -515,7 +524,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //createProfilesDataWrapper(_context);
 
                     for (int appWidgetId : _appWidgetIds) {
-                        doOnUpdate(_context, _appWidgetManager, appWidgetId);
+                        doOnUpdate(_context, _appWidgetManager, appWidgetId, true);
                     }
 
                     //if (dataWrapper != null)
@@ -591,7 +600,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                     if (appWidgetIds != null) {
                         for (int appWidgetId : appWidgetIds) {
-                            doOnUpdate(context, appWidgetManager, appWidgetId);
+                            doOnUpdate(context, appWidgetManager, appWidgetId, false);
                         }
                     }
                 }
@@ -724,20 +733,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     private static void updateAfterWidgetOptionsChanged(Context context, int appWidgetId) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        doOnUpdate(context, appWidgetManager, appWidgetId);
-        //Log.e("ProfileListWidgetProvider.updateWidget","isLargeLayout="+isLargeLayout);
-        //if (isLargeLayout)
-        //{
-            boolean applicationWidgetListGridLayout;
-            synchronized (PPApplication.applicationPreferencesMutex) {
-                applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
-            }
-
-            if (!applicationWidgetListGridLayout)
-                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
-            else
-                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
-        //}
+        doOnUpdate(context, appWidgetManager, appWidgetId, false);
     }
 
     /*
