@@ -117,6 +117,8 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
+                                                +"|PeriodicEventsHandlerWorker.doWork"
+
                                                 //+"|MobileCellsPreferenceFragmentX.onBindDialogView"
 
                                                 //+"|StartLauncherFromNotificationReceiver"
@@ -1166,7 +1168,7 @@ public class PPApplication extends Application /*implements Application.Activity
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
             if (workManager != null)
-                workManager.enqueue(avoidRescheduleReceiverWorker);
+                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.REPLACE, avoidRescheduleReceiverWorker);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -3509,7 +3511,7 @@ public class PPApplication extends Application /*implements Application.Activity
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
-            PhoneProfilesService.cancelAllWorks();
+            PhoneProfilesService.cancelAllWorks(false);
 
             if (dataWrapper != null)
                 dataWrapper.stopAllEvents(false, false, false, false);

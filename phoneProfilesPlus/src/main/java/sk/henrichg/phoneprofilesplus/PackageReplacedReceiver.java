@@ -17,6 +17,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
+        PhoneProfilesService.cancelAllWorks(true);
+
         PPApplication.applicationPackageReplaced = true;
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
@@ -36,7 +38,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-            PPApplication.logE("PackageReplacedReceiver.onReceive", "called work for package replaced");
+            PPApplication.logE("PackageReplacedReceiver.onReceive", "start work for package replaced");
             //PPApplication.logE("PackageReplacedReceiver.onReceive", "start of delayed work");
 
             PhoneProfilesService.cancelWork("packageReplacedWork");

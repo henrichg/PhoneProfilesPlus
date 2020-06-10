@@ -321,10 +321,12 @@ public class PhoneProfilesService extends Service
         });*/
     }
 
-    static void cancelAllWorks() {
-        //cancelWork("elapsedAlarmsShowProfileNotificationWork"); - do not cancel
-        //cancelWork("elapsedAlarmsUpdateGUIWork"); - do not cancel
-        //cancelWork("avoidRescheduleReceiverWorker"); - do not cancel
+    static void cancelAllWorks(boolean atStart) {
+        if (atStart) {
+            cancelWork("elapsedAlarmsShowProfileNotificationWork");
+            cancelWork("elapsedAlarmsUpdateGUIWork");
+        }
+        //cancelWork("avoidRescheduleReceiverWorker"); // do not cancel
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
             cancelWork(tag);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
@@ -340,9 +342,12 @@ public class PhoneProfilesService extends Service
         for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
             cancelWork(tag);
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
-        //cancelWork("disableInternalChangeWork"); - do not cancel
-        //cancelWork("disableScreenTimeoutInternalChangeWork"); - do not cancel
-        cancelWork("periodicEventsHandlerWorker");
+        if (atStart) {
+            cancelWork("disableInternalChangeWork");
+            cancelWork("disableScreenTimeoutInternalChangeWork");
+        }
+        if (!atStart)
+            cancelWork("periodicEventsHandlerWorker");
         cancelWork("delayedWorkCloseAllApplications");
         cancelWork("handleEventsBluetoothLEScannerWork");
         cancelWork(BluetoothScanWorker.WORK_TAG);
@@ -351,11 +356,14 @@ public class PhoneProfilesService extends Service
         cancelWork(GeofenceScanWorker.WORK_TAG);
         cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
         cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
-        //cancelWork("elapsedAlarmsLockDeviceFinishActivity"); - do not cancel
+        if (atStart)
+            cancelWork("elapsedAlarmsLockDeviceFinishActivity");
         cancelWork("elapsedAlarmsLockDeviceAfterScreenOff");
-        //cancelWork("packageReplacedWork"); - do not cancel
-        //cancelWork("delayedWorkAfterFirstStartWork"); - do not cancel
-        //cancelWork("setBlockProfileEventsActionWork"); - do not cancel
+        if (atStart) {
+            cancelWork("packageReplacedWork");
+            cancelWork("delayedWorkAfterFirstStartWork");
+            cancelWork("setBlockProfileEventsActionWork");
+        }
         cancelWork(SearchCalendarEventsWorker.WORK_TAG);
         cancelWork("handleEventsWifiScannerFromScannerWork");
         cancelWork("handleEventsWifiScannerFromReceiverWork");

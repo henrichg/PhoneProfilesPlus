@@ -2853,7 +2853,7 @@ public class DataWrapper {
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueue(periodicEventsHandlerWorker);
+                        workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.REPLACE, periodicEventsHandlerWorker);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

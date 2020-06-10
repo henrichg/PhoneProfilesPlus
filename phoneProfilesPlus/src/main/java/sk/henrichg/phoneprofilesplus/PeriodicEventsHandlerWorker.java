@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -24,7 +25,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //Log.e("PeriodicEventsHandlerWorker.doWork", "xxx");
+            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "xxx");
 
             if (PPApplication.getApplicationStarted(true)
                 && Event.getGlobalEventsRunning()) {
@@ -41,7 +42,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    workManager.enqueue(periodicEventsHandlerWorker);
+                    workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.REPLACE, periodicEventsHandlerWorker);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
