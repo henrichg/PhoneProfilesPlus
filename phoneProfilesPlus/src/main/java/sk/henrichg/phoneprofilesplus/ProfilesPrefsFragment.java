@@ -346,9 +346,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             }
                         }
                         else
-                        if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, context)) {
                             try {
-                                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
@@ -3411,7 +3411,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
                         } else {
                             _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
-                            _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_1);
+                            _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access);
                         }
                         ++order;
                         Spannable title = new SpannableString(_title);
@@ -3530,6 +3530,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private void enableNotificationAccess(boolean showDoNotDisturbPermission) {
         boolean ok = false;
         if (showDoNotDisturbPermission) {
+            // Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists
             try {
                 @SuppressLint("InlinedApi")
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
@@ -3541,9 +3542,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else
-        if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", getActivity())) {
+        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, getActivity())) {
             try {
-                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {

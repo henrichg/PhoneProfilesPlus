@@ -1851,25 +1851,17 @@ class ActivateProfileHelper {
 
     private static boolean checkAccessNotificationPolicy(Context context) {
         Context appContext = context.getApplicationContext();
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-                if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
-                    NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                    boolean granted = false;
-                    if (mNotificationManager != null)
-                        granted = mNotificationManager.isNotificationPolicyAccessGranted();
-                    //if (granted)
-                    //    setShowRequestAccessNotificationPolicyPermission(context, true);
-                    return granted;
-                } else
-                    return true;
-            } catch (Exception e) {
-                return false;
-            }
-        //}
-        //else
-        //    return true;
+        try {
+            NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            boolean granted = false;
+            if (mNotificationManager != null)
+                granted = mNotificationManager.isNotificationPolicyAccessGranted();
+            //if (granted)
+            //    setShowRequestAccessNotificationPolicyPermission(context, true);
+            return granted;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     static boolean canChangeZenMode(Context context, boolean notCheckAccess) {

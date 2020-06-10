@@ -301,10 +301,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 public boolean onPreferenceClick(Preference preference) {
                     boolean ok = false;
                     String activity;
-                    //if (Build.VERSION.SDK_INT >= 22)
-                        activity = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
-                    //else
-                    //    activity = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
+                    activity = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
                     if (GlobalGUIRoutines.activityActionExists(activity, context)) {
                         try {
                             Intent intent = new Intent(activity);

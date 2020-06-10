@@ -592,14 +592,14 @@ public class ImportantInfoHelpFragment extends Fragment {
             else {
                 TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 //if (android.os.Build.VERSION.SDK_INT >= 23)
-                    infoText14.setText(R.string.important_info_profile_zenModeM);
+                //    infoText14.setText(R.string.important_info_profile_zenModeM);
                 infoText14.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, context)) {
                             try {
-                                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {

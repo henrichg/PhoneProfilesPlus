@@ -27,7 +27,7 @@
     <Preference
         app:key="prf_pref_volumeNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
-        app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary"
+        app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary_notification_access"
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

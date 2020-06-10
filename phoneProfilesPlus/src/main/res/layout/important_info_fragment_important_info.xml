@@ -583,7 +583,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="@string/important_info_profile_zenMode"
+            android:text="@string/important_info_profile_zenModeM"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_profile_zenMode"
             android:textColor="?attr/colorAccent"/>

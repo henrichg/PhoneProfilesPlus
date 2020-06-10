@@ -1516,6 +1516,9 @@
 
     <string name="profile_preferences_volumeMuteSound">Mute sound</string>
 
+    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1824,6 +1827,8 @@
 
 <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
 <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+
+<!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
 
 </resources>
 
