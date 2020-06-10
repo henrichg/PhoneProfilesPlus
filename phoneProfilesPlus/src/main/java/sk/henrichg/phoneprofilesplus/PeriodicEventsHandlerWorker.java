@@ -25,7 +25,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "xxx");
+            //PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "xxx");
 
             if (PPApplication.getApplicationStarted(true)
                 && Event.getGlobalEventsRunning()) {

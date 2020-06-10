@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1034,6 +1035,8 @@ public class EditorProfileListFragment extends Fragment
             //else
             //    profilePos = listView.getCheckedItemPosition();
 
+            Log.e("EditorProfileListFragment.updateListView", "profilePos="+profilePos);
+
             /*if (loadProfileId != 0) {
                 if (getActivity() != null) {
                     Profile profileFromDB = DatabaseHandler.getInstance(getActivity().getApplicationContext()).getProfile(loadProfileId, false);
@@ -1179,12 +1182,13 @@ public class EditorProfileListFragment extends Fragment
                             if (profileFromDataWrapper != null)
                                 profileFromDataWrapper._checked = true;
                             updateHeader(profileFromDataWrapper);
-                            updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition/*, profileId*/);
+                            //updateListView(profileFromDataWrapper, false, _refreshIcons, setPosition/*, profileId*/);
                         } else {
                             //PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
                             updateHeader(null);
-                            updateListView(null, false, _refreshIcons, setPosition/*, 0*/);
+                            //updateListView(null, false, _refreshIcons, setPosition/*, 0*/);
                         }
+                        updateListView(null, false, _refreshIcons, setPosition/*, 0*/);
                     }
                 }
             }
