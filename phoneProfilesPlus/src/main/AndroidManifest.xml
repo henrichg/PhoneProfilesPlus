@@ -139,6 +139,12 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
 
+<!--        <provider-->
+<!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
+<!--            android:authorities="${applicationId}.workmanager-init"-->
+<!--            android:exported="false"-->
+<!--            tools:node="remove" />-->
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

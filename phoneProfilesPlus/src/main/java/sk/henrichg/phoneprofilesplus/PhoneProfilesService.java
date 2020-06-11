@@ -322,6 +322,7 @@ public class PhoneProfilesService extends Service
     }
 
     static void cancelAllWorks(boolean atStart) {
+        //Log.e("------------ PhoneProfilesService.cancelAllWorks", "atStart="+atStart);
         if (atStart) {
             cancelWork("elapsedAlarmsShowProfileNotificationWork");
             cancelWork("elapsedAlarmsUpdateGUIWork");

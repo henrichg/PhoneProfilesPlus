@@ -6,6 +6,7 @@ import android.app.Application;
 import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -70,7 +71,10 @@ import dev.doubledot.doki.views.DokiContentView;
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 @SuppressWarnings("WeakerAccess")
-public class PPApplication extends Application /*implements Application.ActivityLifecycleCallbacks*/ {
+public class PPApplication extends Application
+                                        //implements Configuration.Provider
+                                        //implements Application.ActivityLifecycleCallbacks
+{
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
@@ -117,7 +121,7 @@ public class PPApplication extends Application /*implements Application.Activity
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|PeriodicEventsHandlerWorker.doWork"
+                                                //+"|PeriodicEventsHandlerWorker.doWork"
 
                                                 //+"|MobileCellsPreferenceFragmentX.onBindDialogView"
 
@@ -1157,7 +1161,15 @@ public class PPApplication extends Application /*implements Application.Activity
         workManagerInstance = WorkManager.getInstance(getApplicationContext());
         PPApplication.logE("##### PPApplication.onCreate", "workManagerInstance="+workManagerInstance);
 
+        JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        if (jobScheduler != null) {
+            int size = jobScheduler.getAllPendingJobs().size();
+            PPApplication.logE("##### PPApplication.onCreate", "jobScheduler.getAllPendingJobs().size()="+size);
+            //jobScheduler.cancelAll();
+        }
+
         // https://issuetracker.google.com/issues/115575872#comment16
+        PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker START of enqueue");
         PhoneProfilesService.cancelWork("avoidRescheduleReceiverWorker");
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
@@ -1172,6 +1184,7 @@ public class PPApplication extends Application /*implements Application.Activity
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
+        PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker END of enqueue");
 
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
@@ -1411,6 +1424,13 @@ public class PPApplication extends Application /*implements Application.Activity
         collator = getCollator();
         MultiDex.install(this);
     }
+
+    /*
+    @NonNull
+    public Configuration getWorkManagerConfiguration() {
+        return new Configuration.Builder().setMinimumLoggingLevel(Log.DEBUG).build();
+    }
+    */
 
     static WorkManager getWorkManagerInstance() {
         //if (workManagerInstance == null)
