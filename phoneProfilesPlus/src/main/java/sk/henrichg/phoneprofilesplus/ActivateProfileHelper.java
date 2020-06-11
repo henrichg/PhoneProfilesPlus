@@ -796,16 +796,18 @@ class ActivateProfileHelper {
         int ringerMode = ApplicationPreferences.prefRingerMode;
 
         if (profile._volumeMuteSound) {
-            if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
-                audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
-            if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
-                audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
-            if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
-                audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+            if (isAudibleSystemRingerMode(audioManager, appContext) || (ringerMode == 0)) {
+                if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+                if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+                if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+                if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, 0);
+            }
             if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC))
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
-            if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF))
-                audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, 0);
         }
         else {
             if (isAudibleSystemRingerMode(audioManager, appContext) || (ringerMode == 0)) {
