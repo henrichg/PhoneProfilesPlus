@@ -3405,7 +3405,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
-            mNotificationManager.cancel(notificationID);
+            // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
+            // mNotificationManager.cancel(notificationID);
             mNotificationManager.notify(notificationID, mBuilder.build());
         } catch (Exception e) {
             Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
