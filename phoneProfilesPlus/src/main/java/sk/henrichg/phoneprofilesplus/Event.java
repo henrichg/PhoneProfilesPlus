@@ -2939,7 +2939,7 @@ class Event {
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
                 try {
-                    int notificationID = -(999999 - (int) _id);
+                    int notificationID = -(999999 + (int) _id);
                     mNotificationManager.cancel(notificationID);
                     mNotificationManager.notify(notificationID, notification);
                 } catch (Exception e) {

@@ -849,7 +849,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
                 if (event != null) {
                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                    notificationID = -(9999 - (int) event._id);
+                    notificationID = -(9999 + (int) event._id);
                 } else
                     notificationID = -PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
             } else {
