@@ -2519,7 +2519,7 @@ class Event {
             if (clearNotification) {*/
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(dataWrapper.context);
                 try {
-                    int notificationID = -(99999999 + (int) _id);
+                    int notificationID = -(999999 + (int) _id);
                     notificationManager.cancel(notificationID);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
