@@ -793,19 +793,33 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
+        int ringerMode = ApplicationPreferences.prefRingerMode;
+
         if (profile._volumeMuteSound) {
-            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, 0);
+            if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
+                audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+            if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
+                audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+            if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
+                audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+            if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC))
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
+            if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF))
+                audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, 0);
         }
         else {
-            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE,0);
-            audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE,0);
+            if (isAudibleSystemRingerMode(audioManager, appContext) || (ringerMode == 0)) {
+                if (audioManager.isStreamMute(AudioManager.STREAM_RING))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
+                if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
+                if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+                if (audioManager.isStreamMute(AudioManager.STREAM_DTMF))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, 0);
+            }
+            if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC))
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, 0);
         }
 
         if (forRingerMode) {
@@ -824,7 +838,6 @@ class ActivateProfileHelper {
                 }
             }
 
-            int ringerMode = ApplicationPreferences.prefRingerMode;
             //int zenMode = getZenMode(context);
 
             /*if (PPApplication.logEnabled()) {
@@ -1612,11 +1625,12 @@ class ActivateProfileHelper {
                             }
                         }
                         else
-                        if (profile.getVolumeMediaChange() ||
+                        /*if (profile.getVolumeMediaChange() ||
                             profile.getVolumeAlarmChange() ||
                             profile.getVolumeVoiceChange() ||
                             profile.getVolumeAccessibilityChange() ||
-                            profile.getVolumeBluetoothSCOChange()) {
+                            profile.getVolumeBluetoothSCOChange())*/ {
+                            // call setVolume() for "Mute sound"
 
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
 
