@@ -122,15 +122,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
             //ColorStateList textColorSecondary = themeArray.getColorStateList(0);
 
-            if (!Event.getGlobalEventsRunning() || (manualProfileActivation && !event._forceRun)) {
-                eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
-                //eventName.setTextSize(15);
-                //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
-                //eventName.setTextColor(textColorSecondary);
-            }
-            else
-            //if (!(isRunnable && isPermissionGranted && isAccessibilityServiceEnabled)) {
             if (EventsPrefsFragment.isRedTextNotificationRequired(event, context)) {
                 //if (!isRunnable)
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
@@ -138,6 +129,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //    eventName.setTypeface(null, Typeface.NORMAL);
                 //eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
+            }
+            else
+            if (!Event.getGlobalEventsRunning() || (manualProfileActivation && !event._forceRun)) {
+                eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
+                //eventName.setTextSize(15);
+                //noinspection ConstantConditions
+                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //eventName.setTextColor(textColorSecondary);
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
