@@ -2844,6 +2844,7 @@ public class DataWrapper {
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_WORKERS, true);
                 PPApplication.runCommand(context, commandIntent);
 
+                /*
                 // start of periodic events handler
                 OneTimeWorkRequest periodicEventsHandlerWorker =
                         new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
@@ -2857,6 +2858,7 @@ public class DataWrapper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+                */
 
                 // setup for next start
                 firstStartEvents(false, true);

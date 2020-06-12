@@ -4,13 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
-import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class PeriodicEventsHandlerWorker extends Worker {
@@ -27,6 +22,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
         try {
             //PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "xxx");
 
+            /*
             if (PPApplication.getApplicationStarted(true)
                 && Event.getGlobalEventsRunning()) {
 
@@ -46,6 +42,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
+            */
 
             return Result.success();
         } catch (Exception e) {

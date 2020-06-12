@@ -13,7 +13,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -21,7 +20,6 @@ import androidx.work.WorkerParameters;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
@@ -96,6 +94,7 @@ public class DelayedWorksWorker extends Worker {
                         if (Event.getGlobalEventsRunning()) {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is enabled, first start events");
 
+                            /*
                             // start of periodic events handler
                             PhoneProfilesService.cancelWork("periodicEventsHandlerWorker");
                             OneTimeWorkRequest periodicEventsHandlerWorker =
@@ -110,6 +109,7 @@ public class DelayedWorksWorker extends Worker {
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
+                            */
 
                             if (activateProfiles) {
                                 if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
