@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1035,7 +1034,7 @@ public class EditorProfileListFragment extends Fragment
             //else
             //    profilePos = listView.getCheckedItemPosition();
 
-            Log.e("EditorProfileListFragment.updateListView", "profilePos="+profilePos);
+            //Log.e("EditorProfileListFragment.updateListView", "profilePos="+profilePos);
 
             /*if (loadProfileId != 0) {
                 if (getActivity() != null) {

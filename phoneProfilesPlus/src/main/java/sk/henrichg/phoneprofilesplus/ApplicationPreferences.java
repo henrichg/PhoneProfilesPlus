@@ -186,6 +186,10 @@ class ApplicationPreferences {
     static boolean applicationWidgetIconShowProfileDuration;
     static String notificationNotificationStyle;
     static boolean notificationShowProfileIcon;
+    static boolean applicationEventBackgroundScanningEnableScanning;
+    static int applicationEventBackgroundScanningScanInterval;
+    static String applicationEventBackgroundScanningScanInPowerSaveMode;
+    static boolean  applicationEventBackgroundScanningScanOnlyWhenScreenIsOn;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -365,6 +369,10 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION = "applicationWidgetIconShowProfileDuration";
     static final String PREF_NOTIFICATION_NOTIFICATION_STYLE = "notificationNotificationStyle";
     static final String PREF_NOTIFICATION_SHOW_PROFILE_ICON = "notificationShowProfileIcon";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING = "applicationEventBackgroundScanningEnableScannig";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL = "applicationEventBackgroundScanningScanInterval";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE = "applicationEventBackgroundScanningScanInPowerSaveMode";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventBackgroundScanningScanOnlyWhenScreenIsOn";
 
     @CheckResult
     static SharedPreferences getSharedPreferences(Context context) {
@@ -1045,6 +1053,22 @@ class ApplicationPreferences {
 
     static void notificationShowProfileIcon(Context context) {
         notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+    }
+
+    static void applicationEventBackgroundScanningEnableScanning(Context context) {
+        applicationEventBackgroundScanningEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, false);
+    }
+
+    static void applicationEventBackgroundScanningScanInterval(Context context) {
+        applicationEventBackgroundScanningScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, "15"));
+    }
+
+    static void applicationEventBackgroundScanningScanInPowerSaveMode(Context context) {
+        applicationEventBackgroundScanningScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE, "1");
+    }
+
+    static void applicationEventBackgroundScanningScanOnlyWhenScreenIsOn(Context context) {
+        applicationEventBackgroundScanningScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
 
     static void loadStartTargetHelps(Context context) {

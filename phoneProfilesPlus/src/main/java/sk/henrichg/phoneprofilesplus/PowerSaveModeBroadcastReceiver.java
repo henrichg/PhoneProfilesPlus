@@ -26,6 +26,9 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         // restart scanners when any is enabled
         // required for reschedule workers for power save mode
         boolean restart = false;
+        if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+            restart = true;
+        else
         if (ApplicationPreferences.applicationEventLocationEnableScanning)
             restart = true;
         else
