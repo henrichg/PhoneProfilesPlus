@@ -2045,9 +2045,14 @@ public class PPApplication extends Application
     static boolean getApplicationStarted(boolean testService)
     {
         synchronized (applicationStartedMutex) {
-            if (testService)
-                return applicationStarted &&
-                        (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
+            if (testService) {
+                try {
+                    return applicationStarted &&
+                            (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
+                } catch (Exception e) {
+                    return false;
+                }
+            }
             else
                 return applicationStarted;
         }

@@ -22,6 +22,10 @@ public class DisableInternalChangeWorker extends Worker {
         try {
             //PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
 
+            /*if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();*/
+
             RingerModeChangeReceiver.internalChange = false;
 
             return Result.success();

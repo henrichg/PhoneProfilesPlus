@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+// https://issuetracker.google.com/issues/115575872#comment16
+
 @SuppressWarnings("WeakerAccess")
 public class AvoidRescheduleReceiverWorker extends Worker {
 
@@ -20,7 +22,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("AvoidRescheduleReceiverWorker.doWork", "xxx");
+            //PPApplication.logE("AvoidRescheduleReceiverWorker.doWork", "xxx");
             return Result.success();
         } catch (Exception e) {
             Log.e("AvoidRescheduleReceiverWorker.doWork", Log.getStackTraceString(e));

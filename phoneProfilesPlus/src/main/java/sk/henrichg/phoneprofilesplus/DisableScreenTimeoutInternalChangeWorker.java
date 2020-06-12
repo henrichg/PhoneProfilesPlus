@@ -22,6 +22,10 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
         try {
             //PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
 
+            /*if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();*/
+
             ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
 
             return Result.success();

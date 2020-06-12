@@ -81,13 +81,25 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         }
 
         if (defaultUEH != null) {
-            //noinspection StatementWithEmptyBody
+            boolean ignore = false;
             if (t.getName().equals("FinalizerWatchdogDaemon") && (e instanceof TimeoutException)) {
                 // ignore these exceptions
                 // java.util.concurrent.TimeoutException: com.android.internal.os.BinderInternal$GcWatcher.finalize() timed out after 10 seconds
                 // https://stackoverflow.com/a/55999687/2863059
+                ignore = true;
             }
-            else {
+            /*if (Build.VERSION.SDK_INT >= 24) {
+                if (e instanceof DeadSystemException) {
+                    // ignore these exceptions
+                    // these are from dead of system for example:
+                    // java.lang.RuntimeException: Unable to create service
+                    // androidx.work.impl.background.systemjob.SystemJobService:
+                    // java.lang.RuntimeException: android.os.DeadSystemException
+                    ignore = true;
+                }
+            }*/
+
+            if (!ignore) {
                 //Delegates to Android's error handling
                 defaultUEH.uncaughtException(t, e);
             }
