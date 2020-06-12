@@ -1235,8 +1235,9 @@ public class PPApplication extends Application
             Permissions.grantLogToFilePermissions(getApplicationContext());
         */
 
-        ///////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////
         // Bypass Android's hidden API restrictions
+        // !!! WARNING - this is required also for android.jar from android-hidden-api !!!
         // https://github.com/tiann/FreeReflection
         if (Build.VERSION.SDK_INT >= 28) {
             try {
