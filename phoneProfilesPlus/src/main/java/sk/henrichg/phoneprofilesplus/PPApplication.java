@@ -1434,8 +1434,13 @@ public class PPApplication extends Application
     */
 
     static WorkManager getWorkManagerInstance() {
-        //if (workManagerInstance == null)
-        return workManagerInstance;
+        if (instance != null) {
+            // get WorkManager instance only when PPApplication is created
+            //if (workManagerInstance == null)
+            return workManagerInstance;
+        }
+        else
+            return null;
     }
 
     // workaround for: java.lang.NullPointerException: Attempt to invoke virtual method
