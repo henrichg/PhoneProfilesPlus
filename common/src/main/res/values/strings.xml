@@ -1520,7 +1520,7 @@
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
 
     <string name="phone_profiles_pref_category_background_scanning">Background scanning</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for background scanning. It is useful when in events are not used Location, Wi-Fi, Bluetooth, Orientation event sensors.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for background scanning. It is useful when Time or Calendar event sensor not working good. It is recommended not to enable this scanning when is in event used Location, Wi-Fi, Bluetooth, Orientation sensor.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable background scanning</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Background scanning scan interval (minutes)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Background scanning scan in Power Save mode</string>
