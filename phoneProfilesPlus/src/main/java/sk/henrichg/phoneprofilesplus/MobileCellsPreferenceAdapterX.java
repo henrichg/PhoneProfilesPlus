@@ -114,13 +114,16 @@ class MobileCellsPreferenceAdapterX extends BaseAdapter
             public void onClick(View v) {
                 CheckBox chb = (CheckBox) v;
 
-                int cellId = preference.filteredCellsList.get((Integer)chb.getTag()).cellId;
+                int cellPosition = (Integer)chb.getTag();
+                if (cellPosition < preference.filteredCellsList.size()) {
+                    int cellId = preference.filteredCellsList.get(cellPosition).cellId;
 
-                if (chb.isChecked())
-                    preference.addCellId(cellId);
-                else
-                    preference.removeCellId(cellId);
-                preference.refreshListView(false, Integer.MAX_VALUE);
+                    if (chb.isChecked())
+                        preference.addCellId(cellId);
+                    else
+                        preference.removeCellId(cellId);
+                    preference.refreshListView(false, Integer.MAX_VALUE);
+                }
             }
         });
 
