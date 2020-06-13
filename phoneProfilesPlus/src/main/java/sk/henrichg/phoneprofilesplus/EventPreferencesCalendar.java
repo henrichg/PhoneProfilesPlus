@@ -12,7 +12,10 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract.Instances;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.format.DateFormat;
+import android.text.style.CharacterStyle;
 import android.util.Log;
 
 import androidx.preference.ListPreference;
@@ -48,6 +51,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
     private static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
     private static final String PREF_EVENT_CALENDAR_START_BEFORE_EVENT = "eventCalendarStartBeforeEvent";
+    static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarBackgroundScanningAppSettings";
 
     private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategoryRoot";
 
@@ -214,6 +218,45 @@ class EventPreferencesCalendar extends EventPreferences {
             }
         }
 
+        if (key.equals(PREF_EVENT_CALENDAR_ENABLED) ||
+            key.equals(PREF_EVENT_CALENDAR_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_APP_SETTINGS);
+            if (preference != null) {
+                String summary;
+                //int titleColor;
+                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile) {
+                    summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    //titleColor = Color.RED; //0xFFffb000;
+                    //}
+                    //else {
+                    //    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                    //            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    //    titleColor = 0;
+                    //}
+                }
+                else {
+                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    //titleColor = 0;
+                }
+                CharSequence sTitle = preference.getTitle();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                //if (preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false)) {
+                //    if (titleColor != 0)
+                //        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //}
+                preference.setTitle(sbt);
+                preference.setSummary(summary);
+            }
+        }
+
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY))
         {
@@ -295,7 +338,8 @@ class EventPreferencesCalendar extends EventPreferences {
             key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_SEARCH_STRING) ||
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY) ||
-            key.equals(PREF_EVENT_CALENDAR_START_BEFORE_EVENT))
+            key.equals(PREF_EVENT_CALENDAR_START_BEFORE_EVENT) ||
+            key.equals(PREF_EVENT_CALENDAR_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -311,6 +355,7 @@ class EventPreferencesCalendar extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALENDAR_START_BEFORE_EVENT, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_ALL_EVENTS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_APP_SETTINGS, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -348,6 +393,13 @@ class EventPreferencesCalendar extends EventPreferences {
         runnable = runnable && (_allEvents || (!_searchString.isEmpty()));
 
         return runnable;
+    }
+
+    @Override
+    void checkPreferences(PreferenceManager prefMng, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_CALENDAR_APP_SETTINGS, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
     }
 
     private long computeAlarm(boolean startEvent)

@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.format.DateFormat;
+import android.text.style.CharacterStyle;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -39,6 +42,7 @@ class EventPreferencesTime extends EventPreferences {
     private static final String PREF_EVENT_TIME_TYPE = "eventTimeType";
     //private static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
     static final String PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS = "eventTimeLocationSystemSettings";
+    static final String PREF_EVENT_TIME_APP_SETTINGS = "eventTimeBackgroundScanningAppSettings";
 
     private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
 
@@ -356,6 +360,46 @@ class EventPreferencesTime extends EventPreferences {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
             }
         }
+
+        if (key.equals(PREF_EVENT_TIME_ENABLED) ||
+            key.equals(PREF_EVENT_TIME_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_TIME_APP_SETTINGS);
+            if (preference != null) {
+                String summary;
+                //int titleColor;
+                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile) {
+                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
+                                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                        //titleColor = Color.RED; //0xFFffb000;
+                    //}
+                    //else {
+                    //    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                    //            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    //    titleColor = 0;
+                    //}
+                }
+                else {
+                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    //titleColor = 0;
+                }
+                CharSequence sTitle = preference.getTitle();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                //if (preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false)) {
+                //    if (titleColor != 0)
+                //        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //}
+                preference.setTitle(sbt);
+                preference.setSummary(summary);
+            }
+        }
+
         if (key.equals(PREF_EVENT_TIME_TYPE)) {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -416,7 +460,8 @@ class EventPreferencesTime extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_TIME_DAYS) ||
                 key.equals(PREF_EVENT_TIME_TYPE) ||
-                key.equals(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS))
+                key.equals(PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS) ||
+                key.equals(PREF_EVENT_TIME_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -428,6 +473,7 @@ class EventPreferencesTime extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_TIME_DAYS, preferences, context);
         setSummary(prefMng, PREF_EVENT_TIME_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_TIME_APP_SETTINGS, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -477,6 +523,7 @@ class EventPreferencesTime extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setSummary(prefMng, PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_TIME_APP_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

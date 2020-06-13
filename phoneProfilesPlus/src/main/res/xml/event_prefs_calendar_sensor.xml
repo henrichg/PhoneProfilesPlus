@@ -60,5 +60,12 @@
         app:dMax="86400"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    
+    <Preference
+        app:key="eventCalendarBackgroundScanningAppSettings"
+        app:title="@string/phone_profiles_pref_category_background_scanning"
+        app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
+        app:dependency="eventCalendarEnabled"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

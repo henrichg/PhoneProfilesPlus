@@ -63,6 +63,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
     static final int RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = 1993;
     private static final int RESULT_TIME_LOCATION_SYSTEM_SETTINGS = 1994;
+    private static final int RESULT_TIME_SCANNING_APP_SETTINGS = 1995;
+    private static final int RESULT_CALENDAR_SCANNING_APP_SETTINGS = 1995;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -729,6 +731,37 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             });
         }
+        preference = prefMng.findPreference(EventPreferencesTime.PREF_EVENT_TIME_APP_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    startActivityForResult(intent, RESULT_TIME_SCANNING_APP_SETTINGS);
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_APP_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    startActivityForResult(intent, RESULT_CALENDAR_SCANNING_APP_SETTINGS);
+                    return false;
+                }
+            });
+        }
+
         preference = prefMng.findPreference(PREF_USE_PRIORITY_APP_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -1163,6 +1196,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             PPApplication.updateGUI(context.getApplicationContext(), true, true);
+        }
+        if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
+            event._eventPreferencesTime.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_CALENDAR_SCANNING_APP_SETTINGS) {
+            event._eventPreferencesCalendar.checkPreferences(prefMng, context);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
