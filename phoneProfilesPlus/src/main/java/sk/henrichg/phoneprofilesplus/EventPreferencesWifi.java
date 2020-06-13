@@ -168,7 +168,7 @@ class EventPreferencesWifi extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                     if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) {
-                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }

@@ -276,18 +276,18 @@ class EventPreferencesOrientation extends EventPreferences {
             if (preference != null) {
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
-                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n" +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
                     else {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n" +
+                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n" +
+                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
                             context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                     titleColor = 0;
                 }

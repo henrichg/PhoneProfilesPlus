@@ -140,7 +140,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) {
-                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
