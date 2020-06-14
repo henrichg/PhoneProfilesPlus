@@ -62,52 +62,54 @@ class SettingsContentObserver  extends ContentObserver {
         if (muted)
             return previousVolume;
 
-        int currentVolume = audioManager.getStreamVolume(volumeStream);
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
-            PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " previousVolume=" + previousVolume);
-            PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "internalChange=" + RingerModeChangeReceiver.internalChange);
-            if (volumeStream == AudioManager.STREAM_RING) {
-                PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "currentVolume=" + currentVolume);
-                PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "maxVolume=" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
-            }
-        }*/
-
-        int delta=previousVolume-currentVolume;
-
-        if(delta>0)
-        {
-            if (!RingerModeChangeReceiver.internalChange) {
+        try {
+            int currentVolume = audioManager.getStreamVolume(volumeStream);
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
+                PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " previousVolume=" + previousVolume);
+                PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "internalChange=" + RingerModeChangeReceiver.internalChange);
                 if (volumeStream == AudioManager.STREAM_RING) {
-                    RingerModeChangeReceiver.notUnlinkVolumes = true;
-                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                    if (PhoneProfilesService.getInstance() != null)
-                        PhoneProfilesService.getInstance().ringingVolume = currentVolume;
+                    PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "currentVolume=" + currentVolume);
+                    PPApplication.logE("[VOL] SettingsContentObserver.volumeChangeDetect", "maxVolume=" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
                 }
-                if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
-                    RingerModeChangeReceiver.notUnlinkVolumes = true;
-                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
-                    //PhoneProfilesService.notificationVolume = currentVolume;
+            }*/
+
+            int delta = previousVolume - currentVolume;
+
+            if (delta > 0) {
+                if (!RingerModeChangeReceiver.internalChange) {
+                    if (volumeStream == AudioManager.STREAM_RING) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = true;
+                        ActivateProfileHelper.setRingerVolume(context, currentVolume);
+                        if (PhoneProfilesService.getInstance() != null)
+                            PhoneProfilesService.getInstance().ringingVolume = currentVolume;
+                    }
+                    if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = true;
+                        ActivateProfileHelper.setNotificationVolume(context, currentVolume);
+                        //PhoneProfilesService.notificationVolume = currentVolume;
+                    }
+                }
+            } else if (delta < 0) {
+                if (!RingerModeChangeReceiver.internalChange) {
+                    if (volumeStream == AudioManager.STREAM_RING) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = true;
+                        ActivateProfileHelper.setRingerVolume(context, currentVolume);
+                        if (PhoneProfilesService.getInstance() != null)
+                            PhoneProfilesService.getInstance().ringingVolume = currentVolume;
+                    }
+                    if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = true;
+                        ActivateProfileHelper.setNotificationVolume(context, currentVolume);
+                        //PhoneProfilesService.notificationVolume = currentVolume;
+                    }
                 }
             }
+            return currentVolume;
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+            return -1;
         }
-        else if(delta<0)
-        {
-            if (!RingerModeChangeReceiver.internalChange) {
-                if (volumeStream == AudioManager.STREAM_RING) {
-                    RingerModeChangeReceiver.notUnlinkVolumes = true;
-                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                    if (PhoneProfilesService.getInstance() != null)
-                        PhoneProfilesService.getInstance().ringingVolume = currentVolume;
-                }
-                if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
-                    RingerModeChangeReceiver.notUnlinkVolumes = true;
-                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
-                    //PhoneProfilesService.notificationVolume = currentVolume;
-                }
-            }
-        }
-        return currentVolume;
     }
 
     @Override
@@ -131,28 +133,30 @@ class SettingsContentObserver  extends ContentObserver {
                 //previousVolumeAlarm = volumeChangeDetect(AudioManager.STREAM_ALARM, previousVolumeAlarm, audioManager);
                 //previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
 
-                if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
-                    ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
-                    // volumes changed
+                if ((newVolumeRing != -1) && (newVolumeNotification != -1)) {
+                    if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
+                        ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
+                        // volumes changed
 
-                    if (!(ringMuted || notificationMuted)) {
-                        boolean merged = (newVolumeRing == newVolumeNotification) && (previousVolumeRing == previousVolumeNotification);
+                        if (!(ringMuted || notificationMuted)) {
+                            boolean merged = (newVolumeRing == newVolumeNotification) && (previousVolumeRing == previousVolumeNotification);
 
-                        if (!ApplicationPreferences.getSharedPreferences(context).contains(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES)) {
-                            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                            if (!ApplicationPreferences.getSharedPreferences(context).contains(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES)) {
+                                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
 
-                            editor.putBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
-                            ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+                                editor.putBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+                                ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
 
-                            editor.apply();
+                                editor.apply();
+                            }
                         }
                     }
-                }
 
-                if (!ringMuted)
-                    previousVolumeRing = newVolumeRing;
-                if (!notificationMuted)
-                    previousVolumeNotification = newVolumeNotification;
+                    if (!ringMuted)
+                        previousVolumeRing = newVolumeRing;
+                    if (!notificationMuted)
+                        previousVolumeNotification = newVolumeNotification;
+                }
 
             }
             //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
