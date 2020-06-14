@@ -921,7 +921,7 @@
     <string name="notification_channel_information">Information</string>
     <string name="notification_channel_exclamation">Exclamation</string>
     <string name="notification_channel_grant_permission">Grant permission</string>
-    <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
+    <string name="notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
     <string name="notification_channel_notify_event_start">Start event notification</string>
     <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
