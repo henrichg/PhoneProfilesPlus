@@ -538,28 +538,30 @@ public class EditorProfilesActivity extends AppCompatActivity
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
+                if (!isFinishing()) {
+                    RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
 
-                View contentView = popup.getContentView();
-                contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                int popupWidth = contentView.getMeasuredWidth();
-                //int popupHeight = contentView.getMeasuredHeight();
-                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
-                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
+                    View contentView = popup.getContentView();
+                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                    int popupWidth = contentView.getMeasuredWidth();
+                    //int popupHeight = contentView.getMeasuredHeight();
+                    //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
+                    //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
 
-                int[] runStopIndicatorLocation = new int[2];
-                //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
-                eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
+                    int[] runStopIndicatorLocation = new int[2];
+                    //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
+                    eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
 
-                int x = 0;
-                int y = 0;
+                    int x = 0;
+                    int y = 0;
 
-                if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
-                    x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
+                    if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
+                        x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
 
-                popup.setClippingEnabled(false); // disabled for draw outside activity
-                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
+                    popup.setClippingEnabled(false); // disabled for draw outside activity
+                    popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                            RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
+                }
             }
         });
         

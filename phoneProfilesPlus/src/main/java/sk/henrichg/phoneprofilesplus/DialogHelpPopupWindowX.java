@@ -41,51 +41,53 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
     }
 
     static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, final Dialog dialog, String helpString) {
-        DialogHelpPopupWindowX popup = new DialogHelpPopupWindowX(titleStringId, activity, dialog, helpString);
+        if (!activity.isFinishing()) {
+            DialogHelpPopupWindowX popup = new DialogHelpPopupWindowX(titleStringId, activity, dialog, helpString);
 
-        View contentView = popup.getContentView();
-        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        int popupWidth = contentView.getMeasuredWidth();
-        int popupHeight = contentView.getMeasuredHeight();
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("DialogHelpPopupWindowX.showPopup", "popupWidth=" + popupWidth);
-            PPApplication.logE("DialogHelpPopupWindowX.showPopup", "popupHeight=" + popupHeight);
-        }*/
+            View contentView = popup.getContentView();
+            contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            int popupWidth = contentView.getMeasuredWidth();
+            int popupHeight = contentView.getMeasuredHeight();
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("DialogHelpPopupWindowX.showPopup", "popupWidth=" + popupWidth);
+                PPApplication.logE("DialogHelpPopupWindowX.showPopup", "popupHeight=" + popupHeight);
+            }*/
 
-        ViewGroup activityView = activity.findViewById(android.R.id.content);
-        int activityHeight = activityView.getHeight();
-        //int activityWidth = activityView.getWidth();
-        //PPApplication.logE("DialogHelpPopupWindowX.showPopup","activityHeight="+activityHeight);
+            ViewGroup activityView = activity.findViewById(android.R.id.content);
+            int activityHeight = activityView.getHeight();
+            //int activityWidth = activityView.getWidth();
+            //PPApplication.logE("DialogHelpPopupWindowX.showPopup","activityHeight="+activityHeight);
 
-        //int[] activityLocation = new int[2];
-        //_eventStatusView.getLocationOnScreen(location);
-        //activityView.getLocationInWindow(activityLocation);
+            //int[] activityLocation = new int[2];
+            //_eventStatusView.getLocationOnScreen(location);
+            //activityView.getLocationInWindow(activityLocation);
 
-        int[] locationHelpIcon = new int[2];
-        helpIcon.getLocationOnScreen(locationHelpIcon); // must be used this in dialogs.
-        //helpIcon.getLocationInWindow(locationHelpIcon);
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("DialogHelpPopupWindowX.showPopup", "locationHelpIcon[0]=" + locationHelpIcon[0]);
-            PPApplication.logE("DialogHelpPopupWindowX.showPopup", "locationHelpIcon[1]=" + locationHelpIcon[1]);
-        }*/
+            int[] locationHelpIcon = new int[2];
+            helpIcon.getLocationOnScreen(locationHelpIcon); // must be used this in dialogs.
+            //helpIcon.getLocationInWindow(locationHelpIcon);
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("DialogHelpPopupWindowX.showPopup", "locationHelpIcon[0]=" + locationHelpIcon[0]);
+                PPApplication.logE("DialogHelpPopupWindowX.showPopup", "locationHelpIcon[1]=" + locationHelpIcon[1]);
+            }*/
 
-        int x = 0;
-        int y = 0;
+            int x = 0;
+            int y = 0;
 
-        if (locationHelpIcon[0] + helpIcon.getWidth() - popupWidth < 0)
-            x = -(locationHelpIcon[0] + helpIcon.getWidth() - popupWidth);
+            if (locationHelpIcon[0] + helpIcon.getWidth() - popupWidth < 0)
+                x = -(locationHelpIcon[0] + helpIcon.getWidth() - popupWidth);
 
-        if ((locationHelpIcon[1] + popupHeight) > activityHeight)
-            y = -(locationHelpIcon[1] - (activityHeight - popupHeight));
+            if ((locationHelpIcon[1] + popupHeight) > activityHeight)
+                y = -(locationHelpIcon[1] - (activityHeight - popupHeight));
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("DialogHelpPopupWindowX.showPopup", "x=" + x);
-            PPApplication.logE("DialogHelpPopupWindowX.showPopup", "y=" + y);
-        }*/
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("DialogHelpPopupWindowX.showPopup", "x=" + x);
+                PPApplication.logE("DialogHelpPopupWindowX.showPopup", "y=" + y);
+            }*/
 
-        popup.setClippingEnabled(false); // disabled for draw outside activity
-        popup.showOnAnchor(helpIcon, VerticalPosition.ALIGN_TOP,
-                HorizontalPosition.ALIGN_RIGHT, x, y, false);
+            popup.setClippingEnabled(false); // disabled for draw outside activity
+            popup.showOnAnchor(helpIcon, VerticalPosition.ALIGN_TOP,
+                    HorizontalPosition.ALIGN_RIGHT, x, y, false);
+        }
     }
 
     @SuppressWarnings("SameParameterValue")

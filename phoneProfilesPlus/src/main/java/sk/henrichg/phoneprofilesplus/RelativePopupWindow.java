@@ -13,18 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.core.widget.PopupWindowCompat;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author kakajika
  * @since 2016/07/01
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused", "DanglingJavadoc"})
 public class RelativePopupWindow extends PopupWindow {
 
     @IntDef({
@@ -102,9 +102,11 @@ public class RelativePopupWindow extends PopupWindow {
      * @param vertPos Vertical Position Flag
      * @param horizPos Horizontal Position Flag
      */
+    /*
     public void showOnAnchor(@NonNull View anchor, @VerticalPosition int vertPos, @HorizontalPosition int horizPos) {
         showOnAnchor(anchor, vertPos, horizPos, 0, 0);
     }
+    */
 
     /**
      * Show at relative position to anchor View.
@@ -113,9 +115,11 @@ public class RelativePopupWindow extends PopupWindow {
      * @param horizPos Horizontal Position Flag
      * @param fitInScreen Automatically fit in screen or not
      */
+    /*
     public void showOnAnchor(@NonNull View anchor, @VerticalPosition int vertPos, @HorizontalPosition int horizPos, boolean fitInScreen) {
         showOnAnchor(anchor, vertPos, horizPos, 0, 0, fitInScreen);
     }
+    */
 
     /**
      * Show at relative position to anchor View with translation.
@@ -125,9 +129,11 @@ public class RelativePopupWindow extends PopupWindow {
      * @param x Translation X
      * @param y Translation Y
      */
+    /*
     public void showOnAnchor(@NonNull View anchor, @VerticalPosition int vertPos, @HorizontalPosition int horizPos, int x, int y) {
         showOnAnchor(anchor, vertPos, horizPos, x, y, true);
     }
+    */
 
     /**
      * Show at relative position to anchor View with translation.
