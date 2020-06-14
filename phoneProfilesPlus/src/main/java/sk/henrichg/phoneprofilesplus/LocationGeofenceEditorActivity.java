@@ -831,13 +831,15 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     /* Creates a dialog for an error message */
     private void showErrorDialog(int errorCode) {
-        // Create a fragment for the error dialog
-        ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
-        // Pass the error that should be displayed
-        Bundle args = new Bundle();
-        args.putInt(DIALOG_ERROR, errorCode);
-        dialogFragment.setArguments(args);
-        dialogFragment.show(getSupportFragmentManager(), "errorDialog");
+        if (!isFinishing()) {
+            // Create a fragment for the error dialog
+            ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
+            // Pass the error that should be displayed
+            Bundle args = new Bundle();
+            args.putInt(DIALOG_ERROR, errorCode);
+            dialogFragment.setArguments(args);
+            dialogFragment.show(getSupportFragmentManager(), "errorDialog");
+        }
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */

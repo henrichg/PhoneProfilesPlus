@@ -104,8 +104,11 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
     }
 
     private void showCustomColorChooser() {
-        ProfileIconColorChooserDialogX colorDialog = new ProfileIconColorChooserDialogX((Activity)prefContext, preference);
-        colorDialog.show();
+        if (getActivity() != null) {
+            ProfileIconColorChooserDialogX colorDialog = new ProfileIconColorChooserDialogX((Activity) prefContext, preference);
+            if (!getActivity().isFinishing())
+                colorDialog.show();
+        }
 
         /*
         ColorChooserDialog colorDialog  = new ColorChooserDialog.Builder(prefContext, R.string.colorChooser_pref_dialog_title)

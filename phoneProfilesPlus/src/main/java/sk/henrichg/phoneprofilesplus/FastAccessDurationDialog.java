@@ -317,7 +317,8 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             @Override
             public void onClick(View v) {
                 FastAccessDurationProfileDialog dialog = new FastAccessDurationProfileDialog(mActivity, FastAccessDurationDialog.this);
-                dialog.show();
+                if (!mActivity.isFinishing())
+                    dialog.show();
             }
         });
 

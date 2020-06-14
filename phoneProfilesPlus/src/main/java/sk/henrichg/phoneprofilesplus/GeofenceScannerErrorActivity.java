@@ -5,11 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+
+import com.google.android.gms.common.GoogleApiAvailability;
 
 public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
@@ -58,13 +58,15 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     /* Creates a dialog for an error message */
     private void showErrorDialog(int errorCode) {
-        // Create a fragment for the error dialog
-        ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
-        // Pass the error that should be displayed
-        Bundle args = new Bundle();
-        args.putInt(GeofencesScanner.DIALOG_ERROR, errorCode);
-        dialogFragment.setArguments(args);
-        dialogFragment.show(getSupportFragmentManager(), "errorDialog");
+        if (!isFinishing()) {
+            // Create a fragment for the error dialog
+            ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
+            // Pass the error that should be displayed
+            Bundle args = new Bundle();
+            args.putInt(GeofencesScanner.DIALOG_ERROR, errorCode);
+            dialogFragment.setArguments(args);
+            dialogFragment.show(getSupportFragmentManager(), "errorDialog");
+        }
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */

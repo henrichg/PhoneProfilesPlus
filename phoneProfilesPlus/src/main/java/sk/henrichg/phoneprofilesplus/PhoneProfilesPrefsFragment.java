@@ -182,11 +182,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (dialogFragment != null)
         {
-            FragmentManager fragmentManager = getParentFragmentManager();//getFragmentManager();
-            //if (fragmentManager != null) {
+            if ((getActivity() != null) && (!getActivity().isFinishing())) {
+                FragmentManager fragmentManager = getParentFragmentManager();//getFragmentManager();
+                //if (fragmentManager != null) {
                 dialogFragment.setTargetFragment(this, 0);
                 dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".PhoneProfilesPrefsActivity.DIALOG");
-            //}
+                //}
+            }
         }
         else
         {

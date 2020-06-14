@@ -3716,23 +3716,23 @@ public class PPApplication extends Application
     }
 
     static void showDoNotKillMyAppDialog(final Fragment fragment) {
-        //noinspection ConstantConditions
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(fragment.getActivity());
-        dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
-        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+        if (fragment.getActivity() != null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(fragment.getActivity());
+            dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
-        LayoutInflater inflater = fragment.getActivity().getLayoutInflater();
-        @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.dialog_do_not_kill_my_app, null);
-        dialogBuilder.setView(layout);
+            LayoutInflater inflater = fragment.getActivity().getLayoutInflater();
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_do_not_kill_my_app, null);
+            dialogBuilder.setView(layout);
 
-        DokiContentView doki = layout.findViewById(R.id.do_not_kill_my_app_dialog_dokiContentView);
-        if (doki != null) {
-            doki.setButtonsVisibility(false);
-            doki.loadContent(Build.MANUFACTURER.toLowerCase().replace(" ", "-"));
-        }
+            DokiContentView doki = layout.findViewById(R.id.do_not_kill_my_app_dialog_dokiContentView);
+            if (doki != null) {
+                doki.setButtonsVisibility(false);
+                doki.loadContent(Build.MANUFACTURER.toLowerCase().replace(" ", "-"));
+            }
 
-        AlertDialog dialog = dialogBuilder.create();
+            AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -3744,7 +3744,9 @@ public class PPApplication extends Application
 //            }
 //        });
 
-        dialog.show();
+            if (!fragment.getActivity().isFinishing())
+                dialog.show();
+        }
     }
 
     static void startHandlerThread(/*String from*/) {
