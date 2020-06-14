@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
@@ -20,10 +23,9 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-//import me.drakeet.support.toast.ToastCompat;
 import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
+
+//import me.drakeet.support.toast.ToastCompat;
 
 public class DonationFragment extends Fragment {
 
@@ -167,7 +169,7 @@ public class DonationFragment extends Fragment {
                 inAppSkus,
                 new SkuDetailsResponseListener() {
                     @Override
-                    public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
+                    public void onSkuDetailsResponse(@NonNull BillingResult billingResult, List<SkuDetails> skuDetailsList) {
                         int responseCode = billingResult.getResponseCode();
                         //PPApplication.logE(TAG, "onSkuDetailsResponse responseCode="+responseCode);
 

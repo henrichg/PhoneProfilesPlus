@@ -2933,10 +2933,8 @@ public class PhoneProfilesService extends Service
         PhoneProfilesService.cancelWork("periodicEventsHandlerWorker");
     }
 
-    void scheduleBackgroundScanningWorker(/*final boolean schedule,*/ /*final boolean cancel,*/ final DataWrapper dataWrapper,
-                                            //final boolean forScreenOn, final boolean afterEnableWifi,
-            /*final boolean forceStart,*/ final boolean rescan) {
-        final Context appContext = getApplicationContext();
+    void scheduleBackgroundScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
+        //final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBackgroundScanningWorker", "PhoneProfilesService_scheduleBackgroundScanningWorker");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleBackgroundScanningWorker", "xxx");
 
@@ -2949,7 +2947,7 @@ public class PhoneProfilesService extends Service
                 eventAllowed = true;
             }
             if (eventAllowed) {
-                if (rescan)
+                //if (rescan)
                     cancelWork("periodicEventsHandlerWorker");
 
                 OneTimeWorkRequest periodicEventsHandlerWorker =
@@ -3475,7 +3473,7 @@ public class PhoneProfilesService extends Service
         startOrientationScanner(true, true, dataWrapper);
         startTwilightScanner(true, true, dataWrapper);
 
-        scheduleBackgroundScanningWorker(dataWrapper, true);
+        scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper, /*false, false, false,*/ true);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true, */dataWrapper/*, true*/);
@@ -3572,7 +3570,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
 
-        scheduleBackgroundScanningWorker(dataWrapper, true);
+        scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper, /*false, false, false,*/ true);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true,*/ dataWrapper /*, true*/);
@@ -4166,7 +4164,7 @@ public class PhoneProfilesService extends Service
                                     break;
                                 case PPApplication.SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER");
-                                    scheduleBackgroundScanningWorker(/*true,*/ dataWrapper, /*forScreenOn, false, false,*/ true);
+                                    scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
                                     break;
                                 case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
@@ -4223,7 +4221,7 @@ public class PhoneProfilesService extends Service
                                             //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "wifi - restart");
                                             //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                             //registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                            scheduleBackgroundScanningWorker(/*true,*/ dataWrapper, /*forScreenOn, false, false,*/ true);
+                                            scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
                                         }
                                     }
 
