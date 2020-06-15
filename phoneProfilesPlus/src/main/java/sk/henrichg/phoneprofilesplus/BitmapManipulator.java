@@ -476,6 +476,8 @@ class BitmapManipulator {
             // a final image with both dimensions larger than or equal to the
             // requested height and width
             inSampleSize = Math.min(heightRatio, widthRatio);
+            if (inSampleSize < 2)
+                inSampleSize = 2; // maybe fixes java.lang.OutOfMemoryError
         }
         return inSampleSize;
     }
