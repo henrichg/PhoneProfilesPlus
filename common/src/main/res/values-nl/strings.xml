@@ -364,7 +364,7 @@
     <string name="event_type_notifications">Meldingen</string>
     <string name="event_preferences_category_eventNotificationsParameters">Meldingssensor</string>
     <string name="event_preferences_notifications_applications">Programma\'s</string>
-    <string name="event_preferences_volumeNotificationsAccessSettings_summary">Om de notificatie sensor te activeren moet je PhoneProfilesPlus \"Meldingen toegang\" geven bij systeem instellingen.</string>
+    <string name="event_preferences_volumeNotificationsAccessSettings_summary">Om de notificatie sensor te activeren moet je PhoneProfilesPlus \"Toegang tot meldingen\" geven bij systeem instellingen.</string>
     <string name="array_pref_zenModeArray_alarms">Alleen alarmen</string>
     <string name="profile_preferences_zenMode_alarms_summary">Alleen alarm onderbrekingen</string>
     <string name="phone_profiles_pref_applicationShortcutEmblem">Voeg mini-icoon aan snelkoppeling toe</string>
@@ -894,7 +894,6 @@
     <string name="profile_preferences_applicationDisableLocationScanning">Locatie scannen uitschakelen</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Zendmast cel scannen inschakelen</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Oriëntatie scannen inschakelen</string>
-    <string name="phone_profiles_pref_applicationEventScanningDisabled">Scannen uitgeschakeld!</string>
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zendmast cel scannen uitschakelen</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Oriëntatie scannen uitschakelen</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Pop-up meldingen</string>
@@ -1423,6 +1422,15 @@
     <string name="altype_profileError_setTone_alarm">profiel - fout bij instellen alarm geluid</string>
     <string name="altype_profileError_setWallpaper">profiel - fout bij instellen achtergrond</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">geen Bluetooth-machtiging verleend</string>
+    <string name="profile_preferences_volumeMuteSound">Geluid uitschakelen</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Om de \"Niet storen\" profielparameter in te schakelen moet je PhoneProfilesPlus \"Toegang tot meldingen\" geven bij systeeminstellingen. Klik hier om in te schakelen.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Om de \"\"Niet storen\"\" profielparameter in te schakelen moet je PhoneProfilesPlus \"Toegang tot meldingen\" geven bij systeeminstellingen. Klik hier om het in te schakelen.</string>
+    <string name="phone_profiles_pref_category_background_scanning">Achtergrond scannen</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Deze instellingen zijn voor het scannen op de achtergrond. Dit is handig wanneer de tijds- of agenda-event sensor niet goed werkt.\n\nHet wordt aangeraden om deze scan niet in te schakelen wanneer locatie, Wi-Fi, Bluetooth, Oriëntatiesensor wordt gebruikt in een event.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Op de achtergrond scannen inschakelen</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Achtergrond scannen scan interval (minuten)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Achtergrond scannen in Energiebesparingsmodus</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Stel achtergrondscan parameters in bij programma-instellingen.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1710,4 +1718,5 @@
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+    <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
 </resources>

@@ -110,8 +110,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:resizeableActivity="true"
-        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
-<!--        android:largeHeap="true"-->
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+        android:largeHeap="true">
 
         <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
         <meta-data

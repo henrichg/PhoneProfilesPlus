@@ -894,7 +894,6 @@
     <string name="profile_preferences_applicationDisableLocationScanning">Standortbestimmung deaktivieren</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Suche nach Mobilfunkzellen aktivieren</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Bestimmung der Geräteausrichtung aktivieren</string>
-    <string name="phone_profiles_pref_applicationEventScanningDisabled">Event scannen aus!</string>
     <string name="profile_preferences_applicationDisableMobileCellScanning">Suche nach Mobilfunkzellen deaktivieren</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Bestimmung der Geräteausrichtung deaktivieren</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Popup-Benachrichtigungen</string>
@@ -1423,6 +1422,15 @@
     <string name="altype_profileError_setTone_alarm">Profil - Fehler beim Festlegen des Wecktons</string>
     <string name="altype_profileError_setWallpaper">Profil - Fehler beim Festlegen des Hintergrundbildes</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth-Erlaubnis nicht erteilt</string>
+    <string name="profile_preferences_volumeMuteSound">Stummschalten</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Um den Profilparameter „Bitte nicht stören” zu aktivieren, erlauben Sie PhoneProfilesPlus \"Benachrichtigungszugriff\" in den Systemeinstellungen.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Um den Profilparameter „Bitte nicht stören” zu aktivieren, gestatten Sie PhoneProfilesPlus den \"Benachrichtigungszugriff\" in den Systemeinstellungen. Klicken Sie hier, um ihn zu aktivieren.</string>
+    <string name="phone_profiles_pref_category_background_scanning">Scannen im Hintergrund</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Diese Einstellungen gelten für das Scannen im Hintergrund. Es ist nützlich, wenn der Zeit- oder Kalenderereignissensor nicht gut funktioniert.\n\n Es wird empfohlen, dieses Scannen nicht zu aktivieren, wenn der Positionsbestimmungs-, WLAN-, Bluetooth- oder Ausrichtungssensor in jedem Fall verwendet wird.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Scannen im Hintergrund aktivieren</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Intervall für das Scannen im Hintergrund (Minuten)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Scannen im Hintergrund im Energiesparmodus</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Legen Sie die Parameter für das Scannen im Hintergrund in den App-Einstellungen fest.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1710,4 +1718,5 @@
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+    <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
 </resources>

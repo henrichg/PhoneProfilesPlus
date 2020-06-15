@@ -894,7 +894,6 @@
     <string name="profile_preferences_applicationDisableLocationScanning">Zakázať skenovanie polohy</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Povoliť skenovanie mobilných buniek</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Povoliť skenovanie orientácie</string>
-    <string name="phone_profiles_pref_applicationEventScanningDisabled">Skenovanie je zakázané!</string>
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázať skenovanie mobilných buniek</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Zakázať skenovanie orientácie</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Vyskakovacie notifikácie</string>
@@ -1423,6 +1422,15 @@
     <string name="altype_profileError_setTone_alarm">profil - chyba pri nastavení tónu budíka</string>
     <string name="altype_profileError_setWallpaper">profil - chyba pri nastavení obrázku pozadia</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">neudelené Bluetooth povolenie</string>
+    <string name="profile_preferences_volumeMuteSound">Stlmiť zvuk</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Pre povolenie parametrov profilu „Nerušiť“, povoľte pre PhoneProfilesPlus \"Prístup k notifikáciám“ v systémových nastaveniach.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Pre povolenie parametrov profilu \"Typ „Nerušiť“\", povoľte pre PhoneProfilesPlus \"Prístup k notifikáciám“ v systémových nastaveniach. Kliknite sem pre jeho povolenie.</string>
+    <string name="phone_profiles_pref_category_background_scanning">Skenovanie na pozadí</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Tieto nastavenia sú pre skenovanie na pozadí. Je to uzitočné, ak Sensor času alebo Sensor kalendára v udalosti nepracuje správne.\n\nOpdorúča sa nepovoliť toto skenovanie, ak sensor Polohy, Wi-Fi, Bluetooth, Orientácie je používaný v nejakej udalosti.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Povoliť skenovanie na pozadí</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Interval skenovania na pozadí (min.)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Skenovanie na pozadí v režime Šetrič batérie</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Nastav parametre skenovania na pozadí v nastaveniach aplikácie.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1710,4 +1718,5 @@
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+    <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
 </resources>

@@ -894,7 +894,6 @@
     <string name="profile_preferences_applicationDisableLocationScanning">Disable location scanning</string>
     <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Enable mobile cell scanning</string>
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Enable orientation scanning</string>
-    <string name="phone_profiles_pref_applicationEventScanningDisabled">Scanning disabled!</string>
     <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
@@ -917,7 +916,7 @@
     <string name="notification_channel_information">Information</string>
     <string name="notification_channel_exclamation">Exclamation</string>
     <string name="notification_channel_grant_permission">Grant permission</string>
-    <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
+    <string name="notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
     <string name="notification_channel_notify_event_start">Start event notification</string>
     <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
@@ -1423,6 +1422,15 @@
     <string name="altype_profileError_setTone_alarm">profile - error on set alarm sound</string>
     <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
+    <string name="profile_preferences_volumeMuteSound">Mute sound</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
+    <string name="phone_profiles_pref_category_background_scanning">Background scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for background scanning. It is useful when Time or Calendar event sensor not working good.\n\nIt is recommended not to enable this scanning when Location, Wi-Fi, Bluetooth, Orientation sensor is used in any event.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable background scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Background scanning scan interval (minutes)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Background scanning scan in Power Save mode</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Background scanning parameters in application settings.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir PhoneProfilesPlusExtender por:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1710,4 +1718,5 @@
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+    <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
 </resources>

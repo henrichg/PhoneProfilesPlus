@@ -464,7 +464,7 @@ class BitmapManipulator {
         // raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
-        int inSampleSize = 1;
+        int inSampleSize = 2; // (was 1) maybe fixes java.lang.OutOfMemoryError
 
         if (height > reqHeight || width > reqWidth)
         {
