@@ -121,9 +121,9 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|PhoneProfilesService.cancelBackgroundScanningWorker"
-                                                +"|PhoneProfilesService.scheduleBackgroundScanningWorker"
-                                                +"|PeriodicEventsHandlerWorker.doWork"
+                                                //+"|PhoneProfilesService.cancelBackgroundScanningWorker"
+                                                //+"|PhoneProfilesService.scheduleBackgroundScanningWorker"
+                                                //+"|PeriodicEventsHandlerWorker.doWork"
 
                                                 //+"|MobileCellsPreferenceFragmentX.onBindDialogView"
 
