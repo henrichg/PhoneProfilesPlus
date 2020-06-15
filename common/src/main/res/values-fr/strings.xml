@@ -1422,15 +1422,15 @@
     <string name="altype_profileError_setTone_alarm">profil - erreur sur la définition du son de l\'alarme</string>
     <string name="altype_profileError_setWallpaper">profil - erreur sur la définition du fond d\'écran</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">autorisation Bluetooth non accordée</string>
-    <string name="profile_preferences_volumeMuteSound">Mute sound</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
-    <string name="phone_profiles_pref_category_background_scanning">Background scanning</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for background scanning. It is useful when Time or Calendar event sensor not working good.\n\nIt is recommended not to enable this scanning when Location, Wi-Fi, Bluetooth, Orientation sensor is used in any event.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable background scanning</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Background scanning scan interval (minutes)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Background scanning scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Background scanning parameters in application settings.</string>
+    <string name="profile_preferences_volumeMuteSound">Couper le son</string>
+    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Pour activer les paramètres de profil « Ne pas déranger », autorisez PhoneProfilesPlus à « Accéder aux notifications » dans les paramètres du système.</string>
+    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Pour activer les paramètres de profil « Ne pas déranger », autorisez PhoneProfilesPlus à « Accéder aux notifications » dans les paramètres du système.</string>
+    <string name="phone_profiles_pref_category_background_scanning">Recherche active en arrière-plan</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Ces paramètres sont pour le balayage en arrière-plan. Il est utile lorsque le capteur d\'événements du calendrier ne fonctionne pas bien.\n\nIl est recommandé de ne pas activer ce scan lorsque la localisation, le Wi-Fi, le Bluetooth ou capteur d\'orientation est utilisé dans n\'importe quel événement.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Activer le balayage en arrière-plan</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Intervalle de balayage de l\'arrière-plan (minutes)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Analyse de l\'arrière-plan en mode économie d\'énergie</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Configurer les paramètres de balayage de fond dans les paramètres de l\'application.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
