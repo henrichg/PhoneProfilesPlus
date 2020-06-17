@@ -3902,7 +3902,7 @@ public class PhoneProfilesService extends Service
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
                                 if (workManager != null)
-                                    workManager.enqueue(worker);
+                                    workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
