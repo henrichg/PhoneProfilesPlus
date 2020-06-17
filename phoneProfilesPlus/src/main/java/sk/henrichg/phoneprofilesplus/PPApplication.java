@@ -852,10 +852,11 @@ public class PPApplication extends Application
     static final int IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID = 120;
     static final int DRAW_OVER_APPS_NOTIFICATION_ID = 121;
 
+    // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
-    static final int EVENT_ID_NOTIFICATION_ID = 10000;
-    static final int NOTIFY_EVENT_START_NOTIFICATION_ID = 100000;
-    static final int NEW_MOBILE_CELLS_NOTIFICATION_ID = 5000000;
+    static final int EVENT_ID_NOTIFICATION_ID = 1000;
+    static final int NOTIFY_EVENT_START_NOTIFICATION_ID = 1000;
+    static final int NEW_MOBILE_CELLS_NOTIFICATION_ID = 1000;
 
     // shared preferences names !!! Configure also in res/xml/phoneprofiles_backup_scheme.xml !!!
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
