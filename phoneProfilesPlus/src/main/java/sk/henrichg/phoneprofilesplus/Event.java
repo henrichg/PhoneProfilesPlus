@@ -2662,6 +2662,10 @@ class Event {
                                     }
                                 }
                             }
+                            else {
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            }
                         }
                     }
                     else
@@ -2733,6 +2737,10 @@ class Event {
                                     }
                                 }
                             }
+                            else {
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            }
                         }
                     }
                     else
@@ -2791,6 +2799,10 @@ class Event {
                                         }
                                     }
                                 }
+                            }
+                            else {
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
                             }
                         }
                     }

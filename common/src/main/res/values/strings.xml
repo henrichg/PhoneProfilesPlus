@@ -1525,6 +1525,8 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Background scanning scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Background scanning parameters in application settings.</string>
 
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
