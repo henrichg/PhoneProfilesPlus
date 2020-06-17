@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -75,7 +74,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("handleEventsBluetoothLEScannerWork", ExistingWorkPolicy.REPLACE, worker);
+                                            workManager.enqueue(worker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);

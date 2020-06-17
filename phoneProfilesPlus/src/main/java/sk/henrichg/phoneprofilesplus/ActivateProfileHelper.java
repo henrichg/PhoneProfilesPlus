@@ -3114,7 +3114,7 @@ class ActivateProfileHelper {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null)
-                            workManager.enqueueUniqueWork("delayedWorkCloseAllApplications", ExistingWorkPolicy.REPLACE, worker);
+                            workManager.enqueue(worker);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
