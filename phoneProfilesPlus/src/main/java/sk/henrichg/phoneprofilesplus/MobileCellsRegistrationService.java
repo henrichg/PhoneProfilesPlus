@@ -270,7 +270,9 @@ public class MobileCellsRegistrationService extends Service {
         Notification notification = mBuilder.build();
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
         try {
-            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION", PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
+            mNotificationManager.notify(
+                    PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
+                    PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
         } catch (Exception e) {
             Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -280,7 +282,9 @@ public class MobileCellsRegistrationService extends Service {
     private void removeResultNotification() {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         try {
-            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION", PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID);
+            notificationManager.cancel(
+                    PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
+                    PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

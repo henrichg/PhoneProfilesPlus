@@ -2564,7 +2564,9 @@ class ActivateProfileHelper {
                         String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                         String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                                 appContext.getString(R.string.profile_preferences_deviceMobileDataPrefs);
-                        showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION");
+                        showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID,
+                                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_TAG);
                     }
                 }
             }
@@ -2589,7 +2591,9 @@ class ActivateProfileHelper {
                     String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                     String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                             appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION");
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_TAG);
                 }
             }
         }
@@ -2614,7 +2618,9 @@ class ActivateProfileHelper {
                     String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                     String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                             appContext.getString(R.string.profile_preferences_deviceLocationServicePrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION");
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_TAG);
                 }
             }
         }
@@ -2638,7 +2644,9 @@ class ActivateProfileHelper {
                     String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                     String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                             appContext.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION");
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_TAG);
                 }
             }
         }

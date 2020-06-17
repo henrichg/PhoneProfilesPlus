@@ -804,7 +804,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(true); // clear notification after click
                 notificationID = PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID;
-                notificationTag = PPApplication.PACKAGE_NAME+"_GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION";
+                notificationTag = PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_TAG;
             } /*else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
                 String nTitle = context.getString(R.string.permissions_notification_text);
                 String nText = context.getString(R.string.permissions_for_log_to_file_big_text_notification);
@@ -821,7 +821,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(true); // clear notification after click
                 notificationID = PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID;
-                notificationTag = PPApplication.PACKAGE_NAME+"_GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION";
+                notificationTag = PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_TAG;
             }*/ else if (grantType == Permissions.GRANT_TYPE_EVENT) {
                 String nTitle = context.getString(R.string.permissions_for_event_text_notification);
                 String nText = "";
@@ -853,10 +853,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 if (event != null) {
                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                     notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
-                    notificationTag = PPApplication.PACKAGE_NAME+"_GRANT_EVENT_PERMISSION_NOTIFICATION_"+event._id;
+                    notificationTag = PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_TAG+"_"+event._id;
                 } else {
                     notificationID = PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
-                    notificationTag = PPApplication.PACKAGE_NAME+"_GRANT_EVENT_PERMISSIONS_NOTIFICATION";
+                    notificationTag = PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_TAG;
                 }
             } else {
                 String nTitle = context.getString(R.string.permissions_for_profile_text_notification);
@@ -892,10 +892,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 if (profile != null) {
                     intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                     notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
-                    notificationTag = PPApplication.PACKAGE_NAME+"_GRANT_PROFILE_PERMISSION_NOTIFICATION_"+profile._id;
+                    notificationTag = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_TAG+"_"+profile._id;
                 } else {
                     notificationID = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
-                    notificationTag = PPApplication.PACKAGE_NAME+"_GRANT_PROFILE_PERMISSIONS_NOTIFICATION";
+                    notificationTag = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_TAG;
                 }
             }
             //permissions.clear();

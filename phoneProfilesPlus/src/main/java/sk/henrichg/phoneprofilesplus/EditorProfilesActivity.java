@@ -3307,7 +3307,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
                 notificationManager.cancel(
-                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_"+profile._id,
+                        PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
                         PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
@@ -3320,7 +3320,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
                 notificationManager.cancel(
-                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id,
+                        PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
                         PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
@@ -3370,7 +3370,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
-            notificationTag = PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_"+profile._id;
+            notificationTag = PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id;
         }
 
         if (event != null) {
@@ -3390,7 +3390,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
-            notificationTag = PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id;
+            notificationTag = PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id;
         }
 
         intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);

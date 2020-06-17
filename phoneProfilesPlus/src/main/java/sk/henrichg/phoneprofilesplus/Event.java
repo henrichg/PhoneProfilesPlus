@@ -2520,7 +2520,7 @@ class Event {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(dataWrapper.context);
                 try {
                     notificationManager.cancel(
-                            PPApplication.PACKAGE_NAME+"_NOTIFY_EVENT_START_NOTIFICATION_"+_id,
+                            PPApplication.NOTIFY_EVENT_START_NOTIFICATION_TAG+"_"+_id,
                             PPApplication.NOTIFY_EVENT_START_NOTIFICATION_ID + (int) _id);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -2941,7 +2941,7 @@ class Event {
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
                 try {
                     int notificationID = PPApplication.NOTIFY_EVENT_START_NOTIFICATION_ID + (int) _id;
-                    String notificationTag = PPApplication.PACKAGE_NAME+"_NOTIFY_EVENT_START_NOTIFICATION_"+_id;
+                    String notificationTag = PPApplication.NOTIFY_EVENT_START_NOTIFICATION_TAG+"_"+_id;
                     //mNotificationManager.cancel(notificationTag, notificationID);
                     mNotificationManager.notify(notificationTag, notificationID, notification);
                 } catch (Exception e) {

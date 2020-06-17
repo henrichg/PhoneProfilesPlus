@@ -27,7 +27,7 @@ public class NotUsedMobileCellsNotificationDisableReceiver extends BroadcastRece
                 StatusBarNotification[] notifications = manager.getActiveNotifications();
                 for (StatusBarNotification notification : notifications) {
                     String tag = notification.getTag();
-                    if (tag.contains(PPApplication.PACKAGE_NAME+"_NEW_MOBILE_CELLS_NOTIFICATION_")) {
+                    if (tag.contains(PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG+"_")) {
                         if (notification.getId() >= PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
                             manager.cancel(notification.getTag(), notification.getId());
                         }

@@ -305,7 +305,9 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
                 try {
-                    mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_ABOUT_APPLICATION_DONATE_NOTIFICATION", PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
+                    mNotificationManager.notify(
+                            PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_TAG,
+                            PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
                 } catch (Exception e) {
                     Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
                     PPApplication.recordException(e);

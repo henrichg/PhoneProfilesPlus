@@ -159,7 +159,9 @@ class IgnoreBatteryOptimizationNotification {
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
-            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION", PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
+            mNotificationManager.notify(
+                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
+                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
             Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -170,7 +172,9 @@ class IgnoreBatteryOptimizationNotification {
     {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
-            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION", PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID);
+            notificationManager.cancel(
+                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
+                    PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

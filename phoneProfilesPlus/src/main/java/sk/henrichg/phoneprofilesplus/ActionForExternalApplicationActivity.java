@@ -292,7 +292,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         //}
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(getApplicationContext());
         try {
-            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION", PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
+            mNotificationManager.notify(
+                    PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_TAG,
+                    PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
             Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

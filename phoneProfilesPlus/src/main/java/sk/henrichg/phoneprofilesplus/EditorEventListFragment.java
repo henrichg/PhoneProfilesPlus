@@ -783,7 +783,7 @@ public class EditorEventListFragment extends Fragment
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
             try {
                 notificationManager.cancel(
-                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id,
+                        PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
                         PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
@@ -924,7 +924,7 @@ public class EditorEventListFragment extends Fragment
                             Event event = it.next();
                             try {
                                 notificationManager.cancel(
-                                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id,
+                                        PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
                                         PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);

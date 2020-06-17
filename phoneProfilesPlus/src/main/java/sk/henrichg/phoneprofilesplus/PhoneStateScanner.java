@@ -226,7 +226,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
-                            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION",
+                            mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_TAG,
                                                 PPApplication.LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID, mBuilder.build());
                         }
 
@@ -935,7 +935,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         if (mNotificationManager != null) {
                             StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
                             for (StatusBarNotification notification : notifications) {
-                                if (notification.getTag().contains(PPApplication.PACKAGE_NAME+"_NEW_MOBILE_CELLS_NOTIFICATION_")) {
+                                if (notification.getTag().contains(PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG+"_")) {
                                     if (notification.getId() == _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
                                         isShown = true;
                                         break;
@@ -999,7 +999,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         try {
                             //_mNotificationManager.cancel(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID);
                             _mNotificationManager.notify(
-                                    PPApplication.PACKAGE_NAME+"_NEW_MOBILE_CELLS_NOTIFICATION_" + registeredCell,
+                                    PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG+"_" + registeredCell,
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + _registeredCell, mBuilder.build());
                         } catch (Exception e) {
                             Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
