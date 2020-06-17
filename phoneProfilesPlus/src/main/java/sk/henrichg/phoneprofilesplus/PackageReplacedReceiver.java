@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
     //static final String EXTRA_RESTART_SERVICE = "restart_service";
@@ -17,7 +20,32 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
+        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        if (jobScheduler != null) {
+            int size = jobScheduler.getAllPendingJobs().size();
+            PPApplication.logE("##### PackageReplacedReceiver.onReceive", "jobScheduler.getAllPendingJobs().size()="+size);
+            //jobScheduler.cancelAll();
+        }
+
         PhoneProfilesService.cancelAllWorks(true);
+
+        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "avoidRescheduleReceiverWorker START of enqueue");
+        PhoneProfilesService.cancelWork("avoidRescheduleReceiverWorker");
+        OneTimeWorkRequest avoidRescheduleReceiverWorker =
+                new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
+                        .addTag("avoidRescheduleReceiverWorker")
+                        .setInitialDelay(365 * 10, TimeUnit.DAYS)
+                        .build();
+        try {
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
+            if (workManager != null)
+                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.REPLACE, avoidRescheduleReceiverWorker);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "avoidRescheduleReceiverWorker END of enqueue");
+
 
         PPApplication.applicationPackageReplaced = true;
 
