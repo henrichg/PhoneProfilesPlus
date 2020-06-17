@@ -849,9 +849,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
                 if (event != null) {
                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                    notificationID = -(9999 + (int) event._id);
+                    notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
                 } else
-                    notificationID = -PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
+                    notificationID = PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
             } else {
                 String nTitle = context.getString(R.string.permissions_for_profile_text_notification);
                 String nText = "";
@@ -885,7 +885,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
                 if (profile != null) {
                     intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                    notificationID = 9999 + (int) profile._id;
+                    notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
                 } else
                     notificationID = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
             }

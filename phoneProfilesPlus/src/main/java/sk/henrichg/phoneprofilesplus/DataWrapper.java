@@ -576,7 +576,7 @@ public class DataWrapper {
         synchronized (profileList) {
             // remove notifications about profile parameters errors
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            notificationManager.cancel(9999 + (int) profile._id);
+            notificationManager.cancel(PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
 
             profileList.remove(profile);
         }
@@ -626,7 +626,7 @@ public class DataWrapper {
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                 Profile profile = it.next();
                 try {
-                    notificationManager.cancel(9999 + (int) profile._id);
+                    notificationManager.cancel(PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

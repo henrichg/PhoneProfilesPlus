@@ -3306,7 +3306,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
-                notificationManager.cancel(9999 + (int) profile._id);
+                notificationManager.cancel(PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -3317,7 +3317,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
-                notificationManager.cancel(-(9999 + (int) event._id));
+                notificationManager.cancel(PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -3364,7 +3364,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            notificationID = 9999 + (int) profile._id;
+            notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
         }
 
         if (event != null) {
@@ -3383,7 +3383,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            notificationID = -(9999 + (int) event._id);
+            notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
         }
 
         intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);

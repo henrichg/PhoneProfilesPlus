@@ -63,8 +63,6 @@ class PhoneStateScanner extends PhoneStateListener {
     static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
     static final String NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
 
-    static final int NEW_MOBILE_CELLS_NOTIFICATION_ID = 5000000;
-
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
 
     //static MobileCellsRegistrationService autoRegistrationService = null;
@@ -936,7 +934,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         if (mNotificationManager != null) {
                             StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
                             for (StatusBarNotification notification : notifications) {
-                                if (notification.getId() == _registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID) {
+                                if (notification.getId() == _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
                                     isShown = true;
                                     break;
                                 }
@@ -973,7 +971,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         // add action button to disable not used cells detection
                         Intent disableDetectionIntent = new Intent(NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
-                        disableDetectionIntent.putExtra("notificationId", _registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID);
+                        disableDetectionIntent.putExtra("notificationId", _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID);
                         PendingIntent pDisableDetectionIntent = PendingIntent.getBroadcast(context, 0, disableDetectionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                                 R.drawable.ic_action_exit_app_white,
@@ -997,7 +995,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         NotificationManagerCompat _mNotificationManager = NotificationManagerCompat.from(context);
                         try {
                             //_mNotificationManager.cancel(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID);
-                            _mNotificationManager.notify(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
+                            _mNotificationManager.notify(_registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
                         } catch (Exception e) {
                             Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
