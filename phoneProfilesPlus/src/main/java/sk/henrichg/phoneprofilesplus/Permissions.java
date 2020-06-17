@@ -2074,12 +2074,14 @@ class Permissions {
         try {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
-                notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_TAG, PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+                notificationManager.cancel(
+                        PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_TAG,
+                        PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
                 //if (Build.VERSION.SDK_INT >= 23) {
                 StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
                 for (StatusBarNotification notification : notifications) {
                     String tag = notification.getTag();
-                    if (tag.contains(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_TAG+"_")) {
+                    if ((tag != null) && tag.contains(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_TAG+"_")) {
                         if (notification.getId() >= PPApplication.PROFILE_ID_NOTIFICATION_ID) {
                             notificationManager.cancel(notification.getTag(), notification.getId());
                         }
@@ -2121,12 +2123,14 @@ class Permissions {
         try {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
-                notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_TAG, PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+                notificationManager.cancel(
+                        PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_TAG,
+                        PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
                 //if (Build.VERSION.SDK_INT >= 23) {
                 StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
                 for (StatusBarNotification notification : notifications) {
                     String tag = notification.getTag();
-                    if (tag.contains(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_TAG+"_")) {
+                    if ((tag != null) && tag.contains(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_TAG+"_")) {
                         if (notification.getId() >= PPApplication.EVENT_ID_NOTIFICATION_ID) {
                             notificationManager.cancel(notification.getTag(), notification.getId());
                         }

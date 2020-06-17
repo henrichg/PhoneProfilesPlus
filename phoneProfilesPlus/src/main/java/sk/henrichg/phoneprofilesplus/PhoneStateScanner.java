@@ -935,7 +935,8 @@ class PhoneStateScanner extends PhoneStateListener {
                         if (mNotificationManager != null) {
                             StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
                             for (StatusBarNotification notification : notifications) {
-                                if (notification.getTag().contains(PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG+"_")) {
+                                String tag = notification.getTag();
+                                if ((tag != null) && tag.contains(PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG+"_")) {
                                     if (notification.getId() == _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID) {
                                         isShown = true;
                                         break;
