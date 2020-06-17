@@ -3252,6 +3252,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preferenceCategory.removePreference(preference);
                     }
                 } else {
+                    //PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "profile._id="+profile._id);
                     Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference("rootScreen");
@@ -3259,7 +3260,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference = new Preference(context);
                             preference.setKey(PRF_GRANT_PERMISSIONS);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                            if (profile._id > 0)
+                                preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                            else
+                                preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -3275,15 +3279,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
-                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                            @Override
-                            public boolean onPreferenceClick(Preference preference) {
-                                //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
-                                Permissions.grantProfilePermissions(activity, profile/*, false, false,*/
-                                        /*true, false, 0,*/ /*PPApplication.STARTUP_SOURCE_EDITOR, false, false, true*/);
-                                return false;
-                            }
-                        });
+                        if (profile._id > 0) {
+                            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                                @Override
+                                public boolean onPreferenceClick(Preference preference) {
+                                    //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
+                                    Permissions.grantProfilePermissions(activity, profile/*, false, false,*/
+                                            /*true, false, 0,*/ /*PPApplication.STARTUP_SOURCE_EDITOR, false, false, true*/);
+                                    return false;
+                                }
+                            });
+                        }
                     }
                 }
 

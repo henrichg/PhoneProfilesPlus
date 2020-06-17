@@ -1492,6 +1492,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else {
+                //PPApplication.logE("EventsPrefsFragment.setRedTextToPreferences", "event._id=" + event._id);
                 Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference("rootScreen");
@@ -1499,7 +1500,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference = new Preference(context);
                         preference.setKey(PRF_GRANT_PERMISSIONS);
                         preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                        if (event._id > 0)
+                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                        else
+                            preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
                         preference.setOrder(-98);
                         preferenceCategory.addPreference(preference);
@@ -1518,13 +1522,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                     preference.setSummary(summary);
 
-                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            Permissions.grantEventPermissions(activity, event/*, false, true*/);
-                            return false;
-                        }
-                    });
+                    if (event._id > 0) {
+                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                            @Override
+                            public boolean onPreferenceClick(Preference preference) {
+                                Permissions.grantEventPermissions(activity, event/*, false, true*/);
+                                return false;
+                            }
+                        });
+                    }
                 }
             }
 
