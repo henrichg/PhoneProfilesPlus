@@ -580,7 +580,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //}
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
-            mNotificationManager.notify(PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
+            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_GEOFENCE_SCANNER_ERROR_NOTIFICATION", PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
             Log.e("GeofencesScanner.showErrorNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

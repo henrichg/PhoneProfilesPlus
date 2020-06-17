@@ -2564,7 +2564,7 @@ class ActivateProfileHelper {
                         String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                         String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                                 appContext.getString(R.string.profile_preferences_deviceMobileDataPrefs);
-                        showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
+                        showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION");
                     }
                 }
             }
@@ -2589,7 +2589,7 @@ class ActivateProfileHelper {
                     String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                     String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                             appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION");
                 }
             }
         }
@@ -2614,7 +2614,7 @@ class ActivateProfileHelper {
                     String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                     String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                             appContext.getString(R.string.profile_preferences_deviceLocationServicePrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION");
                 }
             }
         }
@@ -2638,7 +2638,7 @@ class ActivateProfileHelper {
                     String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
                     String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
                             appContext.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent, PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID, PPApplication.PACKAGE_NAME+"_PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION");
                 }
             }
         }
@@ -3132,7 +3132,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId) {
+    private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId, String notificationTag) {
         Context appContext = context.getApplicationContext();
 
         String nTitle = title;
@@ -3164,7 +3164,7 @@ class ActivateProfileHelper {
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {
-            mNotificationManager.notify(notificationId, notification);
+            mNotificationManager.notify(notificationTag, notificationId, notification);
         } catch (Exception e) {
             Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplication.recordException(e);

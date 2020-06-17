@@ -782,7 +782,9 @@ public class EditorEventListFragment extends Fragment
             // remove notifications about event parameters errors
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
             try {
-                notificationManager.cancel(PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
+                notificationManager.cancel(
+                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id,
+                        PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -921,7 +923,9 @@ public class EditorEventListFragment extends Fragment
                         for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                             Event event = it.next();
                             try {
-                                notificationManager.cancel(PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
+                                notificationManager.cancel(
+                                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id,
+                                        PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }

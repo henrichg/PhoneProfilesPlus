@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Process;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -2069,9 +2071,25 @@ class Permissions {
 
     static void removeProfileNotification(Context context)
     {
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
-            notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                notificationManager.cancel(PPApplication.PACKAGE_NAME+"_GRANT_PROFILE_PERMISSIONS_NOTIFICATION", PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+                //if (Build.VERSION.SDK_INT >= 23) {
+                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    String tag = notification.getTag();
+                    if (tag.contains(PPApplication.PACKAGE_NAME+"_GRANT_PROFILE_PERMISSION_NOTIFICATION_")) {
+                        if (notification.getId() >= PPApplication.PROFILE_ID_NOTIFICATION_ID) {
+                            notificationManager.cancel(notification.getTag(), notification.getId());
+                        }
+                    }
+                }
+            /*} else {
+                int notificationId = intent.getIntExtra("notificationId", 0);
+                manager.cancel(notificationId);
+            }*/
+            }
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -2090,7 +2108,7 @@ class Permissions {
     {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
-            notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION", PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -2098,9 +2116,33 @@ class Permissions {
 
     static void removeEventNotification(Context context)
     {
+        try {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                notificationManager.cancel(PPApplication.PACKAGE_NAME+"_GRANT_EVENT_PERMISSIONS_NOTIFICATION", PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+                //if (Build.VERSION.SDK_INT >= 23) {
+                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    String tag = notification.getTag();
+                    if (tag.contains(PPApplication.PACKAGE_NAME+"_GRANT_EVENT_PERMISSION_NOTIFICATION_")) {
+                        if (notification.getId() >= PPApplication.EVENT_ID_NOTIFICATION_ID) {
+                            notificationManager.cancel(notification.getTag(), notification.getId());
+                        }
+                    }
+                }
+            /*} else {
+                int notificationId = intent.getIntExtra("notificationId", 0);
+                manager.cancel(notificationId);
+            }*/
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
+
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
-            notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_GRANT_EVENT_PERMISSIONS_NOTIFICATION", PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -2119,7 +2161,7 @@ class Permissions {
     {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
-            notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_GRANT_PROFILE_PERMISSIONS_NOTIFICATION", PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -2129,12 +2171,12 @@ class Permissions {
         //    PPApplication.recordException(e);
         //}
         try {
-            notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION", PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
         try {
-            notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_GRANT_EVENT_PERMISSIONS_NOTIFICATION", PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

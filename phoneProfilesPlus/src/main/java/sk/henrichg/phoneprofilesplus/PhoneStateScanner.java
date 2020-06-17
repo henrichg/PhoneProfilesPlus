@@ -226,7 +226,8 @@ class PhoneStateScanner extends PhoneStateListener {
                         mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
-                            mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID, mBuilder.build());
+                            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION",
+                                                PPApplication.LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID, mBuilder.build());
                         }
 
                         setShowEnableLocationNotification(context, false);
@@ -995,7 +996,9 @@ class PhoneStateScanner extends PhoneStateListener {
                         NotificationManagerCompat _mNotificationManager = NotificationManagerCompat.from(context);
                         try {
                             //_mNotificationManager.cancel(_registeredCell + NEW_MOBILE_CELLS_NOTIFICATION_ID);
-                            _mNotificationManager.notify(_registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID, mBuilder.build());
+                            _mNotificationManager.notify(
+                                    PPApplication.PACKAGE_NAME+"_NEW_MOBILE_CELLS_NOTIFICATION_" + registeredCell,
+                                    PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + _registeredCell, mBuilder.build());
                         } catch (Exception e) {
                             Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
                             PPApplication.recordException(e);

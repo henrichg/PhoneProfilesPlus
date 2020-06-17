@@ -3306,7 +3306,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
-                notificationManager.cancel(PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+                notificationManager.cancel(
+                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_"+profile._id,
+                        PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -3317,7 +3319,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
-                notificationManager.cancel(PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
+                notificationManager.cancel(
+                        PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id,
+                        PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -3326,6 +3330,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
 
         int notificationID = 0;
+        String notificationTag = null;
 
         String nTitle = "";
         String nText = "";
@@ -3365,6 +3370,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
+            notificationTag = PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_"+profile._id;
         }
 
         if (event != null) {
@@ -3384,6 +3390,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
+            notificationTag = PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_"+event._id;
         }
 
         intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
@@ -3409,7 +3416,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         try {
             // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
             // mNotificationManager.cancel(notificationID);
-            mNotificationManager.notify(notificationID, mBuilder.build());
+            mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
         } catch (Exception e) {
             Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

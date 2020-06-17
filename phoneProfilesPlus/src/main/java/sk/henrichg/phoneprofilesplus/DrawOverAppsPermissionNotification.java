@@ -97,7 +97,7 @@ class DrawOverAppsPermissionNotification {
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
-            mNotificationManager.notify(PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
+            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_DRAW_OVER_APPS_NOTIFICATION", PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
             Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -108,7 +108,7 @@ class DrawOverAppsPermissionNotification {
     {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
-            notificationManager.cancel(PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_DRAW_OVER_APPS_NOTIFICATION", PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

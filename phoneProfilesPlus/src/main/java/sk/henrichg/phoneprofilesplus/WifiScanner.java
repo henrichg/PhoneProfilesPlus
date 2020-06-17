@@ -515,7 +515,8 @@ class WifiScanner {
                         mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
-                            mNotificationManager.notify(PPApplication.LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID, mBuilder.build());
+                            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION",
+                                                        PPApplication.LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID, mBuilder.build());
                         }
 
                         setShowEnableLocationNotification(context, false, scanType);

@@ -195,7 +195,7 @@ class ImportantInfoNotification {
         //}
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
-            mNotificationManager.notify(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
+            mNotificationManager.notify(PPApplication.PACKAGE_NAME+"_IMPORTANT_INFO_NOTIFICATION", PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
             Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -206,7 +206,7 @@ class ImportantInfoNotification {
     {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
-            notificationManager.cancel(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.PACKAGE_NAME+"_IMPORTANT_INFO_NOTIFICATION", PPApplication.IMPORTANT_INFO_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
