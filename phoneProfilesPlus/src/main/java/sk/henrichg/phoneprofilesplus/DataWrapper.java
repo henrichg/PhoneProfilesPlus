@@ -2513,8 +2513,8 @@ public class DataWrapper {
     static boolean getIsManualProfileActivation(boolean afterDuration/*, Context context*/)
     {
         /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "getEventsBlocked()=" + Event.getEventsBlocked(context));
-            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "getForceRunEventRunning()=" + Event.getForceRunEventRunning(context));
+            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "ApplicationPreferences.prefEventsBlocked=" + ApplicationPreferences.prefEventsBlocked);
+            PPApplication.logE("DataWrapper.getIsManualProfileActivation", "ApplicationPreferences.prefForceRunEventRunning=" + ApplicationPreferences.prefForceRunEventRunning);
         }*/
         if (afterDuration)
             return ApplicationPreferences.prefEventsBlocked;
