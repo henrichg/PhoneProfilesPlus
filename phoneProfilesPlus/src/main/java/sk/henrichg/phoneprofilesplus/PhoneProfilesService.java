@@ -329,7 +329,8 @@ public class PhoneProfilesService extends Service
             cancelWork("elapsedAlarmsShowProfileNotificationWork");
             cancelWork("elapsedAlarmsUpdateGUIWork");
         }
-        //cancelWork("avoidRescheduleReceiverWorker"); // do not cancel
+        if (!atStart)
+            cancelWork("avoidRescheduleReceiverWorker");
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
             cancelWork(tag);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
