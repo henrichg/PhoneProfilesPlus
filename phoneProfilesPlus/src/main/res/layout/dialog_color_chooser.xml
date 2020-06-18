@@ -21,317 +21,355 @@
             android:layout_height="wrap_content"
             android:scrollbarStyle="outsideOverlay" >
 
-            <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/dialog_color_chooser_grid"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                app:columnCount="4"
-                app:rowCount="5"
-                app:orientation="vertical"
-                android:clipToPadding="false">
+                android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/dialog_color_chooser_grid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    app:columnCount="4"
+                    app:rowCount="5"
+                    app:orientation="vertical"
+                    android:clipToPadding="false">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check_dark"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription"/>
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check_dark"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription"/>
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check_dark"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check_dark"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check_dark"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check_dark"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check_dark"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check_dark"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check_dark"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check_dark"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    tools:background="#000">
+                    </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_check"
-                        android:layout_gravity="center"
-                        tools:ignore="ContentDescription" />
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="4dp"
+                        tools:background="#000">
 
-                </FrameLayout>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_check"
+                            android:layout_gravity="center"
+                            tools:ignore="ContentDescription" />
 
-            </androidx.gridlayout.widget.GridLayout>
+                    </FrameLayout>
+
+                </androidx.gridlayout.widget.GridLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/dialog_color_chooser_custom_color"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:padding="10dp"
+                        android:layout_marginStart="14dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_check"
+                            tools:ignore="ContentDescription" />
+                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/dialog_color_chooser_custom_color_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/colorChooser_pref_dialog_customColor"
+                        android:textSize="15sp"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </HorizontalScrollView>
     </ScrollView>

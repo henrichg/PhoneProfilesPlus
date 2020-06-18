@@ -1534,6 +1534,7 @@
     <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
 
     <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
+    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
 
     <!-- **************************************************************************************** -->
 
