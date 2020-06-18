@@ -1211,3 +1211,12 @@ So, you could create a OneTimeWorkRequest with an initial delay of 10 years.
 Linky:
 https://commonsware.com/blog/2018/11/24/workmanager-app-widgets-side-effects.html
 https://issuetracker.google.com/issues/115575872#comment4
+
+----------------------
+
+Pridanie custom farby pre preferences:
+- applicationSamsungEdgeBackgroundColor
+- applicationWidgetIconBackgroundColor
+- applicationWidgetListBackgroundColor
+- applicationWidgetOneRowBackgroundColor
+- ProfileIconColorChooserDialogX
