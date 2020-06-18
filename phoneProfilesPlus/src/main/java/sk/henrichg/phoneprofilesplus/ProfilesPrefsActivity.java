@@ -362,7 +362,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._alwaysOnDisplay,
                         origProfile._screenOnPermanent,
                         origProfile._volumeMuteSound,
-                        origProfile._deviceGPS);
+                        origProfile._deviceLocationMode);
                 showSaveMenu = true;
             }
             else

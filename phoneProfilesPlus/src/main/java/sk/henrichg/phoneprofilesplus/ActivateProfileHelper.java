@@ -464,6 +464,32 @@ class ActivateProfileHelper {
             }
         }
 
+        // setup location mode
+        if (profile._deviceLocationMode != 0) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode");
+
+                switch (profile._deviceLocationMode) {
+                    case 1:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 1");
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
+                        break;
+                    case 2:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 2");
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
+                        break;
+                    case 3:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 3");
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
+                        break;
+                    case 4:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 4");
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+                        break;
+                }
+            }
+        }
+
         // setup GPS
         if (profile._deviceGPS != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4348,89 +4374,38 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setLocationMode(Context context, boolean enable)
+    private static void setLocationMode(Context context, int mode)
     {
         Context appContext = context.getApplicationContext();
 
-        //boolean isEnabled;
-        //int locationMode = -1;
-        //if (android.os.Build.VERSION.SDK_INT < 19)
-        //    isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
-        /*else {
-            locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, -1);
-            isEnabled = (locationMode == Settings.Secure.LOCATION_MODE_HIGH_ACCURACY) ||
-                        (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
+        //PPApplication.logE("ActivateProfileHelper.setLocationMode", "mode="+mode);
+
+        // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
+        if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+            Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
+        }
+        /*else
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
+        {
+            // device is rooted - NOT WORKING
+            PPApplication.logE("ActivateProfileHelper.setLocationMode", "rooted");
+
+            String command1;
+
+            synchronized (PPApplication.rootMutex) {
+                command1 = "settings put secure location_mode " + mode;
+                Command command = new Command(0, false, command1);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode");
+                } catch (Exception e) {
+                    // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                    //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                }
+            }
         }*/
-
-        boolean isEnabled;
-        try {
-            int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-            isEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
-        } catch (Exception e) {
-            return;
-        }
-
-        //PPApplication.logE("ActivateProfileHelper.setLocationMode", "isEnabled="+isEnabled);
-
-        if ((!isEnabled) && enable)
-        {
-            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
-            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE,  Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
-            }
-            /*else
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
-            {
-                // device is rooted - NOT WORKING
-                PPApplication.logE("ActivateProfileHelper.setLocationMode", "rooted (1)");
-
-                String command1;
-
-                synchronized (PPApplication.rootMutex) {
-                    command1 = "settings put secure location_mode " + Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
-                    Command command = new Command(0, false, command1);
-                    try {
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode (1)");
-                    } catch (Exception e) {
-                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
-                        //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    }
-                }
-            }*/
-        }
-        else
-        if (isEnabled && (!enable))
-        {
-            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
-            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE,  Settings.Secure.LOCATION_MODE_OFF);
-            }
-            /*else
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
-            {
-                // device is rooted - NOT WORKING
-                PPApplication.logE("ActivateProfileHelper.setLocationMode", "rooted (2)");
-
-                String command1;
-
-                synchronized (PPApplication.rootMutex) {
-                    command1 = "settings put secure location_mode " + Settings.Secure.LOCATION_MODE_OFF;
-                    Command command = new Command(0, false, command1);
-                    try {
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode (2)");
-                    } catch (Exception e) {
-                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
-                        //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    }
-                }
-            }*/
-        }
     }
 
     private static void setPowerSaveMode(final Profile profile, Context context) {

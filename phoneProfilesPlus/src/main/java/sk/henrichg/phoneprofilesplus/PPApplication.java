@@ -122,6 +122,7 @@ public class PPApplication extends Application
                                                 +"|ShutdownBroadcastReceiver"
 
                                                 +"|ActivateProfileHelper.setLocationMode"
+                                                +"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"
 
                                                 //+"|PhoneProfilesService.cancelBackgroundScanningWorker"
                                                 //+"|PhoneProfilesService.scheduleBackgroundScanningWorker"

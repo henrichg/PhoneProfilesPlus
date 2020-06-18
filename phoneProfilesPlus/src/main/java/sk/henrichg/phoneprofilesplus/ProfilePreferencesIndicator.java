@@ -300,6 +300,19 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // location mode
+            if (profile._deviceLocationMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._deviceLocationMode > 1)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_on;
+                    if (profile._deviceLocationMode == 1) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off;
+                    }
+                }
+            }
             // gps
             if (profile._deviceGPS != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -800,6 +813,16 @@ class ProfilePreferencesIndicator {
                         indicator1 = addIntoIndicator(indicator1, "blt:1", maxLineLength);
                     if (profile._deviceBluetooth == 2)
                         indicator1 = addIntoIndicator(indicator1, "blt:0", maxLineLength);
+                }
+            }
+            // location mode
+            if (profile._deviceLocationMode != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (profile._deviceLocationMode > 1)
+                        indicator1 = addIntoIndicator(indicator1, "lom:1", maxLineLength);
+                    if (profile._deviceLocationMode == 1) {
+                        indicator1 = addIntoIndicator(indicator1, "lom:0", maxLineLength);
+                    }
                 }
             }
             // gps
