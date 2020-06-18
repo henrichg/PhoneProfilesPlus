@@ -31,6 +31,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         PhoneProfilesService.cancelAllWorks(true);
 
+        // https://issuetracker.google.com/issues/115575872#comment16
         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "avoidRescheduleReceiverWorker START of enqueue");
         PhoneProfilesService.cancelWork("avoidRescheduleReceiverWorker");
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
