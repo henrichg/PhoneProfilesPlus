@@ -15,8 +15,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -489,17 +487,21 @@ class ActivateProfileHelper {
                         case 1:
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS 1");
                             setGPS(appContext, true);
+                            //setLocationMode(appContext, true);
                             break;
                         case 2:
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS 2");
                             setGPS(appContext, false);
+                            //setLocationMode(appContext, false);
                             break;
                         case 3:
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS 3");
                             if (!isEnabled) {
                                 setGPS(appContext, true);
+                                //setLocationMode(appContext, true);
                             } else {
                                 setGPS(appContext, false);
+                                //setLocationMode(appContext, false);
                             }
                             break;
                     }
@@ -4197,6 +4199,7 @@ class ActivateProfileHelper {
         }
     }
 
+    /*
     static boolean canExploitGPS(Context context)
     {
         Context appContext = context.getApplicationContext();
@@ -4218,6 +4221,7 @@ class ActivateProfileHelper {
         }
         return false;
     }
+    */
 
     private static void setGPS(Context context, boolean enable)
     {
@@ -4235,15 +4239,11 @@ class ActivateProfileHelper {
 
         boolean isEnabled = false;
         boolean ok = true;
-        /*if (android.os.Build.VERSION.SDK_INT < 19)
-            isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
-        else {*/
-            LocationManager locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
-            if (locationManager != null)
-                isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            else
-                ok = false;
-        //}
+        LocationManager locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null)
+            isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        else
+            ok = false;
         if (!ok)
             return;
 
@@ -4255,15 +4255,7 @@ class ActivateProfileHelper {
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 String newSet;
-                /*if (android.os.Build.VERSION.SDK_INT < 23) {
-                    String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                    if (provider.equals(""))
-                        newSet = LocationManager.GPS_PROVIDER;
-                    else
-                        newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
-                }
-                else*/
-                    newSet = "+gps";
+                newSet = "+gps";
                 //noinspection deprecation
                 Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
@@ -4275,57 +4267,25 @@ class ActivateProfileHelper {
                 //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
                 String command1;
-                //String command2;
 
-                /*if (android.os.Build.VERSION.SDK_INT < 23) {
-                    String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                    //PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-
-                    String newSet;
-                    if (provider.isEmpty())
-                        newSet = LocationManager.GPS_PROVIDER;
-                    else
-                        newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
-                    //PPApplication.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
-
-                    synchronized (PPApplication.rootMutex) {
-                        command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
-                        //if (PPApplication.isSELinuxEnforcing())
-                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-
-                        //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state true";
-                        Command command = new Command(0, false, command1); //, command2);
-                        try {
-                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command);
-                        } catch (Exception e) {
-                            // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
-                            //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
-                            //PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
-                        }
-                    }
-                }
-                else*/ {
-                    /*
-                    String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                    PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-                    */
-                    synchronized (PPApplication.rootMutex) {
-                        command1 = "settings put secure location_providers_allowed +gps";
-                        Command command = new Command(0, false, command1);
-                        try {
-                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (1)");
-                        } catch (Exception e) {
-                            // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
-                            //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
-                        }
+                /*
+                String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
+                */
+                synchronized (PPApplication.rootMutex) {
+                    command1 = "settings put secure location_providers_allowed +gps";
+                    Command command = new Command(0, false, command1);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (1)");
+                    } catch (Exception e) {
+                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                        //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                        //PPApplication.recordException(e);
                     }
                 }
             }
-            else
+            /*else
             if (canExploitGPS(appContext))
             {
                 //PPApplication.logE("ActivateProfileHelper.setGPS", "exploit");
@@ -4335,24 +4295,7 @@ class ActivateProfileHelper {
                 poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
                 poke.setData(Uri.parse("3"));
                 appContext.sendBroadcast(poke);
-            }
-            //else
-            //{
-                /*PPApplication.logE("ActivateProfileHelper.setGPS", "old method");
-
-                try {
-                    Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
-                    intent.putExtra("enabled", enable);
-                    context.sendBroadcast(intent);
-                } catch (SecurityException e) {
-                    Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                }*/
-
-                // for normal apps it is only possible to open the system settings dialog
-            /*	Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent); */
-            //}
+            }*/
         }
         else
         //if(provider.contains(LocationManager.GPS_PROVIDER) && (!enable))
@@ -4361,23 +4304,7 @@ class ActivateProfileHelper {
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 String newSet;// = "";
-                /*if (android.os.Build.VERSION.SDK_INT < 23) {
-                    String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                    String[] list = provider.split(",");
-                    int j = 0;
-                    for (String aList : list) {
-                        if (!aList.equals(LocationManager.GPS_PROVIDER)) {
-                            if (j > 0)
-                                //noinspection StringConcatenationInLoop
-                                newSet += ",";
-                            //noinspection StringConcatenationInLoop
-                            newSet += aList;
-                            j++;
-                        }
-                    }
-                }
-                else*/
-                    newSet = "-gps";
+                newSet = "-gps";
                 //noinspection deprecation
                 Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
@@ -4389,66 +4316,25 @@ class ActivateProfileHelper {
                 //PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
 
                 String command1;
-                //String command2;
 
-                /*if (android.os.Build.VERSION.SDK_INT < 23) {
-                    String provider = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                    //PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-
-                    String[] list = provider.split(",");
-
-                    String newSet = "";
-                    int j = 0;
-                    for (String aList : list) {
-
-                        if (!aList.equals(LocationManager.GPS_PROVIDER)) {
-                            if (j > 0)
-                                //noinspection StringConcatenationInLoop
-                                newSet += ",";
-                            //noinspection StringConcatenationInLoop
-                            newSet += aList;
-                            j++;
-                        }
-                    }
-                    //PPApplication.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
-
-                    synchronized (PPApplication.rootMutex) {
-                        command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
-                        //if (PPApplication.isSELinuxEnforcing())
-                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                        //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state false";
-                        Command command = new Command(0, false, command1);//, command2);
-                        try {
-                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command);
-                        } catch (Exception e) {
-                            // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
-                            //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
-                            //PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
-                        }
-                    }
-                }
-                else*/ {
-                    /*
-                    String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-                    PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
-                    */
-                    synchronized (PPApplication.rootMutex) {
-                        command1 = "settings put secure location_providers_allowed -gps";
-                        Command command = new Command(0, false, command1);
-                        try {
-                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (2)");
-                        } catch (Exception e) {
-                            // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
-                            //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
-                        }
+                /*
+                String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                PPApplication.logE("ActivateProfileHelper.setGPS", "provider="+provider);
+                */
+                synchronized (PPApplication.rootMutex) {
+                    command1 = "settings put secure location_providers_allowed -gps";
+                    Command command = new Command(0, false, command1);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (2)");
+                    } catch (Exception e) {
+                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                        //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
+                        //PPApplication.recordException(e);
                     }
                 }
             }
-            else
+            /*else
             if (canExploitGPS(appContext))
             {
                 //PPApplication.logE("ActivateProfileHelper.setGPS", "exploit");
@@ -4458,36 +4344,94 @@ class ActivateProfileHelper {
                 poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
                 poke.setData(Uri.parse("3"));
                 appContext.sendBroadcast(poke);
-            }
-            //else
-            //{
-                //PPApplication.logE("ActivateProfileHelper.setGPS", "old method");
-
-                /*try {
-                    Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
-                    intent.putExtra("enabled", enable);
-                    context.sendBroadcast(intent);
-                } catch (SecurityException e) {
-                    Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
-                }*/
-
-                // for normal apps it is only possible to open the system settings dialog
-            /*	Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent); */
-            //}
-        }	    	
+            }*/
+        }
     }
 
-    /*
-    private void setAirplaneMode_SDK8(Context context, boolean mode)
+    private static void setLocationMode(Context context, boolean enable)
     {
-        Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, mode ? 1 : 0);
-        Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-        intent.putExtra("state", mode);
-        context.sendBroadcast(intent);
+        Context appContext = context.getApplicationContext();
+
+        //boolean isEnabled;
+        //int locationMode = -1;
+        //if (android.os.Build.VERSION.SDK_INT < 19)
+        //    isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
+        /*else {
+            locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, -1);
+            isEnabled = (locationMode == Settings.Secure.LOCATION_MODE_HIGH_ACCURACY) ||
+                        (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
+        }*/
+
+        boolean isEnabled;
+        try {
+            int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+            isEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
+        } catch (Exception e) {
+            return;
+        }
+
+        //PPApplication.logE("ActivateProfileHelper.setLocationMode", "isEnabled="+isEnabled);
+
+        if ((!isEnabled) && enable)
+        {
+            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
+            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE,  Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+            }
+            /*else
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
+            {
+                // device is rooted - NOT WORKING
+                PPApplication.logE("ActivateProfileHelper.setLocationMode", "rooted (1)");
+
+                String command1;
+
+                synchronized (PPApplication.rootMutex) {
+                    command1 = "settings put secure location_mode " + Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
+                    Command command = new Command(0, false, command1);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode (1)");
+                    } catch (Exception e) {
+                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                        //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    }
+                }
+            }*/
+        }
+        else
+        if (isEnabled && (!enable))
+        {
+            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
+            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE,  Settings.Secure.LOCATION_MODE_OFF);
+            }
+            /*else
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false)))
+            {
+                // device is rooted - NOT WORKING
+                PPApplication.logE("ActivateProfileHelper.setLocationMode", "rooted (2)");
+
+                String command1;
+
+                synchronized (PPApplication.rootMutex) {
+                    command1 = "settings put secure location_mode " + Settings.Secure.LOCATION_MODE_OFF;
+                    Command command = new Command(0, false, command1);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode (2)");
+                    } catch (Exception e) {
+                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                        //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    }
+                }
+            }*/
+        }
     }
-    */
 
     private static void setPowerSaveMode(final Profile profile, Context context) {
         if (profile._devicePowerSaveMode != 0) {

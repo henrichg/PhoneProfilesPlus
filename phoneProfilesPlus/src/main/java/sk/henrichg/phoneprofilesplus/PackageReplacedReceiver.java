@@ -20,6 +20,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
+        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
+
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         if (jobScheduler != null) {
             int size = jobScheduler.getAllPendingJobs().size();

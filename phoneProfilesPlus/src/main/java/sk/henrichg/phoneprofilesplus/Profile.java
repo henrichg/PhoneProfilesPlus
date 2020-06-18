@@ -3534,11 +3534,11 @@ public class Profile {
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-                else
+                /*else
                 if (ActivateProfileHelper.canExploitGPS(appContext))
                 {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
+                }*/
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                     if ((profile != null) && (profile._deviceGPS != 0))
