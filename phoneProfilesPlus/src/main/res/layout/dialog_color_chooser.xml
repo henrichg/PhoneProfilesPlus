@@ -360,8 +360,9 @@
                     <TextView
                         android:id="@+id/dialog_color_chooser_custom_color_label"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:text="@string/colorChooser_pref_dialog_customColor"
                         android:textSize="15sp"
