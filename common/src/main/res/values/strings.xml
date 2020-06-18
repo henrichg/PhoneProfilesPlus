@@ -1527,6 +1527,12 @@
 
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
 
+    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
+    <string name="array_pref_locationModeArray_off">Off</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
+    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
+    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

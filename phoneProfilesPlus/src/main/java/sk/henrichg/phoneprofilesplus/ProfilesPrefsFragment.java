@@ -1740,6 +1740,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, R.string.profile_preferences_deviceLocationMode, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE)),
+                        R.array.locationModeValues, R.array.locationModeArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_GPS, R.string.profile_preferences_deviceGPS, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -2432,6 +2444,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_GPS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NFC) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
@@ -2904,6 +2917,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_BLUETOOTH);
         setSummary(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
         setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA);
+        setSummary(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE);
         setSummary(Profile.PREF_PROFILE_DEVICE_GPS);
         setSummary(Profile.PREF_PROFILE_DEVICE_AUTOSYNC);
         setSummary(Profile.PREF_PROFILE_DEVICE_AUTOROTATE);

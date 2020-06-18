@@ -101,6 +101,7 @@ public class Profile {
     int _alwaysOnDisplay;
     int _screenOnPermanent;
     boolean _volumeMuteSound;
+    int _deviceLocationMode;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -183,6 +184,7 @@ public class Profile {
     static final String PREF_PROFILE_ALWAYS_ON_DISPLAY = "prf_pref_alwaysOnDisplay";
     static final String PREF_PROFILE_SCREEN_ON_PERMANENT = "prf_pref_screenOnPermanent";
     static final String PREF_PROFILE_VOLUME_MUTE_SOUND = "prf_pref_volumeMuteSound";
+    static final String PREF_PROFILE_DEVICE_LOCATION_MODE = "prf_pref_deviceLocationMode";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -265,6 +267,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_afterDurationProfile", String.valueOf(PROFILE_NO_ACTIVATE));
         defaultValuesString.put("prf_pref_alwaysOnDisplay", "0");
         defaultValuesString.put("prf_pref_screenOnPermanent", "0");
+        defaultValuesString.put("prf_pref_deviceLocationMode", "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -810,7 +813,8 @@ public class Profile {
                    long afterDurationProfile,
                    int alwaysOnDisplay,
                    int screenOnPermanent,
-                   boolean volumeMuteSound)
+                   boolean volumeMuteSound,
+                   int deviceLocationMode)
     {
         this._id = id;
         this._name = name;
@@ -886,6 +890,7 @@ public class Profile {
         this._alwaysOnDisplay = alwaysOnDisplay;
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
+        this._deviceLocationMode = deviceLocationMode;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -966,7 +971,8 @@ public class Profile {
                    long afterDurationProfile,
                    int alwaysOnDisplay,
                    int screenOnPermanent,
-                   boolean volumeMuteSound)
+                   boolean volumeMuteSound,
+                   int deviceLocationMode)
     {
         this._name = name;
         this._icon = icon;
@@ -1041,6 +1047,7 @@ public class Profile {
         this._alwaysOnDisplay = alwaysOnDisplay;
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
+        this._deviceLocationMode = deviceLocationMode;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1123,6 +1130,7 @@ public class Profile {
         this._alwaysOnDisplay = profile._alwaysOnDisplay;
         this._screenOnPermanent = profile._screenOnPermanent;
         this._volumeMuteSound = profile._volumeMuteSound;
+        this._deviceLocationMode = profile._deviceLocationMode;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1383,6 +1391,8 @@ public class Profile {
                     this._alwaysOnDisplay = withProfile._alwaysOnDisplay;
                 if (withProfile._screenOnPermanent != 0)
                     this._screenOnPermanent = withProfile._screenOnPermanent;
+                if (withProfile._deviceLocationMode != 0)
+                    this._deviceLocationMode = withProfile._deviceLocationMode;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -1694,9 +1704,12 @@ public class Profile {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_screenOnPermanent");
                 return false;
             }
-
             if (this._volumeMuteSound != withProfile._volumeMuteSound) {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_volumeMuteSound");
+                return false;
+            }
+            if (this._deviceLocationMode != withProfile._deviceLocationMode) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceLocationMode");
                 return false;
             }
 
@@ -2942,6 +2955,7 @@ public class Profile {
         profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
         profile._screenOnPermanent = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_ON_PERMANENT, "0"));
         profile._volumeMuteSound = preferences.getBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
+        profile._deviceLocationMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_MODE, "0"));
 
         return profile;
     }
@@ -3016,6 +3030,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_ALWAYS_ON_DISPLAY, String.valueOf(profile._alwaysOnDisplay));
         editor.putString(PREF_PROFILE_SCREEN_ON_PERMANENT, String.valueOf(profile._screenOnPermanent));
         editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
+        editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, String.valueOf(profile._deviceLocationMode));
 
         editor.apply();
     }
@@ -3104,7 +3119,8 @@ public class Profile {
                     profile._afterDurationProfile,
                     profile._alwaysOnDisplay,
                     profile._screenOnPermanent,
-                    profile._volumeMuteSound);
+                    profile._volumeMuteSound,
+                    profile._deviceLocationMode);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
@@ -3237,6 +3253,8 @@ public class Profile {
                 mappedProfile._alwaysOnDisplay = sharedProfile._alwaysOnDisplay;
             if (profile._screenOnPermanent == SHARED_PROFILE_VALUE)
                 mappedProfile._screenOnPermanent = sharedProfile._screenOnPermanent;
+            if (profile._deviceLocationMode == SHARED_PROFILE_VALUE)
+                mappedProfile._deviceLocationMode = sharedProfile._deviceLocationMode;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -3498,8 +3516,7 @@ public class Profile {
                 // device has gps
                 // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    if (ActivateProfileHelper.canSetMobileData(appContext))
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
                 if (PPApplication.isRooted(fromUIThread))
@@ -3547,6 +3564,60 @@ public class Profile {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                return preferenceAllowed;
+        }
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
+
+        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE))
+        {
+            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
+            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            }
+            /*else
+            if (PPApplication.isRooted(fromUIThread))
+            {
+                // device is rooted - NOT WORKING
+
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if (profile._deviceLocationMode != 0) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return preferenceAllowed;
+                        }
+                    }
+                }
+                else
+                if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return preferenceAllowed;
+                        }
+                    }
+                }
+
+                if (PPApplication.settingsBinaryExists(fromUIThread))
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+            }*/
+            else {
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                if ((profile != null) && (profile._deviceLocationMode != 0))
+                    return preferenceAllowed;
+            }
 
             //checked = true;
             if (profile == null)

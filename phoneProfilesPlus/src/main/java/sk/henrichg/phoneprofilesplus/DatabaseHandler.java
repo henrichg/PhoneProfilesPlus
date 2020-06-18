@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2423;
+    private static final int DATABASE_VERSION = 2424;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -180,6 +180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ALWAYS_ON_DISPLAY = "alwaysOnDisplay";
     private static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
     private static final String KEY_VOLUME_MUTE_SOUND = "volumeMuteSound";
+    private static final String KEY_DEVICE_LOCATION_MODE = "deviceLocationMode";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -547,7 +548,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_AFTER_DURATION_PROFILE + " INTEGER,"
                 + KEY_ALWAYS_ON_DISPLAY + " INTEGER,"
                 + KEY_SCREEN_ON_PERMANENT + " INTEGER,"
-                + KEY_VOLUME_MUTE_SOUND + " INTEGER"
+                + KEY_VOLUME_MUTE_SOUND + " INTEGER,"
+                + KEY_DEVICE_LOCATION_MODE + " INTEGER"
                 + ")";
     }
 
@@ -2762,7 +2764,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             Profile.PROFILE_NO_ACTIVATE,
                             0,
                             0,
-                            false
+                            false,
+                            0
                     );
 
                     profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2835,6 +2838,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                         values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                         values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
+                        values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
+                        values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
 
                         // updating row
                         db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3114,6 +3119,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VOLUME_MUTE_SOUND + "=0");
         }
 
+        if (oldVersion < 2424)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_LOCATION_MODE + " INTEGER");
+            if (!doMergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_LOCATION_MODE + " INTEGER");
+            }
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_LOCATION_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_LOCATION_MODE + "=0");
+        }
+
         //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -3220,6 +3236,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
                 values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
                 values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
+                values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
 
                 // Insert Row
                 if (!merged) {
@@ -3329,7 +3346,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_AFTER_DURATION_PROFILE,
                                 KEY_ALWAYS_ON_DISPLAY,
                                 KEY_SCREEN_ON_PERMANENT,
-                                KEY_VOLUME_MUTE_SOUND
+                                KEY_VOLUME_MUTE_SOUND,
+                                KEY_DEVICE_LOCATION_MODE
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3412,7 +3430,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getLong(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1
+                                cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1,
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE))
                         );
                     }
 
@@ -3515,7 +3534,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_AFTER_DURATION_PROFILE + "," +
                         KEY_ALWAYS_ON_DISPLAY + "," +
                         KEY_SCREEN_ON_PERMANENT + "," +
-                        KEY_VOLUME_MUTE_SOUND +
+                        KEY_VOLUME_MUTE_SOUND + "," +
+                        KEY_DEVICE_LOCATION_MODE +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3602,6 +3622,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._alwaysOnDisplay = cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY));
                         profile._screenOnPermanent = cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT));
                         profile._volumeMuteSound = cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1;
+                        profile._deviceLocationMode = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -3706,6 +3727,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_ALWAYS_ON_DISPLAY, profile._alwaysOnDisplay);
                 values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
                 values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
+                values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4060,7 +4082,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_AFTER_DURATION_PROFILE,
                                 KEY_ALWAYS_ON_DISPLAY,
                                 KEY_SCREEN_ON_PERMANENT,
-                                KEY_VOLUME_MUTE_SOUND
+                                KEY_VOLUME_MUTE_SOUND,
+                                KEY_DEVICE_LOCATION_MODE
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4145,7 +4168,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getLong(cursor.getColumnIndex(KEY_AFTER_DURATION_PROFILE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1
+                                cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1,
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE))
                         );
                     }
 
@@ -10152,7 +10176,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
                         KEY_DEVICE_WIFI_AP_PREFS + "," +
                         KEY_HEADS_UP_NOTIFICATIONS + "," +
-                        KEY_ALWAYS_ON_DISPLAY +
+                        KEY_ALWAYS_ON_DISPLAY + "," +
+                        KEY_DEVICE_LOCATION_MODE +
                         " FROM " + TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                         KEY_E_WIFI_ENABLED + "," +
@@ -10368,6 +10393,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_ALWAYS_ON_DISPLAY, 0);
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            }
+
+                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE)) != 0) &&
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(KEY_DEVICE_LOCATION_MODE, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                         new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
                             }
@@ -10810,7 +10843,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (exportedDBObj.getVersion() < 2402) {
                         values.put(KEY_ALWAYS_ON_DISPLAY, 0);
                     }
-
                     if (exportedDBObj.getVersion() < 2403) {
                         if ((ringerMode == 5) && (zenMode == 0)) {
                             values.remove(KEY_VOLUME_RINGER_MODE);
@@ -10819,13 +10851,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_VOLUME_ZEN_MODE, 1);
                         }
                     }
-
                     if (exportedDBObj.getVersion() < 2408) {
                         values.put(KEY_SCREEN_ON_PERMANENT, 0);
                     }
-
                     if (exportedDBObj.getVersion() < 2423) {
                         values.put(KEY_VOLUME_MUTE_SOUND, 0);
+                    }
+                    if (exportedDBObj.getVersion() < 2324) {
+                        values.put(KEY_DEVICE_LOCATION_MODE, 0);
                     }
 
                     ///////////////////////////////////////////////////////
@@ -10923,7 +10956,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Profile.PROFILE_NO_ACTIVATE,
                                 0,
                                 0,
-                                false
+                                false,
+                                0
                         );
 
                         profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -10996,6 +11030,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                             values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                             values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
+                            values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
+                            values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
 
                             // updating row
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
