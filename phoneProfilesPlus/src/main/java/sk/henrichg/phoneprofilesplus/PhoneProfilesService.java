@@ -4294,8 +4294,8 @@ public class PhoneProfilesService extends Service
                                         }
                                     }
 
-                                    // twilight
-                                    startTwilightScanner(true, true, dataWrapper);
+                                    // twilight - DO NOT RESTART BECAUSE THIS MISS ACTUAL LOCATION
+                                    //startTwilightScanner(true, false, dataWrapper);
 
                                     break;
                             }
