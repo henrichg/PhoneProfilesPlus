@@ -352,10 +352,8 @@
     <string name="pref_dlg_info_about_wildcards_3">добавьте перед этими символами \"\u005C\".</string>
     <string name="important_info_profile_settings">Некоторые настройки профиля требуют изменений в системных настройках. Эти настройки отмечены «(S)».</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Доступ к уведомлениям</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Для активации параметра \"Типы режима оповещения\" включите службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\".</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Важные с вибросигналом</string>
     <string name="important_info_news">Новости</string>
-    <string name="important_info_profile_zenMode">Для установки значения \"Режимы оповещения\" в разделе \"Режим звонка\" необходимо включить службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\". Нажмите здесь, чтобы включить службу PhoneProfilesPlus.</string>
     <string name="profile_preferences_zenMode_priority_summary">Только важные оповещения</string>
     <string name="event_preferences_duration">Продолжительность</string>
     <string name="pref_event_duration">Продолжительность</string>
@@ -1327,7 +1325,6 @@
     <string name="install_extender_dialog_title">Установить PhoneProfilesPlusExtender</string>
     <string name="alert_button_install">Установить</string>
     <string name="event_preferences_red_enable_PPPExtender">Для этого нажмите сюда. Найдите в списке PhoneProfilesPLusExtender и включите для него доступ к спец. возможностям.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Чтобы использовать параметр профиля \"Типы режима оповещения\", разрешите PhoneProfilesPlus доступ к уведомлениям в настройках системы. Для этого нажмите сюда.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Чтобы использовать параметр профиля \"Тип \"Не беспокоить\"\", разрешите PhoneProfilesPlus доступ к функции \"Не беспокоить\" в настройках системы. Для этого нажмите сюда.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Когда эта кнопка нажата, нажмите на неё ещё раз для отображения скрытых заголовка и нижней панели инструментов.</string>
     <string name="event_preferences_notifications_checkContacts">Проверить контакты</string>
@@ -1343,7 +1340,6 @@
     <string name="preferences_red_texts_text_click">Нажмите на это уведомление, чтобы открыть его.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Диалоги подтверждения Wi-Fi и Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">В ColorOS эти диалоги можно отключить. Чтобы узнать как, нажмите сюда.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">В настройках системы:\n1. Для разработчика\\Для разработчика = включено\n2. Для разработчика\\Отладка\\Отладка по USB = включено\n3. Для разработчика\\Приложения\\Disables authorization monitoring = включено.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Установите в настройках системы:\n1. Для разработчиков\\Для разработчиков = включено\n2. Для разработчиков\\Отладка\\Отладка по USB = включено\n3. Для разработчиков\\Приложения\\Отключить отслеживание разрешений = включено.</string>
     <string name="important_info_android_look_application_settings">Откройте, пожалуйста, настройки PhoneProfilesPlus и задайте их, особенно параметры, отмеченные жирным текстом.</string>
     <string name="profile_preferences_red_texts_text_2">Поэтому его невозможно активировать.</string>
@@ -1431,6 +1427,14 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Интервал фонового сканирования (мин)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Фоновое сканирование в режиме энергосбережения</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Задайте параметры фонового сканирования в настройках приложения.</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
+    <string name="array_pref_locationModeArray_off">Location Off</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
+    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
+    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
+    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1718,5 +1722,8 @@
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">To enable \"Interruptions type\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>-->
 </resources>

@@ -130,7 +130,7 @@
     <string name="profile_preferences_deviceAutosync">Autom. Synchronisieren</string>
     <string name="editor_drawer_order_event_name">Ereignis-Name</string>
     <string name="editor_drawer_order_profile_name">Profil-Name</string>
-    <string name="default_profile_name_home">Startseite</string>
+    <string name="default_profile_name_home">Zu Hause</string>
     <string name="default_profile_name_outdoor">Draußen</string>
     <string name="default_profile_name_work">Arbeit</string>
     <string name="default_profile_name_meeting">Besprechung</string>
@@ -352,10 +352,8 @@
     <string name="pref_dlg_info_about_wildcards_3">Diese Zeichen in „\u005C” einschließen.</string>
     <string name="important_info_profile_settings">Einige Profil-Einstellungen benötigen Änderungen in den System-Einstellungen. Diese Einstellungen sind mit \"(S)\" gekennzeichnet.</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Benachrichtigungszugriff</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Erlaube PPP in \"Benachrichtigungszugriff\", um den Unterbrechungstyp in Profilen auswählen zu können.</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Priorität mit Vibration</string>
     <string name="important_info_news">Neuigkeiten</string>
-    <string name="important_info_profile_zenMode">\"Unterbrechungen\" im Klingelmodus von Profilen benötigt Benachrichtigungszugriff für PPP. Klicke hier und erlaube PPP.</string>
     <string name="profile_preferences_zenMode_priority_summary">Nur wichtige Unterbrechungen</string>
     <string name="event_preferences_duration">Dauer</string>
     <string name="pref_event_duration">Dauer</string>
@@ -1327,7 +1325,6 @@
     <string name="install_extender_dialog_title">PhoneProfilesPlusExtender installiert</string>
     <string name="alert_button_install">Installieren</string>
     <string name="event_preferences_red_enable_PPPExtender">Hier klicken, um es zu aktivieren. Suchen Sie nach PhoneProfilesPLusExtender und lassen Sie die „Bedienungshilfen” dafür zu.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">Um den Profilparameter „Unterbrechungstyp” zu aktivieren, erlauben Sie in den „Benachrichtigungszugriff” in den Systemeinstellungen von PhoneProfilesPlus . Hier klicken, um ihn zu aktivieren.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">Um den Profilparameter-Typ „Bitte nicht stören” zu aktivieren, muss in den Systemeinstellungen PhoneProfilesPlus-Zugang „Bitte nicht stören” aktiviert werden. Hier klicken, um es zu aktivieren.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Anklicken (wenn aktiviert), um die ausgeblendete Kopf- und untere Symbolleiste anzuzeigen.</string>
     <string name="event_preferences_notifications_checkContacts">Kontakte überprüfen</string>
@@ -1343,7 +1340,6 @@
     <string name="preferences_red_texts_text_click">Benachrichtigung anklicken, um sie zu öffnen.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">WLAN- und Bluetooth-Bestätigungsdialoge</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Für \"ColorOs\" ist es möglich, diese Dialoge zu deaktivieren. Hier klicken, um dessen Vorgehensweise anzuzeigen.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In den Gerätesystemeinstellungen:\n1. Entwicklereinstellungen ➜ Entwicklereinstellungen = aktivieren\n2. Entwickler-Optionen ➜ Fehlersuche ➜ USB-Fehlersuche = aktivieren\n3. Entwickleroptionen ➜ Apps ➜ Deaktiviert die Berechtigungsüberwachung = aktivieren.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In den Gerätesystemeinstellungen:\n1.) Entwicklereinstellungen ➜ Entwicklereinstellungen = aktivieren\n2.) Entwicklereinstellungen ➜ Fehlersuche ➜ USB-Fehlersuche = aktivieren\n3.) Entwicklereinstellungen ➜ Apps ➜ Berechtigungsüberwachung deaktivieren = aktivieren.</string>
     <string name="important_info_android_look_application_settings">Bitte öffnen Sie die Einstellungen von PhoneProfilesPlus und konfigurieren Sie diese. Insbesondere Parameter, die mit fettgedrucktem Text gekennzeichnet sind.</string>
     <string name="profile_preferences_red_texts_text_2">Eine Aktivierung ist hierfür nicht möglich.</string>
@@ -1431,6 +1427,14 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Intervall für das Scannen im Hintergrund (Minuten)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Scannen im Hintergrund im Energiesparmodus</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Legen Sie die Parameter für das Scannen im Hintergrund in den App-Einstellungen fest.</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
+    <string name="array_pref_locationModeArray_off">Location Off</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
+    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
+    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
+    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1718,5 +1722,8 @@
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">To enable \"Interruptions type\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>-->
 </resources>

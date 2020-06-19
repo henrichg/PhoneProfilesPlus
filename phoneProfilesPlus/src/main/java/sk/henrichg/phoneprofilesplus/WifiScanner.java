@@ -159,7 +159,7 @@ class WifiScanner {
                         //noinspection ConstantConditions,ConstantIfStatement
                         if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
-                            PPApplication.logE("$$$W WifiScanner.doScan", "scan started");
+                            //PPApplication.logE("$$$W WifiScanner.doScan", "scan started");
 
                             WifiScanWorker.setScanRequest(context, false);
                             WifiScanWorker.setWaitForResults(context, false);
@@ -176,7 +176,7 @@ class WifiScanner {
                             wifiState = enableWifi(WifiScanWorker.wifi, wifiChangeHandler);
 
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                                PPApplication.logE("$$$W WifiScanner.doScan", "startScan");
+                                //PPApplication.logE("$$$W WifiScanner.doScan", "startScan");
                                 WifiScanWorker.startScan(context);
                             } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
                                 WifiScanWorker.setScanRequest(context, false);
@@ -184,21 +184,21 @@ class WifiScanner {
                                 setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
                             }
 
-                            PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiScanRequest="+ApplicationPreferences.prefEventWifiScanRequest);
-                            PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
+                            //PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiScanRequest="+ApplicationPreferences.prefEventWifiScanRequest);
+                            //PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
 
                             if (ApplicationPreferences.prefEventWifiScanRequest ||
                                     ApplicationPreferences.prefEventWifiWaitForResult) {
-                                PPApplication.logE("$$$W WifiScanner.doScan", "waiting for scan end");
+                                //PPApplication.logE("$$$W WifiScanner.doScan", "waiting for scan end");
 
                                 // wait for scan end
                                 waitForWifiScanEnd(/*context*/);
 
-                                PPApplication.logE("$$$W WifiScanner.doScan", "scan ended");
+                                //PPApplication.logE("$$$W WifiScanner.doScan", "scan ended");
 
-                                PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
+                                //PPApplication.logE("$$$W WifiScanner.doScan", "ApplicationPreferences.prefEventWifiWaitForResult="+ApplicationPreferences.prefEventWifiWaitForResult);
                                 if (ApplicationPreferences.prefEventWifiWaitForResult) {
-                                    PPApplication.logE("$$$W WifiScanner.doScan", "no data received from scanner");
+                                    //PPApplication.logE("$$$W WifiScanner.doScan", "no data received from scanner");
                                     if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
                                         Data workData = new Data.Builder()

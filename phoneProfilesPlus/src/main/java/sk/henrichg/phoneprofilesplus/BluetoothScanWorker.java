@@ -92,7 +92,7 @@ public class BluetoothScanWorker extends Worker {
             }
 
             //PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
-            scheduleWork(context.getApplicationContext(), true, /*null,*/ false/*, false*/);
+            scheduleWork(context.getApplicationContext(), false);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -182,12 +182,12 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, final boolean useHandler, /*final Handler _handler,*/ final boolean shortInterval/*, final boolean forScreenOn*/) {
+    static void scheduleWork(final Context context, /*final boolean useHandler,*/ final boolean shortInterval/*, final boolean forScreenOn*/) {
         //PPApplication.logE("BluetoothScanWorker.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (useHandler /*&& (_handler == null)*/) {
+            //if (useHandler /*&& (_handler == null)*/) {
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 handler.postDelayed(new Runnable() {
@@ -196,10 +196,10 @@ public class BluetoothScanWorker extends Worker {
                         _scheduleWork(context, shortInterval/*, forScreenOn*/);
                     }
                 }, 500);
-            }
-            else {
-                _scheduleWork(context, shortInterval/*, forScreenOn*/);
-            }
+            //}
+            //else {
+            //    _scheduleWork(context, shortInterval/*, forScreenOn*/);
+            //}
         }
         //else
         //    PPApplication.logE("BluetoothScanWorker.scheduleJob","BluetoothHardware=false");

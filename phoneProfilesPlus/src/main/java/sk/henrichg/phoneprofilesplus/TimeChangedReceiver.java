@@ -129,7 +129,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         DonationBroadcastReceiver.setAlarm(appContext);
         TwilightScanner.doWork();
 
-        SearchCalendarEventsWorker.scheduleWork(true, /*null,*/ true);
+        SearchCalendarEventsWorker.scheduleWork(true);
 
         //dataWrapper.clearSensorsStartTime();
         //dataWrapper.restartEvents(false, true, false, false, false);

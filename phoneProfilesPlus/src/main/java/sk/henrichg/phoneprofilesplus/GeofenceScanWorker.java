@@ -94,7 +94,7 @@ public class GeofenceScanWorker extends Worker {
             }
 
             //PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
-            scheduleWork(context.getApplicationContext(), true, /*null,*/ false/*, false*/);
+            scheduleWork(context.getApplicationContext(), false);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -191,25 +191,24 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context,
-                            final boolean useHandler,
-                            /*final Handler _handler, */final boolean startScanning/*, final boolean forScreenOn*/) {
+    static void scheduleWork(final Context context, /*final boolean useHandler,*/
+                            final boolean shortInterval/*, final boolean forScreenOn*/) {
         //PPApplication.logE("GeofenceScanWorker.scheduleWork", "startScanning="+startScanning);
 
         //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-        if (useHandler/* && (_handler == null)*/) {
+        //if (useHandler/* && (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    _scheduleWork(context, startScanning/*, forScreenOn*/);
+                    _scheduleWork(context, shortInterval/*, forScreenOn*/);
                 }
             }, 500);
-        }
-        else {
-            _scheduleWork(context, startScanning/*, forScreenOn*/);
-        }
+        //}
+        //else {
+        //    _scheduleWork(context, startScanning/*, forScreenOn*/);
+        //}
         //}
         //else
         //    PPApplication.logE("GeofenceScanWorker.scheduleWork", "scanner is not started");

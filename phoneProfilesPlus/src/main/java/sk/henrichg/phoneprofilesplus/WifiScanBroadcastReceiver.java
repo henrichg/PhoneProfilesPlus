@@ -77,7 +77,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
 
                                 boolean scanStarted = ApplicationPreferences.prefEventWifiWaitForResult;
-                                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
+                                //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
 
                                 //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                                 //PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "isWifiAPEnabled="+isWifiAPEnabled);
@@ -104,7 +104,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                                     if (forceOneScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                     {
-                                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start work");
+                                        //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "start work");
 
                                         Data workData = new Data.Builder()
                                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)

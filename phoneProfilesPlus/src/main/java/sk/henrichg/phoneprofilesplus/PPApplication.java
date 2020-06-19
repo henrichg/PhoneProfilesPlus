@@ -122,10 +122,6 @@ public class PPApplication extends Application
                                                 +"|ShutdownBroadcastReceiver"
 
                                                 +"|****** EventsHandler.handleEvents"
-                                                +"|$$$W WifiScanner.doScan"
-                                                +"|WifiScanBroadcastReceiver.onReceive"
-                                                +"|WifiScanWorker.doWork"
-                                                +"|WifiScanWorker._scheduleWork"
 
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"

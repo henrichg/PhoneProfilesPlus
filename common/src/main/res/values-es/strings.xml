@@ -352,10 +352,8 @@
     <string name="pref_dlg_info_about_wildcards_3">añade \"\u005C\" delante de estos caracteres.</string>
     <string name="important_info_profile_settings">Algunas preferencias del perfil requieren cambios en los Ajustes del sistema. Estas preferencias están marcadas \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Acceso a la notificación</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Permitia que PhoneProfilesPlus tenga \"acceso a las notificaciones\" en los ajustes del sistema, para habilitar el \"Tipo de Interrupción\" en el perfil de preferencia.</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Prioritario con vibración</string>
     <string name="important_info_news">Noticias</string>
-    <string name="important_info_profile_zenMode">\"Interrupciones\" en el perfil \"Modo Timbre\" requiere habilitar \"Acceso a las notificaciones\" a PhoneProfilesPlus enblos ajustes del sistema. Presione aquí y habilite PhoneProfilesPlus.</string>
     <string name="profile_preferences_zenMode_priority_summary">Sólo interrupciones prioritarias</string>
     <string name="event_preferences_duration">Duración</string>
     <string name="pref_event_duration">Duración</string>
@@ -1013,26 +1011,26 @@
     <string name="permission_why_profile_vibration_on_touch">para habilitar/deshabilitar vibración al pulsar</string>
     <string name="permission_why_profile_ringtones">para cambiar tono de llamada, notificación, sonido de alarma</string>
     <string name="permission_why_profile_screen_timeout">para cambiar el tiempo de espera de pantalla</string>
-    <string name="permission_why_profile_screen_brightness">for change screen brightness</string>
-    <string name="permission_why_profile_autorotation">for change screen rotation</string>
-    <string name="permission_why_profile_wallpaper">for change wallpaper</string>
-    <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, change mobile network type, connect to SSID</string>
-    <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
-    <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
-    <string name="permission_why_export">for save backup data into storage</string>
-    <string name="permission_why_import">for load backup data from storage</string>
-    <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>
-    <string name="permission_why_event_orientation_preferences">for detect phone calls in Orientation sensor (for ignore orientation change during call)</string>
-    <string name="permission_why_event_location_preferences">for use location data in Location sensor</string>
-    <string name="permission_why_event_wifi_preferences">for use location data in Wi-Fi sensor</string>
-    <string name="permission_why_event_bluetooth_preferences">for use location data in Bluetooth sensor</string>
-    <string name="permission_why_event_mobile_cells_preferences">for use location data in Mobile cells sensor</string>
-    <string name="permission_why_event_contacts_preference">for read contacts during configuration</string>
-    <string name="permission_why_profile_notification_led">for enable/disable notification LED</string>
-    <string name="permission_why_profile_vibrate_when_ringing">for enable/disable vibrate when ringing</string>
-    <string name="permission_why_play_ringtone_notification">for play ringing and notification sounds</string>
-    <string name="permission_why_profile_lock_device">for lock device</string>
-    <string name="permission_why_ringtone_preference">for load ringtones from storage</string>
+    <string name="permission_why_profile_screen_brightness">para cambiar el brillo de pantalla</string>
+    <string name="permission_why_profile_autorotation">para cambiar la rotación de pantalla</string>
+    <string name="permission_why_profile_wallpaper">para cambiar el fondo de escritorio</string>
+    <string name="permission_why_profile_radio_preferences">para habilitar/deshabilitar los datos móviles, el tipo de red móvil, conexión a SSID</string>
+    <string name="permission_why_profile_phone_state_broadcast">para desenlazar los volúmenes de llamada y de notificaciones, habilita/deshabilita el altavoz durante la llamada</string>
+    <string name="permission_why_profile_custom_profile_icon">para icono personalizado del perfil</string>
+    <string name="permission_why_export">para guardar el backup en memoria</string>
+    <string name="permission_why_import">para cargar el backup de memoria</string>
+    <string name="permission_why_event_calendar_preferences">para leer datos de calendario en el sensor Calendario</string>
+    <string name="permission_why_event_orientation_preferences">para detectar llamadas con sensor de Orientación (para ignorar el cambio de orientación estando en una llamada)</string>
+    <string name="permission_why_event_location_preferences">para usar datos de ubicación con el sensor de Localización</string>
+    <string name="permission_why_event_wifi_preferences">para usar datos de ubicación con el sensor Wi-Fi</string>
+    <string name="permission_why_event_bluetooth_preferences">para usar datos de ubicación con el sensor de Bluetooth</string>
+    <string name="permission_why_event_mobile_cells_preferences">para usar datos de ubicación con el sensor de red Móvil</string>
+    <string name="permission_why_event_contacts_preference">para leer los contactos durante la configuración</string>
+    <string name="permission_why_profile_notification_led">para habilitar/deshabilitar la notificación LED</string>
+    <string name="permission_why_profile_vibrate_when_ringing">para habilitar/deshabilitar cuando suene</string>
+    <string name="permission_why_play_ringtone_notification">para reproducir sonidos de llamadas y de notificaciones</string>
+    <string name="permission_why_profile_lock_device">para bloquear el dispositivo</string>
+    <string name="permission_why_ringtone_preference">para cargar tonos de llamadas desde el almacenamiento</string>
     <string name="permission_why_profile_dtmf_tone_when_dialing">for enable/disable DTMF tone when dialing</string>
     <string name="permission_why_profile_sound_on_touch">for enable/disable sound on touch</string>
     <string name="permission_why_brightness_preference">for change brightness during configuration</string>
@@ -1072,7 +1070,7 @@
     <string name="about_application_support2">contacto:</string>
     <string name="about_application_support_subject">soporte</string>
     <string name="dashclock_extension_description">Muestra el perfil activo con indicador de preferencias. Abre el activador al pulsar..</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Usar iluminación de iconos para iconos de perfil personalizados</string>
     <string name="preferences_not_enabled_accessibility_service_title">¡El servicio de Accesibilidad no está activado!</string>
     <string name="profile_preferences_volumeVoiceCall">Volumen de voz en llamada</string>
     <string name="pref_event_permanentRun_summary">Pausar evento después de la activación manual del perfil y los eventos de reinicio</string>
@@ -1080,7 +1078,7 @@
     <string name="event_preferences_call_PPPExtender_install_summary">Pulsa aquí para instalar PhoneProfilesPlusExtender. El servicio en ejecución es necesario para recibir llamadas.</string>
     <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
-    <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Usar decorado</string>
     <string name="phone_profiles_pref_notificationLayoutType">Tipo de diseño</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandible</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Grande</string>
@@ -1092,7 +1090,7 @@
     <string name="array_event_pref_peripheralType_headphones">Auriculares sin micrófono</string>
     <string name="preferences_not_installed_PPPExtender_title">¡PhoneProfilesPlusExtender no está instalado!</string>
     <string name="preferences_old_version_PPPExtender_title">¡PhoneProfilesPlusExtender no está actualizado!</string>
-    <string name="default_profile_name_battery_ok">OK battery</string>
+    <string name="default_profile_name_battery_ok">Batería alta</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
     <string name="applications_editor_dialog_not_selected">[not selected]</string>
@@ -1327,7 +1325,6 @@
     <string name="install_extender_dialog_title">Install PhoneProfilesPlusExtender</string>
     <string name="alert_button_install">Install</string>
     <string name="event_preferences_red_enable_PPPExtender">Click here to enable it. Search for PhoneProfilesPLusExtender and allow \"Accessibility\" for it.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_2">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Do not disturb access\" in system settings. Click here to enable it.</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>
     <string name="event_preferences_notifications_checkContacts">Check contacts</string>
@@ -1343,7 +1340,6 @@
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disable permission monitoring = enable.</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
@@ -1431,6 +1427,14 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Background scanning scan interval (minutes)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Background scanning scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Background scanning parameters in application settings.</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
+    <string name="array_pref_locationModeArray_off">Location Off</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
+    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
+    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
+    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1718,5 +1722,8 @@
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary">To enable \"Interruptions type\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>-->
 </resources>
