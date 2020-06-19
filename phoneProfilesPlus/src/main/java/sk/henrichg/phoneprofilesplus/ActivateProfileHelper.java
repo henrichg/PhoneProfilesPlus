@@ -1635,7 +1635,7 @@ class ActivateProfileHelper {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
+                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -3304,7 +3304,7 @@ class ActivateProfileHelper {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    workManager.enqueueUniqueWork("disableScreenTimeoutInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
+                    workManager.enqueueUniqueWork("disableScreenTimeoutInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

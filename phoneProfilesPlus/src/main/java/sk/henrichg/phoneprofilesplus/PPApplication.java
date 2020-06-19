@@ -3988,7 +3988,7 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.KEEP, worker);
+                        workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.APPEND, worker);
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
