@@ -99,7 +99,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
-                        workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.KEEP, worker);
                     }
                 }
             } catch (Exception e) {

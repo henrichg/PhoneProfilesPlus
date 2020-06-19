@@ -89,7 +89,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
                         //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
                         //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);
                         //}
-                        //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.REPLACE, worker);
+                        //workManager.enqueueUniqueWork("elapsedAlarmsUpdateGUIWork", ExistingWorkPolicy.KEEP, worker);
                         workManager.enqueue(worker);
                     }
                 }

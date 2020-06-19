@@ -52,7 +52,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.REPLACE, periodicEventsHandlerWorker);
+                        workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

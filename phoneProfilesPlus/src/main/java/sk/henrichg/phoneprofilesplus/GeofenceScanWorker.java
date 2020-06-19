@@ -168,14 +168,14 @@ public class GeofenceScanWorker extends Worker {
                                 .setInitialDelay(interval, TimeUnit.SECONDS)
                                 .addTag(GeofenceScanWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
                     } else {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
                         waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .addTag(GeofenceScanWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
                     }
 
                     //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");

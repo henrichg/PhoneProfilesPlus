@@ -116,7 +116,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 if (PPApplication.getApplicationStarted(true)) {
                                                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                                                     if (workManager != null)
-                                                        workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.REPLACE, worker);
+                                                        workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.KEEP, worker);
                                                 }
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);

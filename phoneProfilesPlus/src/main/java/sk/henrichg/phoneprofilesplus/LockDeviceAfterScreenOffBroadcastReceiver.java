@@ -86,7 +86,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
-                        workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.KEEP, worker);
                     }
                 }
             } catch (Exception e) {

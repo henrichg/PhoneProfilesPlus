@@ -116,7 +116,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
+                                            workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.KEEP, worker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);

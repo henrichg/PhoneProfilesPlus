@@ -313,7 +313,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                     try {
                         WorkManager workManager = WorkManager.getInstance(context);
                         PPApplication.logE("[HANDLER] EventPreferencesDeviceBoot.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                        //workManager.enqueueUniqueWork("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                        //workManager.enqueueUniqueWork("elapsedAlarmsDeviceBootSensorWork_"+(int)_event._id, ExistingWorkPolicy.KEEP, worker);
                         workManager.enqueue(worker);
                     } catch (Exception ignored) {}
                 }*/

@@ -43,7 +43,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
             if (workManager != null)
-                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.REPLACE, avoidRescheduleReceiverWorker);
+                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.KEEP, avoidRescheduleReceiverWorker);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -91,7 +91,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 //if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.KEEP, worker);
                 //}
             } catch (Exception e) {
                 PPApplication.recordException(e);

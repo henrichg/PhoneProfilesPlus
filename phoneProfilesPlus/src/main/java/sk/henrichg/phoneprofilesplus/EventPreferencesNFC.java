@@ -381,7 +381,7 @@ class EventPreferencesNFC extends EventPreferences {
                     try {
                         WorkManager workManager = WorkManager.getInstance(context);
                         PPApplication.logE("[HANDLER] EventPreferencesNFC.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                        //workManager.enqueueUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                        //workManager.enqueueUniqueWork("elapsedAlarmsNFCSensorWork_"+(int)_event._id, ExistingWorkPolicy.KEEP, worker);
                         workManager.enqueue(worker);
                     } catch (Exception ignored) {}
                 }*/

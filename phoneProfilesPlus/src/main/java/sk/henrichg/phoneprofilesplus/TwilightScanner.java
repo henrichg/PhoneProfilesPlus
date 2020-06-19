@@ -511,7 +511,7 @@ class TwilightScanner {
                         WorkManager workManager = WorkManager.getInstance(context);
                         if (log)
                             PPApplication.logE("[HANDLER] TwilightScanner.updateTwilightState", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                        workManager.enqueueUniqueWork("elapsedAlarmsTwilightScannerWork", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork("elapsedAlarmsTwilightScannerWork", ExistingWorkPolicy.KEEP, worker);
                     } catch (Exception ignored) {}
                 }*/
 

@@ -595,7 +595,7 @@ class EventPreferencesNotification extends EventPreferences {
                 try {
                     WorkManager workManager = WorkManager.getInstance(context);
                     PPApplication.logE("[HANDLER] EventPreferencesNotification.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                    //workManager.enqueueUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id, ExistingWorkPolicy.REPLACE, worker);
+                    //workManager.enqueueUniqueWork("elapsedAlarmsNotificationSensorWork_"+(int)_event._id, ExistingWorkPolicy.KEEP, worker);
                     workManager.enqueue(worker);
                 } catch (Exception ignored) {}
             }*/

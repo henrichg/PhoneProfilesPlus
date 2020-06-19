@@ -2958,7 +2958,7 @@ public class PhoneProfilesService extends Service
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.REPLACE, periodicEventsHandlerWorker);
+                        workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -3903,7 +3903,7 @@ public class PhoneProfilesService extends Service
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.REPLACE, worker);
+                                    workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.KEEP, worker);
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -3929,7 +3929,7 @@ public class PhoneProfilesService extends Service
                                         .build();
                         try {
                             WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.REPLACE, worker);
+                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.KEEP, worker);
                         } catch (Exception ignored) {
                         }
                     }*/
@@ -5733,7 +5733,7 @@ public class PhoneProfilesService extends Service
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
                 PPApplication.logE("[HANDLER] EventPreferencesSMS.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                //workManager.enqueueUniqueWork("elapsedAlarmsOrientationSensorWork", ExistingWorkPolicy.REPLACE, worker);
+                //workManager.enqueueUniqueWork("elapsedAlarmsOrientationSensorWork", ExistingWorkPolicy.KEEP, worker);
                 workManager.enqueue(worker);
             } catch (Exception ignored) {}
         }*/
@@ -6066,7 +6066,7 @@ public class PhoneProfilesService extends Service
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
                         workManager.cancelUniqueWork("disableInternalChangeWork");
                         workManager.cancelAllWorkByTag("disableInternalChangeWork");
-                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
                     } catch (Exception ignored) {}
 
 //                    PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -6097,7 +6097,7 @@ public class PhoneProfilesService extends Service
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
-                                workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
                         }
                     } catch (Exception ee) {
                         PPApplication.recordException(ee);
@@ -6165,7 +6165,7 @@ public class PhoneProfilesService extends Service
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -6586,7 +6586,7 @@ public class PhoneProfilesService extends Service
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -6621,7 +6621,7 @@ public class PhoneProfilesService extends Service
                             WorkManager workManager = WorkManager.getInstance(getApplicationContext());
                             workManager.cancelUniqueWork("disableInternalChangeWork");
                             workManager.cancelAllWorkByTag("disableInternalChangeWork");
-                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
                         } catch (Exception ignored) {}
 
 //                        PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -6651,7 +6651,7 @@ public class PhoneProfilesService extends Service
                             if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
                             }
                         } catch (Exception ee) {
                             PPApplication.recordException(ee);

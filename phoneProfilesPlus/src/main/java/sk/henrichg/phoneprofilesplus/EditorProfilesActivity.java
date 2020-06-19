@@ -2546,7 +2546,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterProfileChange", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterProfileChange", ExistingWorkPolicy.KEEP, worker);
                     } catch (Exception ignored) {
                     }*/
                 }
@@ -2750,7 +2750,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .build();
                     try {
                         WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterEventChange", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterEventChange", ExistingWorkPolicy.KEEP, worker);
                     } catch (Exception ignored) {
                     }
                     */

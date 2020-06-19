@@ -1217,7 +1217,7 @@ public class PPApplication extends Application
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
             if (workManager != null)
-                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.REPLACE, avoidRescheduleReceiverWorker);
+                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.KEEP, avoidRescheduleReceiverWorker);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -3988,7 +3988,7 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.KEEP, worker);
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);

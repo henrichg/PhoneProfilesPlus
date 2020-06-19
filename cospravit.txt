@@ -669,7 +669,7 @@ try {
 PhoneProfilesService.cancelWork("disableInternalChangeWork", context);
 try {
     WorkManager workManager = WorkManager.getInstance(context);
-    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
 } catch (Exception ignored) {}
 
 "disableInternalChangeWork" -> nema

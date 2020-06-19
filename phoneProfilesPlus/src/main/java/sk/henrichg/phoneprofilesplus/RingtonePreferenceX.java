@@ -425,7 +425,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -458,7 +458,7 @@ public class RingtonePreferenceX extends DialogPreference {
 //                        PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext)
 //                        try {
 //                            WorkManager workManager = WorkManager.getInstance(prefContext.getApplicationContext());
-//                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+//                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
 //                        } catch (Exception ignored) {}
 //
 //                        PPApplication.startHandlerThreadInternalChangeToFalse();
@@ -487,7 +487,7 @@ public class RingtonePreferenceX extends DialogPreference {
                             if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
                             }
                         } catch (Exception ee) {
                             PPApplication.recordException(e);

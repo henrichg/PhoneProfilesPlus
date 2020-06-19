@@ -155,14 +155,14 @@ public class WifiScanWorker extends Worker {
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
                                 .addTag(WifiScanWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
                     } else {
                         //PPApplication.logE("WifiScanWorker._scheduleWork", "start now work");
                         waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
                                 .addTag(WifiScanWorker.WORK_TAG)
                                 .build();
-                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, workRequest);
+                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
                     }
 
                     //PPApplication.logE("WifiScanWorker._scheduleWork", "---------------------------------------- END");

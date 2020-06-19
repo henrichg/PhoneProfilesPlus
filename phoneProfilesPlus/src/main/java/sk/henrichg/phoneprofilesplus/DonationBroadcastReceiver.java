@@ -94,7 +94,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             try {
                 WorkManager workManager = WorkManager.getInstance(context);
                 PPApplication.logE("[HANDLER] DonationBroadcastReceiver.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                workManager.enqueueUniqueWork("elapsedAlarmsDonationWork", ExistingWorkPolicy.REPLACE, worker);
+                workManager.enqueueUniqueWork("elapsedAlarmsDonationWork", ExistingWorkPolicy.KEEP, worker);
             } catch (Exception ignored) {}
         }*/
 

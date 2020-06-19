@@ -2446,7 +2446,7 @@ public class DataWrapper {
 //                workManager.cancelAllWorkByTag("restartEventsWithDelayClearOldWork");
 //                workManager.cancelUniqueWork("restartEventsWithDelayNotClearOldWork");
 //                workManager.cancelAllWorkByTag("restartEventsWithDelayNotClearOldWork");
-                workManager.enqueueUniqueWork("restartEventsWithDelayClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                workManager.enqueueUniqueWork("restartEventsWithDelayClearOldWork", ExistingWorkPolicy.KEEP, restartEventsWithDelayWorker);
             } catch (Exception ignored) {}
 
 //            PPApplication.startHandlerThreadRestartEventsWithDelay();
@@ -2479,8 +2479,8 @@ public class DataWrapper {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
-                        //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
-                        workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                        //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.KEEP, restartEventsWithDelayWorker);
+                        workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.KEEP, restartEventsWithDelayWorker);
                     }
                 }
             } catch (Exception e) {
