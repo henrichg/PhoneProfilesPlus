@@ -49,7 +49,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -1627,15 +1626,14 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .addTag("disableInternalChangeWork")
+                                                .addTag(DisableInternalChangeWorker.WORK_TAG)
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
-                                PhoneProfilesService.cancelWork("disableInternalChangeWork");
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                                            workManager.enqueue(disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -3134,7 +3132,7 @@ class ActivateProfileHelper {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                .addTag("delayedWorkCloseAllApplications")
+                                .addTag(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG)
                                 .setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 .build();
@@ -3296,15 +3294,14 @@ class ActivateProfileHelper {
 
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
-                        .addTag("disableScreenTimeoutInternalChangeWork")
+                        .addTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG)
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
-        PhoneProfilesService.cancelWork("disableScreenTimeoutInternalChangeWork");
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    workManager.enqueueUniqueWork("disableScreenTimeoutInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                    workManager.enqueue(disableInternalChangeWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

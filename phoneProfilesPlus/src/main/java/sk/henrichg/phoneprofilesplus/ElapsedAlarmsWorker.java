@@ -10,6 +10,30 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("WeakerAccess")
 public class ElapsedAlarmsWorker extends Worker {
 
+    static final String ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK = "elapsedAlarmsGeofenceScannerSwitchGPSWork";
+    static final String ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "elapsedAlarmsLockDeviceFinishActivity";
+    static final String ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK = "elapsedAlarmsLockDeviceAfterScreenOff";
+    static final String ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK = "elapsedAlarmsStartEventNotificationWork";
+    static final String ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK = "elapsedAlarmsRunApplicationWithDelayWork";
+    static final String ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK = "elapsedAlarmsProfileDurationWork";
+    static final String ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK = "elapsedAlarmsEventDelayStartWork";
+    static final String ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK = "elapsedAlarmsEventDelayEndWork";
+    static final String ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK = "elapsedAlarmsUpdateGUIWork";
+    static final String ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK = "elapsedAlarmsShowProfileNotificationWork";
+    static final String ELAPSED_ALARMS_DONATION_TAG_WORK = "elapsedAlarmsDonationWork";
+    static final String ELAPSED_ALARMS_ALARM_CLOCK_SENSOR_TAG_WORK = "elapsedAlarmsAlarmClockSensorWork";
+    static final String ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK = "elapsedAlarmsTwilightScannerWork";
+    static final String ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK = "elapsedAlarmsTimeSensorWork";
+    static final String ELAPSED_ALARMS_CALENDAR_SENSOR_TAG_WORK = "elapsedAlarmsCalendarSensorWork";
+    static final String ELAPSED_ALARMS_CALL_SENSOR_TAG_WORK = "elapsedAlarmsCallSensorWork";
+    static final String ELAPSED_ALARMS_SMS_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsSMSSensorWork";
+    static final String ELAPSED_ALARMS_NFC_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsNFCSensorWork";
+    static final String ELAPSED_ALARMS_DEVICE_BOOT_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsDeviceBootSensorWork";
+    static final String ELAPSED_ALARMS_NOTIFICATION_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsNotificationSensorWork";
+    static final String ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsOrientationSensorWork";
+
+
+
     static final String ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS = "geofence_scanner_switch_gps";
     static final String ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY = "lock_device_finish_activity";
     static final String ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF = "lock_device_after_screen_off";

@@ -502,7 +502,7 @@ class EventPreferencesCalendar extends EventPreferences {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsCalendarSensorWork_" + (int) _event._id);
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_CALENDAR_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

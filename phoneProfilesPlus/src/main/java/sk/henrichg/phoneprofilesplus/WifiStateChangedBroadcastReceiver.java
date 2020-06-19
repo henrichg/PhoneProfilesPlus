@@ -108,7 +108,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                             OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                                            .addTag("startWifiScanWork")
+                                                            .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
                                                             .setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             .build();
@@ -116,7 +116,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 if (PPApplication.getApplicationStarted(true)) {
                                                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                                                     if (workManager != null)
-                                                        workManager.enqueueUniqueWork("startWifiScanWork", ExistingWorkPolicy.KEEP, worker);
+                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.KEEP, worker);
                                                 }
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);

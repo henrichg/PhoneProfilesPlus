@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -108,7 +107,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                 OneTimeWorkRequest worker =
                                         new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                                .addTag("afterFirstStartWork")
+                                                .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                 .setInputData(workData)
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
                                                 .build();
@@ -116,7 +115,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.KEEP, worker);
+                                            workManager.enqueue(worker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);

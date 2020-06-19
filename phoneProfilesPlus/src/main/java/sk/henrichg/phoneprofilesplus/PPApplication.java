@@ -122,6 +122,10 @@ public class PPApplication extends Application
                                                 +"|ShutdownBroadcastReceiver"
 
                                                 +"|****** EventsHandler.handleEvents"
+                                                +"|$$$W WifiScanner.doScan"
+                                                +"|WifiScanBroadcastReceiver.onReceive"
+                                                +"|WifiScanWorker.doWork"
+                                                +"|WifiScanWorker._scheduleWork"
 
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"
@@ -917,6 +921,11 @@ public class PPApplication extends Application
     private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
     private static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
 
+    // WorkManager tags
+    static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
+    static final String AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "avoidRescheduleReceiverWorker";
+    static final String SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG = "setBlockProfileEventsActionWork";
+
     // scanner start/stop types
     //static final int SCANNER_START_GEOFENCE_SCANNER = 1;
     //static final int SCANNER_STOP_GEOFENCE_SCANNER = 2;
@@ -1209,17 +1218,17 @@ public class PPApplication extends Application
 
         // https://issuetracker.google.com/issues/115575872#comment16
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker START of enqueue");
-        PhoneProfilesService.cancelWork("avoidRescheduleReceiverWorker");
+        PhoneProfilesService.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
-                        .addTag("avoidRescheduleReceiverWorker")
+                        .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
                         .setInitialDelay(365 * 10, TimeUnit.DAYS)
                         .build();
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
             if (workManager != null)
-                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.KEEP, avoidRescheduleReceiverWorker);
+                workManager.enqueueUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.KEEP, avoidRescheduleReceiverWorker);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -3982,7 +3991,7 @@ public class PPApplication extends Application
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                            .addTag("setBlockProfileEventsActionWork")
+                            .addTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG)
                             .setInputData(workData)
                             .setInitialDelay(30, TimeUnit.SECONDS)
                             .build();
@@ -3990,7 +3999,7 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("setBlockProfileEventsActionWork", ExistingWorkPolicy.APPEND, worker);
+                        workManager.enqueue(worker);
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);

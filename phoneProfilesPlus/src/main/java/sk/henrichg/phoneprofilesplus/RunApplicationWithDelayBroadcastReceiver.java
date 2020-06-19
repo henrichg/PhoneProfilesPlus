@@ -92,7 +92,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                .addTag("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode)
+                                .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
                                 .build();
@@ -105,7 +105,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
                             }*/
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add("elapsedAlarmsRunApplicationWithDelayWork_" + requestCode);
+                            PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_" + requestCode);
                         }
                     }
                 } catch (Exception e) {
@@ -185,8 +185,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
-        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove("elapsedAlarmsRunApplicationWithDelayWork_"+requestCode);
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode);
+        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode);
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 

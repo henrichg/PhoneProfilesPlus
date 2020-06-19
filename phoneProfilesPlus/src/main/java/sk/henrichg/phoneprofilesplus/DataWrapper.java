@@ -2479,7 +2479,7 @@ public class DataWrapper {
 
             OneTimeWorkRequest restartEventsWithDelayWorker =
                     new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
-                            .addTag("restartEventsWithDelayWork")
+                            .addTag(RestartEventsWithDelayWorker.WORK_TAG)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
@@ -2488,7 +2488,7 @@ public class DataWrapper {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //workManager.enqueueUniqueWork("restartEventsWithDelayNotClearOldWork", ExistingWorkPolicy.KEEP, restartEventsWithDelayWorker);
-                        workManager.enqueueUniqueWork("restartEventsWithDelayWork", ExistingWorkPolicy.KEEP, restartEventsWithDelayWorker);
+                        workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.KEEP, restartEventsWithDelayWorker);
                     }
                 }
             } catch (Exception e) {

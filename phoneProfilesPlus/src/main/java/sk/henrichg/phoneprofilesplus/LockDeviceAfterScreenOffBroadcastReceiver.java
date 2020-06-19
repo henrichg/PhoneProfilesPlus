@@ -77,7 +77,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsLockDeviceAfterScreenOff")
+                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
                             .build();
@@ -86,7 +86,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
-                        workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceAfterScreenOff", ExistingWorkPolicy.KEEP, worker);
+                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
                     }
                 }
             } catch (Exception e) {

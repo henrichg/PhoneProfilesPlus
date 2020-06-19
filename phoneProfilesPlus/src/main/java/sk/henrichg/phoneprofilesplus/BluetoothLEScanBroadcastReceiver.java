@@ -66,7 +66,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                                 OneTimeWorkRequest worker =
                                         new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                                .addTag("handleEventsBluetoothLEScannerWork")
+                                                .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG)
                                                 .setInputData(workData)
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
                                                 .build();

@@ -16,6 +16,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     //static final String EXTRA_RESTART_SERVICE = "restart_service";
 
+    static final String PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
@@ -33,17 +35,17 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         // https://issuetracker.google.com/issues/115575872#comment16
         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "avoidRescheduleReceiverWorker START of enqueue");
-        PhoneProfilesService.cancelWork("avoidRescheduleReceiverWorker");
+        PhoneProfilesService.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
-                        .addTag("avoidRescheduleReceiverWorker")
+                        .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
                         .setInitialDelay(365 * 10, TimeUnit.DAYS)
                         .build();
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
             if (workManager != null)
-                workManager.enqueueUniqueWork("avoidRescheduleReceiverWorker", ExistingWorkPolicy.KEEP, avoidRescheduleReceiverWorker);
+                workManager.enqueueUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.KEEP, avoidRescheduleReceiverWorker);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -72,7 +74,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             PPApplication.logE("PackageReplacedReceiver.onReceive", "start work for package replaced");
             //PPApplication.logE("PackageReplacedReceiver.onReceive", "start of delayed work");
 
-            PhoneProfilesService.cancelWork("packageReplacedWork");
+            PhoneProfilesService.cancelWork(PackageReplacedReceiver.PACKAGE_REPLACED_WORK_TAG);
 
             // work for package replaced
             Data workData = new Data.Builder()
@@ -82,7 +84,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                            .addTag("packageReplacedWork")
+                            .addTag(PackageReplacedReceiver.PACKAGE_REPLACED_WORK_TAG)
                             .setInputData(workData)
                             //.setInitialDelay(5, TimeUnit.SECONDS)
                             .build();
@@ -91,7 +93,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 //if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.KEEP, worker);
+                        workManager.enqueueUniqueWork(PackageReplacedReceiver.PACKAGE_REPLACED_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                 //}
             } catch (Exception e) {
                 PPApplication.recordException(e);

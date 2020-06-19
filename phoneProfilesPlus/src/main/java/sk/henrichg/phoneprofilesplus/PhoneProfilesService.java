@@ -326,11 +326,11 @@ public class PhoneProfilesService extends Service
     static void cancelAllWorks(boolean atStart) {
         //Log.e("------------ PhoneProfilesService.cancelAllWorks", "atStart="+atStart);
         if (atStart) {
-            cancelWork("elapsedAlarmsShowProfileNotificationWork");
-            cancelWork("elapsedAlarmsUpdateGUIWork");
+            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK);
+            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
         }
         if (!atStart)
-            cancelWork("avoidRescheduleReceiverWorker");
+            cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
             cancelWork(tag);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
@@ -347,31 +347,36 @@ public class PhoneProfilesService extends Service
             cancelWork(tag);
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
         if (atStart) {
-            cancelWork("disableInternalChangeWork");
-            cancelWork("disableScreenTimeoutInternalChangeWork");
+            cancelWork(DisableInternalChangeWorker.WORK_TAG);
+            cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
         }
-        cancelWork("periodicEventsHandlerWorker");
-        cancelWork("delayedWorkCloseAllApplications");
-        cancelWork("handleEventsBluetoothLEScannerWork");
+        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
+        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
         cancelWork(BluetoothScanWorker.WORK_TAG);
-        cancelWork("handleEventsBluetoothCLScannerWork");
-        cancelWork("restartEventsWithDelayWork");
+        cancelWork(BluetoothScanWorker.WORK_TAG_SHORT);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
+        cancelWork(RestartEventsWithDelayWorker.WORK_TAG);
         cancelWork(GeofenceScanWorker.WORK_TAG);
-        cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
+        cancelWork(GeofenceScanWorker.WORK_TAG_SHORT);
+        cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
         cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
         if (atStart)
-            cancelWork("elapsedAlarmsLockDeviceFinishActivity");
-        cancelWork("elapsedAlarmsLockDeviceAfterScreenOff");
+            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
+        cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
         if (atStart) {
-            cancelWork("packageReplacedWork");
-            cancelWork("delayedWorkAfterFirstStartWork");
-            cancelWork("setBlockProfileEventsActionWork");
+            cancelWork(PackageReplacedReceiver.PACKAGE_REPLACED_WORK_TAG);
+            cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG);
+            cancelWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
         }
         cancelWork(SearchCalendarEventsWorker.WORK_TAG);
-        cancelWork("handleEventsWifiScannerFromScannerWork");
-        cancelWork("handleEventsWifiScannerFromReceiverWork");
+        cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
         cancelWork(WifiScanWorker.WORK_TAG);
-        cancelWork("startWifiScanWork");
+        cancelWork(WifiScanWorker.WORK_TAG_SHORT);
+        cancelWork(WifiScanWorker.WORK_TAG_START_SCAN);
     }
 
     @Override
@@ -2931,7 +2936,8 @@ public class PhoneProfilesService extends Service
 
     private void cancelBackgroundScanningWorker() {
         PPApplication.logE("[RJS] PhoneProfilesService.cancelBackgroundScanningWorker", "xxx");
-        PhoneProfilesService.cancelWork("periodicEventsHandlerWorker");
+        PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
+        PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
     }
 
     void scheduleBackgroundScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
@@ -2948,17 +2954,17 @@ public class PhoneProfilesService extends Service
                 eventAllowed = true;
             }
             if (eventAllowed) {
-                //if (rescan)
-                    cancelWork("periodicEventsHandlerWorker");
+                cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
+                cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
 
                 OneTimeWorkRequest periodicEventsHandlerWorker =
                         new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
-                                .addTag("periodicEventsHandlerWorker")
+                                .addTag(PeriodicEventsHandlerWorker.WORK_TAG_SHORT)
                                 .build();
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
+                        workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -2972,7 +2978,8 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelWifiWorker(final Context context, boolean forSchedule) {
-        if ((!forSchedule) || WifiScanWorker.isWorkScheduled()) {
+        if ((!forSchedule) ||
+                (WifiScanWorker.isWorkScheduled(false) || WifiScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiWorker->CANCEL", "PhoneProfilesService_cancelWifiWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiWorker", "CANCEL");
             WifiScanWorker.cancelWork(context, true/*, null*/);
@@ -3004,7 +3011,7 @@ public class PhoneProfilesService extends Service
                             PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             if (eventAllowed) {
-                if (!WifiScanWorker.isWorkScheduled()) {
+                if (!(WifiScanWorker.isWorkScheduled(false) || WifiScanWorker.isWorkScheduled(true))) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiWorker->SCHEDULE", "PhoneProfilesService_scheduleWifiWorker");
                     WifiScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn, afterEnableWifi*/);
                     //PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 1");
@@ -3025,7 +3032,8 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelBluetoothWorker(final Context context, boolean forSchedule) {
-        if ((!forSchedule) || BluetoothScanWorker.isWorkScheduled()) {
+        if ((!forSchedule) ||
+                (BluetoothScanWorker.isWorkScheduled(false) || BluetoothScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelBluetoothWorker->CANCEL", "PhoneProfilesService_cancelBluetoothWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothWorker", "CANCEL");
             BluetoothScanWorker.cancelWork(context, true/*, null*/);
@@ -3056,7 +3064,7 @@ public class PhoneProfilesService extends Service
                             PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             if (eventAllowed) {
-                if (BluetoothScanWorker.isWorkScheduled()) {
+                if (BluetoothScanWorker.isWorkScheduled(false) || BluetoothScanWorker.isWorkScheduled(true)) {
                     BluetoothScanWorker.cancelWork(appContext, true/*, null*/);
                 }
                 BluetoothScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
@@ -3070,7 +3078,8 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelGeofenceWorker(boolean forSchedule) {
-        if ((!forSchedule) || GeofenceScanWorker.isWorkScheduled()) {
+        if ((!forSchedule) ||
+                (GeofenceScanWorker.isWorkScheduled(false) || GeofenceScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelGeofenceWorker->CANCEL", "PhoneProfilesService_cancelGeofenceWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceWorker", "CANCEL");
             GeofenceScanWorker.cancelWork(true/*, null*/);
@@ -3100,7 +3109,7 @@ public class PhoneProfilesService extends Service
             if (eventAllowed) {
                 // location scanner is enabled
                 //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
-                if (GeofenceScanWorker.isWorkScheduled()/* || rescan*/) {
+                if (GeofenceScanWorker.isWorkScheduled(false) || GeofenceScanWorker.isWorkScheduled(true)) {
                     GeofenceScanWorker.cancelWork(true/*, null*/);
                 }
                 synchronized (PPApplication.geofenceScannerMutex) {
@@ -3109,7 +3118,7 @@ public class PhoneProfilesService extends Service
                         getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
                     }
                 }
-                GeofenceScanWorker.scheduleWork(appContext, false, /*null,*/ true/*, forScreenOn*/);
+                GeofenceScanWorker.scheduleWork(appContext, true, /*null,*/ true/*, forScreenOn*/);
             } else
                 cancelGeofenceWorker(true);
         } else
@@ -3120,7 +3129,8 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelSearchCalendarEventsWorker(boolean forSchedule) {
-        if ((!forSchedule) || SearchCalendarEventsWorker.isWorkScheduled()) {
+        if ((!forSchedule) ||
+                (SearchCalendarEventsWorker.isWorkScheduled(false) || SearchCalendarEventsWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelSearchCalendarEventsWorker->CANCEL", "PhoneProfilesService_cancelSearchCalendarEventsWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsWorker", "CANCEL");
             SearchCalendarEventsWorker.cancelWork(true/*, null*/);
@@ -3143,7 +3153,7 @@ public class PhoneProfilesService extends Service
             eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
                 PreferenceAllowed.PREFERENCE_ALLOWED;
         if (eventAllowed) {
-            if (!SearchCalendarEventsWorker.isWorkScheduled()/* || rescan*/) {
+            if (!(SearchCalendarEventsWorker.isWorkScheduled(false) || SearchCalendarEventsWorker.isWorkScheduled(true))) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsWorker->SCHEDULE", "PhoneProfilesService_scheduleSearchCalendarEventsWorker");
                 //if (rescan)
                 SearchCalendarEventsWorker.cancelWork(true/*, null*/);
@@ -3665,7 +3675,7 @@ public class PhoneProfilesService extends Service
                         }
                     }
 
-                    //PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
+                    //PhoneProfilesService.cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG, appContext);
 
                     /*if (_deactivateProfile) {
                         DatabaseHandler.getInstance(appContext).deactivateProfile();
@@ -3884,7 +3894,7 @@ public class PhoneProfilesService extends Service
 
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "called work for first start");
 
-                        PhoneProfilesService.cancelWork("afterFirstStartWork");
+                        PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
                         Data workData = new Data.Builder()
                                 .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
@@ -3894,7 +3904,7 @@ public class PhoneProfilesService extends Service
 
                         OneTimeWorkRequest worker =
                                 new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                        .addTag("afterFirstStartWork")
+                                        .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                         .setInputData(workData)
                                         .setInitialDelay(5, TimeUnit.SECONDS)
                                         .build();
@@ -3903,7 +3913,7 @@ public class PhoneProfilesService extends Service
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.APPEND, worker);
+                                    workManager.enqueue(worker);
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -5655,7 +5665,7 @@ public class PhoneProfilesService extends Service
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsOrientationSensorWork");
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -6089,15 +6099,14 @@ public class PhoneProfilesService extends Service
 
                     OneTimeWorkRequest disableInternalChangeWorker =
                             new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                    .addTag("disableInternalChangeWork")
+                                    .addTag(DisableInternalChangeWorker.WORK_TAG)
                                     .setInitialDelay(3, TimeUnit.SECONDS)
                                     .build();
-                    PhoneProfilesService.cancelWork("disableInternalChangeWork");
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
-                                workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                                workManager.enqueue(disableInternalChangeWorker);
                         }
                     } catch (Exception ee) {
                         PPApplication.recordException(ee);
@@ -6157,15 +6166,14 @@ public class PhoneProfilesService extends Service
 
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                        .addTag("disableInternalChangeWork")
+                        .addTag(DisableInternalChangeWorker.WORK_TAG)
                         .setInitialDelay(3, TimeUnit.SECONDS)
                         .build();
-        PhoneProfilesService.cancelWork("disableInternalChangeWork");
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                    workManager.enqueue(disableInternalChangeWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -6578,15 +6586,14 @@ public class PhoneProfilesService extends Service
 
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .addTag("disableInternalChangeWork")
+                                                .addTag(DisableInternalChangeWorker.WORK_TAG)
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
-                                PhoneProfilesService.cancelWork("disableInternalChangeWork");
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                                            workManager.enqueue(disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -6643,15 +6650,14 @@ public class PhoneProfilesService extends Service
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .addTag("disableInternalChangeWork")
+                                        .addTag(DisableInternalChangeWorker.WORK_TAG)
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
-                        PhoneProfilesService.cancelWork("disableInternalChangeWork");
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                                    workManager.enqueue(disableInternalChangeWorker);
                             }
                         } catch (Exception ee) {
                             PPApplication.recordException(ee);

@@ -19,7 +19,6 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -417,15 +416,14 @@ public class RingtonePreferenceX extends DialogPreference {
 
                                 OneTimeWorkRequest disableInternalChangeWorker =
                                         new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .addTag("disableInternalChangeWork")
+                                                .addTag(DisableInternalChangeWorker.WORK_TAG)
                                                 .setInitialDelay(3, TimeUnit.SECONDS)
                                                 .build();
-                                PhoneProfilesService.cancelWork("disableInternalChangeWork");
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                                            workManager.enqueue(disableInternalChangeWorker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -479,15 +477,14 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         OneTimeWorkRequest disableInternalChangeWorker =
                                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .addTag("disableInternalChangeWork")
+                                        .addTag(DisableInternalChangeWorker.WORK_TAG)
                                         .setInitialDelay(3, TimeUnit.SECONDS)
                                         .build();
-                        PhoneProfilesService.cancelWork("disableInternalChangeWork");
                         try {
                             if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.APPEND, disableInternalChangeWorker);
+                                    workManager.enqueue(disableInternalChangeWorker);
                             }
                         } catch (Exception ee) {
                             PPApplication.recordException(e);

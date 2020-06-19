@@ -83,7 +83,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                .addTag("elapsedAlarmsProfileDurationWork_"+(int)profile._id)
+                                .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
                                 .build();
@@ -98,7 +98,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
                             }*/
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsProfileDurationWork.add("elapsedAlarmsProfileDurationWork_" + (int) profile._id);
+                            PPApplication.elapsedAlarmsProfileDurationWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_" + (int) profile._id);
                         }
                     }
                 } catch (Exception e) {
@@ -171,8 +171,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.recordException(e);
             }
 
-            PhoneProfilesService.cancelWork("elapsedAlarmsProfileDurationWork_"+(int) profile._id);
-            PPApplication.elapsedAlarmsProfileDurationWork.remove("elapsedAlarmsProfileDurationWork_"+(int) profile._id);
+            PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int) profile._id);
+            PPApplication.elapsedAlarmsProfileDurationWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int) profile._id);
         }
         Profile.setActivatedProfileEndDurationTime(context, 0);
         //PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.removeAlarm", "removed");

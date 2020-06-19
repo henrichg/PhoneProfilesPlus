@@ -8,12 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -26,6 +26,13 @@ import java.util.List;
 public class DelayedWorksWorker extends Worker {
 
     //Context context;
+
+    static final String DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG = "handleEventsBluetoothLEScannerWork";
+    static final String DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG = "handleEventsBluetoothCLScannerWork";
+    static final String DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG = "handleEventsWifiScannerFromReceiverWork";
+    static final String DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG = "handleEventsWifiScannerFromScannerWork";
+    static final String DELAYED_WORK_AFTER_FIRST_START_WORK_TAG = "delayedWorkAfterFirstStartWork";
+    static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG = "delayedWorkCloseAllApplications";
 
     static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
     static final String DELAYED_WORK_START_WIFI_SCAN = "start_wifi_scan";
@@ -194,7 +201,7 @@ public class DelayedWorksWorker extends Worker {
                         if (oldVersionCode < actualVersionCode) {
                             PPApplication.logE("PackageReplacedReceiver.doWork", "is new version");
 
-                            //PhoneProfilesService.cancelWork("delayedWorkAfterFirstStartWork", appContext);
+                            //PhoneProfilesService.cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG, appContext);
 
                             if (actualVersionCode <= 2322) {
                                 // for old packages use Priority in events
@@ -561,28 +568,37 @@ public class DelayedWorksWorker extends Worker {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null) {
                             // work after first start
-                            PhoneProfilesService.cancelWork("afterFirstStartWork");
-                            Data workData = new Data.Builder()
-                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
-                                    .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
-                                    .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, false)
-                                    .build();
+                            PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
-                            OneTimeWorkRequest worker =
-                                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                            .addTag("afterFirstStartWork")
-                                            .setInputData(workData)
-                                            //.setInitialDelay(5, TimeUnit.SECONDS)
+                            //TODO: asi iny thread na toto pouzi
+                            PPApplication.startHandlerThreadPPScanners();
+                            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Data workData = new Data.Builder()
+                                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                                            .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
+                                            .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, false)
                                             .build();
-                            try {
-                                if (PPApplication.getApplicationStarted(true)) {
-                                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                    if (workManager != null)
-                                        workManager.enqueueUniqueWork("afterFirstStartWork", ExistingWorkPolicy.APPEND, worker);
+
+                                    OneTimeWorkRequest worker =
+                                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                    .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
+                                                    .setInputData(workData)
+                                                    //.setInitialDelay(5, TimeUnit.SECONDS)
+                                                    .build();
+                                    try {
+                                        if (PPApplication.getApplicationStarted(true)) {
+                                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                                            if (workManager != null)
+                                                workManager.enqueue(worker);
+                                        }
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
                                 }
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+                            }, 500);
 
                             //instance.setApplicationFullyStarted(/*true, */true);
                             //PPApplication.updateGUI(appContext, true, true);
@@ -597,6 +613,7 @@ public class DelayedWorksWorker extends Worker {
                         //PPApplication.logE("DelayedWorksWorker.doWork", "sensorType="+sensorType);
                         // start events handler
                         PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (2)");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (2): sensorType="+sensorType);
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(sensorType);

@@ -77,7 +77,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsUpdateGUIWork")
+                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(PPApplication.DURATION_FOR_GUI_REFRESH+100, TimeUnit.MILLISECONDS)
                             .build();
@@ -150,7 +150,7 @@ public class UpdateGUIBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsUpdateGUIWork");
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
         //PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.removeAlarm", "removed");
     }
 

@@ -44,7 +44,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsLockDeviceFinishActivity");
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -89,7 +89,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsLockDeviceFinishActivity")
+                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
@@ -98,7 +98,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
-                        workManager.enqueueUniqueWork("elapsedAlarmsLockDeviceFinishActivity", ExistingWorkPolicy.KEEP, worker);
+                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
                     }
                 }
             } catch (Exception e) {

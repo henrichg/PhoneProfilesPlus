@@ -10,6 +10,8 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("WeakerAccess")
 public class DisableInternalChangeWorker extends Worker {
 
+    static final String WORK_TAG = "disableInternalChangeWork";
+
     public DisableInternalChangeWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {

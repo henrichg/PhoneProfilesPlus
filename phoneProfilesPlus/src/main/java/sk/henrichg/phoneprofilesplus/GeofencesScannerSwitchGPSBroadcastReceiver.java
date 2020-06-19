@@ -45,7 +45,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             PPApplication.recordException(e);
         }
 
-        PhoneProfilesService.cancelWork("elapsedAlarmsGeofenceScannerSwitchGPSWork");
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -90,7 +90,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsGeofenceScannerSwitchGPSWork")
+                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.MINUTES)
                             .build();
@@ -99,7 +99,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
-                        workManager.enqueueUniqueWork("elapsedAlarmsGeofenceScannerSwitchGPSWork", ExistingWorkPolicy.KEEP, worker);
+                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
                     }
                 }
             } catch (Exception e) {

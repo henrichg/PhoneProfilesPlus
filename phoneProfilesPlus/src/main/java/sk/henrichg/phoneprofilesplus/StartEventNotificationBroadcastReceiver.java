@@ -50,8 +50,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
-        PPApplication.elapsedAlarmsStartEventNotificationWork.remove("elapsedAlarmsStartEventNotificationWork_"+(int)event._id);
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id);
+        PPApplication.elapsedAlarmsStartEventNotificationWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id);
         //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -97,7 +97,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                .addTag("elapsedAlarmsStartEventNotificationWork_"+(int)event._id)
+                                .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
                                 .build();
@@ -110,7 +110,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
                             }*/
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsStartEventNotificationWork.add("elapsedAlarmsStartEventNotificationWork_" + (int) event._id);
+                            PPApplication.elapsedAlarmsStartEventNotificationWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_" + (int) event._id);
                         }
                     }
                 } catch (Exception e) {

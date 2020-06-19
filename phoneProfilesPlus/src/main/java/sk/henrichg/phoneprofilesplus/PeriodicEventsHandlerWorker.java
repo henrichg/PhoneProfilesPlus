@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,9 @@ import java.util.concurrent.TimeUnit;
 public class PeriodicEventsHandlerWorker extends Worker {
 
     final Context context;
+
+    static final String WORK_TAG  = "periodicEventsHandlerWorker";
+    static final String WORK_TAG_SHORT  = "periodicEventsHandlerWorkerShort";
 
     public PeriodicEventsHandlerWorker(
             @NonNull Context context,
@@ -42,24 +46,32 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
                 }
 
-                int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
-                //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                if (isPowerSaveMode && ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("1"))
-                    interval = 2 * interval;
+                PPApplication.startHandlerThreadPPScanners();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+                        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                        if (isPowerSaveMode && ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("1"))
+                            interval = 2 * interval;
 
-                OneTimeWorkRequest periodicEventsHandlerWorker =
-                        new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
-                                .addTag("periodicEventsHandlerWorker")
-                                .setInitialDelay(interval, TimeUnit.MINUTES)
-                                .build();
-                try {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null)
-                        workManager.enqueueUniqueWork("periodicEventsHandlerWorker", ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
+                        OneTimeWorkRequest periodicEventsHandlerWorker =
+                                new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
+                                        .addTag(PeriodicEventsHandlerWorker.WORK_TAG)
+                                        .setInitialDelay(interval, TimeUnit.MINUTES)
+                                        .build();
+                        try {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null)
+                                workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG, ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    }
+                }, 500);
+
             }
 
             return Result.success();

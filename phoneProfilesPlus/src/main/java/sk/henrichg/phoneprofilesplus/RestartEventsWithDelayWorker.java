@@ -12,6 +12,8 @@ public class RestartEventsWithDelayWorker extends Worker {
 
     private final Context context;
 
+    static final String WORK_TAG = "restartEventsWithDelayWork";
+
     public RestartEventsWithDelayWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {

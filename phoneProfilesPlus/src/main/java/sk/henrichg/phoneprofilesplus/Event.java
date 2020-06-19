@@ -2102,7 +2102,7 @@ class Event {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                .addTag("elapsedAlarmsEventDelayStartWork_"+(int) this._id)
+                                .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                 .build();
@@ -2112,7 +2112,7 @@ class Event {
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsEventDelayStartWork.add("elapsedAlarmsEventDelayStartWork_" + (int) this._id);
+                            PPApplication.elapsedAlarmsEventDelayStartWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_" + (int) this._id);
 
                             Calendar now = Calendar.getInstance();
                             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2240,8 +2240,8 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
-        PPApplication.elapsedAlarmsEventDelayStartWork.remove("elapsedAlarmsEventDelayStartWork_"+((int) this._id));
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+((int) this._id));
+        PPApplication.elapsedAlarmsEventDelayStartWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+((int) this._id));
 
         this._isInDelayStart = false;
         this._startStatusTime = 0;
@@ -2338,7 +2338,7 @@ class Event {
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                .addTag("elapsedAlarmsEventDelayEndWork_"+(int) this._id)
+                                .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                 .build();
@@ -2348,7 +2348,7 @@ class Event {
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsEventDelayEndWork.add("elapsedAlarmsEventDelayEndWork_" + (int) this._id);
+                            PPApplication.elapsedAlarmsEventDelayEndWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_" + (int) this._id);
 
                             Calendar now = Calendar.getInstance();
                             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2495,8 +2495,8 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
-        PPApplication.elapsedAlarmsEventDelayEndWork.remove("elapsedAlarmsEventDelayEndWork_"+((int) this._id));
+        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+((int) this._id));
+        PPApplication.elapsedAlarmsEventDelayEndWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+((int) this._id));
 
         this._isInDelayEnd = false;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);

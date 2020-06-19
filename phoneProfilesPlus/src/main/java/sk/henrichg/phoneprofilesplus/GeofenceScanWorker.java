@@ -25,6 +25,7 @@ public class GeofenceScanWorker extends Worker {
     private final Context context;
 
     static final String WORK_TAG  = "GeofenceScannerJob";
+    static final String WORK_TAG_SHORT  = "GeofenceScannerJobShort";
 
     public GeofenceScanWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -93,7 +94,7 @@ public class GeofenceScanWorker extends Worker {
             }
 
             //PPApplication.logE("GeofenceScanWorker.doWork - handler", "schedule work");
-            scheduleWork(context.getApplicationContext(), false, /*null,*/ false/*, false*/);
+            scheduleWork(context.getApplicationContext(), true, /*null,*/ false/*, false*/);
 
             /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
@@ -174,11 +175,11 @@ public class GeofenceScanWorker extends Worker {
                         workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
                     } else {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
-                        waitForFinish();
+                        //waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
-                                .addTag(GeofenceScanWorker.WORK_TAG)
+                                .addTag(GeofenceScanWorker.WORK_TAG_SHORT)
                                 .build();
-                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
+                        workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG_SHORT, ExistingWorkPolicy.KEEP, workRequest);
                     }
 
                     //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- END");
@@ -191,7 +192,7 @@ public class GeofenceScanWorker extends Worker {
     }
 
     static void scheduleWork(final Context context,
-                            @SuppressWarnings("SameParameterValue") final boolean useHandler,
+                            final boolean useHandler,
                             /*final Handler _handler, */final boolean startScanning/*, final boolean forScreenOn*/) {
         //PPApplication.logE("GeofenceScanWorker.scheduleWork", "startScanning="+startScanning);
 
@@ -199,12 +200,12 @@ public class GeofenceScanWorker extends Worker {
         if (useHandler/* && (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            handler.post(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     _scheduleWork(context, startScanning/*, forScreenOn*/);
                 }
-            });
+            }, 500);
         }
         else {
             _scheduleWork(context, startScanning/*, forScreenOn*/);
@@ -215,11 +216,13 @@ public class GeofenceScanWorker extends Worker {
     }
 
     private static void _cancelWork() {
-        if (isWorkScheduled()) {
+        if (isWorkScheduled(false) || isWorkScheduled(true)) {
             try {
-                waitForFinish();
+                waitForFinish(false);
+                waitForFinish(true);
 
                 PhoneProfilesService.cancelWork(WORK_TAG);
+                PhoneProfilesService.cancelWork(WORK_TAG_SHORT);
 
                 //PPApplication.logE("GeofenceScanWorker._cancelWork", "CANCELED");
 
@@ -230,8 +233,8 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    private static void waitForFinish() {
-        if (!isWorkRunning()) {
+    private static void waitForFinish(boolean shortWork) {
+        if (!isWorkRunning(shortWork)) {
             //PPApplication.logE("GeofenceScanWorker.waitForFinish", "NOT RUNNING");
             return;
         }
@@ -245,7 +248,11 @@ public class GeofenceScanWorker extends Worker {
                     long start = SystemClock.uptimeMillis();
                     do {
 
-                        ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        ListenableFuture<List<WorkInfo>> statuses;
+                        if (shortWork)
+                            statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        else
+                            statuses = workManager.getWorkInfosByTag(WORK_TAG);
                         boolean allFinished = true;
                         //noinspection TryWithIdenticalCatches
                         try {
@@ -298,12 +305,16 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    private static boolean isWorkRunning() {
+    private static boolean isWorkRunning(boolean shortWork) {
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                    ListenableFuture<List<WorkInfo>> statuses;
+                    if (shortWork)
+                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                    else
+                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
@@ -335,13 +346,17 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    static boolean isWorkScheduled() {
+    static boolean isWorkScheduled(boolean shortWork) {
         //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "xxx");
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    ListenableFuture<List<WorkInfo>> statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                    ListenableFuture<List<WorkInfo>> statuses;
+                    if (shortWork)
+                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                    else
+                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
