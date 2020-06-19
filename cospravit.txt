@@ -1214,9 +1214,11 @@ https://issuetracker.google.com/issues/115575872#comment4
 
 ----------------------
 
-Pridanie custom farby pre preferences:
-- applicationSamsungEdgeBackgroundColor
-- applicationWidgetIconBackgroundColor
-- applicationWidgetListBackgroundColor
-- applicationWidgetOneRowBackgroundColor
-- ProfileIconColorChooserDialogX
+Test baterie - kedy a odkial sa spusta EventsHandler
+- wifi scanner je opraveny, spusta sa kedy ma
+- dalsi adept je PhoneStateScanner.handleEvents
+  - nespusat sa casto? Mozno lebo je volanypri vicaerych eventoch z listenera.
+- pozeraj aj PeriodicEventHandlerWorker - mam ho povoleny na Pixeli, mal by sa kazdych 15 minut.
+
+---------------------
+

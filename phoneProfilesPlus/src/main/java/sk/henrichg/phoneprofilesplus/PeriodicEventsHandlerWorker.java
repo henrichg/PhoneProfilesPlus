@@ -34,9 +34,25 @@ public class PeriodicEventsHandlerWorker extends Worker {
         try {
             PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "xxx");
 
+            if (!PPApplication.getApplicationStarted(true))
+                // application is not started
+                return Result.success();
+
             if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
-                if (PPApplication.getApplicationStarted(true)
-                        && Event.getGlobalEventsRunning()) {
+
+                //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                if (isPowerSaveMode && ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("2")) {
+                    PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
+                    PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "return - update in power save mode is not allowed");
+                        PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "---------------------------------------- END");
+                    }*/
+                    return Result.success();
+                }
+
+                if (Event.getGlobalEventsRunning()) {
 
                     PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
 
