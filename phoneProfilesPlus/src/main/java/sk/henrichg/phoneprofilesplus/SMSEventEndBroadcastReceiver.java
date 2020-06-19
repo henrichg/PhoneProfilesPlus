@@ -44,13 +44,13 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SMSEventEndBroadcastReceiver.doWork");
 
                         //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=SMSEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SMSEventEndBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

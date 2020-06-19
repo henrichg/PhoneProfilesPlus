@@ -94,12 +94,12 @@ class TwilightScanner {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TwilightScanner.setTwilightState");
+                                PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=TwilightScanner.setTwilightState");
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TwilightScanner.setTwilightState");
+                                PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=TwilightScanner.setTwilightState");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

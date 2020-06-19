@@ -81,12 +81,19 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
 
                                     // start events handler
+                                    PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive (1)");
+
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
+                                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BluetoothStateChangedBroadcastReceiver.onReceive (1)");
+
                                     // start events handler
+                                    PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive (2)");
+
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
 
+                                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BluetoothStateChangedBroadcastReceiver.onReceive (2)");
                                 }
 
                             }

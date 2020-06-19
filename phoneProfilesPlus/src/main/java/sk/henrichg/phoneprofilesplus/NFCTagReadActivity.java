@@ -76,13 +76,13 @@ public class NFCTagReadActivity extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.setEventNFCParameters(_tagData, _time);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG);
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
                         }
                     });
 

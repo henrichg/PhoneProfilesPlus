@@ -128,13 +128,13 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
 
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

@@ -40,12 +40,12 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NFCStateChangedBroadcastReceiver.onReceive");
+                                PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=NFCStateChangedBroadcastReceiver.onReceive");
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NFCStateChangedBroadcastReceiver.onReceive");
+                                PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCStateChangedBroadcastReceiver.onReceive");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

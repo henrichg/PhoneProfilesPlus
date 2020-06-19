@@ -162,13 +162,12 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
 
-                            //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -180,9 +179,12 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     }
                 });
             } else {
-                //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.doWork", "handle events");
+                PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (2)");
+
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+
+                PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (2)");
             }
         }
     }

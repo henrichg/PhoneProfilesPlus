@@ -44,13 +44,13 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayStartBroadcastReceiver.doWork (1)");
 
                             //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayStartBroadcastReceiver.doWork");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventDelayStartBroadcastReceiver.doWork (1)");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -63,8 +63,12 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                 });
             } else {
                 //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayStartBroadcastReceiver.doWork (2)");
+
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
+
+                PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventDelayStartBroadcastReceiver.doWork (2)");
             }
         }
     }

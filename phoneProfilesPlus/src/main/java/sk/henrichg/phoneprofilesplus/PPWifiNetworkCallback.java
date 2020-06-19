@@ -47,8 +47,8 @@ public class PPWifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     private void doConnection() {
-        //PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "WifiConnectionBroadcastReceiver.onReceive", "WifiConnectionBroadcastReceiver_onReceive");
+        //PPApplication.logE("[TEST BATTERY] PPWifiNetworkCallback.doConnection", "xxx");
+        //CallsCounter.logCounter(context, "PPWifiNetworkCallback.doConnection", "PPWifiNetworkCallback_doConnection");
 
         //final Context appContext = getApplicationContext();
 
@@ -56,7 +56,7 @@ public class PPWifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             // application is not started
             return;
 
-        //PPApplication.logE("[TEST BATTERY] WifiConnectionBroadcastReceiver.onReceive", "connected or disconnected");
+        //PPApplication.logE("[TEST BATTERY] PPWifiNetworkCallback.doConnection", "connected or disconnected");
 
         PPApplication.startHandlerThread(/*"WifiConnectionBroadcastReceiver.onReceive"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -71,9 +71,9 @@ public class PPWifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiConnectionBroadcastReceiver.onReceive");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPWifiNetworkCallback.doConnection");
 
-                    //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "isConnected=" + isConnected);
+                    //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "isConnected=" + isConnected);
 
                     if (PhoneProfilesService.getInstance() != null) {
                         if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
@@ -82,8 +82,8 @@ public class PPWifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                             if (connected) {
                                 //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                 //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
-                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
+                                //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
+                                //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
                                 //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
                                 //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
                                 PhoneProfilesService.getInstance().connectToSSIDStarted = false;
@@ -99,24 +99,27 @@ public class PPWifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                                 ApplicationPreferences.prefEventWifiEnabledForScan)) {
                             // wifi is not scanned
 
-                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
+                            //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "wifi is not scanned");
 
                             if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
                                 // connect to SSID is not started
 
-                                //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "start HandleEvents - SENSOR_TYPE_WIFI_CONNECTION");
+                                //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "start HandleEvents - SENSOR_TYPE_WIFI_CONNECTION");
 
                                 // start events handler
+                                PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PPWifiNetworkCallback.doConnection");
+
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
+                                PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPWifiNetworkCallback.doConnection");
                             }
                         } //else
-                        //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
+                        //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "wifi is scanned");
                         //}
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiConnectionBroadcastReceiver.onReceive");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPWifiNetworkCallback.doConnection");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
