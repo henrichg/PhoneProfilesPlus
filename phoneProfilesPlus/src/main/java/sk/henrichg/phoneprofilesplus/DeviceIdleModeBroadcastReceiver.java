@@ -52,7 +52,22 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             // rescan
                             if (PhoneProfilesService.getInstance() != null) {
                                 //PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule workers");
-                                PPApplication.restartAllScanners(appContext, false);
+                                boolean restart = false;
+                                if (ApplicationPreferences.applicationEventLocationEnableScanning)
+                                    restart = true;
+                                else if (ApplicationPreferences.applicationEventWifiEnableScanning)
+                                    restart = true;
+                                else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
+                                    restart = true;
+                                else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+                                    restart = true;
+                                else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+                                    restart = true;
+                                else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+                                    restart = true;
+                                if (restart) {
+                                    PPApplication.restartAllScanners(appContext, false);
+                                }
                             }
                             /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                                 // rescan mobile cells

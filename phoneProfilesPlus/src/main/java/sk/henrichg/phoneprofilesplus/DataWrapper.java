@@ -2226,22 +2226,22 @@ public class DataWrapper {
         if (alsoRescan) {
             //PPApplication.logE("[RJS] DataWrapper._restartEventsWithRescan", "restart all scanners");
             // for screenOn=true -> used only for geofence scanner - start scan with GPS On
-            PPApplication.restartAllScanners(context, false);
-            /*
-            //if (forceRestart || ApplicationPreferences.applicationEventWifiRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-            PPApplication.restartWifiScanner(context, false);
-            //}
-            //if (forceRestart || ApplicationPreferences.applicationEventBluetoothRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-            PPApplication.restartBluetoothScanner(context, false);
-            //}
-            //if (forceRestart || ApplicationPreferences.applicationEventLocationRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-            PPApplication.restartGeofenceScanner(context, false);
-            //}
-            //if (forceRestart || ApplicationPreferences.applicationEventMobileCellsRescan(context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
-            PPApplication.restartPhoneStateScanner(context, false);
-            //}
-            PPApplication.restartTwilightScanner(context);
-            */
+            boolean restart = false;
+            if (ApplicationPreferences.applicationEventLocationEnableScanning)
+                restart = true;
+            else if (ApplicationPreferences.applicationEventWifiEnableScanning)
+                restart = true;
+            else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
+                restart = true;
+            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+                restart = true;
+            else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+                restart = true;
+            else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+                restart = true;
+            if (restart) {
+                PPApplication.restartAllScanners(context, false);
+            }
         }
 
         DrawOverAppsPermissionNotification.showNotification(context, false);

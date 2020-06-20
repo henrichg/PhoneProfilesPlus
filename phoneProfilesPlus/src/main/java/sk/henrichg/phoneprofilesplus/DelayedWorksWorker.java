@@ -120,7 +120,7 @@ public class DelayedWorksWorker extends Worker {
                                     PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "device boot event exists");
 
                                     // start events handler
-                                    PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (1)");
+                                    PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
 
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
 
@@ -131,7 +131,7 @@ public class DelayedWorksWorker extends Worker {
 
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT);
 
-                                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (1)");
+                                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
                                 }
                             }
 
@@ -612,13 +612,12 @@ public class DelayedWorksWorker extends Worker {
                         //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
                         //PPApplication.logE("DelayedWorksWorker.doWork", "sensorType="+sensorType);
                         // start events handler
-                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (2)");
-                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (2): sensorType="+sensorType);
+                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(sensorType);
 
-                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (2)");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS)");
                     }
                     break;
                 case DELAYED_WORK_START_WIFI_SCAN:

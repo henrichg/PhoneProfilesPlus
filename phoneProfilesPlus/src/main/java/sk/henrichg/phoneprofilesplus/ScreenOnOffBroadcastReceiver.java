@@ -98,13 +98,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             }*/
                             PPApplication.isScreenOn = false;
 
+                            // call this, because device my not be locked immediately after screen off
                             KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                             if (keyguardManager != null) {
                                 boolean secureKeyguard = keyguardManager.isKeyguardSecure();
                                 //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "secureKeyguard=" + secureKeyguard);
 
                                 if (secureKeyguard) {
-                                    int lockDeviceTime = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 5000);
+                                    int lockDeviceTime = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 0);
                                     //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "lockDeviceTime="+lockDeviceTime);
                                     if (lockDeviceTime > 0)
                                         LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
