@@ -4,6 +4,7 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -163,9 +164,11 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         case Intent.ACTION_USER_PRESENT:
                             //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
 
-                            if (ApplicationPreferences.notificationShowInStatusBar &&
-                                    ApplicationPreferences.notificationHideInLockScreen) {
-                                PPApplication.showProfileNotification(/*appContext*/true);
+                            if (Build.VERSION.SDK_INT < 26) {
+                                if (ApplicationPreferences.notificationShowInStatusBar &&
+                                        ApplicationPreferences.notificationHideInLockScreen) {
+                                    PPApplication.showProfileNotification(/*appContext*/true);
+                                }
                             }
 
                             // change screen timeout
@@ -214,10 +217,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                     }
 
-                    if (action.equals(Intent.ACTION_SCREEN_ON)) {
-                        if (ApplicationPreferences.notificationShowInStatusBar &&
-                                ApplicationPreferences.notificationHideInLockScreen) {
-                            PPApplication.showProfileNotification(/*appContext*/true);
+                    if (Build.VERSION.SDK_INT < 26) {
+                        if (action.equals(Intent.ACTION_SCREEN_ON)) {
+                            if (ApplicationPreferences.notificationShowInStatusBar &&
+                                    ApplicationPreferences.notificationHideInLockScreen) {
+                                PPApplication.showProfileNotification(/*appContext*/true);
+                            }
                         }
                     }
 
