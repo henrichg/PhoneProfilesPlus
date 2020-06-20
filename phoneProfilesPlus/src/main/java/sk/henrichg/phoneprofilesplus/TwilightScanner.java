@@ -14,13 +14,18 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PowerManager;
 import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 class TwilightScanner {
 
@@ -72,7 +77,7 @@ class TwilightScanner {
 
                 mTwilightState = state;
 
-                final Context appContext = context.getApplicationContext();
+                //final Context appContext = context.getApplicationContext();
 
                 if (!PPApplication.getApplicationStarted(true))
                     // application is not started
@@ -81,7 +86,30 @@ class TwilightScanner {
                 if (Event.getGlobalEventsRunning()) {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
-                    PPApplication.startHandlerThread(/*"TwilightScanner.setTwilightState"*/);
+                    Data workData = new Data.Builder()
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                    .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
+                                    .setInputData(workData)
+                                    .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
+                                    .build();
+                    try {
+                        if (PPApplication.getApplicationStarted(true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null)
+                                workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                            //workManager.enqueue(worker);
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+
+                    /*
+                    PPApplication.startHandlerThread();//"TwilightScanner.setTwilightState"
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override
@@ -110,6 +138,7 @@ class TwilightScanner {
                             }
                         }
                     });
+                    */
                 }
             }
         }
