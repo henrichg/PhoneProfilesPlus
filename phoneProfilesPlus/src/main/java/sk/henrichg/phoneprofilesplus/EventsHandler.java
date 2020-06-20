@@ -8,8 +8,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -870,8 +868,8 @@ class EventsHandler {
             doEndHandler(dataWrapper);
 
             // refresh GUI
-            Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-            LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+            //Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+            //LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
 
 
             //dataWrapper.invalidateDataWrapper();
