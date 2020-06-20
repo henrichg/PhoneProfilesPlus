@@ -76,14 +76,14 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                                         setAlarm(_time, packageName, alarmManager, context);
                                 }
-                            } else {
+                            } /*else {
                                 //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
                                 setAlarm(_time, "", alarmManager, context);
-                            }
-                        } else {
+                            }*/
+                        } /*else {
                             //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
                             setAlarm(_time, "", alarmManager, context);
-                        }
+                        }*/
                     }
                     //else {
                         //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo == null");
@@ -117,7 +117,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //if (instance == null)
         //    return;
 
-        // !!! Keep disabled "if", next alarm my be is received before registering
+        // !!! Keep disabled "if", next alarm my be received before registering
         // AlarmClockBroadcastReceiver for example from Editor
         //if (instance.alarmClockBroadcastReceiver != null) {
             //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
@@ -138,7 +138,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
             // set alarm
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            // !!! DO NOT USE PPP SETTING "Use alarm clock" !!!
             //if (android.os.Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else //if (android.os.Build.VERSION.SDK_INT >= 19)

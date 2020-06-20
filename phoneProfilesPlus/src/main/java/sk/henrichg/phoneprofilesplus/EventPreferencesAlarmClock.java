@@ -454,10 +454,9 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 this._alarmPackageName.equals("com.angrydoughnuts.android.alarmclock"))
             return true;
 
-        if ((_applications == null) || _applications.isEmpty() ||
-                _applications.equals(context.getString(R.string.dash_string)))
-            // applications are not configured, alarmPackageName is supported
-            return true;
+        if ((_applications == null) || _applications.isEmpty() || _applications.equals(context.getString(R.string.dash_string)))
+            // applications are not configured
+            return false;
 
         String[] splits = this._applications.split("\\|");
         for (String split : splits) {
