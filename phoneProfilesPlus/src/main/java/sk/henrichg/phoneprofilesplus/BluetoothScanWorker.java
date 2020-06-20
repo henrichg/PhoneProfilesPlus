@@ -1023,7 +1023,8 @@ public class BluetoothScanWorker extends Worker {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
-                                workManager.enqueue(worker);
+                                workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                                //workManager.enqueue(worker);
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
