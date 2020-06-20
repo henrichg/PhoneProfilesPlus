@@ -32,6 +32,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 class PhoneStateScanner extends PhoneStateListener {
 
@@ -393,7 +398,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         getAllCellInfo(cellInfo);
 
                     //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellInfoChanged()", "xxx");
-                    handleEvents(appContext);
+                    handleEvents(/*appContext*/);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellInfoChanged");
                 } finally {
@@ -440,7 +445,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     }*/
 
                     //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onServiceStateChanged()", "xxx");
-                    handleEvents(appContext);
+                    handleEvents(/*appContext*/);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onServiceStateChanged");
                 } finally {
@@ -570,7 +575,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     }*/
 
                     //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellLocationChanged()", "xxx");
-                    handleEvents(appContext);
+                    handleEvents(/*appContext*/);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellLocationChanged");
                 } finally {
@@ -633,7 +638,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         }*/
 
                         //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.rescanMobileCells()", "xxx");
-                        handleEvents(appContext);
+                        handleEvents(/*appContext*/);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.rescanMobileCells");
                     } finally {
@@ -649,10 +654,11 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    static void handleEvents(final Context appContext) {
+    static void handleEvents(/*final Context appContext*/) {
         //PPApplication.logE("PhoneStateScanner.handleEvents", "xxx");
         if (Event.getGlobalEventsRunning())
         {
+            /*
             //if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                 //PPApplication.logE("PhoneStateScanner.handleEvents", "start events handler");
                 // start events handler
@@ -662,7 +668,29 @@ class PhoneStateScanner extends PhoneStateListener {
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE);
 
                 PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PhoneStateScanner.handleEvents");
-            //}
+            //}*/
+
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PHONE_STATE)
+                    .build();
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                            .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG)
+                            .setInputData(workData)
+                            .setInitialDelay(5, TimeUnit.SECONDS)
+                            .build();
+            try {
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null)
+                        workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                    //workManager.enqueue(worker);
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
 
         /*

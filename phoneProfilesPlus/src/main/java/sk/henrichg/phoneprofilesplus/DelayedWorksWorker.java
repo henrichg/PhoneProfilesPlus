@@ -32,6 +32,7 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG = "handleEventsWifiScannerFromReceiverWork";
     static final String DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG = "handleEventsWifiScannerFromScannerWork";
     static final String DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG = "handleEventsTwilightScannerWork";
+    static final String DELAYED_WORK_HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG = "handleEventsMobileCellsScannerWork";
     static final String DELAYED_WORK_AFTER_FIRST_START_WORK_TAG = "delayedWorkAfterFirstStartWork";
     static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG = "delayedWorkCloseAllApplications";
 
