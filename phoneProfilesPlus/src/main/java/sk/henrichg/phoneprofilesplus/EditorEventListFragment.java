@@ -1306,7 +1306,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long eventId)
+    void refreshGUI(/*final boolean refresh,*/ final boolean refreshIcons, final boolean setPosition, final long eventId)
     {
         if (activityDataWrapper == null)
             return;
@@ -1334,10 +1334,14 @@ public class EditorEventListFragment extends Fragment
                     profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
                     activityDataWrapper.getEventTimelineList(true);
 
-                    String pName;
                     if (profileFromDB != null) {
                         profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
+                    }
+
+                    /*
+                    String pName;
+                    if (profileFromDB != null) {
                         pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
                     } else
                         pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
@@ -1356,6 +1360,7 @@ public class EditorEventListFragment extends Fragment
 
                     PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
                     PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
+                    */
 
                     synchronized (activityDataWrapper.eventList) {
                         if (!activityDataWrapper.eventListFilled) {

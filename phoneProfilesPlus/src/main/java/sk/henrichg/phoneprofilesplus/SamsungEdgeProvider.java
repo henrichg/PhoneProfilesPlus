@@ -397,10 +397,10 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
     */
 
-    static void updateWidgets(final Context context, final boolean refresh) {
+    static void updateWidgets(final Context context/*, final boolean refresh*/) {
         //createProfilesDataWrapper(context);
 
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        /*DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
         Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
         //dataWrapper.getEventTimelineList(true);
 
@@ -421,7 +421,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
         }
 
-        PPApplication.setWidgetProfileName(context, 4, pName);
+        PPApplication.setWidgetProfileName(context, 4, pName);*/
 
         Intent intent = new Intent(context, SamsungEdgeProvider.class);
         intent.setAction(ACTION_REFRESH_EDGEPANEL);

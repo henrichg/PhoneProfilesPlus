@@ -458,7 +458,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    static void updateWidgets(Context context, boolean refresh) {
+    static void updateWidgets(Context context/*, boolean refresh*/) {
         /*String applicationWidgetOneRowIconLightness;
         String applicationWidgetOneRowIconColor;
         boolean applicationWidgetOneRowCustomIconLightness;
@@ -509,7 +509,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
         */
 
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        /*DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
         Profile profile = dataWrapper.getActivatedProfile(false, false);
 
         String pName;
@@ -532,7 +532,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        PPApplication.setWidgetProfileName(context, 2, pName);
+        PPApplication.setWidgetProfileName(context, 2, pName);*/
 
         Intent intent = new Intent(context, OneRowWidgetProvider.class);
         intent.setAction(ACTION_REFRESH_ONEROWWIDGET);

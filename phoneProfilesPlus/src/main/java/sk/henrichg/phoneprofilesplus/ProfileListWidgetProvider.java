@@ -753,11 +753,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    static void updateWidgets(final Context context, final boolean refresh) {
+    static void updateWidgets(final Context context/*, final boolean refresh*/) {
         //createProfilesDataWrapper(context);
 
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-        Profile profile = dataWrapper.getActivatedProfile/*FromDB*/(false, false);
+        /*DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        Profile profile = dataWrapper.getActivatedProfile(false, false);
         //dataWrapper.getEventTimelineList(true);
 
         String pName;
@@ -777,7 +777,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        PPApplication.setWidgetProfileName(context, 3, pName);
+        PPApplication.setWidgetProfileName(context, 3, pName);*/
 
         Intent intent = new Intent(context, ProfileListWidgetProvider.class);
         intent.setAction(ACTION_REFRESH_LISTWIDGET);

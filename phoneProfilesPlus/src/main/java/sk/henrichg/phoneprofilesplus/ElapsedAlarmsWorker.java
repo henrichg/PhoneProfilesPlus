@@ -91,8 +91,8 @@ public class ElapsedAlarmsWorker extends Worker {
             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
             int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
-            boolean refresh = getInputData().getBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, true);
-            boolean refreshAlsoEditor = getInputData().getBoolean(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, true);
+            //boolean refresh = getInputData().getBoolean(PPApplication.EXTRA_REFRESH, true);
+            //boolean refreshAlsoEditor = getInputData().getBoolean(PPApplication.EXTRA_REFRESH_ALSO_EDITOR, true);
 
             //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
             //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
@@ -128,10 +128,27 @@ public class ElapsedAlarmsWorker extends Worker {
                     EventDelayEndBroadcastReceiver.doWork(false, appContext);
                     break;
                 case ELAPSED_ALARMS_UPDATE_GUI:
-                    UpdateGUIBroadcastReceiver.doWork(false, appContext, refresh, refreshAlsoEditor/*, true*/);
+                    //UpdateGUIBroadcastReceiver.doWork(false, appContext, refresh, refreshAlsoEditor/*, true*/);
+                    //PPApplication.forceUpdateGUI(context.getApplicationContext(), refreshAlsoEditor, true, refresh);
+                    PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=ElapsedAlarmsWorker.doWork");
+                    PPApplication.forceUpdateGUI(context.getApplicationContext(), true, true/*, true*/);
                     break;
                 case ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION:
-                    ShowProfileNotificationBroadcastReceiver.doWork(appContext/*, true*/);
+                    //ShowProfileNotificationBroadcastReceiver.doWork(appContext/*, true*/);
+                    if (PhoneProfilesService.getInstance() != null) {
+                        try {
+                            //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "xxx");
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                            Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                            //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "_showProfileNotification()");
+                            if (PhoneProfilesService.getInstance() != null) {
+                                //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "handler");
+                                PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, /*false,*/ false/*, cleared*/);
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    }
                     break;
                 //case ELAPSED_ALARMS_DONATION:
                 //    DonationBroadcastReceiver.doWork(false, appContext);

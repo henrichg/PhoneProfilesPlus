@@ -785,13 +785,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (getActivity() == null)
                 return;
 
-            final Context context = getActivity().getBaseContext();
+            //final Context context = getActivity().getBaseContext();
 
             disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
-            PPApplication.updateGUI(context.getApplicationContext(), true, true);
+            PPApplication.logE("###### PPApplication.updateGUI", "from=ProfilePrefsFragment.onResume");
+            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
         }
     }
 

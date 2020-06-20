@@ -43,9 +43,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
+            //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
             boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
-            ActivateProfileActivity.this.refreshGUI(refresh, refreshIcons);
+            ActivateProfileActivity.this.refreshGUI(/*refresh,*//*true,*/  refreshIcons);
         }
     };
 
@@ -312,7 +312,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
 
-            refreshGUI(true, false);
+            refreshGUI(/*true,*/ false);
         }
         else {
             if (!isFinishing())
@@ -522,7 +522,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
     */
 
-    private void refreshGUI(final boolean refresh, final boolean refreshIcons)
+    private void refreshGUI(/*final boolean refresh,*/ final boolean refreshIcons)
     {
         //runOnUiThread(new Runnable() {
         //    @Override
@@ -533,7 +533,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
 
                 if (fragment != null) {
-                    ((ActivateProfileListFragment) fragment).refreshGUI(refresh, refreshIcons);
+                    ((ActivateProfileListFragment) fragment).refreshGUI(/*refresh,*/ refreshIcons);
                 }
         //    }
         //});

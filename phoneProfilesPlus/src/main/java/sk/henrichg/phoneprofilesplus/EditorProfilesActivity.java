@@ -159,12 +159,12 @@ public class EditorProfilesActivity extends AppCompatActivity
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
+            //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
             boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
             // not change selection in editor if refresh is outside editor
-            EditorProfilesActivity.this.refreshGUI(refresh, refreshIcons, false, profileId, eventId);
+            EditorProfilesActivity.this.refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
         }
     };
 
@@ -631,7 +631,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
-            refreshGUI(true, false, true, 0, 0);
+            refreshGUI(/*true,*/ false, true, 0, 0);
         }
         else {
             if (!isFinishing())
@@ -2001,7 +2001,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
                         //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                        PPApplication.updateGUI(_dataWrapper.context, true, true);
+                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                        PPApplication.updateGUI(/*_dataWrapper.context, true, true*/);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);
                         Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
@@ -2502,7 +2503,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
                 //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-                PPApplication.updateGUI(fragment.activityDataWrapper.context, true, true);
+                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redravProfileListFragment");
+                PPApplication.updateGUI(/*fragment.activityDataWrapper.context, true, true*/);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
@@ -2814,7 +2816,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    private void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
+    private void refreshGUI(/*final boolean refresh,*/ final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
     {
 //        runOnUiThread(new Runnable() {
 //            @Override
@@ -2828,9 +2830,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment != null) {
                     if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).refreshGUI(refresh, refreshIcons, setPosition, profileId);
+                        ((EditorProfileListFragment) fragment).refreshGUI(/*refresh,*/ refreshIcons, setPosition, profileId);
                     else
-                        ((EditorEventListFragment) fragment).refreshGUI(refresh, refreshIcons, setPosition, eventId);
+                        ((EditorEventListFragment) fragment).refreshGUI(/*refresh,*/ refreshIcons, setPosition, eventId);
                 }
 //            }
 //        });

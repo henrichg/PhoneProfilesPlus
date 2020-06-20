@@ -8,14 +8,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.util.Collections;
 import java.util.Iterator;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListViewHolder>
                                  implements ItemTouchHelperAdapter
@@ -360,7 +360,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         }
 
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListAdapter.onItemMove");
-        PPApplication.updateGUI(activityDataWrapper.context, false, true);
+        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListAdapter.onItemMove");
+        PPApplication.updateGUI(/*activityDataWrapper.context, false, true*/);
 
         notifyItemMoved(fromPosition, toPosition);
         return true;

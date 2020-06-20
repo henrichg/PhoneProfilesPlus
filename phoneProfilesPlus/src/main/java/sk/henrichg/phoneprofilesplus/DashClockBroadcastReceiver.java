@@ -9,7 +9,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
     //public static final String INTENT_REFRESH_DASHCLOCK = PPApplication.PACKAGE_NAME + ".REFRESH_DASHCLOCK";
 
-    static final String EXTRA_REFRESH = "refresh";
+    //static final String EXTRA_REFRESH = "refresh";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -17,9 +17,9 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
         //CallsCounter.logCounter(context, "DashClockBroadcastReceiver.onReceive", "DashClockBroadcastReceiver_onReceive");
 
-        final boolean refresh = (intent == null) || intent.getBooleanExtra(EXTRA_REFRESH, true);
+        //final boolean refresh = (intent == null) || intent.getBooleanExtra(EXTRA_REFRESH, true);
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThread(/*"DashClockBroadcastReceiver.onReceive"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
@@ -30,6 +30,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
                 PhoneProfilesDashClockExtension dashClockExtension = PhoneProfilesDashClockExtension.getInstance();
                 if (dashClockExtension != null)
                 {
+                    /*
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0,false);
                     Profile profile = dataWrapper.getActivatedProfile(false, false);
 
@@ -51,6 +52,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     PPApplication.setWidgetProfileName(context, 5, pName);
+                    */
 
                     dashClockExtension.updateExtension();
                 }

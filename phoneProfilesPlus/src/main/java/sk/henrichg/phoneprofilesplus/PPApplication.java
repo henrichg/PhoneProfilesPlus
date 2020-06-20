@@ -9,7 +9,6 @@ import android.app.NotificationManager;
 import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -121,7 +120,9 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|****** EventsHandler.handleEvents"
+                                                //+"|****** EventsHandler.handleEvents"
+                                                +"|-------- PPApplication.forceUpdateGUI"
+                                                //+"|###### PPApplication.updateGUI"
 
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"
@@ -732,10 +733,12 @@ public class PPApplication extends Application
     static Collator collator = null;
 
     static boolean lockRefresh = false;
-    static long lastRefreshOfGUI = 0;
-    static long lastRefreshOfProfileNotification = 0;
+    //static long lastRefreshOfGUI = 0;
+    //static long lastRefreshOfProfileNotification = 0;
 
-    static final int DURATION_FOR_GUI_REFRESH = 500;
+    //static final int DURATION_FOR_GUI_REFRESH = 500;
+    //static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
+    //static final String EXTRA_REFRESH = "refresh";
 
     static final List<String> elapsedAlarmsProfileDurationWork = new ArrayList<>();
     static final List<String> elapsedAlarmsRunApplicationWithDelayWork = new ArrayList<>();
@@ -912,9 +915,9 @@ public class PPApplication extends Application
     private static final String PREF_DONATION_NOTIFICATION_COUNT = "donation_notification_count";
     private static final String PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION = "days_for_next_donation_notification";
     private static final String PREF_DONATION_DONATED = "donation_donated";
-    private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
-    private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
-    private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
+    //private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
+    //private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
+    //private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
     private static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
 
     // WorkManager tags
@@ -965,8 +968,8 @@ public class PPApplication extends Application
     static final String ACTION_LOCK_DEVICE = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_LOCK_DEVICE";
     static final String ACCESSIBILITY_SERVICE_PERMISSION = PPApplication.PACKAGE_NAME_EXTENDER + ".ACCESSIBILITY_SERVICE_PERMISSION";
 
-    static final String ACTION_SHOW_PROFILE_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION";
-    static final String ACTION_UPDATE_GUI = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_UPDATE_GUI";
+    //static final String ACTION_SHOW_PROFILE_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION";
+    //static final String ACTION_UPDATE_GUI = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_UPDATE_GUI";
     static final String ACTION_DONATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_DONATION";
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
     static final String EXTRA_WHAT_FINISH = "what_finish";
@@ -1009,8 +1012,8 @@ public class PPApplication extends Application
     //boolean willBeDoRestartEvents = false;
 
     static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
-    static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
-    static final ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
+    //static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
+    //static final ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
     static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
     static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
@@ -1542,7 +1545,8 @@ public class PPApplication extends Application
         final Context appContext = context.getApplicationContext();
 
         //if (started)
-        updateGUI(appContext, true, true);
+        PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
+        updateGUI(/*appContext, true, true*/);
 
         if (/*started && *//*showToast &&*/
             //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
@@ -1785,7 +1789,7 @@ public class PPApplication extends Application
 
     //--------------------------------------------------------------
 
-    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification, boolean refresh) {
+    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification/*, boolean refresh*/) {
         //PPApplication.logE("##### PPApplication.forceUpdateGUI", "xxx");
         /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
@@ -1794,14 +1798,14 @@ public class PPApplication extends Application
         try {
             //IconWidgetProvider myWidget = new IconWidgetProvider();
             //myWidget.updateWidgets(context, refresh);
-            IconWidgetProvider.updateWidgets(context, refresh);
+            IconWidgetProvider.updateWidgets(context/*, true*/);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
 
         // one row widget
         try {
-            OneRowWidgetProvider.updateWidgets(context, refresh);
+            OneRowWidgetProvider.updateWidgets(context/*, true*/);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1810,7 +1814,7 @@ public class PPApplication extends Application
         try {
             //ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
             //myWidget.updateWidgets(context, refresh);
-            ProfileListWidgetProvider.updateWidgets(context, refresh);
+            ProfileListWidgetProvider.updateWidgets(context/*, true*/);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1820,7 +1824,7 @@ public class PPApplication extends Application
             try {
                 //SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
                 //myWidget.updateWidgets(context, refresh);
-                SamsungEdgeProvider.updateWidgets(context, refresh);
+                SamsungEdgeProvider.updateWidgets(context/*, true*/);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -1828,20 +1832,41 @@ public class PPApplication extends Application
 
         // dash clock extension
         Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
-        intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, refresh);
+        //intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
         Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, refresh);
+        //intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
-        if (alsoNotification)
-            PPApplication.showProfileNotification(/*context*/refresh);
+        if (alsoNotification) {
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION)
+                    //.putBoolean(ShowProfileNotificationBroadcastReceiver.EXTRA_FROM_ALARM, true)
+                    .build();
+
+            // update immediate (without initialDelay())
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK)
+                            .setInputData(workData)
+                            .build();
+            try {
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
+                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
+                    }
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
     }
 
-    static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
+    static void updateGUI(/*Context context, boolean alsoEditor, boolean refresh*/)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh=" + lockRefresh);
@@ -1850,6 +1875,7 @@ public class PPApplication extends Application
             PPApplication.logE("ActivateProfileHelper.updateGUI", "refresh=" + refresh);
         }*/
 
+        /*
         if (!refresh) {
             if (lockRefresh || EditorProfilesActivity.doImport)
                 // no refresh widgets
@@ -1861,6 +1887,36 @@ public class PPApplication extends Application
         intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
         intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         context.sendBroadcast(intent5);
+        */
+
+        Data workData = new Data.Builder()
+                .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI)
+                //.putBoolean(PPApplication.EXTRA_REFRESH, true/*refresh*/)
+                //.putBoolean(PPApplication.EXTRA_REFRESH_ALSO_EDITOR, true/*alsoEditor*/)
+                //.putBoolean(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true)
+                .build();
+
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                        .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK)
+                        .setInputData(workData)
+                        .setInitialDelay(1, TimeUnit.SECONDS)
+                        .build();
+        try {
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+                    //if (PPApplication.logEnabled()) {
+                    //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
+                    //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);
+                    //}
+                    workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
+                }
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
     }
 
     /*
@@ -1901,9 +1957,9 @@ public class PPApplication extends Application
         }
         //IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
         getActivityLogEnabled(context);
-        getNotificationProfileName(context);
-        getWidgetProfileName(context);
-        getActivityProfileName(context);
+        //getNotificationProfileName(context);
+        //getWidgetProfileName(context);
+        //getActivityProfileName(context);
         getLastActivatedProfile(context);
         Event.getEventsBlocked(context);
         Event.getForceRunEventRunning(context);
@@ -2152,6 +2208,7 @@ public class PPApplication extends Application
         }
     }
 
+    /*
     static String prefNotificationProfileName;
     private static void getNotificationProfileName(Context context)
     {
@@ -2170,7 +2227,9 @@ public class PPApplication extends Application
             prefNotificationProfileName = notificationProfileName;
         }
     }
+     */
 
+    /*
     static String prefWidgetProfileName1;
     static String prefWidgetProfileName2;
     static String prefWidgetProfileName3;
@@ -2246,6 +2305,7 @@ public class PPApplication extends Application
             }
         }
     }
+    */
 
     static long prefLastActivatedProfile;
     private static void getLastActivatedProfile(Context context)
@@ -2640,12 +2700,12 @@ public class PPApplication extends Application
         PPApplication.createDonationNotificationChannel(appContext);
     }
 
-    static void showProfileNotification(/*Context context,*/ final boolean refresh) {
+    static void showProfileNotification(/*final boolean refresh*/) {
         try {
             //PPApplication.logE("PPApplication.showProfileNotification", "xxx");
 
             if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().showProfileNotification(refresh, false/*, false*/);
+                PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
 
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -3682,7 +3742,8 @@ public class PPApplication extends Application
             if (!shutdown) {
                 //PPApplication.logE("PPApplication._exitApp", "forceUpdateGUI");
                 //ActivateProfileHelper.updateGUI(context, false, true);
-                PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false, true);
+                PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=PPApplication._exitApp");
+                PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false/*, true*/);
 
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {

@@ -70,6 +70,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 }
 
                 //CallsCounter.logCounter(GeofencesScanner.this.context, "GeofencesScanner.LocationCallback", "GeofencesScanner_onLocationResult");
+                //PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult);
 
                 for (Location location : locationResult.getLocations()) {
                     synchronized (PPApplication.geofenceScannerLastLocationMutex) {

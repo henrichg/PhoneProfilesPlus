@@ -40,7 +40,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -214,7 +213,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
 
         // show empty notification to avoid ANR in api level 26
-        showProfileNotification(true, true/*, false*/);
+        showProfileNotification(/*true,*/ true/*, false*/);
 
         PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -246,13 +245,14 @@ public class PhoneProfilesService extends Service
         intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
         appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5);
 
-        appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
-        appContext.registerReceiver(PPApplication.updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
+        //appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
+        //appContext.registerReceiver(PPApplication.updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.refreshActivitiesBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.dashClockBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver"));
 
+        /*
         PPApplication.setNotificationProfileName(appContext, "");
         PPApplication.setWidgetProfileName(appContext, 1, "");
         PPApplication.setWidgetProfileName(appContext, 2, "");
@@ -262,6 +262,7 @@ public class PhoneProfilesService extends Service
         PPApplication.setActivityProfileName(appContext, 1, "");
         PPApplication.setActivityProfileName(appContext, 2, "");
         PPApplication.setActivityProfileName(appContext, 3, "");
+        */
 
         try {
             if ((Build.VERSION.SDK_INT < 26)) {
@@ -410,16 +411,16 @@ public class PhoneProfilesService extends Service
         } catch (Exception e) {
             //PPApplication.recordException(e);
         }
-        try {
+        /*try {
             appContext.unregisterReceiver(PPApplication.showProfileNotificationBroadcastReceiver);
         } catch (Exception e) {
             //PPApplication.recordException(e);
-        }
-        try {
+        }*/
+        /*try {
             appContext.unregisterReceiver(PPApplication.updateGUIBroadcastReceiver);
         } catch (Exception e) {
             //PPApplication.recordException(e);
-        }
+        }*/
         try {
             LocalBroadcastManager.getInstance(appContext).unregisterReceiver(PPApplication.refreshActivitiesBroadcastReceiver);
         } catch (Exception e) {
@@ -444,7 +445,7 @@ public class PhoneProfilesService extends Service
 
         PPApplication.initRoot();
 
-        ShowProfileNotificationBroadcastReceiver.removeAlarm(appContext);
+        //ShowProfileNotificationBroadcastReceiver.removeAlarm(appContext);
         try {
             //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
 
@@ -3970,7 +3971,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
         startForegroundNotification = true;
-        showProfileNotification(true, true/*, false*/);
+        showProfileNotification(/*true,*/ true/*, false*/);
 
         if (!serviceHasFirstStart) {
             Context appContext = getApplicationContext();
@@ -4340,7 +4341,8 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
         //PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
-        PPApplication.updateGUI(getApplicationContext(), true, true);
+        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesService.onConfigurationChanged");
+        PPApplication.updateGUI(/*getApplicationContext(), true, true*/);
     }
 
     //------------------------
@@ -4385,7 +4387,7 @@ public class PhoneProfilesService extends Service
 
     @SuppressLint("NewApi")
     void _showProfileNotification(Profile profile, /*boolean inHandlerThread,*/ final DataWrapper dataWrapper,
-                                          boolean refresh, boolean forFirstStart/*, boolean cleared*/)
+                                          /*boolean refresh,*/ boolean forFirstStart/*, boolean cleared*/)
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
@@ -4416,6 +4418,7 @@ public class PhoneProfilesService extends Service
         if (profile != null)
             requestCode = (int)profile._id;
 
+        /*
         if ((!refresh) && (!forFirstStart)) {
             // not redraw notification when activated profile is not changed
             // activated profile is in requestCode
@@ -4442,6 +4445,7 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
+        */
 
         /*if (PPApplication.logEnabled()) {
             if (refresh)
@@ -4677,7 +4681,7 @@ public class PhoneProfilesService extends Service
                 if (span instanceof CharacterStyle)
                     sbt.removeSpan(span);
             }
-            pName = sbt.toString();
+            //pName = sbt.toString();
 
             if (!forFirstStart) {
                 //if (notificationStatusBarStyle.equals("0"))
@@ -4709,7 +4713,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap=" + iconBitmap);
         }*/
 
-        PPApplication.setNotificationProfileName(appContext, pName);
+        //PPApplication.setNotificationProfileName(appContext, pName);
 
         PendingIntent pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -5286,7 +5290,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    void showProfileNotification(final boolean refresh, boolean forServiceStart/*, final boolean cleared*/) {
+    void showProfileNotification(/*final boolean refresh,*/ boolean forServiceStart/*, final boolean cleared*/) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (DebugVersion.enabled)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
@@ -5298,7 +5302,7 @@ public class PhoneProfilesService extends Service
             if (forServiceStart) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                _showProfileNotification(null, dataWrapper, true, true/*, cleared*/);
+                _showProfileNotification(null, dataWrapper, /*true,*/ true/*, cleared*/);
                 //dataWrapper.invalidateDataWrapper();
                 return;
             }
@@ -5321,6 +5325,7 @@ public class PhoneProfilesService extends Service
             clearProfileNotification(/*getApplicationContext(), true*/);
         }
 
+        /*
         long now = SystemClock.elapsedRealtime();
 
         if (clear || refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
@@ -5346,7 +5351,7 @@ public class PhoneProfilesService extends Service
                             profile = null;
 
                         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                        _showProfileNotification(profile, dataWrapper, _clear || refresh, false/*, cleared*/);
+                        _showProfileNotification(profile, dataWrapper, _clear || refresh, false);
                         //dataWrapper.invalidateDataWrapper();
                     }
                 });
@@ -5357,8 +5362,31 @@ public class PhoneProfilesService extends Service
 
             ShowProfileNotificationBroadcastReceiver.setAlarm(getApplicationContext());
         }
+        */
 
-        PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
+        Data workData = new Data.Builder()
+                .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION)
+                //.putBoolean(ShowProfileNotificationBroadcastReceiver.EXTRA_FROM_ALARM, true)
+                .build();
+
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                        .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK)
+                        .setInputData(workData)
+                        .setInitialDelay(1, TimeUnit.SECONDS)
+                        .build();
+        try {
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+                    workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
+                }
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
+        //PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }
 
     void clearProfileNotification(/*Context context, boolean onlyEmpty*/)

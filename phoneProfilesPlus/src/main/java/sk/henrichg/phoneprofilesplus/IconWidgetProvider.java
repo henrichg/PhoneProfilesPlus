@@ -422,7 +422,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         });
     }
 
-    static void updateWidgets(Context context, boolean refresh) {
+    static void updateWidgets(Context context/*, boolean refresh*/) {
         /*String applicationWidgetIconLightness;
         String applicationWidgetIconColor;
         boolean applicationWidgetIconCustomIconLightness;
@@ -470,7 +470,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         Profile profile = dataWrapper.getActivatedProfile(true, false);
         */
 
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        /*DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
         Profile profile = dataWrapper.getActivatedProfile(false, false);
 
         String pName;
@@ -492,7 +492,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        PPApplication.setWidgetProfileName(context.getApplicationContext(), 1, pName);
+        PPApplication.setWidgetProfileName(context.getApplicationContext(), 1, pName);*/
 
         Intent intent = new Intent(context, IconWidgetProvider.class);
         intent.setAction(ACTION_REFRESH_ICONWIDGET);

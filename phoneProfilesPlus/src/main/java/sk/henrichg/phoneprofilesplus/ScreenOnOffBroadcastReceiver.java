@@ -158,7 +158,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             });
 
                             if (!Event.getGlobalEventsRunning()) {
-                                PPApplication.showProfileNotification(/*appContext*/true);
+                                PPApplication.showProfileNotification(/*true*/);
                             }
                             break;
                         }
@@ -168,7 +168,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             if (Build.VERSION.SDK_INT < 26) {
                                 if (ApplicationPreferences.notificationShowInStatusBar &&
                                         ApplicationPreferences.notificationHideInLockScreen) {
-                                    PPApplication.showProfileNotification(/*appContext*/true);
+                                    PPApplication.showProfileNotification(/*true*/);
                                 }
                             }
 
@@ -222,7 +222,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         if (action.equals(Intent.ACTION_SCREEN_ON)) {
                             if (ApplicationPreferences.notificationShowInStatusBar &&
                                     ApplicationPreferences.notificationHideInLockScreen) {
-                                PPApplication.showProfileNotification(/*appContext*/true);
+                                PPApplication.showProfileNotification(/*true*/);
                             }
                         }
                     }

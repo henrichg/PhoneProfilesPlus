@@ -249,10 +249,14 @@ class EventsHandler {
                 doEndHandler(dataWrapper);
                 //dataWrapper.invalidateDataWrapper();
 
-                if (isRestart)
-                    PPApplication.updateGUI(context, true, true);
-                else
-                    PPApplication.updateGUI(context, true, false);
+                //if (isRestart) {
+                    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
+                    PPApplication.updateGUI(/*context, true, true*/);
+                //}
+                //else {
+                //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (2)");
+                //    PPApplication.updateGUI(/*context, true, false*/);
+                //}
 
                 //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
@@ -813,10 +817,14 @@ class EventsHandler {
                     // update only when will not be do restart events from paused events
                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
                 //PPApplication.updateNotificationAndWidgets(false, false, context);
-                if (isRestart)
-                    PPApplication.updateGUI(context, true, true);
-                else
-                    PPApplication.updateGUI(context, true, false);
+                //if (isRestart) {
+                    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
+                    PPApplication.updateGUI(/*context, true, true*/);
+                //}
+                //else {
+                //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (4)");
+                //    PPApplication.updateGUI(/*context, true, false*/);
+                //}
                 //}
             }
 

@@ -515,7 +515,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    void refreshGUI(final boolean refresh, final boolean refreshIcons)
+    void refreshGUI(/*final boolean refresh,*/ final boolean refreshIcons)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
@@ -525,7 +525,7 @@ public class ActivateProfileListFragment extends Fragment {
             Profile profileFromDB;
             Profile profileFromDataWrapper;
 
-            boolean doNotRefresh = false;
+            //boolean doNotRefresh = false;
 
             @Override
             protected Void doInBackground(Void... params) {
@@ -533,20 +533,24 @@ public class ActivateProfileListFragment extends Fragment {
                     profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
                     activityDataWrapper.getEventTimelineList(true);
 
-                    String pName;
                     if (profileFromDB != null) {
                         profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
+                    }
+
+                    /*
+                    String pName;
+                    if (profileFromDB != null) {
                         pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
                     } else
                         pName = activityDataWrapper.context.getString(R.string.profiles_header_profile_name_no_activated);
 
                     if (!refresh) {
                         String pNameHeader = PPApplication.prefActivityProfileName1;
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
-                        PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
-                    }*/
+                        //if (PPApplication.logEnabled()) {
+                        //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
+                        //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
+                        //}
 
                         if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
                             //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
@@ -556,6 +560,7 @@ public class ActivateProfileListFragment extends Fragment {
                     }
 
                     PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
+                    */
                 } catch (Exception e) {
                     if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
                         PPApplication.recordException(e);
@@ -568,7 +573,7 @@ public class ActivateProfileListFragment extends Fragment {
             {
                 super.onPostExecute(result);
                 if ((getActivity() != null) && (!getActivity().isFinishing())) {
-                    if (!doNotRefresh) {
+                    //if (!doNotRefresh) {
                         ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
 
                         Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
@@ -586,58 +591,11 @@ public class ActivateProfileListFragment extends Fragment {
                         }
 
                         profileListAdapter.notifyDataSetChanged(refreshIcons);
-                    }
+                    //}
                 }
             }
 
         }.execute();
-
-        /*Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
-        activityDataWrapper.getEventTimelineList(true);
-
-        String pName;
-        if (profileFromDB != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
-        else
-            pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
-
-        if (!refresh) {
-            String pNameHeader = PPApplication.prefActivityProfileName1;
-            //if (PPApplication.logEnabled()) {
-            //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pNameHeader=" + pNameHeader);
-            //    PPApplication.logE("ActivateProfileListFragment.refreshGUI", "pName=" + pName);
-            //}
-
-            if ((!pNameHeader.isEmpty()) && pName.equals(pNameHeader)) {
-                //PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
-                return;
-            }
-        }
-
-        PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
-
-        //noinspection ConstantConditions
-        ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
-
-        Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
-        if (profileFromAdapter != null)
-            profileFromAdapter._checked = false;
-
-        if (profileFromDB != null) {
-            //Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-            //        ApplicationPreferences.applicationActivatorPrefIndicator, false);
-            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
-                    ApplicationPreferences.applicationEditorPrefIndicator, false);
-            if (profileFromDataWrapper != null)
-                profileFromDataWrapper._checked = true;
-            updateHeader(profileFromDataWrapper);
-            setProfileSelection(profileFromDataWrapper, refreshIcons);
-        } else {
-            updateHeader(null);
-            setProfileSelection(null, refreshIcons);
-        }
-
-        profileListAdapter.notifyDataSetChanged(refreshIcons);*/
     }
 
     void showTargetHelps() {

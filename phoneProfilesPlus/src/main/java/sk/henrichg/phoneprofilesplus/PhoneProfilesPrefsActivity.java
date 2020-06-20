@@ -318,11 +318,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().showProfileNotification(true, false/*, true*/);
+                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, true*/);
             }
         }, 1000);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
-        PPApplication.updateGUI(getApplicationContext(), true, true);
+        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.onStop");
+        PPApplication.updateGUI(/*getApplicationContext(), true, true*/);
     }
 
     @Override
