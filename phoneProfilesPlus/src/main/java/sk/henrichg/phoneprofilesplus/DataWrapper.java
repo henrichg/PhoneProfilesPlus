@@ -2557,7 +2557,7 @@ public class DataWrapper {
                     manualIndicators = "[M]";
             }
 
-            String _eventName = getLastStartedEventName(dataWrapper);
+            String _eventName = getLastStartedEventName(dataWrapper, profile);
             if (!_eventName.equals("?"))
                 eventName = "[" + _eventName + "]";
 
@@ -2626,7 +2626,7 @@ public class DataWrapper {
         return sbt.toString();
     }
 
-    static private String getLastStartedEventName(DataWrapper dataWrapper)
+    static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
     {
 
         if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
@@ -2659,7 +2659,9 @@ public class DataWrapper {
                 else
                 {
                     long profileId = ApplicationPreferences.applicationDefaultProfile;
-                    if ((!ApplicationPreferences.prefEventsBlocked) && (profileId != Profile.PROFILE_NO_ACTIVATE))
+                    if ((!ApplicationPreferences.prefEventsBlocked) &&
+                            (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                            (profileId == forProfile._id))
                     {
                         //Profile profile;
                         //profile = dataWrapper.getActivatedProfile(false, false);
@@ -2705,7 +2707,9 @@ public class DataWrapper {
                 else
                 {
                     long profileId = ApplicationPreferences.applicationDefaultProfile;
-                    if ((!ApplicationPreferences.prefEventsBlocked) && (profileId != Profile.PROFILE_NO_ACTIVATE))
+                    if ((!ApplicationPreferences.prefEventsBlocked) &&
+                        (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                        (profileId == forProfile._id))
                     {
                         //Profile profile;
                         //profile = dataWrapper.getActivatedProfileFromDB(false, false);
