@@ -2352,16 +2352,20 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                             ArrayList<Uri> uris = new ArrayList<>();
 
-                            File sd = Environment.getExternalStorageDirectory();
-                            //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                            try {
+                                File sd = Environment.getExternalStorageDirectory();
+                                //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
 
-                            File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
-                            Uri fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", exportedDB);
-                            uris.add(fileUri);
+                                File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+                                Uri fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", exportedDB);
+                                uris.add(fileUri);
 
-                            File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                            fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", appSettingsFile);
-                            uris.add(fileUri);
+                                File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                                fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", appSettingsFile);
+                                uris.add(fileUri);
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
 
                             String emailAddress = "";
                             if (toAuthor)
