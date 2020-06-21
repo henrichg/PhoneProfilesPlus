@@ -809,21 +809,18 @@ class EventsHandler {
                     doSleep = true;
                 }
             } else {
-                //PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
-
-                //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
-                    // update only when will not be do restart events from paused events
-                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
-                //PPApplication.updateNotificationAndWidgets(false, false, context);
-                //if (isRestart) {
-                    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
-                    PPApplication.updateGUI(); //context, true, true);
-                //}
-                //else {
-                //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (4)");
-                //    PPApplication.updateGUI(context, true, false);
-                //}
-                //}
+                if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
+                    // not manual profile activation
+                    if (runningEventCountE == 0) {
+                        // not any event is running
+                        if (PPApplication.prefLastActivatedProfile != 0) {
+                            // last activated profile is not 0
+                            PPApplication.setLastActivatedProfile(context, 0);
+                            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
+                            PPApplication.updateGUI(); //context, true, true);
+                        }
+                    }
+                }
             }
 
             /*
