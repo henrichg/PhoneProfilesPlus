@@ -145,6 +145,7 @@ class EventsHandler {
 
             this.sensorType = sensorType;
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
+            PPApplication.logE("$$$ EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             //restartAtEndOfEvent = false;
@@ -158,6 +159,8 @@ class EventsHandler {
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
+            dataWrapper.fillEventTimelineList();
+            dataWrapper.fillProfileList(false, false);
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation
@@ -244,12 +247,30 @@ class EventsHandler {
             if (!eventsExists(sensorType, dataWrapper)) {
                 // events not exists
 
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "events not exists: sensorType="+sensorType);
+
                 doEndHandler(dataWrapper);
                 //dataWrapper.invalidateDataWrapper();
 
+
+                if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
+                    // not manual profile activation
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
+                    if (dataWrapper.getEventTimelineList(false).size() == 0) {
+                        // not any event is running
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "not any event is running");
+                        if (PPApplication.prefLastActivatedProfile != 0) {
+                            // last activated profile is not 0
+                            PPApplication.setLastActivatedProfile(context, 0);
+                            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
+                            PPApplication.updateGUI(); //context, true, true);
+                        }
+                    }
+                }
+
                 //if (isRestart) {
-                    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
-                    PPApplication.updateGUI(/*context, true, true*/);
+                //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
+                //    PPApplication.updateGUI(/*context, true, true*/);
                 //}
                 //else {
                 //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (2)");
@@ -811,6 +832,8 @@ class EventsHandler {
             } else {
                 if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
                     // not manual profile activation
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCountE="+runningEventCountE);
                     if (runningEventCountE == 0) {
                         // not any event is running
                         if (PPApplication.prefLastActivatedProfile != 0) {
@@ -875,7 +898,26 @@ class EventsHandler {
         }
     }
 
+    private boolean alwaysEnabledSensors (String sensorType) {
+        switch (sensorType) {
+            case SENSOR_TYPE_SCREEN:
+                // call doHandleEvents for all screen on/off changes
+                //eventType = DatabaseHandler.ETYPE_SCREEN;
+                //sensorEnabled = _event._eventPreferencesScreen._enabled;
+            case SENSOR_TYPE_PERIODIC_EVENTS_HANDLER:
+            case SENSOR_TYPE_RESTART_EVENTS:
+            case SENSOR_TYPE_MANUAL_RESTART_EVENTS:
+            case SENSOR_TYPE_EVENT_DELAY_START:
+            case SENSOR_TYPE_EVENT_DELAY_END:
+            case SENSOR_TYPE_DEVICE_IDLE_MODE:
+                return true;
+        }
+        return false;
+    }
+
     private boolean eventsExists(String sensorType, DataWrapper dataWrapper/*, boolean onlyRunning*/) {
+
+        boolean sensorEnabled;
         for (Event _event : dataWrapper.eventList) {
             /*boolean eventEnabled;
             if (onlyRunning)
@@ -883,8 +925,6 @@ class EventsHandler {
             else
                 eventEnabled = _event.getStatus() != Event.ESTATUS_STOP;*/
             if (_event.getStatus() != Event.ESTATUS_STOP) {
-                boolean sensorEnabled;
-
                 switch (sensorType) {
                     case SENSOR_TYPE_BATTERY:
                     case SENSOR_TYPE_POWER_SAVE_MODE:
@@ -989,30 +1029,19 @@ class EventsHandler {
                         //eventType = DatabaseHandler.ETYPE_DEVICE_BOOT;
                         sensorEnabled = _event._eventPreferencesDeviceBoot._enabled;
                         break;
-                    case SENSOR_TYPE_SCREEN:
-                        // call doEventService for all screen on/off changes
-                        //eventType = DatabaseHandler.ETYPE_SCREEN;
-                        //sensorEnabled = _event._eventPreferencesScreen._enabled;
-                    case SENSOR_TYPE_PERIODIC_EVENTS_HANDLER:
-                        //eventType = DatabaseHandler.ETYPE_???;
-                    case SENSOR_TYPE_RESTART_EVENTS:
-                        //eventType = DatabaseHandler.ETYPE_???;
-                    case SENSOR_TYPE_EVENT_DELAY_START:
-                        //eventType = DatabaseHandler.ETYPE_????;
-                    case SENSOR_TYPE_EVENT_DELAY_END:
-                        //eventType = DatabaseHandler.ETYPE_????;
-                    case SENSOR_TYPE_DEVICE_IDLE_MODE:
-                        //eventType = DatabaseHandler.ETYPE_????;
                     default:
                         sensorEnabled = true;
                         break;
                 }
 
+                if (!sensorEnabled)
+                    sensorEnabled = alwaysEnabledSensors(sensorType);
+
                 if (sensorEnabled)
                     return true;
             }
         }
-        return false;
+        return alwaysEnabledSensors(sensorType);
     }
 
     private void doEndHandler(DataWrapper dataWrapper) {

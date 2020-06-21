@@ -123,6 +123,8 @@ public class PPApplication extends Application
                                                 //+"|****** EventsHandler.handleEvents"
                                                 +"|-------- PPApplication.forceUpdateGUI"
                                                 +"|###### PPApplication.updateGUI"
+                                                +"|$$$ EventsHandler.handleEvents"
+                                                +"|$$$ DataWrapper.setProfileActive"
 
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"

@@ -493,6 +493,8 @@ public class DataWrapper {
             if (!profileListFilled)
                 return;
 
+            PPApplication.logE("$$$ DataWrapper.setProfileActive", "xxx");
+
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
                 Profile _profile = it.next();
@@ -508,6 +510,8 @@ public class DataWrapper {
                 //PPApplication.logE("DataWrapper.setProfileActive", "profile=null");
                 PPApplication.setLastActivatedProfile(context, 0);
             }
+
+            PPApplication.logE("$$$ DataWrapper.setProfileActive", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
         }
     }
 
