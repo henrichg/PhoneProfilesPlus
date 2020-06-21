@@ -263,7 +263,7 @@ class EventsHandler {
                             // last activated profile is not 0
                             PPApplication.setLastActivatedProfile(context, 0);
                             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
-                            PPApplication.updateGUI(); //context, true, true);
+                            PPApplication.updateGUI(false); //context, true, true);
                         }
                     }
                 }
@@ -840,7 +840,7 @@ class EventsHandler {
                             // last activated profile is not 0
                             PPApplication.setLastActivatedProfile(context, 0);
                             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
-                            PPApplication.updateGUI(); //context, true, true);
+                            PPApplication.updateGUI(false); //context, true, true);
                         }
                     }
                 }

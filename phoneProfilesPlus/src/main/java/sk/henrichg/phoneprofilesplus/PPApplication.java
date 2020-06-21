@@ -1548,7 +1548,7 @@ public class PPApplication extends Application
 
         //if (started)
         PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
-        updateGUI(/*appContext, true, true*/);
+        updateGUI(true/*appContext, true, true*/);
 
         if (/*started && *//*showToast &&*/
             //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
@@ -1868,7 +1868,7 @@ public class PPApplication extends Application
         }
     }
 
-    static void updateGUI(/*Context context, boolean alsoEditor, boolean refresh*/)
+    static void updateGUI(boolean immediate/*Context context, boolean alsoEditor, boolean refresh*/)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh=" + lockRefresh);
@@ -1898,12 +1898,22 @@ public class PPApplication extends Application
                 //.putBoolean(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true)
                 .build();
 
-        OneTimeWorkRequest worker =
-                new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                        .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK)
-                        .setInputData(workData)
-                        .setInitialDelay(1, TimeUnit.SECONDS)
-                        .build();
+        OneTimeWorkRequest worker;
+        if (immediate) {
+            worker =
+                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK)
+                            .setInputData(workData)
+                            .build();
+        }
+        else {
+            worker =
+                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
+                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK)
+                            .setInputData(workData)
+                            .setInitialDelay(1, TimeUnit.SECONDS)
+                            .build();
+        }
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();

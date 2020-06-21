@@ -1489,7 +1489,7 @@ class Event {
                 //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
                 //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
                 PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
-                PPApplication.updateGUI(/*dataWrapper.context, true, false*/);
+                PPApplication.updateGUI(false/*dataWrapper.context, true, false*/);
             }
         }
         else {
@@ -1633,7 +1633,7 @@ class Event {
             //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
             //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
             PPApplication.logE("###### PPApplication.updateGUI", "from=Event.doActivateEndProfile");
-            PPApplication.updateGUI(/*dataWrapper.context, true, false*/);
+            PPApplication.updateGUI(false/*dataWrapper.context, true, false*/);
         }
 
     }

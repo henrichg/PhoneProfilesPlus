@@ -2002,7 +2002,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
                         PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                        PPApplication.updateGUI(/*_dataWrapper.context, true, true*/);
+                        PPApplication.updateGUI(true/*_dataWrapper.context, true, true*/);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);
                         Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
@@ -2504,7 +2504,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
                 PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redravProfileListFragment");
-                PPApplication.updateGUI(/*fragment.activityDataWrapper.context, true, true*/);
+                PPApplication.updateGUI(true/*fragment.activityDataWrapper.context, true, true*/);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 

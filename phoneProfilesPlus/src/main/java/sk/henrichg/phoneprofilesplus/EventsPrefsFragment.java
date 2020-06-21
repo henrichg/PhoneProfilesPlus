@@ -1112,7 +1112,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.onResume");
             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.onResume");
-            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(true/*context.getApplicationContext(), true, true*/);
         }
     }
 
@@ -1199,7 +1199,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (1)");
-            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(true/*context.getApplicationContext(), true, true*/);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
             event._eventPreferencesTime.checkPreferences(prefMng, context);
@@ -1251,7 +1251,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (2)");
-            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(true/*context.getApplicationContext(), true, true*/);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
             BluetoothNamePreferenceX preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
@@ -1263,7 +1263,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (3)");
-            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(true/*context.getApplicationContext(), true, true*/);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
             LocationGeofencePreferenceX preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
@@ -1275,7 +1275,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (4)");
-            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(true/*context.getApplicationContext(), true, true*/);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
             MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
@@ -1287,7 +1287,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (5)");
-            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(true/*context.getApplicationContext(), true, true*/);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
             PPApplication.restartTwilightScanner(context);
@@ -1296,7 +1296,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (6)");
-            PPApplication.updateGUI(/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(true/*context.getApplicationContext(), true, true*/);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
 
