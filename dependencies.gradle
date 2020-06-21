@@ -1,10 +1,12 @@
 // Release versions (look at PackageReplacedReceiver)
 // 2322 = keep checked "Use Priority event parameter"
 // 2400 = start About application alarm for notification "Please donate me."
-// 2500 = profile notification is required, but if is not enabled, hide it from status bar (default for new apps is "show")
+// 2500 = profile notification is required, but if is not enabled, hide it from status bar
+//        (default for new apps is "show")
 // 2700 = not show Activator and Editor target helps
 // 3200 = show target helps for shared profile toolbar item
-// 3500 = added is "Confirm restart events"; removed "None", "Restart events" from rescan parameters; continue donation notification
+// 3500 = added is "Confirm restart events"; removed "None", "Restart events" from rescan parameters;
+//         continue donation notification
 // 3900 = replaced applicationEventWifiEnableWifi with applicationEventBluetoothEnableBluetooth
 //        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
 // 4000 = updated privacy policy
@@ -31,7 +33,7 @@ ext.ppVersions = [
     minSdk: 23,
     targetSdk: 28,
     compileSdk: 29,
-    buildTools: '29.0.3',
+    buildTools: '30.0.0',
 
     appcompatXLib: '1.1.0',
     workXLib: '2.3.4'

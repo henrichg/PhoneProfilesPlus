@@ -1427,14 +1427,14 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Achtergrond scannen scan interval (minuten)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Achtergrond scannen in Energiebesparingsmodus</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Stel achtergrondscan parameters in bij programma-instellingen.</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
-    <string name="array_pref_locationModeArray_off">Location Off</string>
-    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
-    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
-    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
-    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
-    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">geen machtiging tot telefoonrechten verleend</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Locatiemodus</string>
+    <string name="array_pref_locationModeArray_off">Locatie uit</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Alleen sensoren</string>
+    <string name="array_pref_locationModeArray_batterySaving">Accubesparing</string>
+    <string name="array_pref_locationModeArray_highAccuracy">Hoge nauwkeurigheid</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Aangepaste icoon kleur</string>
+    <string name="colorChooser_pref_dialog_customColor">Aangepaste kleur</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

@@ -1427,14 +1427,14 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Интервал фонового сканирования (мин)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Фоновое сканирование в режиме энергосбережения</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Задайте параметры фонового сканирования в настройках приложения.</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
-    <string name="array_pref_locationModeArray_off">Location Off</string>
-    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
-    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
-    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
-    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
-    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">не предоставлено разрешение \"Телефон\"</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Режим определения местоположения</string>
+    <string name="array_pref_locationModeArray_off">Отправка геоданных отключена</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">По спутникам GPS</string>
+    <string name="array_pref_locationModeArray_batterySaving">По координатам сети</string>
+    <string name="array_pref_locationModeArray_highAccuracy">По всем источникам</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Пользовательский цвет иконки</string>
+    <string name="colorChooser_pref_dialog_customColor">Пользовательский цвет</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

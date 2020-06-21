@@ -1427,14 +1427,14 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Interval skenování na pozadí (min.)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Skenování na pozadí v režimu Spořič baterie</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Nastav parametry skenování na pozadí v nastavení aplikace.</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
-    <string name="array_pref_locationModeArray_off">Location Off</string>
-    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
-    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
-    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
-    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
-    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">udělena povolení Telefon</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Režim polohy</string>
+    <string name="array_pref_locationModeArray_off">Poloha vypnuta</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Pouze senzory</string>
+    <string name="array_pref_locationModeArray_batterySaving">Úsporný režim baterie</string>
+    <string name="array_pref_locationModeArray_highAccuracy">Vysoká přesnost</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Vlastní barva ikony</string>
+    <string name="colorChooser_pref_dialog_customColor">Vlastní barva</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

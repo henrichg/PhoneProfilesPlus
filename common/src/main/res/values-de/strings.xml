@@ -1427,14 +1427,14 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Intervall für das Scannen im Hintergrund (Minuten)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Scannen im Hintergrund im Energiesparmodus</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Legen Sie die Parameter für das Scannen im Hintergrund in den App-Einstellungen fest.</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
-    <string name="array_pref_locationModeArray_off">Location Off</string>
-    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
-    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
-    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
-    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
-    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">Zugriff auf das Telefon nicht gewährt</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Standortbestimmungsmodus</string>
+    <string name="array_pref_locationModeArray_off">Standortbestimmung aus</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Nur Sensoren</string>
+    <string name="array_pref_locationModeArray_batterySaving">Energiesparmodus</string>
+    <string name="array_pref_locationModeArray_highAccuracy">Hohe Genauigkeit</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Benutzerdefinierte Symbolfarben</string>
+    <string name="colorChooser_pref_dialog_customColor">Benutzerdefinierte Farbe</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
