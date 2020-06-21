@@ -120,11 +120,11 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                //+"|****** EventsHandler.handleEvents"
-                                                +"|-------- PPApplication.forceUpdateGUI"
-                                                +"|###### PPApplication.updateGUI"
-                                                +"|$$$ EventsHandler.handleEvents"
-                                                +"|$$$ DataWrapper.setProfileActive"
+                                                +"|****** EventsHandler.handleEvents"
+                                                //+"|-------- PPApplication.forceUpdateGUI"
+                                                //+"|###### PPApplication.updateGUI"
+                                                //+"|$$$ EventsHandler.handleEvents"
+                                                //+"|$$$ DataWrapper.setProfileActive"
 
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"

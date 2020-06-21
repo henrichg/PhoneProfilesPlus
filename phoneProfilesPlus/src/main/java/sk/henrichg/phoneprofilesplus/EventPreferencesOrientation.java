@@ -174,9 +174,12 @@ class EventPreferencesOrientation extends EventPreferences {
                     String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
                     selectedSides = "";
                     for (String s : splits) {
-                        if (!selectedSides.isEmpty())
-                            selectedSides = selectedSides + ", ";
-                        selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                        int sideIdx = Arrays.asList(sideValues).indexOf(s);
+                        if (sideIdx != -1) {
+                            if (!selectedSides.isEmpty())
+                                selectedSides = selectedSides + ", ";
+                            selectedSides = selectedSides + sideNames[sideIdx];
+                        }
                     }
                 }
                 descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + selectedSides + "</b>";
