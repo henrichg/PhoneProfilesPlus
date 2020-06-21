@@ -817,11 +817,11 @@ class EventsHandler {
                 //PPApplication.updateNotificationAndWidgets(false, false, context);
                 //if (isRestart) {
                     PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
-                    PPApplication.updateGUI(/*context, true, true*/);
+                    PPApplication.updateGUI(); //context, true, true);
                 //}
                 //else {
                 //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (4)");
-                //    PPApplication.updateGUI(/*context, true, false*/);
+                //    PPApplication.updateGUI(context, true, false);
                 //}
                 //}
             }
