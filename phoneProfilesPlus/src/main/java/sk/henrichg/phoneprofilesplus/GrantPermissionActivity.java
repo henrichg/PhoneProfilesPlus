@@ -1295,7 +1295,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (permissionsChanged) {
                 //PPApplication.showProfileNotification(/*context*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.onActivityResult");
-                PPApplication.logE("###### PPApplication.updateGUI", "from=GrantPermissionActivity.onActivityResult");
+                //PPApplication.logE("###### PPApplication.updateGUI", "from=GrantPermissionActivity.onActivityResult");
                 PPApplication.updateGUI(true/*context, !finishActivity, true*/);
 
                 if (finishActivity) {
@@ -1759,7 +1759,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             //PPApplication.showProfileNotification(/*context*/true, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.finishGrant");
-            PPApplication.logE("###### PPApplication.updateGUI", "from=GrantPermissionActivity.finishGrant");
+            //PPApplication.logE("###### PPApplication.updateGUI", "from=GrantPermissionActivity.finishGrant");
             PPApplication.updateGUI(true/*getApplicationContext(), true, true*/);
         //}
     }

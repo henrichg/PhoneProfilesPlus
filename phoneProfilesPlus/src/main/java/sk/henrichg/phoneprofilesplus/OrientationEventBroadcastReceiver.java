@@ -44,13 +44,13 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SMSEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SMSEventEndBroadcastReceiver.doWork");
 
                         //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
-                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SMSEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SMSEventEndBroadcastReceiver.doWork");
 
                         if (PhoneProfilesService.getInstance() != null) {
                             PhoneProfilesService service = PhoneProfilesService.getInstance();

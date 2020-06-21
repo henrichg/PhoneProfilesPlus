@@ -54,12 +54,12 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
                 if (Event.getGlobalEventsRunning()) {
 
-                    PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
+                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
 
                     EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
 
-                    PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
+                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
                 }
 
                 PPApplication.startHandlerThreadPPScanners();

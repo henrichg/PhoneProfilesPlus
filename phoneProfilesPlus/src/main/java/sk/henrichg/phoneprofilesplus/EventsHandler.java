@@ -145,7 +145,7 @@ class EventsHandler {
 
             this.sensorType = sensorType;
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
-            PPApplication.logE("$$$ EventsHandler.handleEvents", "sensorType=" + this.sensorType);
+            //PPApplication.logE("$$$ EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             //restartAtEndOfEvent = false;
@@ -247,7 +247,7 @@ class EventsHandler {
             if (!eventsExists(sensorType, dataWrapper)) {
                 // events not exists
 
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "events not exists: sensorType="+sensorType);
+                //PPApplication.logE("$$$ EventsHandler.handleEvents", "events not exists: sensorType="+sensorType);
 
                 doEndHandler(dataWrapper);
                 //dataWrapper.invalidateDataWrapper();
@@ -255,14 +255,14 @@ class EventsHandler {
 
                 if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
                     // not manual profile activation
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
+                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
                     if (dataWrapper.getEventTimelineList(false).size() == 0) {
                         // not any event is running
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "not any event is running");
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "not any event is running");
                         if (PPApplication.prefLastActivatedProfile != 0) {
                             // last activated profile is not 0
                             PPApplication.setLastActivatedProfile(context, 0);
-                            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
+                            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
                             PPApplication.updateGUI(false); //context, true, true);
                         }
                     }
@@ -832,14 +832,14 @@ class EventsHandler {
             } else {
                 if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
                     // not manual profile activation
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCountE="+runningEventCountE);
+                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
+                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCountE="+runningEventCountE);
                     if (runningEventCountE == 0) {
                         // not any event is running
                         if (PPApplication.prefLastActivatedProfile != 0) {
                             // last activated profile is not 0
                             PPApplication.setLastActivatedProfile(context, 0);
-                            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
+                            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
                             PPApplication.updateGUI(false); //context, true, true);
                         }
                     }
