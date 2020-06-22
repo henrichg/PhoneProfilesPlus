@@ -126,6 +126,8 @@ public class PPApplication extends Application
                                                 //+"|$$$ EventsHandler.handleEvents"
                                                 //+"|$$$ DataWrapper.setProfileActive"
 
+                                                //+"|MobileCellsRegistrationService"
+
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"
 

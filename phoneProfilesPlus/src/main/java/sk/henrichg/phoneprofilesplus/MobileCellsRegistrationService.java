@@ -135,10 +135,18 @@ public class MobileCellsRegistrationService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
+        //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "start");
 
         if (countDownTimer != null)
             countDownTimer.cancel();
+
+        stopForeground(true);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
+            notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
 
         if (serviceStarted) {
 
@@ -146,14 +154,6 @@ public class MobileCellsRegistrationService extends Service {
 
             forceStart = false;
             PPApplication.restartPhoneStateScanner(this);
-
-            stopForeground(true);
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            try {
-                notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
 
             showResultNotification();
 
@@ -166,17 +166,10 @@ public class MobileCellsRegistrationService extends Service {
                 mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }
         }
-        else {
-            stopForeground(true);
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            try {
-                notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        }
 
         serviceStarted = false;
+
+        //PPApplication.logE("MobileCellsRegistrationService.onDestroy", "end");
     }
 
     /*
@@ -190,13 +183,19 @@ public class MobileCellsRegistrationService extends Service {
     */
 
     private void showNotification(long millisUntilFinished) {
-        String text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
-        String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
-        long iValue = millisUntilFinished / 1000;
-        time = time + ": " + GlobalGUIRoutines.getDurationString((int)iValue);
-        text = text + "; " + time;
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            text = text+" ("+getString(R.string.ppp_app_name)+")";
+        String text;
+        if (millisUntilFinished > 0) {
+            text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
+            String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
+            long iValue = millisUntilFinished / 1000;
+            time = time + ": " + GlobalGUIRoutines.getDurationString((int) iValue);
+            text = text + "; " + time;
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                text = text + " (" + getString(R.string.ppp_app_name) + ")";
+            }
+        }
+        else {
+            text = getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
         }
 
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
@@ -207,11 +206,13 @@ public class MobileCellsRegistrationService extends Service {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
 
-        Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
-        PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
-        mBuilder.addAction(R.drawable.ic_action_stop_white,
-                context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
-                stopRegistrationPendingIntent);
+        if (millisUntilFinished > 0) {
+            Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
+            PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
+            mBuilder.addAction(R.drawable.ic_action_stop_white,
+                    context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
+                    stopRegistrationPendingIntent);
+        }
 
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         //if (android.os.Build.VERSION.SDK_INT >= 21)
@@ -234,6 +235,9 @@ public class MobileCellsRegistrationService extends Service {
 
     private void stopRegistration() {
         //PPApplication.logE("MobileCellsRegistrationService.stopRegistration", "xxx");
+
+        showNotification(0);
+        PPApplication.sleep(500);
 
         //PPApplication.logE("[REG] MobileCellsRegistrationService.stopRegistration", "setMobileCellsAutoRegistration(true)");
         setMobileCellsAutoRegistration(context, true);
@@ -345,7 +349,7 @@ public class MobileCellsRegistrationService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Log.d("MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
+            //PPApplication.logE("MobileCellsRegistrationService.MCRStopButtonBroadcastReceiver.nReceive", "xxx");
             stopRegistration();
         }
     }
