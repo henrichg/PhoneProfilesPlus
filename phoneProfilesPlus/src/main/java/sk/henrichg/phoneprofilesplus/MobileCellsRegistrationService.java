@@ -55,11 +55,15 @@ public class MobileCellsRegistrationService extends Service {
 
         context = this;
 
-        //registerReceiver(stopReceiver, new IntentFilter(MobileCellsRegistrationService.ACTION_STOP));
-
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
+        //registerReceiver(stopReceiver, new IntentFilter(MobileCellsRegistrationService.ACTION_STOP));
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
         //PPApplication.logE("MobileCellsRegistrationService.onCreate", "remainingDuration="+remainingDuration);
 
@@ -118,13 +122,14 @@ public class MobileCellsRegistrationService extends Service {
 
             stopSelf();
         }
+
+        return START_STICKY;
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
-
 
     @Override
     public void onDestroy() {
