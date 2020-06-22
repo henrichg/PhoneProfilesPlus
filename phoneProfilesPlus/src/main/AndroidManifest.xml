@@ -49,8 +49,9 @@
                      tools:ignore="ProtectedPermissions"/>
     -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+<!--    <uses-permission android:name="android.permission.BROADCAST_STICKY" />-->
 <!--    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"  tools:ignore="ProtectedPermissions" />-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
 

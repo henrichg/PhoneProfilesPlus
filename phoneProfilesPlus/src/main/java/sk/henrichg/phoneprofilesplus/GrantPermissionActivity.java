@@ -65,6 +65,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean showRequestReadContacts = false;
     private boolean showRequestAccessCoarseLocation = false;
     private boolean showRequestAccessFineLocation = false;
+    private boolean showRequestAccessBackgroundLocation = false;
     private boolean[][] whyPermissionType = null;
     private boolean rationaleAlreadyShown = false;
 
@@ -283,7 +284,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         showRequestAccessFineLocation = false;
 
         if (permissions != null) {
-            whyPermissionType = new boolean[15][100];
+            whyPermissionType = new boolean[20][100];
 
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
@@ -326,6 +327,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
                     whyPermissionType[13][permissionType.type] = true;
                 }
+                if (Build.VERSION.SDK_INT >= 29) {
+                    if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
+                        showRequestAccessBackgroundLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                        whyPermissionType[14][permissionType.type] = true;
+                    }
+                }
             }
         }
 
@@ -337,6 +344,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadContacts ||
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
+                showRequestAccessBackgroundLocation ||
                 //showRequestAccessNotificationPolicy ||
                 showRequestDrawOverlays);
     }
@@ -464,12 +472,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
-            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation) {
+            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation || showRequestAccessBackgroundLocation) {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_location) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
-                    permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i];
+                    permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i] || whyPermissionType[14][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
@@ -621,10 +629,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
     }
 
-    private String getWhyPermissionString(boolean[] permissionTypes) {
+    private String getWhyPermissionString(boolean[] whyPermissionTypes) {
         String s = "";
         for (int permissionType = 0; permissionType < 100; permissionType++) {
-            if (permissionTypes[permissionType]) {
+            if (whyPermissionTypes[permissionType]) {
                 switch (permissionType) {
                     //case Permissions.PERMISSION_PROFILE_VOLUME_PREFERENCES:
                     //    break;
@@ -1329,6 +1337,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
+                                granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                            }
+                        }
                     }
                 }
                 if (granted)
@@ -1648,7 +1661,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (permissions != null) {
                 for (Permissions.PermissionType permissionType : permissions) {
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
-                            permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION) ||
+                        ((Build.VERSION.SDK_INT >= 29) && permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION))) {
                         //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart all scanners");
                         // for screenOn=true -> used only for geofence scanner - start scan with GPS On
                         PPApplication.restartAllScanners(context, false);
