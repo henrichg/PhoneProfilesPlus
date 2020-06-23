@@ -25,6 +25,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
+        PPApplication.setWorkManagerInstance(context.getApplicationContext());
+
         // cancel all PPP notification
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null)

@@ -1495,6 +1495,10 @@ public class PPApplication extends Application
             return null;
     }
 
+    static void setWorkManagerInstance(Context context) {
+        workManagerInstance = WorkManager.getInstance(context);
+    }
+
     // workaround for: java.lang.NullPointerException: Attempt to invoke virtual method
     // 'android.content.res.AssetManager android.content.res.Resources.getAssets()' on a null object reference
     // https://issuetracker.google.com/issues/36972466
