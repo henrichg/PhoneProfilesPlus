@@ -1217,7 +1217,7 @@ public class PPApplication extends Application
         if (jobScheduler != null) {
             int size = jobScheduler.getAllPendingJobs().size();
             PPApplication.logE("##### PPApplication.onCreate", "jobScheduler.getAllPendingJobs().size()="+size);
-            //jobScheduler.cancelAll();
+            jobScheduler.cancelAll();
         }
 
         // https://issuetracker.google.com/issues/115575872#comment16
