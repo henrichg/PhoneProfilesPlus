@@ -135,7 +135,8 @@ public class ElapsedAlarmsWorker extends Worker {
                     break;
                 case ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION:
                     //ShowProfileNotificationBroadcastReceiver.doWork(appContext/*, true*/);
-                    if (PhoneProfilesService.getInstance() != null) {
+                    if ((!PPApplication.doNotShowProfileNotification) &&
+                            PhoneProfilesService.getInstance() != null) {
                         try {
                             //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "xxx");
                             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);

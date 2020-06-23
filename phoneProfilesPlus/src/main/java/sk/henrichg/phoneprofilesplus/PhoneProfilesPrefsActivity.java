@@ -305,8 +305,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         super.onStop();
         //PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
 
-        if (PhoneProfilesService.getInstance() != null)
+        if (PhoneProfilesService.getInstance() != null) {
+            PPApplication.doNotShowProfileNotification = true;
             PhoneProfilesService.getInstance().clearProfileNotification();
+        }
 
         // do not use this, background color will not be changed with this
         /*NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -317,8 +319,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (PhoneProfilesService.getInstance() != null)
+                if (PhoneProfilesService.getInstance() != null) {
+                    PPApplication.doNotShowProfileNotification = false;
                     PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, true*/);
+                }
             }
         }, 1000);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");

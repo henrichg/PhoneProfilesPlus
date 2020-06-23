@@ -4391,6 +4391,8 @@ public class PhoneProfilesService extends Service
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
+        if (PPApplication.doNotShowProfileNotification)
+            return;
         if (PhoneProfilesService.instance == null)
             return;
 
@@ -5312,6 +5314,9 @@ public class PhoneProfilesService extends Service
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
+
+        if (PPApplication.doNotShowProfileNotification)
+            return;
 
         boolean clear = false;
         if (Build.MANUFACTURER.equals("HMD Global"))
