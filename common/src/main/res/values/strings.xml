@@ -1533,7 +1533,7 @@
     <string name="colorChooser_pref_dialog_customColor">Custom color</string>
 
     <string name="background_jobs_not_working_alert_title">Error on start of PhoneProfilesPlus</string>
-    <string name="background_jobs_not_working_alert_message">Background jobs was not started. Please do restart of device. Thank you.</string>
+    <string name="background_jobs_not_working_alert_message">Background jobs was not started. Please do reboot of device. Thank you.</string>
 
     <!-- **************************************************************************************** -->
 
