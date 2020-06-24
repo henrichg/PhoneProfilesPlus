@@ -101,6 +101,7 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesService.onCreate"
                                                 +"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
+                                                +"|CheckWorkManagerBroadcastReceiver"
                                                 //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.isServiceRunningInForeground"
                                                 //+"|PhoneProfilesService.showProfileNotification"
@@ -962,6 +963,8 @@ public class PPApplication extends Application
 
     static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
 
+    static final String ACTION_CHECK_WORK_MANAGER_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_CHECK_WORK_MANAGER_BROADCAST_RECEIVER";
+
     static final String ACTION_ACCESSIBILITY_SERVICE_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACTION_FOREGROUND_APPLICATION_CHANGED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_FOREGROUND_APPLICATION_CHANGED";
@@ -1036,6 +1039,7 @@ public class PPApplication extends Application
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
     //static IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
+    static CheckWorkManagerBroadcastReceiver checkWorkManagerBroadcastReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
