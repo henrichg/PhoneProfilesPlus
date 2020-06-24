@@ -62,6 +62,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -648,8 +649,17 @@ public class EditorProfilesActivity extends AppCompatActivity
             return true;
         }
         if (!fullyStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            if ((PPApplication.startTimeOfApplicationStart > 0) &&
+                    ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
+                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
+                // clear all opened activities
+                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(activityIntent);
+            }
+            else {
+                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
+                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            }
             return true;
         }
         /*//boolean fullyStarted = true;

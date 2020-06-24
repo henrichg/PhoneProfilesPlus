@@ -2,9 +2,12 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -145,8 +148,20 @@ public class LauncherActivity extends AppCompatActivity {
             return true;
         }
         if (!fullyStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            Log.e("LauncherActivity.showNotStartedToast", "PPApplication.startTimeOfApplicationStart="+PPApplication.startTimeOfApplicationStart);
+            Log.e("LauncherActivity.showNotStartedToast", "PPApplication.APPLICATION_START_DELAY="+PPApplication.APPLICATION_START_DELAY);
+            Log.e("LauncherActivity.showNotStartedToast", "delta="+(Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart));
+            if ((PPApplication.startTimeOfApplicationStart > 0) &&
+                    ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
+                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
+                // clear all opened activities
+                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(activityIntent);
+            }
+            else {
+                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
+                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            }
             return true;
         }
         /*//boolean fullyStarted = true;

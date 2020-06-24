@@ -17,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import java.util.Calendar;
+
 //import me.drakeet.support.toast.ToastCompat;
 
 public class PhoneProfilesPrefsActivity extends AppCompatActivity {
@@ -229,8 +231,17 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             return true;
         }
         if (!fullyStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            if ((PPApplication.startTimeOfApplicationStart > 0) &&
+                    ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
+                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
+                // clear all opened activities
+                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(activityIntent);
+            }
+            else {
+                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
+                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            }
             return true;
         }
         /*//boolean fullyStarted = true;

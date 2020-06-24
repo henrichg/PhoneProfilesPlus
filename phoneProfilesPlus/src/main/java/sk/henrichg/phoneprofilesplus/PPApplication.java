@@ -77,7 +77,11 @@ public class PPApplication extends Application
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
+
     static boolean applicationFullyStarted = false;
+    static long startTimeOfApplicationStart = 0;
+
+    static final long APPLICATION_START_DELAY = 2 * 60 * 1000;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
@@ -101,7 +105,6 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesService.onCreate"
                                                 +"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
-                                                +"|CheckWorkManagerBroadcastReceiver"
                                                 //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.isServiceRunningInForeground"
                                                 //+"|PhoneProfilesService.showProfileNotification"
@@ -1039,7 +1042,6 @@ public class PPApplication extends Application
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
     //static IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
-    static CheckWorkManagerBroadcastReceiver checkWorkManagerBroadcastReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;

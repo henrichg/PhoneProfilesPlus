@@ -40,7 +40,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -324,20 +323,23 @@ public class PhoneProfilesService extends Service
             }
         });*/
 
+        PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
+
+        /*
         // alarm for check WorkManager
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             Intent alarmIntent = new Intent();
             alarmIntent.setAction(PPApplication.ACTION_CHECK_WORK_MANAGER_BROADCAST_RECEIVER);
 
-            // 3 minutes
-            long alarmTime = SystemClock.elapsedRealtime() + 3*60 * 1000;
+            // 1 minutes
+            long alarmTime = SystemClock.elapsedRealtime() + 1*60 * 1000;
 
             // set alarm
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
         }
-
+        */
     }
 
     static void cancelAllWorks(boolean atStart) {
@@ -804,16 +806,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.powerSaveModeReceiver = null;
                 }
             }
-            if (PPApplication.checkWorkManagerBroadcastReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER checkWorkManagerBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER checkWorkManagerBroadcastReceiver");
-                try {
-                    appContext.unregisterReceiver(PPApplication.checkWorkManagerBroadcastReceiver);
-                    PPApplication.checkWorkManagerBroadcastReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.checkWorkManagerBroadcastReceiver = null;
-                }
-            }
         }
         if (register) {
             if (PPApplication.timeChangedReceiver == null) {
@@ -1062,15 +1054,6 @@ public class PhoneProfilesService extends Service
                 intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
                 appContext.registerReceiver(PPApplication.powerSaveModeReceiver, intentFilter10);
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
-            }
-
-            if (PPApplication.checkWorkManagerBroadcastReceiver == null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER checkWorkManagerBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER checkWorkManagerBroadcastReceiver");
-                PPApplication.checkWorkManagerBroadcastReceiver = new CheckWorkManagerBroadcastReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PPApplication.ACTION_CHECK_WORK_MANAGER_BROADCAST_RECEIVER);
-                appContext.registerReceiver(PPApplication.checkWorkManagerBroadcastReceiver, intentFilter5);
             }
 
         }
