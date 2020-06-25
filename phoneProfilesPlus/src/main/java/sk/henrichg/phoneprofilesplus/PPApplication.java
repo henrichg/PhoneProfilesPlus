@@ -769,7 +769,6 @@ public class PPApplication extends Application
     static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
     static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
     static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
-    static final ContactGroupsCacheMutex contactGroupsCacheMutex = new ContactGroupsCacheMutex();
     static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
     static final RootMutex rootMutex = new RootMutex();
     private static final ServiceListMutex serviceListMutex = new ServiceListMutex();

@@ -128,7 +128,7 @@ class ContactGroupsCache {
         }
 
         //if (cached) {
-            synchronized (PPApplication.contactGroupsCacheMutex) {
+            synchronized (PPApplication.contactsCacheMutex) {
                 contactsCache.updateContacts(_contactList/*, false*/);
                 //contactsCache.updateContacts(_contactListWithoutNumber, true);
 
@@ -143,7 +143,7 @@ class ContactGroupsCache {
     public int getLength()
     {
         if (cached)
-            synchronized (PPApplication.contactGroupsCacheMutex) {
+            synchronized (PPApplication.contactsCacheMutex) {
                 return contactGroupList.size();
             }
         else
@@ -161,7 +161,7 @@ class ContactGroupsCache {
     ContactGroup getContactGroup(int position)
     {
         if (cached)
-            synchronized (PPApplication.contactGroupsCacheMutex) {
+            synchronized (PPApplication.contactsCacheMutex) {
                 return contactGroupList.get(position);
             }
         else
@@ -170,7 +170,7 @@ class ContactGroupsCache {
 
     void clearCache()
     {
-        synchronized (PPApplication.contactGroupsCacheMutex) {
+        synchronized (PPApplication.contactsCacheMutex) {
             contactGroupList.clear();
             cached = false;
             caching = false;

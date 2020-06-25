@@ -51,7 +51,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         // change checked state by value
         ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
         if (contactGroupsCache != null) {
-            synchronized (PPApplication.contactGroupsCacheMutex) {
+            synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();
                 if (contactGroupList != null) {
                     String[] splits = value.split("\\|");
@@ -126,7 +126,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         value = "";
         ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
         if (contactGroupsCache != null) {
-            synchronized (PPApplication.contactGroupsCacheMutex) {
+            synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();
                 if (contactGroupList != null) {
                     for (ContactGroup contactGroup : contactGroupList) {
