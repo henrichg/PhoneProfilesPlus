@@ -2838,8 +2838,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                         values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                         values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
-                        values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
-                        values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
+                        // do not add another columns here
 
                         // updating row
                         db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
