@@ -1076,15 +1076,10 @@ class ActivateProfileHelper {
         PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeBluetoothSCOValue()=" + profile.getVolumeBluetoothSCOValue());
 
         if (forProfileActivation) {
-            if (!profile._volumeMuteSound) {
-                if (profile.getVolumeMediaChange()) {
-                    setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
-                }
-            }
-            if (profile.getVolumeAlarmChange()) {
+            if (profile.getVolumeBluetoothSCOChange()) {
                 try {
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), 0);
-                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
+                    audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), 0);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -1097,12 +1092,17 @@ class ActivateProfileHelper {
                     PPApplication.recordException(e);
                 }
             }
-            if (profile.getVolumeBluetoothSCOChange()) {
+            if (profile.getVolumeAlarmChange()) {
                 try {
-                    audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), 0);
-                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), 0);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
+                }
+            }
+            if (!profile._volumeMuteSound) {
+                if (profile.getVolumeMediaChange()) {
+                    setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
                 }
             }
         }
