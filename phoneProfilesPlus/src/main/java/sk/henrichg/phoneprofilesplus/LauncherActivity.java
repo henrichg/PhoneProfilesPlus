@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -148,9 +147,9 @@ public class LauncherActivity extends AppCompatActivity {
             return true;
         }
         if (!fullyStarted) {
-            Log.e("LauncherActivity.showNotStartedToast", "PPApplication.startTimeOfApplicationStart="+PPApplication.startTimeOfApplicationStart);
-            Log.e("LauncherActivity.showNotStartedToast", "PPApplication.APPLICATION_START_DELAY="+PPApplication.APPLICATION_START_DELAY);
-            Log.e("LauncherActivity.showNotStartedToast", "delta="+(Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart));
+            //Log.e("LauncherActivity.showNotStartedToast", "PPApplication.startTimeOfApplicationStart="+PPApplication.startTimeOfApplicationStart);
+            //Log.e("LauncherActivity.showNotStartedToast", "PPApplication.APPLICATION_START_DELAY="+PPApplication.APPLICATION_START_DELAY);
+            //Log.e("LauncherActivity.showNotStartedToast", "delta="+(Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart));
             if ((PPApplication.startTimeOfApplicationStart > 0) &&
                     ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
                 Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);

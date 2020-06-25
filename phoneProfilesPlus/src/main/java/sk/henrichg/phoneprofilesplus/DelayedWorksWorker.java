@@ -94,24 +94,6 @@ public class DelayedWorksWorker extends Worker {
                         PPApplication.setApplicationFullyStarted(appContext);
                     }
 
-                    /*try {
-                        // cancel alarm for check WorkManager
-                        AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
-                        if (alarmManager != null) {
-                            Intent alarmIntent = new Intent();
-                            alarmIntent.setAction(PPApplication.ACTION_CHECK_WORK_MANAGER_BROADCAST_RECEIVER);
-
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, alarmIntent, PendingIntent.FLAG_NO_CREATE);
-                            if (pendingIntent != null) {
-                                //PPApplication.logE("NextAlarmClockBroadcastReceiver.removeAlarm", "alarm found");
-                                alarmManager.cancel(pendingIntent);
-                                pendingIntent.cancel();
-                            }
-                        }
-                    } catch (Exception eee) {
-                        PPApplication.recordException(eee);
-                    }*/
-
                     if (fromDoFirstStart) {
                         PPApplication.createNotificationChannels(appContext);
 

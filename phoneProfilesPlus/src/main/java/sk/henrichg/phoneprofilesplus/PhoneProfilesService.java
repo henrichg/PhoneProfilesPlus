@@ -324,22 +324,6 @@ public class PhoneProfilesService extends Service
         });*/
 
         PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
-
-        /*
-        // alarm for check WorkManager
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            Intent alarmIntent = new Intent();
-            alarmIntent.setAction(PPApplication.ACTION_CHECK_WORK_MANAGER_BROADCAST_RECEIVER);
-
-            // 1 minutes
-            long alarmTime = SystemClock.elapsedRealtime() + 1*60 * 1000;
-
-            // set alarm
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-        }
-        */
     }
 
     static void cancelAllWorks(boolean atStart) {
