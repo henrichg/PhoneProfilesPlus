@@ -1,5 +1,15 @@
 ------------------------
+funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
 
+nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
+Spravovat automaticky - ne
+Spravovat ručně 3x ano
+-automatické souštění
+-sekundární souštění
+-Spustit na ozadí
+------------------------
+
+Ulohy, ktore su spravene [x] a ktore nie [ ]:
 [x] location event (when at point X, radius Y)
 [x] app event (when app X is started)
 [x] Notification event lasts until notification is gone
@@ -12,7 +22,7 @@
 [x] Restart events at boot option
 [x] Restart events shortcut for launcher
 [ ] Normal media volume, headphone media volume, Bluetooth media volume
-[ ] Sony's "Stamina" mode as profile preference
+[ ] Sony's "Stamina" mode as profile preference - skor Power save change senzor
 [ ] USB connection to PC as storage device, USB connection to PC as camera, connection to USB stick in accessories parameter for events
 [x] Option to delete logs after x days
 [ ] Resizable grid in Activator
@@ -24,7 +34,7 @@
 [ ] toggle torch
 [ ] profile/event search
 [ ] "change wallpapper"->live wallpappers
-[ ] Persistent profile/event: sets its options every x minutes
+[ ] Persistent profile/event: sets its options every x minutes - asi periodic sensor
 [ ] Android Wear support?
 [ ] (AND, OR, XOR, NOT. Or at least NOT.)<-NOT is already available in most preferences. If that stays, that does the same.
 [ ] a plugin system? (very small core app, ability to install additional event preferences, maybe only time event preinstalled)
@@ -41,14 +51,12 @@ mode_ringer_streams_affected
 System.Global:
 heads_up_notifications_enabled
 
-
 Ako disablovat lockscreen, 2 kroky:
 1. nastavit, ze power tlacitko nema lockovat
   /data/system/locksettings.db - lockscreen.power_button_instantly_locks (0,1)
   len je otazka, ci toto existuje aj na starsich androidoch ako 5.0
 2. nastavit lockscreen timeout 
   Settings.Secure - lock_screen_lock_after_timeout (milisekundy)
-
 
 --------
 
