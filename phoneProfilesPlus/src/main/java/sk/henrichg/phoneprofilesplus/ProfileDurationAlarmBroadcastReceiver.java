@@ -228,71 +228,73 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "getIsManualProfileActivation()=" + DataWrapper.getIsManualProfileActivation(true, appContext));
 
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
-            if (DataWrapper.getIsManualProfileActivation(true/*, appContext*/) ||
-                    (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
-                Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+            if (profile != null) {
+                if (DataWrapper.getIsManualProfileActivation(true/*, appContext*/) ||
+                        (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
+                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
 
-                /*if (PPApplication.logEnabled()) {
-                    if (activatedProfile != null)
-                        PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "activatedProfile._name" + activatedProfile._name);
-                }*/
+                    /*if (PPApplication.logEnabled()) {
+                        if (activatedProfile != null)
+                            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "activatedProfile._name" + activatedProfile._name);
+                    }*/
 
-                if ((profile != null) && (activatedProfile != null) &&
-                        (activatedProfile._id == profile._id) &&
-                        (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
-                    // alarm is from activated profile
+                    if ((activatedProfile != null) &&
+                            (activatedProfile._id == profile._id) &&
+                            (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
+                        // alarm is from activated profile
 
-                    //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "alarm is from activated profile");
+                        //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "alarm is from activated profile");
 
-                    if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
-                            PhoneProfilesService.getInstance().playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
-                            //PPApplication.sleep(500);
+                        if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
+                            if (PhoneProfilesService.getInstance() != null) {
+                                //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                                PhoneProfilesService.getInstance().playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
+                                //PPApplication.sleep(500);
+                            }
                         }
-                    }
 
-                    long activateProfileId = 0;
-                    if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_DEFAULT_PROFILE) {
-                        activateProfileId = ApplicationPreferences.applicationDefaultProfile;
-                        if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
-                            activateProfileId = 0;
+                        long activateProfileId = 0;
+                        if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_DEFAULT_PROFILE) {
+                            activateProfileId = ApplicationPreferences.applicationDefaultProfile;
+                            if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
+                                activateProfileId = 0;
 
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE, null,
-                                DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),
-                                profile._icon, 0, "");
-                    }
-                    if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
-                        activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
-                        if (activateProfileId == activatedProfile._id)
-                            activateProfileId = 0;
-
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, null,
-                                DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),
-                                profile._icon, 0, "");
-                    }
-                    if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) {
-                        activateProfileId = profile._afterDurationProfile;
-                        if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
-                            activateProfileId = 0;
-
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, null,
-                                DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),
-                                profile._icon, 0, "");
-                    }
-                    if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_RESTART_EVENTS) {
-                        if (!forRestartEvents) {
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, null,
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_DEFAULT_PROFILE, null,
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),
                                     profile._icon, 0, "");
-
-                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
-                            dataWrapper.restartEventsWithDelay(3, false, true, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
-                        } else {
-                            dataWrapper.activateProfileAfterDuration(0, startupSource);
                         }
-                    } else {
-                        dataWrapper.activateProfileAfterDuration(activateProfileId, startupSource);
+                        if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
+                            activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
+                            if (activateProfileId == activatedProfile._id)
+                                activateProfileId = 0;
+
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, null,
+                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),
+                                    profile._icon, 0, "");
+                        }
+                        if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) {
+                            activateProfileId = profile._afterDurationProfile;
+                            if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
+                                activateProfileId = 0;
+
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_SPECIFIC_PROFILE, null,
+                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),
+                                    profile._icon, 0, "");
+                        }
+                        if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_RESTART_EVENTS) {
+                            if (!forRestartEvents) {
+                                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_RESTART_EVENTS, null,
+                                        DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),
+                                        profile._icon, 0, "");
+
+                                //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
+                                dataWrapper.restartEventsWithDelay(3, false, true, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
+                            } else {
+                                dataWrapper.activateProfileAfterDuration(0, startupSource);
+                            }
+                        } else {
+                            dataWrapper.activateProfileAfterDuration(activateProfileId, startupSource);
+                        }
                     }
                 }
             }
