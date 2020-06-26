@@ -695,10 +695,10 @@ public class EditorProfileListFragment extends Fragment
     public void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        final Context context = view.getContext();
+        final Context _context = view.getContext();
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
-            popup = new PopupMenu(context, view, Gravity.END);
+            popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
         //noinspection ConstantConditions
@@ -726,7 +726,8 @@ public class EditorProfileListFragment extends Fragment
             });
 
 
-        popup.show();
+        if (!getActivity().isFinishing())
+            popup.show();
     }
 
     private void deleteProfileWithAlert(Profile profile)
@@ -1255,11 +1256,11 @@ public class EditorProfileListFragment extends Fragment
         if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
 
             //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-            Context context = view.getContext();
+            Context _context = view.getContext();
             //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
             PopupMenu popup;
             //if (android.os.Build.VERSION.SDK_INT >= 19)
-            popup = new PopupMenu(context, view, Gravity.END);
+            popup = new PopupMenu(_context, view, Gravity.END);
             //else
             //    popup = new PopupMenu(context, view);
             //noinspection ConstantConditions
@@ -1309,7 +1310,8 @@ public class EditorProfileListFragment extends Fragment
                 }
             });
 
-            popup.show();
+            if (!getActivity().isFinishing())
+                popup.show();
         }
         else
             EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, getActivity());

@@ -157,45 +157,46 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!((Activity)prefContext).isFinishing()) {
-                    mSelectorDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.pref_dlg_change_selection_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
-                            .setItems(R.array.bluetoothNameDChangeSelectionArray, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch (which) {
-                                        case 0:
-                                            preference.value = "";
-                                            break;
-                                        case 1:
-                                            for (BluetoothDeviceData bluetooth : preference.bluetoothList) {
-                                                if (bluetooth.name.equals(bluetoothName.getText().toString()))
-                                                    preference.addBluetoothName(bluetooth.name);
-                                            }
-                                            break;
-                                        default:
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing()) {
+                        mSelectorDialog = new AlertDialog.Builder(prefContext)
+                                .setTitle(R.string.pref_dlg_change_selection_title)
+                                .setCancelable(true)
+                                .setNegativeButton(android.R.string.cancel, null)
+                                //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                                .setItems(R.array.bluetoothNameDChangeSelectionArray, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which) {
+                                            case 0:
+                                                preference.value = "";
+                                                break;
+                                            case 1:
+                                                for (BluetoothDeviceData bluetooth : preference.bluetoothList) {
+                                                    if (bluetooth.name.equals(bluetoothName.getText().toString()))
+                                                        preference.addBluetoothName(bluetooth.name);
+                                                }
+                                                break;
+                                            default:
+                                        }
+                                        refreshListView(false, "");
+                                        //dialog.dismiss();
                                     }
-                                    refreshListView(false, "");
-                                    //dialog.dismiss();
-                                }
-                            })
-                            .create();
+                                })
+                                .create();
 
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+    //                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+    //                        @Override
+    //                        public void onShow(DialogInterface dialog) {
+    //                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+    //                            if (positive != null) positive.setAllCaps(false);
+    //                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+    //                            if (negative != null) negative.setAllCaps(false);
+    //                        }
+    //                    });
 
-                    mSelectorDialog.show();
-                }
+                        mSelectorDialog.show();
+                    }
             }
         });
 
@@ -290,8 +291,9 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 //                                        }
 //                                    });
 
-                                    if (!((Activity) prefContext).isFinishing())
-                                        dialog.show();
+                                    if (getActivity() != null)
+                                        if (!getActivity().isFinishing())
+                                            dialog.show();
                                 }
                             }
                         }
@@ -514,13 +516,13 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
+        Context _context = view.getContext();
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
-        popup = new PopupMenu(context, view, Gravity.END);
+        popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
-        new MenuInflater(context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
+        new MenuInflater(_context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
 
         int btNamePos = (int)view.getTag();
         final String btName = preference.bluetoothList.get(btNamePos).getName();
@@ -578,8 +580,9 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
             }
         });
 
-
-        popup.show();
+        if (getActivity() != null)
+            if (!getActivity().isFinishing())
+                popup.show();
     }
 
 }

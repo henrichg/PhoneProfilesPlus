@@ -164,45 +164,46 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!((Activity)prefContext).isFinishing()) {
-                    mSelectorDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.pref_dlg_change_selection_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
-                            .setItems(R.array.nfcTagsChangeSelectionArray, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch (which) {
-                                        case 0:
-                                            preference.value = "";
-                                            break;
-                                        case 1:
-                                            for (NFCTag nfcTag : preference.nfcTagList) {
-                                                if (nfcTag._name.equals(nfcTagName.getText().toString()))
-                                                    preference.addNfcTag(nfcTag._name);
-                                            }
-                                            break;
-                                        default:
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing()) {
+                        mSelectorDialog = new AlertDialog.Builder(prefContext)
+                                .setTitle(R.string.pref_dlg_change_selection_title)
+                                .setCancelable(true)
+                                .setNegativeButton(android.R.string.cancel, null)
+                                //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                                .setItems(R.array.nfcTagsChangeSelectionArray, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which) {
+                                            case 0:
+                                                preference.value = "";
+                                                break;
+                                            case 1:
+                                                for (NFCTag nfcTag : preference.nfcTagList) {
+                                                    if (nfcTag._name.equals(nfcTagName.getText().toString()))
+                                                        preference.addNfcTag(nfcTag._name);
+                                                }
+                                                break;
+                                            default:
+                                        }
+                                        refreshListView("");
+                                        //dialog.dismiss();
                                     }
-                                    refreshListView("");
-                                    //dialog.dismiss();
-                                }
-                            })
-                            .create();
+                                })
+                                .create();
 
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+    //                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+    //                        @Override
+    //                        public void onShow(DialogInterface dialog) {
+    //                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+    //                            if (positive != null) positive.setAllCaps(false);
+    //                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+    //                            if (negative != null) negative.setAllCaps(false);
+    //                        }
+    //                    });
 
-                    mSelectorDialog.show();
-                }
+                        mSelectorDialog.show();
+                    }
             }
         });
 
@@ -418,7 +419,9 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         });
 
 
-        popup.show();
+        if (getActivity() != null)
+            if (!getActivity().isFinishing())
+                popup.show();
     }
 
 }

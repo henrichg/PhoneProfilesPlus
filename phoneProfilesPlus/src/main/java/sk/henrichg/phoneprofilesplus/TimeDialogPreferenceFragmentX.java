@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,8 +102,9 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
                     if (iValue > preference.mMax) iValue = preference.mMax;
 
                     mValueDialog.setDuration(iValue * 60 * 1000);
-                    if (!((Activity)context).isFinishing())
-                        mValueDialog.show();
+                    if (getActivity() != null)
+                        if (!getActivity().isFinishing())
+                            mValueDialog.show();
                 }
             }
         );

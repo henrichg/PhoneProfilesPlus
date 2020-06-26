@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -210,8 +209,9 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 //                                }
 //                            });
 
-                            if (!((Activity)prefContext).isFinishing())
-                                dialog.show();
+                            if (getActivity() != null)
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
                         }
                     }
                 }
@@ -293,8 +293,9 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 //                                    }
 //                                });
 
-                                if (!((Activity)context).isFinishing())
-                                    dialog.show();
+                                if (getActivity() != null)
+                                    if (!getActivity().isFinishing())
+                                        dialog.show();
                             }
                         }
                         return true;
@@ -304,8 +305,9 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             }
         });
 
-
-        popup.show();
+        if (getActivity() != null)
+            if (!getActivity().isFinishing())
+                popup.show();
     }
 
     void refreshListView()

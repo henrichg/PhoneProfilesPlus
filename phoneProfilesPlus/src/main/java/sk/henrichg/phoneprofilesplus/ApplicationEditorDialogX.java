@@ -468,7 +468,8 @@ class ApplicationEditorDialogX
             }
         });
 
-        popup.show();
+        if (!activity.isFinishing())
+            popup.show();
     }
 
     private void startEditor(Application application) {

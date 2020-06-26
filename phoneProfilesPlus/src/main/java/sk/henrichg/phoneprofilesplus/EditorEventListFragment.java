@@ -816,10 +816,10 @@ public class EditorEventListFragment extends Fragment
     public void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
+        Context _context = view.getContext();
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
-            popup = new PopupMenu(context, view, Gravity.END);
+            popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
         Menu menu = popup.getMenu();
@@ -865,7 +865,8 @@ public class EditorEventListFragment extends Fragment
             });
 
 
-        popup.show();
+        if (!getActivity().isFinishing())
+            popup.show();
     }
 
     private void deleteEventWithAlert(Event event)
@@ -1746,11 +1747,11 @@ public class EditorEventListFragment extends Fragment
     void showIgnoreManualActivationMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
+        Context _context = view.getContext();
         //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
-        popup = new PopupMenu(context, view, Gravity.END);
+        popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
         //noinspection ConstantConditions
@@ -1807,8 +1808,8 @@ public class EditorEventListFragment extends Fragment
             }
         });
 
-
-        popup.show();
+        if (!getActivity().isFinishing())
+            popup.show();
     }
 
     /*

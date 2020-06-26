@@ -554,17 +554,17 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
+        Context _context = view.getContext();
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
-            popup = new PopupMenu(context, view, Gravity.END);
+            popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
 
         final Application application = (Application) view.getTag();
         //PPApplication.logE("ApplicationsDialogPreference.showEditMenu", "application="+application);
 
-        new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
+        new MenuInflater(_context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -582,14 +582,17 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
             }
         });
 
-        popup.show();
+        if (fragment.getActivity() != null)
+            if (!fragment.getActivity().isFinishing())
+                popup.show();
     }
 
     void startEditor(Application application) {
-        if (!((Activity)context).isFinishing()) {
-            mEditorDialog = new ApplicationEditorDialogX((Activity) context, this, application);
-            mEditorDialog.show();
-        }
+        if (fragment.getActivity() != null)
+            if (!fragment.getActivity().isFinishing()) {
+                mEditorDialog = new ApplicationEditorDialogX(fragment.getActivity(), this, application);
+                mEditorDialog.show();
+            }
     }
 
     void updateGUI() {

@@ -136,8 +136,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         cellFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!((Activity)prefContext).isFinishing())
-                    mMobileCellsFilterDialog.show();
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing())
+                        mMobileCellsFilterDialog.show();
             }
         });
 
@@ -145,8 +146,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         cellName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!((Activity)prefContext).isFinishing())
-                    mMobileCellNamesDialog.show();
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing())
+                        mMobileCellNamesDialog.show();
             }
         });
 
@@ -155,43 +157,44 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!((Activity)prefContext).isFinishing()) {
-                    mRenameDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.mobileCellsRenameArray, 0, new DialogInterface.OnClickListener() {
-                            .setItems(R.array.mobileCellsRenameArray, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
-                                    switch (which) {
-                                        case 0:
-                                        case 1:
-                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
-                                            break;
-                                        case 2:
-                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
-                                            break;
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing()) {
+                        mRenameDialog = new AlertDialog.Builder(prefContext)
+                                .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
+                                .setCancelable(true)
+                                .setNegativeButton(android.R.string.cancel, null)
+                                //.setSingleChoiceItems(R.array.mobileCellsRenameArray, 0, new DialogInterface.OnClickListener() {
+                                .setItems(R.array.mobileCellsRenameArray, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
+                                        switch (which) {
+                                            case 0:
+                                            case 1:
+                                                db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
+                                                break;
+                                            case 2:
+                                                db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
+                                                break;
+                                        }
+                                        refreshListView(false, Integer.MAX_VALUE);
+                                        //dialog.dismiss();
                                     }
-                                    refreshListView(false, Integer.MAX_VALUE);
-                                    //dialog.dismiss();
-                                }
-                            })
-                            .create();
+                                })
+                                .create();
 
-//                    mRenameDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+    //                    mRenameDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+    //                        @Override
+    //                        public void onShow(DialogInterface dialog) {
+    //                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+    //                            if (positive != null) positive.setAllCaps(false);
+    //                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+    //                            if (negative != null) negative.setAllCaps(false);
+    //                        }
+    //                    });
 
-                    mRenameDialog.show();
-                }
+                          mRenameDialog.show();
+                    }
             }
         });
         AppCompatImageButton changeSelectionIcon = view.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
@@ -199,51 +202,52 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!((Activity)prefContext).isFinishing()) {
-                    mSelectorDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.pref_dlg_change_selection_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.mobileCellsChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
-                            .setItems(R.array.mobileCellsChangeSelectionArray, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch (which) {
-                                        case 0:
-                                            preference.value = "";
-                                            break;
-                                        case 1:
-                                            for (MobileCellsData cell : preference.filteredCellsList) {
-                                                if (cell.name.equals(cellName.getText().toString()))
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing()) {
+                        mSelectorDialog = new AlertDialog.Builder(prefContext)
+                                .setTitle(R.string.pref_dlg_change_selection_title)
+                                .setCancelable(true)
+                                .setNegativeButton(android.R.string.cancel, null)
+                                //.setSingleChoiceItems(R.array.mobileCellsChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                                .setItems(R.array.mobileCellsChangeSelectionArray, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which) {
+                                            case 0:
+                                                preference.value = "";
+                                                break;
+                                            case 1:
+                                                for (MobileCellsData cell : preference.filteredCellsList) {
+                                                    if (cell.name.equals(cellName.getText().toString()))
+                                                        preference.addCellId(cell.cellId);
+                                                }
+                                                break;
+                                            case 2:
+                                                preference.value = "";
+                                                for (MobileCellsData cell : preference.filteredCellsList) {
                                                     preference.addCellId(cell.cellId);
-                                            }
-                                            break;
-                                        case 2:
-                                            preference.value = "";
-                                            for (MobileCellsData cell : preference.filteredCellsList) {
-                                                preference.addCellId(cell.cellId);
-                                            }
-                                            break;
-                                        default:
+                                                }
+                                                break;
+                                            default:
+                                        }
+                                        refreshListView(false, Integer.MAX_VALUE);
+                                        //dialog.dismiss();
                                     }
-                                    refreshListView(false, Integer.MAX_VALUE);
-                                    //dialog.dismiss();
-                                }
-                            })
-                            .create();
+                                })
+                                .create();
 
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+    //                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+    //                        @Override
+    //                        public void onShow(DialogInterface dialog) {
+    //                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+    //                            if (positive != null) positive.setAllCaps(false);
+    //                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+    //                            if (negative != null) negative.setAllCaps(false);
+    //                        }
+    //                    });
 
-                    mSelectorDialog.show();
-                }
+                        mSelectorDialog.show();
+                    }
             }
         });
         final AppCompatImageButton sortIcon = view.findViewById(R.id.mobile_cells_pref_dlg_sort);
@@ -251,34 +255,35 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         sortIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!((Activity)prefContext).isFinishing()) {
-                    mSortDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.mobile_cells_pref_dlg_cell_sort_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .setSingleChoiceItems(R.array.mobileCellsSortArray, preference.sortCellsBy, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    preference.sortCellsBy = which;
-                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.sortIcon.onClickListener", "sortCellsBy="+preference.sortCellsBy);
-                                    refreshListView(false, Integer.MAX_VALUE);
-                                    dialog.dismiss();
-                                }
-                            })
-                            .create();
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing()) {
+                        mSortDialog = new AlertDialog.Builder(prefContext)
+                                .setTitle(R.string.mobile_cells_pref_dlg_cell_sort_title)
+                                .setCancelable(true)
+                                .setNegativeButton(android.R.string.cancel, null)
+                                .setSingleChoiceItems(R.array.mobileCellsSortArray, preference.sortCellsBy, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        preference.sortCellsBy = which;
+                                        //PPApplication.logE("MobileCellsPreferenceFragmentX.sortIcon.onClickListener", "sortCellsBy="+preference.sortCellsBy);
+                                        refreshListView(false, Integer.MAX_VALUE);
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .create();
 
-//                    mSortDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+    //                    mSortDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+    //                        @Override
+    //                        public void onShow(DialogInterface dialog) {
+    //                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+    //                            if (positive != null) positive.setAllCaps(false);
+    //                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+    //                            if (negative != null) negative.setAllCaps(false);
+    //                        }
+    //                    });
 
-                    mSortDialog.show();
-                }
+                        mSortDialog.show();
+                    }
             }
         });
 
@@ -453,8 +458,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 //                                    }
 //                                });
 
-                                if (!((Activity)prefContext).isFinishing())
-                                    dialog.show();
+                                if (getActivity() != null)
+                                    if (!getActivity().isFinishing())
+                                        dialog.show();
                             }
                         }
                     }
@@ -798,16 +804,15 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     public void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context context = view.getContext();
+        final Context _context = view.getContext();
         PopupMenu popup;
         //if (android.os.Build.VERSION.SDK_INT >= 19)
-        popup = new PopupMenu(context, view, Gravity.END);
+        popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
-        new MenuInflater(context).inflate(R.menu.mobile_cells_pref_item_edit, popup.getMenu());
+        new MenuInflater(_context).inflate(R.menu.mobile_cells_pref_item_edit, popup.getMenu());
 
         final int cellId = (int)view.getTag();
-        final Context _context = context;
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -826,8 +831,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
 
-
-        popup.show();
+        if (getActivity() != null)
+            if (!getActivity().isFinishing())
+                popup.show();
     }
 
     public class RefreshListViewBroadcastReceiver extends BroadcastReceiver {

@@ -11,11 +11,11 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NFCTagPreferenceX extends DialogPreference {
 
@@ -154,8 +154,9 @@ public class NFCTagPreferenceX extends DialogPreference {
 //                }
 //            });
 
-            if (!((Activity) prefContext).isFinishing())
-                dialog.show();
+            if (fragment.getActivity() != null)
+                if (!fragment.getActivity().isFinishing())
+                    dialog.show();
             return;
         }
 

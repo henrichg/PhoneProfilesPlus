@@ -196,8 +196,9 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
                     preference.value = String.valueOf(iValue);
 
                     mValueDialog.setDuration(iValue * 1000);
-                    if (!((Activity)prefContext).isFinishing())
-                        mValueDialog.show();
+                    if (preference.fragment.getActivity() != null)
+                        if (!preference.fragment.getActivity().isFinishing())
+                            mValueDialog.show();
                 }
             }
         );
@@ -206,8 +207,9 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         mCellsName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!((Activity)prefContext).isFinishing())
-                        mMobileCellNamesDialog.show();
+                    if (getActivity() != null)
+                        if (!getActivity().isFinishing())
+                            mMobileCellNamesDialog.show();
                 }
             }
         );
