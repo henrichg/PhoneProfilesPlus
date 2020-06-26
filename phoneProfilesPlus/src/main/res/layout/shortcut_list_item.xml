@@ -22,6 +22,7 @@
         android:src="@drawable/ic_profile_default" />
 
     <LinearLayout
+        android:id="@+id/shortcut_list_item_liLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

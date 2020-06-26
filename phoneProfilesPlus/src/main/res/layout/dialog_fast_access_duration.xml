@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_important_info_scroll_view"
+    android:id="@+id/dialog_fast_access_duration_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <LinearLayout
+        android:id="@+id/fragment_important_info_scroll_view"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,11 +25,13 @@
             tools:ignore="HardcodedText"/>
 
         <LinearLayout
+            android:id="@+id/dialog_fast_access_duration_liLa1"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/dialog_fast_access_duration_liLa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -54,12 +57,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/dialog_fast_access_duration_liLa3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <FrameLayout
+                    android:id="@+id/dialog_fast_access_duration_frLa1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
@@ -97,12 +102,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/dialog_fast_access_duration_liLa4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/dialog_fast_access_duration_textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_hours_label"
@@ -117,11 +124,13 @@
                     tools:ignore="UnusedAttribute"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/dialog_fast_access_duration_liLa5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/dialog_fast_access_duration_textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_minutes_label"
@@ -136,12 +145,14 @@
                     tools:ignore="UnusedAttribute"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/dialog_fast_access_duration_liLa6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/dialog_fast_access_duration_textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_seconds_label"
@@ -212,6 +223,7 @@
                 android:src="@drawable/ic_profile_default" />
 
             <LinearLayout
+                android:id="@+id/dialog_fast_access_duration_liLa7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

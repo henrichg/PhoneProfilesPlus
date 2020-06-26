@@ -26,6 +26,7 @@
         android:src="@drawable/ic_profile_default" />
 
     <LinearLayout
+        android:id="@+id/profile_multiselect_pref_dlg_item_liLa1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

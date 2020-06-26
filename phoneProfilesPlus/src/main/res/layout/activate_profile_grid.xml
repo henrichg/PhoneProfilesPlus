@@ -29,6 +29,7 @@
             android:src="@drawable/ic_profile_default" />
 
         <LinearLayout
+            android:id="@+id/act_prof_activated_profile_linLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -65,7 +66,7 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/wifi_ssid_pref_dlg_buttonBarDivider2"
+        android:id="@+id/act_prof_profiles_buttonBarDivider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="15dp"
@@ -73,6 +74,7 @@
         android:background="?attr/dialogDivider" />
 
     <FrameLayout
+        android:id="@+id/act_prof_header_frLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="5dp"

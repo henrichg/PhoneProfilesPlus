@@ -24,6 +24,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/wifi_ssid_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/wifi_ssid_pref_dlg_item_buttons_root"

@@ -25,6 +25,7 @@
         tools:ignore="HardcodedText"/>
 
     <LinearLayout
+        android:id="@+id/duration_pref_dlg_liLa1"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
@@ -48,6 +49,7 @@
             android:focusable="true"/>
 
         <LinearLayout
+            android:id="@+id/duration_pref_dlg_liLa2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -55,6 +57,7 @@
             android:layout_marginEnd="12dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/duration_pref_dlg_textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/duration_pref_dlg_activation_hours_label"
@@ -69,12 +72,14 @@
                 tools:ignore="UnusedAttribute"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/duration_pref_dlg_liLa3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/duration_pref_dlg_textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/duration_pref_dlg_activation_minutes_label"
@@ -89,6 +94,7 @@
                 tools:ignore="UnusedAttribute"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/duration_pref_dlg_liLa4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -96,6 +102,7 @@
             android:layout_marginEnd="12dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/duration_pref_dlg_textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/duration_pref_dlg_activation_seconds_label"

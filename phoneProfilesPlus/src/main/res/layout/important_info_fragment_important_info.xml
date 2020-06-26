@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/fragment_important_info_liLa1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -386,6 +387,7 @@
             android:id="@+id/activity_info_profile_activation8"
             android:textStyle="bold" />
         <LinearLayout
+            android:id="@+id/fragment_important_info_liLa2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -399,6 +401,7 @@
                 android:id="@+id/activity_info_profile_activation8a"
                 android:textStyle="bold"/>
             <ImageView
+                android:id="@+id/fragment_important_info_imageView1"
                 android:layout_width="45dp"
                 android:layout_height="21dp"
                 android:layout_gravity="center_vertical"
@@ -726,6 +729,7 @@
             android:drawableEnd="?attr/importantInfoEventsRestartIcon"
             android:drawablePadding="4dp" />
         <LinearLayout
+            android:id="@+id/fragment_important_info_liLa3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -740,6 +744,7 @@
                 android:id="@+id/activity_info_profile_activation8b"
                 android:textStyle="bold"/>
             <ImageView
+                android:id="@+id/fragment_important_info_imageView2"
                 android:layout_width="45dp"
                 android:layout_height="21dp"
                 android:layout_gravity="center_vertical"

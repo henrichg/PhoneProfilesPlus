@@ -17,11 +17,13 @@
         tools:ignore="UselessParent">
 
         <HorizontalScrollView
+            android:id="@+id/dialog_color_chooser_horizontalScrollView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scrollbarStyle="outsideOverlay" >
 
             <LinearLayout
+                android:id="@+id/dialog_color_chooser_liLa1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -37,12 +39,14 @@
                     android:clipToPadding="false">
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa1"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView1"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
@@ -52,12 +56,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa2"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView2"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
@@ -67,12 +73,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa3"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView3"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -82,12 +90,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa4"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView4"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -97,12 +107,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa5"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView5"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -112,12 +124,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa7"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView7"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -127,12 +141,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa8"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView8"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -142,12 +158,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa9"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView9"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -157,12 +175,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa10"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView10"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -172,12 +192,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa11"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView11"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -187,12 +209,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa12"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView12"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -202,12 +226,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa13"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView13"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -217,12 +243,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa14"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView14"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -232,12 +260,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa15"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView15"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -247,12 +277,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa16"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView16"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -262,12 +294,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa17"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView17"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
@@ -277,12 +311,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa18"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView18"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
@@ -292,12 +328,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa19"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView19"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
@@ -307,12 +345,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa20"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView20"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -322,12 +362,14 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/dialog_color_chooser_frLa21"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="4dp"
                         tools:background="#000">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView21"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check"
@@ -339,6 +381,7 @@
                 </androidx.gridlayout.widget.GridLayout>
 
                 <LinearLayout
+                    android:id="@+id/dialog_color_chooser_custom_color_liLa1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -351,6 +394,7 @@
                         android:layout_marginStart="14dp">
 
                         <ImageView
+                            android:id="@+id/dialog_color_chooser_imageView22"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center"

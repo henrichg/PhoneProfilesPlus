@@ -16,6 +16,7 @@
         android:focusable="false" />
 
     <RelativeLayout
+        android:id="@+id/event_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 

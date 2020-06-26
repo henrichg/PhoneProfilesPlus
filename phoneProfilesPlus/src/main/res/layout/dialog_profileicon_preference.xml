@@ -22,6 +22,7 @@
             android:background="?attr/dialogDivider" />
 
         <LinearLayout
+            android:id="@+id/profileicon_pref_dlg_liLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -39,6 +40,7 @@
                 android:contentDescription="@string/profile_preferences_profileIcon"/>
 
             <LinearLayout
+                android:id="@+id/profileicon_pref_dlg_liLa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"

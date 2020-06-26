@@ -17,6 +17,7 @@
         android:focusable="false" />
 
     <RelativeLayout
+        android:id="@+id/event_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -60,6 +61,7 @@
                 android:src="@drawable/ic_profile_default" />
 
             <LinearLayout
+                android:id="@+id/event_pref_dlg_item_liLa1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -95,6 +97,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/event_pref_dlg_item_reLa2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -113,6 +116,7 @@
                 android:src="@drawable/ic_profile_default" />
 
             <LinearLayout
+                android:id="@+id/event_pref_dlg_item_liLa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

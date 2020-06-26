@@ -67,6 +67,7 @@
         android:layout_alignParentTop="true" />
 
     <FrameLayout
+        android:id="@+id/application_editor_intent_frLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/application_editor_intent_buttons">
@@ -78,6 +79,7 @@
             tools:ignore="UselessParent">
 
             <LinearLayout
+                android:id="@+id/application_editor_intent_liLa1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
@@ -85,6 +87,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -103,6 +106,7 @@
                     tools:ignore="UnusedAttribute"/>
 
                 <View
+                    android:id="@+id/application_editor_intent_divider1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -112,6 +116,7 @@
                     android:background="?attr/dialogDivider" />
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -130,6 +135,7 @@
                     style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
                 <View
+                    android:id="@+id/application_editor_intent_divider2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -139,6 +145,7 @@
                     android:background="?attr/dialogDivider" />
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -157,6 +164,7 @@
                     tools:ignore="UnusedAttribute"/>
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -175,6 +183,7 @@
                     tools:ignore="UnusedAttribute"/>
 
                 <View
+                    android:id="@+id/application_editor_intent_divider3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -184,6 +193,7 @@
                     android:background="?attr/dialogDivider" />
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -212,6 +222,7 @@
                     tools:ignore="UnusedAttribute"/>
 
                 <View
+                    android:id="@+id/application_editor_intent_divider4"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -221,6 +232,7 @@
                     android:background="?attr/dialogDivider" />
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -239,6 +251,7 @@
                     tools:ignore="UnusedAttribute"/>
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -258,6 +271,7 @@
                     tools:ignore="UnusedAttribute"/>
 
                 <View
+                    android:id="@+id/application_editor_intent_divider5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -267,6 +281,7 @@
                     android:background="?attr/dialogDivider" />
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -274,6 +289,7 @@
                     android:textStyle="bold"
                     android:text="@string/application_editor_intent_categories"/>
                 <RelativeLayout
+                    android:id="@+id/application_editor_intent_reLa1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -301,6 +317,7 @@
                 </RelativeLayout>
 
                 <View
+                    android:id="@+id/application_editor_intent_divider6"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -310,6 +327,7 @@
                     android:background="?attr/dialogDivider" />
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -317,6 +335,7 @@
                     android:textStyle="bold"
                     android:text="@string/application_editor_intent_flags"/>
                 <RelativeLayout
+                    android:id="@+id/application_editor_intent_reLa2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -344,6 +363,7 @@
                 </RelativeLayout>
 
                 <View
+                    android:id="@+id/application_editor_intent_divider7"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -353,6 +373,7 @@
                     android:background="?attr/dialogDivider" />
 
                 <TextView
+                    android:id="@+id/application_editor_intent_textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
@@ -386,10 +407,12 @@
                         android:importantForAutofill="no"
                         tools:ignore="UnusedAttribute"/>
                     <LinearLayout
+                        android:id="@+id/application_editor_intent_extra_1_liLa1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/application_editor_intent_extra_1_textView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="19dp"
@@ -433,10 +456,12 @@
                         android:importantForAutofill="no"
                         tools:ignore="UnusedAttribute"/>
                     <LinearLayout
+                        android:id="@+id/application_editor_intent_extra_2_liLa1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/application_editor_intent_extra_2_textView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="19dp"
@@ -480,10 +505,12 @@
                         android:importantForAutofill="no"
                         tools:ignore="UnusedAttribute"/>
                     <LinearLayout
+                        android:id="@+id/application_editor_intent_extra_3_liLa1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/application_editor_intent_extra_3_textView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="19dp"
@@ -527,10 +554,12 @@
                         android:importantForAutofill="no"
                         tools:ignore="UnusedAttribute"/>
                     <LinearLayout
+                        android:id="@+id/application_editor_intent_extra_4_liLa1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/application_editor_intent_extra_4_textView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="19dp"
@@ -574,10 +603,12 @@
                         android:importantForAutofill="no"
                         tools:ignore="UnusedAttribute"/>
                     <LinearLayout
+                        android:id="@+id/application_editor_intent_extra_5_liLa1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/application_editor_intent_extra_5_textView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="19dp"

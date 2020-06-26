@@ -36,6 +36,7 @@
                 android:src="@drawable/ic_empty" />
 
             <LinearLayout
+                android:id="@+id/activated_profile_icon_liLa1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -83,12 +84,14 @@
     </RelativeLayout>
 
     <FrameLayout
+        android:id="@+id/editor_events_list_frLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/activated_profile_header"
         android:layout_above="@id/editor_list_bottom_bar" >
 
         <View
+            android:id="@+id/editor_events_list_divider1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="10dp"
@@ -133,6 +136,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/editor_events_list_divider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="10dp"

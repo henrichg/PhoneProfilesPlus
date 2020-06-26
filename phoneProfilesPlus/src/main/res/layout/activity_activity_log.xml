@@ -8,11 +8,14 @@
     android:orientation="vertical"
     tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity" >
 
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" >
+    <LinearLayout
+        android:id="@+id/activity_log_liLa1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <LinearLayout
+            android:id="@+id/activity_log_liLa2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

@@ -23,6 +23,7 @@
         android:src="@drawable/ic_profile_default" />
 
     <LinearLayout
+        android:id="@+id/act_prof_list_item_profile_liLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

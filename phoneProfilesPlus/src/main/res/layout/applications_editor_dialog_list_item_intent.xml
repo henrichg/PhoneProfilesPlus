@@ -18,6 +18,7 @@
         android:src="?attr/editItemMenuIcon"/>
 
     <RelativeLayout
+        android:id="@+id/applications_editor_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/applications_editor_dlg_item_edit_menu"

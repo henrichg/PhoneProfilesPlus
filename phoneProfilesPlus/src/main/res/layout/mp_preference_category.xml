@@ -12,6 +12,7 @@
     android:gravity="center_vertical">
 
     <RelativeLayout
+        android:id="@+id/mp_preference_category_reLa1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

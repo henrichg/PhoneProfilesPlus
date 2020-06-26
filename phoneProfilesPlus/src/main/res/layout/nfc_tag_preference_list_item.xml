@@ -24,6 +24,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/nfc_tag_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/nfc_tag_pref_dlg_item_buttons_root"
@@ -41,6 +42,7 @@
             android:text="@string/empty_string" />
 
         <LinearLayout
+            android:id="@+id/nfc_tag_pref_dlg_item_liLa1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/nfc_tag_pref_dlg_item_checkbox"

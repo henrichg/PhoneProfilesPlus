@@ -31,6 +31,7 @@
             android:layout_marginTop="0dp" >
 
             <RelativeLayout
+                android:id="@+id/act_prof_toolbar_reLa1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
@@ -55,6 +56,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/act_prof_list_frLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foreground="?android:windowContentOverlay">

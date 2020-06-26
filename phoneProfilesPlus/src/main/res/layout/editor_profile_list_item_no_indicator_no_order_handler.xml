@@ -14,12 +14,12 @@
     android:focusable="true">
 
     <LinearLayout 
-            android:id="@+id/profile_list_item_buttons_root"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal" >
+        android:id="@+id/profile_list_item_buttons_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal" >
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/profile_list_item_show_in_activator"
@@ -42,13 +42,14 @@
 
     </LinearLayout>
     
-    <RelativeLayout 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/profile_list_item_buttons_root"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="4dp" >
+    <RelativeLayout
+        android:id="@+id/profile_list_item_reLa1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/profile_list_item_buttons_root"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="4dp" >
     
         <ImageView
             android:id="@+id/profile_list_item_profile_icon"

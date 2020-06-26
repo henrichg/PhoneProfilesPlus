@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/info_pref_dialog_liLa1"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

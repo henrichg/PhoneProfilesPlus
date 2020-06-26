@@ -44,7 +44,7 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/wifi_ssid_pref_dlg_buttonBarDivider2"
+        android:id="@+id/act_prof_profiles_buttonBarDivider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="15dp"
@@ -52,6 +52,7 @@
         android:background="?attr/dialogDivider" />
 
     <FrameLayout
+        android:id="@+id/act_prof_header_frLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="9dp"

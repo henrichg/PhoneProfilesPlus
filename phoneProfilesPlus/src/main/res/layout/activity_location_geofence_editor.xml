@@ -70,6 +70,7 @@
             android:background="?attr/dialogDivider" />
 
         <RelativeLayout
+            android:id="@+id/location_editor_et_btn_reLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp" >
@@ -103,6 +104,7 @@
                 tools:ignore="HardcodedText" />
             <!--
             <RelativeLayout
+                android:id="@+id/location_editor_et_btn_reLa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/location_pref_dlg_radius_label"

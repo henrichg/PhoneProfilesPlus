@@ -5,6 +5,7 @@
     android:layout_height="40dp" >
 
     <ImageView
+        android:id="@+id/info_preference_clickable_imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

@@ -33,6 +33,7 @@
         tools:ignore="UnusedAttribute"/>
 
     <FrameLayout
+        android:id="@+id/activity_important_info_frLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_important_info_tab_layout">

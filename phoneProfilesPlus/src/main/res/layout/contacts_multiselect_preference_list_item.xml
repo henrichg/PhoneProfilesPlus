@@ -26,6 +26,7 @@
         android:src="@drawable/ic_empty" />
 
     <LinearLayout
+        android:id="@+id/contacts_multiselect_pref_dlg_item_liLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

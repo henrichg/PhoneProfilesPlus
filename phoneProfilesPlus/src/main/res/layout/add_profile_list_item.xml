@@ -14,6 +14,7 @@
         android:focusable="false" />
 
     <RelativeLayout
+        android:id="@+id/profile_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="48dp" >
 
@@ -28,6 +29,7 @@
             android:contentDescription="@string/profile_preferences_profileIcon"/>
 
         <LinearLayout
+            android:id="@+id/profile_pref_dlg_item_liLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
