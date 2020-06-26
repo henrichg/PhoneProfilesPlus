@@ -16,6 +16,7 @@
         android:contentDescription="@string/empty_string" />
 
     <LinearLayout
+        android:id="@+id/widget_profile_list_linLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

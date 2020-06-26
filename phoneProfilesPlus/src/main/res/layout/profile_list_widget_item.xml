@@ -20,6 +20,7 @@
         android:src="@drawable/ic_profile_default" />
 
     <LinearLayout
+        android:id="@+id/widget_profile_list_item_profile_linLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

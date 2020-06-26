@@ -23,6 +23,7 @@
         android:clickable="true" />
 
     <RelativeLayout
+        android:id="@+id/notification_activated_profile_relLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

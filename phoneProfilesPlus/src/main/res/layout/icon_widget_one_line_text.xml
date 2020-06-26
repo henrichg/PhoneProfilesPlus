@@ -17,9 +17,11 @@
         android:visibility="gone"
         android:contentDescription="@string/empty_string" />
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center" >
+    <RelativeLayout
+        android:id="@+id/icon_widget_relLa1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
 
         <ImageView
             android:id="@+id/icon_widget_icon"
