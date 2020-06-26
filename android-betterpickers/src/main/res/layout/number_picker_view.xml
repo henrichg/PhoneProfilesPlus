@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/number_picker_view_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
             android:id="@+id/number_view_container"
             android:layout_width="match_parent"
@@ -94,6 +95,7 @@
             android:layout_below="@id/number_view_container"
             android:background="@color/default_divider_color_dark"/>
     <LinearLayout
+        android:id="@+id/number_picker_view_liLa1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
