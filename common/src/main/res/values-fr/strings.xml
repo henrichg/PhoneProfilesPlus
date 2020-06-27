@@ -1435,6 +1435,8 @@
     <string name="array_pref_locationModeArray_highAccuracy">Haute précision</string>
     <string name="colorChooser_pref_dialog_customIconColor">Couleur de l\'icône personnalisée</string>
     <string name="colorChooser_pref_dialog_customColor">Couleur personnalisée</string>
+    <string name="background_jobs_not_working_alert_title">Erreur au démarrage de PhoneProfilesPlus</string>
+    <string name="background_jobs_not_working_alert_message">Les tâches en arrière-plan n\'ont pas été démarrées. Veuillez redémarrer l\'appareil. Merci.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

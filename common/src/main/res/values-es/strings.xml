@@ -12,7 +12,7 @@
     <string name="menu_delete_all_profiles">Borrar todos los perfiles</string>
     <string name="menu_new_event">Nuevo evento</string>
     <string name="menu_delete_all_events">Borrar todos los eventos</string>
-    <string name="profiles_header_profile_name_no_activated">Ningún perfil activado</string>
+    <string name="profiles_header_profile_name_no_activated">No hay ningún perfil activado</string>
     <string name="profile_name_default">Perfil</string>
     <string name="event_name_default">Evento</string>
     <string name="profile_context_item_edit">Editar</string>
@@ -1435,6 +1435,8 @@
     <string name="array_pref_locationModeArray_highAccuracy">Alta precisión</string>
     <string name="colorChooser_pref_dialog_customIconColor">Color de icono personalizado</string>
     <string name="colorChooser_pref_dialog_customColor">Color personalizado</string>
+    <string name="background_jobs_not_working_alert_title">Error al iniciar PhoneProfilesPlus</string>
+    <string name="background_jobs_not_working_alert_message">No se han iniciado los trabajos en segundo plano. Por favor, reinicia el dispositivo. Gracias.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

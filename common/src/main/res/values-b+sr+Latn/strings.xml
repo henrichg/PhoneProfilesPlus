@@ -1435,6 +1435,8 @@
     <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
     <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
     <string name="colorChooser_pref_dialog_customColor">Custom color</string>
+    <string name="background_jobs_not_working_alert_title">Error on start of PhoneProfilesPlus</string>
+    <string name="background_jobs_not_working_alert_message">Background jobs was not started. Please do reboot of device. Thank you.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

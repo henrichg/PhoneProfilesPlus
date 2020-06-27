@@ -1056,8 +1056,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Luminosità bordo (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">Mostra bordi</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Mostra bordo (widget)</string>
-    <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving SMS and MMS.</string>
-    <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
+    <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Consenti a PhoneProfilesPlusExtender la \"Accessibilità\" nelle impostazioni di sistema. La funzione di accessibilità non viene usata, il servizio di esecuzione è necessario per ricevere SMS e MMS.</string>
+    <string name="event_preferences_sms_PPPExtender_install_summary">Clicca qui per installare PhoneProfilesPlusExtender. Il servizio di esecuzione è necessario per ricevere SMS e MMS.</string>
     <string name="permission_not_granted">Non concesso</string>
     <string name="permission_granted">Concesso</string>
     <string name="menu_dark_theme_on">Attiva tema scuro</string>
@@ -1071,13 +1071,13 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="about_application_support2">contatto:</string>
     <string name="about_application_support_subject">assistenza</string>
     <string name="dashclock_extension_description">Visualizza il profilo attivo con indicatore di preferenze. Apre attivatore al tocco.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Usa la luminosità dell\'icona per le icone del profilo personalizzate</string>
     <string name="preferences_not_enabled_accessibility_service_title">Servizio di accessibilità non abilitato!</string>
     <string name="profile_preferences_volumeVoiceCall">Volume chiamata</string>
-    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
-    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
-    <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
-    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
+    <string name="pref_event_permanentRun_summary">Interrompi l\'evento dopo l\'attivazione manuale del profilo e gli eventi di riavvio</string>
+    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Consenti a PhoneProfilesPlusExtender la \"Accessibilità\" nelle impostazioni di sistema. La funzione di accessibilità non viene usata, il servizio di esecuzione è necessario per ricevere le chiamate.</string>
+    <string name="event_preferences_call_PPPExtender_install_summary">Clicca qui per installare PhoneProfilesPlusExtender. Il servizio di esecuzione è necessario per ricevere le chiamate.</string>
+    <string name="permission_why_event_sms_preferences">per leggere i contatti nel sensore SMS/MMS</string>
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Usa decorazione</string>
     <string name="phone_profiles_pref_notificationLayoutType">Tipo di layout</string>
@@ -1428,14 +1428,16 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Background scanning scan interval (minutes)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Background scanning scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Background scanning parameters in application settings.</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
-    <string name="array_pref_locationModeArray_off">Location Off</string>
-    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
-    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
-    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
-    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
-    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">autorizzazione Telefono non concessa</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Modalità di localizzazione</string>
+    <string name="array_pref_locationModeArray_off">Posizione Disattivata</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Solo sensori</string>
+    <string name="array_pref_locationModeArray_batterySaving">Risparmio batteria</string>
+    <string name="array_pref_locationModeArray_highAccuracy">Alta precisione</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Colore icona personalizzato</string>
+    <string name="colorChooser_pref_dialog_customColor">Colore personalizzato</string>
+    <string name="background_jobs_not_working_alert_title">Errore all\'avvio di PhoneProfilesPlus</string>
+    <string name="background_jobs_not_working_alert_message">I lavori in background non sono stati avviati. Si prega di effettuare il riavvio del dispositivo. Grazie.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

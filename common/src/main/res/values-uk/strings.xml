@@ -1427,14 +1427,16 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Інтервал сканування у фоні (хвилин)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Сканування у фоні в режимі енергозбереження</string>
     <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Встановити параметри Сканування у фоні в налаштуваннях додатку.</string>
-    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">not granted Phone permission</string>
-    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</string>
-    <string name="array_pref_locationModeArray_off">Location Off</string>
-    <string name="array_pref_locationModeArray_sensorsOnly">Sensors only</string>
-    <string name="array_pref_locationModeArray_batterySaving">Battery saving</string>
-    <string name="array_pref_locationModeArray_highAccuracy">High accuracy</string>
-    <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
-    <string name="colorChooser_pref_dialog_customColor">Custom color</string>
+    <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">не надано дозвіл Телефон</string>
+    <string name="profile_preferences_deviceLocationMode">(G1) Режим визначення розташування</string>
+    <string name="array_pref_locationModeArray_off">Визначення розташування вимкнуто</string>
+    <string name="array_pref_locationModeArray_sensorsOnly">Тільки датчики</string>
+    <string name="array_pref_locationModeArray_batterySaving">Економія батареї</string>
+    <string name="array_pref_locationModeArray_highAccuracy">Висока точність</string>
+    <string name="colorChooser_pref_dialog_customIconColor">Власний колір іконки</string>
+    <string name="colorChooser_pref_dialog_customColor">Власний колір</string>
+    <string name="background_jobs_not_working_alert_title">Помилка під час запуску PhoneProfilesPlus</string>
+    <string name="background_jobs_not_working_alert_message">Фонові завдання не було запущено. Будь ласка, перезавантажте пристрій. Дякуємо.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

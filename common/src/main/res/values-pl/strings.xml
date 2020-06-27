@@ -1436,6 +1436,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_pref_locationModeArray_highAccuracy">Wysoka dokładność</string>
     <string name="colorChooser_pref_dialog_customIconColor">Niestandardowy kolor ikony</string>
     <string name="colorChooser_pref_dialog_customColor">Kolor niestandardowy</string>
+    <string name="background_jobs_not_working_alert_title">Error on start of PhoneProfilesPlus</string>
+    <string name="background_jobs_not_working_alert_message">Background jobs was not started. Please do reboot of device. Thank you.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
