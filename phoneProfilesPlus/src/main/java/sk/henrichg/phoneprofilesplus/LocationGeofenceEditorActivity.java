@@ -878,6 +878,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             String pkg = null;
             if (intent != null)
                 pkg = intent.getPackage();
+            //noinspection StatementWithEmptyBody
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
                 //Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
                 //PPApplication.recordException(e);
