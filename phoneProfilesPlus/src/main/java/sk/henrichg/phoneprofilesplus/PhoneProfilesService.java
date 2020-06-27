@@ -326,7 +326,7 @@ public class PhoneProfilesService extends Service
         PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
     }
 
-    static void cancelAllWorks(boolean atStart) {
+    static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
         //Log.e("------------ PhoneProfilesService.cancelAllWorks", "atStart="+atStart);
         if (atStart) {
             cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK);
