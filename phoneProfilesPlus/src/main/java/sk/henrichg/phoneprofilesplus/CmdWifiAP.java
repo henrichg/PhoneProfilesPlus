@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.net.IConnectivityManager;
 import android.net.wifi.IWifiManager;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.ResultReceiver;
 import android.os.ServiceManager;
 
@@ -26,13 +27,15 @@ public class CmdWifiAP {
             IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager
             //PPApplication.logE("CmdWifiAP.setWifiAP", "connectivityAdapter="+connectivityAdapter);
             if (enable) {
-                IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
-                //PPApplication.logE("CmdWifiAP.setWifiAP", "wifiAdapter="+wifiAdapter);
-                int wifiState = wifiAdapter.getWifiEnabledState();
-                boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-                //PPApplication.logE("CmdWifiAP.setWifiAP", "isWifiEnabled="+isWifiEnabled);
-                if (isWifiEnabled)
-                    wifiAdapter.setWifiEnabled(packageName, false);
+                if (Build.VERSION.SDK_INT < 29) {
+                    IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
+                    //PPApplication.logE("CmdWifiAP.setWifiAP", "wifiAdapter="+wifiAdapter);
+                    int wifiState = wifiAdapter.getWifiEnabledState();
+                    boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                    //PPApplication.logE("CmdWifiAP.setWifiAP", "isWifiEnabled="+isWifiEnabled);
+                    if (isWifiEnabled)
+                        wifiAdapter.setWifiEnabled(packageName, false);
+                }
 
                 ResultReceiver dummyResultReceiver = new ResultReceiver(null);
                 connectivityAdapter.startTethering(0, dummyResultReceiver, false, packageName);

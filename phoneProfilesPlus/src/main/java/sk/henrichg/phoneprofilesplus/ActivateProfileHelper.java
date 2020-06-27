@@ -217,7 +217,11 @@ class ActivateProfileHelper {
                             if (!isWifiAPEnabled) {
                                 isWifiAPEnabled = true;
                                 setWifiAPState = true;
-                                canChangeWifi = false;
+                                //noinspection RedundantIfStatement
+                                if (Build.VERSION.SDK_INT < 29)
+                                    canChangeWifi = false;
+                                else
+                                    canChangeWifi = true;
                             }
                             break;
                         case 2:
@@ -232,7 +236,10 @@ class ActivateProfileHelper {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 3");
                             isWifiAPEnabled = !isWifiAPEnabled;
                             setWifiAPState = true;
-                            canChangeWifi = !isWifiAPEnabled;
+                            if (Build.VERSION.SDK_INT < 29)
+                                canChangeWifi = !isWifiAPEnabled;
+                            else
+                                canChangeWifi = true;
                             break;
                     }
                     if (setWifiAPState) {
@@ -251,10 +258,11 @@ class ActivateProfileHelper {
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
-                    boolean isWifiAPEnabled;
+                    boolean isWifiAPEnabled = false;
                     if (Build.VERSION.SDK_INT < 28)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
+                    if (Build.VERSION.SDK_INT < 29)
                         isWifiAPEnabled = CmdWifiAP.isEnabled();
                     //PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiAPEnabled="+isWifiAPEnabled);
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi == 4)) { // only when wifi AP is not enabled, change wifi

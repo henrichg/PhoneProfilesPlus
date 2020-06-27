@@ -26,10 +26,11 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    boolean isWifiAPEnabled;
+                    boolean isWifiAPEnabled = false;
                     if (Build.VERSION.SDK_INT < 28)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
+                    if (Build.VERSION.SDK_INT < 29)
                         isWifiAPEnabled = CmdWifiAP.isEnabled();
                     if (isWifiAPEnabled) {
                         // Wifi AP is enabled - cancel wifi scan work
