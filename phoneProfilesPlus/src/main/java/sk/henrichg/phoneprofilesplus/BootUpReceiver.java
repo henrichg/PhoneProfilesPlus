@@ -21,7 +21,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
         //CallsCounter.logCounter(context, "BootUpReceiver.onReceive", "BootUpReceiver_onReceive");
 
-        PhoneProfilesService.cancelAllWorks(true);
+        //PhoneProfilesService.cancelAllWorks(true);
 
         if (intent == null)
             return;

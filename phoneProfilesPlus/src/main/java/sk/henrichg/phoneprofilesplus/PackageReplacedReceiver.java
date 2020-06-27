@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.NotificationManager;
-import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +29,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         if (notificationManager != null)
             notificationManager.cancelAll();
 
+        /*
         // cancel all jobs
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         if (jobScheduler != null) {
@@ -37,8 +37,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "jobScheduler.getAllPendingJobs().size()="+size);
             jobScheduler.cancelAll();
         }
+        */
 
-        PhoneProfilesService.cancelAllWorks(true);
+        //PhoneProfilesService.cancelAllWorks(true);
 
         // https://issuetracker.google.com/issues/115575872#comment16
         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "avoidRescheduleReceiverWorker START of enqueue");
