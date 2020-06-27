@@ -1228,20 +1228,7 @@ public class PPApplication extends Application
 
         // https://issuetracker.google.com/issues/115575872#comment16
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker START of enqueue");
-        PhoneProfilesService.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
-        OneTimeWorkRequest avoidRescheduleReceiverWorker =
-                new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
-                        .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
-                        .setInitialDelay(365 * 10, TimeUnit.DAYS)
-                        .build();
-        try {
-            WorkManager workManager = PPApplication.getWorkManagerInstance();
-            //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
-            if (workManager != null)
-                workManager.enqueueUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.KEEP, avoidRescheduleReceiverWorker);
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+        AvoidRescheduleReceiverWorker.enqueueWork();
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker END of enqueue");
 
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
