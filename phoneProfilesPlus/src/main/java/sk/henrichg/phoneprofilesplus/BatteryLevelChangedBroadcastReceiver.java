@@ -12,7 +12,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BatteryLevelChangedBroadcastReceiver.onReceive", "BatteryLevelChangedBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "BatteryLevelChangedBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryLevelChangedBroadcastReceiver_onReceive");

@@ -463,7 +463,7 @@ public class PhoneProfilesService extends Service
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
             }*/
         } catch (Exception e) {
-            Log.e("PhoneProfilesService.onDestroy", Log.getStackTraceString(e));
+            //Log.e("PhoneProfilesService.onDestroy", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 
@@ -487,7 +487,7 @@ public class PhoneProfilesService extends Service
                 if (workManager != null)
                     workManager.cancelAllWorkByTag(name);
             } catch (Exception e) {
-                Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+                //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
             try {
@@ -495,7 +495,7 @@ public class PhoneProfilesService extends Service
                 if (workManager != null)
                     workManager.cancelUniqueWork(name);
             } catch (Exception e) {
-                Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+                //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -523,7 +523,7 @@ public class PhoneProfilesService extends Service
 
                 instance.stopSelf();
             } catch (Exception e) {
-                Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
+                //Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -2938,7 +2938,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelBackgroundScanningWorker() {
-        PPApplication.logE("[RJS] PhoneProfilesService.cancelBackgroundScanningWorker", "xxx");
+        //PPApplication.logE("[RJS] PhoneProfilesService.cancelBackgroundScanningWorker", "xxx");
         PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
         PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
     }
@@ -2946,7 +2946,7 @@ public class PhoneProfilesService extends Service
     void scheduleBackgroundScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
         //final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBackgroundScanningWorker", "PhoneProfilesService_scheduleBackgroundScanningWorker");
-        PPApplication.logE("[RJS] PhoneProfilesService.scheduleBackgroundScanningWorker", "xxx");
+        //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBackgroundScanningWorker", "xxx");
 
         //if (schedule) {
         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBackgroundScanningWorker", "SCHEDULE");
@@ -3656,7 +3656,7 @@ public class PhoneProfilesService extends Service
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
 
                     // create application directory
                     File sd = Environment.getExternalStorageDirectory();
@@ -4957,7 +4957,7 @@ public class PhoneProfilesService extends Service
                 notificationBuilder.setContentTitle(profileName);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentTitle()="+profileName);
             } catch (Exception e) {
-                Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -4986,7 +4986,7 @@ public class PhoneProfilesService extends Service
                         notificationBuilder.setContentText(indicators);
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()="+indicators);
                     } catch (Exception e) {
-                        Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                        //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
                 }
@@ -5000,7 +5000,7 @@ public class PhoneProfilesService extends Service
                         notificationBuilder.setContentText(null);
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()=null");
                     } catch (Exception e) {
-                        Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                        //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
                 }
@@ -5017,7 +5017,7 @@ public class PhoneProfilesService extends Service
                 }
             }
         } catch (Exception e) {
-            Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+            //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 
@@ -5412,7 +5412,7 @@ public class PhoneProfilesService extends Service
                 if (notificationManager != null)
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
             } catch (Exception e) {
-                Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+                //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
             //runningInForeground = false;
@@ -5450,7 +5450,7 @@ public class PhoneProfilesService extends Service
             try {
                 PPApplication.keyguardLock.disableKeyguard();
             } catch (Exception e) {
-                Log.e("PhoneProfilesService", Log.getStackTraceString(e));
+                //Log.e("PhoneProfilesService", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -5463,7 +5463,7 @@ public class PhoneProfilesService extends Service
             try {
                 PPApplication.keyguardLock.reenableKeyguard();
             } catch (Exception e) {
-                Log.e("PhoneProfilesService", Log.getStackTraceString(e));
+                //Log.e("PhoneProfilesService", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }

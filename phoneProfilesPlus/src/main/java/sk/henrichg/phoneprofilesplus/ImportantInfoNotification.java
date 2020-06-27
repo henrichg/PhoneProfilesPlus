@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -199,7 +198,7 @@ class ImportantInfoNotification {
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
-            Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
+            //Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

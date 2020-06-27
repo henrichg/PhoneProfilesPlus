@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1824,7 +1823,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }/* catch (FileNotFoundException ignored) {
                 // no error, this is OK
             }*/ catch (Exception e) {
-                Log.e("EditorProfilesActivity.importApplicationPreferences", Log.getStackTraceString(e));
+                //Log.e("EditorProfilesActivity.importApplicationPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
                 res = false;
             }
@@ -2388,7 +2387,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                                 packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                             } catch (Exception e) {
-                                Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                                //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
                             }
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
@@ -2413,7 +2412,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
                                     startActivity(chooser);
                                 } catch (Exception e) {
-                                    Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                                    //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
                                     PPApplication.recordException(e);
                                 }
                             }
@@ -2517,7 +2516,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
                 //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redravProfileListFragment");
+                //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
                 PPApplication.updateGUI(true/*fragment.activityDataWrapper.context, true, true*/);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
@@ -3434,7 +3433,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // mNotificationManager.cancel(notificationID);
             mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
         } catch (Exception e) {
-            Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
+            //Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 

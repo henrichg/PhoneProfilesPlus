@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -303,7 +302,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                             preference.mediaPlayer.start();
                         }
                     } catch (Exception e) {
-                        Log.e("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", Log.getStackTraceString(e));
+                        //Log.e("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
                 }

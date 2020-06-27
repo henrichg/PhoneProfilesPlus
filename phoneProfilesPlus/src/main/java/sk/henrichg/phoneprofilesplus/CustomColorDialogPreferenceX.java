@@ -15,7 +15,6 @@ import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.preference.DialogPreference;
@@ -118,7 +117,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             }
             //setSummary(summaryPreference);
         } catch (Exception e) {
-            Log.e("CustomColorDialogPreferenceX.setColorInWidget", Log.getStackTraceString(e));
+            //Log.e("CustomColorDialogPreferenceX.setColorInWidget", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

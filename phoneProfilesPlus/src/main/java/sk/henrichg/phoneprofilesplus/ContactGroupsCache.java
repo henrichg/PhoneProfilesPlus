@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +107,7 @@ class ContactGroupsCache {
                 cached = true;
             }
         } catch (SecurityException e) {
-            Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
+            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
 
             _contactGroupList.clear();
@@ -117,7 +116,7 @@ class ContactGroupsCache {
 
             cached = false;
         } catch (Exception e) {
-            Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
+            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
             PPApplication.recordException(e);
 
             _contactGroupList.clear();

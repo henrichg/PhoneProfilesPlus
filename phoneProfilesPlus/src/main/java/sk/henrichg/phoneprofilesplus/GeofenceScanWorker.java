@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -109,7 +108,7 @@ public class GeofenceScanWorker extends Worker {
             //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- END");
             return Result.success();
         } catch (Exception e) {
-            Log.e("GeofenceScanWorker.doWork", Log.getStackTraceString(e));
+            //Log.e("GeofenceScanWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
@@ -186,7 +185,7 @@ public class GeofenceScanWorker extends Worker {
                 }
             }
         } catch (Exception e) {
-            Log.e("GeofenceScanWorker._scheduleWork", Log.getStackTraceString(e));
+            //Log.e("GeofenceScanWorker._scheduleWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -226,7 +225,7 @@ public class GeofenceScanWorker extends Worker {
                 //PPApplication.logE("GeofenceScanWorker._cancelWork", "CANCELED");
 
             } catch (Exception e) {
-                Log.e("GeofenceScanWorker._cancelWork", Log.getStackTraceString(e));
+                //Log.e("GeofenceScanWorker._cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -281,7 +280,7 @@ public class GeofenceScanWorker extends Worker {
                 }
             }
         } catch (Exception e) {
-            Log.e("GeofenceScanWorker.waitForFinish", Log.getStackTraceString(e));
+            //Log.e("GeofenceScanWorker.waitForFinish", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -339,7 +338,7 @@ public class GeofenceScanWorker extends Worker {
             else
                 return false;
         } catch (Exception e) {
-            Log.e("GeofenceScanWorker.isWorkRunning", Log.getStackTraceString(e));
+            //Log.e("GeofenceScanWorker.isWorkRunning", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }
@@ -381,7 +380,7 @@ public class GeofenceScanWorker extends Worker {
             else
                 return false;
         } catch (Exception e) {
-            Log.e("GeofenceScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+            //Log.e("GeofenceScanWorker.isWorkScheduled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }

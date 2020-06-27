@@ -8,7 +8,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -109,7 +108,7 @@ public class WifiScanWorker extends Worker {
 
             return Result.success();
         } catch (Exception e) {
-            Log.e("WifiScanWorker.doWork", Log.getStackTraceString(e));
+            //Log.e("WifiScanWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
@@ -174,7 +173,7 @@ public class WifiScanWorker extends Worker {
                 }
             }
         } catch (Exception e) {
-            Log.e("WifiScanWorker._scheduleWork", Log.getStackTraceString(e));
+            //Log.e("WifiScanWorker._scheduleWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -218,7 +217,7 @@ public class WifiScanWorker extends Worker {
                 //PPApplication.logE("WifiScanWorker._cancelWork", "CANCELED");
 
             } catch (Exception e) {
-                Log.e("WifiScanWorker._cancelWork", Log.getStackTraceString(e));
+                //Log.e("WifiScanWorker._cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -270,7 +269,7 @@ public class WifiScanWorker extends Worker {
                 }
             }
         } catch (Exception e) {
-            Log.e("WifiScanWorker.waitForFinish", Log.getStackTraceString(e));
+            //Log.e("WifiScanWorker.waitForFinish", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -328,7 +327,7 @@ public class WifiScanWorker extends Worker {
             else
                 return false;
         } catch (Exception e) {
-            Log.e("WifiScanWorker.isWorkRunning", Log.getStackTraceString(e));
+            //Log.e("WifiScanWorker.isWorkRunning", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }
@@ -371,7 +370,7 @@ public class WifiScanWorker extends Worker {
             else
                 return false;
         } catch (Exception e) {
-            Log.e("WifiScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+            //Log.e("WifiScanWorker.isWorkScheduled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }
@@ -437,7 +436,7 @@ public class WifiScanWorker extends Worker {
                 wifiLock.acquire();
             //PPApplication.logE("$$$ WifiScanWorker.lock","xxx");
         } catch (Exception e) {
-            Log.e("WifiScanWorker.lock", Log.getStackTraceString(e));
+            //Log.e("WifiScanWorker.lock", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -449,7 +448,7 @@ public class WifiScanWorker extends Worker {
                 wifiLock.release();
             //PPApplication.logE("$$$ WifiScanWorker.unlock", "xxx");
         } catch (Exception e) {
-            Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
+            //Log.e("WifiScanWorker.unlock", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

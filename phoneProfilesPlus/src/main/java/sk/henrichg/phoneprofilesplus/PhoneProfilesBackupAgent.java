@@ -71,10 +71,10 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadProfileActivationData(getApplicationContext());
 
-                    if (PPApplication.logEnabled()) {
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
-                        PPApplication.logE("PPApplication.exitApp", "from PhoneProfilesBackupAgent.onRestoreFinished shutdown=false");
-                    }
+                    //if (PPApplication.logEnabled()) {
+                    //    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
+                    //    PPApplication.logE("PPApplication.exitApp", "from PhoneProfilesBackupAgent.onRestoreFinished shutdown=false");
+                    //}
                     PPApplication.exitApp(false, appContext, dataWrapper, null, false/*, false, false*/);
 
                     DatabaseHandler.getInstance(appContext).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
@@ -114,7 +114,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     Profile.saveProfileToSharedPreferences(profile, appContext, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
                     PPApplication.setLastActivatedProfile(appContext, 0);
 
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesBackupAgent.onRestoreFinished");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesBackupAgent.onRestoreFinished");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

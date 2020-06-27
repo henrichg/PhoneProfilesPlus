@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.net.wifi.IWifiManager;
 import android.os.ServiceManager;
-import android.util.Log;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdWifi {
@@ -25,7 +24,7 @@ public class CmdWifi {
             wifiAdapter.setWifiEnabled(packageName, enable);
             return true;
         } catch (Throwable e) {
-            Log.e("CmdWifi.setWifi", Log.getStackTraceString(e));
+            //Log.e("CmdWifi.setWifi", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }

@@ -12,7 +12,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
@@ -143,7 +142,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("PPPExtenderBroadcastReceiver.onReceive", Log.getStackTraceString(e));
+                    //Log.e("PPPExtenderBroadcastReceiver.onReceive", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 }
                 break;

@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -32,7 +31,7 @@ public class DisableInternalChangeWorker extends Worker {
 
             return Result.success();
         } catch (Exception e) {
-            Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));
+            //Log.e("DisableInternalChangeWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {

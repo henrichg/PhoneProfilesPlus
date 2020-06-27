@@ -16,7 +16,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -826,11 +825,11 @@ class EventPreferencesCalendar extends EventPreferences {
                 cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), _selectionArgs, Instances.BEGIN + " ASC");
             }
         } catch (SecurityException e) {
-            Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
             cur = null;
         } catch (Exception e) {
-            Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             cur = null;
         }

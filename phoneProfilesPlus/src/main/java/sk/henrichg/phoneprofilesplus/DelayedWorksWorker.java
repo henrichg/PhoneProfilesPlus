@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
@@ -573,7 +572,7 @@ public class DelayedWorksWorker extends Worker {
                             // work after first start
                             PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
-                            //TODO: asi iny thread na toto pouzi
+                            //TODO: use another thread for this
                             PPApplication.startHandlerThreadPPScanners();
                             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                             handler.postDelayed(new Runnable() {
@@ -678,9 +677,9 @@ public class DelayedWorksWorker extends Worker {
                                 appContext.startActivity(startMain);
                             //}
                         } catch (SecurityException e) {
-                            Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                            //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                         } catch (Exception e) {
-                            Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                            //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         }
                     }
@@ -760,7 +759,7 @@ public class DelayedWorksWorker extends Worker {
 
             return Result.success();
         } catch (Exception e) {
-            Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+            //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {

@@ -26,7 +26,6 @@ import android.telephony.ServiceState;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -1035,7 +1034,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG+"_" + registeredCell,
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + _registeredCell, mBuilder.build());
                         } catch (Exception e) {
-                            Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
+                            //Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         }
                     }

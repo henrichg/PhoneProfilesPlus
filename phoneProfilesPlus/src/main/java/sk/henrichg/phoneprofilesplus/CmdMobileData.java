@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.ServiceManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
-import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
 
@@ -79,7 +78,7 @@ public class CmdMobileData {
             }
             return enabled;
         } catch (Throwable e) {
-            Log.e("CmdMobileData.isEnabled", Log.getStackTraceString(e));
+            //Log.e("CmdMobileData.isEnabled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }

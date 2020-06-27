@@ -15,7 +15,6 @@ import android.os.Parcelable;
 import android.os.Process;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
-import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
@@ -1479,7 +1478,7 @@ class Permissions {
                     //else
                     //    context.startActivity(intent);
                 } catch (Exception e) {
-                    Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
+                    //Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //return false;
                 }
@@ -1728,7 +1727,7 @@ class Permissions {
                     //else
                     //    context.startActivity(intent);
                 } catch (Exception e) {
-                    Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
+                    //Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //return false;
                 }

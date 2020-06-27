@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
-import android.util.Log;
 
 
 class ProfilePreferencesIndicator {
@@ -102,14 +101,10 @@ class ProfilePreferencesIndicator {
                     profile.getVolumeVoiceChange() ||
                     profile.getVolumeAccessibilityChange() ||
                     profile.getVolumeBluetoothSCOChange()) {
-                    if (profile._name.equals("Profilexxx"))
-                        Log.e("ProfilePreferencesIndicator.paint", "(1)");
                     if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                        if (profile._name.equals("Profilexxx"))
-                            Log.e("ProfilePreferencesIndicator.paint", "(2)");
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level_partial;
                     }
                 }
@@ -124,8 +119,6 @@ class ProfilePreferencesIndicator {
                     profile.getVolumeDTMFChange() ||
                     profile.getVolumeAccessibilityChange() ||
                     profile.getVolumeBluetoothSCOChange()) {
-                    if (profile._name.equals("Profilexxx"))
-                        Log.e("ProfilePreferencesIndicator.paint", "(3)");
                     if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
@@ -135,8 +128,6 @@ class ProfilePreferencesIndicator {
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                         (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                        if (profile._name.equals("Profilexxx"))
-                            Log.e("ProfilePreferencesIndicator.paint", "(4)");
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
                     }
                 }

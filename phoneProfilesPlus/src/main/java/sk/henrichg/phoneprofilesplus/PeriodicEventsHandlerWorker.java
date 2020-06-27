@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -32,7 +31,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "xxx");
+            //PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "xxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -92,7 +91,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
             return Result.success();
         } catch (Exception e) {
-            Log.e("PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
+            //Log.e("PeriodicEventsHandlerWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {

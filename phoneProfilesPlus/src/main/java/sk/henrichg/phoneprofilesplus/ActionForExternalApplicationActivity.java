@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -296,7 +295,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_TAG,
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
-            Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+            //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

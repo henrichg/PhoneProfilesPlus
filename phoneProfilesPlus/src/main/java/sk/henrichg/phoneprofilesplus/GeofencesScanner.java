@@ -8,7 +8,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -586,7 +585,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_TAG,
                     PPApplication.GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID, mBuilder.build());
         } catch (Exception e) {
-            Log.e("GeofencesScanner.showErrorNotification", Log.getStackTraceString(e));
+            //Log.e("GeofencesScanner.showErrorNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

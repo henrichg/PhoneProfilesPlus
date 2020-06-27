@@ -40,7 +40,6 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -466,23 +465,23 @@ class ActivateProfileHelper {
         // setup location mode
         if (profile._deviceLocationMode != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode");
+                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode");
 
                 switch (profile._deviceLocationMode) {
                     case 1:
-                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 1");
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 1");
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
                         break;
                     case 2:
-                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 2");
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 2");
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
                         break;
                     case 3:
-                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 3");
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 3");
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
                         break;
                     case 4:
-                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 4");
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 4");
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
                         break;
                 }
@@ -1132,7 +1131,7 @@ class ActivateProfileHelper {
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
                 }
                 catch (Exception e2) {
-                    Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
+                    //Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
                     PPApplication.recordException(e);
                 }
             }
@@ -1157,7 +1156,7 @@ class ActivateProfileHelper {
                 }
             }
         } catch (Exception e3) {
-            Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e3));
+            //Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e3));
             PPApplication.recordException(e3);
         }
     }
@@ -3225,7 +3224,7 @@ class ActivateProfileHelper {
         try {
             mNotificationManager.notify(notificationTag, notificationId, notification);
         } catch (Exception e) {
-            Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
+            //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -3847,7 +3846,7 @@ class ActivateProfileHelper {
 
             synchronized (PPApplication.rootMutex) {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
-                PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
+                //PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
                 Command command = new Command(0, false, command1);// {
 //                @Override
 //                public void commandOutput(int id, String line) {
@@ -3870,9 +3869,9 @@ class ActivateProfileHelper {
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                     PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
-                    PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
+                    //PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
                 } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                 }
             }
 
@@ -4125,7 +4124,7 @@ class ActivateProfileHelper {
             }
             return false;
         } catch(Exception e) {
-            Log.e("ActivateProfileHelper.wifiServiceExists",Log.getStackTraceString(e));
+            //Log.e("ActivateProfileHelper.wifiServiceExists",Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }
@@ -4198,7 +4197,7 @@ class ActivateProfileHelper {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+                    //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
@@ -4634,7 +4633,7 @@ class ActivateProfileHelper {
                             Settings.Secure.putInt(appContext.getContentResolver(), "ui_night_mode", 1);
                     }
                     catch (Exception e2) {
-                        Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
+                        //Log.e("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
                         PPApplication.recordException(e2);
                     }
                 }

@@ -19,7 +19,6 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -818,7 +817,7 @@ public class DataWrapper {
                         shortcutManager.setDynamicShortcuts(shortcuts);
                 }
             } catch (Exception e) {
-                Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
+                //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }

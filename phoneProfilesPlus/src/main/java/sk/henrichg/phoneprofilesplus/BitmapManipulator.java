@@ -19,7 +19,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
@@ -138,7 +137,7 @@ class BitmapManipulator {
                 }
                 return decodedSampleBitmap;
             } catch (Exception ee) {
-                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
+                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
                 PPApplication.recordException(ee);
                 return null;
             }
@@ -402,7 +401,7 @@ class BitmapManipulator {
             drawable.draw(canvas);
             return bitmap;
         } catch (Exception e) {
-            Log.e("BitmapManipulator.getBitmapFromDrawable", Log.getStackTraceString(e));
+            //Log.e("BitmapManipulator.getBitmapFromDrawable", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return null;
         }

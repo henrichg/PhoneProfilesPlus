@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Data;
@@ -108,7 +107,7 @@ public class BluetoothScanWorker extends Worker {
 
             return Result.success();
         } catch (Exception e) {
-            Log.e("BluetoothScanWorker.doWork", Log.getStackTraceString(e));
+            //Log.e("BluetoothScanWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
@@ -177,7 +176,7 @@ public class BluetoothScanWorker extends Worker {
                 }
             }
         } catch (Exception e) {
-            Log.e("BluetoothScanWorker._scheduleWork", Log.getStackTraceString(e));
+            //Log.e("BluetoothScanWorker._scheduleWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -225,7 +224,7 @@ public class BluetoothScanWorker extends Worker {
                 //PPApplication.logE("BluetoothScanWorker._cancelWork", "CANCELED");
 
             } catch (Exception e) {
-                Log.e("BluetoothScanWorker._cancelWork", Log.getStackTraceString(e));
+                //Log.e("BluetoothScanWorker._cancelWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -280,7 +279,7 @@ public class BluetoothScanWorker extends Worker {
                 }
             }
         } catch (Exception e) {
-            Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
+            //Log.e("BluetoothScanWorker.waitForFinish", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -338,7 +337,7 @@ public class BluetoothScanWorker extends Worker {
             else
                 return false;
         } catch (Exception e) {
-            Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
+            //Log.e("BluetoothScanWorker.isWorkRunning", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }
@@ -380,7 +379,7 @@ public class BluetoothScanWorker extends Worker {
             else
                 return false;
         } catch (Exception e) {
-            Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
+            //Log.e("BluetoothScanWorker.isWorkScheduled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }

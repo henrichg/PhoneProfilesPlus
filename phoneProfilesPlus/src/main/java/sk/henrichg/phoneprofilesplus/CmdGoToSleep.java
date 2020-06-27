@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.os.IPowerManager;
 import android.os.ServiceManager;
 import android.os.SystemClock;
-import android.util.Log;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdGoToSleep {
@@ -25,7 +24,7 @@ public class CmdGoToSleep {
             adapter.goToSleep(SystemClock.uptimeMillis(), 0, 0);
             return true;
         } catch (Throwable e) {
-            Log.e("CmdGoToSleep.doSleep", Log.getStackTraceString(e));
+            //Log.e("CmdGoToSleep.doSleep", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }

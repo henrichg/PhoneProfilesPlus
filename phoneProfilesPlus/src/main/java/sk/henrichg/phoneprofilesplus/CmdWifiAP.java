@@ -5,7 +5,6 @@ import android.net.wifi.IWifiManager;
 import android.net.wifi.WifiManager;
 import android.os.ResultReceiver;
 import android.os.ServiceManager;
-import android.util.Log;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdWifiAP {
@@ -44,13 +43,13 @@ public class CmdWifiAP {
             //PPApplication.logE("CmdWifiAP.setWifiAP", "END=");
             return true;
         } catch (java.lang.SecurityException ee) {
-            Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
+            //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
             //PPApplication.logToCrashlytics("E/CmdWifiAP.setWifiAP: " + Log.getStackTraceString(ee));
             //PPApplication.recordException(e);
             //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
         } catch (Throwable e) {
-            Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+            //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
@@ -66,7 +65,7 @@ public class CmdWifiAP {
             //PPApplication.logE("CmdWifiAP.isEnabled", "enabled="+enabled);
             return enabled;
         } catch (Throwable e) {
-            Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
+            //Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return false;
         }

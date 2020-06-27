@@ -12,7 +12,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
-import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -883,7 +882,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
+            //Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
         // package name not found
@@ -1052,7 +1051,7 @@ class EventPreferencesNotification extends EventPreferences {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
+                    //Log.e("EventPreferencesNotification.isNotificationVisible", Log.getStackTraceString(e));
 
                     // Hm: java.lang.RuntimeException: Could not read bitmap blob.
                     //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();

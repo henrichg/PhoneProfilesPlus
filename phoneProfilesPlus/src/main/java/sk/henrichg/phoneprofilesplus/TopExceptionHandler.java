@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.provider.Settings;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -40,7 +39,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                     Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
             }
         } catch (Exception ee) {
-            Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
+            //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
         }
 
         try {
@@ -77,7 +76,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 logIntoFile("E", "TopExceptionHandler", report);
             }
         } catch (Exception ee) {
-            Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
+            //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
         }
 
         if (defaultUEH != null) {
@@ -143,7 +142,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             buf.flush();
             buf.close();
         } catch (IOException ee) {
-            Log.e("TopExceptionHandler.logIntoFile", Log.getStackTraceString(ee));
+            //Log.e("TopExceptionHandler.logIntoFile", Log.getStackTraceString(ee));
         }
     }
 

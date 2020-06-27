@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Data;
@@ -98,7 +97,7 @@ public class FetchAddressWorker extends Worker {
             // Return the output
             return Result.success(outputData);
         } catch (Exception e) {
-            Log.e("FetchAddressWorker.doWork", Log.getStackTraceString(e));
+            //Log.e("FetchAddressWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return Result.failure();
         }

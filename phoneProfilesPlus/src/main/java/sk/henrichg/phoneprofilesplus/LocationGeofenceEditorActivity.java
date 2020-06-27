@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -820,7 +819,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 }
             }
         } catch (Exception e) {
-            Log.e("LocationGeofenceEditorActivity.startIntentService", Log.getStackTraceString(e));
+            //Log.e("LocationGeofenceEditorActivity.startIntentService", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 
@@ -880,7 +879,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (intent != null)
                 pkg = intent.getPackage();
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
-                Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
+                //Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
                 //PPApplication.recordException(e);
             }
             else {

@@ -14,7 +14,6 @@ import android.os.Build;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -2959,7 +2958,7 @@ class Event {
                     //mNotificationManager.cancel(notificationTag, notificationID);
                     mNotificationManager.notify(notificationTag, notificationID, notification);
                 } catch (Exception e) {
-                    Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
+                    //Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 }
 

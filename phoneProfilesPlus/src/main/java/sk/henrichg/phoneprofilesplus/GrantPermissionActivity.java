@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -932,7 +931,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 // mNotificationManager.cancel(notificationID);
                 mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
             } catch (Exception e) {
-                Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
+                //Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }

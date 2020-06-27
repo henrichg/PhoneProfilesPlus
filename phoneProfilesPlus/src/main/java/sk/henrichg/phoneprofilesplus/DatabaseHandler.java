@@ -11,7 +11,6 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -4373,7 +4372,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 values.put(KEY_ICON, "ic_profile_default|1|0|0");
                             }
                         } catch (Exception e) {
-                            Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
+                            //Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                             values.put(KEY_ICON, "ic_profile_default|1|0|0");
                         }
@@ -4396,7 +4395,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception e) {
                 //Error in between database transaction
                 PPApplication.recordException(e);
-                Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
+                //Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
             } finally {
                 if (database == null)
                     db.endTransaction();
@@ -5039,7 +5038,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6308,7 +6307,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventStatus", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEventStatus", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6347,7 +6346,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventBlocked", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEventBlocked", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6385,7 +6384,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.unblockAllEvents", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.unblockAllEvents", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6425,7 +6424,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateAllEventsStatus", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateAllEventsStatus", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6678,7 +6677,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6734,7 +6733,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6789,7 +6788,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.clearAllEventsSensorPassed", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.clearAllEventsSensorPassed", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -6940,7 +6939,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventCalendarTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEventCalendarTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7057,7 +7056,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventInDelayStart", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEventInDelayStart", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7095,7 +7094,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.resetAllEventsInDelayStart", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.resetAllEventsInDelayStart", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7173,7 +7172,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEventInDelayEnd", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEventInDelayEnd", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7212,7 +7211,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateSMSStartTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateSMSStartTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7411,7 +7410,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateNFCStartTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateNFCStartTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7526,7 +7525,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateCallStartTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateCallStartTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7601,7 +7600,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateAlarmClockStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateAlarmClockStartTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7677,7 +7676,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateDeviceBootStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateDeviceBootStartTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -7929,7 +7928,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteAllEventTimelines", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.deleteAllEventTimelines", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -8271,7 +8270,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -8306,7 +8305,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //} finally {
                     //db.endTransaction();
@@ -8341,7 +8340,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.clearAllGeofenceTransitions", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.clearAllGeofenceTransitions", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //} finally {
                     //db.endTransaction();
@@ -8413,7 +8412,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteGeofence", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.deleteGeofence", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -8478,7 +8477,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.checkGeofence", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.checkGeofence", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -8818,7 +8817,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteShortcut", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.deleteShortcut", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -8907,7 +8906,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateMobileCell", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateMobileCell", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -9181,7 +9180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteMobileCell", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.deleteMobileCell", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -9219,7 +9218,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -9331,7 +9330,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateMobileCellsCells", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateMobileCellsCells", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -9535,7 +9534,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateNFCTag", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateNFCTag", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -9571,7 +9570,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteNFCTag", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.deleteNFCTag", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -9884,7 +9883,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updateIntent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updateIntent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -10041,7 +10040,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.deleteIntent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.deleteIntent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -10129,7 +10128,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.updatePPIntentUsageCount", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.updatePPIntentUsageCount", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -10498,7 +10497,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -12312,14 +12311,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         }
                     }
                 } catch (Exception e1) {
-                    Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e1));
+                    //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e1));
                     //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
                     PPApplication.recordException(e1);
                     ret = IMPORT_ERROR_BUG;
                 }
 
             } catch (Exception e2) {
-                Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e2));
+                //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e2));
                 //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
                 PPApplication.recordException(e2);
                 //PPApplication.logE("DatabaseHandler.importDB", Log.getStackTraceString(e2));
@@ -12393,7 +12392,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 ret = 1;
                         }
                     } catch (Exception e) {
-                        Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
+                        //Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
                 } finally {

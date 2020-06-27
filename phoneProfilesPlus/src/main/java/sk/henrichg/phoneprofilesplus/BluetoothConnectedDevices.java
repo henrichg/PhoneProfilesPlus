@@ -9,7 +9,6 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -334,7 +333,7 @@ class BluetoothConnectedDevices {
                                 List<BluetoothDevice> devices;
 
                                 devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT);
-                                PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "GATT size=" + devices.size());
+                                //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "GATT size=" + devices.size());
                                 addConnectedDevices(devices, connectedDevices);
 
                                 devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT_SERVER);
@@ -355,7 +354,7 @@ class BluetoothConnectedDevices {
 //                });
 
             } catch (Exception e) {
-                Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
