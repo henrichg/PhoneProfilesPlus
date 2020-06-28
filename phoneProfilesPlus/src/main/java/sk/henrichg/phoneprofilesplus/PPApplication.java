@@ -168,7 +168,7 @@ public class PPApplication extends Application
                                                 //+"|WifiScanBroadcastReceiver"
                                                 //+"|DelayedWorksWorker.doWork"
                                                 //+"|WifiBluetoothScanner.enableWifi"
-                                                +"|WifiScanWorker.fillScanResults"
+                                                //+"|WifiScanWorker.fillScanResults"
                                                 //+"|WifiScanWorker.startScan"
                                                 //+"|WifiScanWorker.doWork"
                                                 //+"|WifiStateChangedBroadcastReceiver.onReceive"

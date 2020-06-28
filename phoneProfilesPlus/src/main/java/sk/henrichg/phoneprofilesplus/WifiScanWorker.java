@@ -672,7 +672,7 @@ public class WifiScanWorker extends Worker {
             if (PPApplication.logEnabled()) {
                 //int wifiState = wifi.getWifiState();
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "wifiState=" + wifiState);
-                PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
+                //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=" + _scanResults);
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "getScanResults() called");
             }
             if (_scanResults != null) {
