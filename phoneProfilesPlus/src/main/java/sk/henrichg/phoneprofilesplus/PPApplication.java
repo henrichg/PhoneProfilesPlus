@@ -1844,6 +1844,7 @@ public class PPApplication extends Application
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
         if (alsoNotification) {
+            // KEEP IT AS WORK !!!
             Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION)
                     //.putBoolean(ShowProfileNotificationBroadcastReceiver.EXTRA_FROM_ALARM, true)
