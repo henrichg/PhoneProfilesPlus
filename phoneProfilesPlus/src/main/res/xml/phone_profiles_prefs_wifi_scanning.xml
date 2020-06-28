@@ -34,6 +34,11 @@
         app:defaultValue="true"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationEventWifiScanIgnoreHotspot"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanIgnoreHotspot"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventWifiScanIntervalInfo"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"

@@ -31,6 +31,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
                         isWifiAPEnabled = CmdWifiAP.isEnabled();
+                    isWifiAPEnabled = false;
                     if (isWifiAPEnabled) {
                         // Wifi AP is enabled - cancel wifi scan work
                         //PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");

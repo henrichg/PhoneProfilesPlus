@@ -891,6 +891,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, "1"));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON, false));
             //editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, false));
         }
     }
 

@@ -168,7 +168,7 @@ public class PPApplication extends Application
                                                 //+"|WifiScanBroadcastReceiver"
                                                 //+"|DelayedWorksWorker.doWork"
                                                 //+"|WifiBluetoothScanner.enableWifi"
-                                                //+"|WifiScanWorker.fillScanResults"
+                                                +"|WifiScanWorker.fillScanResults"
                                                 //+"|WifiScanWorker.startScan"
                                                 //+"|WifiScanWorker.doWork"
                                                 //+"|WifiStateChangedBroadcastReceiver.onReceive"
@@ -666,7 +666,7 @@ public class PPApplication extends Application
                                                 //+"|WifiApManager.startTethering"
                                                 //+"|WifiApManager.stopTethering"
                                                 //+"|WifiApManager.callStartTethering"
-                                                +"|CmdWifiAP"
+                                                //+"|CmdWifiAP"
 
                                                 //+"|ActivateProfileHelper.updateGUI"
                                                 //+"|UpdateGUIBroadcastReceiver"
@@ -2147,6 +2147,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventBackgroundScanningScanInterval(context);
             ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode(context);
             ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventWifiScanIgnoreHotspot(context);
         }
     }
 

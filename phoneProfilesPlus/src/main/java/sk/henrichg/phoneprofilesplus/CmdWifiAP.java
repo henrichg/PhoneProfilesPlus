@@ -20,8 +20,8 @@ public class CmdWifiAP {
     }
 
     static boolean setWifiAP(boolean enable, boolean doNotChangeWifi) {
-        PPApplication.logE("CmdWifiAP.setWifiAP", "START enable="+enable);
-        PPApplication.logE("CmdWifiAP.setWifiAP", "START doNotChangeWifi="+doNotChangeWifi);
+        //PPApplication.logE("CmdWifiAP.setWifiAP", "START enable="+enable);
+        //PPApplication.logE("CmdWifiAP.setWifiAP", "START doNotChangeWifi="+doNotChangeWifi);
         final String packageName = PPApplication.PACKAGE_NAME;
         try {
             IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager

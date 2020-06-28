@@ -91,6 +91,7 @@ class WifiScanner {
                         canScan = !WifiApManager.isWifiAPEnabled(context);
                     else
                         canScan = !CmdWifiAP.isEnabled();
+                    canScan = true;
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$W WifiScanner.doScan", "canScan=" + canScan);
                         PPApplication.logE("$$$W WifiScanner.doScan", "isWifiAPEnabled=" + !canScan);
@@ -417,7 +418,8 @@ class WifiScanner {
             }
             else
             {
-                boolean isWifiAPEnabled = false;
+                // this is not needed, enableWifi() is called only from doScan and after when hotspot is disabled
+                /*boolean isWifiAPEnabled = false;
                 if (Build.VERSION.SDK_INT < 28) {
                     WifiApManager wifiApManager = null;
                     try {
@@ -429,9 +431,9 @@ class WifiScanner {
                         isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
                 }
                 else
-                    isWifiAPEnabled = CmdWifiAP.isEnabled();
+                    isWifiAPEnabled = CmdWifiAP.isEnabled();*/
 
-                if (isScanAlwaysAvailable  && !isWifiAPEnabled) {
+                if (isScanAlwaysAvailable/*  && !isWifiAPEnabled*/) {
                     //PPApplication.logE("@@@ WifiScanner.enableWifi", "scan always available");
                     wifiState =  WifiManager.WIFI_STATE_ENABLED;
                 }
