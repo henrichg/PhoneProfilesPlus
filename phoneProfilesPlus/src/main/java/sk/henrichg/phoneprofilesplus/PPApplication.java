@@ -666,7 +666,7 @@ public class PPApplication extends Application
                                                 //+"|WifiApManager.startTethering"
                                                 //+"|WifiApManager.stopTethering"
                                                 //+"|WifiApManager.callStartTethering"
-                                                //+"|CmdWifiAP"
+                                                +"|CmdWifiAP"
 
                                                 //+"|ActivateProfileHelper.updateGUI"
                                                 //+"|UpdateGUIBroadcastReceiver"

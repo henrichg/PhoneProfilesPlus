@@ -49,7 +49,7 @@ final class WifiApManager {
         }
     }
 
-    private void setWifiApState(WifiConfiguration config, boolean enabled) {
+    private void setWifiApState(WifiConfiguration config, boolean enabled, boolean doNotChangeWifi) {
         try {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-config=" + config);
@@ -58,15 +58,17 @@ final class WifiApManager {
                 PPApplication.logE("$$$ WifiAP", "WifiApManager.setWifiApState-wifiControlMethod=" + wifiControlMethod);
             }*/
             if (enabled) {
-                if (mWifiManager != null) {
-                    int wifiState = mWifiManager.getWifiState();
-                    boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-                    if (isWifiEnabled) {
-                        //PPApplication.logE("#### setWifiEnabled", "from WifAPManager.setWifiApState");
-                        //if (Build.VERSION.SDK_INT >= 29)
-                        //    CmdWifi.setWifi(false);
-                        //else
+                if (!doNotChangeWifi) {
+                    if (mWifiManager != null) {
+                        int wifiState = mWifiManager.getWifiState();
+                        boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                        if (isWifiEnabled) {
+                            //PPApplication.logE("#### setWifiEnabled", "from WifAPManager.setWifiApState");
+                            //if (Build.VERSION.SDK_INT >= 29)
+                            //    CmdWifi.setWifi(false);
+                            //else
                             mWifiManager.setWifiEnabled(false);
+                        }
                     }
                 }
             }
@@ -79,9 +81,9 @@ final class WifiApManager {
         }
     }
 
-    void setWifiApState(boolean enabled) {
+    void setWifiApState(boolean enabled, boolean doNotChangeWifi) {
         WifiConfiguration wifiConfiguration = getWifiApConfiguration();
-        /*return*/ setWifiApState(wifiConfiguration, enabled);
+        /*return*/ setWifiApState(wifiConfiguration, enabled, doNotChangeWifi);
     }
 
     // not working in Android 8+ :-/
@@ -148,18 +150,20 @@ final class WifiApManager {
         }
     }
 
-    void startTethering() {
+    void startTethering(boolean doNotChangeWifi) {
         //PPApplication.logE("WifiApManager.startTethering", "mWifiManager="+mWifiManager);
-        if (mWifiManager != null) {
-            int wifiState = mWifiManager.getWifiState();
-            boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-            //PPApplication.logE("WifiApManager.startTethering", "isWifiEnabled="+isWifiEnabled);
-            if (isWifiEnabled) {
-                //PPApplication.logE("#### setWifiEnabled", "from WifiAPManager.startTethering");
-                //if (Build.VERSION.SDK_INT >= 29)
-                //    CmdWifi.setWifi(false);
-                //else
-                    mWifiManager.setWifiEnabled(false);
+        if (!doNotChangeWifi) {
+            if (mWifiManager != null) {
+                int wifiState = mWifiManager.getWifiState();
+                boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                //PPApplication.logE("WifiApManager.startTethering", "isWifiEnabled="+isWifiEnabled);
+                if (isWifiEnabled) {
+                    //PPApplication.logE("#### setWifiEnabled", "from WifiAPManager.startTethering");
+                    //if (Build.VERSION.SDK_INT >= 29)
+                    //    CmdWifi.setWifi(false);
+                    //else
+                        mWifiManager.setWifiEnabled(false);
+                }
             }
         }
         //PPApplication.logE("WifiApManager.startTethering", "mConnectivityManager="+mConnectivityManager);

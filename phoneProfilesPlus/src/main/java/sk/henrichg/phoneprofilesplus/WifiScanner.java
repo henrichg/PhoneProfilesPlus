@@ -90,7 +90,6 @@ class WifiScanner {
                     if (Build.VERSION.SDK_INT < 28)
                         canScan = !WifiApManager.isWifiAPEnabled(context);
                     else
-                    if (Build.VERSION.SDK_INT < 29)
                         canScan = !CmdWifiAP.isEnabled();
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$W WifiScanner.doScan", "canScan=" + canScan);
@@ -430,7 +429,6 @@ class WifiScanner {
                         isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
                 }
                 else
-                if (Build.VERSION.SDK_INT < 29)
                     isWifiAPEnabled = CmdWifiAP.isEnabled();
 
                 if (isScanAlwaysAvailable  && !isWifiAPEnabled) {

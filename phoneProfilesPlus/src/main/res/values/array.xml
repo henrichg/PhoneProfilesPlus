@@ -886,14 +886,18 @@
     <string-array name="wifiAPArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_wifiAPModeArray_on_keepWifi</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
         <item>@string/array_pref_hardwareModeArray_toggle</item>
+        <item>@string/array_pref_wifiAPModeArray_toggle_keepWifi</item>
     </string-array>
     <string-array name="wifiAPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
+        <item>4</item>
         <item>2</item>
         <item>3</item>
+        <item>5</item>
     </string-array>
     <string-array name="notificationLayoutTypeArray">
         <item>@string/phone_profiles_pref_notificationLayoutType_expandable</item>

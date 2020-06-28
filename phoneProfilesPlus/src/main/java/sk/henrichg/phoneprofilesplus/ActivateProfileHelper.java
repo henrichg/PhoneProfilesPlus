@@ -174,14 +174,17 @@ class ActivateProfileHelper {
                     }
                     if (wifiApManager != null) {
                         boolean setWifiAPState = false;
+                        boolean doNotChangeWifi = false;
                         boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
                         switch (profile._deviceWiFiAP) {
                             case 1:
+                            case 4:
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 1");
                                 if (!isWifiAPEnabled) {
                                     isWifiAPEnabled = true;
                                     setWifiAPState = true;
-                                    canChangeWifi = false;
+                                    doNotChangeWifi = profile._deviceWiFiAP == 4;
+                                    canChangeWifi = profile._deviceWiFiAP == 4;
                                 }
                                 break;
                             case 2:
@@ -193,15 +196,20 @@ class ActivateProfileHelper {
                                 }
                                 break;
                             case 3:
+                            case 5:
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 3");
                                 isWifiAPEnabled = !isWifiAPEnabled;
                                 setWifiAPState = true;
-                                canChangeWifi = !isWifiAPEnabled;
+                                doNotChangeWifi = profile._deviceWiFiAP == 5;
+                                if (doNotChangeWifi)
+                                    canChangeWifi = true;
+                                else
+                                    canChangeWifi = !isWifiAPEnabled;
                                 break;
                         }
                         if (setWifiAPState) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
-                            setWifiAP(wifiApManager, isWifiAPEnabled, appContext);
+                            setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, appContext);
                             //try { Thread.sleep(200); } catch (InterruptedException e) { }
                             //SystemClock.sleep(200);
                             PPApplication.sleep(1000);
@@ -210,18 +218,17 @@ class ActivateProfileHelper {
                 }
                 else {
                     boolean setWifiAPState = false;
+                    boolean doNotChangeWifi = false;
                     boolean isWifiAPEnabled = CmdWifiAP.isEnabled();
                     switch (profile._deviceWiFiAP) {
                         case 1:
+                        case 4:
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 1");
                             if (!isWifiAPEnabled) {
                                 isWifiAPEnabled = true;
                                 setWifiAPState = true;
-                                //noinspection RedundantIfStatement
-                                if (Build.VERSION.SDK_INT < 29)
-                                    canChangeWifi = false;
-                                else
-                                    canChangeWifi = true;
+                                doNotChangeWifi = profile._deviceWiFiAP == 4;
+                                canChangeWifi = profile._deviceWiFiAP == 4;
                             }
                             break;
                         case 2:
@@ -233,18 +240,20 @@ class ActivateProfileHelper {
                             }
                             break;
                         case 3:
+                        case 5:
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP 3");
                             isWifiAPEnabled = !isWifiAPEnabled;
                             setWifiAPState = true;
-                            if (Build.VERSION.SDK_INT < 29)
-                                canChangeWifi = !isWifiAPEnabled;
-                            else
+                            doNotChangeWifi = profile._deviceWiFiAP == 5;
+                            if (doNotChangeWifi)
                                 canChangeWifi = true;
+                            else
+                                canChangeWifi = !isWifiAPEnabled;
                             break;
                     }
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
-                        CmdWifiAP.setWifiAP(isWifiAPEnabled);
+                        CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi);
                         //try { Thread.sleep(200); } catch (InterruptedException e) { }
                         //SystemClock.sleep(200);
                         PPApplication.sleep(1000);
@@ -258,11 +267,10 @@ class ActivateProfileHelper {
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
-                    boolean isWifiAPEnabled = false;
+                    boolean isWifiAPEnabled;
                     if (Build.VERSION.SDK_INT < 28)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
-                    if (Build.VERSION.SDK_INT < 29)
                         isWifiAPEnabled = CmdWifiAP.isEnabled();
                     //PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiAPEnabled="+isWifiAPEnabled);
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi >= 4)) { // only when wifi AP is not enabled, change wifi
@@ -4138,12 +4146,12 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setWifiAP(WifiApManager wifiApManager, boolean enable, Context context) {
+    private static void setWifiAP(WifiApManager wifiApManager, boolean enable, boolean doNotChangeWifi, Context context) {
         //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
 
         if (Build.VERSION.SDK_INT < 26) {
             //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
-            wifiApManager.setWifiApState(enable);
+            wifiApManager.setWifiApState(enable, doNotChangeWifi);
         }
         else
         if (Build.VERSION.SDK_INT < 28) {
@@ -4151,7 +4159,7 @@ class ActivateProfileHelper {
             Context appContext = context.getApplicationContext();
             if (WifiApManager.canExploitWifiTethering(appContext)) {
                 if (enable)
-                    wifiApManager.startTethering();
+                    wifiApManager.startTethering(doNotChangeWifi);
                 else
                     wifiApManager.stopTethering();
             }
@@ -4171,7 +4179,7 @@ class ActivateProfileHelper {
                     }*/
 
                     if (transactionCode != -1) {
-                        if (enable) {
+                        if (enable && (!doNotChangeWifi)) {
                             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                             //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-wifiManager=" + wifiManager);
                             if (wifiManager != null) {
@@ -4213,7 +4221,7 @@ class ActivateProfileHelper {
         }
         else {
             if (enable)
-                wifiApManager.startTethering();
+                wifiApManager.startTethering(doNotChangeWifi);
             else
                 wifiApManager.stopTethering();
         }

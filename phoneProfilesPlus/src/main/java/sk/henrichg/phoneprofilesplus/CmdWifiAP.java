@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.net.IConnectivityManager;
 import android.net.wifi.IWifiManager;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.ResultReceiver;
 import android.os.ServiceManager;
 
@@ -11,23 +10,24 @@ import android.os.ServiceManager;
 public class CmdWifiAP {
 
     public static void main(String[] args) {
-        if (!(run(Boolean.parseBoolean(args[0])))) {
+        if (!(run(Boolean.parseBoolean(args[0]), Boolean.parseBoolean(args[1])))) {
             System.exit(1);
         }
     }
 
-    private static boolean run(boolean enable) {
-        return setWifiAP(enable);
+    private static boolean run(boolean enable, boolean doNotChangeWifi) {
+        return setWifiAP(enable, doNotChangeWifi);
     }
 
-    static boolean setWifiAP(boolean enable) {
-        //PPApplication.logE("CmdWifiAP.setWifiAP", "START enable="+enable);
+    static boolean setWifiAP(boolean enable, boolean doNotChangeWifi) {
+        PPApplication.logE("CmdWifiAP.setWifiAP", "START enable="+enable);
+        PPApplication.logE("CmdWifiAP.setWifiAP", "START doNotChangeWifi="+doNotChangeWifi);
         final String packageName = PPApplication.PACKAGE_NAME;
         try {
             IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager
             //PPApplication.logE("CmdWifiAP.setWifiAP", "connectivityAdapter="+connectivityAdapter);
             if (enable) {
-                if (Build.VERSION.SDK_INT < 29) {
+                if (!doNotChangeWifi) {
                     IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
                     //PPApplication.logE("CmdWifiAP.setWifiAP", "wifiAdapter="+wifiAdapter);
                     int wifiState = wifiAdapter.getWifiEnabledState();
