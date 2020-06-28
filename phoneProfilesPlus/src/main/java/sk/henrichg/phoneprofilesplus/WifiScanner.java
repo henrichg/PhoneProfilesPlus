@@ -87,11 +87,12 @@ class WifiScanner {
 
                 boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (canScan) {
-                    if (Build.VERSION.SDK_INT < 28)
-                        canScan = !WifiApManager.isWifiAPEnabled(context);
-                    else
-                        canScan = !CmdWifiAP.isEnabled();
-                    canScan = true;
+                    if (!ApplicationPreferences.applicationEventWifiScanIgnoreHotspot) {
+                        if (Build.VERSION.SDK_INT < 28)
+                            canScan = !WifiApManager.isWifiAPEnabled(context);
+                        else
+                            canScan = !CmdWifiAP.isEnabled();
+                    }
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$W WifiScanner.doScan", "canScan=" + canScan);
                         PPApplication.logE("$$$W WifiScanner.doScan", "isWifiAPEnabled=" + !canScan);

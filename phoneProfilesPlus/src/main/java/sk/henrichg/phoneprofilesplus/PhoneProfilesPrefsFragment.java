@@ -1502,14 +1502,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-
-        /*preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT);
-        if (preference != null) {
-            SwitchPreferenceCompat scanningEnabledPreference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING);
-            SwitchPreferenceCompat scanIfWifiOffPreference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF);
-            if ((scanningEnabledPreference != null) && (scanIfWifiOffPreference != null))
-                preference.setEnabled(scanningEnabledPreference.isChecked() && scanIfWifiOffPreference.isChecked());
-        }*/
     }
 
     private void doOnActivityCreatedBatterySaver(String key) {
@@ -2424,6 +2416,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
         }
 
+        /*
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT) ||
                 key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING) ||
                 key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF)) {
@@ -2435,6 +2428,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(scanningEnabledPreference.isChecked() && scanIfWifiOffPreference.isChecked());
             }
         }
+        */
 
         // Do not bind toggles.
         if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
