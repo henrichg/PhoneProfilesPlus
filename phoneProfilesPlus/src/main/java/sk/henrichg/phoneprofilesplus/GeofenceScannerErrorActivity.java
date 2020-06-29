@@ -89,6 +89,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
             super();
         }
 
+        /*
         //////////
         // Fixed (?) java.lang.RuntimeException: Unable to resume activity {sk.henrichg.phoneprofilesplus/sk.henrichg.phoneprofilesplus.GeofenceScannerErrorActivity}: java.lang.NullPointerException: Attempt to invoke virtual method 'void android.app.Dialog.setOwnerActivity(android.app.Activity)' on a null object reference
         // at android.app.ActivityThread.performResumeActivity(ActivityThread.java:3106)
@@ -101,6 +102,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
             super.onActivityCreated(savedInstanceState);
         }
         //////////
+        */
 
         @NonNull
         @Override
