@@ -14,7 +14,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     private int dialogError;
-    private static GeofenceScannerErrorActivity activity = null;
+    //private static GeofenceScannerErrorActivity activity = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
-        activity = this;
+        //activity = this;
 
         // set theme and language for dialog alert ;-)
         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
@@ -75,7 +75,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
                 PhoneProfilesService.getInstance().getGeofencesScanner().mResolvingError = false;
             finish();
-            activity = null;
+            //activity = null;
         }
     }
 
@@ -110,13 +110,13 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
             if (this.getArguments() != null)
                 errorCode = this.getArguments().getInt(GeofencesScanner.DIALOG_ERROR);
             return GoogleApiAvailability.getInstance().getErrorDialog(
-                    activity, errorCode, GeofencesScanner.REQUEST_RESOLVE_ERROR);
+                    this.getActivity(), errorCode, GeofencesScanner.REQUEST_RESOLVE_ERROR);
         }
 
         @Override
         public void onDismiss(@NonNull DialogInterface dialog) {
-            if (activity != null)
-                activity.onDialogDismissed();
+            if (this.getActivity() != null)
+                ((GeofenceScannerErrorActivity) getActivity()).onDialogDismissed();
         }
     }
 
