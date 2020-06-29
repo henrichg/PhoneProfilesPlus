@@ -110,6 +110,7 @@ dependencies {
     //implementation 'com.llew.huawei:verifier:1.1.2'
 
     implementation project(':common')
+    implementation project(':ToastCompat')
     implementation project(':RootShell')
     implementation project(':RootTools')
     implementation project(':android-betterpickers')

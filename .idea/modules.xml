@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/PhoneProfilesPlus.iml" filepath="$PROJECT_DIR$/PhoneProfilesPlus.iml" group="PhoneProfilesPlus" />
       <module fileurl="file://$PROJECT_DIR$/RootShell/RootShell.iml" filepath="$PROJECT_DIR$/RootShell/RootShell.iml" group="PhoneProfilesPlus/RootShell" />
       <module fileurl="file://$PROJECT_DIR$/RootTools/RootTools.iml" filepath="$PROJECT_DIR$/RootTools/RootTools.iml" group="PhoneProfilesPlus/RootTools" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ToastCompat/ToastCompat.iml" filepath="$PROJECT_DIR$/.idea/modules/ToastCompat/ToastCompat.iml" group="PhoneProfilesPlus/ToastCompat" />
       <module fileurl="file://$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" filepath="$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" group="PhoneProfilesPlus/android-betterpickers" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" group="PhoneProfilesPlus/common" />
       <module fileurl="file://$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" filepath="$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" group="PhoneProfilesPlus/phoneProfilesPlus" />

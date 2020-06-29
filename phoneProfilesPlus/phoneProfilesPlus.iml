@@ -177,6 +177,7 @@
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:library:0.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:api:0.0.1@aar" level="project" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="ToastCompat" />
     <orderEntry type="module" module-name="RootShell" />
     <orderEntry type="module" module-name="RootTools" />
     <orderEntry type="module" module-name="android-betterpickers" />

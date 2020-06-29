@@ -66,6 +66,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dev.doubledot.doki.views.DokiContentView;
+import me.drakeet.support.toast.ToastCompat;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
@@ -1948,7 +1949,7 @@ public class PPApplication extends Application
             @Override
             public void run() {
                 try {
-                    Toast msg = Toast/*Compat*/.makeText(appContext, text, length);
+                    Toast msg = ToastCompat.makeText(appContext, text, length);
                     msg.show();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
