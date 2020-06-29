@@ -99,12 +99,12 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                             if (peripheralEventsExists)
                             {*/
                             // start events handler
-                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
 
-                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
                             //}
 
                         } finally {

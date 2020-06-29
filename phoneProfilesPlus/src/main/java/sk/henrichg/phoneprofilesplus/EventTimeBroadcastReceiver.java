@@ -44,13 +44,13 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventTimeBroadcastReceiver.doWork");
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventTimeBroadcastReceiver.doWork");
 
                         //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
 
-                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventTimeBroadcastReceiver.doWork");
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventTimeBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

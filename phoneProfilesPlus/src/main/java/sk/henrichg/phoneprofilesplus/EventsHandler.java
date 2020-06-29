@@ -262,7 +262,7 @@ class EventsHandler {
                         if (PPApplication.prefLastActivatedProfile != 0) {
                             // last activated profile is not 0
                             PPApplication.setLastActivatedProfile(context, 0);
-                            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
+                            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
                             PPApplication.updateGUI(false); //context, true, true);
                         }
                     }
@@ -839,7 +839,7 @@ class EventsHandler {
                         if (PPApplication.prefLastActivatedProfile != 0) {
                             // last activated profile is not 0
                             PPApplication.setLastActivatedProfile(context, 0);
-                            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
+                            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
                             PPApplication.updateGUI(false); //context, true, true);
                         }
                     }

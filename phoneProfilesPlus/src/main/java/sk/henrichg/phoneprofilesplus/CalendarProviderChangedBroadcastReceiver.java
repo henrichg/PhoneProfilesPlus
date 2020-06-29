@@ -47,12 +47,12 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
 
-                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
