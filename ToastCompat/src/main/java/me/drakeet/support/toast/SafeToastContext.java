@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
  */
 final class SafeToastContext extends ContextWrapper {
 
-  private @NonNull Toast toast;
+  private final @NonNull Toast toast;
 
   private @Nullable BadTokenListener badTokenListener;
 
