@@ -1,4 +1,4 @@
-// Release versions (look at PackageReplacedReceiver)
+// Release versions (look at DelayedWorksWorker)
 // 2322 = keep checked "Use Priority event parameter"
 // 2400 = start About application alarm for notification "Please donate me."
 // 2500 = profile notification is required, but if is not enabled, hide it from status bar
@@ -28,7 +28,7 @@
 
 ext.ppVersions = [
     publishVersion: '4.1.10.3b',
-    publishVersionCode: 6103,
+    publishVersionCode: 6105,
 
     minSdk: 23,
     targetSdk: 28,

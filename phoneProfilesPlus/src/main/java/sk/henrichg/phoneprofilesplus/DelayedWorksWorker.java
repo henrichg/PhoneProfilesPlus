@@ -34,6 +34,7 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG = "handleEventsMobileCellsScannerWork";
     static final String DELAYED_WORK_AFTER_FIRST_START_WORK_TAG = "delayedWorkAfterFirstStartWork";
     static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG = "delayedWorkCloseAllApplications";
+    static final String DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
 
     static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
     static final String DELAYED_WORK_START_WIFI_SCAN = "start_wifi_scan";
@@ -81,19 +82,19 @@ public class DelayedWorksWorker extends Worker {
                 case DELAYED_WORK_AFTER_FIRST_START:
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
 
-                    boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
+                    //boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
 
                     // activate profile immediately after start of PPP
                     // this is required for some users, for example: francescocaldelli@gmail.com
                     PPApplication.applicationPackageReplaced = false;
-                    if (fromDoFirstStart) {
+                    //if (fromDoFirstStart) {
                         //PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         //if (instance != null)
                         //    instance.PhoneProfilesService.setApplicationFullyStarted(appContext/*true*/);
                         PPApplication.setApplicationFullyStarted(appContext);
-                    }
+                    //}
 
-                    if (fromDoFirstStart) {
+                    //if (fromDoFirstStart) {
                         PPApplication.createNotificationChannels(appContext);
 
                         boolean activateProfiles = getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
@@ -153,30 +154,21 @@ public class DelayedWorksWorker extends Worker {
                         }
                         PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=DelayedWorksWorker.doWork");
                         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
-                    }
-
-                    /*// do not activate profile after start of PPP
-                    // is not good to change system parameters after start,
-                    // especially after package replaced.
-                    PPApplication.applicationPackageReplaced = false;
-                    if (fromDoFirstStart) {
-                        PhoneProfilesService instance = PhoneProfilesService.getInstance();
-                        if (instance != null)
-                            instance.setApplicationFullyStarted();
-                    }*/
+                    //}
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "END");
                     break;
                 case DELAYED_WORK_PACKAGE_REPLACED:
                     PPApplication.logE("PackageReplacedReceiver.doWork", "START");
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                    dataWrapper = new DataWrapper(appContext, false, 0, false);
 
-                    final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+                    int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+                    int actualVersionCode = 0;
                     // save version code
                     try {
                         PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-                        int actualVersionCode = PPApplication.getVersionCode(pInfo);
+                        actualVersionCode = PPApplication.getVersionCode(pInfo);
                         PPApplication.setSavedVersionCode(appContext, actualVersionCode);
 
                         String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
@@ -194,12 +186,8 @@ public class DelayedWorksWorker extends Worker {
 
                     boolean restartService = false;
                     PPApplication.logE("PackageReplacedReceiver.doWork", "oldVersionCode=" + oldVersionCode);
-                    int actualVersionCode;
+                    PPApplication.logE("PackageReplacedReceiver.doWork", "actualVersionCode=" + actualVersionCode);
                     try {
-                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-                        actualVersionCode = PPApplication.getVersionCode(pInfo);
-                        PPApplication.logE("PackageReplacedReceiver.doWork", "actualVersionCode=" + actualVersionCode);
-
                         if (oldVersionCode < actualVersionCode) {
                             PPApplication.logE("PackageReplacedReceiver.doWork", "is new version");
 
@@ -570,7 +558,7 @@ public class DelayedWorksWorker extends Worker {
                         PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         if (instance != null) {
                             // work after first start
-                            PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
+                            //PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
                             //TODO: use another thread for this
                             PPApplication.startHandlerThreadPPScanners();
@@ -581,7 +569,7 @@ public class DelayedWorksWorker extends Worker {
                                     Data workData = new Data.Builder()
                                             .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                                             .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
-                                            .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, false)
+                                            //.putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, false)
                                             .build();
 
                                     OneTimeWorkRequest worker =

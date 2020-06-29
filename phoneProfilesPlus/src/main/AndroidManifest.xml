@@ -445,14 +445,14 @@
         </receiver>
 
         <!-- no implicit broadcast receivers -->
-        <receiver
-            android:name=".PackageReplacedReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
-            </intent-filter>
-        </receiver>
+<!--        <receiver-->
+<!--            android:name=".PackageReplacedReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
         <!-- widget providers -->
         <receiver

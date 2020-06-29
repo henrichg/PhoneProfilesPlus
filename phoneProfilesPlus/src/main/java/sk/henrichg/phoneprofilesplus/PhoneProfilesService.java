@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -136,7 +137,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_DELAYED_WORK = "delayed_work";
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
     static final String EXTRA_ELAPSED_ALARMS_WORK = "elapsed_alarms_work";
-    static final String EXTRA_FROM_DO_FIRST_START = "from_do_first_start";
+    //static final String EXTRA_FROM_DO_FIRST_START = "from_do_first_start";
 
     //------------------------
 
@@ -369,7 +370,7 @@ public class PhoneProfilesService extends Service
             cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
         cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
         if (atStart) {
-            cancelWork(PackageReplacedReceiver.PACKAGE_REPLACED_WORK_TAG);
+            cancelWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG);
             cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG);
             cancelWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
         }
@@ -3895,31 +3896,82 @@ public class PhoneProfilesService extends Service
 
                         // work after first start
 
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "called work for first start");
-
-                        PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
-
-                        Data workData = new Data.Builder()
-                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
-                                .putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true)
-                                .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
-                                .build();
-
-                        OneTimeWorkRequest worker =
-                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                        .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
-                                        .setInputData(workData)
-                                        .setInitialDelay(5, TimeUnit.SECONDS)
-                                        .build();
+                        int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+                        int actualVersionCode = 0;
                         try {
-                            if (PPApplication.getApplicationStarted(true)) {
-                                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
-                                if (workManager != null)
-                                    workManager.enqueue(worker);
-                            }
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                            actualVersionCode = PPApplication.getVersionCode(pInfo);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
+                        }
+
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "oldVersionCode=" + oldVersionCode);
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "actualVersionCode=" + actualVersionCode);
+
+                        if ((oldVersionCode == 0) || (actualVersionCode == 0) || (oldVersionCode < actualVersionCode)) {
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start work for package replaced");
+
+                            // cancel all PPP notification
+                            NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                            if (notificationManager != null)
+                                notificationManager.cancelAll();
+
+                            PPApplication.applicationPackageReplaced = true;
+
+                            PPApplication.setBlockProfileEventActions(true);
+
+                            PhoneProfilesService.cancelWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG);
+
+                            // work for package replaced
+                            Data workData = new Data.Builder()
+                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
+                                    //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
+                                    .build();
+
+                            OneTimeWorkRequest worker =
+                                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                            .addTag(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG)
+                                            .setInputData(workData)
+                                            //.setInitialDelay(5, TimeUnit.SECONDS)
+                                            .build();
+                            try {
+                                // do not test start of PPP, because is not started in this receiver
+                                //if (PPApplication.getApplicationStarted(true)) {
+                                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                                if (workManager != null)
+                                    workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                                //}
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
+                        else {
+                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start work for first start");
+
+                            PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
+
+                            Data workData = new Data.Builder()
+                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                                    //.putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true)
+                                    .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
+                                    .build();
+
+                            OneTimeWorkRequest worker =
+                                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                            .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
+                                            .setInputData(workData)
+                                            //.setInitialDelay(5, TimeUnit.SECONDS)
+                                            .build();
+                            try {
+                                if (PPApplication.getApplicationStarted(true)) {
+                                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
+                                    if (workManager != null)
+                                        workManager.enqueue(worker);
+                                }
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
                         }
                     //}
 
