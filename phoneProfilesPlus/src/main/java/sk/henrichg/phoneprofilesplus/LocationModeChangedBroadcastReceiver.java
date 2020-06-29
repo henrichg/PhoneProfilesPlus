@@ -40,12 +40,12 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=LocationModeChangedBroadcastReceiver.onReceive");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=LocationModeChangedBroadcastReceiver.onReceive");
                         }
 
                         synchronized (PPApplication.geofenceScannerMutex) {

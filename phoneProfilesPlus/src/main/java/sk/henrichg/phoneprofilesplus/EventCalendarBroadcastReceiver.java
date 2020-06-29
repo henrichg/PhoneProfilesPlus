@@ -44,13 +44,13 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventCalendarBroadcastReceiver.doWork");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventCalendarBroadcastReceiver.doWork");
 
                         //PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventCalendarBroadcastReceiver.doWork");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventCalendarBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

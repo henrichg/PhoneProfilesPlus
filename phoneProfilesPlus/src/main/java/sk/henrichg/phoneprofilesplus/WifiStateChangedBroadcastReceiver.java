@@ -129,20 +129,20 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             ApplicationPreferences.prefEventWifiEnabledForScan)) {
 
                                         // start events handler
-                                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=WifiStateChangedBroadcastReceiver.onReceive (1)");
+                                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=WifiStateChangedBroadcastReceiver.onReceive (1)");
 
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
                                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=WifiStateChangedBroadcastReceiver.onReceive (1)");
+                                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=WifiStateChangedBroadcastReceiver.onReceive (1)");
 
                                         // start events handler
-                                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=WifiStateChangedBroadcastReceiver.onReceive (2)");
+                                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=WifiStateChangedBroadcastReceiver.onReceive (2)");
 
                                         eventsHandler = new EventsHandler(appContext);
                                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_STATE);
 
-                                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=WifiStateChangedBroadcastReceiver.onReceive (2)");
+                                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=WifiStateChangedBroadcastReceiver.onReceive (2)");
                                     }
                                 }
                             }

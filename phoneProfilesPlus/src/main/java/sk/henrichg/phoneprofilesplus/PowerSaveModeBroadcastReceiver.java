@@ -64,13 +64,13 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PowerSaveModeBroadcastReceiver.onReceive");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PowerSaveModeBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

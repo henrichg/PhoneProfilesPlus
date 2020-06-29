@@ -85,7 +85,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -124,9 +124,9 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                //+"|****** EventsHandler.handleEvents"
-                                                //+"|-------- PPApplication.forceUpdateGUI"
-                                                //+"|###### PPApplication.updateGUI"
+                                                +"|****** EventsHandler.handleEvents"
+                                                +"|-------- PPApplication.forceUpdateGUI"
+                                                +"|###### PPApplication.updateGUI"
                                                 //+"|$$$ EventsHandler.handleEvents"
                                                 //+"|$$$ DataWrapper.setProfileActive"
 
@@ -3756,7 +3756,7 @@ public class PPApplication extends Application
             if (!shutdown) {
                 //PPApplication.logE("PPApplication._exitApp", "forceUpdateGUI");
                 //ActivateProfileHelper.updateGUI(context, false, true);
-                //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=PPApplication._exitApp");
+                PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=PPApplication._exitApp");
                 PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false/*, true*/);
 
                 Handler _handler = new Handler(context.getMainLooper());

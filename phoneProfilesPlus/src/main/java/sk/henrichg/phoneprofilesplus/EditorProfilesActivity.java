@@ -2010,7 +2010,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
                         //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                        //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
                         PPApplication.updateGUI(true/*_dataWrapper.context, true, true*/);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);
@@ -2516,7 +2516,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
                 //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
+                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
                 PPApplication.updateGUI(true/*fragment.activityDataWrapper.context, true, true*/);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

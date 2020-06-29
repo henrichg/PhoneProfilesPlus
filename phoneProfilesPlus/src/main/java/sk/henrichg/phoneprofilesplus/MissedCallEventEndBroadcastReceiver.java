@@ -44,12 +44,12 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MissedCallEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MissedCallEventEndBroadcastReceiver.doWork");
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MissedCallEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MissedCallEventEndBroadcastReceiver.doWork");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

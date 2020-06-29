@@ -129,7 +129,7 @@ public class ElapsedAlarmsWorker extends Worker {
                 case ELAPSED_ALARMS_UPDATE_GUI:
                     //UpdateGUIBroadcastReceiver.doWork(false, appContext, refresh, refreshAlsoEditor/*, true*/);
                     //PPApplication.forceUpdateGUI(context.getApplicationContext(), refreshAlsoEditor, true, refresh);
-                    //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=ElapsedAlarmsWorker.doWork");
+                    PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=ElapsedAlarmsWorker.doWork");
                     PPApplication.forceUpdateGUI(context.getApplicationContext(), true, true/*, true*/);
                     break;
                 case ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION:

@@ -524,12 +524,12 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                         }
 
                                         if (startEventsHandler) {
-                                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
+                                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
 
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
 
-                                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
+                                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
                                         }
 
                                     } finally {

@@ -41,13 +41,13 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
+                            PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                             // rescan
                             if (PhoneProfilesService.getInstance() != null) {

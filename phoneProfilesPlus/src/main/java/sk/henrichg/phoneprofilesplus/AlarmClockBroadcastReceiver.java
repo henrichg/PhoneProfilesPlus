@@ -45,13 +45,13 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=AlarmClockBroadcastReceiver.onReceive");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=AlarmClockBroadcastReceiver.onReceive");
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventAlarmClockParameters(_time, alarmPackageName);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=AlarmClockBroadcastReceiver.onReceive");
+                        PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=AlarmClockBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
