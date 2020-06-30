@@ -86,7 +86,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -133,8 +133,8 @@ public class PPApplication extends Application
 
                                                 //+"|MobileCellsRegistrationService"
 
-                                                //+"|ActivateProfileHelper.setVolumes"
-                                                //+"|ActivateProfileHelper.setMediaVolume"
+                                                +"|ActivateProfileHelper.setVolumes"
+                                                +"|ActivateProfileHelper.setMediaVolume"
 
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"
@@ -313,7 +313,6 @@ public class PPApplication extends Application
                                                 //+"|Permissions.checkProfileAccessNotificationPolicy"
                                                 //+"|ActivateProfileHelper.setZenMode"
                                                 //+"|ActivateProfileHelper.setRingerMode"
-                                                //+"|ActivateProfileHelper.setVolumes"
                                                 //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                                 //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                                 //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
