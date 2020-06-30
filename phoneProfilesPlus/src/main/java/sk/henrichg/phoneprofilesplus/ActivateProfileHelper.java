@@ -1128,6 +1128,8 @@ class ActivateProfileHelper {
     }
 
     static void setMediaVolume(Context context, AudioManager audioManager, int value) {
+        PPApplication.logE("ActivateProfileHelper.setMediaVolume", "value="+value);
+
         // Fatal Exception: java.lang.SecurityException: Only SystemUI can disable the safe media volume:
         // Neither user 10118 nor current process has android.permission.STATUS_BAR_SERVICE.
         try {

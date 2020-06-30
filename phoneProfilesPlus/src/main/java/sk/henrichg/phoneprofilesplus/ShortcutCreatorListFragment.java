@@ -4,11 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ShortcutInfo;
-import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -231,7 +228,6 @@ public class ShortcutCreatorListFragment extends Fragment {
             boolean useCustomColor;
             Context context;
             Intent shortcutIntent;
-            ShortcutInfo.Builder shortcutBuilder;
             ShortcutInfoCompat.Builder shortcutBuilderCompat;
 
             @Override
@@ -290,18 +286,10 @@ public class ShortcutCreatorListFragment extends Fragment {
                     intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, profileName);
                     */
 
-                    if (Build.VERSION.SDK_INT < 26) {
-                        shortcutBuilderCompat = new ShortcutInfoCompat.Builder(context, id);
-                        shortcutBuilderCompat.setIntent(shortcutIntent);
-                        shortcutBuilderCompat.setShortLabel(profileName);
-                        shortcutBuilderCompat.setLongLabel(longLabel);
-                    }
-                    else {
-                        shortcutBuilder = new ShortcutInfo.Builder(context, id);
-                        shortcutBuilder.setIntent(shortcutIntent);
-                        shortcutBuilder.setShortLabel(profileName);
-                        shortcutBuilder.setLongLabel(longLabel);
-                    }
+                    shortcutBuilderCompat = new ShortcutInfoCompat.Builder(context, id);
+                    shortcutBuilderCompat.setIntent(shortcutIntent);
+                    shortcutBuilderCompat.setShortLabel(profileName);
+                    shortcutBuilderCompat.setLongLabel(longLabel);
                 }
             }
 
@@ -371,11 +359,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                     else
                         profileShortcutBitmap = profileBitmap;
                     //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
-                    if (Build.VERSION.SDK_INT < 26)
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
-                    else
-                        shortcutBuilder.setIcon(Icon.createWithBitmap(profileShortcutBitmap));
-                    //shortcutBuilder.setIcon(IconCompat.createWithResource(context, R.drawable.ic_event_status_pause));
+                    shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
                 }
 
                 return null;
@@ -392,21 +376,10 @@ public class ShortcutCreatorListFragment extends Fragment {
                     //intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
                     //context.sendBroadcast(intent);
 
-                    if (Build.VERSION.SDK_INT < 26) {
-                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                        Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
-                        //noinspection ConstantConditions
-                        getActivity().setResult(Activity.RESULT_OK, intent);
-                    }
-                    else {
-                        ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-                        if (shortcutManager != null) {
-                            ShortcutInfo shortcutInfo = shortcutBuilder.build();
-                            Intent intent = shortcutManager.createShortcutResultIntent(shortcutInfo);
-                            //noinspection ConstantConditions
-                            getActivity().setResult(Activity.RESULT_OK, intent);
-                        }
-                    }
+                    ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                    Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
+                    //noinspection ConstantConditions
+                    getActivity().setResult(Activity.RESULT_OK, intent);
                 }
 
                 try {
