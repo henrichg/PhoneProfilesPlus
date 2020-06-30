@@ -2151,17 +2151,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
                     //ok = false;
-                    summary = summary + "\n\n" +
+                    summary = summary +
                             getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0) {
                     //ok = false;
-                    summary = summary + "\n\n" +
+                    summary = summary +
                             getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
                     //ok = false;
-                    summary = summary + "\n\n" +
+                    summary = summary +
                             getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 }
