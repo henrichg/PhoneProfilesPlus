@@ -137,8 +137,8 @@ public class PPApplication extends Application
 
                                                 //+"|MobileCellsRegistrationService"
 
-                                                +"|ActivateProfileHelper.setVolumes"
-                                                +"|ActivateProfileHelper.setMediaVolume"
+                                                //+"|ActivateProfileHelper.setVolumes"
+                                                //+"|ActivateProfileHelper.setMediaVolume"
 
                                                 //+"|ActivateProfileHelper.setLocationMode"
                                                 //+"|[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios"
