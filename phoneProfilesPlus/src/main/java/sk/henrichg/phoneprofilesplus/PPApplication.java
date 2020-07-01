@@ -35,8 +35,10 @@ import androidx.multidex.MultiDex;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
@@ -61,6 +63,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -130,6 +133,7 @@ public class PPApplication extends Application
                                                 //+"|###### PPApplication.updateGUI"
                                                 //+"|$$$ EventsHandler.handleEvents"
                                                 //+"|$$$ DataWrapper.setProfileActive"
+                                                //+"|PPApplication.updateGUI"
 
                                                 //+"|MobileCellsRegistrationService"
 
@@ -1874,10 +1878,10 @@ public class PPApplication extends Application
     static void updateGUI(boolean immediate/*Context context, boolean alsoEditor, boolean refresh*/)
     {
         /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh=" + lockRefresh);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport=" + EditorProfilesActivity.doImport);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "alsoEditor=" + alsoEditor);
-            PPApplication.logE("ActivateProfileHelper.updateGUI", "refresh=" + refresh);
+            PPApplication.logE("PPApplication.updateGUI", "lockRefresh=" + lockRefresh);
+            PPApplication.logE("PPApplication.updateGUI", "doImport=" + EditorProfilesActivity.doImport);
+            PPApplication.logE("PPApplication.updateGUI", "alsoEditor=" + alsoEditor);
+            PPApplication.logE("PPApplication.updateGUI", "refresh=" + refresh);
         }*/
 
         /*
@@ -1921,11 +1925,46 @@ public class PPApplication extends Application
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    //if (PPApplication.logEnabled()) {
-                    //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - refresh=" + refresh);
-                    //    PPApplication.logE("[HANDLER] UpdateGUIBroadcastReceiver.setAlarm", "enqueueUniqueWork - alsoEditor=" + alsoEditor);
-                    //}
-                    workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
+                    boolean enqueue = immediate;
+                    if (!enqueue) {
+                        ListenableFuture<List<WorkInfo>> statuses;
+                        statuses = workManager.getWorkInfosByTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
+                        //noinspection TryWithIdenticalCatches
+                        try {
+                            List<WorkInfo> workInfoList = statuses.get();
+                            /*boolean foundRunning = false;
+                            for (WorkInfo workInfo : workInfoList) {
+                                WorkInfo.State state = workInfo.getState();
+                                if (state == WorkInfo.State.RUNNING) {
+                                    // any work is running, equueue also new
+                                    foundRunning = true;
+                                    break;
+                                }
+                            }*/
+                            boolean foundEnqueued = false;
+                            for (WorkInfo workInfo : workInfoList) {
+                                WorkInfo.State state = workInfo.getState();
+                                if (state == WorkInfo.State.ENQUEUED) {
+                                    // any work is already enqueued, is not needed to enqueue new
+                                    foundEnqueued = true;
+                                    break;
+                                }
+                            }
+                            enqueue = !foundEnqueued;
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                            enqueue = true;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            enqueue = true;
+                        }
+                    }
+
+                    PPApplication.logE("PPApplication.updateGUI", "immediate=" + immediate);
+                    PPApplication.logE("PPApplication.updateGUI", "enqueue=" + enqueue);
+
+                    if (enqueue)
+                        workManager.enqueue(worker);
                 }
             }
         } catch (Exception e) {
