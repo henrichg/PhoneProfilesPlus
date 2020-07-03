@@ -113,8 +113,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         Profile profile;
         boolean fullyStarted = PPApplication.applicationFullyStarted;
-        boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-        if ((!fullyStarted) || applicationPackageReplaced)
+        //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+        if ((!fullyStarted) /*|| applicationPackageReplaced*/)
             profile = null;
         else
             profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);

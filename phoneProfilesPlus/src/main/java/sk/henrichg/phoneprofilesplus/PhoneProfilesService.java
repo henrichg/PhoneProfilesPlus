@@ -3916,7 +3916,7 @@ public class PhoneProfilesService extends Service
                             if (notificationManager != null)
                                 notificationManager.cancelAll();
 
-                            PPApplication.applicationPackageReplaced = true;
+                            //PPApplication.applicationPackageReplaced = true;
 
                             PPApplication.setBlockProfileEventActions(true);
 

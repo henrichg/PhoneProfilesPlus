@@ -325,8 +325,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //if (PhoneProfilesService.getInstance() != null)
             //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
             boolean fullyStarted = PPApplication.applicationFullyStarted;
-            boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-            if ((!fullyStarted) || applicationPackageReplaced)
+            //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+            if ((!fullyStarted) /*|| applicationPackageReplaced*/)
                 profile = null;
             else
                 profile = dataWrapper.getActivatedProfile(false, false);

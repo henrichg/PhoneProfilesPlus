@@ -86,7 +86,7 @@ public class DelayedWorksWorker extends Worker {
 
                     // activate profile immediately after start of PPP
                     // this is required for some users, for example: francescocaldelli@gmail.com
-                    PPApplication.applicationPackageReplaced = false;
+                    //PPApplication.applicationPackageReplaced = false;
                     //if (fromDoFirstStart) {
                         //PhoneProfilesService instance = PhoneProfilesService.getInstance();
                         //if (instance != null)

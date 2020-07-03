@@ -1569,12 +1569,12 @@ public class DataWrapper {
         //if (PhoneProfilesService.getInstance() != null)
         //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
         boolean fullyStarted = PPApplication.applicationFullyStarted;
-        boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
+        //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "fullyStarted=" + fullyStarted);
             PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "applicationPackageReplaced=" + applicationPackageReplaced);
         }*/
-        if ((!fullyStarted) || applicationPackageReplaced) {
+        if ((!fullyStarted) /*|| applicationPackageReplaced*/) {
             // do not activate profile during application start
             //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
@@ -1794,7 +1794,7 @@ public class DataWrapper {
         //if (PhoneProfilesService.getInstance() != null)
         //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
         boolean fullyStarted = PPApplication.applicationFullyStarted;
-        fullyStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
+        //fullyStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
 
         if (!fullyStarted)
             return;

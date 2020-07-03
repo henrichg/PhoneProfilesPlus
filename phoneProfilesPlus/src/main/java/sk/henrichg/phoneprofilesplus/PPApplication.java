@@ -83,6 +83,8 @@ public class PPApplication extends Application
     private static WorkManager workManagerInstance;
 
     static boolean applicationFullyStarted = false;
+
+    // this for display of alert dialog when works not started at start of app
     static long startTimeOfApplicationStart = 0;
 
     static final long APPLICATION_START_DELAY = 2 * 60 * 1000;
@@ -742,7 +744,7 @@ public class PPApplication extends Application
     static boolean doNotShowProfileNotification = false;
     private static boolean applicationStarted = false;
     static boolean globalEventsRunStop = true;
-    static boolean applicationPackageReplaced = false;
+    //static boolean applicationPackageReplaced = false;
     static boolean deviceBoot = false;
 
     static boolean restoreFinished = true;
@@ -1557,13 +1559,13 @@ public class PPApplication extends Application
         //PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
         updateGUI(true/*appContext, true, true*/);
 
-        if (/*started && *//*showToast &&*/
-            //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
-                (!applicationPackageReplaced)) {
+        //if (/*started && *//*showToast &&*/
+        //    //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
+        //        (!applicationPackageReplaced)) {
 
             String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_started_toast);
             showToast(appContext, text, Toast.LENGTH_SHORT);
-        }
+        //}
     }
 
     //--------------------------------------------------------------
