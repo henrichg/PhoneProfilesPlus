@@ -1805,6 +1805,9 @@ public class PPApplication extends Application
         /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
 
+        if (!PPApplication.applicationFullyStarted)
+            return;
+
         // icon widget
         try {
             //IconWidgetProvider myWidget = new IconWidgetProvider();

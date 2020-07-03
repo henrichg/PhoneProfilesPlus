@@ -152,6 +152,7 @@ public class DelayedWorksWorker extends Worker {
                             //PPApplication.updateNotificationAndWidgets(true, true, appContext);
                             //PPApplication.updateGUI(appContext, true, true);
                         }
+
                         //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=DelayedWorksWorker.doWork");
                         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
                     //}
