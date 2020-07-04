@@ -51,6 +51,7 @@ android {
         //disable 'MissingTranslation'
         //disable 'ManifestResource'
         disable 'LongLogTag'
+        abortOnError false
     }
 }
 
