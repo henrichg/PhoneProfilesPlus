@@ -6693,19 +6693,19 @@ public class PhoneProfilesService extends Service
 
     //---------------------------
 
+    //DO NOT CALL THIS !!! THIS IS CALLED ALSO WHEN, FOR EXAMPLE, ACTIVATOR GETS DISPLAYED !!!
     /*
-    DO NOT CALL THIS !!! THIS IS CALLED ALSO WHEN, FOR EXAMPLE, ACTIVATOR GETS DISPLAYED !!!
     @Override
     public void onTaskRemoved(Intent rootIntent)
     {
-        //PPApplication.logE("$$$ PhoneProfilesService.onTaskRemoved", "xxx");
+        PPApplication.logE("$$$ PhoneProfilesService.onTaskRemoved", "rootIntent="+rootIntent.toString());
 
         //if (PPApplication.screenTimeoutHandler != null) {
         //    PPApplication.screenTimeoutHandler.post(new Runnable() {
         //        public void run() {
-                    //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
-                    PPApplication.logE("******** PhoneProfilesService.onTaskRemoved", "remove wakelock");
-                    ActivateProfileHelper.removeKeepScreenOnView();
+        //            //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
+        //            PPApplication.logE("******** PhoneProfilesService.onTaskRemoved", "remove wakelock");
+        //            ActivateProfileHelper.removeKeepScreenOnView();
         //        }
         //    });
         //}

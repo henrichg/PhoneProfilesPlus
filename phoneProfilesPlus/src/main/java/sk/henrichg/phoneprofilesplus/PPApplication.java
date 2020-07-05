@@ -120,6 +120,7 @@ public class PPApplication extends Application
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                                 //+"|PhoneProfilesService.onConfigurationChanged"
                                                 //+"|PhoneProfilesService.stopReceiver"
+                                                +"|PhoneProfilesService.onTaskRemoved"
                                                 +"|PhoneProfilesService.onDestroy"
                                                 //+"|PhoneProfilesService.cancelWork"
                                                 +"|DataWrapper.firstStartEvents"
