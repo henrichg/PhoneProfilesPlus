@@ -2241,7 +2241,7 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+((int) this._id));
+        PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+((int) this._id));
         PPApplication.elapsedAlarmsEventDelayStartWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+((int) this._id));
 
         this._isInDelayStart = false;
@@ -2496,7 +2496,7 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+((int) this._id));
+        PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+((int) this._id));
         PPApplication.elapsedAlarmsEventDelayEndWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+((int) this._id));
 
         this._isInDelayEnd = false;

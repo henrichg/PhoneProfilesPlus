@@ -493,7 +493,7 @@ class TwilightScanner {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-                PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK);
+                PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK);
 
                 // set alarm
                 /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {

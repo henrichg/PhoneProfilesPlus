@@ -130,6 +130,9 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
+                                                +"|PPApplication.cancelWork"
+                                                +"|WifiScanWorker.scheduleWork"
+
                                                 //+"|****** EventsHandler.handleEvents"
                                                 //+"|-------- PPApplication.forceUpdateGUI"
                                                 //+"|###### PPApplication.updateGUI"
@@ -1493,6 +1496,112 @@ public class PPApplication extends Application
         }
         else
             return null;
+    }
+
+    static void cancelWork(String name) {
+        // cancel only enqueued works
+        WorkManager workManager = PPApplication.getWorkManagerInstance();
+        boolean foundEnqueued = false;
+        boolean foundRunning = false;
+        if (workManager != null) {
+            ListenableFuture<List<WorkInfo>> statuses;
+            statuses = workManager.getWorkInfosByTag(name);
+            //noinspection TryWithIdenticalCatches
+            try {
+                List<WorkInfo> workInfoList = statuses.get();
+                for (WorkInfo workInfo : workInfoList) {
+                    WorkInfo.State state = workInfo.getState();
+                    if (state == WorkInfo.State.RUNNING) {
+                        // any work is running, do not cancel it
+                        foundRunning = true;
+                        break;
+                    }
+                }
+                for (WorkInfo workInfo : workInfoList) {
+                    WorkInfo.State state = workInfo.getState();
+                    if (state == WorkInfo.State.ENQUEUED) {
+                        // any work is enqueued, cancel it
+                        foundEnqueued = true;
+                        break;
+                    }
+                }
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (foundEnqueued && (!foundRunning)) {
+                PPApplication.logE("PPApplication.cancelWork", "name="+name+" enqueued");
+                try {
+                    workManager.cancelAllWorkByTag(name);
+                } catch (Exception e) {
+                    //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                }
+                try {
+                    workManager.cancelUniqueWork(name);
+                } catch (Exception e) {
+                    //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                }
+            }
+        }
+    }
+
+    static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
+        //Log.e("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
+        if (atStart) {
+            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK);
+            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
+        }
+        if (!atStart)
+            cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+        for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
+            cancelWork(tag);
+        PPApplication.elapsedAlarmsProfileDurationWork.clear();
+        for (String tag : PPApplication.elapsedAlarmsRunApplicationWithDelayWork)
+            cancelWork(tag);
+        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.clear();
+        for (String tag : PPApplication.elapsedAlarmsEventDelayStartWork)
+            cancelWork(tag);
+        PPApplication.elapsedAlarmsEventDelayStartWork.clear();
+        for (String tag : PPApplication.elapsedAlarmsEventDelayEndWork)
+            cancelWork(tag);
+        PPApplication.elapsedAlarmsEventDelayEndWork.clear();
+        for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
+            cancelWork(tag);
+        PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
+        if (atStart) {
+            cancelWork(DisableInternalChangeWorker.WORK_TAG);
+            cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
+        }
+        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
+        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
+        cancelWork(BluetoothScanWorker.WORK_TAG);
+        cancelWork(BluetoothScanWorker.WORK_TAG_SHORT);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
+        cancelWork(RestartEventsWithDelayWorker.WORK_TAG);
+        cancelWork(GeofenceScanWorker.WORK_TAG);
+        cancelWork(GeofenceScanWorker.WORK_TAG_SHORT);
+        cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
+        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
+        if (atStart)
+            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
+        cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
+        if (atStart) {
+            cancelWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG);
+            cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG);
+            cancelWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
+        }
+        cancelWork(SearchCalendarEventsWorker.WORK_TAG);
+        cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
+        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
+        cancelWork(WifiScanWorker.WORK_TAG);
+        cancelWork(WifiScanWorker.WORK_TAG_SHORT);
+        cancelWork(WifiScanWorker.WORK_TAG_START_SCAN);
     }
 
     /*
@@ -3730,7 +3839,7 @@ public class PPApplication extends Application
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
-            PhoneProfilesService.cancelAllWorks(false);
+            PPApplication.cancelAllWorks(false);
 
             if (dataWrapper != null)
                 dataWrapper.stopAllEvents(false, false, false, false);

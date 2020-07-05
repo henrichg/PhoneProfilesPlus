@@ -171,7 +171,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.recordException(e);
             }
 
-            PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int) profile._id);
+            PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int) profile._id);
             PPApplication.elapsedAlarmsProfileDurationWork.remove(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int) profile._id);
         }
         Profile.setActivatedProfileEndDurationTime(context, 0);

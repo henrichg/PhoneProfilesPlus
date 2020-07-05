@@ -145,7 +145,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_DONATION_TAG_WORK);
+        PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {

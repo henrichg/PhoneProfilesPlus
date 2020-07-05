@@ -179,7 +179,7 @@ public class WifiScanWorker extends Worker {
     }
 
     static void scheduleWork(final Context context, /*final boolean useHandler,*/ final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
-        //PPApplication.logE("WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
+        PPApplication.logE("WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -211,8 +211,8 @@ public class WifiScanWorker extends Worker {
                 setWaitForResults(context, false);
                 WifiScanner.setForceOneWifiScan(context, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                PhoneProfilesService.cancelWork(WORK_TAG);
-                PhoneProfilesService.cancelWork(WORK_TAG_SHORT);
+                PPApplication.cancelWork(WORK_TAG);
+                PPApplication.cancelWork(WORK_TAG_SHORT);
 
                 //PPApplication.logE("WifiScanWorker._cancelWork", "CANCELED");
 

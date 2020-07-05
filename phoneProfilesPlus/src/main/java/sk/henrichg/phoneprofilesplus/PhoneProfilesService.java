@@ -327,62 +327,6 @@ public class PhoneProfilesService extends Service
         PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
     }
 
-    static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
-        //Log.e("------------ PhoneProfilesService.cancelAllWorks", "atStart="+atStart);
-        if (atStart) {
-            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK);
-            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
-        }
-        if (!atStart)
-            cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
-        for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
-            cancelWork(tag);
-        PPApplication.elapsedAlarmsProfileDurationWork.clear();
-        for (String tag : PPApplication.elapsedAlarmsRunApplicationWithDelayWork)
-            cancelWork(tag);
-        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.clear();
-        for (String tag : PPApplication.elapsedAlarmsEventDelayStartWork)
-            cancelWork(tag);
-        PPApplication.elapsedAlarmsEventDelayStartWork.clear();
-        for (String tag : PPApplication.elapsedAlarmsEventDelayEndWork)
-            cancelWork(tag);
-        PPApplication.elapsedAlarmsEventDelayEndWork.clear();
-        for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
-            cancelWork(tag);
-        PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
-        if (atStart) {
-            cancelWork(DisableInternalChangeWorker.WORK_TAG);
-            cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
-        }
-        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
-        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
-        cancelWork(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG);
-        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
-        cancelWork(BluetoothScanWorker.WORK_TAG);
-        cancelWork(BluetoothScanWorker.WORK_TAG_SHORT);
-        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
-        cancelWork(RestartEventsWithDelayWorker.WORK_TAG);
-        cancelWork(GeofenceScanWorker.WORK_TAG);
-        cancelWork(GeofenceScanWorker.WORK_TAG_SHORT);
-        cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
-        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
-        if (atStart)
-            cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
-        cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
-        if (atStart) {
-            cancelWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG);
-            cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG);
-            cancelWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
-        }
-        cancelWork(SearchCalendarEventsWorker.WORK_TAG);
-        cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
-        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
-        cancelWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
-        cancelWork(WifiScanWorker.WORK_TAG);
-        cancelWork(WifiScanWorker.WORK_TAG_SHORT);
-        cancelWork(WifiScanWorker.WORK_TAG_START_SCAN);
-    }
-
     @Override
     public void onDestroy()
     {
@@ -478,28 +422,7 @@ public class PhoneProfilesService extends Service
         PPApplication.applicationFullyStarted = false;
 
         // cancel works
-        //cancelAllWorks(appContext);
-    }
-
-    static void cancelWork(String name) {
-        if (PPApplication.getApplicationStarted(true)) {
-            try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null)
-                    workManager.cancelAllWorkByTag(name);
-            } catch (Exception e) {
-                //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
-            try {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null)
-                    workManager.cancelUniqueWork(name);
-            } catch (Exception e) {
-                //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            }
-        }
+        //PPApplication.cancelAllWorks(appContext);
     }
 
     static PhoneProfilesService getInstance() {
@@ -2940,8 +2863,8 @@ public class PhoneProfilesService extends Service
 
     private void cancelBackgroundScanningWorker() {
         //PPApplication.logE("[RJS] PhoneProfilesService.cancelBackgroundScanningWorker", "xxx");
-        PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
-        PhoneProfilesService.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
+        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
     }
 
     void scheduleBackgroundScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
@@ -2958,8 +2881,8 @@ public class PhoneProfilesService extends Service
                 eventAllowed = true;
             }
             if (eventAllowed) {
-                cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
-                cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
+                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
 
                 OneTimeWorkRequest periodicEventsHandlerWorker =
                         new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
@@ -3920,7 +3843,7 @@ public class PhoneProfilesService extends Service
 
                             PPApplication.setBlockProfileEventActions(true);
 
-                            PhoneProfilesService.cancelWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG);
+                            PPApplication.cancelWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG);
 
                             // work for package replaced
                             Data workData = new Data.Builder()
@@ -3948,7 +3871,7 @@ public class PhoneProfilesService extends Service
                         else {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start work for first start");
 
-                            PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
+                            PPApplication.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
                             Data workData = new Data.Builder()
                                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
@@ -5753,7 +5676,7 @@ public class PhoneProfilesService extends Service
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PhoneProfilesService.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK);
+        PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
