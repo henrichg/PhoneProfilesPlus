@@ -3840,7 +3840,8 @@ public class PPApplication extends Application
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
-            PPApplication.cancelAllWorks(false);
+            if (!shutdown)
+                PPApplication.cancelAllWorks(false);
 
             if (dataWrapper != null)
                 dataWrapper.stopAllEvents(false, false, false, false);
