@@ -130,8 +130,8 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|PPApplication.cancelWork"
-                                                +"|WifiScanWorker.scheduleWork"
+                                                //+"|PPApplication.cancelWork"
+                                                //+"|WifiScanWorker.scheduleWork"
 
                                                 //+"|****** EventsHandler.handleEvents"
                                                 //+"|-------- PPApplication.forceUpdateGUI"
@@ -1531,7 +1531,7 @@ public class PPApplication extends Application
                 e.printStackTrace();
             }
             if (foundEnqueued && (!foundRunning)) {
-                PPApplication.logE("PPApplication.cancelWork", "name="+name+" enqueued");
+                //PPApplication.logE("PPApplication.cancelWork", "name="+name+" enqueued");
                 try {
                     workManager.cancelAllWorkByTag(name);
                 } catch (Exception e) {
