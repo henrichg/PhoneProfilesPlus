@@ -54,7 +54,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     }
 
     static void enqueueWork() {
-        PhoneProfilesService.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+        PPApplication.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
                         .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
