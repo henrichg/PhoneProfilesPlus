@@ -887,9 +887,8 @@ class EventsHandler {
 
             doEndHandler(dataWrapper);
 
-            // refresh GUI
-            //Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-            //LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+            // refresh GUI (for Editor sensors status)
+            PPApplication.updateGUI(false); //context, true, true);
 
 
             //dataWrapper.invalidateDataWrapper();
