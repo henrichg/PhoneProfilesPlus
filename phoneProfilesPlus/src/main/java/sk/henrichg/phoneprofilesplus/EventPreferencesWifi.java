@@ -480,10 +480,13 @@ class EventPreferencesWifi extends EventPreferences {
                                 }
                                 // not use scanner data
                                 done = true;
-                            } else if (_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) {
+                            } else
+                            if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                                (_connectionType == EventPreferencesWifi.CTYPE_NEARBY)) {
                                 eventsHandler.wifiPassed = false;
                                 for (boolean conn : connected) {
                                     if (conn) {
+                                        // when is connected to configured ssid, is also nearby
                                         eventsHandler.wifiPassed = true;
                                         break;
                                     }
