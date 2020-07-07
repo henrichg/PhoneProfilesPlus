@@ -7,13 +7,13 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 @SuppressWarnings("WeakerAccess")
-public class PPWifiNetworkCallback extends ConnectivityManager.NetworkCallback {
+public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private final Context appContext;
 
     static boolean connected = false;
 
-    PPWifiNetworkCallback(Context context) {
+    WifiNetworkCallback(Context context) {
         appContext = context.getApplicationContext();
     }
 

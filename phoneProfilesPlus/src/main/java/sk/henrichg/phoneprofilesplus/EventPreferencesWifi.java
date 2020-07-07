@@ -419,7 +419,7 @@ class EventPreferencesWifi extends EventPreferences {
                                             //if ((networkInfo != null) && networkInfo.isConnected()) {
                                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                                                    wifiConnected = PPWifiNetworkCallback.connected;
+                                                    wifiConnected = WifiNetworkCallback.connected;
                                                     break;
                                                 }
                                             //}

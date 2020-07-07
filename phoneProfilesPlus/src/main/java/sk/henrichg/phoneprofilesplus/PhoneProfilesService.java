@@ -1048,7 +1048,7 @@ public class PhoneProfilesService extends Service
                                 .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                                 .build();
 
-                        PPApplication.wifiConnectionCallback = new PPWifiNetworkCallback(appContext);
+                        PPApplication.wifiConnectionCallback = new WifiNetworkCallback(appContext);
                         connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
                     }
                 } catch (Exception e) {

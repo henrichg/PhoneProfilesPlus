@@ -1060,7 +1060,7 @@ public class PPApplication extends Application
     static NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
     static DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
     //static WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
-    static PPWifiNetworkCallback wifiConnectionCallback = null;
+    static WifiNetworkCallback wifiConnectionCallback = null;
     static BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
     static BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
     static WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
