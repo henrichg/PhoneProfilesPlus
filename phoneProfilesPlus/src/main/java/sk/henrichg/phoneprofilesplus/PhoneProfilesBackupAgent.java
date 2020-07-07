@@ -67,8 +67,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
+                    PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadProfileActivationData(getApplicationContext());
 
                     //if (PPApplication.logEnabled()) {

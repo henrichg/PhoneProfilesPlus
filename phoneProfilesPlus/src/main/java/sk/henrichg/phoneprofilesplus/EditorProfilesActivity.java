@@ -1814,8 +1814,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                     }
 
-                    PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
+                    PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadProfileActivationData(getApplicationContext());
                 }
                 else

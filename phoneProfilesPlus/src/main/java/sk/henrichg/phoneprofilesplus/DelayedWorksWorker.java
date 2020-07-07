@@ -516,8 +516,8 @@ public class DelayedWorksWorker extends Worker {
                         PPApplication.recordException(ee);
                     }
 
-                    PPApplication.loadApplicationPreferences(appContext);
                     PPApplication.loadGlobalApplicationData(appContext);
+                    PPApplication.loadApplicationPreferences(appContext);
                     PPApplication.loadProfileActivationData(appContext);
 
                     /*

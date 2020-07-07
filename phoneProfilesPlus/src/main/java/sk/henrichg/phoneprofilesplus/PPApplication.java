@@ -1227,6 +1227,10 @@ public class PPApplication extends Application
 
         PPApplication.logE("##### PPApplication.onCreate", "continue onCreate()");
 
+        loadGlobalApplicationData(getApplicationContext());
+        loadApplicationPreferences(getApplicationContext());
+        loadProfileActivationData(getApplicationContext());
+
         workManagerInstance = WorkManager.getInstance(getApplicationContext());
         PPApplication.logE("##### PPApplication.onCreate", "workManagerInstance="+workManagerInstance);
 
@@ -1247,10 +1251,6 @@ public class PPApplication extends Application
         magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
         proximitySensor = getProximitySensor(getApplicationContext());
         lightSensor = getLightSensor(getApplicationContext());
-
-        loadApplicationPreferences(getApplicationContext());
-        loadGlobalApplicationData(getApplicationContext());
-        loadProfileActivationData(getApplicationContext());
 
         if (logEnabled()) {
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi=" + deviceIsXiaomi);

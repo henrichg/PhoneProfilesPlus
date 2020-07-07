@@ -1,4 +1,7 @@
 ------------------------
+Ak sa spravi reboot, onDestrou PPService nastavi, ze nie je spustena aplikacia.
+Takze po boote sa PPService nespusti z PPApplication. Treba cakat na BOOT_COMPLETED.
+------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
 
 nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:

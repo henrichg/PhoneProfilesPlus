@@ -219,15 +219,15 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
 
         if (PPApplication.getInstance() == null) {
+            PPApplication.loadGlobalApplicationData(getApplicationContext());
+            PPApplication.loadApplicationPreferences(getApplicationContext());
+            PPApplication.loadProfileActivationData(getApplicationContext());
+
             PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
             PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
             PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
             PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
             PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
-
-            PPApplication.loadApplicationPreferences(getApplicationContext());
-            PPApplication.loadGlobalApplicationData(getApplicationContext());
-            PPApplication.loadProfileActivationData(getApplicationContext());
         }
 
         serviceHasFirstStart = false;
@@ -3622,12 +3622,12 @@ public class PhoneProfilesService extends Service
                                     if (PPApplication.rootMutex.rooted) {
                                         PackageManager packageManager = appContext.getPackageManager();
                                         // SuperSU
-                                        Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
-                                        if (intent != null)
+                                        Intent _intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+                                        if (_intent != null)
                                             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
                                         else {
-                                            intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
-                                            if (intent != null)
+                                            _intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+                                            if (_intent != null)
                                                 PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
                                             else
                                                 PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
