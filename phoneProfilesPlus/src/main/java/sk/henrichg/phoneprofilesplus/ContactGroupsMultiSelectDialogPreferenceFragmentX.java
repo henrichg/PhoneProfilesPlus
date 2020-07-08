@@ -52,9 +52,11 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
             {
                 ContactGroup contactGroup = (ContactGroup)listAdapter.getItem(position);
-                contactGroup.toggleChecked();
-                ContactGroupViewHolder viewHolder = (ContactGroupViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(contactGroup.checked);
+                if (contactGroup != null) {
+                    contactGroup.toggleChecked();
+                    ContactGroupViewHolder viewHolder = (ContactGroupViewHolder) item.getTag();
+                    viewHolder.checkBox.setChecked(contactGroup.checked);
+                }
             }
         });
 

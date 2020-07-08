@@ -12,13 +12,13 @@ import android.widget.TextView;
 class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
 {
     private final LayoutInflater inflater;
-    //private Context context;
+    private Context context;
 
     ContactGroupsMultiSelectPreferenceAdapterX(Context context)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        //this.context = context; 
+        this.context = context;
     }
 
     public int getCount() {
@@ -67,7 +67,8 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
                 public void onClick(View v) {
                     CheckBox cb = (CheckBox) v;
                     ContactGroup contactGroup = (ContactGroup) cb.getTag();
-                    contactGroup.checked = cb.isChecked();
+                    if (contactGroup != null)
+                        contactGroup.checked = cb.isChecked();
                 }
             });
         }
@@ -92,10 +93,16 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
             // access the ContactGroup in onClick() when the CheckBox is toggled.
             checkBox.setTag(contactGroup);
 
-            // Display ContactGroup data
-            textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
+            if (contactGroup != null) {
+                // Display ContactGroup data
+                textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
-            checkBox.setChecked(contactGroup.checked);
+                checkBox.setChecked(contactGroup.checked);
+            }
+            else {
+                textViewDisplayName.setText(context.getString(R.string.empty_string));
+                checkBox.setChecked(false);
+            }
         }
 
         return convertView;
