@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -14,6 +13,8 @@ import androidx.work.WorkManager;
 import java.util.concurrent.TimeUnit;
 
 public class BootUpReceiver extends BroadcastReceiver {
+
+    static boolean bootUpCompleted = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -29,9 +30,12 @@ public class BootUpReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         boolean okAction = false;
         if (action != null) {
-            if (Build.VERSION.SDK_INT >= 24)
-                okAction = action.equals(Intent.ACTION_LOCKED_BOOT_COMPLETED);
-            if (!okAction)
+
+            // support for Direct boot
+            //if (Build.VERSION.SDK_INT >= 24)
+            //    okAction = action.equals(Intent.ACTION_LOCKED_BOOT_COMPLETED);
+
+            //if (!okAction)
                 okAction = action.equals(Intent.ACTION_BOOT_COMPLETED) ||
                         action.equals("android.intent.action.QUICKBOOT_POWERON") ||
                         action.equals("com.htc.intent.action.QUICKBOOT_POWERON");
@@ -69,6 +73,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                         if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
+                            PPApplication.logE("BootUpReceiver.onReceive", "bootUpCompleted="+bootUpCompleted);
 
                             PPApplication.deviceBoot = true;
 
@@ -89,7 +94,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                                 PPApplication.startPPService(appContext, serviceIntent, true);
                             }
-                            else {
+                            else
+                            if (!bootUpCompleted) {
                                 // service is started
                                 PPApplication.logE("BootUpReceiver.onReceive", "activate profiles");
 

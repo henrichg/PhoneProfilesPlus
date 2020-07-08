@@ -82,6 +82,8 @@ public class DelayedWorksWorker extends Worker {
                 case DELAYED_WORK_AFTER_FIRST_START:
                     PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
 
+                    BootUpReceiver.bootUpCompleted = true;
+
                     //boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
 
                     // activate profile immediately after start of PPP
