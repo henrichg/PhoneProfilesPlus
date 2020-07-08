@@ -830,7 +830,7 @@ public class PPApplication extends Application
     static final String EXTRA_EVENT_ID = "event_id";
     static final String EXTRA_STARTUP_SOURCE = "startup_source";
     static final String EXTRA_EVENT_STATUS = "event_status";
-    static final String EXTRA_APPLICATION_START = "application_start";
+    //static final String EXTRA_APPLICATION_START = "application_start";
     static final String EXTRA_DEVICE_BOOT = "device_boot";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
@@ -1457,7 +1457,7 @@ public class PPApplication extends Application
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, false);
+                //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, false);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                 startPPService(getApplicationContext(), serviceIntent, true);

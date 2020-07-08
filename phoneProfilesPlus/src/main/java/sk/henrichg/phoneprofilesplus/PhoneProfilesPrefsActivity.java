@@ -278,7 +278,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-            serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+            //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
             PPApplication.startPPService(this, serviceIntent, true);
@@ -297,7 +297,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                 PPApplication.startPPService(this, serviceIntent, true);

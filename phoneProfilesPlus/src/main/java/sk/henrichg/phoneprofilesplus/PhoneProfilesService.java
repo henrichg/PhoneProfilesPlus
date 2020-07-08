@@ -3536,7 +3536,8 @@ public class PhoneProfilesService extends Service
         boolean startOnPackageReplace = false;
 
         if (intent != null) {
-            applicationStart = intent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
+            //applicationStart = intent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
+            applicationStart = true;
             //deactivateProfile = intent.getBooleanExtra(EXTRA_DEACTIVATE_PROFILE, false);
             activateProfiles = intent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
             deviceBoot = intent.getBooleanExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
