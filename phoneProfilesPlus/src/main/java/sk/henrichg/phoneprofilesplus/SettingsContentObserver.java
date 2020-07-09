@@ -163,7 +163,7 @@ class SettingsContentObserver  extends ContentObserver {
             //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
             //PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_VOICE_CALL="+value);
             int value = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_MUSIC="+value);
+            //PPApplication.logE("[VOL] SettingsContentObserver.onChange", "STREAM_MUSIC="+value);
             //////////////
         }
 
