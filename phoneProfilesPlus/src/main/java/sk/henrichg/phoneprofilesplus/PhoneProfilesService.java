@@ -5477,7 +5477,7 @@ public class PhoneProfilesService extends Service
         try {
             wifiSleepPolicy = Settings.Global.getInt(context.getContentResolver(), Settings.Global.WIFI_SLEEP_POLICY);
         } catch (Settings.SettingNotFoundException e) {
-            PPApplication.recordException(e);
+            //PPApplication.recordException(e);
         }
         return wifiSleepPolicy == Settings.Global.WIFI_SLEEP_POLICY_NEVER;
     }
