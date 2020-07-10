@@ -131,8 +131,9 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                //+"|PPApplication.cancelWork"
-                                                //+"|WifiScanWorker.scheduleWork"
+                                                //+"|********* RingerModeChangeReceiver.setRingerMode"
+                                                //+"|********* PPNotificationListenerService.setZenMode"
+                                                //+"|********* InterruptionFilterChangedBroadcastReceiver.setZenMode"
 
                                                 //+"|****** EventsHandler.handleEvents"
                                                 //+"|-------- PPApplication.forceUpdateGUI"

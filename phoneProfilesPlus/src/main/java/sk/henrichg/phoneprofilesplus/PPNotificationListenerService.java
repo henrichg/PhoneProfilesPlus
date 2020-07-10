@@ -269,25 +269,25 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     case NotificationListenerService.INTERRUPTION_FILTER_ALL:
                         //if (ActivateProfileHelper.vibrationIsOn(/*getApplicationContext(), */audioManager, true))
                         if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-                            zenMode = 4;
+                            zenMode = Profile.ZENMODE_ALL_AND_VIBRATE;
                         else
-                            zenMode = 1;
+                            zenMode = Profile.ZENMODE_ALL;
                         break;
                     case NotificationListenerService.INTERRUPTION_FILTER_PRIORITY:
                         //if (ActivateProfileHelper.vibrationIsOn(/*getApplicationContext(), */audioManager, true))
                         if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-                            zenMode = 5;
+                            zenMode = Profile.ZENMODE_PRIORITY_AND_VIBRATE;
                         else
-                            zenMode = 2;
+                            zenMode = Profile.ZENMODE_PRIORITY;
                         break;
                     case NotificationListenerService.INTERRUPTION_FILTER_NONE:
-                        zenMode = 3;
+                        zenMode = Profile.ZENMODE_NONE;
                         break;
                     case NotificationListenerService.INTERRUPTION_FILTER_ALARMS: // new filter - Alarm only - Android M
-                        zenMode = 6;
+                        zenMode = Profile.ZENMODE_ALARMS;
                         break;
                 }
-                //PPApplication.logE(TAG, "onInterruptionFilterChanged(zenMode=" + zenMode + ')');
+                //PPApplication.logE("********* PPNotificationListenerService.setZenMode", "from=PPNotificationListenerService.onInterruptionFilterChanged zenMode="+zenMode);
                 if (zenMode != 0) {
                     RingerModeChangeReceiver.notUnlinkVolumes = true;
                     ActivateProfileHelper.saveRingerMode(getApplicationContext(), Profile.RINGERMODE_ZENMODE);
@@ -309,32 +309,33 @@ public class PPNotificationListenerService extends NotificationListenerService {
             case ActivateProfileHelper.ZENMODE_ALL:
                 //if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
                 if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-                    zenMode = 4;
+                    zenMode = Profile.ZENMODE_ALL_AND_VIBRATE;
                 else
-                    zenMode = 1;
+                    zenMode = Profile.ZENMODE_ALL;
                 break;
             case ActivateProfileHelper.ZENMODE_PRIORITY:
                 //if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
                 if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-                    zenMode = 5;
+                    zenMode = Profile.ZENMODE_PRIORITY_AND_VIBRATE;
                 else
-                    zenMode = 2;
+                    zenMode = Profile.ZENMODE_PRIORITY;
                 break;
             case ActivateProfileHelper.ZENMODE_NONE:
-                zenMode = 3;
+                zenMode = Profile.ZENMODE_NONE;
                 break;
             case ActivateProfileHelper.ZENMODE_ALARMS: // new filter - Alarm only - Android M
-                zenMode = 6;
+                zenMode = Profile.ZENMODE_ALARMS;
                 break;
         }
         //PPApplication.logE("PPNotificationListenerService.getZenMode", "zenMode=" + zenMode);
         return zenMode;
     }
 
-    public static void setZenMode(Context context, AudioManager audioManager) {
+    public static void setZenMode(Context context, AudioManager audioManager, String from) {
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
             int zenMode = getZenMode(context, audioManager);
+            //PPApplication.logE("********* PPNotificationListenerService.setZenMode", "from="+from+" zenMode="+zenMode);
             if (zenMode != 0) {
                 ActivateProfileHelper.saveRingerMode(context, Profile.RINGERMODE_ZENMODE);
                 ActivateProfileHelper.saveZenMode(context, zenMode);

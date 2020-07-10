@@ -4782,6 +4782,7 @@ class ActivateProfileHelper {
         }
     }
 
+    // called only from PPApplication.loadProfileActivationData()
     static void getRingerMode(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
@@ -4801,6 +4802,7 @@ class ActivateProfileHelper {
         }
     }
 
+    // called only from PPApplication.loadProfileActivationData()
     static void getZenMode(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
