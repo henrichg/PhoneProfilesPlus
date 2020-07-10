@@ -1913,13 +1913,13 @@ class ActivateProfileHelper {
                     //    PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "not audible ringer mode in profile");
                 }// else
                  //   PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "vibrate ringer mode in profile");
-            } else {
+            } /*else {
                 if ((profile._volumeRingerMode == 0) && (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT)) {
                     // change ringer mode to Ringing
-                    //PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to ringing");
+                    PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to ringing");
                     profile._volumeRingerMode = Profile.RINGERMODE_RING;
                 }
-            }
+            }*/
         }
     }
 
@@ -2062,6 +2062,11 @@ class ActivateProfileHelper {
 
         int ringerMode;
         int zenMode;
+
+        /*if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.setRingerMode", "profile._volumeRingerMode=" + profile._volumeRingerMode);
+            PPApplication.logE("ActivateProfileHelper.setRingerMode", "profile._volumeZenMode=" + profile._volumeZenMode);
+        }*/
 
         if (forProfileActivation) {
             if (profile._volumeRingerMode != 0) {
