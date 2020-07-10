@@ -526,7 +526,7 @@ public class DataWrapper {
         //        /*false, monochrome, monochromeValue,*/
         //        startupSource, false,true, false)) {
         if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context)) {
-            //PPApplication.logE("DataWrapper.activateProfileFromEvent", "***********");
+            PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromEvent", "called is DataWrapper._activateProfile()");
             _activateProfile(profile, merged, startupSource, forRestartEvents);
         }
     }
@@ -1752,6 +1752,7 @@ public class DataWrapper {
                     if (testGrant)
                         granted = !EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context);
                     if (granted) {
+                        PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromMainThread", "called is DataWrapper._activateProfile()");
                         dataWrapper._activateProfile(profile, merged, startupSource, false);
                         if (interactive) {
                             DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
@@ -1847,8 +1848,10 @@ public class DataWrapper {
                             //if (Permissions.grantProfilePermissions(context, _profile, false, true,
                             //        /*false, monochrome, monochromeValue,*/
                             //        _startupSource, true, true, false))
-                            if (!EditorProfilesActivity.displayPreferencesErrorNotification(_profile, null, context))
+                            if (!EditorProfilesActivity.displayPreferencesErrorNotification(_profile, null, context)) {
+                                PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(1) called is DataWrapper.activateProfileFromMainThread");
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
+                            }
                             else {
                                 Intent returnIntent = new Intent();
                                 _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -1905,8 +1908,10 @@ public class DataWrapper {
                 }
             }
             else {
-                if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context))
+                if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context)) {
+                    PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(2) called is DataWrapper.activateProfileFromMainThread");
                     activateProfileFromMainThread(profile, false, startupSource, true, activity, false);
+                }
                 else {
                     Intent returnIntent = new Intent();
                     activity.setResult(Activity.RESULT_CANCELED, returnIntent);
@@ -2044,9 +2049,11 @@ public class DataWrapper {
         if (actProfile && (profile != null))
         {
             // profile activation
-            if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
+            if (startupSource == PPApplication.STARTUP_SOURCE_BOOT) {
+                PPApplication.logE("&&&&&&& DataWrapper.activateProfile", "called is DataWrapper.activateProfileFromMainThread");
                 activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
-                                        false, null, testGrant);
+                        false, null, testGrant);
+            }
             else
                 activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
         }
@@ -2092,7 +2099,7 @@ public class DataWrapper {
         //        startupSource, true,true, false)) {
         if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, context)) {
             // activateProfileAfterDuration is already called from handlerThread
-            //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
+            PPApplication.logE("&&&&&&& DataWrapper.activateProfileAfterDuration", "called is DataWrapper._activateProfile()");
             _activateProfile(profile, false, startupSource, false);
         }
     }

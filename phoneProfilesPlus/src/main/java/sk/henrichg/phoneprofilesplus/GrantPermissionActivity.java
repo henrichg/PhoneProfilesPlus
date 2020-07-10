@@ -1752,8 +1752,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            if (activateProfile)
-                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive,null, true);
+            if (activateProfile) {
+                PPApplication.logE("&&&&&&& GrantPermissionActivity.finishGrant", "called is DataWrapper.activateProfileFromMainThread");
+                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
+            }
         }
 
         if (permissionsForRecheck != null) {

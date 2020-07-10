@@ -637,12 +637,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     }
                     else {
                         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                            PPApplication.logE("&&&&&&& ProfilePrefsActivity.savePreferences", "(1) called is DataWrapper.activateProfileFromMainThread");
                             dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                         }
                     }
                 }
                 else {
                     if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                        PPApplication.logE("&&&&&&& ProfilePrefsActivity.savePreferences", "(2) called is DataWrapper.activateProfileFromMainThread");
                         dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null, true);
                     }
                 }

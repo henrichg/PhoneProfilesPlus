@@ -825,6 +825,7 @@ class EventsHandler {
                             DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
 
+                    PPApplication.logE("&&&&&&& EventsHandler.handleEvents", "called is DataWrapper.activateProfileFromEvent");
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
                     doSleep = true;
