@@ -3175,6 +3175,7 @@ class ActivateProfileHelper {
                                 .addTag(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG)
                                 .setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -3336,6 +3337,7 @@ class ActivateProfileHelper {
                 new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
                         .addTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG)
                         .setInitialDelay(5, TimeUnit.SECONDS)
+                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {

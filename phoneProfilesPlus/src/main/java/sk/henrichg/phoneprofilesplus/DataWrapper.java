@@ -2491,11 +2491,15 @@ public class DataWrapper {
                         .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
                         .build();
 
+            int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
+            if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
             OneTimeWorkRequest restartEventsWithDelayWorker =
                     new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
                             .addTag(RestartEventsWithDelayWorker.WORK_TAG)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
+                            .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {

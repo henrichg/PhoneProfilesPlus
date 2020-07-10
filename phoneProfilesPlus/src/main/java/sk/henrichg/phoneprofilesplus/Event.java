@@ -2106,11 +2106,15 @@ class Event {
                         .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START)
                         .build();
 
+                int keepResultsDelay = (this._delayStart * 5) / 60; // conversion to minutes
+                if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
+                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -2344,11 +2348,15 @@ class Event {
                         .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END)
                         .build();
 
+                int keepResultsDelay = (this._delayEnd * 5) / 60; // conversion to minutes
+                if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
+                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

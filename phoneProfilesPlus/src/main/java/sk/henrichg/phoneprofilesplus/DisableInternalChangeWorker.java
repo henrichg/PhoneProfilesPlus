@@ -84,6 +84,7 @@ public class DisableInternalChangeWorker extends Worker {
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
                         .addTag(DisableInternalChangeWorker.WORK_TAG)
                         .setInitialDelay(5, TimeUnit.SECONDS)
+                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
@@ -110,8 +111,8 @@ public class DisableInternalChangeWorker extends Worker {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
-                    if (foundEnqueued)
+                    }*/
+                    /*if (foundEnqueued)
                         PPApplication.cancelWork(WORK_TAG);*/
                     //workManager.enqueue(disableInternalChangeWorker);
                     workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);

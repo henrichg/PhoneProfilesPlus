@@ -82,11 +82,15 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
                         .build();
 
+                int keepResultsDelay = (profile._duration * 5) / 60; // conversion to minutes
+                if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
+                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

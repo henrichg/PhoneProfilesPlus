@@ -96,11 +96,15 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
                         .build();
 
+                int keepResultsDelay = (event._repeatNotificationIntervalStart * 5) / 60; // conversion to minutes
+                if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
+                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

@@ -3856,6 +3856,7 @@ public class PhoneProfilesService extends Service
                                             .addTag(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG)
                                             .setInputData(workData)
                                             //.setInitialDelay(5, TimeUnit.SECONDS)
+                                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                             .build();
                             try {
                                 // do not test start of PPP, because is not started in this receiver
@@ -3884,6 +3885,7 @@ public class PhoneProfilesService extends Service
                                             .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                             .setInputData(workData)
                                             //.setInitialDelay(5, TimeUnit.SECONDS)
+                                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                             .build();
                             try {
                                 if (PPApplication.getApplicationStarted(true)) {
@@ -5358,6 +5360,7 @@ public class PhoneProfilesService extends Service
                         .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK)
                         .setInputData(workData)
                         .setInitialDelay(1, TimeUnit.SECONDS)
+                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {

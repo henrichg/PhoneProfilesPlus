@@ -96,6 +96,7 @@ class TwilightScanner {
                                     .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
+                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                     .build();
                     try {
                         if (PPApplication.getApplicationStarted(true)) {

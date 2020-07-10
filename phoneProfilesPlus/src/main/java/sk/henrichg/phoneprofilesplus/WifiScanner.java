@@ -214,6 +214,7 @@ class WifiScanner {
                                                         .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG)
                                                         .setInputData(workData)
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
+                                                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                                         .build();
                                         try {
                                             if (PPApplication.getApplicationStarted(true)) {

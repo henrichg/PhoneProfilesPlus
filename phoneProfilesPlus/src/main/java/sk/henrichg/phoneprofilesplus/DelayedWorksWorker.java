@@ -21,6 +21,7 @@ import androidx.work.WorkerParameters;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class DelayedWorksWorker extends Worker {
@@ -581,6 +582,7 @@ public class DelayedWorksWorker extends Worker {
                                                     .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                     .setInputData(workData)
                                                     //.setInitialDelay(5, TimeUnit.SECONDS)
+                                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                                     .build();
                                     try {
                                         if (PPApplication.getApplicationStarted(true)) {

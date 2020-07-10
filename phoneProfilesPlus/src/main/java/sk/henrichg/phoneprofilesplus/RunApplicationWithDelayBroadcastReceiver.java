@@ -91,11 +91,15 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                         .build();
 
+                int keepResultsDelay = (startApplicationDelay * 5) / 60; // conversion to minutes
+                if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
+                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

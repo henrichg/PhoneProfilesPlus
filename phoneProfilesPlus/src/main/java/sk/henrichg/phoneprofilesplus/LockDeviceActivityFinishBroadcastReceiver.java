@@ -87,11 +87,16 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY)
                     .build();
 
+            int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
+            //noinspection ConstantConditions
+            if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                             .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
+                            .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {

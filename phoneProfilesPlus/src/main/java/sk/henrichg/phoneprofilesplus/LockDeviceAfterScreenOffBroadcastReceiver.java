@@ -80,6 +80,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                             .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
+                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
