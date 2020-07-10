@@ -83,7 +83,7 @@ public class DisableInternalChangeWorker extends Worker {
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
                         .addTag(DisableInternalChangeWorker.WORK_TAG)
-                        .setInitialDelay(10, TimeUnit.SECONDS)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {

@@ -134,6 +134,7 @@ public class PPApplication extends Application
                                                 //+"|********* RingerModeChangeReceiver.setRingerMode"
                                                 //+"|********* PPNotificationListenerService.setZenMode"
                                                 //+"|********* InterruptionFilterChangedBroadcastReceiver.setZenMode"
+
                                                 //+"|DisableInternalChangeWorker"
                                                 //+"|DisableScreenTimeoutInternalChangeWorker.doWork"
 

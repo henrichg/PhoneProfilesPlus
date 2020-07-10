@@ -3327,7 +3327,7 @@ class ActivateProfileHelper {
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
                         .addTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG)
-                        .setInitialDelay(10, TimeUnit.SECONDS)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
