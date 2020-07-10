@@ -3,16 +3,12 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.google.common.util.concurrent.ListenableFuture;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
@@ -32,7 +28,7 @@ public class DisableInternalChangeWorker extends Worker {
         try {
             //PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
 
-            if (!PPApplication.getApplicationStarted(true))
+            /*if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();
 
@@ -64,7 +60,7 @@ public class DisableInternalChangeWorker extends Worker {
 
             //PPApplication.logE("DisableInternalChangeWorker.doWork", "foundEnqueued="+foundEnqueued);
 
-            if (!foundEnqueued)
+            if (!foundEnqueued)*/
                 RingerModeChangeReceiver.internalChange = false;
 
             return Result.success();
@@ -116,7 +112,8 @@ public class DisableInternalChangeWorker extends Worker {
                     }
                     if (foundEnqueued)
                         PPApplication.cancelWork(WORK_TAG);*/
-                    workManager.enqueue(disableInternalChangeWorker);
+                    //workManager.enqueue(disableInternalChangeWorker);
+                    workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                 }
             }
         } catch (Exception e) {

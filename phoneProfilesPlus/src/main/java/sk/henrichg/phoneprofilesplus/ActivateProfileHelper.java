@@ -48,6 +48,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -3332,7 +3333,8 @@ class ActivateProfileHelper {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    workManager.enqueue(disableInternalChangeWorker);
+                    //workManager.enqueue(disableInternalChangeWorker);
+                    workManager.enqueueUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

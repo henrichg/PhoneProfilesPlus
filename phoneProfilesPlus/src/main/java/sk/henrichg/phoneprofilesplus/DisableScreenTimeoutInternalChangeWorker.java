@@ -3,15 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
-import com.google.common.util.concurrent.ListenableFuture;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("WeakerAccess")
 public class DisableScreenTimeoutInternalChangeWorker extends Worker {
@@ -30,7 +23,7 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
         try {
             //PPApplication.logE("DisableScreenTimeoutInternalChangeWorker.doWork", "xxx");
 
-            if (!PPApplication.getApplicationStarted(true))
+            /*if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();
 
@@ -60,7 +53,7 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
 
             //PPApplication.logE("DisableScreenTimeoutInternalChangeWorker.doWork", "foundEnqueued="+foundEnqueued);
 
-            if (!foundEnqueued)
+            if (!foundEnqueued)*/
                 ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
 
             return Result.success();
