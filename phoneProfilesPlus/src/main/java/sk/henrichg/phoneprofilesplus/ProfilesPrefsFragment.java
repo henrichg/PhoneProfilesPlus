@@ -542,33 +542,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setTitle("[M] " + getString(R.string.profile_preferences_askForDuration));
         }
 
-        /*if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
-            // detection of volumes merge = volumes are not merged
-            preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
-            if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("prf_pref_volumeCategory");
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
-            }
-        }
-        else {*/
-            preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
-            if (preference != null) {
-                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        // start preferences activity for default profile
-                        if (getActivity() != null) {
-                            Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
-                            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categorySystemRoot");
-                            //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                            getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
-                        }
-                        return false;
+        preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    // start preferences activity for default profile
+                    if (getActivity() != null) {
+                        Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
+                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categorySystemRoot");
+                        //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                        getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
                     }
-                });
-            }
-        //}
+                    return false;
+                }
+            });
+        }
 
         InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("prf_pref_preferenceTypesInfo");
         if (infoDialogPreference != null) {

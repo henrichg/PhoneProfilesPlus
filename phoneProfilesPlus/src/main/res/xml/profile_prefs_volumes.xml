@@ -18,7 +18,7 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <PreferenceCategory
-        app:key="prf_pref_volumeCategory"
+        app:key="prf_pref_volumeTypeCategory"
         app:title="@string/profile_preferences_category_volumeTypes"
         app:layout="@layout/mp_preference_category" >
 

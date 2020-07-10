@@ -138,7 +138,7 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setRingerMode"
                                                 //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
 
-                                                +"|DisableInternalChangeWorker"
+                                                //+"|DisableInternalChangeWorker"
                                                 //+"|DisableScreenTimeoutInternalChangeWorker.doWork"
 
                                                 //+"|****** EventsHandler.handleEvents"
