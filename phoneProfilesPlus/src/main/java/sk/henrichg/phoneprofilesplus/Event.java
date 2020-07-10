@@ -22,6 +22,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -2116,7 +2117,9 @@ class Event {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
-                            workManager.enqueue(worker);
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+(int) this._id,
+                                                                ExistingWorkPolicy.REPLACE, worker);
                             PPApplication.elapsedAlarmsEventDelayStartWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_" + (int) this._id);
 
                             Calendar now = Calendar.getInstance();
@@ -2352,7 +2355,9 @@ class Event {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
-                            workManager.enqueue(worker);
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+(int) this._id,
+                                                            ExistingWorkPolicy.REPLACE, worker);
                             PPApplication.elapsedAlarmsEventDelayEndWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_" + (int) this._id);
 
                             Calendar now = Calendar.getInstance();

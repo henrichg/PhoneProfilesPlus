@@ -79,10 +79,11 @@ public class DisableInternalChangeWorker extends Worker {
     }
 
     static void enqueueWork() {
+        //PPApplication.logE("DisableInternalChangeWorker.enqueueWork", "xxx");
         OneTimeWorkRequest disableInternalChangeWorker =
                 new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
                         .addTag(DisableInternalChangeWorker.WORK_TAG)
-                        .setInitialDelay(3, TimeUnit.SECONDS)
+                        .setInitialDelay(10, TimeUnit.SECONDS)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -104,7 +105,9 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
                                 PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
                             }*/
-                            workManager.enqueue(worker);
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode,
+                                                                ExistingWorkPolicy.REPLACE, worker);
                             PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_" + requestCode);
                         }
                     }

@@ -13,6 +13,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -585,7 +586,8 @@ public class DelayedWorksWorker extends Worker {
                                         if (PPApplication.getApplicationStarted(true)) {
                                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                                             if (workManager != null)
-                                                workManager.enqueue(worker);
+                                                //workManager.enqueue(worker);
+                                                workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                                         }
                                     } catch (Exception e) {
                                         PPApplication.recordException(e);

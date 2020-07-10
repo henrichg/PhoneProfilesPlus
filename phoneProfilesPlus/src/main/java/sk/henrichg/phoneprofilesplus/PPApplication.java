@@ -2059,7 +2059,7 @@ public class PPApplication extends Application
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    boolean enqueue = immediate;
+                    /*boolean enqueue = immediate;
                     if (!enqueue) {
                         ListenableFuture<List<WorkInfo>> statuses;
                         statuses = workManager.getWorkInfosByTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
@@ -2068,15 +2068,15 @@ public class PPApplication extends Application
                             List<WorkInfo> workInfoList = statuses.get();
                             //PPApplication.logE("PPApplication.updateGUI", "workInfoList="+workInfoList);
                             //PPApplication.logE("PPApplication.updateGUI", "workInfoList="+workInfoList.size());
-                            /*boolean foundRunning = false;
-                            for (WorkInfo workInfo : workInfoList) {
-                                WorkInfo.State state = workInfo.getState();
-                                if (state == WorkInfo.State.RUNNING) {
-                                    // any work is running, equueue also new
-                                    foundRunning = true;
-                                    break;
-                                }
-                            }*/
+                            //boolean foundRunning = false;
+                            //for (WorkInfo workInfo : workInfoList) {
+                            //    WorkInfo.State state = workInfo.getState();
+                            //    if (state == WorkInfo.State.RUNNING) {
+                            //        // any work is running, equueue also new
+                            //        foundRunning = true;
+                            //        break;
+                            //    }
+                            //}
                             boolean foundEnqueued = false;
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
@@ -2099,8 +2099,9 @@ public class PPApplication extends Application
                     //PPApplication.logE("PPApplication.updateGUI", "immediate=" + immediate);
                     //PPApplication.logE("PPApplication.updateGUI", "enqueue=" + enqueue);
 
-                    if (enqueue)
-                        workManager.enqueue(worker);
+                    if (enqueue)*/
+                    //    workManager.enqueue(worker);
+                    workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
@@ -4248,7 +4249,8 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueue(worker);
+                        //workManager.enqueue(worker);
+                        workManager.enqueueUniqueWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -97,7 +98,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
                             }*/
-                            workManager.enqueue(worker);
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int)profile._id,
+                                                                ExistingWorkPolicy.REPLACE, worker);
                             PPApplication.elapsedAlarmsProfileDurationWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_" + (int) profile._id);
                         }
                     }

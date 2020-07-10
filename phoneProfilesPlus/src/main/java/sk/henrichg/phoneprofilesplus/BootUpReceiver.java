@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -121,7 +122,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            workManager.enqueue(worker);
+                                            //workManager.enqueue(worker);
+                                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);

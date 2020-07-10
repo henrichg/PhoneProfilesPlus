@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -109,7 +110,9 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
                             }*/
-                            workManager.enqueue(worker);
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id,
+                                                                ExistingWorkPolicy.REPLACE, worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_" + (int) event._id);
                         }
                     }
