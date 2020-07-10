@@ -3,8 +3,17 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
 public class DisableInternalChangeWorker extends Worker {
@@ -23,11 +32,40 @@ public class DisableInternalChangeWorker extends Worker {
         try {
             //PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
 
-            /*if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true))
                 // application is not started
-                return Result.success();*/
+                return Result.success();
 
-            RingerModeChangeReceiver.internalChange = false;
+            boolean foundEnqueued = false;
+
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+                ListenableFuture<List<WorkInfo>> statuses;
+                statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                //PPApplication.logE("DisableInternalChangeWorker.doWork", "statuses="+statuses);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
+                    //PPApplication.logE("DisableInternalChangeWorker.doWork", "workInfoList="+workInfoList.size());
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        if (state == WorkInfo.State.ENQUEUED) {
+                            // any work is already enqueued, is not needed to enqueue new
+                            foundEnqueued = true;
+                            break;
+                        }
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //PPApplication.logE("DisableInternalChangeWorker.doWork", "foundEnqueued="+foundEnqueued);
+
+            if (!foundEnqueued)
+                RingerModeChangeReceiver.internalChange = false;
 
             return Result.success();
         } catch (Exception e) {
@@ -44,4 +82,45 @@ public class DisableInternalChangeWorker extends Worker {
         }
     }
 
+    static void enqueueWork() {
+        OneTimeWorkRequest disableInternalChangeWorker =
+                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
+                        .addTag(DisableInternalChangeWorker.WORK_TAG)
+                        .setInitialDelay(3, TimeUnit.SECONDS)
+                        .build();
+        try {
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+                    /*boolean foundEnqueued = false;
+                    ListenableFuture<List<WorkInfo>> statuses;
+                    statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                    //PPApplication.logE("DisableInternalChangeWorker.doWork", "statuses="+statuses);
+                    //noinspection TryWithIdenticalCatches
+                    try {
+                        List<WorkInfo> workInfoList = statuses.get();
+                        //PPApplication.logE("DisableInternalChangeWorker.doWork", "workInfoList="+workInfoList);
+                        PPApplication.logE("DisableInternalChangeWorker.enqueueWork", "workInfoList="+workInfoList.size());
+                        for (WorkInfo workInfo : workInfoList) {
+                            WorkInfo.State state = workInfo.getState();
+                            if (state == WorkInfo.State.ENQUEUED) {
+                                // any work is already enqueued, is not needed to enqueue new
+                                foundEnqueued = true;
+                                break;
+                            }
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (foundEnqueued)
+                        PPApplication.cancelWork(WORK_TAG);*/
+                    workManager.enqueue(disableInternalChangeWorker);
+                }
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
 }

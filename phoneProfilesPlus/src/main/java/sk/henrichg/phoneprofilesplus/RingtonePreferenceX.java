@@ -19,14 +19,11 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class RingtonePreferenceX extends DialogPreference {
 
@@ -414,20 +411,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                 ringtoneIsPlayed = false;
                                 mediaPlayer = null;
 
-                                OneTimeWorkRequest disableInternalChangeWorker =
-                                        new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .addTag(DisableInternalChangeWorker.WORK_TAG)
-                                                .setInitialDelay(3, TimeUnit.SECONDS)
-                                                .build();
-                                try {
-                                    if (PPApplication.getApplicationStarted(true)) {
-                                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                        if (workManager != null)
-                                            workManager.enqueue(disableInternalChangeWorker);
-                                    }
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
+                                DisableInternalChangeWorker.enqueueWork();
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -475,20 +459,7 @@ public class RingtonePreferenceX extends DialogPreference {
                         //PPApplication.recordException(e);
                         stopPlayRingtone();
 
-                        OneTimeWorkRequest disableInternalChangeWorker =
-                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .addTag(DisableInternalChangeWorker.WORK_TAG)
-                                        .setInitialDelay(3, TimeUnit.SECONDS)
-                                        .build();
-                        try {
-                            if (PPApplication.getApplicationStarted(true)) {
-                                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                if (workManager != null)
-                                    workManager.enqueue(disableInternalChangeWorker);
-                            }
-                        } catch (Exception ee) {
-                            PPApplication.recordException(e);
-                        }
+                        DisableInternalChangeWorker.enqueueWork();
 
                         /*PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

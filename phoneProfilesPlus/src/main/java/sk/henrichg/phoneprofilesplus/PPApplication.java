@@ -134,6 +134,8 @@ public class PPApplication extends Application
                                                 //+"|********* RingerModeChangeReceiver.setRingerMode"
                                                 //+"|********* PPNotificationListenerService.setZenMode"
                                                 //+"|********* InterruptionFilterChangedBroadcastReceiver.setZenMode"
+                                                //+"|DisableInternalChangeWorker"
+                                                //+"|DisableScreenTimeoutInternalChangeWorker.doWork"
 
                                                 //+"|****** EventsHandler.handleEvents"
                                                 //+"|-------- PPApplication.forceUpdateGUI"
@@ -2008,7 +2010,7 @@ public class PPApplication extends Application
                 return;
         }
 
-        //PPApplication.logE("ActivateProfileHelper.updateGUI", "send broadcast");
+        //PPApplication.logE("PPApplication.updateGUI", "send broadcast");
         Intent intent5 = new Intent(PPApplication.ACTION_UPDATE_GUI);
         intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
         intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
@@ -2049,6 +2051,8 @@ public class PPApplication extends Application
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
+                            //PPApplication.logE("PPApplication.updateGUI", "workInfoList="+workInfoList);
+                            //PPApplication.logE("PPApplication.updateGUI", "workInfoList="+workInfoList.size());
                             /*boolean foundRunning = false;
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
@@ -2077,8 +2081,8 @@ public class PPApplication extends Application
                         }
                     }
 
-                    PPApplication.logE("PPApplication.updateGUI", "immediate=" + immediate);
-                    PPApplication.logE("PPApplication.updateGUI", "enqueue=" + enqueue);
+                    //PPApplication.logE("PPApplication.updateGUI", "immediate=" + immediate);
+                    //PPApplication.logE("PPApplication.updateGUI", "enqueue=" + enqueue);
 
                     if (enqueue)
                         workManager.enqueue(worker);

@@ -3,8 +3,15 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("WeakerAccess")
 public class DisableScreenTimeoutInternalChangeWorker extends Worker {
@@ -21,13 +28,40 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
+            //PPApplication.logE("DisableScreenTimeoutInternalChangeWorker.doWork", "xxx");
 
-            /*if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true))
                 // application is not started
-                return Result.success();*/
+                return Result.success();
 
-            ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
+            boolean foundEnqueued = false;
+
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+                ListenableFuture<List<WorkInfo>> statuses;
+                statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        if (state == WorkInfo.State.ENQUEUED) {
+                            // any work is already enqueued, is not needed to enqueue new
+                            foundEnqueued = true;
+                            break;
+                        }
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //PPApplication.logE("DisableScreenTimeoutInternalChangeWorker.doWork", "foundEnqueued="+foundEnqueued);
+
+            if (!foundEnqueued)
+                ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
 
             return Result.success();
         } catch (Exception e) {

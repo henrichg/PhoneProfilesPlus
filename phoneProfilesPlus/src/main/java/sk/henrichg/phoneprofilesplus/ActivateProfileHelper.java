@@ -1668,20 +1668,7 @@ class ActivateProfileHelper {
                                 PPApplication.sleep(500);
 
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
-                                OneTimeWorkRequest disableInternalChangeWorker =
-                                        new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                                .addTag(DisableInternalChangeWorker.WORK_TAG)
-                                                .setInitialDelay(3, TimeUnit.SECONDS)
-                                                .build();
-                                try {
-                                    if (PPApplication.getApplicationStarted(true)) {
-                                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                        if (workManager != null)
-                                            workManager.enqueue(disableInternalChangeWorker);
-                                    }
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
+                                DisableInternalChangeWorker.enqueueWork();
 
                                 /*PPApplication.startHandlerThreadInternalChangeToFalse();
                                 final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
