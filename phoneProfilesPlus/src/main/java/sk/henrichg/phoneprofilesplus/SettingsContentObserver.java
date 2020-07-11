@@ -64,7 +64,6 @@ class SettingsContentObserver  extends ContentObserver {
 
         try {
             int currentVolume = audioManager.getStreamVolume(volumeStream);
-            PPApplication.logE("********** SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
                 PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " previousVolume=" + previousVolume);
@@ -122,6 +121,14 @@ class SettingsContentObserver  extends ContentObserver {
         ////// volume change
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
+
+            if (PPApplication.logEnabled()) {
+                int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_RING + " currentVolume=" + currentVolume);
+                currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_NOTIFICATION + " currentVolume=" + currentVolume);
+            }
+
             int audioMode = audioManager.getMode();
 
             if ((audioMode == AudioManager.MODE_NORMAL) || (audioMode == AudioManager.MODE_RINGTONE)) {

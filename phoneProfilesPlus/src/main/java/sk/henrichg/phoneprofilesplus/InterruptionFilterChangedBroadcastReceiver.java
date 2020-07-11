@@ -16,6 +16,12 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
     public void onReceive(Context context, Intent intent) {
         //CallsCounter.logCounter(context, "InterruptionFilterChangedBroadcastReceiver.onReceive", "InterruptionFilterChangedBroadcastReceiver_onReceive");
 
+        NotificationManager _mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (_mNotificationManager != null) {
+            int interruptionFilter = _mNotificationManager.getCurrentInterruptionFilter();
+            PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.onReceive", "interruptionFilter=" + interruptionFilter);
+        }
+
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
@@ -24,7 +30,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager != null) {
                         int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-                        PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.onReceive", "interruptionFilter=" + interruptionFilter);
 
                         final AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
                         int ringerMode = AudioManager.RINGER_MODE_NORMAL;

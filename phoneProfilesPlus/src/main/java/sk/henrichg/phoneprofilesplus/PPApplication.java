@@ -138,9 +138,10 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setRingerMode"
                                                 //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                                 +"|RingerModeChangeReceiver.getRingerMode"
+                                                +"|RingerModeChangeReceiver.onReceive"
                                                 +"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
                                                 +"|InterruptionFilterChangedBroadcastReceiver.onReceive"
-                                                +"|SettingsContentObserver.volumeChangeDetect"
+                                                +"|SettingsContentObserver.onChange"
 
                                                 //+"|DisableInternalChangeWorker"
                                                 //+"|DisableScreenTimeoutInternalChangeWorker.doWork"

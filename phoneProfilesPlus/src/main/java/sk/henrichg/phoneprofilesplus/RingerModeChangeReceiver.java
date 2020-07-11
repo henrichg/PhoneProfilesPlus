@@ -15,6 +15,14 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         //PPApplication.logE("##### RingerModeChangeReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RingerModeChangeReceiver.onReceive", "RingerModeChangeReceiver_onReceive");
 
+        if (PPApplication.logEnabled()) {
+            final AudioManager _audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            if (_audioManager != null) {
+                int ringerMode = _audioManager.getRingerMode();
+                PPApplication.logE("********** RingerModeChangeReceiver.onReceive", "ringerMode=" + ringerMode);
+            }
+        }
+
         if (!internalChange) {
             //PPApplication.logE("RingerModeChangeReceiver.onReceive", "!internalChange");
             notUnlinkVolumes = true;
@@ -27,9 +35,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
     private static int getRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
-
         PPApplication.logE("********** RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
-
         // convert to profile ringerMode
         int pRingerMode = 0;
         int systemZenMode = ActivateProfileHelper.getSystemZenMode(context/*, -1*/);

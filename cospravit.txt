@@ -1253,6 +1253,34 @@ DND= off
 2020-07-11 23:18:51.167 32207-32207/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.getRingerMode: ringerMode=2
 2020-07-11 23:18:51.189 32207-32207/sk.henrichg.phoneprofilesplus E/********** InterruptionFilterChangedBroadcastReceiver.onReceive: interruptionFilter=1
 
+From PPP:
+Sound mode = DND type Priority
+Rovnake ako DND zo systemu.
+2020-07-11 23:42:13.203 1924-1924/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.onReceive: ringerMode=0
+2020-07-11 23:42:13.225 1924-1924/sk.henrichg.phoneprofilesplus E/********** InterruptionFilterChangedBroadcastReceiver.onReceive: interruptionFilter=2
+
+From PPP:
+Sound mode = DND type Alarms only
+2020-07-11 23:44:07.696 1924-1924/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.onReceive: ringerMode=0
+2020-07-11 23:44:07.721 1924-1924/sk.henrichg.phoneprofilesplus E/********** InterruptionFilterChangedBroadcastReceiver.onReceive: interruptionFilter=4
+
+From PPP:
+Sound mode = DND type Totla silence
+2020-07-11 23:45:46.506 1924-1924/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.onReceive: ringerMode=0
+2020-07-11 23:45:46.525 1924-1924/sk.henrichg.phoneprofilesplus E/********** InterruptionFilterChangedBroadcastReceiver.onReceive: interruptionFilter=3
+
+Z ringer mode = Vibrate do DND v zo systemu:
+Vysledok je DND + vibrate, ale podla ringer modu je silent. Cize ze su zapnute vybracie musi byt niekde inde. Kde?
+Hlasitosti nevidim.
+Nastavolo PPP: na ringer mod vibrate
+2020-07-11 23:51:34.974 1924-1924/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.onReceive: ringerMode=1
+2020-07-11 23:51:34.983 1924-1924/sk.henrichg.phoneprofilesplus E/********** InterruptionFilterChangedBroadcastReceiver.onReceive: interruptionFilter=1
+Nastavil system:
+020-07-11 23:51:44.008 1924-1924/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.onReceive: ringerMode=0
+2020-07-11 23:51:44.019 1924-1924/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.getRingerMode: ringerMode=0
+2020-07-11 23:51:44.028 1924-1924/sk.henrichg.phoneprofilesplus E/********** InterruptionFilterChangedBroadcastReceiver.onReceive: interruptionFilter=2
+
+
 Cize ringer mod to meni, cize nie je to oddelene. Len hlasitosti to nezmenilo.
 Ale to som netestoval zmenu hlasitosti. To este musim.
 A netestoval som zmenu z PPP na all, priority, alarms, none.
