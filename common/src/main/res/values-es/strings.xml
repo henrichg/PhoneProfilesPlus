@@ -1437,6 +1437,9 @@
     <string name="colorChooser_pref_dialog_customColor">Color personalizado</string>
     <string name="background_jobs_not_working_alert_title">Error al iniciar PhoneProfilesPlus</string>
     <string name="background_jobs_not_working_alert_message">No se han iniciado los trabajos en segundo plano. Por favor, reinicia el dispositivo. Gracias.</string>
+    <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi) </string>
+    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

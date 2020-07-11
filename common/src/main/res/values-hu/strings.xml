@@ -1437,6 +1437,9 @@
     <string name="colorChooser_pref_dialog_customColor">Egyéni színek</string>
     <string name="background_jobs_not_working_alert_title">Hiba a PhoneProfilesPlus indításakor</string>
     <string name="background_jobs_not_working_alert_message">A háttérfolyamat nem indult el. Kérem indítsa újra az eszközt. Köszönöm.</string>
+    <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi) </string>
+    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>

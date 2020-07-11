@@ -1437,6 +1437,9 @@
     <string name="colorChooser_pref_dialog_customColor">Власний колір</string>
     <string name="background_jobs_not_working_alert_title">Помилка під час запуску PhoneProfilesPlus</string>
     <string name="background_jobs_not_working_alert_message">Фонові завдання не було запущено. Будь ласка, перезавантажте пристрій. Дякуємо.</string>
+    <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi) </string>
+    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
