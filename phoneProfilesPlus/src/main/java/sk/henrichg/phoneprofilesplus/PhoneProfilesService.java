@@ -2887,6 +2887,7 @@ public class PhoneProfilesService extends Service
                 OneTimeWorkRequest periodicEventsHandlerWorker =
                         new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
                                 .addTag(PeriodicEventsHandlerWorker.WORK_TAG_SHORT)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();

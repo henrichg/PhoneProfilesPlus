@@ -167,9 +167,13 @@ public class GeofenceScanWorker extends Worker {
 
                     if (!shortInterval) {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "delay work");
+                        int keepResultsDelay = (interval * 5);
+                        if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.SECONDS)
                                 .addTag(GeofenceScanWorker.WORK_TAG)
+                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                         workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
                     } else {
@@ -177,6 +181,7 @@ public class GeofenceScanWorker extends Worker {
                         //waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .addTag(GeofenceScanWorker.WORK_TAG_SHORT)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
                         workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG_SHORT, ExistingWorkPolicy.KEEP, workRequest);
                     }

@@ -72,10 +72,14 @@ public class PeriodicEventsHandlerWorker extends Worker {
                         if (isPowerSaveMode && ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("1"))
                             interval = 2 * interval;
 
+                        int keepResultsDelay = (interval * 5);
+                        if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                         OneTimeWorkRequest periodicEventsHandlerWorker =
                                 new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
                                         .addTag(PeriodicEventsHandlerWorker.WORK_TAG)
                                         .setInitialDelay(interval, TimeUnit.MINUTES)
+                                        .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                         .build();
                         try {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();

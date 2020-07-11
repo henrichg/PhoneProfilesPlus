@@ -108,6 +108,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
                                 .setInitialDelay(24, TimeUnit.HOURS)
                                 .addTag(SearchCalendarEventsWorker.WORK_TAG)
+                                .keepResultsForAtLeast(24 * 5, TimeUnit.HOURS)
                                 .build();
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG, ExistingWorkPolicy.KEEP, workRequest);
                     } else {
@@ -115,6 +116,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         //waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SearchCalendarEventsWorker.class)
                                 .addTag(SearchCalendarEventsWorker.WORK_TAG_SHORT)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG_SHORT, ExistingWorkPolicy.KEEP, workRequest);
                     }
