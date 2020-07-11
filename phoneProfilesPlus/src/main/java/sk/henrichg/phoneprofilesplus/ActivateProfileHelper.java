@@ -1643,7 +1643,7 @@ class ActivateProfileHelper {
                                 int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
-                                changeRingerModeForVolumeEqual0(profile, audioManager/*, systemZenMode*/);
+                                changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
                                 changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
@@ -1891,7 +1891,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager/*, int systemZenMode*/) {
+    private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager, Context context) {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
             PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
@@ -1914,15 +1914,16 @@ class ActivateProfileHelper {
                     //    PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "not audible ringer mode in profile");
                 }// else
                  //   PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "vibrate ringer mode in profile");
-            } /*else {
+            } else {
                 if ((profile._volumeRingerMode == 0) && (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT)) {
-                    if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
-                        // change ringer mode to Ringing
-                        PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to ringing");
+                    if (!isAudibleSystemRingerMode(audioManager, context)) {
+                        // change ringer mode to ringing becaiuse configured is ringing volume
+                        // Priority zen mode is audible. DO NOT DISABLE IT !!!
+                        PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "system ringer mode is not audible - changed to ringing");
                         profile._volumeRingerMode = Profile.RINGERMODE_RING;
                     }
                 }
-            }*/
+            }
         }
     }
 
