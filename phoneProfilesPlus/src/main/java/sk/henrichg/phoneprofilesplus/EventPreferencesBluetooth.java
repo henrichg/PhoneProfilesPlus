@@ -538,7 +538,6 @@ class EventPreferencesBluetooth extends EventPreferences {
 
                 if ((_connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
                         (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)) {
-                    //noinspection ConstantConditions
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                             //if (forRestartEvents)

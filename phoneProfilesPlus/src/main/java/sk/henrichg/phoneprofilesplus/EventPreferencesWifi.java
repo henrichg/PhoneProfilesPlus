@@ -524,7 +524,6 @@ class EventPreferencesWifi extends EventPreferences {
 
                     if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                             (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
-                        //noinspection ConstantConditions
                         if (!done) {
                             if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                                 //if (forRestartEvents)

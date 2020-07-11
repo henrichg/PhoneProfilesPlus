@@ -331,7 +331,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         return zenMode;
     }
 
-    public static void setZenMode(Context context, AudioManager audioManager, String from) {
+    public static void setZenMode(Context context, AudioManager audioManager/*, String from*/) {
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
             int zenMode = getZenMode(context, audioManager);

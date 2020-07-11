@@ -12,7 +12,7 @@ import android.widget.TextView;
 class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
 {
     private final LayoutInflater inflater;
-    private Context context;
+    private final Context context;
 
     ContactGroupsMultiSelectPreferenceAdapterX(Context context)
     {

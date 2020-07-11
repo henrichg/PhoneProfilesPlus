@@ -3697,9 +3697,9 @@ public class PhoneProfilesService extends Service
                         } catch (Exception e10) {
                             PPApplication.recordException(e10);
                         }
-                        RingerModeChangeReceiver.setRingerMode(appContext, audioManager, "PhoneProfilesService.doFirstStart");
-                        PPNotificationListenerService.setZenMode(appContext, audioManager, "PhoneProfilesService.doFirstStart");
-                        InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager, "PhoneProfilesService.doFirstStart");
+                        RingerModeChangeReceiver.setRingerMode(appContext, audioManager/*, "PhoneProfilesService.doFirstStart"*/);
+                        PPNotificationListenerService.setZenMode(appContext, audioManager/*, "PhoneProfilesService.doFirstStart"*/);
+                        InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager/*, "PhoneProfilesService.doFirstStart"*/);
                     }
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "4");

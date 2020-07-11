@@ -109,7 +109,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         return zenMode;
     }
 
-    public static void setZenMode(Context context, AudioManager audioManager, String from) {
+    public static void setZenMode(Context context, AudioManager audioManager/*, String from*/) {
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
