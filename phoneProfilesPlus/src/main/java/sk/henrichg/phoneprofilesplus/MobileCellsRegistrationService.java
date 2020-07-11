@@ -203,6 +203,7 @@ public class MobileCellsRegistrationService extends Service {
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setAutoCancel(true); // clear notification after click
 
         if (millisUntilFinished > 0) {
@@ -266,6 +267,7 @@ public class MobileCellsRegistrationService extends Service {
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setAutoCancel(true); // clear notification after click
 
         //mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
