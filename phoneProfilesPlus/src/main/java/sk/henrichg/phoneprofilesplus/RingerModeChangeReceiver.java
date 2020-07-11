@@ -28,7 +28,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     private static int getRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
 
-        //PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
+        PPApplication.logE("********** RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
 
         // convert to profile ringerMode
         int pRingerMode = 0;

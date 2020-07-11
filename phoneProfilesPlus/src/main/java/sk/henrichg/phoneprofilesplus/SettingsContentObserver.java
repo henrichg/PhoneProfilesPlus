@@ -64,6 +64,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         try {
             int currentVolume = audioManager.getStreamVolume(volumeStream);
+            PPApplication.logE("********** SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " currentVolume=" + currentVolume);
                 PPApplication.logE("SettingsContentObserver.volumeChangeDetect", "channel=" + volumeStream + " previousVolume=" + previousVolume);

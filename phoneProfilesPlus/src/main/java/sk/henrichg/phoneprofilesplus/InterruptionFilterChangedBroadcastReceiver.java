@@ -24,6 +24,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager != null) {
                         int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+                        PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.onReceive", "interruptionFilter=" + interruptionFilter);
+
                         final AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
                         int ringerMode = AudioManager.RINGER_MODE_NORMAL;
                         if (audioManager != null)
@@ -77,7 +79,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null) {
             int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-            //PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
+            PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
             int ringerMode = audioManager.getRingerMode();
             switch (interruptionFilter) {
                 case NotificationManager.INTERRUPTION_FILTER_ALL:
