@@ -1271,6 +1271,10 @@ Sound mode = DND type Totla silence
 
 Z ringer mode = Vibrate do DND v zo systemu:
 Vysledok je DND + vibrate, ale podla ringer modu je silent. Cize ze su zapnute vybracie musi byt niekde inde. Kde?
+Mozno to cele mam ja zle. A treba to cele obratit. Najprv nastavit zen mod a az potom ringer mod.
+Zen mod vzdy nastavi silent ringer mod, takze po case (pol sekuindy) by som mohol nastavit ten vibrate ringer mod.
+Otazne je, co to spravi na Android < 9. Testni to.
+
 Hlasitosti nevidim.
 Nastavolo PPP: na ringer mod vibrate
 2020-07-11 23:51:34.974 1924-1924/sk.henrichg.phoneprofilesplus E/********** RingerModeChangeReceiver.onReceive: ringerMode=1
@@ -1312,3 +1316,5 @@ DND = off
 Cize ringer mod to meni, cize nie je to oddelene. Len hlasitosti to nezmenilo.
 Ale to som netestoval zmenu hlasitosti. To este musim.
 A netestoval som zmenu z PPP na all, priority, alarms, none.
+
+
