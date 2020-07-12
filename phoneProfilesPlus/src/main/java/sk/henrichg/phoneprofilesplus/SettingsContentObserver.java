@@ -122,12 +122,12 @@ class SettingsContentObserver  extends ContentObserver {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
 
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                 PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_RING + " currentVolume=" + currentVolume);
                 currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
                 PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_NOTIFICATION + " currentVolume=" + currentVolume);
-            }
+            }*/
 
             int audioMode = audioManager.getMode();
 

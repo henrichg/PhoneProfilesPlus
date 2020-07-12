@@ -16,11 +16,13 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
     public void onReceive(Context context, Intent intent) {
         //CallsCounter.logCounter(context, "InterruptionFilterChangedBroadcastReceiver.onReceive", "InterruptionFilterChangedBroadcastReceiver_onReceive");
 
-        NotificationManager _mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if (_mNotificationManager != null) {
-            int interruptionFilter = _mNotificationManager.getCurrentInterruptionFilter();
-            PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.onReceive", "interruptionFilter=" + interruptionFilter);
-        }
+        /*if (PPApplication.logEnabled()) {
+            NotificationManager _mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (_mNotificationManager != null) {
+                int interruptionFilter = _mNotificationManager.getCurrentInterruptionFilter();
+                PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.onReceive", "interruptionFilter=" + interruptionFilter);
+            }
+        }*/
 
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
@@ -84,7 +86,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null) {
             int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-            PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
+            //PPApplication.logE("********** InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
             int ringerMode = audioManager.getRingerMode();
             switch (interruptionFilter) {
                 case NotificationManager.INTERRUPTION_FILTER_ALL:
