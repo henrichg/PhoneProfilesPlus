@@ -422,6 +422,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_IN_USED_COUNT = "usedCount";
     private static final String KEY_IN_INTENT_TYPE = "intentType";
 
+    private static final String TEXT_TYPE = "TEXT";
+    private static final String INTEGER_TYPE = "INTEGER";
+    private static final String DATETIME_TYPE = "DATETIME";
+    private static final String DOUBLE_TYPE = "DOUBLE";
+    private static final String FLOAT_TYPE = "FLOAT";
 
     private DatabaseHandler(Context context) {
         super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
@@ -469,86 +474,86 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     */
 
     private String profileTableCreationString(String tableName) {
-        String idField = KEY_ID + " INTEGER PRIMARY KEY,";
+        String idField = KEY_ID + " " + INTEGER_TYPE + " PRIMARY KEY,";
         if (tableName.equals(TABLE_MERGED_PROFILE))
-            idField = KEY_ID + " INTEGER,";
+            idField = KEY_ID + " " + INTEGER_TYPE + ",";
         return "CREATE TABLE IF NOT EXISTS " + tableName + "("
                 + idField
-                + KEY_NAME + " TEXT,"
-                + KEY_ICON + " TEXT,"
-                + KEY_CHECKED + " INTEGER,"
-                + KEY_PORDER + " INTEGER,"
-                + KEY_VOLUME_RINGER_MODE + " INTEGER,"
-                + KEY_VOLUME_RINGTONE + " TEXT,"
-                + KEY_VOLUME_NOTIFICATION + " TEXT,"
-                + KEY_VOLUME_MEDIA + " TEXT,"
-                + KEY_VOLUME_ALARM + " TEXT,"
-                + KEY_VOLUME_SYSTEM + " TEXT,"
-                + KEY_VOLUME_VOICE + " TEXT,"
-                + KEY_SOUND_RINGTONE_CHANGE + " INTEGER,"
-                + KEY_SOUND_RINGTONE + " TEXT,"
-                + KEY_SOUND_NOTIFICATION_CHANGE + " INTEGER,"
-                + KEY_SOUND_NOTIFICATION + " TEXT,"
-                + KEY_SOUND_ALARM_CHANGE + " INTEGER,"
-                + KEY_SOUND_ALARM + " TEXT,"
-                + KEY_DEVICE_AIRPLANE_MODE + " INTEGER,"
-                + KEY_DEVICE_WIFI + " INTEGER,"
-                + KEY_DEVICE_BLUETOOTH + " INTEGER,"
-                + KEY_DEVICE_SCREEN_TIMEOUT + " INTEGER,"
-                + KEY_DEVICE_BRIGHTNESS + " TEXT,"
-                + KEY_DEVICE_WALLPAPER_CHANGE + " INTEGER,"
-                + KEY_DEVICE_WALLPAPER + " TEXT,"
-                + KEY_DEVICE_MOBILE_DATA + " INTEGER,"
-                + KEY_DEVICE_MOBILE_DATA_PREFS + " INTEGER,"
-                + KEY_DEVICE_GPS + " INTEGER,"
-                + KEY_DEVICE_RUN_APPLICATION_CHANGE + " INTEGER,"
-                + KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + " TEXT,"
-                + KEY_DEVICE_AUTOSYNC + " INTEGER,"
-                + KEY_SHOW_IN_ACTIVATOR + " INTEGER,"
-                + KEY_DEVICE_AUTOROTATE + " INTEGER,"
-                + KEY_DEVICE_LOCATION_SERVICE_PREFS + " INTEGER,"
-                + KEY_VOLUME_SPEAKER_PHONE + " INTEGER,"
-                + KEY_DEVICE_NFC + " INTEGER,"
-                + KEY_DURATION + " INTEGER,"
-                + KEY_AFTER_DURATION_DO + " INTEGER,"
-                + KEY_VOLUME_ZEN_MODE + " INTEGER,"
-                + KEY_DEVICE_KEYGUARD + " INTEGER,"
-                + KEY_VIBRATE_ON_TOUCH + " INTEGER,"
-                + KEY_DEVICE_WIFI_AP + " INTEGER,"
-                + KEY_DEVICE_POWER_SAVE_MODE + " INTEGER,"
-                + KEY_ASK_FOR_DURATION + " INTEGER,"
-                + KEY_DEVICE_NETWORK_TYPE + " INTEGER,"
-                + KEY_NOTIFICATION_LED + " INTEGER,"
-                + KEY_VIBRATE_WHEN_RINGING + " INTEGER,"
-                + KEY_DEVICE_WALLPAPER_FOR + " INTEGER,"
-                + KEY_HIDE_STATUS_BAR_ICON + " INTEGER,"
-                + KEY_LOCK_DEVICE + " INTEGER,"
-                + KEY_DEVICE_CONNECT_TO_SSID + " TEXT,"
-                + KEY_APPLICATION_DISABLE_WIFI_SCANNING + " INTEGER,"
-                + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + " INTEGER,"
-                + KEY_DURATION_NOTIFICATION_SOUND + " TEXT,"
-                + KEY_DURATION_NOTIFICATION_VIBRATE + " INTEGER,"
-                + KEY_DEVICE_WIFI_AP_PREFS + " INTEGER,"
-                + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + " INTEGER,"
-                + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + " INTEGER,"
-                + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " INTEGER,"
-                + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER,"
-                + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER,"
-                + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT,"
-                + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER,"
-                + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER,"
-                + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER,"
-                + KEY_SCREEN_DARK_MODE + " INTEGER,"
-                + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER,"
-                + KEY_SOUND_ON_TOUCH + " INTEGER,"
-                + KEY_VOLUME_DTMF + " TEXT,"
-                + KEY_VOLUME_ACCESSIBILITY + " TEXT,"
-                + KEY_VOLUME_BLUETOOTH_SCO + " TEXT,"
-                + KEY_AFTER_DURATION_PROFILE + " INTEGER,"
-                + KEY_ALWAYS_ON_DISPLAY + " INTEGER,"
-                + KEY_SCREEN_ON_PERMANENT + " INTEGER,"
-                + KEY_VOLUME_MUTE_SOUND + " INTEGER,"
-                + KEY_DEVICE_LOCATION_MODE + " INTEGER"
+                + KEY_NAME + " " + TEXT_TYPE + ","
+                + KEY_ICON + " " + TEXT_TYPE + ","
+                + KEY_CHECKED + " " + INTEGER_TYPE + ","
+                + KEY_PORDER + " " + INTEGER_TYPE + ","
+                + KEY_VOLUME_RINGER_MODE + " " + INTEGER_TYPE + ","
+                + KEY_VOLUME_RINGTONE + " " + TEXT_TYPE + ","
+                + KEY_VOLUME_NOTIFICATION + " " + TEXT_TYPE + ","
+                + KEY_VOLUME_MEDIA + " " + TEXT_TYPE + ","
+                + KEY_VOLUME_ALARM + " " + TEXT_TYPE + ","
+                + KEY_VOLUME_SYSTEM + " " + TEXT_TYPE + ","
+                + KEY_VOLUME_VOICE + " " + TEXT_TYPE + ","
+                + KEY_SOUND_RINGTONE_CHANGE + " " + INTEGER_TYPE + ","
+                + KEY_SOUND_RINGTONE + " " + TEXT_TYPE + ","
+                + KEY_SOUND_NOTIFICATION_CHANGE + " " + INTEGER_TYPE + ","
+                + KEY_SOUND_NOTIFICATION + " " + TEXT_TYPE + ","
+                + KEY_SOUND_ALARM_CHANGE + " " + INTEGER_TYPE + ","
+                + KEY_SOUND_ALARM + " " + TEXT_TYPE + ","
+                + KEY_DEVICE_AIRPLANE_MODE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_WIFI + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_BLUETOOTH + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_SCREEN_TIMEOUT + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_BRIGHTNESS + " " + TEXT_TYPE + ","
+                + KEY_DEVICE_WALLPAPER_CHANGE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_WALLPAPER + " " + TEXT_TYPE + ","
+                + KEY_DEVICE_MOBILE_DATA + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_MOBILE_DATA_PREFS + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_GPS + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_RUN_APPLICATION_CHANGE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + " " + TEXT_TYPE + ","
+                + KEY_DEVICE_AUTOSYNC + " " + INTEGER_TYPE + ","
+                + KEY_SHOW_IN_ACTIVATOR + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_AUTOROTATE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_LOCATION_SERVICE_PREFS + " " + INTEGER_TYPE + ","
+                + KEY_VOLUME_SPEAKER_PHONE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_NFC + " " + INTEGER_TYPE + ","
+                + KEY_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_AFTER_DURATION_DO + " " + INTEGER_TYPE + ","
+                + KEY_VOLUME_ZEN_MODE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_KEYGUARD + " " + INTEGER_TYPE + ","
+                + KEY_VIBRATE_ON_TOUCH + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_WIFI_AP + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_POWER_SAVE_MODE + " " + INTEGER_TYPE + ","
+                + KEY_ASK_FOR_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_NETWORK_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_NOTIFICATION_LED + " " + INTEGER_TYPE + ","
+                + KEY_VIBRATE_WHEN_RINGING + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_WALLPAPER_FOR + " " + INTEGER_TYPE + ","
+                + KEY_HIDE_STATUS_BAR_ICON + " " + INTEGER_TYPE + ","
+                + KEY_LOCK_DEVICE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_CONNECT_TO_SSID + " " + TEXT_TYPE + ","
+                + KEY_APPLICATION_DISABLE_WIFI_SCANNING + " " + INTEGER_TYPE + ","
+                + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + " " + INTEGER_TYPE + ","
+                + KEY_DURATION_NOTIFICATION_SOUND + " " + TEXT_TYPE + ","
+                + KEY_DURATION_NOTIFICATION_VIBRATE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_WIFI_AP_PREFS + " " + INTEGER_TYPE + ","
+                + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + " " + INTEGER_TYPE + ","
+                + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + " " + INTEGER_TYPE + ","
+                + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " " + INTEGER_TYPE + ","
+                + KEY_HEADS_UP_NOTIFICATIONS + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " " + TEXT_TYPE + ","
+                + KEY_ACTIVATION_BY_USER_COUNT + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_NETWORK_TYPE_PREFS + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " " + INTEGER_TYPE + ","
+                + KEY_SCREEN_DARK_MODE + " " + INTEGER_TYPE + ","
+                + KEY_DTMF_TONE_WHEN_DIALING + " " + INTEGER_TYPE + ","
+                + KEY_SOUND_ON_TOUCH + " " + INTEGER_TYPE + ","
+                + KEY_VOLUME_DTMF + " " + TEXT_TYPE + ","
+                + KEY_VOLUME_ACCESSIBILITY + " " + TEXT_TYPE + ","
+                + KEY_VOLUME_BLUETOOTH_SCO + " " + TEXT_TYPE + ","
+                + KEY_AFTER_DURATION_PROFILE + " " + INTEGER_TYPE + ","
+                + KEY_ALWAYS_ON_DISPLAY + " " + INTEGER_TYPE + ","
+                + KEY_SCREEN_ON_PERMANENT + " " + INTEGER_TYPE + ","
+                + KEY_VOLUME_MUTE_SOUND + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_LOCATION_MODE + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -560,257 +565,257 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_MERGED_PROFILE_TABLE);
 
         final String CREATE_EVENTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_EVENTS + "("
-                + KEY_E_ID + " INTEGER PRIMARY KEY,"
-                + KEY_E_NAME + " TEXT,"
-                + KEY_E_FK_PROFILE_START + " INTEGER,"
-                + KEY_E_START_TIME + " INTEGER,"
-                + KEY_E_END_TIME + " INTEGER,"
-                + KEY_E_DAYS_OF_WEEK + " TEXT,"
-                + KEY_E_USE_END_TIME + " INTEGER,"
-                + KEY_E_STATUS + " INTEGER,"
-                + KEY_E_NOTIFICATION_SOUND_START + " TEXT,"
-                + KEY_E_BATTERY_LEVEL_LOW + " INTEGER,"
-                + KEY_E_BATTERY_LEVEL_HIGHT + " INTEGER,"
-                + KEY_E_BATTERY_CHARGING + " INTEGER,"
-                + KEY_E_TIME_ENABLED + " INTEGER,"
-                + KEY_E_BATTERY_ENABLED + " INTEGER,"
-                + KEY_E_CALL_ENABLED + " INTEGER,"
-                + KEY_E_CALL_EVENT + " INTEGER,"
-                + KEY_E_CALL_CONTACTS + " TEXT,"
-                + KEY_E_CALL_CONTACT_LIST_TYPE + " INTEGER,"
-                + KEY_E_FK_PROFILE_END + " INTEGER,"
-                + KEY_E_FORCE_RUN + " INTEGER,"
-                + KEY_E_BLOCKED + " INTEGER,"
-                //+ KEY_E_UNDONE_PROFILE + " INTEGER,"
-                + KEY_E_PRIORITY + " INTEGER,"
-                + KEY_E_PERIPHERAL_ENABLED + " INTEGER,"
-                + KEY_E_PERIPHERAL_TYPE + " INTEGER,"
-                + KEY_E_CALENDAR_ENABLED + " INTEGER,"
-                + KEY_E_CALENDAR_CALENDARS + " TEXT,"
-                + KEY_E_CALENDAR_SEARCH_FIELD + " INTEGER,"
-                + KEY_E_CALENDAR_SEARCH_STRING + " TEXT,"
-                + KEY_E_CALENDAR_EVENT_START_TIME + " INTEGER,"
-                + KEY_E_CALENDAR_EVENT_END_TIME + " INTEGER,"
-                + KEY_E_CALENDAR_EVENT_FOUND + " INTEGER,"
-                + KEY_E_WIFI_ENABLED + " INTEGER,"
-                + KEY_E_WIFI_SSID + " TEXT,"
-                + KEY_E_WIFI_CONNECTION_TYPE + " INTEGER,"
-                + KEY_E_SCREEN_ENABLED + " INTEGER,"
-                + KEY_E_SCREEN_EVENT_TYPE + " INTEGER,"
-                + KEY_E_DELAY_START + " INTEGER,"
-                + KEY_E_IS_IN_DELAY_START + " INTEGER,"
-                + KEY_E_SCREEN_WHEN_UNLOCKED + " INTEGER,"
-                + KEY_E_BLUETOOTH_ENABLED + " INTEGER,"
-                + KEY_E_BLUETOOTH_ADAPTER_NAME + " TEXT,"
-                + KEY_E_BLUETOOTH_CONNECTION_TYPE + " INTEGER,"
-                + KEY_E_SMS_ENABLED + " INTEGER,"
-                //+ KEY_E_SMS_EVENT + " INTEGER,"
-                + KEY_E_SMS_CONTACTS + " TEXT,"
-                + KEY_E_SMS_CONTACT_LIST_TYPE + " INTEGER,"
-                + KEY_E_SMS_START_TIME + " INTEGER,"
-                + KEY_E_CALL_CONTACT_GROUPS + " TEXT,"
-                + KEY_E_SMS_CONTACT_GROUPS + " TEXT,"
-                + KEY_E_AT_END_DO + " INTEGER,"
-                + KEY_E_CALENDAR_AVAILABILITY + " INTEGER,"
-                + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER,"
-                + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " INTEGER,"
-                + KEY_E_SMS_DURATION + " INTEGER,"
-                + KEY_E_NOTIFICATION_ENABLED + " INTEGER,"
-                + KEY_E_NOTIFICATION_APPLICATIONS + " TEXT,"
-                + KEY_E_NOTIFICATION_START_TIME + " INTEGER,"
-                + KEY_E_NOTIFICATION_DURATION + " INTEGER,"
-                + KEY_E_BATTERY_POWER_SAVE_MODE + " INTEGER,"
-                + KEY_E_BLUETOOTH_DEVICES_TYPE + " INTEGER,"
-                + KEY_E_APPLICATION_ENABLED + " INTEGER,"
-                + KEY_E_APPLICATION_APPLICATIONS + " TEXT,"
-                + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER,"
-                + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " INTEGER,"
-                + KEY_E_LOCATION_ENABLED + " INTEGER,"
-                + KEY_E_LOCATION_FK_GEOFENCE + " INTEGER,"
-                + KEY_E_LOCATION_WHEN_OUTSIDE + " INTEGER,"
-                + KEY_E_DELAY_END + " INTEGER,"
-                + KEY_E_IS_IN_DELAY_END + " INTEGER,"
-                + KEY_E_START_STATUS_TIME + " INTEGER,"
-                + KEY_E_PAUSE_STATUS_TIME + " INTEGER,"
-                + KEY_E_ORIENTATION_ENABLED + " INTEGER,"
-                + KEY_E_ORIENTATION_SIDES + " TEXT,"
-                + KEY_E_ORIENTATION_DISTANCE + " INTEGER,"
-                + KEY_E_ORIENTATION_DISPLAY + " TEXT,"
-                + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " TEXT,"
-                + KEY_E_MOBILE_CELLS_ENABLED + " INTEGER,"
-                + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER,"
-                + KEY_E_MOBILE_CELLS_CELLS + " TEXT,"
-                + KEY_E_LOCATION_GEOFENCES + " TEXT,"
-                + KEY_E_START_ORDER + " INTEGER,"
-                + KEY_E_NFC_ENABLED + " INTEGER,"
-                + KEY_E_NFC_NFC_TAGS + " TEXT,"
-                + KEY_E_NFC_DURATION + " INTEGER,"
-                + KEY_E_NFC_START_TIME + " INTEGER,"
-                + KEY_E_SMS_PERMANENT_RUN + " INTEGER,"
-                + KEY_E_NOTIFICATION_PERMANENT_RUN + " INTEGER,"
-                + KEY_E_NFC_PERMANENT_RUN + " INTEGER,"
-                + KEY_E_CALENDAR_START_BEFORE_EVENT + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_ENABLED + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_WIFI + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_BLUETOOTH + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_MOBILE_DATA + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_GPS + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_NFC + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER,"
-                + KEY_E_NOTIFICATION_VIBRATE_START + " INTEGER,"
-                + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " INTEGER,"
-                + KEY_E_CALL_DURATION + " INTEGER,"
-                + KEY_E_CALL_PERMANENT_RUN + " INTEGER,"
-                + KEY_E_CALL_START_TIME + " INTEGER,"
-                + KEY_E_NOTIFICATION_SOUND_REPEAT_START + " INTEGER,"
-                + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START + " INTEGER,"
-                + KEY_E_NOTIFICATION_IN_CALL + " INTEGER,"
-                + KEY_E_NOTIFICATION_MISSED_CALL + " INTEGER,"
-                + KEY_E_START_WHEN_ACTIVATED_PROFILE + " TEXT,"
-                + KEY_E_BLUETOOTH_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_LOCATION_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_MOBILE_CELLS_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_ORIENTATION_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_WIFI_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_APPLICATION_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_BATTERY_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_CALENDAR_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_CALL_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_NFC_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_NOTIFICATION_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_PERIPHERAL_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_SCREEN_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_SMS_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_TIME_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_CALENDAR_ALL_EVENTS + " INTEGER,"
-                + KEY_E_ALARM_CLOCK_ENABLED + " INTEGER,"
-                + KEY_E_ALARM_CLOCK_PERMANENT_RUN + " INTEGER,"
-                + KEY_E_ALARM_CLOCK_DURATION + " INTEGER,"
-                + KEY_E_ALARM_CLOCK_START_TIME + " INTEGER,"
-                + KEY_E_ALARM_CLOCK_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_NOTIFICATION_SOUND_END + " TEXT,"
-                + KEY_E_NOTIFICATION_VIBRATE_END + " INTEGER,"
-                + KEY_E_BATTERY_PLUGGED + " TEXT,"
-                + KEY_E_TIME_TYPE + " INTEGER,"
-                + KEY_E_ORIENTATION_CHECK_LIGHT + " INTEGER,"
-                + KEY_E_ORIENTATION_LIGHT_MIN + " INTEGER,"
-                + KEY_E_ORIENTATION_LIGHT_MAX + " INTEGER,"
-                + KEY_E_NOTIFICATION_CHECK_CONTACTS + " INTEGER,"
-                + KEY_E_NOTIFICATION_CONTACTS + " TEXT,"
-                + KEY_E_NOTIFICATION_CONTACT_GROUPS + " TEXT,"
-                + KEY_E_NOTIFICATION_CHECK_TEXT + " INTEGER,"
-                + KEY_E_NOTIFICATION_TEXT + " TEXT,"
-                + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + " INTEGER,"
-                + KEY_E_DEVICE_BOOT_ENABLED + " INTEGER,"
-                + KEY_E_DEVICE_BOOT_PERMANENT_RUN + " INTEGER,"
-                + KEY_E_DEVICE_BOOT_DURATION + " INTEGER,"
-                + KEY_E_DEVICE_BOOT_START_TIME + " INTEGER,"
-                + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_ALARM_CLOCK_APPLICATIONS + " TEXT,"
-                + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " TEXT"
+                + KEY_E_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_E_NAME + " " + TEXT_TYPE + ","
+                + KEY_E_FK_PROFILE_START + " " + INTEGER_TYPE + ","
+                + KEY_E_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_END_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_DAYS_OF_WEEK + " " + TEXT_TYPE + ","
+                + KEY_E_USE_END_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_STATUS + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_START + " " + TEXT_TYPE + ","
+                + KEY_E_BATTERY_LEVEL_LOW + " " + INTEGER_TYPE + ","
+                + KEY_E_BATTERY_LEVEL_HIGHT + " " + INTEGER_TYPE + ","
+                + KEY_E_BATTERY_CHARGING + " " + INTEGER_TYPE + ","
+                + KEY_E_TIME_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_BATTERY_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_EVENT + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_CONTACTS + " " + TEXT_TYPE + ","
+                + KEY_E_CALL_CONTACT_LIST_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_FK_PROFILE_END + " " + INTEGER_TYPE + ","
+                + KEY_E_FORCE_RUN + " " + INTEGER_TYPE + ","
+                + KEY_E_BLOCKED + " " + INTEGER_TYPE + ","
+                //+ KEY_E_UNDONE_PROFILE + " " + INTEGER_TYPE + ","
+                + KEY_E_PRIORITY + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIPHERAL_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIPHERAL_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_CALENDARS + " " + TEXT_TYPE + ","
+                + KEY_E_CALENDAR_SEARCH_FIELD + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_SEARCH_STRING + " " + TEXT_TYPE + ","
+                + KEY_E_CALENDAR_EVENT_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_EVENT_END_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_EVENT_FOUND + " " + INTEGER_TYPE + ","
+                + KEY_E_WIFI_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_WIFI_SSID + " " + TEXT_TYPE + ","
+                + KEY_E_WIFI_CONNECTION_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_SCREEN_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_SCREEN_EVENT_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_DELAY_START + " " + INTEGER_TYPE + ","
+                + KEY_E_IS_IN_DELAY_START + " " + INTEGER_TYPE + ","
+                + KEY_E_SCREEN_WHEN_UNLOCKED + " " + INTEGER_TYPE + ","
+                + KEY_E_BLUETOOTH_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_BLUETOOTH_ADAPTER_NAME + " " + TEXT_TYPE + ","
+                + KEY_E_BLUETOOTH_CONNECTION_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_ENABLED + " " + INTEGER_TYPE + ","
+                //+ KEY_E_SMS_EVENT + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_CONTACTS + " " + TEXT_TYPE + ","
+                + KEY_E_SMS_CONTACT_LIST_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_CONTACT_GROUPS + " " + TEXT_TYPE + ","
+                + KEY_E_SMS_CONTACT_GROUPS + " " + TEXT_TYPE + ","
+                + KEY_E_AT_END_DO + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_AVAILABILITY + " " + INTEGER_TYPE + ","
+                + KEY_E_MANUAL_PROFILE_ACTIVATION + " " + INTEGER_TYPE + ","
+                + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_APPLICATIONS + " " + TEXT_TYPE + ","
+                + KEY_E_NOTIFICATION_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_BATTERY_POWER_SAVE_MODE + " " + INTEGER_TYPE + ","
+                + KEY_E_BLUETOOTH_DEVICES_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_APPLICATION_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_APPLICATION_APPLICATIONS + " " + TEXT_TYPE + ","
+                + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " " + INTEGER_TYPE + ","
+                + KEY_E_LOCATION_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_LOCATION_FK_GEOFENCE + " " + INTEGER_TYPE + ","
+                + KEY_E_LOCATION_WHEN_OUTSIDE + " " + INTEGER_TYPE + ","
+                + KEY_E_DELAY_END + " " + INTEGER_TYPE + ","
+                + KEY_E_IS_IN_DELAY_END + " " + INTEGER_TYPE + ","
+                + KEY_E_START_STATUS_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_PAUSE_STATUS_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_ORIENTATION_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_ORIENTATION_SIDES + " " + TEXT_TYPE + ","
+                + KEY_E_ORIENTATION_DISTANCE + " " + INTEGER_TYPE + ","
+                + KEY_E_ORIENTATION_DISPLAY + " " + TEXT_TYPE + ","
+                + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " " + TEXT_TYPE + ","
+                + KEY_E_MOBILE_CELLS_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " " + INTEGER_TYPE + ","
+                + KEY_E_MOBILE_CELLS_CELLS + " " + TEXT_TYPE + ","
+                + KEY_E_LOCATION_GEOFENCES + " " + TEXT_TYPE + ","
+                + KEY_E_START_ORDER + " " + INTEGER_TYPE + ","
+                + KEY_E_NFC_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_NFC_NFC_TAGS + " " + TEXT_TYPE + ","
+                + KEY_E_NFC_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_NFC_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_PERMANENT_RUN + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_PERMANENT_RUN + " " + INTEGER_TYPE + ","
+                + KEY_E_NFC_PERMANENT_RUN + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_START_BEFORE_EVENT + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_WIFI + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_BLUETOOTH + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_MOBILE_DATA + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_GPS + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_NFC + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_VIBRATE_START + " " + INTEGER_TYPE + ","
+                + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_PERMANENT_RUN + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_REPEAT_START + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_IN_CALL + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_MISSED_CALL + " " + INTEGER_TYPE + ","
+                + KEY_E_START_WHEN_ACTIVATED_PROFILE + " " + TEXT_TYPE + ","
+                + KEY_E_BLUETOOTH_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_LOCATION_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_MOBILE_CELLS_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_ORIENTATION_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_WIFI_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_APPLICATION_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_BATTERY_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_NFC_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIPHERAL_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_SCREEN_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_TIME_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_ALL_EVENTS + " " + INTEGER_TYPE + ","
+                + KEY_E_ALARM_CLOCK_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_ALARM_CLOCK_PERMANENT_RUN + " " + INTEGER_TYPE + ","
+                + KEY_E_ALARM_CLOCK_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_ALARM_CLOCK_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_ALARM_CLOCK_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_SOUND_END + " " + TEXT_TYPE + ","
+                + KEY_E_NOTIFICATION_VIBRATE_END + " " + INTEGER_TYPE + ","
+                + KEY_E_BATTERY_PLUGGED + " " + TEXT_TYPE + ","
+                + KEY_E_TIME_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_ORIENTATION_CHECK_LIGHT + " " + INTEGER_TYPE + ","
+                + KEY_E_ORIENTATION_LIGHT_MIN + " " + INTEGER_TYPE + ","
+                + KEY_E_ORIENTATION_LIGHT_MAX + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_CHECK_CONTACTS + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_CONTACTS + " " + TEXT_TYPE + ","
+                + KEY_E_NOTIFICATION_CONTACT_GROUPS + " " + TEXT_TYPE + ","
+                + KEY_E_NOTIFICATION_CHECK_TEXT + " " + INTEGER_TYPE + ","
+                + KEY_E_NOTIFICATION_TEXT + " " + TEXT_TYPE + ","
+                + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_DEVICE_BOOT_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_DEVICE_BOOT_PERMANENT_RUN + " " + INTEGER_TYPE + ","
+                + KEY_E_DEVICE_BOOT_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_DEVICE_BOOT_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_ALARM_CLOCK_APPLICATIONS + " " + TEXT_TYPE + ","
+                + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " " + TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
         final String CREATE_EVENTTIME_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_EVENT_TIMELINE + "("
-                + KEY_ET_ID + " INTEGER PRIMARY KEY,"
-                + KEY_ET_EORDER + " INTEGER,"
-                + KEY_ET_FK_EVENT + " INTEGER,"
-                + KEY_ET_FK_PROFILE_RETURN + " INTEGER"
+                + KEY_ET_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_ET_EORDER + " " + INTEGER_TYPE + ","
+                + KEY_ET_FK_EVENT + " " + INTEGER_TYPE + ","
+                + KEY_ET_FK_PROFILE_RETURN + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTTIME_TABLE);
 
         final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ACTIVITY_LOG + "("
-                + KEY_AL_ID + " INTEGER PRIMARY KEY,"
-                + KEY_AL_LOG_DATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
-                + KEY_AL_LOG_TYPE + " INTEGER,"
-                + KEY_AL_EVENT_NAME + " TEXT,"
-                + KEY_AL_PROFILE_NAME + " TEXT,"
-                + KEY_AL_PROFILE_ICON + " TEXT,"
-                + KEY_AL_DURATION_DELAY + " INTEGER,"
-                + KEY_AL_PROFILE_EVENT_COUNT + " TEXT"
+                + KEY_AL_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_AL_LOG_DATE_TIME + " " + DATETIME_TYPE + " DEFAULT CURRENT_TIMESTAMP,"
+                + KEY_AL_LOG_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_AL_EVENT_NAME + " " + TEXT_TYPE + ","
+                + KEY_AL_PROFILE_NAME + " " + TEXT_TYPE + ","
+                + KEY_AL_PROFILE_ICON + " " + TEXT_TYPE + ","
+                + KEY_AL_DURATION_DELAY + " " + INTEGER_TYPE + ","
+                + KEY_AL_PROFILE_EVENT_COUNT + " " + TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_ACTIVITYLOG_TABLE);
 
         final String CREATE_GEOFENCES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_GEOFENCES + "("
-                + KEY_G_ID + " INTEGER PRIMARY KEY,"
-                + KEY_G_LATITUDE + " DOUBLE,"
-                + KEY_G_LONGITUDE + " DOUBLE,"
-                + KEY_G_RADIUS + " FLOAT,"
-                + KEY_G_NAME + " TEXT,"
-                + KEY_G_CHECKED + " INTEGER,"
-                + KEY_G_TRANSITION + " INTEGER"
+                + KEY_G_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_G_LATITUDE + " " + DOUBLE_TYPE + ","
+                + KEY_G_LONGITUDE + " " + DOUBLE_TYPE + ","
+                + KEY_G_RADIUS + " " + FLOAT_TYPE + ","
+                + KEY_G_NAME + " " + TEXT_TYPE + ","
+                + KEY_G_CHECKED + " " + INTEGER_TYPE + ","
+                + KEY_G_TRANSITION + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_GEOFENCES_TABLE);
 
         final String CREATE_SHORTCUTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHORTCUTS + "("
-                + KEY_S_ID + " INTEGER PRIMARY KEY,"
-                + KEY_S_INTENT + " TEXT,"
-                + KEY_S_NAME + " TEXT"
+                + KEY_S_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_S_INTENT + " " + TEXT_TYPE + ","
+                + KEY_S_NAME + " " + TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_SHORTCUTS_TABLE);
 
         final String CREATE_MOBILE_CELLS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_MOBILE_CELLS + "("
-                + KEY_MC_ID + " INTEGER PRIMARY KEY,"
-                + KEY_MC_CELL_ID + " INTEGER,"
-                + KEY_MC_NAME + " TEXT,"
-                + KEY_MC_NEW + " INTEGER,"
-                + KEY_MC_LAST_CONNECTED_TIME + " INTEGER,"
-                + KEY_MC_LAST_RUNNING_EVENTS + " TEXT,"
-                + KEY_MC_LAST_PAUSED_EVENTS + " TEXT,"
-                + KEY_MC_DO_NOT_DETECT + " INTEGER"
+                + KEY_MC_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_MC_CELL_ID + " " + INTEGER_TYPE + ","
+                + KEY_MC_NAME + " " + TEXT_TYPE + ","
+                + KEY_MC_NEW + " " + INTEGER_TYPE + ","
+                + KEY_MC_LAST_CONNECTED_TIME + " " + INTEGER_TYPE + ","
+                + KEY_MC_LAST_RUNNING_EVENTS + " " + TEXT_TYPE + ","
+                + KEY_MC_LAST_PAUSED_EVENTS + " " + TEXT_TYPE + ","
+                + KEY_MC_DO_NOT_DETECT + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
 
         final String CREATE_NFC_TAGS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NFC_TAGS + "("
-                + KEY_NT_ID + " INTEGER PRIMARY KEY,"
-                + KEY_NT_NAME + " TEXT,"
-                + KEY_NT_UID + " TEXT"
+                + KEY_NT_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_NT_NAME + " " + TEXT_TYPE + ","
+                + KEY_NT_UID + " " + TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_NFC_TAGS_TABLE);
 
         final String CREATE_INTENTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_INTENTS + "("
-                + KEY_IN_ID + " INTEGER PRIMARY KEY,"
-                + KEY_IN_PACKAGE_NAME + " TEXT,"
-                + KEY_IN_CLASS_NAME + " TEXT,"
-                + KEY_IN_ACTION + " TEXT,"
-                + KEY_IN_DATA + " TEXT,"
-                + KEY_IN_MIME_TYPE + " TEXT,"
-                + KEY_IN_EXTRA_KEY_1 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_1 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_1 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_2 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_2 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_2 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_3 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_3 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_3 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_4 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_4 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_4 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_5 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_5 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_5 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_6 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_6 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_6 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_7 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_7 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_7 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_8 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_8 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_8 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_9 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_9 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_9 + " INTEGER,"
-                + KEY_IN_EXTRA_KEY_10 + " TEXT,"
-                + KEY_IN_EXTRA_VALUE_10 + " TEXT,"
-                + KEY_IN_EXTRA_TYPE_10 + " INTEGER,"
-                + KEY_IN_CATEGORIES + " TEXT,"
-                + KEY_IN_FLAGS + " TEXT,"
-                + KEY_IN_NAME + " TEXT,"
-                + KEY_IN_USED_COUNT + " INTEGER,"
-                + KEY_IN_INTENT_TYPE + " INTEGER"
+                + KEY_IN_ID + " " + INTEGER_TYPE + " PRIMARY KEY,"
+                + KEY_IN_PACKAGE_NAME + " " + TEXT_TYPE + ","
+                + KEY_IN_CLASS_NAME + " " + TEXT_TYPE + ","
+                + KEY_IN_ACTION + " " + TEXT_TYPE + ","
+                + KEY_IN_DATA + " " + TEXT_TYPE + ","
+                + KEY_IN_MIME_TYPE + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_KEY_1 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_1 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_1 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_2 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_2 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_2 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_3 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_3 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_3 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_4 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_4 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_4 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_5 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_5 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_5 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_6 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_6 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_6 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_7 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_7 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_7 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_8 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_8 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_8 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_9 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_9 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_9 + " " + INTEGER_TYPE + ","
+                + KEY_IN_EXTRA_KEY_10 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_VALUE_10 + " " + TEXT_TYPE + ","
+                + KEY_IN_EXTRA_TYPE_10 + " " + INTEGER_TYPE + ","
+                + KEY_IN_CATEGORIES + " " + TEXT_TYPE + ","
+                + KEY_IN_FLAGS + " " + TEXT_TYPE + ","
+                + KEY_IN_NAME + " " + TEXT_TYPE + ","
+                + KEY_IN_USED_COUNT + " " + INTEGER_TYPE + ","
+                + KEY_IN_INTENT_TYPE + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_INTENTS_TABLE);
     }
@@ -884,310 +889,310 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         switch (table) {
             case TABLE_PROFILES:
             case TABLE_MERGED_PROFILE:
-                createColumnWhenNotExists(db, table, KEY_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_ICON, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_CHECKED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_PORDER,  "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_RINGER_MODE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_RINGTONE, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_NOTIFICATION, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_MEDIA, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_ALARM, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_SYSTEM, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_VOICE, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_SOUND_RINGTONE_CHANGE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_SOUND_RINGTONE, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_CHANGE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_SOUND_ALARM_CHANGE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_SOUND_ALARM, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_AIRPLANE_MODE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_BLUETOOTH, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_SCREEN_TIMEOUT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_BRIGHTNESS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_CHANGE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA_PREFS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_GPS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_RUN_APPLICATION_CHANGE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_AUTOSYNC, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_SHOW_IN_ACTIVATOR, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_AUTOROTATE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_SERVICE_PREFS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_SPEAKER_PHONE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_NFC, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_AFTER_DURATION_DO, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_ZEN_MODE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_KEYGUARD, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VIBRATE_ON_TOUCH, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI_AP, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_POWER_SAVE_MODE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_ASK_FOR_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_NETWORK_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_NOTIFICATION_LED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VIBRATE_WHEN_RINGING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_FOR, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_HIDE_STATUS_BAR_ICON, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_LOCK_DEVICE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_CONNECT_TO_SSID, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_WIFI_SCANNING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DURATION_NOTIFICATION_SOUND, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_DURATION_NOTIFICATION_VIBRATE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI_AP_PREFS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_LOCATION_SCANNING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_HEADS_UP_NOTIFICATIONS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_ACTIVATION_BY_USER_COUNT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_NETWORK_TYPE_PREFS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_CLOSE_ALL_APPLICATIONS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_SCREEN_DARK_MODE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DTMF_TONE_WHEN_DIALING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_SOUND_ON_TOUCH, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_DTMF, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_ACCESSIBILITY, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_BLUETOOTH_SCO, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_AFTER_DURATION_PROFILE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_ALWAYS_ON_DISPLAY, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_SCREEN_ON_PERMANENT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_VOLUME_MUTE_SOUND, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_ICON, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_CHECKED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_PORDER,  INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_RINGER_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_RINGTONE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_NOTIFICATION, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_MEDIA, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_ALARM, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_SYSTEM, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_VOICE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_RINGTONE_CHANGE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_RINGTONE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_CHANGE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_ALARM_CHANGE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_ALARM, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_AIRPLANE_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_BLUETOOTH, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_SCREEN_TIMEOUT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_BRIGHTNESS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_CHANGE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA_PREFS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_GPS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_RUN_APPLICATION_CHANGE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_AUTOSYNC, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SHOW_IN_ACTIVATOR, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_AUTOROTATE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_SERVICE_PREFS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_SPEAKER_PHONE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_NFC, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AFTER_DURATION_DO, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_ZEN_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_KEYGUARD, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VIBRATE_ON_TOUCH, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI_AP, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_POWER_SAVE_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_ASK_FOR_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_NETWORK_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_NOTIFICATION_LED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VIBRATE_WHEN_RINGING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_FOR, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_HIDE_STATUS_BAR_ICON, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_LOCK_DEVICE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_CONNECT_TO_SSID, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_WIFI_SCANNING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DURATION_NOTIFICATION_SOUND, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DURATION_NOTIFICATION_VIBRATE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI_AP_PREFS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_LOCATION_SCANNING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_HEADS_UP_NOTIFICATIONS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_ACTIVATION_BY_USER_COUNT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_NETWORK_TYPE_PREFS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_CLOSE_ALL_APPLICATIONS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SCREEN_DARK_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DTMF_TONE_WHEN_DIALING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_ON_TOUCH, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_DTMF, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_ACCESSIBILITY, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_BLUETOOTH_SCO, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AFTER_DURATION_PROFILE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_ALWAYS_ON_DISPLAY, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SCREEN_ON_PERMANENT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_MUTE_SOUND, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_MODE, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
-                createColumnWhenNotExists(db, table, KEY_E_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_START, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_END_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DAYS_OF_WEEK, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_USE_END_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_STATUS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_START, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BATTERY_LEVEL_LOW, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BATTERY_LEVEL_HIGHT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BATTERY_CHARGING, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_TIME_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BATTERY_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_EVENT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACTS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACT_LIST_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_END, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_FORCE_RUN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BLOCKED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_PRIORITY, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_CALENDARS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_FIELD, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_STRING, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_END_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_FOUND, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_WIFI_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_WIFI_SSID, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_WIFI_CONNECTION_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SCREEN_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SCREEN_EVENT_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DELAY_START, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_IS_IN_DELAY_START, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SCREEN_WHEN_UNLOCKED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_ADAPTER_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_CONNECTION_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACTS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACT_LIST_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACT_GROUPS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACT_GROUPS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_AT_END_DO, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_AVAILABILITY, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_MANUAL_PROFILE_ACTIVATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_APPLICATIONS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BATTERY_POWER_SAVE_MODE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_DEVICES_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_APPLICATIONS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_END_WHEN_REMOVED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_LOCATION_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_LOCATION_FK_GEOFENCE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_LOCATION_WHEN_OUTSIDE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DELAY_END, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_IS_IN_DELAY_END, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_START_STATUS_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_PAUSE_STATUS_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_SIDES, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_DISTANCE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_DISPLAY, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_IGNORE_APPLICATIONS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_CELLS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_LOCATION_GEOFENCES, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_START_ORDER, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NFC_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NFC_NFC_TAGS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NFC_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NFC_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_PERMANENT_RUN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_PERMANENT_RUN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NFC_PERMANENT_RUN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_START_BEFORE_EVENT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_WIFI, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_BLUETOOTH, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_GPS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_NFC, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_AIRPLANE_MODE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_VIBRATE_START, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_PERMANENT_RUN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_REPEAT_START, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_IN_CALL, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_MISSED_CALL, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_START_WHEN_ACTIVATED_PROFILE, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_LOCATION_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_WIFI_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BATTERY_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALL_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NFC_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SCREEN_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_SMS_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_TIME_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ALL_EVENTS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PERMANENT_RUN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_END, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_VIBRATE_END, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_BATTERY_PLUGGED, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_TIME_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_CHECK_LIGHT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_LIGHT_MIN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_LIGHT_MAX, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CHECK_CONTACTS, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACTS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACT_GROUPS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CHECK_TEXT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_TEXT, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACT_LIST_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_ENABLED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_PERMANENT_RUN, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_DURATION, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_START_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_SENSOR_PASSED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_APPLICATIONS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PACKAGE_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_START, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_END_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DAYS_OF_WEEK, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_USE_END_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_STATUS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_START, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_LEVEL_LOW, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_LEVEL_HIGHT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_CHARGING, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_TIME_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_EVENT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACTS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACT_LIST_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_END, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_FORCE_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLOCKED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PRIORITY, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_CALENDARS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_FIELD, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_STRING, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_END_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_FOUND, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_SSID, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_CONNECTION_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_EVENT_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DELAY_START, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_IS_IN_DELAY_START, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_WHEN_UNLOCKED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_ADAPTER_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_CONNECTION_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACTS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACT_LIST_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACT_GROUPS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACT_GROUPS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_AT_END_DO, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_AVAILABILITY, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_MANUAL_PROFILE_ACTIVATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_APPLICATIONS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_POWER_SAVE_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_DEVICES_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_APPLICATIONS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_END_WHEN_REMOVED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_FK_GEOFENCE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_WHEN_OUTSIDE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DELAY_END, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_IS_IN_DELAY_END, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_STATUS_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PAUSE_STATUS_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_SIDES, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_DISTANCE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_DISPLAY, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_IGNORE_APPLICATIONS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_CELLS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_GEOFENCES, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_ORDER, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_NFC_TAGS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_PERMANENT_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_PERMANENT_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_PERMANENT_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_START_BEFORE_EVENT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_WIFI, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_BLUETOOTH, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_GPS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_NFC, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_AIRPLANE_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_VIBRATE_START, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_PERMANENT_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_REPEAT_START, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_IN_CALL, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_MISSED_CALL, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_WHEN_ACTIVATED_PROFILE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_TIME_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ALL_EVENTS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PERMANENT_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_END, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_VIBRATE_END, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_PLUGGED, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_TIME_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_CHECK_LIGHT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_LIGHT_MIN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_LIGHT_MAX, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CHECK_CONTACTS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACTS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACT_GROUPS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CHECK_TEXT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_TEXT, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACT_LIST_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_PERMANENT_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_APPLICATIONS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PACKAGE_NAME, TEXT_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
-                createColumnWhenNotExists(db, table, KEY_ET_EORDER, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_ET_FK_EVENT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_ET_FK_PROFILE_RETURN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_ET_FK_EVENT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_ET_FK_PROFILE_RETURN, INTEGER_TYPE, columns);
                 break;
             case TABLE_ACTIVITY_LOG:
-                createColumnWhenNotExists(db, table, KEY_AL_LOG_DATE_TIME, "DATETIME", columns);
-                createColumnWhenNotExists(db, table, KEY_AL_LOG_TYPE, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_AL_EVENT_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_ICON, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_AL_DURATION_DELAY, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_EVENT_COUNT, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_AL_LOG_DATE_TIME, DATETIME_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AL_LOG_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AL_EVENT_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_ICON, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AL_DURATION_DELAY, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_EVENT_COUNT, TEXT_TYPE, columns);
                 break;
             case TABLE_GEOFENCES:
-                createColumnWhenNotExists(db, table, KEY_G_LATITUDE, "DOUBLE", columns);
-                createColumnWhenNotExists(db, table, KEY_G_LONGITUDE, "DOUBLE", columns);
-                createColumnWhenNotExists(db, table, KEY_G_RADIUS, "FLOAT", columns);
-                createColumnWhenNotExists(db, table, KEY_G_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_G_CHECKED, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_G_TRANSITION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_G_LATITUDE, DOUBLE_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_G_LONGITUDE, DOUBLE_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_G_RADIUS, FLOAT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_G_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_G_CHECKED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_G_TRANSITION, INTEGER_TYPE, columns);
                 break;
             case TABLE_SHORTCUTS:
-                createColumnWhenNotExists(db, table, KEY_S_INTENT, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_S_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_S_INTENT, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_S_NAME, TEXT_TYPE, columns);
                 break;
             case TABLE_MOBILE_CELLS:
-                createColumnWhenNotExists(db, table, KEY_MC_CELL_ID, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_MC_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_MC_NEW, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_MC_LAST_CONNECTED_TIME, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_MC_LAST_RUNNING_EVENTS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_MC_LAST_PAUSED_EVENTS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_MC_DO_NOT_DETECT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_MC_CELL_ID, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_MC_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_MC_NEW, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_MC_LAST_CONNECTED_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_MC_LAST_RUNNING_EVENTS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_MC_LAST_PAUSED_EVENTS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_MC_DO_NOT_DETECT, INTEGER_TYPE, columns);
                 break;
             case TABLE_NFC_TAGS:
-                createColumnWhenNotExists(db, table, KEY_NT_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_NT_UID, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_NT_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_NT_UID, TEXT_TYPE, columns);
                 break;
             case TABLE_INTENTS:
-                createColumnWhenNotExists(db, table, KEY_IN_PACKAGE_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_CLASS_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_ACTION, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_DATA, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_MIME_TYPE, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_1, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_1, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_1, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_2, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_2, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_2, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_3, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_3, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_3, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_4, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_4, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_4, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_5, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_5, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_5, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_6, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_6, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_6, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_7, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_7, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_7, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_8, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_8, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_8, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_9, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_9, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_9, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_10, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_10, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_10, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_CATEGORIES, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_FLAGS, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_NAME, "TEXT", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_USED_COUNT, "INTEGER", columns);
-                createColumnWhenNotExists(db, table, KEY_IN_INTENT_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_PACKAGE_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_CLASS_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_ACTION, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_DATA, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_MIME_TYPE, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_1, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_1, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_1, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_2, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_2, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_2, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_3, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_3, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_3, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_4, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_4, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_4, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_5, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_5, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_5, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_6, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_6, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_6, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_7, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_7, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_7, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_8, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_8, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_8, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_9, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_9, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_9, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_10, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_10, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_10, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_CATEGORIES, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_FLAGS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_USED_COUNT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_INTENT_TYPE, INTEGER_TYPE, columns);
                 break;
         }
     }
