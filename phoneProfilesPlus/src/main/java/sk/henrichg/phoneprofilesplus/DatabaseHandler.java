@@ -472,7 +472,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String idField = KEY_ID + " INTEGER PRIMARY KEY,";
         if (tableName.equals(TABLE_MERGED_PROFILE))
             idField = KEY_ID + " INTEGER,";
-        return "CREATE TABLE " + tableName + "("
+        return "CREATE TABLE IF NOT EXISTS " + tableName + "("
                 + idField
                 + KEY_NAME + " TEXT,"
                 + KEY_ICON + " TEXT,"
@@ -552,19 +552,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
+    private void createTables(SQLiteDatabase db) {
         final String CREATE_PROFILES_TABLE = profileTableCreationString(TABLE_PROFILES);
         db.execSQL(CREATE_PROFILES_TABLE);
-
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
 
         final String CREATE_MERGED_PROFILE_TABLE = profileTableCreationString(TABLE_MERGED_PROFILE);
         db.execSQL(CREATE_MERGED_PROFILE_TABLE);
 
-        final String CREATE_EVENTS_TABLE = "CREATE TABLE " + TABLE_EVENTS + "("
+        final String CREATE_EVENTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_EVENTS + "("
                 + KEY_E_ID + " INTEGER PRIMARY KEY,"
                 + KEY_E_NAME + " TEXT,"
                 + KEY_E_FK_PROFILE_START + " INTEGER,"
@@ -717,13 +712,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START + ")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_START_ORDER ON " + TABLE_EVENTS + " (" + KEY_E_START_ORDER + ")");
-
-        final String CREATE_EVENTTIME_TABLE = "CREATE TABLE " + TABLE_EVENT_TIMELINE + "("
+        final String CREATE_EVENTTIME_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_EVENT_TIMELINE + "("
                 + KEY_ET_ID + " INTEGER PRIMARY KEY,"
                 + KEY_ET_EORDER + " INTEGER,"
                 + KEY_ET_FK_EVENT + " INTEGER,"
@@ -731,9 +720,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_EVENTTIME_TABLE);
 
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
-
-        final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE " + TABLE_ACTIVITY_LOG + "("
+        final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ACTIVITY_LOG + "("
                 + KEY_AL_ID + " INTEGER PRIMARY KEY,"
                 + KEY_AL_LOG_DATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
                 + KEY_AL_LOG_TYPE + " INTEGER,"
@@ -745,9 +732,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_ACTIVITYLOG_TABLE);
 
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
-
-        final String CREATE_GEOFENCES_TABLE = "CREATE TABLE " + TABLE_GEOFENCES + "("
+        final String CREATE_GEOFENCES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_GEOFENCES + "("
                 + KEY_G_ID + " INTEGER PRIMARY KEY,"
                 + KEY_G_LATITUDE + " DOUBLE,"
                 + KEY_G_LONGITUDE + " DOUBLE,"
@@ -758,14 +743,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_GEOFENCES_TABLE);
 
-        final String CREATE_SHORTCUTS_TABLE = "CREATE TABLE " + TABLE_SHORTCUTS + "("
+        final String CREATE_SHORTCUTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHORTCUTS + "("
                 + KEY_S_ID + " INTEGER PRIMARY KEY,"
                 + KEY_S_INTENT + " TEXT,"
                 + KEY_S_NAME + " TEXT"
                 + ")";
         db.execSQL(CREATE_SHORTCUTS_TABLE);
 
-        final String CREATE_MOBILE_CELLS_TABLE = "CREATE TABLE " + TABLE_MOBILE_CELLS + "("
+        final String CREATE_MOBILE_CELLS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_MOBILE_CELLS + "("
                 + KEY_MC_ID + " INTEGER PRIMARY KEY,"
                 + KEY_MC_CELL_ID + " INTEGER,"
                 + KEY_MC_NAME + " TEXT,"
@@ -777,14 +762,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
 
-        final String CREATE_NFC_TAGS_TABLE = "CREATE TABLE " + TABLE_NFC_TAGS + "("
+        final String CREATE_NFC_TAGS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NFC_TAGS + "("
                 + KEY_NT_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NT_NAME + " TEXT,"
                 + KEY_NT_UID + " TEXT"
                 + ")";
         db.execSQL(CREATE_NFC_TAGS_TABLE);
 
-        final String CREATE_INTENTS_TABLE = "CREATE TABLE " + TABLE_INTENTS + "("
+        final String CREATE_INTENTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_INTENTS + "("
                 + KEY_IN_ID + " INTEGER PRIMARY KEY,"
                 + KEY_IN_PACKAGE_NAME + " TEXT,"
                 + KEY_IN_CLASS_NAME + " TEXT,"
@@ -828,6 +813,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_IN_INTENT_TYPE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_INTENTS_TABLE);
+    }
+
+    private void createIndexes(SQLiteDatabase db) {
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_START_ORDER ON " + TABLE_EVENTS + " (" + KEY_E_START_ORDER + ")");
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
+
 
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + TABLE_PROFILES + " (" + KEY_DEVICE_AUTOROTATE + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + TABLE_PROFILES + " (" + KEY_DEVICE_CONNECT_TO_SSID + ")");
@@ -851,13 +853,365 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__RADIO_SWITCH_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_RADIO_SWITCH_ENABLED + ")");
 
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_GEOFENCES + " (" + KEY_G_NAME + ")");
-
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_MOBILE_CELLS + " (" + KEY_MC_NAME + ")");
-
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_NFC_TAGS + " (" + KEY_NT_NAME + ")");
 
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ACTIVATION_BY_USER_COUNT ON " + TABLE_PROFILES + " (" + KEY_ACTIVATION_BY_USER_COUNT + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_START_WHEN_ACTIVATED ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + ")");
+    }
 
+    private List<String> getTableColums(SQLiteDatabase db, java.lang.String table) {
+        List<String> columns = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("PRAGMA table_info("+ table +")", null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    String name = cursor.getString(cursor.getColumnIndex("name"));
+                    columns.add(name);
+                }
+            }
+        } finally {
+            if (cursor != null && !cursor.isClosed())
+                cursor.close();
+        }
+        return columns;
+    }
+
+    private void createTableColumsWhenNotExists(SQLiteDatabase db, String table) {
+        List<String> columns = getTableColums(db, table);
+        switch (table) {
+            case TABLE_PROFILES:
+            case TABLE_MERGED_PROFILE:
+                createColumnWhenNotExists(db, table, KEY_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_ICON, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_CHECKED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_PORDER,  "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_RINGER_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_RINGTONE, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_NOTIFICATION, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_MEDIA, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_ALARM, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_SYSTEM, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_VOICE, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_RINGTONE_CHANGE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_RINGTONE, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_CHANGE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_ALARM_CHANGE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_ALARM, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_AIRPLANE_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_BLUETOOTH, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_SCREEN_TIMEOUT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_BRIGHTNESS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_CHANGE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA_PREFS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_GPS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_RUN_APPLICATION_CHANGE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_AUTOSYNC, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_SHOW_IN_ACTIVATOR, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_AUTOROTATE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_SERVICE_PREFS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_SPEAKER_PHONE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_NFC, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_AFTER_DURATION_DO, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_ZEN_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_KEYGUARD, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VIBRATE_ON_TOUCH, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI_AP, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_POWER_SAVE_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_ASK_FOR_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_NETWORK_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_NOTIFICATION_LED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VIBRATE_WHEN_RINGING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_FOR, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_HIDE_STATUS_BAR_ICON, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_LOCK_DEVICE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_CONNECT_TO_SSID, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_WIFI_SCANNING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DURATION_NOTIFICATION_SOUND, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_DURATION_NOTIFICATION_VIBRATE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WIFI_AP_PREFS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_LOCATION_SCANNING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_HEADS_UP_NOTIFICATIONS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_ACTIVATION_BY_USER_COUNT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_NETWORK_TYPE_PREFS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_CLOSE_ALL_APPLICATIONS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_SCREEN_DARK_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DTMF_TONE_WHEN_DIALING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_ON_TOUCH, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_DTMF, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_ACCESSIBILITY, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_BLUETOOTH_SCO, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_AFTER_DURATION_PROFILE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_ALWAYS_ON_DISPLAY, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_SCREEN_ON_PERMANENT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_VOLUME_MUTE_SOUND, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_MODE, "INTEGER", columns);
+                break;
+            case TABLE_EVENTS:
+                createColumnWhenNotExists(db, table, KEY_E_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_START, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_END_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DAYS_OF_WEEK, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_USE_END_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_STATUS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_START, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_LEVEL_LOW, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_LEVEL_HIGHT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_CHARGING, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_TIME_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_EVENT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACTS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACT_LIST_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_END, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_FORCE_RUN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLOCKED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_PRIORITY, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_CALENDARS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_FIELD, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_STRING, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_END_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_FOUND, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_SSID, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_CONNECTION_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_EVENT_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DELAY_START, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_IS_IN_DELAY_START, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_WHEN_UNLOCKED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_ADAPTER_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_CONNECTION_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACTS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACT_LIST_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_CONTACT_GROUPS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_CONTACT_GROUPS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_AT_END_DO, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_AVAILABILITY, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_MANUAL_PROFILE_ACTIVATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_APPLICATIONS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_POWER_SAVE_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_DEVICES_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_APPLICATIONS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_END_WHEN_REMOVED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_FK_GEOFENCE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_WHEN_OUTSIDE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DELAY_END, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_IS_IN_DELAY_END, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_STATUS_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_PAUSE_STATUS_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_SIDES, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_DISTANCE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_DISPLAY, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_IGNORE_APPLICATIONS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_CELLS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_GEOFENCES, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_ORDER, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_NFC_TAGS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_PERMANENT_RUN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_PERMANENT_RUN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_PERMANENT_RUN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_START_BEFORE_EVENT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_WIFI, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_BLUETOOTH, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_GPS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_NFC, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_AIRPLANE_MODE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_VIBRATE_START, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_PERMANENT_RUN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_REPEAT_START, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_IN_CALL, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_MISSED_CALL, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_START_WHEN_ACTIVATED_PROFILE, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BLUETOOTH_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_LOCATION_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_WIFI_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_APPLICATION_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NFC_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SCREEN_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_TIME_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ALL_EVENTS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PERMANENT_RUN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SOUND_END, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_VIBRATE_END, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_BATTERY_PLUGGED, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_TIME_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_CHECK_LIGHT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_LIGHT_MIN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ORIENTATION_LIGHT_MAX, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CHECK_CONTACTS, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACTS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACT_GROUPS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CHECK_TEXT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_TEXT, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_CONTACT_LIST_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_ENABLED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_PERMANENT_RUN, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_DURATION, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_START_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_SENSOR_PASSED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_APPLICATIONS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PACKAGE_NAME, "TEXT", columns);
+                break;
+            case TABLE_EVENT_TIMELINE:
+                createColumnWhenNotExists(db, table, KEY_ET_EORDER, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_ET_FK_EVENT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_ET_FK_PROFILE_RETURN, "INTEGER", columns);
+                break;
+            case TABLE_ACTIVITY_LOG:
+                createColumnWhenNotExists(db, table, KEY_AL_LOG_DATE_TIME, "DATETIME", columns);
+                createColumnWhenNotExists(db, table, KEY_AL_LOG_TYPE, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_AL_EVENT_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_ICON, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_AL_DURATION_DELAY, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_AL_PROFILE_EVENT_COUNT, "TEXT", columns);
+                break;
+            case TABLE_GEOFENCES:
+                createColumnWhenNotExists(db, table, KEY_G_LATITUDE, "DOUBLE", columns);
+                createColumnWhenNotExists(db, table, KEY_G_LONGITUDE, "DOUBLE", columns);
+                createColumnWhenNotExists(db, table, KEY_G_RADIUS, "FLOAT", columns);
+                createColumnWhenNotExists(db, table, KEY_G_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_G_CHECKED, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_G_TRANSITION, "INTEGER", columns);
+                break;
+            case TABLE_SHORTCUTS:
+                createColumnWhenNotExists(db, table, KEY_S_INTENT, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_S_NAME, "TEXT", columns);
+                break;
+            case TABLE_MOBILE_CELLS:
+                createColumnWhenNotExists(db, table, KEY_MC_CELL_ID, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_MC_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_MC_NEW, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_MC_LAST_CONNECTED_TIME, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_MC_LAST_RUNNING_EVENTS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_MC_LAST_PAUSED_EVENTS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_MC_DO_NOT_DETECT, "INTEGER", columns);
+                break;
+            case TABLE_NFC_TAGS:
+                createColumnWhenNotExists(db, table, KEY_NT_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_NT_UID, "TEXT", columns);
+                break;
+            case TABLE_INTENTS:
+                createColumnWhenNotExists(db, table, KEY_IN_PACKAGE_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_CLASS_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_ACTION, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_DATA, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_MIME_TYPE, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_1, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_1, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_1, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_2, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_2, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_2, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_3, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_3, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_3, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_4, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_4, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_4, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_5, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_5, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_5, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_6, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_6, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_6, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_7, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_7, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_7, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_8, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_8, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_8, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_9, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_9, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_9, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_KEY_10, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_VALUE_10, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_EXTRA_TYPE_10, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_CATEGORIES, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_FLAGS, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_NAME, "TEXT", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_USED_COUNT, "INTEGER", columns);
+                createColumnWhenNotExists(db, table, KEY_IN_INTENT_TYPE, "INTEGER", columns);
+                break;
+        }
+    }
+
+    private boolean columnExists (String column, List<String> columns) {
+        boolean isExists = false;
+        for (String _column : columns) {
+            if (column.equalsIgnoreCase(_column)) {
+                isExists = true;
+                break;
+            }
+        }
+        return isExists;
+    }
+
+    private void createColumnWhenNotExists(SQLiteDatabase db, String table, String column, String columnType, List<String> columns) {
+        if (!columnExists(column, columns))
+            // create column
+            db.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column + " " + columnType);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        createTables(db);
+        createIndexes(db);
     }
 
     /*@Override
@@ -884,7 +1238,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NFC_TAGS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INTENTS);
 
-        onCreate(db);
+        createTables(db);
+        createIndexes(db);
     }
 
     @Override
@@ -903,11 +1258,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
         */
 
+        createTables(db);
+        createTableColumsWhenNotExists(db, TABLE_PROFILES);
+        createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
+        createTableColumsWhenNotExists(db, TABLE_EVENTS);
+        createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
+        createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
+        createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
+        createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
+        createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
+        createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
+        createTableColumsWhenNotExists(db, TABLE_INTENTS);
+        createIndexes(db);
+
+        // check colums existence
+
         if (oldVersion < 16)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_WALLPAPER_CHANGE + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_WALLPAPER + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WALLPAPER_CHANGE + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WALLPAPER + "='-'");
         }
@@ -937,105 +1304,54 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 19)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_MOBILE_DATA + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_MOBILE_DATA + "=0");
         }
 
         if (oldVersion < 20)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_MOBILE_DATA_PREFS + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_MOBILE_DATA_PREFS + "=0");
         }
 
         if (oldVersion < 21)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_GPS + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_GPS + "=0");
         }
 
         if (oldVersion < 22)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_RUN_APPLICATION_CHANGE + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_RUN_APPLICATION_CHANGE + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME + "=\"-\"");
         }
 
-        if (oldVersion < 23)
-        {
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
-        }
-
         if (oldVersion < 24)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_AUTOSYNC + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_AUTOSYNC + "=0");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
         }
 
         if (oldVersion < 26)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SHOW_IN_ACTIVATOR + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SHOW_IN_ACTIVATOR + "=1");
-        }
-
-        if (oldVersion < 28)
-        {
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
         }
 
         if (oldVersion < 29)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_START_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_END_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DAYS_OF_WEEK + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_END_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DAYS_OF_WEEK + "=\"#ALL#\"");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START + ")");
         }
 
         if (oldVersion < 30)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_USE_END_TIME + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_USE_END_TIME + "=0");
         }
 
         if (oldVersion < 32)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_STATUS + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_STATUS + "=0");
-        }
-
-        if (oldVersion < 34)
-        {
-            final String CREATE_EVENTTIME_TABLE = "CREATE TABLE " + TABLE_EVENT_TIMELINE + "("
-                    + KEY_ET_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_ET_EORDER + " INTEGER,"
-                    + KEY_ET_FK_EVENT + " INTEGER,"
-                    + KEY_ET_FK_PROFILE_RETURN + " INTEGER"
-                    + ")";
-            db.execSQL(CREATE_EVENTTIME_TABLE);
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
         }
 
         if (oldVersion < 1001)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_AUTOROTATE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_AUTOROTATE + "=0");
         }
 
@@ -1050,38 +1366,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1012)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_LEVEL + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL + "=15");
         }
 
         if (oldVersion < 1015)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_LOCATION_SERVICE_PREFS + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_LOCATION_SERVICE_PREFS + "=0");
         }
 
         if (oldVersion < 1020)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_SPEAKER_PHONE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VOLUME_SPEAKER_PHONE + "=0");
         }
 
         if (oldVersion < 1022)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_SOUND_START + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_START + "=\"\"");
         }
 
         if (oldVersion < 1023)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_LEVEL_LOW + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_LEVEL_HIGHT + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_CHARGING + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_LOW + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_LEVEL_HIGHT + "=100");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_CHARGING + "=0");
@@ -1089,27 +1393,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1030)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_TIME_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_ENABLED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_TIME_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_ENABLED + "=0");
         }
 
         if (oldVersion < 1035)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_NFC + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NFC + "=0");
         }
 
         if (oldVersion < 1040)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_EVENT + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_CONTACTS + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_CONTACT_LIST_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_EVENT + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_CONTACTS + "=\"\"");
@@ -1118,48 +1412,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1045)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_FK_PROFILE_END + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_FK_PROFILE_END + "=" + Profile.PROFILE_NO_ACTIVATE);
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
         }
 
         if (oldVersion < 1050)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_FORCE_RUN + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_FORCE_RUN + "=0");
         }
 
         if (oldVersion < 1051)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLOCKED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLOCKED + "=0");
         }
 
         if (oldVersion < 1060)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_UNDONE_PROFILE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_UNDONE_PROFILE + "=1");
         }
 
         if (oldVersion < 1070)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PRIORITY + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PRIORITY + "=0");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
         }
 
         if (oldVersion < 1080)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PERIPHERAL_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PERIPHERAL_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIPHERAL_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIPHERAL_TYPE + "=0");
         }
@@ -1174,11 +1451,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1090)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_CALENDARS + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_SEARCH_FIELD + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_SEARCH_STRING + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_CALENDARS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_SEARCH_FIELD + "=0");
@@ -1187,10 +1459,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1095)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_EVENT_START_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_EVENT_END_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_EVENT_FOUND + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_EVENT_START_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_EVENT_END_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_EVENT_FOUND + "=0");
@@ -1206,70 +1474,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1105)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_WIFI_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_WIFI_SSID + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_WIFI_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_WIFI_SSID + "=\"\"");
         }
 
         if (oldVersion < 1106)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_WIFI_CONNECTION_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_WIFI_CONNECTION_TYPE + "=1");
         }
 
         if (oldVersion < 1110)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SCREEN_ENABLED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SCREEN_ENABLED + "=0");
         }
 
         if (oldVersion < 1111)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SCREEN_EVENT_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SCREEN_EVENT_TYPE + "=1");
         }
 
         if (oldVersion < 1112)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DELAY_START + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DELAY_START + "=0");
         }
 
         if (oldVersion < 1113)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_IS_IN_DELAY_START + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_IS_IN_DELAY_START + "=0");
         }
 
         if (oldVersion < 1120)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DURATION + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_AFTER_DURATION_DO + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DURATION + "=" + Profile.AFTER_DURATION_DO_RESTART_EVENTS);
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_AFTER_DURATION_DO + "=" + Profile.AFTER_DURATION_DO_RESTART_EVENTS);
         }
 
         if (oldVersion < 1125)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SCREEN_WHEN_UNLOCKED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SCREEN_WHEN_UNLOCKED + "=0");
         }
 
         if (oldVersion < 1130)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLUETOOTH_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLUETOOTH_ADAPTER_NAME + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLUETOOTH_CONNECTION_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLUETOOTH_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLUETOOTH_ADAPTER_NAME + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0");
@@ -1277,11 +1523,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1140)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_ENABLED + " INTEGER");
-            //db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_EVENT + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_CONTACTS + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_CONTACT_LIST_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_ENABLED + "=0");
             //db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_EVENT + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_CONTACTS + "=\"\"");
@@ -1290,15 +1531,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1141)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_START_TIME + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_START_TIME + "=0");
         }
 
         if (oldVersion < 1150)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_ZEN_MODE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VOLUME_ZEN_MODE + "=0");
         }
 
@@ -1348,8 +1585,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1160)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_KEYGUARD + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_KEYGUARD + "=0");
         }
 
@@ -1456,35 +1691,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1180)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_CONTACT_GROUPS + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_CONTACT_GROUPS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_CONTACT_GROUPS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_CONTACT_GROUPS + "=\"\"");
         }
 
-        if (oldVersion < 1203) {
-
-            //db.execSQL("drop table " + TABLE_ACTIVITY_LOG);
-
-            final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE " + TABLE_ACTIVITY_LOG + "("
-                    + KEY_AL_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_AL_LOG_DATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
-                    + KEY_AL_LOG_TYPE + " INTEGER,"
-                    + KEY_AL_EVENT_NAME + " TEXT,"
-                    + KEY_AL_PROFILE_NAME + " TEXT,"
-                    + KEY_AL_PROFILE_ICON + " TEXT,"
-                    + KEY_AL_DURATION_DELAY + " INTEGER"
-                    + ")";
-            db.execSQL(CREATE_ACTIVITYLOG_TABLE);
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
-        }
-
         if (oldVersion < 1210)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VIBRATE_ON_TOUCH + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VIBRATE_ON_TOUCH + "=0");
         }
 
@@ -1516,8 +1728,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1295)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
-
             final String selectQuery = "SELECT " + KEY_E_ID + "," +
                                                    KEY_E_UNDONE_PROFILE +
                                         " FROM " + TABLE_EVENTS;
@@ -1546,38 +1756,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1300)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_AVAILABILITY + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_AVAILABILITY + "=0");
         }
 
         if (oldVersion < 1310)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MANUAL_PROFILE_ACTIVATION + "=0");
-        }
-
-        boolean doMergedTableCreate = false;
-        if (oldVersion < 1320) {
-            final String CREATE_MERGED_PROFILE_TABLE = profileTableCreationString(TABLE_MERGED_PROFILE);
-            db.execSQL(CREATE_MERGED_PROFILE_TABLE);
-            doMergedTableCreate = true;
         }
 
         if (oldVersion < 1330)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_WIFI_AP + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WIFI_AP + "=0");
         }
 
         if (oldVersion < 1340)
         {
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_WIFI_AP + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WIFI_AP + "=0");
         }
 
@@ -1606,11 +1799,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1370)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + "=-999");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_FK_PROFILE_START_WHEN_ACTIVATED ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + ")");
         }
 
         if (oldVersion < 1380)
@@ -1644,18 +1833,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1390)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_DURATION + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_DURATION + "=5");
         }
 
         if (oldVersion < 1400)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_APPLICATIONS + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_START_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_DURATION + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_APPLICATIONS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_START_TIME + "=0");
@@ -1688,148 +1870,87 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1420)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_POWER_SAVE_MODE + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_POWER_SAVE_MODE + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_POWER_SAVE_MODE + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_POWER_SAVE_MODE + "=0");
         }
 
         if (oldVersion < 1430)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_POWER_SAVE_MODE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_POWER_SAVE_MODE + "=0");
         }
 
         if (oldVersion < 1440)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLUETOOTH_DEVICES_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0");
         }
 
         if (oldVersion < 1450)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_APPLICATION_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_APPLICATION_APPLICATIONS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_APPLICATION_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_APPLICATION_APPLICATIONS + "=\"\"");
         }
 
         if (oldVersion < 1460)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_END_WHEN_REMOVED + "=0");
         }
 
         if (oldVersion < 1470)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + "=0");
-        }
-
-        if (oldVersion < 1480) {
-            final String CREATE_GEOFENCES_TABLE = "CREATE TABLE " + TABLE_GEOFENCES + "("
-                    + KEY_G_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_G_LATITUDE + " DOUBLE,"
-                    + KEY_G_LONGITUDE + " DOUBLE,"
-                    + KEY_G_RADIUS + " FLOAT,"
-                    + KEY_G_NAME + " TEXT"
-                    + ")";
-            db.execSQL(CREATE_GEOFENCES_TABLE);
         }
 
         if (oldVersion < 1490)
         {
-            db.execSQL("ALTER TABLE " + TABLE_GEOFENCES + " ADD COLUMN " + KEY_G_CHECKED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_GEOFENCES + " SET " + KEY_G_CHECKED + "=0");
         }
 
         if (oldVersion < 1500)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_FK_GEOFENCE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_FK_GEOFENCE + "=0");
         }
 
         if (oldVersion < 1510) {
-            db.execSQL("ALTER TABLE " + TABLE_GEOFENCES + " ADD COLUMN " + KEY_G_TRANSITION + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_GEOFENCES + " SET " + KEY_G_TRANSITION + "=0");
         }
 
         if (oldVersion < 1520) {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_WHEN_OUTSIDE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_WHEN_OUTSIDE + "=0");
         }
 
         if (oldVersion < 1530)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DELAY_END + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_IS_IN_DELAY_END + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DELAY_END + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_IS_IN_DELAY_END + "=0");
         }
 
         if (oldVersion < 1540)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_START_STATUS_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PAUSE_STATUS_TIME + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_STATUS_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PAUSE_STATUS_TIME + "=0");
         }
 
         if (oldVersion < 1560)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_ASK_FOR_DURATION + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_ASK_FOR_DURATION + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_ASK_FOR_DURATION + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_ASK_FOR_DURATION + "=0");
         }
 
         if (oldVersion < 1570)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE + "=0");
         }
 
         if (oldVersion < 1580)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_NOTIFICATION_LED + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_NOTIFICATION_LED + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_NOTIFICATION_LED + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_NOTIFICATION_LED + "=0");
         }
 
         if (oldVersion < 1600)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_SIDES + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_DISTANCE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_SIDES + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_DISTANCE + "=0");
@@ -1837,87 +1958,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1610)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_DISPLAY + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_DISPLAY + "=\"\"");
         }
 
         if (oldVersion < 1620)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + "=\"\"");
         }
 
         if (oldVersion < 1630)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VIBRATE_WHEN_RINGING + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VIBRATE_WHEN_RINGING + "=0");
         }
 
         if (oldVersion < 1640) {
-            if (!doMergedTableCreate)
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_VIBRATE_WHEN_RINGING + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VIBRATE_WHEN_RINGING + "=0");
         }
 
-        if (oldVersion < 1650) {
-            final String CREATE_SHORTCUTS_TABLE = "CREATE TABLE " + TABLE_SHORTCUTS + "("
-                    + KEY_S_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_S_INTENT + " TEXT,"
-                    + KEY_S_NAME + " TEXT"
-                    + ")";
-            db.execSQL(CREATE_SHORTCUTS_TABLE);
-        }
-
         if (oldVersion < 1660) {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_WALLPAPER_FOR + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_WALLPAPER_FOR + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WALLPAPER_FOR + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WALLPAPER_FOR + "=0");
         }
 
         if (oldVersion < 1670)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0");
         }
 
         if (oldVersion < 1680)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_CELLS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_CELLS +  "=\"\"");
-        }
-
-        if (oldVersion < 1690) {
-            final String CREATE_MOBILE_CELLS_TABLE = "CREATE TABLE " + TABLE_MOBILE_CELLS + "("
-                    + KEY_MC_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_MC_CELL_ID + " INTEGER,"
-                    + KEY_MC_NAME + " TEXT"
-                    + ")";
-            db.execSQL(CREATE_MOBILE_CELLS_TABLE);
         }
 
         if (oldVersion < 1700)
         {
-            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_NEW + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_NEW +  "=0");
         }
 
         if (oldVersion < 1710)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_GEOFENCES + " TEXT");
-
             final String selectQuery = "SELECT " + KEY_E_ID + "," +
                                                     KEY_E_LOCATION_FK_GEOFENCE +
                                         " FROM " + TABLE_EVENTS;
@@ -1947,8 +2027,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1720)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_START_ORDER + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_ORDER +  "=0");
         }
 
@@ -1976,41 +2054,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1750)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_ENABLED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_ENABLED + "=0");
-        }
-
-        if (oldVersion < 1760) {
-            final String CREATE_MOBILE_CELLS_TABLE = "CREATE TABLE " + TABLE_NFC_TAGS + "("
-                    + KEY_NT_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_NT_NAME + " TEXT"
-                    + ")";
-            db.execSQL(CREATE_MOBILE_CELLS_TABLE);
         }
 
         if (oldVersion < 1770)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_NFC_TAGS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_NFC_TAGS + "=\"\"");
         }
 
         if (oldVersion < 1780)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_DURATION + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_START_TIME + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_DURATION + "=5");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_START_TIME + "=0");
         }
 
         if (oldVersion < 1790)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_PERMANENT_RUN + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_PERMANENT_RUN + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_PERMANENT_RUN + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_PERMANENT_RUN + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_PERMANENT_RUN + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_PERMANENT_RUN + "=1");
@@ -2018,49 +2077,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1800)
         {
-            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_LAST_CONNECTED_TIME + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_LAST_CONNECTED_TIME +  "=0");
         }
 
         if (oldVersion < 1810) {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_HIDE_STATUS_BAR_ICON + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_HIDE_STATUS_BAR_ICON + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_HIDE_STATUS_BAR_ICON + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_HIDE_STATUS_BAR_ICON + "=0");
         }
 
         if (oldVersion < 1820)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_LOCK_DEVICE + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_LOCK_DEVICE + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_LOCK_DEVICE + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_LOCK_DEVICE + "=0");
         }
 
         if (oldVersion < 1830)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_START_BEFORE_EVENT + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_START_BEFORE_EVENT + "=0");
         }
 
         if (oldVersion < 1840)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_WIFI + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_BLUETOOTH + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_MOBILE_DATA + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_GPS + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_NFC + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_WIFI + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_BLUETOOTH + "=0");
@@ -2076,31 +2113,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1860)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_CONNECT_TO_SSID + " TEXT");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_CONNECT_TO_SSID + " TEXT");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_CONNECT_TO_SSID + "=\""+Profile.CONNECTTOSSID_JUSTANY+"\"");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_CONNECT_TO_SSID + "=\""+Profile.CONNECTTOSSID_JUSTANY+"\"");
         }
 
         if (oldVersion < 1870)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_APPLICATION_DISABLE_WIFI_SCANNING + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_WIFI_SCANNING + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "=0");
         }
 
         if (oldVersion < 1880)
         {
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_WIFI_SCANNING + " INTEGER");
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_WIFI_SCANNING + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "=0");
         }
@@ -2119,15 +2143,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1910)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_VIBRATE_START + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_VIBRATE_START + "=0");
         }
 
         if (oldVersion < 1920)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + "=0");
         }
 
@@ -2162,49 +2182,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
 
-        if (oldVersion < 1940) {
-            //PPApplication.logE("------------ DatabaseHandler.onUpgrade", "1940");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + TABLE_PROFILES + " (" + KEY_DEVICE_AUTOROTATE + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + TABLE_PROFILES + " (" + KEY_DEVICE_CONNECT_TO_SSID + ")");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_LOCATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_LOCATION_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__TIME_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_TIME_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BATTERY_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_BATTERY_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALL_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIPHERAL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIPHERAL_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALENDAR_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALENDAR_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__WIFI_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_WIFI_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SCREEN_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SCREEN_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BLUETOOTH_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_BLUETOOTH_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SMS_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SMS_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__NOTIFICATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_NOTIFICATION_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__APPLICATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_APPLICATION_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__LOCATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_LOCATION_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ORIENTATION_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ORIENTATION_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__NFC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_NFC_ENABLED + ")");
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__RADIO_SWITCH_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_RADIO_SWITCH_ENABLED + ")");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_GEOFENCES + " (" + KEY_G_NAME + ")");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_MOBILE_CELLS + " (" + KEY_MC_NAME + ")");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_NFC_TAGS + " (" + KEY_NT_NAME + ")");
-        }
-
         if (oldVersion < 1950)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DURATION_NOTIFICATION_SOUND + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DURATION_NOTIFICATION_VIBRATE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DURATION_NOTIFICATION_SOUND + "=\"\"");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DURATION_NOTIFICATION_VIBRATE + "=0");
-
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DURATION_NOTIFICATION_SOUND + " TEXT");
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DURATION_NOTIFICATION_VIBRATE + " INTEGER");
-            }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DURATION_NOTIFICATION_VIBRATE + "=\"\"");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DURATION_NOTIFICATION_VIBRATE + "=0");
@@ -2212,10 +2193,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1960)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_DURATION + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_PERMANENT_RUN + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_START_TIME + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_DURATION + "=5");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_PERMANENT_RUN + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_START_TIME + "=0");
@@ -2223,22 +2200,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1970)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_SOUND_REPEAT_START + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_REPEAT_START + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START + "=15");
         }
 
         if (oldVersion < 1980)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_WIFI_AP_PREFS + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WIFI_AP_PREFS + "=0");
-
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_WIFI_AP_PREFS + " INTEGER");
-            }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WIFI_AP_PREFS + "=0");
         }
@@ -2267,37 +2235,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2000)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_IN_CALL + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_MISSED_CALL + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_IN_CALL + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_MISSED_CALL + "=0");
         }
 
         if (oldVersion < 2010)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "=0");
-
-            if (!doMergedTableCreate)
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + " INTEGER");
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_LOCATION_SCANNING + "=0");
         }
 
         if (oldVersion < 2020)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "=0");
-
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + " INTEGER");
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + " INTEGER");
-            }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING + "=0");
@@ -2305,19 +2257,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2030)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_HEADS_UP_NOTIFICATIONS + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_HEADS_UP_NOTIFICATIONS + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_HEADS_UP_NOTIFICATIONS + "=0");
         }
 
         if (oldVersion < 2040)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_START_WHEN_ACTIVATED_PROFILE + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_WHEN_ACTIVATED_PROFILE + "=\"\"");
 
             final String selectQuery = "SELECT " + KEY_E_ID + "," +
@@ -2346,14 +2291,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2050)
         {
             //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2050");
-
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + " INTEGER");
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + " TEXT");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "=\"-\"");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
@@ -2364,25 +2301,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2060");
 
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_ACTIVATION_BY_USER_COUNT + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_ACTIVATION_BY_USER_COUNT + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_ACTIVATION_BY_USER_COUNT + "=0");
-
-            db.execSQL("CREATE INDEX IF NOT EXISTS IDX_ACTIVATION_BY_USER_COUNT ON " + TABLE_PROFILES + " (" + KEY_ACTIVATION_BY_USER_COUNT + ")");
         }
 
         if (oldVersion < 2070)
         {
             //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2070");
-
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE_PREFS + " INTEGER");
-            }
 
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_PREFS + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_PREFS + "=0");
@@ -2392,11 +2317,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2080");
 
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "=0");
         }
@@ -2405,11 +2325,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2090");
 
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_DARK_MODE + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_DARK_MODE + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_DARK_MODE + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_DARK_MODE + "=0");
         }
@@ -2417,13 +2332,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2100)
         {
             //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2100");
-
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SOUND_ON_TOUCH + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DTMF_TONE_WHEN_DIALING + " INTEGER");
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SOUND_ON_TOUCH + " INTEGER");
-            }
 
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DTMF_TONE_WHEN_DIALING + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_ON_TOUCH + "=0");
@@ -2456,12 +2364,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 2120) {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLUETOOTH_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_WIFI_SENSOR_PASSED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLUETOOTH_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_SENSOR_PASSED + "=0");
@@ -2470,24 +2372,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         if (oldVersion < 2130) {
-            db.execSQL("ALTER TABLE " + TABLE_NFC_TAGS + " ADD COLUMN " + KEY_NT_UID + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_NFC_TAGS + " SET " + KEY_NT_UID + "=\"\"");
         }
 
         if (oldVersion < 2140) {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_APPLICATION_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PERIPHERAL_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SCREEN_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_SENSOR_PASSED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_TIME_SENSOR_PASSED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_APPLICATION_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_SENSOR_PASSED + "=0");
@@ -2527,19 +2415,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2160)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_ALL_EVENTS + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_ALL_EVENTS + "=0");
         }
 
         if (oldVersion < 2170)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_START_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_DURATION + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_PERMANENT_RUN + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_SENSOR_PASSED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_START_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_DURATION + "=5");
@@ -2549,82 +2429,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2180)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_SOUND_END + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_VIBRATE_END + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_END + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_VIBRATE_END + "=0");
         }
 
-        if (oldVersion < 2190) {
-            final String CREATE_INTENTS_TABLE = "CREATE TABLE " + TABLE_INTENTS + "("
-                    + KEY_IN_ID + " INTEGER PRIMARY KEY,"
-                    + KEY_IN_PACKAGE_NAME + " TEXT,"
-                    + KEY_IN_CLASS_NAME + " TEXT,"
-                    + KEY_IN_ACTION + " TEXT,"
-                    + KEY_IN_DATA + " TEXT,"
-                    + KEY_IN_MIME_TYPE + " TEXT,"
-                    + KEY_IN_EXTRA_KEY_1 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_1 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_1 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_2 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_2 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_2 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_3 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_3 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_3 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_4 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_4 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_4 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_5 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_5 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_5 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_6 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_6 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_6 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_7 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_7 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_7 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_8 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_8 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_8 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_9 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_9 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_9 + " INTEGER,"
-                    + KEY_IN_EXTRA_KEY_10 + " TEXT,"
-                    + KEY_IN_EXTRA_VALUE_10 + " TEXT,"
-                    + KEY_IN_EXTRA_TYPE_10 + " INTEGER,"
-                    + KEY_IN_CATEGORIES + " TEXT,"
-                    + KEY_IN_FLAGS + " TEXT"
-                    + ")";
-            db.execSQL(CREATE_INTENTS_TABLE);
-        }
-
         if (oldVersion < 2200)
         {
-            db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_NAME + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_NAME + "=\"\"");
         }
 
         if (oldVersion < 2230)
         {
-            final String selectQuery = "SELECT * FROM " + TABLE_INTENTS;
-            Cursor cursor = db.rawQuery(selectQuery, null);
-            boolean columnExists =  (cursor.getColumnIndex(KEY_IN_ACTION) != -1);
-            //PPApplication.logE("DatabaseHandler.onUpgrade", "columnExists="+columnExists);
-            cursor.close();
-            if (!columnExists) {
-                db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_ACTION + " TEXT");
-
-                db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_ACTION + "=\"\"");
-            }
+            db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_ACTION + "=\"\"");
         }
 
         if (oldVersion < 2240)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_PLUGGED + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_PLUGGED + "=\"\"");
         }
 
@@ -2667,15 +2487,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2280)
         {
-            db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_USED_COUNT + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_USED_COUNT + "=0");
         }
 
         if (oldVersion < 2290)
         {
-            db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_INTENT_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_INTENT_TYPE + "=0");
         }
 
@@ -2852,13 +2668,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2310)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_DTMF + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_ACCESSIBILITY + " TEXT");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_VOLUME_DTMF + " TEXT");
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_VOLUME_ACCESSIBILITY + " TEXT");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VOLUME_DTMF + "=\"-1|1|0\"");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VOLUME_ACCESSIBILITY + "=\"-1|1|0\"");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VOLUME_DTMF + "=\"-1|1|0\"");
@@ -2867,11 +2676,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2320)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_BLUETOOTH_SCO + " TEXT");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_VOLUME_BLUETOOTH_SCO + " TEXT");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VOLUME_BLUETOOTH_SCO + "=\"-1|1|0\"");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VOLUME_BLUETOOTH_SCO + "=\"-1|1|0\"");
         }
@@ -2909,29 +2713,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2350)
         {
-            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_LAST_RUNNING_EVENTS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_LAST_RUNNING_EVENTS + "=\"\"");
         }
 
         if (oldVersion < 2360)
         {
-            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_LAST_PAUSED_EVENTS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_LAST_PAUSED_EVENTS + "=\"\"");
         }
 
         if (oldVersion < 2370)
         {
-            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_DO_NOT_DETECT + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_DO_NOT_DETECT + "=0");
         }
 
         if (oldVersion < 2380)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_TIME_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_TIME_TYPE + "=0");
         }
 
@@ -2942,27 +2738,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2400)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_AFTER_DURATION_PROFILE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_AFTER_DURATION_PROFILE + "=" + Profile.PROFILE_NO_ACTIVATE);
         }
         if (oldVersion < 2401)
         {
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_AFTER_DURATION_PROFILE + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_AFTER_DURATION_PROFILE + "=" + Profile.PROFILE_NO_ACTIVATE);
         }
         if (oldVersion < 2402)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_ALWAYS_ON_DISPLAY + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_ALWAYS_ON_DISPLAY + "=0");
-
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_ALWAYS_ON_DISPLAY + " INTEGER");
-            }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_ALWAYS_ON_DISPLAY + "=0");
         }
@@ -2999,27 +2783,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2404)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_CHECK_LIGHT + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_CHECK_LIGHT + "=0");
         }
         if (oldVersion < 2405)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_LIGHT_MIN + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_LIGHT_MAX + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_LIGHT_MIN + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_LIGHT_MAX + "=0");
         }
 
         if (oldVersion < 2406)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CHECK_CONTACTS + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CONTACT_GROUPS + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CONTACTS + " TEXT");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CHECK_TEXT + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_TEXT + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CHECK_CONTACTS + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACT_GROUPS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACTS + "=\"\"");
@@ -3028,27 +2801,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         if (oldVersion < 2407)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_CONTACT_LIST_TYPE + "=0");
         }
 
         if (oldVersion < 2408)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_SCREEN_ON_PERMANENT + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_ON_PERMANENT + "=0");
-
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_SCREEN_ON_PERMANENT + " INTEGER");
-            }
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_ON_PERMANENT + "=0");
         }
 
         if (oldVersion < 2409) {
-            db.execSQL("ALTER TABLE " + TABLE_ACTIVITY_LOG + " ADD COLUMN " + KEY_AL_PROFILE_EVENT_COUNT + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_ACTIVITY_LOG + " SET " + KEY_AL_PROFILE_EVENT_COUNT + "=\"1 [0]\"");
         }
 
@@ -3079,12 +2842,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2420)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_START_TIME + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_DURATION + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_PERMANENT_RUN + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " INTEGER");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_START_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_DEVICE_BOOT_DURATION + "=5");
@@ -3094,36 +2851,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2421)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_APPLICATIONS + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_APPLICATIONS + "=\"\"");
         }
 
         if (oldVersion < 2422)
         {
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " TEXT");
-
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_PACKAGE_NAME + "=\"\"");
         }
 
         if (oldVersion < 2423)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_VOLUME_MUTE_SOUND + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_VOLUME_MUTE_SOUND + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VOLUME_MUTE_SOUND + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VOLUME_MUTE_SOUND + "=0");
         }
 
         if (oldVersion < 2424)
         {
-            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_LOCATION_MODE + " INTEGER");
-            if (!doMergedTableCreate) {
-                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_LOCATION_MODE + " INTEGER");
-            }
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_LOCATION_MODE + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_LOCATION_MODE + "=0");
         }
