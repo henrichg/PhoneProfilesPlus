@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2428;
+    private static final int DATABASE_VERSION = 2429;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2943,6 +2943,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         createIndexes(db);
 
         updateDb(db, oldVersion);
+
+        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+        dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
