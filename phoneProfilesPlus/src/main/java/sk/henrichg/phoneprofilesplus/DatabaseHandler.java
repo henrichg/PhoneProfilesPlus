@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2425;
+    private static final int DATABASE_VERSION = 2428;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -880,6 +880,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void createTableColumsWhenNotExists(SQLiteDatabase db, String table) {
         List<String> columns = getTableColums(db, table);
+        PPApplication.logE("DatabaseHandler.createTableColumsWhenNotExists", "cocolumns.size()=" + columns.size());
         switch (table) {
             case TABLE_PROFILES:
             case TABLE_MERGED_PROFILE:
@@ -1210,6 +1211,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        PPApplication.logE("DatabaseHandler.onCreate", "xxx");
         createTables(db);
         createIndexes(db);
     }
@@ -1243,19 +1245,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void updateDb(SQLiteDatabase db, int oldVersion) {
-        createTables(db);
-        createTableColumsWhenNotExists(db, TABLE_PROFILES);
-        createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
-        createTableColumsWhenNotExists(db, TABLE_EVENTS);
-        createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
-        createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
-        createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
-        createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
-        createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
-        createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
-        createTableColumsWhenNotExists(db, TABLE_INTENTS);
-        createIndexes(db);
-
         // check colums existence
 
         if (oldVersion < 16)
@@ -2927,10 +2916,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
             PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
             PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
-        }*/
+        }
 
         /*
         // Drop older table if existed
@@ -2940,9 +2929,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
         */
 
+        createTables(db);
+        createTableColumsWhenNotExists(db, TABLE_PROFILES);
+        createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
+        createTableColumsWhenNotExists(db, TABLE_EVENTS);
+        createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
+        createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
+        createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
+        createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
+        createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
+        createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
+        createTableColumsWhenNotExists(db, TABLE_INTENTS);
+        createIndexes(db);
+
         updateDb(db, oldVersion);
 
-        //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
+        PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
 
@@ -10658,7 +10660,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void importEvents(/*String applicationDataPath, */SQLiteDatabase db, SQLiteDatabase exportedDBObj,
+    private void importEvents(SQLiteDatabase db, SQLiteDatabase exportedDBObj,
                               List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds) {
         Cursor cursorExportedDB = null;
         String[] columnNamesExportedDB;
@@ -10731,7 +10733,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     } while (cursorExportedDB.moveToNext());
                 }
 
-                int exportedDBObjVersion = exportedDBObj.getVersion();
                 cursorExportedDB.close();
                 cursorImportDB.close();
 
@@ -10794,8 +10795,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void importGeofences(/*String applicationDataPath, */SQLiteDatabase db, SQLiteDatabase exportedDBObj/*,
-                                   List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds*/) {
+    private void importGeofences(SQLiteDatabase db, SQLiteDatabase exportedDBObj) {
         Cursor cursorExportedDB = null;
         String[] columnNamesExportedDB;
         Cursor cursorImportDB = null;
@@ -10839,8 +10839,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void importShortcuts(/*String applicationDataPath, */SQLiteDatabase db, SQLiteDatabase exportedDBObj/*,
-                                   List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds*/) {
+    private void importShortcuts(SQLiteDatabase db, SQLiteDatabase exportedDBObj) {
         Cursor cursorExportedDB = null;
         String[] columnNamesExportedDB;
         Cursor cursorImportDB = null;
@@ -10884,8 +10883,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void importMobileCells(/*String applicationDataPath, */SQLiteDatabase db, SQLiteDatabase exportedDBObj/*,
-                                   List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds*/) {
+    private void importMobileCells(SQLiteDatabase db, SQLiteDatabase exportedDBObj) {
         Cursor cursorExportedDB = null;
         String[] columnNamesExportedDB;
         Cursor cursorImportDB = null;
@@ -10929,8 +10927,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void importNFCTags(/*String applicationDataPath, */SQLiteDatabase db, SQLiteDatabase exportedDBObj/*,
-                                   List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds*/) {
+    private void importNFCTags(SQLiteDatabase db, SQLiteDatabase exportedDBObj) {
         Cursor cursorExportedDB = null;
         String[] columnNamesExportedDB;
         Cursor cursorImportDB = null;
@@ -10974,8 +10971,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void importIntents(/*String applicationDataPath, */SQLiteDatabase db, SQLiteDatabase exportedDBObj/*,
-                                   List<Long> exportedDBEventProfileIds, List<Long> importDBEventProfileIds*/) {
+    private void importIntents(SQLiteDatabase db, SQLiteDatabase exportedDBObj) {
         Cursor cursorExportedDB = null;
         String[] columnNamesExportedDB;
         Cursor cursorImportDB = null;
