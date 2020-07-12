@@ -2099,16 +2099,19 @@ class ActivateProfileHelper {
             switch (ringerMode) {
                 case Profile.RINGERMODE_RING:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING");
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     setVibrateWhenRinging(appContext, profile, -1);
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     setVibrateWhenRinging(appContext, null, 1);
                     break;
                 case Profile.RINGERMODE_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=VIBRATE");
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                     setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                     setVibrateWhenRinging(appContext, null, 1);
                     break;
@@ -2126,40 +2129,29 @@ class ActivateProfileHelper {
                             break;
                         case Profile.ZENMODE_PRIORITY:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
-                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, profile._ringerModeForZenMode);
                             setVibrateWhenRinging(appContext, profile, -1);
                             break;
                         case Profile.ZENMODE_NONE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=NONE");
-                            // must be set to ALL and after to NONE
-                            // without this, duplicate set this zen mode not working
-                            // change only zen mode, not ringer mode
-                            setZenMode(appContext, ZENMODE_ALL, audioManager, -1/*AudioManager.RINGER_MODE_NORMAL*/);
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
-                            PPApplication.sleep(1000);
-                            setZenMode(appContext, ZENMODE_NONE, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
+                            setZenMode(appContext, ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_SILENT);
                             break;
                         case Profile.ZENMODE_ALL_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL & VIBRATE");
-                            setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                            setZenMode(appContext, ZENMODE_ALL, audioManager, -1);
                             setVibrateWhenRinging(appContext, null, 1);
                             break;
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY & VIBRATE");
-                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_VIBRATE);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, -1);
                             setVibrateWhenRinging(appContext, null, 1);
                             break;
                         case Profile.ZENMODE_ALARMS:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALARMS");
-                            // must be set to ALL and after to ALARMS
-                            // without this, duplicate set this zen mode not working
-                            // change only zen mode, not ringer mode
-                            setZenMode(appContext, ZENMODE_ALL, audioManager, -1/*AudioManager.RINGER_MODE_NORMAL*/);
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
-                            PPApplication.sleep(1000);
-                            setZenMode(appContext, ZENMODE_ALARMS, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
+                            setZenMode(appContext, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
                             break;
                     }
                     break;
