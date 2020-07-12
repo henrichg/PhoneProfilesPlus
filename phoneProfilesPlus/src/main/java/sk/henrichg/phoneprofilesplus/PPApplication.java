@@ -132,9 +132,9 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
 
-                                                +"|DatabaseHandler.onCreate"
-                                                +"|DatabaseHandler.onUpgrade"
-                                                +"|DatabaseHandler.createTableColumsWhenNotExists"
+                                                //+"|DatabaseHandler.onCreate"
+                                                //+"|DatabaseHandler.onUpgrade"
+                                                //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
                                                 //+"|********* RingerModeChangeReceiver.setRingerMode"
                                                 //+"|********* PPNotificationListenerService.setZenMode"

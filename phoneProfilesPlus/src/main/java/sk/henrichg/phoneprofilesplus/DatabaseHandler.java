@@ -885,7 +885,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void createTableColumsWhenNotExists(SQLiteDatabase db, String table) {
         List<String> columns = getTableColums(db, table);
-        PPApplication.logE("DatabaseHandler.createTableColumsWhenNotExists", "cocolumns.size()=" + columns.size());
+        //PPApplication.logE("DatabaseHandler.createTableColumsWhenNotExists", "cocolumns.size()=" + columns.size());
         switch (table) {
             case TABLE_PROFILES:
             case TABLE_MERGED_PROFILE:
@@ -1216,7 +1216,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        PPApplication.logE("DatabaseHandler.onCreate", "xxx");
+        //PPApplication.logE("DatabaseHandler.onCreate", "xxx");
         createTables(db);
         createIndexes(db);
     }
@@ -2311,7 +2311,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2050)
         {
-            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2050");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME + "=\"-\"");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "=0");
@@ -2320,40 +2319,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2060)
         {
-            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2060");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_ACTIVATION_BY_USER_COUNT + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_ACTIVATION_BY_USER_COUNT + "=0");
         }
 
         if (oldVersion < 2070)
         {
-            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2070");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_PREFS + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_PREFS + "=0");
         }
 
         if (oldVersion < 2080)
         {
-            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2080");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_CLOSE_ALL_APPLICATIONS + "=0");
         }
 
         if (oldVersion < 2090)
         {
-            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2090");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SCREEN_DARK_MODE + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SCREEN_DARK_MODE + "=0");
         }
 
         if (oldVersion < 2100)
         {
-            //PPApplication.logE("DatabaseHandler.onUpgrade", "< 2100");
-
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DTMF_TONE_WHEN_DIALING + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_ON_TOUCH + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DTMF_TONE_WHEN_DIALING + "=0");
@@ -2921,10 +2910,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
             PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
-        }
+        }*/
 
         /*
         // Drop older table if existed
@@ -2952,7 +2941,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
         dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
 
-        PPApplication.logE("DatabaseHandler.onUpgrade", "END");
+        //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
     }
 
