@@ -28,8 +28,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         if (appWidgetIds.length > 0) {
             //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
             //PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
-            PPApplication.startHandlerThreadOneRowWidget();
-            final Handler handler = new Handler(PPApplication.handlerThreadOneRowWidget.getLooper());
+            PPApplication.startHandlerThreadWidget();
+            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -420,8 +420,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadOneRowWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadOneRowWidget.getLooper());
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

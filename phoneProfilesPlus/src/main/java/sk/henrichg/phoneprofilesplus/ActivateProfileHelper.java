@@ -1726,8 +1726,8 @@ class ActivateProfileHelper {
 
     private static void setNotificationLed(Context context, final int value) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadNotificationLed();
-        final Handler handler = new Handler(PPApplication.handlerThreadNotificationLed.getLooper());
+        PPApplication.startHandlerThreadProfileActivation();
+        final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -1781,8 +1781,8 @@ class ActivateProfileHelper {
 
     private static void setHeadsUpNotifications(Context context, final int value) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadHeadsUpNotifications();
-        final Handler handler = new Handler(PPApplication.handlerThreadHeadsUpNotifications.getLooper());
+        PPApplication.startHandlerThreadProfileActivation();
+        final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -1834,8 +1834,8 @@ class ActivateProfileHelper {
 
     private static void setAlwaysOnDisplay(Context context, final int value) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadAlwaysOnDisplay();
-        final Handler handler = new Handler(PPApplication.handlerThreadAlwaysOnDisplay.getLooper());
+        PPApplication.startHandlerThreadProfileActivation();
+        final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -2502,8 +2502,8 @@ class ActivateProfileHelper {
         }
         else {*/
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadAdaptiveBrightness();
-        final Handler handler = new Handler(PPApplication.handlerThreadAdaptiveBrightness.getLooper());
+        PPApplication.startHandlerThreadProfileActivation();
+        final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -4448,8 +4448,8 @@ class ActivateProfileHelper {
     private static void setPowerSaveMode(final Profile profile, Context context) {
         if (profile._devicePowerSaveMode != 0) {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThreadPowerSaveMode();
-            final Handler handler = new Handler(PPApplication.handlerThreadPowerSaveMode.getLooper());
+            PPApplication.startHandlerThreadProfileActivation();
+            final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -4523,8 +4523,8 @@ class ActivateProfileHelper {
 
     private static void lockDevice(final Profile profile, Context context) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadLockDevice();
-        final Handler handler = new Handler(PPApplication.handlerThreadLockDevice.getLooper());
+        PPApplication.startHandlerThreadProfileActivation();
+        final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

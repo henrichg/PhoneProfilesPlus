@@ -21,8 +21,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
-            PPApplication.startHandlerThreadIconWidget();
-            final Handler handler = new Handler(PPApplication.handlerThreadIconWidget.getLooper());
+            PPApplication.startHandlerThreadWidget();
+            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -404,8 +404,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadIconWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadIconWidget.getLooper());
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

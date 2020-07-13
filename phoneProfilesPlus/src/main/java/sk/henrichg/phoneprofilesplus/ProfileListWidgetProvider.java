@@ -516,8 +516,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             final AppWidgetManager _appWidgetManager = appWidgetManager;
             final int[] _appWidgetIds = appWidgetIds;
 
-            PPApplication.startHandlerThreadListWidget();
-            final Handler handler = new Handler(PPApplication.handlerThreadListWidget.getLooper());
+            PPApplication.startHandlerThreadWidget();
+            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -559,8 +559,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadListWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadListWidget.getLooper());
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -681,8 +681,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     public void onAppWidgetOptionsChanged(final Context context, final AppWidgetManager appWidgetManager,
             final int appWidgetId, final Bundle newOptions)
     {
-        PPApplication.startHandlerThreadListWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadListWidget.getLooper());
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

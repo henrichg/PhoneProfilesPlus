@@ -306,8 +306,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             final int[] _cocktailIds = cocktailIds;
 
 
-            PPApplication.startHandlerThreadEdgePanelWidget();
-            final Handler handler = new Handler(PPApplication.handlerThreadEdgePanelWidget.getLooper());
+            PPApplication.startHandlerThreadWidget();
+            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -331,8 +331,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadEdgePanelWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadEdgePanelWidget.getLooper());
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

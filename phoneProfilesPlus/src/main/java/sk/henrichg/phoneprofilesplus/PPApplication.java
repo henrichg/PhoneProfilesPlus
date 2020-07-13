@@ -1154,30 +1154,34 @@ public class PPApplication extends Application
 
     public static HandlerThread handlerThread = null;
     //public static HandlerThread handlerThreadInternalChangeToFalse = null;
-    public static HandlerThread handlerThreadIconWidget = null;
-    public static HandlerThread handlerThreadOneRowWidget = null;
-    public static HandlerThread handlerThreadListWidget = null;
-    public static HandlerThread handlerThreadEdgePanelWidget = null;
+    public static HandlerThread handlerThreadWidget = null;
+    //public static HandlerThread handlerThreadIconWidget = null;
+    //public static HandlerThread handlerThreadOneRowWidget = null;
+    //public static HandlerThread handlerThreadListWidget = null;
+    //public static HandlerThread handlerThreadEdgePanelWidget = null;
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
     public static HandlerThread handlerThreadPPScanners = null;
+    public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
+    public static HandlerThread handlerThreadBluetoothLECallback = null;
     public static HandlerThread handlerThreadPPCommand = null;
 
     //private static HandlerThread handlerThreadRoot = null;
     public static HandlerThread handlerThreadVolumes = null;
     public static HandlerThread handlerThreadRadios = null;
-    public static HandlerThread handlerThreadAdaptiveBrightness = null;
     public static HandlerThread handlerThreadWallpaper = null;
-    public static HandlerThread handlerThreadPowerSaveMode = null;
-    public static HandlerThread handlerThreadLockDevice = null;
     public static HandlerThread handlerThreadRunApplication = null;
-    public static HandlerThread handlerThreadHeadsUpNotifications = null;
+
+    public static HandlerThread handlerThreadProfileActivation = null;
+    //public static HandlerThread handlerThreadAdaptiveBrightness = null;
+    //public static HandlerThread handlerThreadPowerSaveMode = null;
+    //public static HandlerThread handlerThreadHeadsUpNotifications = null;
+    //public static HandlerThread handlerThreadNotificationLed = null;
+    //public static HandlerThread handlerThreadAlwaysOnDisplay = null;
+    //public static HandlerThread handlerThreadLockDevice = null;
+
     //public static HandlerThread handlerThreadMobileCells = null;
     //public static HandlerThread handlerThreadBluetoothConnectedDevices = null;
-    public static HandlerThread handlerThreadBluetoothLECallback = null;
-    public static HandlerThread handlerThreadNotificationLed = null;
-    public static HandlerThread handlerThreadAlwaysOnDisplay = null;
-    public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
 
     //private static HandlerThread handlerThreadRestartEventsWithDelay = null;
     //public static Handler restartEventsWithDelayHandler = null;
@@ -1414,30 +1418,36 @@ public class PPApplication extends Application
 
         startHandlerThread(/*"PPApplication.onCreate"*/);
         //startHandlerThreadInternalChangeToFalse();
-        startHandlerThreadPPScanners();
+        startHandlerThreadPPScanners(); // for minutes interval
+        startHandlerThreadOrientationScanner(); // for seconds interval
+        startHandlerThreadBluetoothLECallback();
         startHandlerThreadPPCommand();
         //startHandlerThreadRoot();
-        startHandlerThreadIconWidget();
-        startHandlerThreadOneRowWidget();
-        startHandlerThreadListWidget();
-        startHandlerThreadEdgePanelWidget();
+        startHandlerThreadWidget();
+        //startHandlerThreadIconWidget();
+        //startHandlerThreadOneRowWidget();
+        //startHandlerThreadListWidget();
+        //startHandlerThreadEdgePanelWidget();
         startHandlerThreadProfileNotification();
+
         startHandlerThreadPlayTone();
+
         startHandlerThreadVolumes();
         startHandlerThreadRadios();
-        startHandlerThreadAdaptiveBrightness();
         startHandlerThreadWallpaper();
-        startHandlerThreadPowerSaveMode();
-        startHandlerThreadLockDevice();
         startHandlerThreadRunApplication();
-        startHandlerThreadHeadsUpNotifications();
+
+        startHandlerThreadProfileActivation();
+        //startHandlerThreadLockDevice();
+        //startHandlerThreadAdaptiveBrightness();
+        //startHandlerThreadPowerSaveMode();
+        //startHandlerThreadHeadsUpNotifications();
+        //startHandlerThreadNotificationLed();
+        //startHandlerThreadAlwaysOnDisplay();
+
         //startHandlerThreadMobileCells();
         //startHandlerThreadRestartEventsWithDelay();
         //startHandlerThreadBluetoothConnectedDevices();
-        startHandlerThreadBluetoothLECallback();
-        startHandlerThreadNotificationLed();
-        startHandlerThreadAlwaysOnDisplay();
-        startHandlerThreadOrientationScanner();
 
         toastHandler = new Handler(getMainLooper());
         //brightnessHandler = new Handler(getMainLooper());
@@ -4077,6 +4087,20 @@ public class PPApplication extends Application
         }
     }
 
+    static void startHandlerThreadOrientationScanner() {
+        if (handlerThreadOrientationScanner == null) {
+            handlerThreadOrientationScanner = new OrientationScannerHandlerThread("PPHandlerThreadOrientationScanner", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadOrientationScanner.start();
+        }
+    }
+
+    static void startHandlerThreadBluetoothLECallback() {
+        if (handlerThreadBluetoothLECallback == null) {
+            handlerThreadBluetoothLECallback = new HandlerThread("handlerThreadBluetoothLECallback", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadBluetoothLECallback.start();
+        }
+    }
+
     static void startHandlerThreadPPCommand() {
         if (handlerThreadPPCommand == null) {
             handlerThreadPPCommand = new HandlerThread("PPHandlerThreadPPCommand", THREAD_PRIORITY_MORE_FAVORABLE); //);
@@ -4101,6 +4125,13 @@ public class PPApplication extends Application
     }
     */
 
+    static void startHandlerThreadWidget() {
+        if (handlerThreadWidget == null) {
+            handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadWidget.start();
+        }
+    }
+    /*
     static void startHandlerThreadIconWidget() {
         if (handlerThreadIconWidget == null) {
             handlerThreadIconWidget = new HandlerThread("PPHandlerThreadIconWidget", THREAD_PRIORITY_MORE_FAVORABLE); //);
@@ -4125,7 +4156,7 @@ public class PPApplication extends Application
             handlerThreadEdgePanelWidget.start();
         }
     }
-
+    */
 
     static void startHandlerThreadProfileNotification() {
         if (handlerThreadProfileNotification == null) {
@@ -4155,31 +4186,10 @@ public class PPApplication extends Application
         }
     }
 
-    static void startHandlerThreadAdaptiveBrightness() {
-        if (handlerThreadAdaptiveBrightness == null) {
-            handlerThreadAdaptiveBrightness = new HandlerThread("handlerThreadAdaptiveBrightness", THREAD_PRIORITY_MORE_FAVORABLE); //);;
-            handlerThreadAdaptiveBrightness.start();
-        }
-    }
-
     static void startHandlerThreadWallpaper() {
         if (handlerThreadWallpaper == null) {
             handlerThreadWallpaper = new HandlerThread("handlerThreadWallpaper", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadWallpaper.start();
-        }
-    }
-
-    static void startHandlerThreadPowerSaveMode() {
-        if (handlerThreadPowerSaveMode == null) {
-            handlerThreadPowerSaveMode = new HandlerThread("handlerThreadPowerSaveMode", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadPowerSaveMode.start();
-        }
-    }
-
-    static void startHandlerThreadLockDevice() {
-        if (handlerThreadLockDevice == null) {
-            handlerThreadLockDevice = new HandlerThread("handlerThreadLockDevice", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadLockDevice.start();
         }
     }
 
@@ -4190,13 +4200,40 @@ public class PPApplication extends Application
         }
     }
 
+    static void startHandlerThreadProfileActivation() {
+        if (handlerThreadProfileActivation == null) {
+            handlerThreadProfileActivation = new HandlerThread("handlerThreadProfileActivation", THREAD_PRIORITY_MORE_FAVORABLE); //);;
+            handlerThreadProfileActivation.start();
+        }
+    }
+    /*
+    static void startHandlerThreadLockDevice() {
+        if (handlerThreadLockDevice == null) {
+            handlerThreadLockDevice = new HandlerThread("handlerThreadLockDevice", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadLockDevice.start();
+        }
+    }
+    static void startHandlerThreadAdaptiveBrightness() {
+        if (handlerThreadAdaptiveBrightness == null) {
+            handlerThreadAdaptiveBrightness = new HandlerThread("handlerThreadAdaptiveBrightness", THREAD_PRIORITY_MORE_FAVORABLE); //);;
+            handlerThreadAdaptiveBrightness.start();
+        }
+    }
+
+    static void startHandlerThreadPowerSaveMode() {
+        if (handlerThreadPowerSaveMode == null) {
+            handlerThreadPowerSaveMode = new HandlerThread("handlerThreadPowerSaveMode", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadPowerSaveMode.start();
+        }
+    }
+
     static void startHandlerThreadHeadsUpNotifications() {
         if (handlerThreadHeadsUpNotifications == null) {
             handlerThreadHeadsUpNotifications = new HandlerThread("handlerThreadHeadsUpNotifications", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadHeadsUpNotifications.start();
         }
     }
-
+    */
     /*
     static void startHandlerThreadMobileCells() {
         if (handlerThreadMobileCells == null) {
@@ -4222,13 +4259,7 @@ public class PPApplication extends Application
         }
     }
     */
-    static void startHandlerThreadBluetoothLECallback() {
-        if (handlerThreadBluetoothLECallback == null) {
-            handlerThreadBluetoothLECallback = new HandlerThread("handlerThreadBluetoothLECallback", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadBluetoothLECallback.start();
-        }
-    }
-
+    /*
     static void startHandlerThreadNotificationLed() {
         if (handlerThreadNotificationLed == null) {
             handlerThreadNotificationLed = new HandlerThread("handlerThreadNotificationLed", THREAD_PRIORITY_MORE_FAVORABLE); //);
@@ -4242,13 +4273,7 @@ public class PPApplication extends Application
             handlerThreadAlwaysOnDisplay.start();
         }
     }
-
-    static void startHandlerThreadOrientationScanner() {
-        if (handlerThreadOrientationScanner == null) {
-            handlerThreadOrientationScanner = new OrientationScannerHandlerThread("PPHandlerThreadOrientationScanner", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadOrientationScanner.start();
-        }
-    }
+    */
 
     static void setBlockProfileEventActions(boolean enable) {
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
