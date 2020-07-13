@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat;
 class IgnoreBatteryOptimizationNotification {
 
     private static final String PREF_SHOW_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ON_START = "show_ignore_battery_optimization_notification_on_start";
-    static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".IgnoreBatteryOptimizationNotification.DISABLE_ACTION";
 
     static void showNotification(Context context, boolean useHandler) {
         //if (Build.VERSION.SDK_INT >= 23) {
@@ -159,8 +158,8 @@ class IgnoreBatteryOptimizationNotification {
         //}
         mBuilder.setOnlyAlertOnce(true);
 
-        Intent disableIntent = new Intent(IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_DISABLE_ACTION);
-        PendingIntent pDisableIntent = PendingIntent.getBroadcast(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent disableIntent = new Intent(context, IgnoreBatteryOptimizationDisableActivity.class);
+        PendingIntent pDisableIntent = PendingIntent.getActivity(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                 R.drawable.ic_action_exit_app_white,
                 context.getString(R.string.ignore_battery_optimization_notification_disable_button),

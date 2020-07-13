@@ -1540,6 +1540,7 @@
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
 
     <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
+    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>
 
     <!-- **************************************************************************************** -->
 
