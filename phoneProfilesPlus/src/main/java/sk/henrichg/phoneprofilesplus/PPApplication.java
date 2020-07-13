@@ -131,6 +131,7 @@ public class PPApplication extends Application
                                                 +"|PackageReplacedReceiver"
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
+                                                +"|IgnoreBatteryOptimizationNotification"
 
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.onUpgrade"
@@ -1083,7 +1084,7 @@ public class PPApplication extends Application
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
-    //static IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
+    static IgnoreBatteryOptimizationDisableReceiver ignoreBatteryOptimizationDisableReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
@@ -2163,7 +2164,7 @@ public class PPApplication extends Application
             globalEventsRunStop = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
         }
-        //IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
+        IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
         getActivityLogEnabled(context);
         //getNotificationProfileName(context);
         //getWidgetProfileName(context);

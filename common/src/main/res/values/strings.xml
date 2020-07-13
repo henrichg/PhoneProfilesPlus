@@ -1539,6 +1539,8 @@
     <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
 
+    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1840,7 +1842,6 @@
 <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
 <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
 <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
-<!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
 
 <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
 <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
