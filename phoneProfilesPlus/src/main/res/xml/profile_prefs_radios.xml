@@ -52,6 +52,12 @@
         app:entries="@array/mobileDataPrefsArray"
         app:entryValues="@array/mobileDataPrefsValues"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_deviceWiFiInfo"
+        app:title="@string/profile_preferences_deviceWiFi"
+        app:summary="@string/profile_preferences_deviceWiFiInfo_summary"
+        app:widgetLayout="@layout/widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFi"
         app:summary="@string/array_pref_no_change"

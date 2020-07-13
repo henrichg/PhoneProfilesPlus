@@ -425,6 +425,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyleX(zenModePreference, true, false, false, false, addS);
+
+                        Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
+                        if (zenModePreferenceInfo != null) {
+                            zenModePreferenceInfo.setEnabled(zenModePreference.isEnabled());
+                        }
                     }
 
                     return true;
@@ -754,7 +759,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (Build.VERSION.SDK_INT >= 29) {
             preference = findPreference("prf_pref_deviceWiFiAPInfo");
             if (preference != null) {
-                preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) + "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary));
+                preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
+                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
+                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary));
             }
             preference = findPreference("prf_pref_deviceCloseAllApplicationsInfo");
             if (preference != null) {
@@ -2328,6 +2335,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                             GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, addS);
+
+                    Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
+                    if (zenModePreferenceInfo != null) {
+                        zenModePreferenceInfo.setEnabled(listPreference.isEnabled());
+                    }
                 }
             }
             else
@@ -2361,6 +2373,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, addS);
                     }
                     listPreference.setEnabled(iRingerMode == 5);
+
+                    Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
+                    if (zenModePreferenceInfo != null) {
+                        zenModePreferenceInfo.setEnabled(listPreference.isEnabled());
+                    }
                 }
 
                 Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
