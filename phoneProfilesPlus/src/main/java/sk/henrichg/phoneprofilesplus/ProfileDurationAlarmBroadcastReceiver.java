@@ -85,8 +85,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
-                                .addTag(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id)
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
                                 .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -102,7 +102,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
                             }*/
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsProfileDurationWork.add(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_" + (int) profile._id);
+                            PPApplication.elapsedAlarmsProfileDurationWork.add(MainWorker.PROFILE_DURATION_TAG_WORK +"_" + (int) profile._id);
                         }
                     }
                 } catch (Exception e) {
@@ -175,8 +175,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.recordException(e);
             }
 
-            PPApplication.cancelWork(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_"+(int) profile._id);
-            PPApplication.elapsedAlarmsProfileDurationWork.remove(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_"+(int) profile._id);
+            PPApplication.cancelWork(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int) profile._id);
+            PPApplication.elapsedAlarmsProfileDurationWork.remove(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int) profile._id);
         }
         Profile.setActivatedProfileEndDurationTime(context, 0);
         //PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.removeAlarm", "removed");

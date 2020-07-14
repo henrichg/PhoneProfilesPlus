@@ -25,12 +25,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.multidex.MultiDex;
+import androidx.work.Configuration;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -73,7 +75,7 @@ import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 @SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application
-                                        //implements Configuration.Provider
+                                        implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
 {
 
@@ -146,10 +148,9 @@ public class PPApplication extends Application
                                                 //+"|InterruptionFilterChangedBroadcastReceiver.onReceive"
                                                 //+"|SettingsContentObserver.onChange"
 
-                                                +"|WorkerWithoutData.doWork"
-                                                +"|WorkerWithData.doWork"
+                                                +"|MainWorker.doWork"
                                                 //+"|DisableInternalChangeWorker"
-                                                //+"|DisableScreenTimeoutInternalChangeWorker.doWork"
+                                                //+"|DisableScreenTimeoutInternalChangeWorker"
 
                                                 //+"|****** EventsHandler.handleEvents"
                                                 //+"|-------- PPApplication.forceUpdateGUI"
@@ -1527,12 +1528,14 @@ public class PPApplication extends Application
         MultiDex.install(this);
     }
 
-    /*
     @NonNull
     public Configuration getWorkManagerConfiguration() {
-        return new Configuration.Builder().setMinimumLoggingLevel(Log.DEBUG).build();
+        Configuration.Builder builder = new Configuration.Builder()
+                //.setMinimumLoggingLevel(Log.DEBUG)
+                .setWorkerFactory(new PPWorkerFactory());
+
+        return builder.build();
     }
-    */
 
     static WorkManager getWorkManagerInstance() {
         if (instance != null) {
@@ -1597,8 +1600,8 @@ public class PPApplication extends Application
     static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
         //Log.e("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
         if (atStart) {
-            cancelWork(WorkerWithoutData.SHOW_PROFILE_NOTIFICATION_TAG_WORK);
-            cancelWork(WorkerWithoutData.UPDATE_GUI_TAG_WORK);
+            cancelWork(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK);
+            cancelWork(MainWorker.UPDATE_GUI_TAG_WORK);
         }
         if (!atStart)
             cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
@@ -1623,19 +1626,19 @@ public class PPApplication extends Application
         }
         cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
         cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
-        cancelWork(WorkerWithoutData.CLOSE_ALL_APPLICATIONS_WORK_TAG);
-        cancelWork(WorkerWithData.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
         cancelWork(BluetoothScanWorker.WORK_TAG);
         cancelWork(BluetoothScanWorker.WORK_TAG_SHORT);
-        cancelWork(WorkerWithData.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
         cancelWork(RestartEventsWithDelayWorker.WORK_TAG);
         cancelWork(GeofenceScanWorker.WORK_TAG);
         cancelWork(GeofenceScanWorker.WORK_TAG_SHORT);
-        cancelWork(WorkerWithoutData.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
+        cancelWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
         cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
         if (atStart)
-            cancelWork(WorkerWithoutData.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
-        cancelWork(WorkerWithoutData.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
+            cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
+        cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
         if (atStart) {
             cancelWork(PACKAGE_REPLACED_WORK_TAG);
             cancelWork(AFTER_FIRST_START_WORK_TAG);
@@ -1643,8 +1646,8 @@ public class PPApplication extends Application
         }
         cancelWork(SearchCalendarEventsWorker.WORK_TAG);
         cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
-        cancelWork(WorkerWithData.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
-        cancelWork(WorkerWithData.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
         cancelWork(WifiScanWorker.WORK_TAG);
         cancelWork(WifiScanWorker.WORK_TAG_SHORT);
         cancelWork(WifiScanWorker.WORK_TAG_START_SCAN);
@@ -2018,8 +2021,8 @@ public class PPApplication extends Application
 
             // update immediate (without initialDelay())
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                            .addTag(WorkerWithoutData.SHOW_PROFILE_NOTIFICATION_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK)
                             //.setInputData(workData)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
@@ -2027,7 +2030,7 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
-                        workManager.enqueueUniqueWork(WorkerWithoutData.SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
             } catch (Exception e) {
@@ -2066,16 +2069,16 @@ public class PPApplication extends Application
         OneTimeWorkRequest worker;
         if (immediate) {
             worker =
-                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                            .addTag(WorkerWithoutData.UPDATE_GUI_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.UPDATE_GUI_TAG_WORK)
                             //.setInputData(workData)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
         }
         else {
             worker =
-                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                            .addTag(WorkerWithoutData.UPDATE_GUI_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.UPDATE_GUI_TAG_WORK)
                             //.setInputData(workData)
                             .setInitialDelay(1, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
@@ -2127,7 +2130,7 @@ public class PPApplication extends Application
 
                     if (enqueue)*/
                     //    workManager.enqueue(worker);
-                    workManager.enqueueUniqueWork(WorkerWithoutData.UPDATE_GUI_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork(MainWorker.UPDATE_GUI_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
@@ -4283,7 +4286,7 @@ public class PPApplication extends Application
                     .build();*/
 
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG)
                             //.setInputData(workData)
                             .setInitialDelay(30, TimeUnit.SECONDS)

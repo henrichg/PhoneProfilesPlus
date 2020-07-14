@@ -111,7 +111,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                         .build();
 
                                 OneTimeWorkRequest worker =
-                                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
+                                        new OneTimeWorkRequest.Builder(MainWorker.class)
                                                 .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                 .setInputData(workData)
                                                 .setInitialDelay(5, TimeUnit.SECONDS)

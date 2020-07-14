@@ -2109,8 +2109,8 @@ class Event {
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                                .addTag(WorkerWithoutData.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id)
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id)
                                 //.setInputData(workData)
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                 //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
@@ -2121,9 +2121,9 @@ class Event {
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
                             //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(WorkerWithoutData.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id,
+                            workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id,
                                                                 ExistingWorkPolicy.REPLACE, worker);
-                            PPApplication.elapsedAlarmsEventDelayStartWork.add(WorkerWithoutData.EVENT_DELAY_START_TAG_WORK +"_" + (int) this._id);
+                            PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK +"_" + (int) this._id);
 
                             Calendar now = Calendar.getInstance();
                             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2251,8 +2251,8 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithoutData.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
-        PPApplication.elapsedAlarmsEventDelayStartWork.remove(WorkerWithoutData.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
+        PPApplication.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
+        PPApplication.elapsedAlarmsEventDelayStartWork.remove(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
 
         this._isInDelayStart = false;
         this._startStatusTime = 0;
@@ -2351,8 +2351,8 @@ class Event {
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                                .addTag(WorkerWithoutData.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id)
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id)
                                 //.setInputData(workData)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                 //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
@@ -2363,9 +2363,9 @@ class Event {
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
                             //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(WorkerWithoutData.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id,
+                            workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id,
                                                             ExistingWorkPolicy.REPLACE, worker);
-                            PPApplication.elapsedAlarmsEventDelayEndWork.add(WorkerWithoutData.EVENT_DELAY_END_TAG_WORK +"_" + (int) this._id);
+                            PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK +"_" + (int) this._id);
 
                             Calendar now = Calendar.getInstance();
                             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2512,8 +2512,8 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithoutData.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
-        PPApplication.elapsedAlarmsEventDelayEndWork.remove(WorkerWithoutData.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
+        PPApplication.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
+        PPApplication.elapsedAlarmsEventDelayEndWork.remove(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
 
         this._isInDelayEnd = false;
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);

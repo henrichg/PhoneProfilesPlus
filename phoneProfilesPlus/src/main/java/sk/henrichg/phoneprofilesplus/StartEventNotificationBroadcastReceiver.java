@@ -50,8 +50,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithData.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
-        PPApplication.elapsedAlarmsStartEventNotificationWork.remove(WorkerWithData.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
+        PPApplication.cancelWork(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
+        PPApplication.elapsedAlarmsStartEventNotificationWork.remove(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
         //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -99,8 +99,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
-                                .addTag(WorkerWithData.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id)
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
                                 .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -114,7 +114,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
                             }*/
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsStartEventNotificationWork.add(WorkerWithData.START_EVENT_NOTIFICATION_TAG_WORK +"_" + (int) event._id);
+                            PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_" + (int) event._id);
                         }
                     }
                 } catch (Exception e) {

@@ -91,8 +91,8 @@ class TwilightScanner {
                             .build();
 
                     OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(WorkerWithData.class)
-                                    .addTag(WorkerWithData.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
                                     .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)

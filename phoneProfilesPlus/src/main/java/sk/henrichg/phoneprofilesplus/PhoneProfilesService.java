@@ -3829,7 +3829,7 @@ public class PhoneProfilesService extends Service
                                     .build();*/
 
                             OneTimeWorkRequest worker =
-                                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                                    new OneTimeWorkRequest.Builder(MainWorker.class)
                                             .addTag(PPApplication.PACKAGE_REPLACED_WORK_TAG)
                                             //.setInputData(workData)
                                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
@@ -3856,7 +3856,7 @@ public class PhoneProfilesService extends Service
                                     .build();
 
                             OneTimeWorkRequest worker =
-                                    new OneTimeWorkRequest.Builder(WorkerWithData.class)
+                                    new OneTimeWorkRequest.Builder(MainWorker.class)
                                             .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                             .setInputData(workData)
                                             //.setInitialDelay(5, TimeUnit.SECONDS)
@@ -5307,8 +5307,8 @@ public class PhoneProfilesService extends Service
                 .build();*/
 
         OneTimeWorkRequest worker =
-                new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                        .addTag(WorkerWithoutData.SHOW_PROFILE_NOTIFICATION_TAG_WORK)
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK)
                         //.setInputData(workData)
                         .setInitialDelay(1, TimeUnit.SECONDS)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
@@ -5317,7 +5317,7 @@ public class PhoneProfilesService extends Service
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    workManager.enqueueUniqueWork(WorkerWithoutData.SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {

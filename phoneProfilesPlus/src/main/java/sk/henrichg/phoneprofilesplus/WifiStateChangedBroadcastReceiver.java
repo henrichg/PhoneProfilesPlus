@@ -106,7 +106,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     .build();*/
 
                                             OneTimeWorkRequest worker =
-                                                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                                                    new OneTimeWorkRequest.Builder(MainWorker.class)
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
                                                             //.setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)

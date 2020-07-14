@@ -43,7 +43,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithoutData.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
+        PPApplication.cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -91,8 +91,8 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                            .addTag(WorkerWithoutData.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
                             //.setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
@@ -102,7 +102,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
-                        workManager.enqueueUniqueWork(WorkerWithoutData.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }
                 }
             } catch (Exception e) {

@@ -8,69 +8,40 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Build;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
-public class WorkerWithoutData extends Worker {
+public class MainWorker extends Worker {
 
-    static final String GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK = "geofenceScannerSwitchGPSWorkWithoutData";
-    static final String LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "lockDeviceFinishActivityWorkWithoutData";
-    static final String LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK = "lockDeviceAfterScreenOffWorkWithoutData";
-    static final String EVENT_DELAY_START_TAG_WORK = "eventDelayStartWorkWithoutData";
-    static final String EVENT_DELAY_END_TAG_WORK = "eventDelayEndWorkWithoutData";
-    static final String UPDATE_GUI_TAG_WORK = "updateGUIWorkWithoutData";
-    static final String SHOW_PROFILE_NOTIFICATION_TAG_WORK = "showProfileNotificationWorkWithoutData";
-    static final String CLOSE_ALL_APPLICATIONS_WORK_TAG = "closeAllApplicationsWorkWithoutData";
-    //static final String ELAPSED_ALARMS_DONATION_TAG_WORK = "elapsedAlarmsDonationWork";
-    //static final String ELAPSED_ALARMS_ALARM_CLOCK_SENSOR_TAG_WORK = "elapsedAlarmsAlarmClockSensorWork";
-    //static final String ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK = "elapsedAlarmsTwilightScannerWork";
-    //static final String ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK = "elapsedAlarmsTimeSensorWork";
-    //static final String ELAPSED_ALARMS_CALENDAR_SENSOR_TAG_WORK = "elapsedAlarmsCalendarSensorWork";
-    //static final String ELAPSED_ALARMS_CALL_SENSOR_TAG_WORK = "elapsedAlarmsCallSensorWork";
-    //static final String ELAPSED_ALARMS_SMS_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsSMSSensorWork";
-    //static final String ELAPSED_ALARMS_NFC_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsNFCSensorWork";
-    //static final String ELAPSED_ALARMS_DEVICE_BOOT_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsDeviceBootSensorWork";
-    //static final String ELAPSED_ALARMS_NOTIFICATION_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsNotificationSensorWork";
-    //static final String ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK = "elapsedAlarmsOrientationSensorWork";
+    static final String GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK = "geofenceScannerSwitchGPSWork";
+    static final String LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "lockDeviceFinishActivityWork";
+    static final String LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK = "lockDeviceAfterScreenOffWork";
+    static final String EVENT_DELAY_START_TAG_WORK = "eventDelayStartWork";
+    static final String EVENT_DELAY_END_TAG_WORK = "eventDelayEndWork";
+    static final String UPDATE_GUI_TAG_WORK = "updateGUIWork";
+    static final String SHOW_PROFILE_NOTIFICATION_TAG_WORK = "showProfileNotificationWork";
+    static final String CLOSE_ALL_APPLICATIONS_WORK_TAG = "closeAllApplicationsWork";
 
-    /*
-    static final String ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS = "geofence_scanner_switch_gps";
-    static final String ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY = "lock_device_finish_activity";
-    static final String ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF = "lock_device_after_screen_off";
-    static final String ELAPSED_ALARMS_START_EVENT_NOTIFICATION = "start_event_notification";
-    static final String ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY = "run_application_with_delay";
-    static final String ELAPSED_ALARMS_PROFILE_DURATION = "profile_duration";
-    static final String ELAPSED_ALARMS_EVENT_DELAY_START = "event_delay_start";
-    static final String ELAPSED_ALARMS_EVENT_DELAY_END = "event_delay_end";
-    static final String ELAPSED_ALARMS_UPDATE_GUI = "update_gui";
-    static final String ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
-    */
-    //static final String ELAPSED_ALARMS_DONATION = "donation";
-    //static final String ELAPSED_ALARMS_TWILIGHT_SCANNER = "twilight_scanner";
-    //static final String ELAPSED_ALARMS_TIME_SENSOR = "time_sensor";
-    //static final String ELAPSED_ALARMS_ALARM_CLOCK_EVENT_END_SENSOR = "alarm_clock_event_end_sensor";
-    //static final String ELAPSED_ALARMS_CALENDAR_SENSOR = "calendar_sensor";
-    //static final String ELAPSED_ALARMS_CALL_SENSOR = "call_sensor";
-    //static final String ELAPSED_ALARMS_SMS_EVENT_END_SENSOR = "sms_event_end_sensor";
-    //static final String ELAPSED_ALARMS_NFC_EVENT_END_SENSOR = "nfc_event_end_sensor";
-    //static final String ELAPSED_ALARMS_NOTIFICATION_EVENT_END_SENSOR = "notification_event_end_sensor";
-    //static final String ELAPSED_ALARMS_DEVICE_BOOT_EVENT_END_SENSOR = "device_boot_event_end_sensor";
+    static final String HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG = "handleEventsBluetoothLEScannerWork";
+    static final String HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG = "handleEventsBluetoothCLScannerWork";
+    static final String HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG = "handleEventsWifiScannerFromReceiverWork";
+    static final String HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG = "handleEventsWifiScannerFromScannerWork";
+    static final String HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG = "handleEventsTwilightScannerWork";
+    static final String HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG = "handleEventsMobileCellsScannerWork";
+    static final String START_EVENT_NOTIFICATION_TAG_WORK = "startEventNotificationWork";
+    static final String RUN_APPLICATION_WITH_DELAY_TAG_WORK = "runApplicationWithDelayWork";
+    static final String PROFILE_DURATION_TAG_WORK = "profileDurationWork";
 
     final Context context;
 
-    public WorkerWithoutData(
+    public MainWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
@@ -81,34 +52,29 @@ public class WorkerWithoutData extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("ElapsedAlarmsWorker.doWork", "xxx");
+            //PPApplication.logE("MainWorker.doWork", "xxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return Result.success();
 
-            //Data outputData;
-
-            // Get the input
-            //String action = getInputData().getString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK);
-            //if (action == null) {
-            //    //PPApplication.logE("ElapsedAlarmsWorker.doWork", "action ins null");
-            //    return Result.success();
-            //}
-
-            //PPApplication.logE("ElapsedAlarmsWorker.doWork", "action=" + action);
-
-            //outputData = generateResult(LocationGeofenceEditorActivity.FAILURE_RESULT,
-            //                                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
-            //                                    updateName);
-
-            //return Result.success(outputData);
-
             Context appContext = context.getApplicationContext();
+
+            String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
+            long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
+            String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
+            String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
+            long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+            boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
+            int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
 
             Set<String> tags = getTags();
             for (String tag : tags) {
-                PPApplication.logE("WorkerWithoutData.doWork", "tag=" + tag);
+                // ignore tags with package name
+                if (tag.contains(appContext.getPackageName()))
+                    continue;
+
+                PPApplication.logE("MainWorker.doWork", "tag=" + tag);
 
                 switch (tag) {
                     case PPApplication.PACKAGE_REPLACED_WORK_TAG:
@@ -214,27 +180,27 @@ public class WorkerWithoutData extends Worker {
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
 
-                                        /*String rescan;
-                                        rescan = ApplicationPreferences.applicationEventLocationRescan;
-                                        if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
-                                        if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
-                                        rescan = ApplicationPreferences.applicationEventWifiRescan;
-                                        if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
-                                        if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
-                                        rescan = ApplicationPreferences.applicationEventBluetoothRescan;
-                                        if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
-                                        if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
-                                        rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
-                                        if (rescan.equals("0"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
-                                        if (rescan.equals("2"))
-                                            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");*/
+                                            /*String rescan;
+                                            rescan = ApplicationPreferences.applicationEventLocationRescan;
+                                            if (rescan.equals("0"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
+                                            if (rescan.equals("2"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
+                                            rescan = ApplicationPreferences.applicationEventWifiRescan;
+                                            if (rescan.equals("0"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
+                                            if (rescan.equals("2"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
+                                            rescan = ApplicationPreferences.applicationEventBluetoothRescan;
+                                            if (rescan.equals("0"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
+                                            if (rescan.equals("2"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
+                                            rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
+                                            if (rescan.equals("0"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+                                            if (rescan.equals("2"))
+                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");*/
 
                                         editor.apply();
 
@@ -334,7 +300,7 @@ public class WorkerWithoutData extends Worker {
                                                 if (!split.isEmpty()) {
                                                     String searchPattern = split;
                                                     if (searchPattern.startsWith("!")) {
-                                                        searchPattern =  "\\" + searchPattern;
+                                                        searchPattern = "\\" + searchPattern;
                                                     }
                                                     if (!searchStringNew.isEmpty())
                                                         //noinspection StringConcatenationInLoop
@@ -441,9 +407,7 @@ public class WorkerWithoutData extends Worker {
                                     if (notificationBackgroundColor.equals("2")) {
                                         editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
-                                    }
-                                    else
-                                    if (notificationBackgroundColor.equals("4")) {
+                                    } else if (notificationBackgroundColor.equals("4")) {
                                         editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, true);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "3");
                                         editor.apply();
@@ -472,14 +436,14 @@ public class WorkerWithoutData extends Worker {
                         PPApplication.loadApplicationPreferences(appContext);
                         PPApplication.loadProfileActivationData(appContext);
 
-                        /*
-                        ApplicationPreferences.getSharedPreferences(appContext);
-                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
-                        editor.apply();
-                        */
+                            /*
+                            ApplicationPreferences.getSharedPreferences(appContext);
+                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
+                            editor.apply();
+                            */
 
-                        PPApplication.logE("PackageReplacedReceiver.doWork", "PhoneStateScanner.enabledAutoRegistration="+PhoneStateScanner.enabledAutoRegistration);
+                        PPApplication.logE("PackageReplacedReceiver.doWork", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
                         if (PhoneStateScanner.enabledAutoRegistration) {
                             PhoneStateScanner.stopAutoRegistration(appContext, true);
                             PPApplication.logE("PackageReplacedReceiver.doWork", "start of wait for end of autoregistration");
@@ -491,21 +455,20 @@ public class WorkerWithoutData extends Worker {
                             PPApplication.logE("PackageReplacedReceiver.doWork", "end of autoregistration");
                         }
 
-                        /*SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
-                        if (sharedPreferences != null) {
-                            PPApplication.logE("--------------- PackageReplacedReceiver.doWork", "package replaced set to false");
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
-                            editor.apply();
-                        }*/
+                            /*SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
+                            if (sharedPreferences != null) {
+                                PPApplication.logE("--------------- PackageReplacedReceiver.doWork", "package replaced set to false");
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
+                                editor.apply();
+                            }*/
                         //PPApplication.applicationPackageReplaced = false;
 
                         // Start service only when is not started or restart is required
                         // Is not needed to start it when it is not required. Code is already replaced after this call.
                         if (restartService)
                             startService(dataWrapper, true);
-                        else
-                        if (!isServiceRunning(appContext))
+                        else if (!isServiceRunning(appContext))
                             startService(dataWrapper, false);
                         else {
                             PhoneProfilesService instance = PhoneProfilesService.getInstance();
@@ -513,35 +476,7 @@ public class WorkerWithoutData extends Worker {
                                 // work after first start
                                 //PhoneProfilesService.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
-                                //TODO: use another thread for this
-                                PPApplication.startHandlerThreadPPScanners();
-                                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Data workData = new Data.Builder()
-                                                //.putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_AFTER_FIRST_START)
-                                                .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
-                                                .build();
-
-                                        OneTimeWorkRequest worker =
-                                                new OneTimeWorkRequest.Builder(WorkerWithData.class)
-                                                        .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
-                                                        .setInputData(workData)
-                                                        //.setInitialDelay(5, TimeUnit.SECONDS)
-                                                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
-                                                        .build();
-                                        try {
-                                            if (PPApplication.getApplicationStarted(true)) {
-                                                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                                if (workManager != null)
-                                                    workManager.enqueue(worker);
-                                            }
-                                        } catch (Exception e) {
-                                            PPApplication.recordException(e);
-                                        }
-                                    }
-                                }, 500);
+                                doAfterFirstStart(appContext, true);
 
                                 //instance.setApplicationFullyStarted(/*true, */true);
                                 //PPApplication.updateGUI(appContext, true, true);
@@ -588,48 +523,11 @@ public class WorkerWithoutData extends Worker {
                         //Log.e("DelayedWorksWorker.doWork", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
                         if (!PPApplication.blockProfileEventActions) {
                             try {
-                                /*boolean appFound = false;
-                                // intentionally using string value as Context.USAGE_STATS_SERVICE was
-                                // strangely only added in API 22 (LOLLIPOP_MR1)
-                                @SuppressLint("WrongConstant")
-                                UsageStatsManager usm = (UsageStatsManager)appContext.getSystemService("usagestats");
-                                long time = System.currentTimeMillis();
-                                List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,time - 1000 * 1000, time);
-                                if (appList != null && appList.size() > 0) {
-                                    appFound = true;
-    //                                SortedMap<Long, UsageStats> mySortedMap = new TreeMap<Long, UsageStats>();
-    //                                for (UsageStats usageStats : appList) {
-    //                                    mySortedMap.put(usageStats.getLastTimeUsed(),
-    //                                            usageStats);
-    //                                }
-    //                                if (mySortedMap != null && !mySortedMap.isEmpty()) {
-    //                                    currentApp = mySortedMap.get(
-    //                                            mySortedMap.lastKey()).getPackageName();
-    //                                }
-                                }*/
-
-                                /*boolean appFound = false;
-                                ActivityManager manager = (ActivityManager)appContext.getSystemService(Context.ACTIVITY_SERVICE);
-                                List<ActivityManager.RunningAppProcessInfo> tasks = manager.getRunningAppProcesses();
-                                Log.e("DelayedWorksWorker.doWork", "tasks="+tasks);
-                                if ((tasks != null) && (!tasks.isEmpty())) {
-                                    Log.e("DelayedWorksWorker.doWork", "tasks.size()="+tasks.size());
-                                    for (ActivityManager.RunningAppProcessInfo task : tasks) {
-                                        Log.e("DelayedWorksWorker.doWork", "task.processName="+task.processName);
-                                        if (task.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                                            Log.e("DelayedWorksWorker.doWork", "IMPORTANCE_FOREGROUND");
-                                            appFound = true;
-                                            break;
-                                        }
-                                    }
-                                }*/
-                                //if (appFound) {
                                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                                 startMain.addCategory(Intent.CATEGORY_HOME);
                                 startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                                 appContext.startActivity(startMain);
-                                //}
                             } catch (SecurityException e) {
                                 //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                             } catch (Exception e) {
@@ -645,76 +543,52 @@ public class WorkerWithoutData extends Worker {
                     case PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG:
                         PPApplication.blockProfileEventActions = false;
                         break;
-                    //case ELAPSED_ALARMS_DONATION:
-                    //    DonationBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_TWILIGHT_SCANNER:
-                    //    TwilightScanner.doWork();
-                    //    break;
-                    //case ELAPSED_ALARMS_TIME_SENSOR:
-                    //    EventTimeBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_ALARM_CLOCK_EVENT_END_SENSOR:
-                    //    AlarmClockEventEndBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_CALENDAR_SENSOR:
-                    //    EventCalendarBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_CALL_SENSOR:
-                    //    MissedCallEventEndBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_SMS_EVENT_END_SENSOR:
-                    //    SMSEventEndBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_NFC_EVENT_END_SENSOR:
-                    //    NFCEventEndBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_NOTIFICATION_EVENT_END_SENSOR:
-                    //    NotificationEventEndBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case ELAPSED_ALARMS_DEVICE_BOOT_EVENT_END_SENSOR:
-                    //    DeviceBootEventEndBroadcastReceiver.doWork(false, appContext);
-                    //    break;
+                    case PPApplication.AFTER_FIRST_START_WORK_TAG:
+                        doAfterFirstStart(appContext, getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true));
+                        break;
+                    case HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
+                    case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
+                        if (Event.getGlobalEventsRunning() && (sensorType != null)) {
+                            //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
+                            //PPApplication.logE("DelayedWorksWorker.doWork", "sensorType="+sensorType);
+                            // start events handler
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
+
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(sensorType);
+
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS)");
+                        }
+                        break;
                     default:
                         if (tag.startsWith(EVENT_DELAY_START_TAG_WORK))
                             EventDelayStartBroadcastReceiver.doWork(false, appContext);
-                        else
-                        if (tag.startsWith(EVENT_DELAY_END_TAG_WORK))
+                        else if (tag.startsWith(EVENT_DELAY_END_TAG_WORK))
                             EventDelayEndBroadcastReceiver.doWork(false, appContext);
+                        if (tag.startsWith(START_EVENT_NOTIFICATION_TAG_WORK))
+                            StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
+                        else
+                        if (tag.startsWith(RUN_APPLICATION_WITH_DELAY_TAG_WORK))
+                            RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
+                        else
+                        if (tag.startsWith(PROFILE_DURATION_TAG_WORK))
+                            ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
 
                         break;
                 }
             }
 
+
             return Result.success();
         } catch (Exception e) {
-            //Log.e("ElapsedAlarmsWorker.doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
-            Runnable r = new Runnable() {
-                public void run() {
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }
-            };
-            _handler.postDelayed(r, 1000);*/
             return Result.failure();
         }
     }
-
-    /*
-    private Data generateResult(int resultCode, String message, boolean updateName) {
-        // Create the output of the work
-        PPApplication.logE("FetchAddressWorker.generateResult", "resultCode="+resultCode);
-        PPApplication.logE("FetchAddressWorker.generateResult", "message="+message);
-        PPApplication.logE("FetchAddressWorker.generateResult", "updateName="+updateName);
-
-        return new Data.Builder()
-                .putInt(LocationGeofenceEditorActivity.RESULT_CODE, resultCode)
-                .putString(LocationGeofenceEditorActivity.RESULT_DATA_KEY, message)
-                .putBoolean(LocationGeofenceEditorActivity.UPDATE_NAME_EXTRA, updateName)
-                .build();
-    }
-    */
 
     private void startService(DataWrapper dataWrapper, boolean exitApp) {
         //boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
@@ -774,6 +648,87 @@ public class WorkerWithoutData extends Worker {
         }
         PPApplication.logE("PackageReplacedReceiver.isServiceRunning", "false");
         return false;
+    }
+
+    private static void doAfterFirstStart(Context appContext, boolean activateProfiles) {
+        PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
+
+        BootUpReceiver.bootUpCompleted = true;
+
+        //boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
+
+        // activate profile immediately after start of PPP
+        // this is required for some users, for example: francescocaldelli@gmail.com
+        //PPApplication.applicationPackageReplaced = false;
+        //if (fromDoFirstStart) {
+        //PhoneProfilesService instance = PhoneProfilesService.getInstance();
+        //if (instance != null)
+        //    instance.PhoneProfilesService.setApplicationFullyStarted(appContext/*true*/);
+        PPApplication.setApplicationFullyStarted(appContext);
+        //}
+
+        //if (fromDoFirstStart) {
+        PPApplication.createNotificationChannels(appContext);
+
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+
+        if (Event.getGlobalEventsRunning()) {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is enabled, first start events");
+
+            if (activateProfiles) {
+                if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                    ////// unblock all events for first start
+                    //     that may be blocked in previous application run
+                    dataWrapper.pauseAllEvents(false, false);
+                }
+            }
+
+            dataWrapper.firstStartEvents(true, false);
+
+            if (PPApplication.deviceBoot) {
+                PPApplication.deviceBoot = false;
+                PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "device boot");
+                boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);
+                if (deviceBootEvents) {
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "device boot event exists");
+
+                    // start events handler
+                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
+
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+
+                    Calendar now = Calendar.getInstance();
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    final long _time = now.getTimeInMillis() + gmtOffset;
+                    eventsHandler.setEventDeviceBootParameters(_time);
+
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT);
+
+                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
+                }
+            }
+
+            //PPApplication.updateNotificationAndWidgets(true, true, appContext);
+            //PPApplication.updateGUI(appContext, true, true);
+        } else {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is not enabled, manually activate profile");
+
+            if (activateProfiles) {
+                ////// unblock all events for first start
+                //     that may be blocked in previous application run
+                dataWrapper.pauseAllEvents(true, false);
+            }
+
+            dataWrapper.activateProfileOnBoot();
+            //PPApplication.updateNotificationAndWidgets(true, true, appContext);
+            //PPApplication.updateGUI(appContext, true, true);
+        }
+
+        //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=DelayedWorksWorker.doWork");
+        PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
+        //}
+
+        PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "END");
     }
 
 }
