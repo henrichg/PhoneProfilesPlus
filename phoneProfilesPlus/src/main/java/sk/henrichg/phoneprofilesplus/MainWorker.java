@@ -74,7 +74,7 @@ public class MainWorker extends Worker {
                 if (tag.contains(appContext.getPackageName()))
                     continue;
 
-                PPApplication.logE("MainWorker.doWork", "tag=" + tag);
+                //PPApplication.logE("MainWorker.doWork", "tag=" + tag);
 
                 switch (tag) {
                     case PPApplication.PACKAGE_REPLACED_WORK_TAG:

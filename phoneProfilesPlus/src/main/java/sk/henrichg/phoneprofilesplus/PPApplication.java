@@ -148,7 +148,7 @@ public class PPApplication extends Application
                                                 //+"|InterruptionFilterChangedBroadcastReceiver.onReceive"
                                                 //+"|SettingsContentObserver.onChange"
 
-                                                +"|MainWorker.doWork"
+                                                //+"|MainWorker.doWork"
                                                 //+"|DisableInternalChangeWorker"
                                                 //+"|DisableScreenTimeoutInternalChangeWorker"
 
