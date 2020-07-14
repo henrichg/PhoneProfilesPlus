@@ -67,12 +67,16 @@ public class MainWorker extends Worker {
                 //PPApplication.logE("MainWorker.doWork", "tag=" + tag);
 
                 switch (tag) {
+                    case WifiScanWorker.WORK_TAG_START_SCAN:
+                        //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_START_WIFI_SCAN");
+                        WifiScanWorker.startScan(appContext);
+                        break;
                     case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
                     case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
                         String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
                         if (Event.getGlobalEventsRunning() && (sensorType != null)) {
                             //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
@@ -86,18 +90,14 @@ public class MainWorker extends Worker {
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS)");
                         }
                         break;
-                    case WifiScanWorker.WORK_TAG_START_SCAN:
-                        //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_START_WIFI_SCAN");
-                        WifiScanWorker.startScan(appContext);
+                    case GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK:
+                        GeofencesScannerSwitchGPSBroadcastReceiver.doWork();
                         break;
                     case LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK:
                         LockDeviceActivityFinishBroadcastReceiver.doWork();
                         break;
                     case LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK:
                         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
-                        break;
-                    case GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK:
-                        GeofencesScannerSwitchGPSBroadcastReceiver.doWork();
                         break;
                     case CLOSE_ALL_APPLICATIONS_WORK_TAG:
                         //Log.e("DelayedWorksWorker.doWork", "DELAYED_WORK_CLOSE_ALL_APPLICATIONS");
