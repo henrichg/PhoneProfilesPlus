@@ -106,12 +106,12 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                 // work after first start
                                 Data workData = new Data.Builder()
-                                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_AFTER_FIRST_START)
                                         .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
                                         .build();
 
                                 OneTimeWorkRequest worker =
-                                        new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
                                                 .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                 .setInputData(workData)
                                                 .setInitialDelay(5, TimeUnit.SECONDS)

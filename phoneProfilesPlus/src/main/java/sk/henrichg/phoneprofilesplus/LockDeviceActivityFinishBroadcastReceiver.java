@@ -44,7 +44,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
+        PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -84,7 +84,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         }
         else {
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY)
+                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY)
                     .build();
 
             /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
@@ -92,8 +92,8 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                            .addTag(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
@@ -103,7 +103,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
-                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        workManager.enqueueUniqueWork(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }
                 }
             } catch (Exception e) {

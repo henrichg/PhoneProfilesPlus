@@ -7,7 +7,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 @SuppressWarnings("WeakerAccess")
-public class ElapsedAlarmsWorker extends Worker {
+public class WorkerWithoutData extends Worker {
 
     static final String ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK = "elapsedAlarmsGeofenceScannerSwitchGPSWork";
     static final String ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "elapsedAlarmsLockDeviceFinishActivity";
@@ -56,7 +56,7 @@ public class ElapsedAlarmsWorker extends Worker {
 
     final Context context;
 
-    public ElapsedAlarmsWorker(
+    public WorkerWithoutData(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);

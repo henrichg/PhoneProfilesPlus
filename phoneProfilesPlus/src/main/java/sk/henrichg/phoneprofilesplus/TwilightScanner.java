@@ -86,13 +86,13 @@ class TwilightScanner {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
                     Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_HANDLE_EVENTS)
                             .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)
                             .build();
 
                     OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                    .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
+                            new OneTimeWorkRequest.Builder(WorkerWithData.class)
+                                    .addTag(WorkerWithData.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
                                     .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -492,7 +492,7 @@ class TwilightScanner {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-                PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK);
+                PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK);
 
                 // set alarm
                 Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);

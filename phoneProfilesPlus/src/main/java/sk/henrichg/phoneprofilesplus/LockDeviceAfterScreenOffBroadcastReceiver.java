@@ -72,12 +72,12 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
         }
         else {
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF)
+                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF)
                     .build();
 
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                            .addTag(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
@@ -87,7 +87,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
-                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        workManager.enqueueUniqueWork(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }
                 }
             } catch (Exception e) {

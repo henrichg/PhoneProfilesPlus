@@ -669,13 +669,13 @@ class PhoneStateScanner extends PhoneStateListener {
             //}*/
 
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS)
+                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_HANDLE_EVENTS)
                     .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PHONE_STATE)
                     .build();
 
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                            .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG)
+                    new OneTimeWorkRequest.Builder(WorkerWithData.class)
+                            .addTag(WorkerWithData.DELAYED_WORK_HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG)
                             .setInputData(workData)
                             .setInitialDelay(5, TimeUnit.SECONDS)
                             .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)

@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public class DelayedWorksWorker extends Worker {
+public class WorkerWithData extends Worker {
 
     //Context context;
 
@@ -45,7 +45,7 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS = "close_all_applications";
     //static final String DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE = "change_filter_after_editor_data_change";
 
-    public DelayedWorksWorker(
+    public WorkerWithData(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
@@ -571,12 +571,12 @@ public class DelayedWorksWorker extends Worker {
                                 @Override
                                 public void run() {
                                     Data workData = new Data.Builder()
-                                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
+                                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_AFTER_FIRST_START)
                                             .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
                                             .build();
 
                                     OneTimeWorkRequest worker =
-                                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                            new OneTimeWorkRequest.Builder(WorkerWithData.class)
                                                     .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                     .setInputData(workData)
                                                     //.setInitialDelay(5, TimeUnit.SECONDS)

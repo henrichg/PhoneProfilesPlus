@@ -103,11 +103,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         // start scan
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
                                             Data workData = new Data.Builder()
-                                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_START_WIFI_SCAN)
+                                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_START_WIFI_SCAN)
                                                     .build();
 
                                             OneTimeWorkRequest worker =
-                                                    new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
+                                                    new OneTimeWorkRequest.Builder(WorkerWithData.class)
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
                                                             .setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)

@@ -1215,7 +1215,7 @@ class EventPreferencesTime extends EventPreferences {
         } catch (Exception ee) {
             PPApplication.recordException(ee);
         }
-        PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK+"_" + (int) _event._id);
+        PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

@@ -3149,12 +3149,12 @@ class ActivateProfileHelper {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS)
+                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_CLOSE_ALL_APPLICATIONS)
                         .build();
 
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                .addTag(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG)
+                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
+                                .addTag(WorkerWithData.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG)
                                 .setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
@@ -3163,7 +3163,7 @@ class ActivateProfileHelper {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null)
-                            workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                            workManager.enqueueUniqueWork(WorkerWithData.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
