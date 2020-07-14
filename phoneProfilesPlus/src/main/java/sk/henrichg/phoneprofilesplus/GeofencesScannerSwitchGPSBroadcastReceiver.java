@@ -88,9 +88,9 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS)
                     .build();
 
-            int keepResultsDelay = delay * 5;
+            /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                             .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)

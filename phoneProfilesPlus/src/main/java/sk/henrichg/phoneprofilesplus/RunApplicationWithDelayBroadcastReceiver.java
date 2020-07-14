@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -91,15 +90,15 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                         .build();
 
-                int keepResultsDelay = (startApplicationDelay * 5) / 60; // conversion to minutes
+                /*int keepResultsDelay = (startApplicationDelay * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
-                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -109,9 +108,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - startApplicationDelay=" + startApplicationDelay);
                                 PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
                             }*/
-                            //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode,
-                                                                ExistingWorkPolicy.REPLACE, worker);
+                            workManager.enqueue(worker);
                             PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_" + requestCode);
                         }
                     }

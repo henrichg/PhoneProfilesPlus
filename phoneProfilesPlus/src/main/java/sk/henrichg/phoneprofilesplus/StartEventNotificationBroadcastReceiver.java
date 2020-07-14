@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -96,15 +95,15 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
                         .build();
 
-                int keepResultsDelay = (event._repeatNotificationIntervalStart * 5) / 60; // conversion to minutes
+                /*int keepResultsDelay = (event._repeatNotificationIntervalStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
-                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -114,9 +113,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
                             }*/
-                            //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id,
-                                                                ExistingWorkPolicy.REPLACE, worker);
+                            workManager.enqueue(worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_" + (int) event._id);
                         }
                     }

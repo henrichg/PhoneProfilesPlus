@@ -10,7 +10,6 @@ import android.os.SystemClock;
 import android.provider.Settings;
 
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -214,14 +213,13 @@ class WifiScanner {
                                                         .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG)
                                                         .setInputData(workData)
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
-                                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                                         .build();
                                         try {
                                             if (PPApplication.getApplicationStarted(true)) {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                                 if (workManager != null)
-                                                    workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
-                                                    //workManager.enqueue(worker);
+                                                    workManager.enqueue(worker);
                                             }
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);

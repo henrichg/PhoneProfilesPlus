@@ -152,9 +152,9 @@ public class WifiScanWorker extends Worker {
 
                     if (!shortInterval) {
                         //PPApplication.logE("WifiScanWorker._scheduleWork", "delay work");
-                        int keepResultsDelay = (interval * 5);
+                        /*int keepResultsDelay = (interval * 5);
                         if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
                                 .addTag(WifiScanWorker.WORK_TAG)

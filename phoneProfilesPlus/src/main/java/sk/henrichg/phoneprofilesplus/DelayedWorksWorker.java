@@ -37,7 +37,7 @@ public class DelayedWorksWorker extends Worker {
     static final String DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG = "delayedWorkCloseAllApplications";
     static final String DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
 
-    static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events";
+    static final String DELAYED_WORK_HANDLE_EVENTS = "handle_events"; // must be enqueoue() because od work data
     static final String DELAYED_WORK_START_WIFI_SCAN = "start_wifi_scan";
     static final String DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS = "block_profile_event_actions";
     static final String DELAYED_WORK_AFTER_FIRST_START = "after_first_start";
@@ -573,7 +573,6 @@ public class DelayedWorksWorker extends Worker {
                                     Data workData = new Data.Builder()
                                             .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
                                             .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
-                                            //.putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, false)
                                             .build();
 
                                     OneTimeWorkRequest worker =

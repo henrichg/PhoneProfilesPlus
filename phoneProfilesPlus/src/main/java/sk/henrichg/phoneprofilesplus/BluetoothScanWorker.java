@@ -155,9 +155,9 @@ public class BluetoothScanWorker extends Worker {
 
                     if (!shortInterval) {
                         //PPApplication.logE("BluetoothScanWorker._scheduleWork", "delay work");
-                        int keepResultsDelay = (interval * 5);
+                        /*int keepResultsDelay = (interval * 5);
                         if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
                                 .addTag(BluetoothScanWorker.WORK_TAG)
@@ -1022,14 +1022,13 @@ public class BluetoothScanWorker extends Worker {
                                     .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(5, TimeUnit.SECONDS)
-                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                     .build();
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
-                                workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
-                                //workManager.enqueue(worker);
+                                workManager.enqueue(worker);
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);

@@ -87,11 +87,11 @@ public class PPApplication extends Application
     static long startTimeOfApplicationStart = 0;
 
     static final long APPLICATION_START_DELAY = 2 * 60 * 1000;
-    static final int WORK_PRUNE_DELAY = 30;
+    static final int WORK_PRUNE_DELAY_DAYS = 1;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -2012,7 +2012,6 @@ public class PPApplication extends Application
             // KEEP IT AS WORK !!!
             Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION)
-                    //.putBoolean(ShowProfileNotificationBroadcastReceiver.EXTRA_FROM_ALARM, true)
                     .build();
 
             // update immediate (without initialDelay())
@@ -2060,9 +2059,6 @@ public class PPApplication extends Application
 
         Data workData = new Data.Builder()
                 .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI)
-                //.putBoolean(PPApplication.EXTRA_REFRESH, true/*refresh*/)
-                //.putBoolean(PPApplication.EXTRA_REFRESH_ALSO_EDITOR, true/*alsoEditor*/)
-                //.putBoolean(UpdateGUIBroadcastReceiver.EXTRA_FROM_ALARM, true)
                 .build();
 
         OneTimeWorkRequest worker;

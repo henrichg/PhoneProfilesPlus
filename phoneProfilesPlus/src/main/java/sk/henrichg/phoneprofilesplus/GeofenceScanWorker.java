@@ -167,9 +167,9 @@ public class GeofenceScanWorker extends Worker {
 
                     if (!shortInterval) {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "delay work");
-                        int keepResultsDelay = (interval * 5);
+                        /*int keepResultsDelay = (interval * 5);
                         if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.SECONDS)
                                 .addTag(GeofenceScanWorker.WORK_TAG)

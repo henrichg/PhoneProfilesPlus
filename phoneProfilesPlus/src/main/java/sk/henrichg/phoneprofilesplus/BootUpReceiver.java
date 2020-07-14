@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -108,7 +107,6 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 // work after first start
                                 Data workData = new Data.Builder()
                                         .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START)
-                                        //.putBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true)
                                         .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
                                         .build();
 
@@ -117,14 +115,13 @@ public class BootUpReceiver extends BroadcastReceiver {
                                                 .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                 .setInputData(workData)
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
-                                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                                 .build();
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
                                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                                         if (workManager != null)
-                                            //workManager.enqueue(worker);
-                                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                                            workManager.enqueue(worker);
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);

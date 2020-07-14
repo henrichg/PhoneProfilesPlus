@@ -2106,9 +2106,9 @@ class Event {
                         .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START)
                         .build();
 
-                int keepResultsDelay = (this._delayStart * 5) / 60; // conversion to minutes
+                /*int keepResultsDelay = (this._delayStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+(int) this._id)
@@ -2348,9 +2348,9 @@ class Event {
                         .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END)
                         .build();
 
-                int keepResultsDelay = (this._delayEnd * 5) / 60; // conversion to minutes
+                /*int keepResultsDelay = (this._delayEnd * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+(int) this._id)

@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -117,14 +116,13 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                         .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG)
                                                         .setInputData(workData)
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
-                                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                                         .build();
                                         try {
                                             if (PPApplication.getApplicationStarted(true)) {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                                 if (workManager != null)
-                                                    workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
-                                                    //workManager.enqueue(worker);
+                                                    workManager.enqueue(worker);
                                             }
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);

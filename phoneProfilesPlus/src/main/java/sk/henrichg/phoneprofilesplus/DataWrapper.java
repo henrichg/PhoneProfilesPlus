@@ -25,7 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -2447,22 +2446,21 @@ public class DataWrapper {
                     .putInt(PhoneProfilesService.EXTRA_LOG_TYPE, logType)
                     .build();
 
-        int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
+        /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
         if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
         OneTimeWorkRequest restartEventsWithDelayWorker =
                 new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
                         .addTag(RestartEventsWithDelayWorker.WORK_TAG)
                         .setInputData(workData)
                         .setInitialDelay(delay, TimeUnit.SECONDS)
-                        //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-                    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, restartEventsWithDelayWorker);
-                }
+                if (workManager != null)
+                    workManager.enqueue(restartEventsWithDelayWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

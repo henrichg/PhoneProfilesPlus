@@ -1232,3 +1232,16 @@ Test baterie - kedy a odkial sa spusta EventsHandler
 - pozeraj aj PeriodicEventHandlerWorker - mam ho povoleny na Pixeli, mal by sa kazdych 15 minut.
 
 ---------------------
+
+- enqueue, lebo rozne data
+DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START
+RestartEventsWithDelayWorker
+FetchAddressWorker
+ElapsedAlarmsWorker.ELAPSED_ALARMS_PROFILE_DURATION
+ElapsedAlarmsWorker.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK
+ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK
+
+Premenuj:
+- ElapsedAlarmWorker na WorkerWithoutData
+- DelayedWorkWorker na WorkerWithData
+a poprehaduzj podla toho vsetky worky. Podla setInputData().
