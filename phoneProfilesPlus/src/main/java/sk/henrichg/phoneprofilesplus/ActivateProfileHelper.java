@@ -2456,7 +2456,7 @@ class ActivateProfileHelper {
                     PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "processPID="+processPID);
                     //if (processPID != -1) {
                         PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "call RootTools.killProcess");
-                        boolean killed = RootTools.killProcess("sk.henrichg.phoneprofilesplus");
+                        boolean killed = RootTools.killProcess(PPApplication.PACKAGE_NAME);
                         PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "killed="+killed);
                     //}
                 } catch (Exception ee) {
