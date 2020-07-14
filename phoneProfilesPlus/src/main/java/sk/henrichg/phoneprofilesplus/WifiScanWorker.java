@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -53,9 +52,9 @@ public class WifiScanWorker extends Worker {
     public Result doWork() {
         try {
             //PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
-            Set<String> tags = getTags();
-            for (String tag : tags)
-                PPApplication.logE("WifiScanWorker.doWork", "tag=" + tag);
+            //Set<String> tags = getTags();
+            //for (String tag : tags)
+            //    PPApplication.logE("WifiScanWorker.doWork", "tag=" + tag);
 
             //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 

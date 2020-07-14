@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -44,7 +43,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
+        PPApplication.cancelWork(WorkerWithoutData.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -83,9 +82,9 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             }
         }
         else {
-            Data workData = new Data.Builder()
+            /*Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY)
-                    .build();
+                    .build();*/
 
             /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
             //noinspection ConstantConditions
@@ -93,8 +92,8 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                            .addTag(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
-                            .setInputData(workData)
+                            .addTag(WorkerWithoutData.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
+                            //.setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();
@@ -103,7 +102,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
-                        workManager.enqueueUniqueWork(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        workManager.enqueueUniqueWork(WorkerWithoutData.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }
                 }
             } catch (Exception e) {

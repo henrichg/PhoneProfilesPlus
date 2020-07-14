@@ -47,7 +47,6 @@ import android.view.WindowManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -3148,14 +3147,14 @@ class ActivateProfileHelper {
             if (!PPApplication.blockProfileEventActions) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
-                Data workData = new Data.Builder()
+                /*Data workData = new Data.Builder()
                         .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_CLOSE_ALL_APPLICATIONS)
-                        .build();
+                        .build();*/
 
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(WorkerWithData.class)
-                                .addTag(WorkerWithData.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG)
-                                .setInputData(workData)
+                                .addTag(WorkerWithData.CLOSE_ALL_APPLICATIONS_WORK_TAG)
+                                //.setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
@@ -3163,7 +3162,7 @@ class ActivateProfileHelper {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null)
-                            workManager.enqueueUniqueWork(WorkerWithData.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                            workManager.enqueueUniqueWork(WorkerWithData.CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);

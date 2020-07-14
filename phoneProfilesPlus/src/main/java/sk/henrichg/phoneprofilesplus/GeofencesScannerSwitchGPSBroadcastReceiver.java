@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -45,7 +44,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             PPApplication.recordException(e);
         }
 
-        PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
+        PPApplication.cancelWork(WorkerWithoutData.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -84,17 +83,17 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             }
         }
         else {
-            Data workData = new Data.Builder()
+            /*Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS)
-                    .build();
+                    .build();*/
 
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                            .addTag(WorkerWithoutData.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
-                            .setInputData(workData)
+                            .addTag(WorkerWithoutData.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
+                            //.setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.MINUTES)
                             //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();
@@ -103,7 +102,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
-                        workManager.enqueueUniqueWork(WorkerWithoutData.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        workManager.enqueueUniqueWork(WorkerWithoutData.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }
                 }
             } catch (Exception e) {

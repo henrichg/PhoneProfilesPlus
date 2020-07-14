@@ -75,7 +75,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             }
             else {
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_PROFILE_DURATION)
+                        //.putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_PROFILE_DURATION)
                         .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
                         .putBoolean(EXTRA_FOR_RESTART_EVENTS, forRestartEvents)
                         .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
@@ -86,7 +86,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                                .addTag(WorkerWithoutData.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int)profile._id)
+                                .addTag(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
                                 .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -102,7 +102,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
                             }*/
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsProfileDurationWork.add(WorkerWithoutData.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_" + (int) profile._id);
+                            PPApplication.elapsedAlarmsProfileDurationWork.add(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_" + (int) profile._id);
                         }
                     }
                 } catch (Exception e) {
@@ -175,8 +175,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.recordException(e);
             }
 
-            PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int) profile._id);
-            PPApplication.elapsedAlarmsProfileDurationWork.remove(WorkerWithoutData.ELAPSED_ALARMS_PROFILE_DURATION_TAG_WORK+"_"+(int) profile._id);
+            PPApplication.cancelWork(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_"+(int) profile._id);
+            PPApplication.elapsedAlarmsProfileDurationWork.remove(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_"+(int) profile._id);
         }
         Profile.setActivatedProfileEndDurationTime(context, 0);
         //PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.removeAlarm", "removed");

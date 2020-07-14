@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -71,14 +70,14 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             }
         }
         else {
-            Data workData = new Data.Builder()
+            /*Data workData = new Data.Builder()
                     .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF)
-                    .build();
+                    .build();*/
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                            .addTag(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
-                            .setInputData(workData)
+                            .addTag(WorkerWithoutData.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
+                            //.setInputData(workData)
                             .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
@@ -87,7 +86,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
-                        workManager.enqueueUniqueWork(WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        workManager.enqueueUniqueWork(WorkerWithoutData.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }
                 }
             } catch (Exception e) {

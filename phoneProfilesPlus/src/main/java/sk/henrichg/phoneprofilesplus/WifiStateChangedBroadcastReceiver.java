@@ -8,7 +8,6 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -102,14 +101,14 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
-                                            Data workData = new Data.Builder()
+                                            /*Data workData = new Data.Builder()
                                                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_START_WIFI_SCAN)
-                                                    .build();
+                                                    .build();*/
 
                                             OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(WorkerWithData.class)
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
-                                                            .setInputData(workData)
+                                                            //.setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                                             .build();

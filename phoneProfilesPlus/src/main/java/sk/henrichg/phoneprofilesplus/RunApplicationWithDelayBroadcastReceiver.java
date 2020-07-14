@@ -85,7 +85,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             }
             else {
                 Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY)
+                        //.putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY)
                         .putString(EXTRA_PROFILE_NAME, profileName)
                         .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                         .build();
@@ -95,7 +95,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                                .addTag(WorkerWithoutData.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode)
+                                .addTag(WorkerWithData.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
                                 .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -109,7 +109,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.setAlarm", "enqueueUniqueWork - runApplicationData=" + runApplicationData);
                             }*/
                             workManager.enqueue(worker);
-                            PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(WorkerWithoutData.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_" + requestCode);
+                            PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(WorkerWithData.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_" + requestCode);
                         }
                     }
                 } catch (Exception e) {
@@ -189,8 +189,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode);
-        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(WorkerWithoutData.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY_TAG_WORK+"_"+requestCode);
+        PPApplication.cancelWork(WorkerWithData.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
+        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(WorkerWithData.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 

@@ -3821,17 +3821,17 @@ public class PhoneProfilesService extends Service
 
                             PPApplication.setBlockProfileEventActions(true);
 
-                            PPApplication.cancelWork(WorkerWithData.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG);
+                            PPApplication.cancelWork(PPApplication.PACKAGE_REPLACED_WORK_TAG);
 
                             // work for package replaced
-                            Data workData = new Data.Builder()
+                            /*Data workData = new Data.Builder()
                                     .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_PACKAGE_REPLACED)
-                                    .build();
+                                    .build();*/
 
                             OneTimeWorkRequest worker =
                                     new OneTimeWorkRequest.Builder(WorkerWithData.class)
-                                            .addTag(WorkerWithData.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG)
-                                            .setInputData(workData)
+                                            .addTag(PPApplication.PACKAGE_REPLACED_WORK_TAG)
+                                            //.setInputData(workData)
                                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                             .build();
                             try {
@@ -3839,7 +3839,7 @@ public class PhoneProfilesService extends Service
                                 //if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork(WorkerWithData.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                                    workManager.enqueueUniqueWork(PPApplication.PACKAGE_REPLACED_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                                 //}
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -3851,7 +3851,7 @@ public class PhoneProfilesService extends Service
                             PPApplication.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
                             Data workData = new Data.Builder()
-                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_AFTER_FIRST_START)
+                                    //.putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_AFTER_FIRST_START)
                                     .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
                                     .build();
 
@@ -5302,14 +5302,14 @@ public class PhoneProfilesService extends Service
         */
 
         // KEEP IT AS WORK !!!
-        Data workData = new Data.Builder()
+        /*Data workData = new Data.Builder()
                 .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION)
-                .build();
+                .build();*/
 
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
-                        .addTag(WorkerWithoutData.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK)
-                        .setInputData(workData)
+                        .addTag(WorkerWithoutData.SHOW_PROFILE_NOTIFICATION_TAG_WORK)
+                        //.setInputData(workData)
                         .setInitialDelay(1, TimeUnit.SECONDS)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                         .build();
@@ -5317,7 +5317,7 @@ public class PhoneProfilesService extends Service
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    workManager.enqueueUniqueWork(WorkerWithoutData.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork(WorkerWithoutData.SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
@@ -5631,7 +5631,7 @@ public class PhoneProfilesService extends Service
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK);
+        //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_ORIENTATION_EVENT_SENSOR_TAG_WORK);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})

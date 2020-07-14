@@ -94,7 +94,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
+        //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
