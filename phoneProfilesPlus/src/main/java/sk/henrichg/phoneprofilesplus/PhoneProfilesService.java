@@ -3829,7 +3829,7 @@ public class PhoneProfilesService extends Service
                                     .build();*/
 
                             OneTimeWorkRequest worker =
-                                    new OneTimeWorkRequest.Builder(WorkerWithData.class)
+                                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
                                             .addTag(PPApplication.PACKAGE_REPLACED_WORK_TAG)
                                             //.setInputData(workData)
                                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)

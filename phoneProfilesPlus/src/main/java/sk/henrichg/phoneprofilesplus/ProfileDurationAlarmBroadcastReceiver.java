@@ -85,7 +85,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
                                 .addTag(WorkerWithData.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)

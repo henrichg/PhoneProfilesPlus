@@ -94,7 +94,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
                                 .addTag(WorkerWithData.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)

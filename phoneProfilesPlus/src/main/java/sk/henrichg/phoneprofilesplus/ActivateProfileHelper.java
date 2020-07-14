@@ -3152,8 +3152,8 @@ class ActivateProfileHelper {
                         .build();*/
 
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
-                                .addTag(WorkerWithData.CLOSE_ALL_APPLICATIONS_WORK_TAG)
+                        new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                                .addTag(WorkerWithoutData.CLOSE_ALL_APPLICATIONS_WORK_TAG)
                                 //.setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
@@ -3162,7 +3162,7 @@ class ActivateProfileHelper {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null)
-                            workManager.enqueueUniqueWork(WorkerWithData.CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                            workManager.enqueueUniqueWork(WorkerWithoutData.CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);

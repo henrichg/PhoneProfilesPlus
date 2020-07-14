@@ -99,7 +99,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
+                        new OneTimeWorkRequest.Builder(WorkerWithData.class)
                                 .addTag(WorkerWithData.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)

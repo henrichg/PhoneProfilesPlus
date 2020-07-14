@@ -1623,7 +1623,7 @@ public class PPApplication extends Application
         }
         cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
         cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
-        cancelWork(WorkerWithData.CLOSE_ALL_APPLICATIONS_WORK_TAG);
+        cancelWork(WorkerWithoutData.CLOSE_ALL_APPLICATIONS_WORK_TAG);
         cancelWork(WorkerWithData.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
         cancelWork(BluetoothScanWorker.WORK_TAG);
         cancelWork(BluetoothScanWorker.WORK_TAG_SHORT);
@@ -4283,7 +4283,7 @@ public class PPApplication extends Application
                     .build();*/
 
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(WorkerWithData.class)
+                    new OneTimeWorkRequest.Builder(WorkerWithoutData.class)
                             .addTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG)
                             //.setInputData(workData)
                             .setInitialDelay(30, TimeUnit.SECONDS)
