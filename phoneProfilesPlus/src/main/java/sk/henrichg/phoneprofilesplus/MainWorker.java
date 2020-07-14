@@ -96,9 +96,6 @@ public class MainWorker extends Worker {
                     case LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK:
                         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
                         break;
-                    case PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG:
-                        PPApplication.blockProfileEventActions = false;
-                        break;
                     case GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK:
                         GeofencesScannerSwitchGPSBroadcastReceiver.doWork();
                         break;
@@ -119,6 +116,9 @@ public class MainWorker extends Worker {
                                 PPApplication.recordException(e);
                             }
                         }
+                        break;
+                    case PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG:
+                        PPApplication.blockProfileEventActions = false;
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
                         doAfterFirstStart(appContext, getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true));
