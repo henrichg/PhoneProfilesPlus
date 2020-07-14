@@ -3800,7 +3800,7 @@ public class PhoneProfilesService extends Service
                         int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
                         int actualVersionCode = 0;
                         try {
-                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             actualVersionCode = PPApplication.getVersionCode(pInfo);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -4495,96 +4495,96 @@ public class PhoneProfilesService extends Service
             if (powerShadeInstalled) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                     if (!useDecorator) {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_no_decorator);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_no_decorator);
                         //preferencesIndicatorExists = false;
                     }
                     else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
                         profileIconExists = false;
                         //preferencesIndicatorExists = false;
                     }
                 } else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "Power Shade installed");
             }
             else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator) {
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator);
                         preferencesIndicatorExistsLarge = false;
                     }
                     else
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui);
                     if (!useDecorator) {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_miui_no_decorator);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_miui_no_decorator);
                         //preferencesIndicatorExists = false;
                     }
                     else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
                         profileIconExists = false;
                         //preferencesIndicatorExists = false;
                     }
                 } else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
+                    contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "miui");
             } else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui);
                     if (!useDecorator) {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_emui_no_decorator);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_emui_no_decorator);
                         //preferencesIndicatorExists = false;
                     }
                     else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
                         profileIconExists = false;
                         //preferencesIndicatorExists = false;
                     }
                 } else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
+                    contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "emui");
             } else if (PPApplication.deviceIsSamsung) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_samsung_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_samsung_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                     if (!useDecorator) {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_samsung_no_decorator);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_samsung_no_decorator);
                         //preferencesIndicatorExists = false;
                     }
                     else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
                         profileIconExists = false;
                         //preferencesIndicatorExists = false;
                     }
                 } else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "samsung");
             } else {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                     if (!useDecorator) {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_no_decorator);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_no_decorator);
                         //preferencesIndicatorExists = false;
                     }
                     else {
-                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
                         profileIconExists = false;
                         //preferencesIndicatorExists = false;
                     }
                 } else
-                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "others");
             }
             //}

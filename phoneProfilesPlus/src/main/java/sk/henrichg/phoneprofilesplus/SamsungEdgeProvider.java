@@ -54,13 +54,13 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         {
             switch (applicationSamsungEdgeVerticalPosition) {
                 case "1":
-                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_center);
+                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_center);
                     break;
                 case "2":
-                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_bottom);
+                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_bottom);
                     break;
                 default:
-                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_top);
+                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_top);
                     break;
             }
         }
@@ -68,13 +68,13 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         {
             switch (applicationSamsungEdgeVerticalPosition) {
                 case "1":
-                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_center_no_header);
+                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_center_no_header);
                     break;
                 case "2":
-                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_bottom_no_header);
+                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_bottom_no_header);
                     break;
                 default:
-                    widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_top_no_header);
+                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_top_no_header);
                     break;
             }
         }
@@ -167,7 +167,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 if (profile._iconBitmap != null)
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
                 else {
-                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
                     int iconResource = Profile.getIconResource(iconIdentifier);
                     widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
                 }

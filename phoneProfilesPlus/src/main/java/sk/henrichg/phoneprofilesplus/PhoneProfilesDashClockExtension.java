@@ -71,10 +71,10 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         }
         int iconResource;
         if (isIconResourceID)
-            //iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getPackageName());
+            //iconResource = getResources().getIdentifier(iconIdentifier, "drawable", PPApplication.PACKAGE_NAME);
             iconResource = Profile.getIconResource(iconIdentifier);
         else
-            //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", getPackageName());
+            //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
             iconResource = Profile.getIconResource(Profile.PROFILE_ICON_DEFAULT);
 
         /////////////////////////////////////////////////////////////

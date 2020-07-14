@@ -1239,7 +1239,7 @@ public class PPApplication extends Application
         //if (DebugVersion.enabled) {
         int actualVersionCode = 0;
         try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             actualVersionCode = PPApplication.getVersionCode(pInfo);
         } catch (Exception ignored) {}
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
@@ -1374,7 +1374,7 @@ public class PPApplication extends Application
             // A list with valid installers package name
             List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
             // The package name of the app that has installed your app
-            final String installer = getPackageManager().getInstallerPackageName(getPackageName());
+            final String installer = getPackageManager().getInstallerPackageName(PPApplication.PACKAGE_NAME);
             // true if your app has been downloaded from Play Store
             boolean googlePlayInstaller = installer != null && validInstallers.contains(installer);
             PPApplication.setCustomKey("FROM_GOOGLE_PLAY", googlePlayInstaller);
@@ -1684,7 +1684,7 @@ public class PPApplication extends Application
             if (oldVersionCode == 0) {
                 // save version code
                 try {
-                    PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                    PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.PPApplication.PACKAGE_NAME, 0);
                     actualVersionCode = PPApplication.getVersionCode(pInfo);
                     PPApplication.setSavedVersionCode(appContext, actualVersionCode);
                 } catch (Exception ignored) {
@@ -1692,7 +1692,7 @@ public class PPApplication extends Application
                 return false;
             }
 
-            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.PPApplication.PACKAGE_NAME, 0);
             actualVersionCode = PPApplication.getVersionCode(pInfo);
             PPApplication.logE("PPApplication.isNewVersion", "actualVersionCode=" + actualVersionCode);
 
@@ -3206,10 +3206,10 @@ public class PPApplication extends Application
             String cmd =
                     "#!/system/bin/sh\n" +
                             "base=/system\n" +
-                            "export CLASSPATH=" + context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.sourceDir + "\n" +
+                            "export CLASSPATH=" + context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0).applicationInfo.sourceDir + "\n" +
                             "exec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
 
-            /*String dir = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0).dataDir;
+            /*String dir = context.getPackageManager().getApplicationInfo(context.PPApplication.PACKAGE_NAME, 0).dataDir;
             File fDir = new File(dir);
             File file = new File(fDir, name);
             OutputStream out = new FileOutputStream(file);

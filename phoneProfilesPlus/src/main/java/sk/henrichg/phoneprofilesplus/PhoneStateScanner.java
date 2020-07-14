@@ -790,7 +790,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                     Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
                                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
                                     intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
-                                    intent.setPackage(context.getPackageName());
+                                    intent.setPackage(PPApplication.PACKAGE_NAME);
                                     context.sendBroadcast(intent);
 
                                     Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");

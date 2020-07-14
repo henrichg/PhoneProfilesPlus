@@ -63,7 +63,7 @@ public class MainWorker extends Worker {
             Set<String> tags = getTags();
             for (String tag : tags) {
                 // ignore tags with package name
-                if (tag.startsWith(appContext.getPackageName()))
+                if (tag.startsWith(PPApplication.PACKAGE_NAME))
                     continue;
 
                 //PPApplication.logE("MainWorker.doWork", "tag=" + tag);
@@ -78,7 +78,7 @@ public class MainWorker extends Worker {
                         int actualVersionCode = 0;
                         // save version code
                         try {
-                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             actualVersionCode = PPApplication.getVersionCode(pInfo);
                             PPApplication.setSavedVersionCode(appContext, actualVersionCode);
 

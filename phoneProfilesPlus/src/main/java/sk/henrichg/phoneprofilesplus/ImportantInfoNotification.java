@@ -23,7 +23,7 @@ class ImportantInfoNotification {
     static void showInfoNotification(Context context) {
         //PPApplication.logE("ImportantInfoNotification.showInfoNotification","xxx");
         try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             int show = 0;
             int packageVersionCode = PPApplication.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);

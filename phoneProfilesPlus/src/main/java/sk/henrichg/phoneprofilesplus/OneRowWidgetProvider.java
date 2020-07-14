@@ -299,9 +299,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 RemoteViews remoteViews;
                 if (applicationWidgetOneRowPrefIndicator)
-                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.one_row_widget);
+                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
                 else
-                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.one_row_widget_no_indicator);
+                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
 
                 if (applicationWidgetOneRowRoundedCorners) {
                     //PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
@@ -350,7 +350,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
                     else {
                         //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
                         int iconResource = Profile.getIconResource(iconIdentifier);
                         remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
                     }

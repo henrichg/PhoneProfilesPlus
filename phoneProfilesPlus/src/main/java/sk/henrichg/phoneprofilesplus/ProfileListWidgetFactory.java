@@ -90,9 +90,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         }
 
         if (!applicationWidgetListGridLayout)
-            row=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_item);
+            row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
         else
-            row=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_item);
+            row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
     
         Profile profile = getItem(position);
 
@@ -102,7 +102,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
                 else {
                     row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
-                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.getPackageName())*/
+                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
                             Profile.getIconResource(profile.getIconIdentifier()));
                 }
             } else {

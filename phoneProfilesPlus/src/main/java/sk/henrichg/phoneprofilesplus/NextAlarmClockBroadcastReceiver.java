@@ -43,7 +43,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                             String packageName = infoPendingIntent.getCreatorPackage();
                             //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
                             if (packageName != null) {
-                                if (!packageName.equals(context.getPackageName())) {
+                                if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
                                     //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
 
                                     // com.google.android.deskclock - Google Clock

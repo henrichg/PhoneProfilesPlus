@@ -1364,7 +1364,7 @@ class ActivateProfileHelper {
                             Uri uri = Uri.parse(splits[0]);
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
-                                context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 //PPApplication.logE("ActivateProfileHelper.setTones", "ring tone granted");
                             } catch (Exception e) {
@@ -1435,7 +1435,7 @@ class ActivateProfileHelper {
                             Uri uri = Uri.parse(splits[0]);
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
-                                context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 //PPApplication.logE("ActivateProfileHelper.setTones", "notification tone granted");
                             } catch (Exception e) {
@@ -1506,7 +1506,7 @@ class ActivateProfileHelper {
                             Uri uri = Uri.parse(splits[0]);
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
-                                context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 //PPApplication.logE("ActivateProfileHelper.setTones", "alarm tone granted");
                             } catch (Exception e) {

@@ -981,7 +981,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 intent.putExtra(Intent.EXTRA_EMAIL, email);
                 String packageVersion = "";
                 try {
-                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                     packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -1006,13 +1006,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 File logFile = new File(sd, PPApplication.LOG_FILENAME);
                 if (logFile.exists()) {
-                    Uri fileUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", logFile);
+                    Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", logFile);
                     uris.add(fileUri);
                 }
 
                 File crashFile = new File(sd, TopExceptionHandler.CRASH_FILENAME);
                 if (crashFile.exists()) {
-                    Uri fileUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", crashFile);
+                    Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", crashFile);
                     uris.add(fileUri);
                 }
 
@@ -1023,7 +1023,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     packageVersion = "";
                     try {
-                        PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                        PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                         packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                     } catch (Exception e) {
                         PPApplication.recordException(e);
@@ -1806,7 +1806,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // save version code
                         try {
                             Context appContext = getApplicationContext();
-                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             int actualVersionCode = PPApplication.getVersionCode(pInfo);
                             PPApplication.setSavedVersionCode(appContext, actualVersionCode);
                         } catch (Exception e) {
@@ -2366,11 +2366,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
 
                                 File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
-                                Uri fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", exportedDB);
+                                Uri fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", exportedDB);
                                 uris.add(fileUri);
 
                                 File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                                fileUri = FileProvider.getUriForFile(activity, context.getPackageName() + ".provider", appSettingsFile);
+                                fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", appSettingsFile);
                                 uris.add(fileUri);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -2384,7 +2384,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                             String packageVersion = "";
                             try {
-                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                                 packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                             } catch (Exception e) {
                                 //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));

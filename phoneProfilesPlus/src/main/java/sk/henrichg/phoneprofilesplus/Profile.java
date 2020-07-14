@@ -2663,7 +2663,7 @@ public class Profile {
                 _icon = "ic_profile_default|1|0|0";
                 if (monochrome)
                 {
-                    //int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
+                    //int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME);
                     int iconResource = getIconResource(getIconIdentifier());
                     //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
@@ -2691,7 +2691,7 @@ public class Profile {
         if (monochrome)
         {
             //Resources resources = context.getResources();
-            //int iconResource = resources.getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
+            //int iconResource = resources.getIdentifier(getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME);
             int iconResource = getIconResource(getIconIdentifier());
             //int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             //int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
@@ -2713,7 +2713,7 @@ public class Profile {
         else
         if (getUseCustomColorForIcon()) {
             //Resources resources = context.getResources();
-            //int iconResource = resources.getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
+            //int iconResource = resources.getIdentifier(getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME);
             int iconResource = getIconResource(getIconIdentifier());
             //int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             //int width = (int) resources.getDimension(android.R.dimen.app_icon_size);

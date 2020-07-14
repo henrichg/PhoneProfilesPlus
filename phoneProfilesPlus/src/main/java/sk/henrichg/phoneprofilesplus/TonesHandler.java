@@ -442,8 +442,8 @@ class TonesHandler {
 
     /*
     static Uri uriFromRaw(String name, Context context) {
-        int resId = context.getResources().getIdentifier(name, "raw", context.getPackageName());
-        return Uri.parse("android.resource://" + context.getPackageName() + "/" + resId);
+        int resId = context.getResources().getIdentifier(name, "raw", context.PPApplication.PACKAGE_NAME);
+        return Uri.parse("android.resource://" + context.PPApplication.PACKAGE_NAME + "/" + resId);
     }
     */
 }

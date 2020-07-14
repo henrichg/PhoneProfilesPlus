@@ -1035,7 +1035,7 @@ class GlobalGUIRoutines {
     static int getResourceId(String pVariableName, String pResourceName, Context context)
     {
         try {
-            return context.getResources().getIdentifier(pVariableName, pResourceName, context.getPackageName());
+            return context.getResources().getIdentifier(pVariableName, pResourceName, context.PPApplication.PACKAGE_NAME);
         } catch (Exception e) {
             return -1;
         }

@@ -75,7 +75,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         /*
         ImageView appIcon = findViewById(R.id.about_application_application_icon);
         try {
-            Drawable drawable = getPackageManager().getApplicationIcon(getPackageName());
+            Drawable drawable = getPackageManager().getApplicationIcon(PPApplication.PACKAGE_NAME);
             Log.e("AboutApplicationActivity.onCreate", "drawable.class="+drawable.getClass().getName());
             if (Build.VERSION.SDK_INT >= 26) {
                 if (drawable instanceof AdaptiveIconDrawable) {
@@ -91,7 +91,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         TextView text = findViewById(R.id.about_application_application_version);
         try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             text.setText(getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")");
         } catch (Exception e) {
             text.setText("");
@@ -332,7 +332,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(@NonNull View textView) {
-                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Uri uri = Uri.parse("market://details?id=" + PPApplication.PACKAGE_NAME);
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Play market back stack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.
@@ -349,7 +349,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 } catch (ActivityNotFoundException e) {
                     try {
                         Intent i = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName()));
+                                Uri.parse("http://play.google.com/store/apps/details?id=" + PPApplication.PACKAGE_NAME));
                         startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
                     } catch (Exception ee) {
                         PPApplication.recordException(e);
@@ -406,7 +406,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_EMAIL, email);
                 String packageVersion = "";
                 try {
-                    PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                    PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                     packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                 } catch (Exception e) {
                     PPApplication.recordException(e);

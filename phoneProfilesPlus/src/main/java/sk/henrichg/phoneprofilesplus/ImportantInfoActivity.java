@@ -32,7 +32,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             int packageVersionCode = PPApplication.getVersionCode(pInfo);
             ImportantInfoNotification.setShowInfoNotificationOnStart(getApplicationContext(), false, packageVersionCode);
         } catch (Exception e) {

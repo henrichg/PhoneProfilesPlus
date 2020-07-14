@@ -124,7 +124,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                         Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
                                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
                                         intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _mobileCellId);
-                                        intent.setPackage(appContext.getPackageName());
+                                        intent.setPackage(PPApplication.PACKAGE_NAME);
                                         appContext.sendBroadcast(intent);
 
                                         Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
@@ -148,7 +148,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                         Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
                                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
                                         intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _mobileCellId);
-                                        intent.setPackage(appContext.getPackageName());
+                                        intent.setPackage(PPApplication.PACKAGE_NAME);
                                         appContext.sendBroadcast(intent);
 
                                         Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");

@@ -91,7 +91,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
                     // save version code
                     try {
-                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                         int actualVersionCode = PPApplication.getVersionCode(pInfo);
                         PPApplication.setSavedVersionCode(appContext, actualVersionCode);
                     } catch (Exception e) {

@@ -305,7 +305,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         if (profile._iconBitmap != null)
                             profileBitmap = profile._iconBitmap;
                         else {
-                            //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                            //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
                             int iconResource = Profile.getIconResource(iconIdentifier);
                             //profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
                             profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);

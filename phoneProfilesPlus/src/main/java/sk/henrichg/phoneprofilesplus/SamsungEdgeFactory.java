@@ -114,9 +114,9 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         RemoteViews row;
         //if (!applicationSamsungEdgeGridLayout)
-        //    row=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_item);
+        //    row=new RemoteViews(context.PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
         //else
-            row=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_item);
+            row=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_item);
 
         Profile profile = getItem(position);
 
@@ -133,7 +133,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                     row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
                 else {
                     row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
-                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.getPackageName()));*/
+                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME));*/
                             Profile.getIconResource(profile.getIconIdentifier()));
                 }
             } else {

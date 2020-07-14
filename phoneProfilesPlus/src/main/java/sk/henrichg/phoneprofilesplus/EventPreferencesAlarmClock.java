@@ -388,7 +388,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     private boolean isPackageSupported(Context context) {
-        if ((this._alarmPackageName == null) || this._alarmPackageName.equals(context.getPackageName()))
+        if ((this._alarmPackageName == null) || this._alarmPackageName.equals(PPApplication.PACKAGE_NAME))
             return false;
 
         if (this._alarmPackageName.equals("com.google.android.deskclock") ||

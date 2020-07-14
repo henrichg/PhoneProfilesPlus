@@ -307,16 +307,16 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 RemoteViews remoteViews;
                 if (applicationWidgetIconHideProfileName) {
                     //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_no_profile_name");
-                    remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_no_profile_name);
+                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_no_profile_name);
                 }
                 else {
                     if ((profile._duration > 0) && (applicationWidgetIconShowProfileDuration)) {
                         //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
-                        remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget);
                     }
                     else {
                         //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
-                        remoteViews = new RemoteViews(context.getPackageName(), R.layout.icon_widget_one_line_text);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_one_line_text);
                     }
                 }
 
@@ -358,7 +358,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     if (profile._iconBitmap != null)
                         remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
                     else {
-                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                        //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
                         int iconResource = Profile.getIconResource(iconIdentifier);
                         remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
                     }

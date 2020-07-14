@@ -73,7 +73,7 @@ public class ProfilePreferenceX extends DialogPreference {
                     else {
                         //profileIcon.setImageBitmap(null);
                         //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        //        prefContext.getPackageName());
+                        //        prefContext.PPApplication.PACKAGE_NAME);
                         int res = Profile.getIconResource(profile.getIconIdentifier());
                         profileIcon.setImageResource(res); // icon resource
                     }

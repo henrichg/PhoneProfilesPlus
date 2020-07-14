@@ -79,10 +79,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         final Context appContext = getApplicationContext();
 
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "appContext.getPackageName()="+appContext.getPackageName());
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.PPApplication.PACKAGE_NAME="+sbn.getPackageName());
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "appContext.PPApplication.PACKAGE_NAME="+appContext.PPApplication.PACKAGE_NAME);
 
-        if (sbn.getPackageName().equals(appContext.getPackageName()))
+        if (sbn.getPackageName().equals(PPApplication.PACKAGE_NAME))
             return;
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
@@ -173,7 +173,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         final Context appContext = getApplicationContext();
 
-        if (sbn.getPackageName().equals(appContext.getPackageName()))
+        if (sbn.getPackageName().equals(PPApplication.PACKAGE_NAME))
             return;
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","packageName="+sbn.getPackageName());
@@ -362,7 +362,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages (context);
         //String className = PPNotificationListenerService.class.getName();
-        String packageName = context.getPackageName();
+        String packageName = PPApplication.PACKAGE_NAME;
 
         //if (packageNames != null) {
             synchronized (PPApplication.ppNotificationListenerService) {
@@ -385,7 +385,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     private static Intent getInterruptionFilterRequestIntent(final int filter, final Context context) {
         Intent request = new Intent(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
         request.putExtra(EXTRA_FILTER, filter);
-        request.setPackage(context.getPackageName());
+        request.setPackage(context.PPApplication.PACKAGE_NAME);
         return request;
     }
     */
@@ -414,7 +414,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 //Intent request = getInterruptionFilterRequestIntent(interruptionFilter, context);
                 Intent request = new Intent(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
                 request.putExtra(EXTRA_FILTER, interruptionFilter);
-                request.setPackage(context.getPackageName());
+                request.setPackage(PPApplication.PACKAGE_NAME);
                 context.sendBroadcast(request);
             }
         }

@@ -34,7 +34,7 @@ final class WifiApManager {
         }*/
         if (Build.VERSION.SDK_INT >= 26) {
             mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            packageName = context.getPackageName();
+            packageName = PPApplication.PACKAGE_NAME;
         }
         else {
             if (mWifiManager != null) {

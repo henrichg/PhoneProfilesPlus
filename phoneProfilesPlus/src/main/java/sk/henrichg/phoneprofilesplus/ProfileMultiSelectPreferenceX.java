@@ -112,7 +112,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                         else {
                             //profileIcon.setImageBitmap(null);
                             //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            //        prefContext.getPackageName());
+                            //        prefContext.PPApplication.PACKAGE_NAME);
                             int res = Profile.getIconResource(profile.getIconIdentifier());
                             profileIcon.setImageResource(res); // icon resource
                         }
@@ -146,7 +146,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
                                 else {
                                     //profileIcon.setImageBitmap(null);
                                     //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                    //        prefContext.getPackageName());
+                                    //        prefContext.PPApplication.PACKAGE_NAME);
                                     int res = Profile.getIconResource(profile.getIconIdentifier());
                                     profIcon.setImageResource(res); // icon resource
                                 }

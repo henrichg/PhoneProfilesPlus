@@ -58,7 +58,7 @@ class IgnoreBatteryOptimizationNotification {
                                     if (pm != null) {
                                         //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
 
-                                        if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                                        if (!pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME)) {
                                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
 
                                             if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
@@ -109,7 +109,7 @@ class IgnoreBatteryOptimizationNotification {
                         if (pm != null) {
                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
 
-                            if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
+                            if (!pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME)) {
                                 //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
 
                                 if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)

@@ -95,7 +95,7 @@ public class MobileCellsRegistrationService extends Service {
                     // broadcast for event preferences
                     Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
                     intent.putExtra(EXTRA_COUNTDOWN, millisUntilFinished);
-                    intent.setPackage(context.getPackageName());
+                    intent.setPackage(PPApplication.PACKAGE_NAME);
                     sendBroadcast(intent);
                 }
 
@@ -245,7 +245,7 @@ public class MobileCellsRegistrationService extends Service {
         // broadcast for event preferences
         Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
         intent.putExtra(EXTRA_COUNTDOWN, 0L);
-        intent.setPackage(context.getPackageName());
+        intent.setPackage(PPApplication.PACKAGE_NAME);
         sendBroadcast(intent);
 
         stopSelf();

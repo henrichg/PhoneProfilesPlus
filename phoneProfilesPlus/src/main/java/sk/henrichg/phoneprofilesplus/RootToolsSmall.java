@@ -90,7 +90,7 @@ class RootToolsSmall {
     public static boolean runJavaCommand(Class<?> mainClass, String name, Context context, Object cmdParam) {
     try {
       String cmd = "export CLASSPATH=" +
-              context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.sourceDir +
+              context.getPackageManager().getPackageInfo(context.PPApplication.PACKAGE_NAME, 0).applicationInfo.sourceDir +
               "\nexec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
       
       FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);

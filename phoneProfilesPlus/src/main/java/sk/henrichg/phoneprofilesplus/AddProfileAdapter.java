@@ -100,7 +100,7 @@ class AddProfileAdapter extends BaseAdapter {
                 else {
                     //holder.profileIcon.setImageBitmap(null);
                     //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                    //        vi.getContext().getPackageName());
+                    //        vi.getContext().PPApplication.PACKAGE_NAME);
                     int res = Profile.getIconResource(profile.getIconIdentifier());
                     holder.profileIcon.setImageResource(res); // icon resource
                 }

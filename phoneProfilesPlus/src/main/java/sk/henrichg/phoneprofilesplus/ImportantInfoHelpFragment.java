@@ -60,7 +60,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         int versionCode = 0;
 
         try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             versionCode = PPApplication.getVersionCode(pInfo);
             //PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "versionCode="+versionCode);
         } catch (Exception e) {
@@ -458,7 +458,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                        //String packageName = context.getPackageName();
+                        //String packageName = context.PPApplication.PACKAGE_NAME;
                         //if (pm.isIgnoringBatteryOptimizations(packageName)) {
                             boolean ok = false;
                             if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
@@ -912,7 +912,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoTextADBDownload.setText(spannable);
 
         TextView infoTextGrant1Command = view.findViewById(R.id.activity_info_notification_dialog_info_grant_1_command);
-        str = "adb\u00A0shell\u00A0pm\u00A0grant\u00A0"+context.getPackageName()+"\u00A0" +
+        str = "adb\u00A0shell\u00A0pm\u00A0grant\u00A0"+PPApplication.PACKAGE_NAME+"\u00A0" +
                                 "android.permission.WRITE_SECURE_SETTINGS";
         spannable = new SpannableString(str);
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
