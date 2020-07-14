@@ -60,18 +60,10 @@ public class MainWorker extends Worker {
 
             Context appContext = context.getApplicationContext();
 
-            String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
-            long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
-            String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
-            String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
-            long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
-            boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
-            int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
-
             Set<String> tags = getTags();
             for (String tag : tags) {
                 // ignore tags with package name
-                if (tag.contains(appContext.getPackageName()))
+                if (tag.startsWith(appContext.getPackageName()))
                     continue;
 
                 //PPApplication.logE("MainWorker.doWork", "tag=" + tag);
@@ -552,6 +544,7 @@ public class MainWorker extends Worker {
                     case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
+                        String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
                         if (Event.getGlobalEventsRunning() && (sensorType != null)) {
                             //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
                             //PPApplication.logE("DelayedWorksWorker.doWork", "sensorType="+sensorType);
@@ -569,14 +562,23 @@ public class MainWorker extends Worker {
                             EventDelayStartBroadcastReceiver.doWork(false, appContext);
                         else if (tag.startsWith(EVENT_DELAY_END_TAG_WORK))
                             EventDelayEndBroadcastReceiver.doWork(false, appContext);
-                        if (tag.startsWith(START_EVENT_NOTIFICATION_TAG_WORK))
+                        if (tag.startsWith(START_EVENT_NOTIFICATION_TAG_WORK)) {
+                            long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
                             StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
+                        }
                         else
-                        if (tag.startsWith(RUN_APPLICATION_WITH_DELAY_TAG_WORK))
+                        if (tag.startsWith(RUN_APPLICATION_WITH_DELAY_TAG_WORK)) {
+                            String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
+                            String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
                             RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
+                        }
                         else
-                        if (tag.startsWith(PROFILE_DURATION_TAG_WORK))
+                        if (tag.startsWith(PROFILE_DURATION_TAG_WORK)) {
+                            long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+                            boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
+                            int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
                             ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
+                        }
 
                         break;
                 }
