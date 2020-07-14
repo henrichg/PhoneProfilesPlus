@@ -1597,8 +1597,8 @@ public class PPApplication extends Application
     static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
         //Log.e("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
         if (atStart) {
-            cancelWork(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK);
-            cancelWork(MainWorker.UPDATE_GUI_TAG_WORK);
+            cancelWork(ShowProfileNotificationWorker.WORK_TAG);
+            cancelWork(UpdateGUIWorker.WORK_TAG);
         }
         if (!atStart)
             cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
@@ -2018,8 +2018,8 @@ public class PPApplication extends Application
 
             // update immediate (without initialDelay())
             OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
+                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
                             //.setInputData(workData)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
@@ -2027,7 +2027,7 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
-                        workManager.enqueueUniqueWork(MainWorker.SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
             } catch (Exception e) {
@@ -2066,16 +2066,16 @@ public class PPApplication extends Application
         OneTimeWorkRequest worker;
         if (immediate) {
             worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.UPDATE_GUI_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
+                            .addTag(UpdateGUIWorker.WORK_TAG)
                             //.setInputData(workData)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
         }
         else {
             worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.UPDATE_GUI_TAG_WORK)
+                    new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
+                            .addTag(UpdateGUIWorker.WORK_TAG)
                             //.setInputData(workData)
                             .setInitialDelay(1, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
@@ -2127,7 +2127,7 @@ public class PPApplication extends Application
 
                     if (enqueue)*/
                     //    workManager.enqueue(worker);
-                    workManager.enqueueUniqueWork(MainWorker.UPDATE_GUI_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork(UpdateGUIWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
