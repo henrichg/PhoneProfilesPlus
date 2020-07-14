@@ -1258,68 +1258,6 @@ class EventPreferencesTime extends EventPreferences {
         if (!startEvent)
             requestCode = -(int)_event._id;
 
-        //if (testEvent)
-        //    PPApplication.logE("EventPreferencesTime.setAlarm", "requestCode="+requestCode);
-
-        /*if (applicationUseAlarmClock) {
-            if (testEvent)
-                PPApplication.logE("EventPreferencesTime.setAlarm", "for alarm clock");
-
-            //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
-            //intent.setClass(context, EventPreferencesTime.class);
-
-            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock set");
-            }
-        }
-        else {
-            if (testEvent)
-                PPApplication.logE("EventPreferencesTime.setAlarm", "for work manager");
-
-            now = Calendar.getInstance();
-            long elapsedTime = (alarmTime + Event.EVENT_ALARM_TIME_OFFSET) - now.getTimeInMillis();
-
-            if (PPApplication.logEnabled() && testEvent) {
-                long allSeconds = elapsedTime / 1000;
-                long hours = allSeconds / 60 / 60;
-                long minutes = (allSeconds - (hours * 60 * 60)) / 60;
-                long seconds = allSeconds % 60;
-
-                PPApplication.logE("EventPreferencesTime.setAlarm", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
-            }
-
-            Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_TIME_SENSOR)
-                    .build();
-
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsTimeSensorWork_"+requestCode)
-                            .setInputData(workData)
-                            .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
-                            .build();
-            try {
-                WorkManager workManager = WorkManager.getInstance(context);
-                if (testEvent)
-                    PPApplication.logE("[HANDLER] EventPreferencesTime.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                //workManager.enqueueUniqueWork("elapsedAlarmsTimeSensorWork_"+requestCode, ExistingWorkPolicy.KEEP, worker);
-                workManager.enqueue(worker);
-            } catch (Exception ignored) {}
-        }*/
-
         //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);

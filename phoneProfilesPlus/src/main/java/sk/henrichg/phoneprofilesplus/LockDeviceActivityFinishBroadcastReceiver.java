@@ -96,14 +96,14 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                             .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
-                            .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                            //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
                         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
-                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
+                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }
                 }
             } catch (Exception e) {

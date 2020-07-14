@@ -2114,7 +2114,7 @@ class Event {
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_START_TAG_WORK+"_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
-                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -2356,7 +2356,7 @@ class Event {
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_EVENT_DELAY_END_TAG_WORK+"_"+(int) this._id)
                                 .setInputData(workData)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
-                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

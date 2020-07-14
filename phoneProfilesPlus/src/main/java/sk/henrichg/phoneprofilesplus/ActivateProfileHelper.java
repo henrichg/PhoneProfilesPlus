@@ -805,21 +805,6 @@ class ActivateProfileHelper {
 
                         editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
                         ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
-
-                        /*OneTimeWorkRequest disableInternalChangeWorker =
-                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .addTag("disableInternalChangeWork")
-                                        .setInitialDelay(3, TimeUnit.SECONDS)
-                                        .build();
-                        try {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance(getApplicationContext());
-                            workManager.cancelUniqueWork("disableInternalChangeWork");
-                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
-                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
-                        } catch (Exception ee) {
-                            PPApplication.recordException(ee);
-                        }*/
-
                     }
                 } catch (Exception e) {
                     //PPApplication.recordException(e);
@@ -3172,13 +3157,13 @@ class ActivateProfileHelper {
                                 .addTag(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG)
                                 .setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
-                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null)
-                            workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -3334,7 +3319,7 @@ class ActivateProfileHelper {
                 new OneTimeWorkRequest.Builder(DisableScreenTimeoutInternalChangeWorker.class)
                         .addTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG)
                         .setInitialDelay(5, TimeUnit.SECONDS)
-                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {

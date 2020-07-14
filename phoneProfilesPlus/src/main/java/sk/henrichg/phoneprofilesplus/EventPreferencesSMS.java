@@ -433,55 +433,6 @@ class EventPreferencesSMS extends EventPreferences {
                     PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
                 }*/
 
-                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
-                    //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
-                    Intent intent = new Intent();
-                    intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
-                    //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
-
-                    //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
-
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                    if (alarmManager != null) {
-                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
-                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                    }
-                } else {
-                    Calendar now = Calendar.getInstance();
-                    long elapsedTime = (alarmTime + Event.EVENT_ALARM_TIME_OFFSET) - now.getTimeInMillis();
-
-                    if (PPApplication.logEnabled()) {
-                        long allSeconds = elapsedTime / 1000;
-                        long hours = allSeconds / 60 / 60;
-                        long minutes = (allSeconds - (hours * 60 * 60)) / 60;
-                        long seconds = allSeconds % 60;
-
-                        PPApplication.logE("EventPreferencesSMS.setAlarm", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
-                    }
-
-                    Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_SMS_EVENT_END_SENSOR)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                    .addTag("elapsedAlarmsSMSSensorWork_"+(int)_event._id)
-                                    .setInputData(workData)
-                                    .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(context);
-                        PPApplication.logE("[HANDLER] EventPreferencesSMS.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                        //workManager.enqueueUniqueWork("elapsedAlarmsSMSSensorWork_"+(int)_event._id, ExistingWorkPolicy.KEEP, worker);
-                        workManager.enqueue(worker);
-                    } catch (Exception ignored) {}
-                }*/
-
                 //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);

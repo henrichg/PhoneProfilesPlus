@@ -6,7 +6,6 @@ import android.app.Application;
 import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -1268,14 +1267,16 @@ public class PPApplication extends Application
 
         workManagerInstance = WorkManager.getInstance(getApplicationContext());
         PPApplication.logE("##### PPApplication.onCreate", "workManagerInstance="+workManagerInstance);
-        workManagerInstance.pruneWork();
 
+        /*
+        workManagerInstance.pruneWork();
         JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         if (jobScheduler != null) {
             int size = jobScheduler.getAllPendingJobs().size();
             PPApplication.logE("##### PPApplication.onCreate", "jobScheduler.getAllPendingJobs().size()="+size);
             jobScheduler.cancelAll();
         }
+        */
 
         // https://issuetracker.google.com/issues/115575872#comment16
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker START of enqueue");
@@ -2019,13 +2020,13 @@ public class PPApplication extends Application
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                             .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK)
                             .setInputData(workData)
-                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
-                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
+                        workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
             } catch (Exception e) {
@@ -2070,7 +2071,7 @@ public class PPApplication extends Application
                     new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
                             .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK)
                             .setInputData(workData)
-                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
         }
         else {
@@ -2079,7 +2080,7 @@ public class PPApplication extends Application
                             .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK)
                             .setInputData(workData)
                             .setInitialDelay(1, TimeUnit.SECONDS)
-                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
         }
         try {
@@ -3888,8 +3889,8 @@ public class PPApplication extends Application
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
-            if (!shutdown)
-                PPApplication.cancelAllWorks(false);
+            //if (!shutdown)
+            //    PPApplication.cancelAllWorks(false);
 
             if (dataWrapper != null)
                 dataWrapper.stopAllEvents(false, false, false, false);
@@ -3988,7 +3989,7 @@ public class PPApplication extends Application
                 }*/
             }
 
-            workManagerInstance.pruneWork();
+            //workManagerInstance.pruneWork();
 
             PPApplication.logE("PPApplication._exitApp", "set application started = false");
             PPApplication.setApplicationStarted(context, false);
@@ -4288,7 +4289,7 @@ public class PPApplication extends Application
                             .addTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG)
                             .setInputData(workData)
                             .setInitialDelay(30, TimeUnit.SECONDS)
-                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {

@@ -2864,12 +2864,12 @@ public class PhoneProfilesService extends Service
                 OneTimeWorkRequest periodicEventsHandlerWorker =
                         new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
                                 .addTag(PeriodicEventsHandlerWorker.WORK_TAG_SHORT)
-                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
+                        workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -3834,14 +3834,14 @@ public class PhoneProfilesService extends Service
                                             .addTag(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG)
                                             .setInputData(workData)
                                             //.setInitialDelay(5, TimeUnit.SECONDS)
-                                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                             .build();
                             try {
                                 // do not test start of PPP, because is not started in this receiver
                                 //if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null)
-                                    workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                                    workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                                 //}
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -3863,7 +3863,7 @@ public class PhoneProfilesService extends Service
                                             .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                             .setInputData(workData)
                                             //.setInitialDelay(5, TimeUnit.SECONDS)
-                                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                             .build();
                             try {
                                 if (PPApplication.getApplicationStarted(true)) {
@@ -3871,7 +3871,7 @@ public class PhoneProfilesService extends Service
                                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
                                     if (workManager != null)
                                         //workManager.enqueue(worker);
-                                        workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                                        workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                                 }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -3880,28 +3880,6 @@ public class PhoneProfilesService extends Service
                     //}
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "END");
-
-                    /*if (PPApplication.applicationPackageReplaced) {
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart.2 - handler", "called work for package replaced");
-
-                        // work for package replaced
-                        Data workData = new Data.Builder()
-                                .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_PACKAGE_REPLACED)
-                                //.putBoolean(PackageReplacedReceiver.EXTRA_RESTART_SERVICE, restartService)
-                                .build();
-
-                        OneTimeWorkRequest worker =
-                                new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                        .addTag("packageReplacedWork")
-                                        .setInputData(workData)
-                                        //.setInitialDelay(5, TimeUnit.SECONDS)
-                                        .build();
-                        try {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance(appContext);
-                            workManager.enqueueUniqueWork("packageReplacedWork", ExistingWorkPolicy.KEEP, worker);
-                        } catch (Exception ignored) {
-                        }
-                    }*/
 
                     //dataWrapper.invalidateDataWrapper();
 
@@ -5338,13 +5316,13 @@ public class PhoneProfilesService extends Service
                         .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK)
                         .setInputData(workData)
                         .setInitialDelay(1, TimeUnit.SECONDS)
-                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
-                    workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.KEEP, worker);
+                    workManager.enqueueUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
@@ -5692,55 +5670,6 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("EventPreferencesOrientation.setAlarm", "alarmTime=" + result);
         }*/
 
-        /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
-            //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
-            //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
-
-            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-        } else {
-            Calendar now = Calendar.getInstance();
-            long elapsedTime = (alarmTime + Event.EVENT_ALARM_TIME_OFFSET) - now.getTimeInMillis();
-
-            if (PPApplication.logEnabled()) {
-                long allSeconds = elapsedTime / 1000;
-                long hours = allSeconds / 60 / 60;
-                long minutes = (allSeconds - (hours * 60 * 60)) / 60;
-                long seconds = allSeconds % 60;
-
-                PPApplication.logE("EventPreferencesSMS.setAlarm", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
-            }
-
-            Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_SMS_EVENT_END_SENSOR)
-                    .build();
-
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsOrientationSensorWork")
-                            .setInputData(workData)
-                            .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
-                            .build();
-            try {
-                WorkManager workManager = WorkManager.getInstance(context);
-                PPApplication.logE("[HANDLER] EventPreferencesSMS.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                //workManager.enqueueUniqueWork("elapsedAlarmsOrientationSensorWork", ExistingWorkPolicy.KEEP, worker);
-                workManager.enqueue(worker);
-            } catch (Exception ignored) {}
-        }*/
-
         //Intent intent = new Intent(context, OrientationEventEndBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
@@ -6056,36 +5985,6 @@ public class PhoneProfilesService extends Service
                     //} else
                     //    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
                 }
-/*                catch (SecurityException e) {
-                    //PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
-                    ringingMediaPlayer = null;
-
-                    OneTimeWorkRequest disableInternalChangeWorker =
-                            new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                    .addTag("disableInternalChangeWork")
-                                    .setInitialDelay(3, TimeUnit.SECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-                        workManager.cancelUniqueWork("disableInternalChangeWork");
-                        workManager.cancelAllWorkByTag("disableInternalChangeWork");
-                        workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
-                    } catch (Exception ignored) {}
-
-//                    PPApplication.startHandlerThreadInternalChangeToFalse();
-//                    final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-//                    handler.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "disable ringer mode change internal change");
-//                            RingerModeChangeReceiver.internalChange = false;
-//                        }
-//                    }, 3000);
-                    //PostDelayedBroadcastReceiver.setAlarm(
-                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
-
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, false);
-                }*/
                 catch (Exception e) {
                     //PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     ringingMediaPlayer = null;
@@ -6569,35 +6468,6 @@ public class PhoneProfilesService extends Service
                         }, notificationMediaPlayer.getDuration());
 
                     }
-/*                    catch (SecurityException e) {
-                        //PPApplication.logE("PhoneProfilesService.playNotificationSound", "security exception");
-                        stopPlayNotificationSound();
-
-                        OneTimeWorkRequest disableInternalChangeWorker =
-                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                                        .addTag("disableInternalChangeWork")
-                                        .setInitialDelay(3, TimeUnit.SECONDS)
-                                        .build();
-                        try {
-                            WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-                            workManager.cancelUniqueWork("disableInternalChangeWork");
-                            workManager.cancelAllWorkByTag("disableInternalChangeWork");
-                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
-                        } catch (Exception ignored) {}
-
-//                        PPApplication.startHandlerThreadInternalChangeToFalse();
-//                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-//                        handler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                RingerModeChangeReceiver.internalChange = false;
-//                            }
-//                        }, 3000);
-                        //PostDelayedBroadcastReceiver.setAlarm(
-                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
-                        Permissions.grantPlayRingtoneNotificationPermissions(this, false);
-                    }
-*/
                     catch (Exception e) {
                         //PPApplication.logE("PhoneProfilesService.playNotificationSound", "exception");
                         stopPlayNotificationSound();

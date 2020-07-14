@@ -2547,23 +2547,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
                         }
                     }, 200);
-                    /*Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE)
-                            .putInt(EXTRA_SELECTED_FILTER, filterProfilesSelectedItem)
-                            .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                    .addTag("delayedWorkChangeFilterAfterProfileChange")
-                                    .setInputData(workData)
-                                    .setInitialDelay(200, TimeUnit.MILLISECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterProfileChange", ExistingWorkPolicy.KEEP, worker);
-                    } catch (Exception ignored) {
-                    }*/
                 }
             }
         }
@@ -2750,25 +2733,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
                         }
                     }, 200);
-                    /*
-                    Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, DelayedWorksWorker.DELAYED_WORK_CHANGE_FILTER_AFTER_EDITOR_DATA_CHANGE)
-                            .putInt(EXTRA_SELECTED_FILTER, filterEventsSelectedItem)
-                            .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(DelayedWorksWorker.class)
-                                    .addTag("delayedWorkChangeFilterAfterEventChange")
-                                    .setInputData(workData)
-                                    .setInitialDelay(200, TimeUnit.MILLISECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(getApplicationContext());
-                        workManager.enqueueUniqueWork("delayedWorkChangeFilterAfterEventChange", ExistingWorkPolicy.KEEP, worker);
-                    } catch (Exception ignored) {
-                    }
-                    */
                 }
             }
         }

@@ -104,7 +104,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 .addTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_START_EVENT_NOTIFICATION_TAG_WORK+"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
-                                .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

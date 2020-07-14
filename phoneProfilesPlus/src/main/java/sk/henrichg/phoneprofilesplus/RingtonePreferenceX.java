@@ -428,32 +428,6 @@ public class RingtonePreferenceX extends DialogPreference {
                             }
                         }, mediaPlayer.getDuration());
 
-/*                    } catch (SecurityException e) {
-                        //PPApplication.logE("RingtonePreferenceX.playRingtone", "security exception");
-//                        stopPlayRingtone();
-//
-//                        OneTimeWorkRequest disableInternalChangeWorker =
-//                                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-//                                        .addTag("disableInternalChangeWork")
-//                                        .setInitialDelay(3, TimeUnit.SECONDS)
-//                                        .build();
-//                        PhoneProfilesService.cancelWork("disableInternalChangeWork", prefContext.getApplicationContext)
-//                        try {
-//                            WorkManager workManager = WorkManager.getInstance(prefContext.getApplicationContext());
-//                            workManager.enqueueUniqueWork("disableInternalChangeWork", ExistingWorkPolicy.KEEP, disableInternalChangeWorker);
-//                        } catch (Exception ignored) {}
-//
-//                        PPApplication.startHandlerThreadInternalChangeToFalse();
-//                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-//                        handler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                RingerModeChangeReceiver.internalChange = false;
-//                            }
-//                        }, 3000);
-                        //PostDelayedBroadcastReceiver.setAlarm(
-                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
- */
                     } catch (Exception e) {
                         //Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
                         //PPApplication.recordException(e);

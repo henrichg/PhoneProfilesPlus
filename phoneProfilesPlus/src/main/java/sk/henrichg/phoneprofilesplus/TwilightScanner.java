@@ -96,13 +96,13 @@ class TwilightScanner {
                                     .addTag(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
-                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                     .build();
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
-                                workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
+                                workManager.enqueueUniqueWork(DelayedWorksWorker.DELAYED_WORK_HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                             //workManager.enqueue(worker);
                         }
                     } catch (Exception e) {
@@ -497,54 +497,6 @@ class TwilightScanner {
                 PPApplication.cancelWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK);
 
                 // set alarm
-                /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
-                    Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                    if (log)
-                        PPApplication.logE("TwilightScanner.updateTwilightState",
-                                "nextUpdate=" + DateFormat.getDateFormat(context).format(nextUpdate) +
-                                        " " + DateFormat.getTimeFormat(context).format(nextUpdate));
-
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(nextUpdate, infoPendingIntent);
-                    mAlarmManager.setAlarmClock(clockInfo, pendingIntent);
-                }
-                else {
-                    now = Calendar.getInstance();
-                    long elapsedTime = nextUpdate - now.getTimeInMillis();
-
-                    if (log) {
-                        if (PPApplication.logEnabled()) {
-                            long allSeconds = elapsedTime / 1000;
-                            long hours = allSeconds / 60 / 60;
-                            long minutes = (allSeconds - (hours * 60 * 60)) / 60;
-                            long seconds = allSeconds % 60;
-
-                            PPApplication.logE("TwilightScanner.updateTwilightState", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
-                        }
-                    }
-
-                    Data workData = new Data.Builder()
-                            .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_TWILIGHT_SCANNER)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                                    .addTag("elapsedAlarmsTwilightScannerWork")
-                                    .setInputData(workData)
-                                    .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
-                                    .build();
-                    try {
-                        WorkManager workManager = WorkManager.getInstance(context);
-                        if (log)
-                            PPApplication.logE("[HANDLER] TwilightScanner.updateTwilightState", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                        workManager.enqueueUniqueWork("elapsedAlarmsTwilightScannerWork", ExistingWorkPolicy.KEEP, worker);
-                    } catch (Exception ignored) {}
-                }*/
-
                 Intent updateIntent = new Intent(ACTION_UPDATE_TWILIGHT_STATE);
 
                 if (mAlarmManager != null) {

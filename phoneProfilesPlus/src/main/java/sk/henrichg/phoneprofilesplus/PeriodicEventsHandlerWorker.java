@@ -79,12 +79,12 @@ public class PeriodicEventsHandlerWorker extends Worker {
                                 new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
                                         .addTag(PeriodicEventsHandlerWorker.WORK_TAG)
                                         .setInitialDelay(interval, TimeUnit.MINUTES)
-                                        .keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
+                                        //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                         .build();
                         try {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
-                                workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG, ExistingWorkPolicy.KEEP, periodicEventsHandlerWorker);
+                                workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }

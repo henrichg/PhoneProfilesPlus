@@ -111,13 +111,13 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
                                                             .setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
-                                                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
+                                                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                                             .build();
                                             try {
                                                 if (PPApplication.getApplicationStarted(true)) {
                                                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                                                     if (workManager != null)
-                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.KEEP, worker);
+                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                                                 }
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);

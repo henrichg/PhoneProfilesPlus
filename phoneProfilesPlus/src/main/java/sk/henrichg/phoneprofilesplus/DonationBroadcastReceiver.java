@@ -46,57 +46,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
         long alarmTime = now.getTimeInMillis();
 
-        /*if (ApplicationPreferences.applicationUseAlarmClock(context)) {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                //Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
-                Intent intent = new Intent();
-                intent.setAction(PPApplication.ACTION_DONATION);
-                //intent.setClass(context, DonationBroadcastReceiver.class);
-
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                PPApplication.logE("DonationBroadcastReceiver.setAlarm",
-                        "alarmTime=" + DateFormat.getDateFormat(context).format(alarmTime) +
-                                " " + DateFormat.getTimeFormat(context).format(alarmTime));
-
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-        }
-        else {
-            now = Calendar.getInstance();
-            long elapsedTime = alarmTime - now.getTimeInMillis();
-
-            if (PPApplication.logEnabled()) {
-                long allSeconds = elapsedTime / 1000;
-                long hours = allSeconds / 60 / 60;
-                long minutes = (allSeconds - (hours * 60 * 60)) / 60;
-                long seconds = allSeconds % 60;
-
-                PPApplication.logE("DonationBroadcastReceiver.setAlarm", "elapsedTime=" + hours + ":" + minutes + ":" + seconds);
-            }
-
-            Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, ElapsedAlarmsWorker.ELAPSED_ALARMS_DONATION)
-                    .build();
-
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ElapsedAlarmsWorker.class)
-                            .addTag("elapsedAlarmsDonationWork")
-                            .setInputData(workData)
-                            .setInitialDelay(elapsedTime, TimeUnit.MILLISECONDS)
-                            .build();
-            try {
-                WorkManager workManager = WorkManager.getInstance(context);
-                PPApplication.logE("[HANDLER] DonationBroadcastReceiver.setAlarm", "enqueueUniqueWork - elapsedTime="+elapsedTime);
-                workManager.enqueueUniqueWork("elapsedAlarmsDonationWork", ExistingWorkPolicy.KEEP, worker);
-            } catch (Exception ignored) {}
-        }*/
-
         //Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PPApplication.ACTION_DONATION);
