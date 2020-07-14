@@ -59,7 +59,7 @@ class IgnoreBatteryOptimizationNotification {
                                         //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
 
                                         if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
-                                            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
+                                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
 
                                             if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
                                                 showNotification(appContext,
@@ -67,7 +67,7 @@ class IgnoreBatteryOptimizationNotification {
                                                         appContext.getString(R.string.ignore_battery_optimization_notification_text));
                                         }
                                         else {
-                                            PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
+                                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
 
                                             // show notification again
                                             setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
@@ -110,7 +110,7 @@ class IgnoreBatteryOptimizationNotification {
                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
 
                             if (!pm.isIgnoringBatteryOptimizations(appContext.getPackageName())) {
-                                PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
+                                //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
 
                                 if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
                                     showNotification(appContext,
@@ -118,7 +118,7 @@ class IgnoreBatteryOptimizationNotification {
                                             appContext.getString(R.string.ignore_battery_optimization_notification_text));
                             }
                             else {
-                                PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
+                                //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
 
                                 // show notification again
                                 setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);

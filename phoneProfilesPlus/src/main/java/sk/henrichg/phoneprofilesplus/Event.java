@@ -1483,7 +1483,7 @@ class Event {
             if (activatedProfile != null)
                 activatedProfileId = activatedProfile._id;
             if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
-                PPApplication.logE("&&&&&&& Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
+                //PPApplication.logE("&&&&&&& Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, false, false, forRestartEvents);
             }
             else {
@@ -1498,7 +1498,7 @@ class Event {
             //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
             if (this._manualProfileActivation) {
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                PPApplication.logE("&&&&&&& Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
+                //PPApplication.logE("&&&&&&& Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, true, true, forRestartEvents);
                 mergedProfile._id = 0;
             }
@@ -1553,7 +1553,7 @@ class Event {
                 {
                     if ((_fkProfileEnd != activatedProfileId) || forRestartEvents)
                     {
-                        PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(1) called is DataWrapper.activateProfileFromEvent");
+                        //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(1) called is DataWrapper.activateProfileFromEvent");
                         dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, forRestartEvents);
                         activatedProfileId = _fkProfileEnd;
                         profileActivated = true;
@@ -1581,7 +1581,7 @@ class Event {
                         }*/
                         if (eventTimeline._fkProfileEndActivated != 0)
                         {
-                            PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(2) called is DataWrapper.activateProfileFromEvent");
+                            //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(2) called is DataWrapper.activateProfileFromEvent");
                             dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, forRestartEvents);
                             profileActivated = true;
                         }

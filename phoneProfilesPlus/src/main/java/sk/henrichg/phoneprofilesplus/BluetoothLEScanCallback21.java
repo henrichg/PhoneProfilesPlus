@@ -6,7 +6,6 @@ import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,7 +196,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanFailed(int errorCode) {
-        Log.e("BluetoothLEScanCallback21.onScanFailed", "errorCode=" + errorCode);
+        //Log.e("BluetoothLEScanCallback21.onScanFailed", "errorCode=" + errorCode);
         PPApplication.logToCrashlytics("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
     }
 

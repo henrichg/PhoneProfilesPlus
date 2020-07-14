@@ -1753,7 +1753,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeProfileNotification(context);
             if (activateProfile) {
-                PPApplication.logE("&&&&&&& GrantPermissionActivity.finishGrant", "called is DataWrapper.activateProfileFromMainThread");
+                //PPApplication.logE("&&&&&&& GrantPermissionActivity.finishGrant", "called is DataWrapper.activateProfileFromMainThread");
                 dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive, null, true);
             }
         }

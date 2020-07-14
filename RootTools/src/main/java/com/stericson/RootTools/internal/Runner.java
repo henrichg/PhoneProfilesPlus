@@ -23,7 +23,6 @@
 package com.stericson.RootTools.internal;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
@@ -61,7 +60,7 @@ public class Runner extends Thread
         {
             if (RootTools.debugMode)
             {
-                Log.e(LOG_TAG, "Problem occurred while trying to locate private files directory!");
+                //Log.e(LOG_TAG, "Problem occurred while trying to locate private files directory!");
             }
             e.printStackTrace();
         }

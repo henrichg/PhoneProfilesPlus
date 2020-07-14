@@ -71,7 +71,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
             //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
             if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, getApplicationContext())) {
-                PPApplication.logE("&&&&&&& ActivateProfileFromExternalApplicationActivity.onStart", "called is DataWrapper.activateProfileFromMainThread");
+                //PPApplication.logE("&&&&&&& ActivateProfileFromExternalApplicationActivity.onStart", "called is DataWrapper.activateProfileFromMainThread");
                 dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
             }
             else

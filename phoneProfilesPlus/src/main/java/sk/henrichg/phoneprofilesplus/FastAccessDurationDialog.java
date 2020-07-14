@@ -113,7 +113,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
                 if (!EditorProfilesActivity.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
-                    PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
+                    //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 }
                 else
@@ -340,7 +340,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
                 if (!EditorProfilesActivity.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
-                    PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
+                    //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 }
                 else

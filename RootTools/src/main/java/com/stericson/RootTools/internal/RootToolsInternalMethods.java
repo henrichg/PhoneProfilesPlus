@@ -29,7 +29,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import android.util.Log;
 
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
@@ -1352,17 +1351,17 @@ public final class RootToolsInternalMethods {
 
             if (!cmd.isExecuting() && !cmd.isFinished()) {
                 if (!shell.isExecuting && !shell.isReading) {
-                    Log.e(Constants.TAG, "Waiting for a command to be executed in a shell that is not executing and not reading! \n\n Command: " + cmd.getCommand());
+                    //Log.e(Constants.TAG, "Waiting for a command to be executed in a shell that is not executing and not reading! \n\n Command: " + cmd.getCommand());
                     Exception e = new Exception();
                     e.setStackTrace(Thread.currentThread().getStackTrace());
                     e.printStackTrace();
                 } else if (shell.isExecuting && !shell.isReading) {
-                    Log.e(Constants.TAG, "Waiting for a command to be executed in a shell that is executing but not reading! \n\n Command: " + cmd.getCommand());
+                    //Log.e(Constants.TAG, "Waiting for a command to be executed in a shell that is executing but not reading! \n\n Command: " + cmd.getCommand());
                     Exception e = new Exception();
                     e.setStackTrace(Thread.currentThread().getStackTrace());
                     e.printStackTrace();
                 } else {
-                    Log.e(Constants.TAG, "Waiting for a command to be executed in a shell that is not reading! \n\n Command: " + cmd.getCommand());
+                    //Log.e(Constants.TAG, "Waiting for a command to be executed in a shell that is not reading! \n\n Command: " + cmd.getCommand());
                     Exception e = new Exception();
                     e.setStackTrace(Thread.currentThread().getStackTrace());
                     e.printStackTrace();

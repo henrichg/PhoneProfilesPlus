@@ -294,11 +294,11 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
                                 dataWrapper.restartEventsWithDelay(3, false, true, /*false,*/ PPApplication.ALTYPE_UNDEFINED);
                             } else {
-                                PPApplication.logE("&&&&&&& ProfileDurationAlarmBroadcastReceiver._doWork", "(1) called is DataWrapper.activateProfileAfterDuration");
+                                //PPApplication.logE("&&&&&&& ProfileDurationAlarmBroadcastReceiver._doWork", "(1) called is DataWrapper.activateProfileAfterDuration");
                                 dataWrapper.activateProfileAfterDuration(0, startupSource);
                             }
                         } else {
-                            PPApplication.logE("&&&&&&& ProfileDurationAlarmBroadcastReceiver._doWork", "(2) called is DataWrapper.activateProfileAfterDuration");
+                            //PPApplication.logE("&&&&&&& ProfileDurationAlarmBroadcastReceiver._doWork", "(2) called is DataWrapper.activateProfileAfterDuration");
                             dataWrapper.activateProfileAfterDuration(activateProfileId, startupSource);
                         }
                     }

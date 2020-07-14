@@ -87,7 +87,7 @@ class Installer
                                 context.getResources().openRawResource(sourceId))
                 ))
         {
-            Log.e(LOG_TAG, "Installing a new version of binary: " + destName);
+            //Log.e(LOG_TAG, "Installing a new version of binary: " + destName);
             // First, does our files/ directory even exist?
             // We cannot wait for android to lazily create it as we will soon
             // need it.
