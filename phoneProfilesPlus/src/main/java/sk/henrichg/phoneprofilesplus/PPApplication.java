@@ -25,14 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.multidex.MultiDex;
-import androidx.work.Configuration;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -75,7 +73,7 @@ import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 @SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application
-                                        implements Configuration.Provider
+                                        //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
 {
 
@@ -1528,14 +1526,13 @@ public class PPApplication extends Application
         MultiDex.install(this);
     }
 
-    @NonNull
-    public Configuration getWorkManagerConfiguration() {
-        Configuration.Builder builder = new Configuration.Builder()
-                //.setMinimumLoggingLevel(Log.DEBUG)
-                .setWorkerFactory(new PPWorkerFactory());
-
-        return builder.build();
-    }
+//    @NonNull
+//    public Configuration getWorkManagerConfiguration() {
+//        Configuration.Builder builder = new Configuration.Builder()
+//                .setMinimumLoggingLevel(Log.DEBUG);
+//
+//        return builder.build();
+//    }
 
     static WorkManager getWorkManagerInstance() {
         if (instance != null) {
