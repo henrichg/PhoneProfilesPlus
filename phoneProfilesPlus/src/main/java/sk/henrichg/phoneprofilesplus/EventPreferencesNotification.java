@@ -850,7 +850,7 @@ class EventPreferencesNotification extends EventPreferences {
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 
                             // ignore PPP notification
-                            if (statusBarNotification.getPackageName().equals(context.getApplicationContext().getPackageName()))
+                            if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
                                 continue;
 
                             if (this._inCall) {

@@ -79,8 +79,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         final Context appContext = getApplicationContext();
 
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.PPApplication.PACKAGE_NAME="+sbn.getPackageName());
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "appContext.PPApplication.PACKAGE_NAME="+appContext.PPApplication.PACKAGE_NAME);
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
 
         if (sbn.getPackageName().equals(PPApplication.PACKAGE_NAME))
             return;
