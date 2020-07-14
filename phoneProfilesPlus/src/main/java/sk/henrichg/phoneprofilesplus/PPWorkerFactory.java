@@ -14,13 +14,11 @@ public class PPWorkerFactory extends WorkerFactory {
     @Override
     public ListenableWorker createWorker(@NonNull Context appContext, @NonNull String workerClassName, @NonNull WorkerParameters workerParameters) {
         //Log.e("PPWorkerFactory.createWorker", "workerClassName="+workerClassName);
+        if (workerClassName.equals(PPApplication.PACKAGE_NAME+".MainWorker"))
+            return null;
         if (workerClassName.equals(PPApplication.PACKAGE_NAME+".ElapsedAlarmsWorker"))
             return new MainWorker(appContext, workerParameters);
         if (workerClassName.equals(PPApplication.PACKAGE_NAME+".DelayedWorksWorker"))
-            return new MainWorker(appContext, workerParameters);
-        if (workerClassName.equals(PPApplication.PACKAGE_NAME+".WorkerWithData"))
-            return new MainWorker(appContext, workerParameters);
-        if (workerClassName.equals(PPApplication.PACKAGE_NAME+".WorkerWithoutData"))
             return new MainWorker(appContext, workerParameters);
         else
             return null;
