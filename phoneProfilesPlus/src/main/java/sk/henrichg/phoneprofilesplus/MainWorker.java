@@ -60,10 +60,6 @@ public class MainWorker extends Worker {
 
             Set<String> tags = getTags();
             for (String tag : tags) {
-                // ignore tags with package name
-                if (tag.startsWith(PPApplication.PACKAGE_NAME))
-                    continue;
-
                 //PPApplication.logE("MainWorker.doWork", "tag=" + tag);
 
                 switch (tag) {
@@ -532,6 +528,10 @@ public class MainWorker extends Worker {
                         PPApplication.logE("PackageReplacedReceiver.doWork", "END");
                         break;
                     default:
+                        // ignore tags with package name
+                        if (tag.startsWith(PPApplication.PACKAGE_NAME))
+                            continue;
+
                         if (tag.startsWith(PROFILE_DURATION_TAG_WORK)) {
                             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
                             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
