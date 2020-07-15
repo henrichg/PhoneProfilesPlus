@@ -10,7 +10,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### EventCalendarBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] EventCalendarBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "EventCalendarBroadcastReceiver.onReceive", "EventCalendarBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,7 +44,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventCalendarBroadcastReceiver.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventCalendarBroadcastReceiver.doWork");
 
                         //PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);

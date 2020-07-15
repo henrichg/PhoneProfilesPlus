@@ -320,6 +320,7 @@ public class RingtonePreferenceX extends DialogPreference {
                 @Override
                 public void run() {
                     try {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.playRingtone");
                         stopPlayRingtone();
 
                         Context appContext = prefContext.getApplicationContext();
@@ -488,6 +489,7 @@ public class RingtonePreferenceX extends DialogPreference {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.onSaveInstanceState");
                 stopPlayRingtone();
             }
         });
@@ -509,6 +511,7 @@ public class RingtonePreferenceX extends DialogPreference {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.onRestoreInstanceState");
                 stopPlayRingtone();
             }
         });

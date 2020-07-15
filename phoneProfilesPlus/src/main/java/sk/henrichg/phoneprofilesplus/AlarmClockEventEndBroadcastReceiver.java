@@ -10,7 +10,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "AlarmClockEventEndBroadcastReceiver.onReceive", "AlarmClockEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,7 +44,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=AlarmClockEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AlarmClockEventEndBroadcastReceiver.doWork");
 
                         //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);

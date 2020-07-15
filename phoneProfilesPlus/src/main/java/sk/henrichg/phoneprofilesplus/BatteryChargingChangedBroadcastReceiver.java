@@ -11,7 +11,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[TEST BATTERY] BatteryChargingChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BatteryChargingChangedBroadcastReceiver.onReceive", "BatteryChargingChangedBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "BatteryChargingChangedBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryChargingChangedBroadcastReceiver_onReceive");
@@ -128,7 +128,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
 
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);

@@ -26,6 +26,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
                     _onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             });
@@ -409,6 +410,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
+
                 if ((action != null) &&
                         (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
                     AppWidgetManager manager = AppWidgetManager.getInstance(context);

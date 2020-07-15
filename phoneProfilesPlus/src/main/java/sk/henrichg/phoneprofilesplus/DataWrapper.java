@@ -840,7 +840,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 
                     dataWrapper.setDynamicLauncherShortcuts();
 
@@ -994,7 +994,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
 
                     dataWrapper.stopEventsForProfile(profile, alsoUnlink);
 
@@ -1072,7 +1072,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
 
                     dataWrapper.pauseAllEvents(true, false);
 
@@ -1126,7 +1126,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
 
                     dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true, true);
 
@@ -1745,7 +1745,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
                     boolean granted = true;
                     if (testGrant)
@@ -2283,7 +2283,7 @@ public class DataWrapper {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
                         dataWrapper._restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
 

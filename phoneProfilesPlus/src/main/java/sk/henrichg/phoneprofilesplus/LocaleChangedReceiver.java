@@ -12,7 +12,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
         //CallsCounter.logCounter(context, "LocaleChangedReceiver.onReceive", "LocaleChangedReceiver_onReceive");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
-            //PPApplication.logE("##### LocaleChangedReceiver.onReceive", "xxx");
+            PPApplication.logE("[BROADCAST CALL] LocaleChangedReceiver.onReceive", "xxx");
 
             //final Context appContext = context.getApplicationContext();
 
@@ -22,7 +22,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
 
                         PPApplication.collator = PPApplication.getCollator();
                         //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {

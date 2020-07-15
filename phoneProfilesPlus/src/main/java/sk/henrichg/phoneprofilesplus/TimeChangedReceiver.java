@@ -12,7 +12,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("TimeChangedReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] TimeChangedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null)) {
             final String action = intent.getAction();
@@ -74,8 +74,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-
-                                //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
+                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
                                 doWork(appContext, false);
 

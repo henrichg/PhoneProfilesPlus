@@ -67,6 +67,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
+
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());
                     PPApplication.loadProfileActivationData(getApplicationContext());

@@ -311,6 +311,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
                     //createProfilesDataWrapper(_context);
 
                     for (int cocktailId : _cocktailIds) {
@@ -336,6 +337,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
                 //if (EditorProfilesActivity.doImport)
                 //    return;
 

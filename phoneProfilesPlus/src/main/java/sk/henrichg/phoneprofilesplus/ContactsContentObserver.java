@@ -29,6 +29,8 @@ class ContactsContentObserver extends ContentObserver {
     public void onChange(boolean selfChange) {
         super.onChange(selfChange);
 
+        PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "xxx");
+
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
 
         OneTimeWorkRequest worker =

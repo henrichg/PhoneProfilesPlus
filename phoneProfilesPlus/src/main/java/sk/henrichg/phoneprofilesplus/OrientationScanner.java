@@ -19,8 +19,11 @@ class OrientationScanner implements SensorEventListener {
         final int sensorType = event.sensor.getType();
         //PPApplication.logE("OrientationScanner.onSensorChanged", "sensorType="+sensorType);
 
-        //PPApplication.startHandlerThread("OrientationScanner_onSensorChanged");
-        //final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        // handler is used in PhoneProfilesService.startListeningOrientationSensors()
+        PPApplication.startHandlerThreadOrientationScanner();
+        OrientationScannerHandlerThread orientationHandler = PPApplication.handlerThreadOrientationScanner;
+
+        //final Handler handler = new Handler(orientationHandler.getLooper());
         //handler.post(new Runnable() {
         //    @Override
         //    public void run() {
@@ -36,9 +39,6 @@ class OrientationScanner implements SensorEventListener {
 
                     //if (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW)
                     //    return;
-
-                    PPApplication.startHandlerThreadOrientationScanner();
-                    OrientationScannerHandlerThread orientationHandler = PPApplication.handlerThreadOrientationScanner;
 
                     if (sensorType == Sensor.TYPE_PROXIMITY) {
                         //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value=" + event.values[0]);

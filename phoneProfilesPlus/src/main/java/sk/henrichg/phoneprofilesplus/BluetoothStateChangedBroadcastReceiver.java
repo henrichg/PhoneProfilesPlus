@@ -11,7 +11,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothStateChangedBroadcastReceiver.onReceive", "BluetoothStateChangedBroadcastReceiver_onReceive");
 
@@ -44,7 +44,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
 
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {

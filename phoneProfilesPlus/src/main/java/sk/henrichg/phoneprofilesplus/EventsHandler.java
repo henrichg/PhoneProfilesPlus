@@ -889,7 +889,8 @@ class EventsHandler {
             doEndHandler(dataWrapper);
 
             // refresh GUI (for Editor sensors status)
-            PPApplication.updateGUI(false); //context, true, true);
+            if (PPApplication.isScreenOn)
+                PPApplication.updateGUI(false); //context, true, true);
 
 
             //dataWrapper.invalidateDataWrapper();

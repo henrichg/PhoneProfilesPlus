@@ -10,7 +10,7 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### [BOOT] DeviceBootEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] DeviceBootEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "DeviceBootEventEndBroadcastReceiver.onReceive", "DeviceBootEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,7 +44,7 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DeviceBootEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DeviceBootEventEndBroadcastReceiver.doWork");
 
                         //PPApplication.logE("[BOOT] DeviceBootEventEndBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);

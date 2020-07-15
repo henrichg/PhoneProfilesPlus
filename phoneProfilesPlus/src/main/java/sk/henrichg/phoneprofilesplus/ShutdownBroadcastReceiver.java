@@ -9,7 +9,7 @@ public class ShutdownBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (PPApplication.logEnabled()) {
-            PPApplication.logE("ShutdownBroadcastReceiver.onReceive", "xxx");
+            PPApplication.logE("[BROADCAST CALL] ShutdownBroadcastReceiver.onReceive", "xxx");
             //PPApplication.logE("PPApplication.exitApp", "from ShutdownBroadcastReceiver.onReceive shutdown=true");
         }
         // !!! Do not use handler !!!

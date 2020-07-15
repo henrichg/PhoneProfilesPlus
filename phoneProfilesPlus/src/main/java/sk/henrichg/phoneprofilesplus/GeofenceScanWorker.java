@@ -36,6 +36,8 @@ public class GeofenceScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
+            PPApplication.logE("[WORKER CALL]  GeofenceScanWorker.doWork", "xxxx");
+
             //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
 
             //CallsCounter.logCounter(context, "GeofenceScanWorker.doWork", "GeofenceScanWorker_doWork");
@@ -206,6 +208,7 @@ public class GeofenceScanWorker extends Worker {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.scheduleWork");
                     _scheduleWork(context, shortInterval/*, forScreenOn*/);
                 }
             }, 500);
@@ -299,6 +302,7 @@ public class GeofenceScanWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.cancelWork");
                     _cancelWork();
                 }
             });

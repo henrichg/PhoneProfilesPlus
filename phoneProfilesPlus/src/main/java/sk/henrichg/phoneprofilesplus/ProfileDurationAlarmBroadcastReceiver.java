@@ -21,7 +21,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";
 
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "ProfileDurationAlarmBroadcastReceiver.onReceive", "ProfileDurationAlarmBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -201,6 +201,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ProfileDurationAlarmBroadcastReceiver_onReceive");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
+
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver.doWork");
 
                         _doWork(/*true,*/ appContext, profileId, forRestartEvents, startupSource);
 

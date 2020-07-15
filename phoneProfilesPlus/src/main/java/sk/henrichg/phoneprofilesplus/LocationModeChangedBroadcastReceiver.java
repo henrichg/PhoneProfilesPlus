@@ -11,7 +11,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### LocationModeChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "LocationModeChangedBroadcastReceiver.onReceive", "LocationModeChangedBroadcastReceiver_onReceive");
 
@@ -38,6 +38,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationModeChangedBroadcastReceiver_onReceive");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
+
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
                         if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");

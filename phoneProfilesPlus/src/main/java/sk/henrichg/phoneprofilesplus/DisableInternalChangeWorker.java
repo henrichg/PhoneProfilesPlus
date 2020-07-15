@@ -26,7 +26,7 @@ public class DisableInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("DisableInternalChangeWorker.doWork", "xxx");
+            PPApplication.logE("[WORKER CALL]  DisableInternalChangeWorker.doWork", "xxxx");
 
             /*if (!PPApplication.getApplicationStarted(true))
                 // application is not started

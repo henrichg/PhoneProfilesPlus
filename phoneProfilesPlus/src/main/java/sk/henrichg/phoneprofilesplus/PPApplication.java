@@ -156,6 +156,11 @@ public class PPApplication extends Application
                                                 //+"|$$$ EventsHandler.handleEvents"
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
+                                                +"|[WORKER CALL]"
+                                                +"|[HANDLER CALL]"
+                                                +"|[BROADCAST CALL]"
+                                                +"|[OBSERVER CALL]"
+                                                +"|[LISTENER CALL]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
@@ -1159,7 +1164,7 @@ public class PPApplication extends Application
     //public static HandlerThread handlerThreadOneRowWidget = null;
     //public static HandlerThread handlerThreadListWidget = null;
     //public static HandlerThread handlerThreadEdgePanelWidget = null;
-    public static HandlerThread handlerThreadProfileNotification = null;
+    //public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
     public static HandlerThread handlerThreadPPScanners = null;
     public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
@@ -1430,7 +1435,7 @@ public class PPApplication extends Application
         //startHandlerThreadOneRowWidget();
         //startHandlerThreadListWidget();
         //startHandlerThreadEdgePanelWidget();
-        startHandlerThreadProfileNotification();
+        //startHandlerThreadProfileNotification();
 
         startHandlerThreadPlayTone();
 
@@ -4003,7 +4008,7 @@ public class PPApplication extends Application
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                             _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
 
@@ -4144,13 +4149,14 @@ public class PPApplication extends Application
         }
     }
     */
-
+    /*
     static void startHandlerThreadProfileNotification() {
         if (handlerThreadProfileNotification == null) {
             handlerThreadProfileNotification = new HandlerThread("PPHandlerThreadProfileNotification", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadProfileNotification.start();
         }
     }
+    */
 
     static void startHandlerThreadPlayTone() {
         if (handlerThreadPlayTone == null) {

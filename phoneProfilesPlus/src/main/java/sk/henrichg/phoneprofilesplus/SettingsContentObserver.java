@@ -116,6 +116,8 @@ class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange) {
         super.onChange(selfChange);
 
+        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "xxx");
+
         //CallsCounter.logCounter(context, "SettingsContentObserver.onChange", "SettingsContentObserver_onChange");
 
         ////// volume change

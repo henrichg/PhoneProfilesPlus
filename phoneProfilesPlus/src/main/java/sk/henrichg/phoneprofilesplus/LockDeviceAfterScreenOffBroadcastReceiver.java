@@ -22,7 +22,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive->action="+intent.getAction(), "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
@@ -157,7 +157,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);

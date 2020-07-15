@@ -11,7 +11,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PowerSaveModeBroadcastReceiver.onReceive", "PowerSaveModeBroadcastReceiver_onReceive");
 
@@ -64,7 +64,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);

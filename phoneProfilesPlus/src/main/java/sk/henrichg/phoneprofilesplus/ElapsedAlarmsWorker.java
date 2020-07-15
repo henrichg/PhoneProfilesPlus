@@ -19,6 +19,8 @@ public class ElapsedAlarmsWorker  extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        PPApplication.logE("[WORKER CALL]  ElapsedAlarmsWorker.doWork", "xxxx");
+
         return Result.success();
     }
 

@@ -371,6 +371,8 @@ class PhoneStateScanner extends PhoneStateListener {
     {
         super.onCellInfoChanged(cellInfo);
 
+        PPApplication.logE("[LISTENER CALL] PhoneStateScanner.onCellInfoChanged", "xxx");
+
         //PPApplication.logE("PhoneStateScanner.onCellInfoChanged", "telephonyManager="+telephonyManager);
         //CallsCounter.logCounter(context, "PhoneStateScanner.onCellInfoChanged", "PhoneStateScanner_onCellInfoChanged");
 
@@ -388,7 +390,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellInfoChanged");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellInfoChanged");
 
                     if (cellInfo == null)
                         getAllCellInfo();
@@ -415,6 +417,8 @@ class PhoneStateScanner extends PhoneStateListener {
     public void onServiceStateChanged (ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
+        PPApplication.logE("[LISTENER CALL] PhoneStateScanner.onServiceStateChanged", "xxx");
+
         //PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "telephonyManager=" + telephonyManager);
         //CallsCounter.logCounter(context, "PhoneStateScanner.onServiceStateChanged", "PhoneStateScanner_onServiceStateChanged");
 
@@ -432,7 +436,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onServiceStateChanged");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onServiceStateChanged");
 
                     getRegisteredCell();
                     /*if (PPApplication.logEnabled()) {
@@ -539,6 +543,8 @@ class PhoneStateScanner extends PhoneStateListener {
     public void onCellLocationChanged (final CellLocation location) {
         super.onCellLocationChanged(location);
 
+        PPApplication.logE("[LISTENER CALL] PhoneStateScanner.onCellLocationChanged", "xxx");
+
         //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
         //CallsCounter.logCounter(context, "PhoneStateScanner.onCellLocationChanged", "PhoneStateScanner_onCellLocationChanged");
 
@@ -556,7 +562,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellLocationChanged");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellLocationChanged");
 
                     /*if (location == null)
                         getCellLocation();
@@ -625,7 +631,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.rescanMobileCells");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.rescanMobileCells");
 
                         getRegisteredCell();
                         /*if (PPApplication.logEnabled()) {

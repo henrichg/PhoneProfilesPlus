@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
         doWork();
     }

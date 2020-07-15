@@ -172,7 +172,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
 
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                 GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -517,6 +517,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner_updateTransitionsByLastKnownLocation");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
+
+                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
 
                                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                             GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();

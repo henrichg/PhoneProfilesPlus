@@ -18,7 +18,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] BootUpReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BootUpReceiver.onReceive", "BootUpReceiver_onReceive");
 
@@ -69,7 +69,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
                         if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
@@ -129,13 +129,13 @@ public class BootUpReceiver extends BroadcastReceiver {
                         } else {
                             if (PPApplication.logEnabled()) {
                                 PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
-                                PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
+                                //PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
                             }
                             PPApplication.deviceBoot = false;
                             PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
                         }
 
-                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BootUpReceiver.onReceive2");
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BootUpReceiver.onReceive2");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

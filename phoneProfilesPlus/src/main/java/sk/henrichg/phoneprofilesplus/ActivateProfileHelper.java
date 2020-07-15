@@ -605,7 +605,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "start");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
                     boolean _isAirplaneMode = false;
                     boolean _setAirplaneMode = false;
@@ -1598,7 +1598,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
                     int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
                     if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
@@ -1723,6 +1723,8 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setNotificationLed");
+
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
@@ -1778,6 +1780,8 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setHeadsUpNotifications");
+
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -1830,6 +1834,8 @@ class ActivateProfileHelper {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_setAlwaysOnDisplay");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
+
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setAlwaysOnDisplay");
 
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -2164,6 +2170,8 @@ class ActivateProfileHelper {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
+
                         DisplayMetrics displayMetrics = new DisplayMetrics();
                         WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
                         if (wm != null) {
@@ -2258,6 +2266,8 @@ class ActivateProfileHelper {
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForRunApplications");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
+
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
                         String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
                         Intent intent;
@@ -2499,6 +2509,8 @@ class ActivateProfileHelper {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeRootForAdaptiveBrightness");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
+
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.executeRootForAdaptiveBrightness");
 
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                             (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -4441,6 +4453,8 @@ class ActivateProfileHelper {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setPowerSaveMode");
+
                             if (powerManager != null) {
                                 //PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                 boolean _isPowerSaveMode;
@@ -4524,6 +4538,8 @@ class ActivateProfileHelper {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_lockDevice");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
+
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
 
                     switch (profile._lockDevice) {
                         case 1:

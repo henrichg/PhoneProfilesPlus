@@ -50,7 +50,7 @@ public class MainWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("MainWorker.doWork", "xxx");
+            PPApplication.logE("[WORKER CALL]  MainWorker.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -64,7 +64,7 @@ public class MainWorker extends Worker {
                 if (tag.startsWith(PPApplication.PACKAGE_NAME))
                     continue;
 
-                //PPApplication.logE("MainWorker.doWork", "tag=" + tag);
+                PPApplication.logE("[WORKER CALL]  MainWorker.doWork", "tag=" + tag);
 
                 switch (tag) {
                     case WifiScanWorker.WORK_TAG_START_SCAN:

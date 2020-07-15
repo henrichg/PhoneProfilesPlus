@@ -10,7 +10,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("##### CalendarProviderChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] CalendarProviderChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "CalendarProviderChangedBroadcastReceiver.onReceive", "CalendarProviderChangedBroadcastReceiver_onReceive");
 
@@ -47,7 +47,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
 
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);

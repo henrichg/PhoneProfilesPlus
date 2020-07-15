@@ -51,6 +51,8 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
+            PPApplication.logE("[WORKER CALL]  WifiScanWorker.doWork", "xxxx");
+
             //PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
             //Set<String> tags = getTags();
             //for (String tag : tags)
@@ -195,6 +197,7 @@ public class WifiScanWorker extends Worker {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork");
                         _scheduleWork(context, shortInterval);
                     }
                 }, 500);
@@ -289,6 +292,7 @@ public class WifiScanWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.cancelWork");
                     _cancelWork(context);
                 }
             });

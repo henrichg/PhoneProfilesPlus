@@ -521,6 +521,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
                     //createProfilesDataWrapper(_context);
 
                     for (int appWidgetId : _appWidgetIds) {
@@ -564,6 +565,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive");
                 //int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 //        AppWidgetManager.INVALID_APPWIDGET_ID);
 
@@ -686,6 +688,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
                 //createProfilesDataWrapper(context);
 
                 String preferenceKey = "isLargeLayout_"+appWidgetId;
