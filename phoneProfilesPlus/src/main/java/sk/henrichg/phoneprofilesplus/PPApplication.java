@@ -2126,7 +2126,6 @@ public class PPApplication extends Application
                     //PPApplication.logE("PPApplication.updateGUI", "enqueue=" + enqueue);
 
                     if (enqueue)*/
-                    //    workManager.enqueue(worker);
                     workManager.enqueueUniqueWork(UpdateGUIWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
@@ -4293,7 +4292,6 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null)
-                        //workManager.enqueue(worker);
                         workManager.enqueueUniqueWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {

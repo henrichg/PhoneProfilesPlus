@@ -114,7 +114,6 @@ public class DisableInternalChangeWorker extends Worker {
                     }*/
                     /*if (foundEnqueued)
                         PPApplication.cancelWork(WORK_TAG);*/
-                    //workManager.enqueue(disableInternalChangeWorker);
                     workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                 }
             }

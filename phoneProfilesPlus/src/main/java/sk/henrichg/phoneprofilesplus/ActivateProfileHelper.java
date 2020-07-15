@@ -3324,7 +3324,6 @@ class ActivateProfileHelper {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    //workManager.enqueue(disableInternalChangeWorker);
                     workManager.enqueueUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
             }
         } catch (Exception e) {
