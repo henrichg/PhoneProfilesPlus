@@ -3,7 +3,10 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.os.Handler;
-import android.os.PowerManager;
+
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 class ContactsContentObserver extends ContentObserver {
 
@@ -28,42 +31,23 @@ class ContactsContentObserver extends ContentObserver {
 
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
 
-        PPApplication.startHandlerThread(/*"ContactsContentObserver.onChange"*/);
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-
-                if (context == null)
-                    return;
-
-                Context appContext = context.getApplicationContext();
-
-                if (appContext == null)
-                    return;
-
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doForFirstStart");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    // must be first
-                    PhoneProfilesService.createContactsCache(context.getApplicationContext(), true);
-                    //must be seconds, this ads groups int contacts
-                    PhoneProfilesService.createContactGroupsCache(context.getApplicationContext(), true);
-
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
-                    }
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
+                        .addTag(ContactsContentObserverWorker.WORK_TAG)
+                        //.setInputData(workData)
+                        //.setInitialDelay(1, TimeUnit.SECONDS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                        .build();
+        try {
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+                    workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                 }
             }
-        });
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
 }
