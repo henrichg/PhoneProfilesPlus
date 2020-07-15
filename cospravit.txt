@@ -1461,3 +1461,69 @@ PREKVAPUJE MA TU TO VOLANIE SETTINGSCONTENTOBSERVER.ONCHANGE. MAL BY SOM ZISTIT,
 2020-07-16 00:31:28.710 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
 2020-07-16 00:31:28.718 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
 
+Po zapnuti obrazovky, odojeni a zasa pripojeni mobilu do PC:
+2020-07-16 01:13:23.603 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:23.642 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] BatteryChargingChangedBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:23.647 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=BatteryChargingChangedBroadcastReceiver.onReceive
+2020-07-16 01:13:23.986 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:24.001 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:24.002 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:24.762 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:24.765 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-16 01:13:25.522 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:25.922 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-16 01:13:25.940 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-16 01:13:25.940 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:25.941 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-16 01:13:25.941 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:25.944 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-16 01:13:25.981 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-16 01:13:25.982 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-16 01:13:26.036 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+2020-07-16 01:13:29.671 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] BatteryChargingChangedBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:29.704 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=BatteryChargingChangedBroadcastReceiver.onReceive
+2020-07-16 01:13:30.003 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:32.107 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:32.162 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:32.164 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-16 01:13:32.181 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:32.316 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:32.624 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:32.629 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-16 01:13:32.631 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] PhoneProfilesService.commandReceiver: xxx
+2020-07-16 01:13:32.632 27567-27749/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPCommand: START run - from=PhoneProfilesService.doCommand
+2020-07-16 01:13:33.003 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:33.018 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:33.019 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:33.021 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-16 01:13:33.910 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:33.976 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:33.982 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:33.985 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:34.165 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-16 01:13:34.165 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:34.167 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-16 01:13:34.168 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-16 01:13:34.170 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:34.170 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:34.170 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-16 01:13:34.185 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-16 01:13:34.186 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-16 01:13:34.217 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+2020-07-16 01:13:35.049 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:35.703 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:35.706 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:37.323 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:52.170 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] LockDeviceAfterScreenOffBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:52.174 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)
+2020-07-16 01:13:52.178 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:52.308 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 01:13:53.319 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-16 01:13:53.334 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-16 01:13:53.336 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:53.337 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-16 01:13:53.338 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-16 01:13:53.339 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-16 01:13:53.364 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-16 01:13:53.370 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-16 01:13:53.422 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
