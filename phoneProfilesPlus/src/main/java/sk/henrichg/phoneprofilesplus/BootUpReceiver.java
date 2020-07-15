@@ -106,7 +106,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                 // work after first start
                                 Data workData = new Data.Builder()
-                                        //.putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_AFTER_FIRST_START)
                                         .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
                                         .build();
 

@@ -86,7 +86,6 @@ class TwilightScanner {
                     //PPApplication.logE("TwilightScanner.setTwilightState", "xxx");
 
                     Data workData = new Data.Builder()
-                            //.putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_HANDLE_EVENTS)
                             .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_TIME)
                             .build();
 

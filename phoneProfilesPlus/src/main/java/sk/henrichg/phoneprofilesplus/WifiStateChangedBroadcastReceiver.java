@@ -101,14 +101,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
-                                            /*Data workData = new Data.Builder()
-                                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_START_WIFI_SCAN)
-                                                    .build();*/
-
                                             OneTimeWorkRequest worker =
                                                     new OneTimeWorkRequest.Builder(MainWorker.class)
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
-                                                            //.setInputData(workData)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
                                                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                                             .build();

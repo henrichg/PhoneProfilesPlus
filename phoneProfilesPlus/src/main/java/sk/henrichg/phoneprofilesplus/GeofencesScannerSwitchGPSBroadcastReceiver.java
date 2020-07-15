@@ -83,17 +83,12 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             }
         }
         else {
-            /*Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_GEOFENCE_SCANNER_SWITCH_GPS)
-                    .build();*/
-
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
-                            //.setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.MINUTES)
                             //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();

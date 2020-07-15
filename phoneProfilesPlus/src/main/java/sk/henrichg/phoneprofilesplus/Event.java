@@ -2101,17 +2101,12 @@ class Event {
                 }
             }
             else {
-                /*Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_EVENT_DELAY_START)
-                        .build();*/
-
                 /*int keepResultsDelay = (this._delayStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id)
-                                //.setInputData(workData)
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                 //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
@@ -2342,17 +2337,12 @@ class Event {
                 }
             }
             else {
-                /*Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_EVENT_DELAY_END)
-                        .build();*/
-
                 /*int keepResultsDelay = (this._delayEnd * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id)
-                                //.setInputData(workData)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                 //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();

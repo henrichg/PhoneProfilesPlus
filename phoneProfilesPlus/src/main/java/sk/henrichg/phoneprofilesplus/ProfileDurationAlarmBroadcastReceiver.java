@@ -75,7 +75,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             }
             else {
                 Data workData = new Data.Builder()
-                        //.putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_PROFILE_DURATION)
                         .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
                         .putBoolean(EXTRA_FOR_RESTART_EVENTS, forRestartEvents)
                         .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)

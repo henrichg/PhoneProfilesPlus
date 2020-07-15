@@ -3147,14 +3147,9 @@ class ActivateProfileHelper {
             if (!PPApplication.blockProfileEventActions) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
-                /*Data workData = new Data.Builder()
-                        .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_CLOSE_ALL_APPLICATIONS)
-                        .build();*/
-
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG)
-                                //.setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();

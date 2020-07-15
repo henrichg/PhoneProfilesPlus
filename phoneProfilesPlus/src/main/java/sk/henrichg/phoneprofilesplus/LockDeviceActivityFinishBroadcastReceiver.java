@@ -82,10 +82,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             }
         }
         else {
-            /*Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_FINISH_ACTIVITY)
-                    .build();*/
-
             /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
             //noinspection ConstantConditions
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
@@ -93,7 +89,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
-                            //.setInputData(workData)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();

@@ -3824,14 +3824,9 @@ public class PhoneProfilesService extends Service
                             PPApplication.cancelWork(PPApplication.PACKAGE_REPLACED_WORK_TAG);
 
                             // work for package replaced
-                            /*Data workData = new Data.Builder()
-                                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_PACKAGE_REPLACED)
-                                    .build();*/
-
                             OneTimeWorkRequest worker =
                                     new OneTimeWorkRequest.Builder(MainWorker.class)
                                             .addTag(PPApplication.PACKAGE_REPLACED_WORK_TAG)
-                                            //.setInputData(workData)
                                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                             .build();
                             try {
@@ -3851,7 +3846,6 @@ public class PhoneProfilesService extends Service
                             PPApplication.cancelWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 
                             Data workData = new Data.Builder()
-                                    //.putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_AFTER_FIRST_START)
                                     .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, _activateProfiles)
                                     .build();
 
@@ -5302,14 +5296,9 @@ public class PhoneProfilesService extends Service
         */
 
         // KEEP IT AS WORK !!!
-        /*Data workData = new Data.Builder()
-                .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION)
-                .build();*/
-
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
                         .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                        //.setInputData(workData)
                         .setInitialDelay(1, TimeUnit.SECONDS)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                         .build();

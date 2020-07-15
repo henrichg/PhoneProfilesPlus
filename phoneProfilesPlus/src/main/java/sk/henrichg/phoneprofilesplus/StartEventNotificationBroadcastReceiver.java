@@ -91,7 +91,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             }
             else {
                 Data workData = new Data.Builder()
-                        //.putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_START_EVENT_NOTIFICATION)
                         .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
                         .build();
 

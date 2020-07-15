@@ -2012,15 +2012,10 @@ public class PPApplication extends Application
 
         if (alsoNotification) {
             // KEEP IT AS WORK !!!
-            /*Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_SHOW_PROFILE_NOTIFICATION)
-                    .build();*/
-
             // update immediate (without initialDelay())
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
                             .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                            //.setInputData(workData)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
             try {
@@ -2059,16 +2054,11 @@ public class PPApplication extends Application
         context.sendBroadcast(intent5);
         */
 
-        /*Data workData = new Data.Builder()
-                .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_UPDATE_GUI)
-                .build();*/
-
         OneTimeWorkRequest worker;
         if (immediate) {
             worker =
                     new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
                             .addTag(UpdateGUIWorker.WORK_TAG)
-                            //.setInputData(workData)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
         }
@@ -2076,7 +2066,6 @@ public class PPApplication extends Application
             worker =
                     new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
                             .addTag(UpdateGUIWorker.WORK_TAG)
-                            //.setInputData(workData)
                             .setInitialDelay(1, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
@@ -4277,14 +4266,9 @@ public class PPApplication extends Application
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
         PPApplication.blockProfileEventActions = enable;
         if (enable) {
-            /*Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_DELAYED_WORK, WorkerWithData.DELAYED_WORK_BLOCK_PROFILE_EVENT_ACTIONS)
-                    .build();*/
-
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG)
-                            //.setInputData(workData)
                             .setInitialDelay(30, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();

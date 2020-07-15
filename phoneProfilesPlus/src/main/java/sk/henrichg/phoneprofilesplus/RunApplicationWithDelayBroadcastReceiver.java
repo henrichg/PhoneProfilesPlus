@@ -85,7 +85,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             }
             else {
                 Data workData = new Data.Builder()
-                        //.putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_RUN_APPLICATION_WITH_DELAY)
                         .putString(EXTRA_PROFILE_NAME, profileName)
                         .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                         .build();

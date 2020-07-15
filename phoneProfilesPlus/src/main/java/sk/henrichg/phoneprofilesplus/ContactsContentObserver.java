@@ -34,7 +34,6 @@ class ContactsContentObserver extends ContentObserver {
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
                         .addTag(ContactsContentObserverWorker.WORK_TAG)
-                        //.setInputData(workData)
                         //.setInitialDelay(1, TimeUnit.SECONDS)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                         .build();

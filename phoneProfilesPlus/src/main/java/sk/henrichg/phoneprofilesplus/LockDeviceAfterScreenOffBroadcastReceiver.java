@@ -70,14 +70,9 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             }
         }
         else {
-            /*Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_ELAPSED_ALARMS_WORK, WorkerWithoutData.ELAPSED_ALARMS_LOCK_DEVICE_AFTER_SCREEN_OFF)
-                    .build();*/
-
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
-                            //.setInputData(workData)
                             .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
