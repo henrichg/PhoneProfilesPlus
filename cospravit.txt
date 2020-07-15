@@ -1245,3 +1245,219 @@ Premenuj:
 - ElapsedAlarmWorker na WorkerWithoutData
 - DelayedWorkWorker na WorkerWithData
 a poprehaduzj podla toho vsetky worky. Podla setInputData().
+
+----------------
+
+Veky test volani:
+
+zhasnutie obrazovky:
+2020-07-15 22:39:50.040 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-15 22:39:50.481 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-15 22:39:50.487 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-15 22:39:50.502 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-15 22:39:50.984 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-15 22:40:10.503 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] LockDeviceAfterScreenOffBroadcastReceiver.onReceive: xxx
+2020-07-15 22:40:10.509 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)
+2020-07-15 22:40:10.529 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-15 22:40:10.914 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+
+zapnutie obrazovky:
+2020-07-15 22:42:29.654 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-15 22:42:29.821 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-15 22:42:29.823 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-15 22:42:29.824 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] PhoneProfilesService.commandReceiver: xxx
+2020-07-15 22:42:29.825 27567-27749/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPCommand: START run - from=PhoneProfilesService.doCommand
+2020-07-15 22:42:30.189 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-15 22:42:30.214 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-15 22:42:30.214 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] PhoneProfilesService.commandReceiver: xxx
+2020-07-15 22:42:30.215 27567-27749/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPCommand: START run - from=PhoneProfilesService.doCommand
+2020-07-15 22:42:30.324 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.cancelWork
+2020-07-15 22:42:30.826 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 22:42:30.895 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  WifiScanWorker.doWork: xxxx
+2020-07-15 22:42:31.385 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-15 22:42:31.397 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-15 22:42:31.397 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-15 22:42:31.398 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-15 22:42:31.398 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-15 22:42:31.402 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-15 22:42:31.435 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-15 22:42:31.435 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-15 22:42:31.477 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+2020-07-15 22:42:32.969 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 22:42:32.973 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 22:42:33.058 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanner.doScan.2
+2020-07-15 22:42:34.560 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 22:42:38.008 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: xxxx
+2020-07-15 22:42:38.008 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
+2020-07-15 22:42:39.167 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-15 22:42:39.179 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-15 22:42:39.180 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-15 22:42:39.181 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-15 22:42:39.182 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-15 22:42:39.189 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-15 22:42:39.220 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-15 22:42:39.221 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-15 22:42:39.275 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+
+wifi scan pri zhasnutej obrazovke, bez zmeny SSID, profil sa nezmenil:
+2020-07-15 22:57:34.609 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  WifiScanWorker.doWork: xxxx
+2020-07-15 22:57:37.678 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 22:57:37.693 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 22:57:37.801 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanner.doScan.2
+2020-07-15 22:57:39.309 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 22:57:42.737 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: xxxx
+2020-07-15 22:57:42.737 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
+
+prijem wifi scan dat, ale zo systemu, nie z PPP:
+2020-07-15 22:59:03.450 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 22:59:03.455 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+
+wifi scan pri zhasnutej obrazovke, bez zmeny SSID, profil sa nezmenil:
+2020-07-15 23:12:39.384 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  WifiScanWorker.doWork: xxxx
+2020-07-15 23:12:42.475 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:12:42.490 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 23:12:42.571 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanner.doScan.2
+2020-07-15 23:12:44.077 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 23:12:47.544 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: xxxx
+2020-07-15 23:12:47.544 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
+
+zapnutie obrazovky:
+2020-07-15 23:12:39.384 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  WifiScanWorker.doWork: xxxx
+2020-07-15 23:12:42.475 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:12:42.490 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 23:12:42.571 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanner.doScan.2
+2020-07-15 23:12:44.077 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 23:12:47.544 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: xxxx
+2020-07-15 23:12:47.544 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
+2020-07-15 23:20:47.417 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-15 23:20:47.454 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:47.455 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-15 23:20:47.456 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] PhoneProfilesService.commandReceiver: xxx
+2020-07-15 23:20:47.458 27567-27749/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPCommand: START run - from=PhoneProfilesService.doCommand
+2020-07-15 23:20:47.889 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:47.980 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 23:20:48.050 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:48.051 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-15 23:20:48.052 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] PhoneProfilesService.commandReceiver: xxx
+2020-07-15 23:20:48.053 27567-27749/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPCommand: START run - from=PhoneProfilesService.doCommand
+2020-07-15 23:20:48.227 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.cancelWork
+2020-07-15 23:20:48.728 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 23:20:48.770 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  WifiScanWorker.doWork: xxxx
+2020-07-15 23:20:49.270 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-15 23:20:49.281 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-15 23:20:49.282 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:49.282 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:49.282 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-15 23:20:49.284 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-15 23:20:49.319 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-15 23:20:49.320 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-15 23:20:49.375 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+2020-07-15 23:20:51.684 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:51.689 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 23:20:51.707 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanner.doScan.2
+2020-07-15 23:20:53.211 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 23:20:56.713 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: xxxx
+2020-07-15 23:20:56.713 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
+2020-07-15 23:20:57.930 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-15 23:20:57.946 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-15 23:20:57.946 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:57.946 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-15 23:20:57.946 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-15 23:20:57.954 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-15 23:20:57.984 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-15 23:20:57.985 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-15 23:20:58.041 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+
+prijem wifi scan dat, ale zo systemu, nie z PPP:
+2020-07-15 23:29:05.019 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:29:05.023 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+
+NEVIM PRECO TOTO BOLO VOLANE, NIECO SA ZMENILO V SYSTEME
+2020-07-15 23:31:28.666 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-15 23:31:28.671 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+
+wifi scan pri zapnutej obrazovke, bez zmeny SSID, profil sa nezmenil,
+tu aj prekresloval gui (pre Editor - scanner statusy - TU BY SOM MOHOL DAT LEN EDITOR PREKRESLOVAT):
+2020-07-15 23:35:53.328 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  WifiScanWorker.doWork: xxxx
+2020-07-15 23:35:56.349 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:35:56.351 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 23:35:56.390 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanner.doScan.2
+2020-07-15 23:35:57.892 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 23:36:01.394 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: xxxx
+2020-07-15 23:36:01.394 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
+2020-07-15 23:36:02.537 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-15 23:36:02.551 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-15 23:36:02.559 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-15 23:36:02.567 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-15 23:36:02.567 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-15 23:36:02.568 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-15 23:36:02.617 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-15 23:36:02.617 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-15 23:36:02.676 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+
+wifi scan pri zapnutej obrazovke, bez zmeny SSID, profil sa nezmenil,
+tu aj prekresloval gui (pre Editor - scanner statusy - TU BY SOM MOHOL DAT LEN EDITOR PREKRESLOVAT):
+2020-07-15 23:50:58.006 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  WifiScanWorker.doWork: xxxx
+2020-07-15 23:51:00.882 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:51:00.885 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+2020-07-15 23:51:00.952 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanner.doScan.2
+2020-07-15 23:51:02.457 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.scheduleWork
+2020-07-15 23:51:05.934 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: xxxx
+2020-07-15 23:51:05.935 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  MainWorker.doWork: tag=handleEventsWifiScannerFromReceiverWork
+2020-07-15 23:51:07.083 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-15 23:51:07.098 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-15 23:51:07.101 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-15 23:51:07.117 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-15 23:51:07.118 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-15 23:51:07.118 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-15 23:51:07.140 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-15 23:51:07.141 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-15 23:51:07.203 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+
+prijem wifi scan dat, ale zo systemu, nie z PPP:
+2020-07-15 23:59:03.175 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive: xxx
+2020-07-15 23:59:03.183 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=WifiScanBroadcastReceiver.onReceive.1
+
+spustenie udalosti Noc doma, aktivovanie profilu Spanok, vyptnutie skenera Wifi:
+2020-07-16 00:00:05.007 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL]  EventTimeBroadcastReceiver.onReceive: xxx
+2020-07-16 00:00:05.012 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=EventTimeBroadcastReceiver.doWork
+2020-07-16 00:00:05.020 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL]  EventTimeBroadcastReceiver.onReceive: xxx
+2020-07-16 00:00:05.026 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-16 00:00:05.214 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-16 00:00:05.237 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-16 00:00:05.334 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] PhoneProfilesService.commandReceiver: xxx
+2020-07-16 00:00:05.335 27567-27749/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPCommand: START run - from=PhoneProfilesService.doCommand
+2020-07-16 00:00:05.336 27567-27753/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadRadios: START run - from=ActivateProfileHelper.executeForRadios
+2020-07-16 00:00:05.341 27567-27752/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadVolumes: START run - from=ActivateProfileHelper.executeForVolumes
+2020-07-16 00:00:05.408 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RingerModeChangeReceiver.onReceive: xxx
+2020-07-16 00:00:05.444 27567-27746/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadPPScanners: START run - from=WifiScanWorker.cancelWork
+2020-07-16 00:00:05.837 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=EventTimeBroadcastReceiver.doWork
+2020-07-16 00:00:06.064 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 00:00:06.066 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 00:00:06.067 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 00:00:07.081 27567-27896/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  UpdateGUIWorker.doWork: xxxx
+2020-07-16 00:00:07.102 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] DashClockBroadcastReceiver.onReceive: xxx
+2020-07-16 00:00:07.102 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=DashClockBroadcastReceiver.onReceive
+2020-07-16 00:00:07.102 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive: xxx
+2020-07-16 00:00:07.104 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=IconWidgetProvider.onReceive
+2020-07-16 00:00:07.108 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=OneRowWidgetProvider.onReceive
+2020-07-16 00:00:07.135 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
+2020-07-16 00:00:07.136 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
+2020-07-16 00:00:07.179 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+2020-07-16 00:00:10.423 27567-27895/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  DisableScreenTimeoutInternalChangeWorker.doWork: xxxx
+2020-07-16 00:00:11.418 27567-27899/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  DisableInternalChangeWorker.doWork: xxxx
+
+zhasnutie obrazovky:
+PREKVAPUJE MA TU TO VOLANIE SETTINGSCONTENTOBSERVER.ONCHANGE. MAL BY SOM ZISTIT, PRECO BOLO VOLANE:
+2020-07-16 00:28:09.755 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 00:28:10.130 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive: xxx
+2020-07-16 00:28:10.135 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=ScreenOnOffBroadcastReceiver.onReceive
+2020-07-16 00:28:10.157 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-16 00:28:10.500 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 00:28:30.151 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] LockDeviceAfterScreenOffBroadcastReceiver.onReceive: xxx
+2020-07-16 00:28:30.157 27567-27745/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThread: START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)
+2020-07-16 00:28:30.165 27567-27567/sk.henrichg.phoneprofilesplus E/[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive: xxx
+2020-07-16 00:28:30.540 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 00:31:28.710 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+2020-07-16 00:31:28.718 27567-27745/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] SettingsContentObserver.onChange: xxx
+
