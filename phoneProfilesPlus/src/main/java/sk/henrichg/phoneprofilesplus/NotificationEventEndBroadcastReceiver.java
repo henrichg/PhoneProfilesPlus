@@ -10,7 +10,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] NotificationEventEndBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[BROADCAST CALL] NotificationEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "NotificationEventEndBroadcastReceiver.onReceive", "NotificationEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,7 +44,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
+                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
 
                         //PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);

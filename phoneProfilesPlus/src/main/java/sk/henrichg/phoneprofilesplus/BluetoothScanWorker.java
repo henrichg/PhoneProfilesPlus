@@ -58,7 +58,7 @@ public class BluetoothScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL]  BluetoothScanWorker.doWork", "xxxx");
+            //PPApplication.logE("[WORKER CALL]  BluetoothScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
 
@@ -199,7 +199,7 @@ public class BluetoothScanWorker extends Worker {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork");
+                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork");
                         _scheduleWork(context, shortInterval/*, forScreenOn*/);
                     }
                 }, 500);
@@ -301,7 +301,7 @@ public class BluetoothScanWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.cancelWork");
+                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.cancelWork");
                     _cancelWork(context);
                 }
             });

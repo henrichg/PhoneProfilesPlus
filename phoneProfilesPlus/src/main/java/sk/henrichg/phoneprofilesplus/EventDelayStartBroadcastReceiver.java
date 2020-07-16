@@ -10,7 +10,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] EventDelayStartBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[BROADCAST CALL] EventDelayStartBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "EventDelayStartBroadcastReceiver.onReceive", "EventDelayStartBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,7 +44,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork (1)");
+                            //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork (1)");
 
                             //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                             EventsHandler eventsHandler = new EventsHandler(appContext);

@@ -10,7 +10,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL]  EventTimeBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[BROADCAST CALL]  EventTimeBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "EventTimeBroadcastReceiver.onReceive", "EventTimeBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,7 +44,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
+                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
 
                         //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);

@@ -134,7 +134,7 @@ class BluetoothScanner {
                                 bluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
+                                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
                                         if (Permissions.checkBluetoothForEMUI(context)) {
                                             try {
                                                 if (BluetoothScanWorker.bluetooth == null)
@@ -262,7 +262,7 @@ class BluetoothScanner {
                             bluetoothChangeHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
+                                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
                                     if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
                                         //PPApplication.logE("$$$B BluetoothScanner.doScan", "disable bluetooth");
@@ -386,7 +386,7 @@ class BluetoothScanner {
                     bluetoothChangeHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.enableBluetooth");
+                            //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.enableBluetooth");
 
                             if (Permissions.checkBluetoothForEMUI(context)) {
                                 //lock(); // lock is required for enabling bluetooth

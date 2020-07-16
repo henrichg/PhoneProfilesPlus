@@ -21,7 +21,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[BROADCAST CALL] BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothConnectionBroadcastReceiver.onReceive", "BluetoothConnectionBroadcastReceiver_onReceive");
 
@@ -82,7 +82,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
+                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
 
                         getConnectedDevices(appContext);
 

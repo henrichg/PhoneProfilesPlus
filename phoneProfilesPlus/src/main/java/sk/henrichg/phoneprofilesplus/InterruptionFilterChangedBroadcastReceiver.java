@@ -14,7 +14,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] InterruptionFilterChangedBroadcastReceiver.onReceive","xxx");
+        //PPApplication.logE("[BROADCAST CALL] InterruptionFilterChangedBroadcastReceiver.onReceive","xxx");
 
         //CallsCounter.logCounter(context, "InterruptionFilterChangedBroadcastReceiver.onReceive", "InterruptionFilterChangedBroadcastReceiver_onReceive");
 

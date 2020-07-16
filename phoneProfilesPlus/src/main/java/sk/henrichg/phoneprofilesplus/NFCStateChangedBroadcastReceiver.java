@@ -11,7 +11,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] NFCStateChangedBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[BROADCAST CALL] NFCStateChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NFCStateChangedBroadcastReceiver.onReceive", "NFCStateChangedBroadcastReceiver_onReceive");
 
@@ -40,7 +40,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NFCStateChangedBroadcastReceiver.onReceive");
+                                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NFCStateChangedBroadcastReceiver.onReceive");
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);

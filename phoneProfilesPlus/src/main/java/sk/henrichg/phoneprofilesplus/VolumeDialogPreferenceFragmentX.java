@@ -146,7 +146,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
+                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
                 if (preference.audioManager != null) {
                     ActivateProfileHelper.setMediaVolume(_context, preference.audioManager, preference.defaultValueMusic);
                     if (preference.mediaPlayer != null) {
@@ -243,7 +243,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onStopTrackingTouch");
+                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onStopTrackingTouch");
                     if (preference.mediaPlayer != null) {
                         try {
                             if (preference.mediaPlayer.isPlaying())

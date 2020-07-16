@@ -23,7 +23,7 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-        PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "xxx");
+        //PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "xxx");
 
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
 

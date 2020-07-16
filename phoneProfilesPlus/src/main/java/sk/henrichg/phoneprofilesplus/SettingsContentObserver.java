@@ -117,10 +117,10 @@ class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange, Uri uri) {
         //super.onChange(selfChange);
 
-        if (uri != null)
+        /*if (uri != null)
             PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "uri="+uri.toString());
         else
-            PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "without Uri");
+            PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "without Uri");*/
 
         boolean okSetting = false;
         if (uri != null) {
@@ -148,7 +148,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         //CallsCounter.logCounter(context, "SettingsContentObserver.onChange", "SettingsContentObserver_onChange");
 
-        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "okSetting="+okSetting);
+        //PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "okSetting="+okSetting);
 
         if (!okSetting)
             return;

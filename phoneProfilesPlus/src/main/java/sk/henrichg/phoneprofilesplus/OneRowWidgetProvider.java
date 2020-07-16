@@ -33,7 +33,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
+                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
                     _onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             });
@@ -426,7 +426,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
+                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
                 if ((action != null) &&
                         (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
                     AppWidgetManager manager = AppWidgetManager.getInstance(context);

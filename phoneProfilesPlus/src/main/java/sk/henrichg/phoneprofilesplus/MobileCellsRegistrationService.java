@@ -350,7 +350,7 @@ public class MobileCellsRegistrationService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
+            //PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
             stopRegistration();
         }
     }
@@ -362,7 +362,7 @@ public class MobileCellsRegistrationService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationService.MobileCellsPreferenceUseBroadcastReceiver", "xxx");
+            //PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationService.MobileCellsPreferenceUseBroadcastReceiver", "xxx");
             //Log.d("MobileCellsRegistrationCellsDialogStateBroadcastReceiver", "xxx");
         }
     }

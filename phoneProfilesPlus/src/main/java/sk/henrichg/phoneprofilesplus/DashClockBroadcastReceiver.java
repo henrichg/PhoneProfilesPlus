@@ -13,7 +13,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] DashClockBroadcastReceiver.onReceive", "xxx");
+        //PPApplication.logE("[BROADCAST CALL] DashClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "DashClockBroadcastReceiver.onReceive", "DashClockBroadcastReceiver_onReceive");
 
@@ -25,7 +25,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DashClockBroadcastReceiver.onReceive");
+                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DashClockBroadcastReceiver.onReceive");
 
                 PhoneProfilesDashClockExtension dashClockExtension = PhoneProfilesDashClockExtension.getInstance();
                 if (dashClockExtension != null)

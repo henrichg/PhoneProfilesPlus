@@ -36,7 +36,7 @@ class DrawOverAppsPermissionNotification {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
+                            //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
 
                             try {
                                 if (!Settings.canDrawOverlays(appContext)) {

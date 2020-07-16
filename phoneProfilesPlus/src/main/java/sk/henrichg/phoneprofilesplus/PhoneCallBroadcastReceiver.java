@@ -78,7 +78,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
+                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
 
                 switch (phoneEvent) {
                     case SERVICE_PHONE_EVENT_START:
