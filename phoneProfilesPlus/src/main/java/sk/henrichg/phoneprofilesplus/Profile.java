@@ -2507,7 +2507,7 @@ public class Profile {
         if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             // brightness is not set, change it to default adaptive brightness value
             value = Settings.System.getFloat(context.getContentResolver(),
-                                ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
+                                Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, 0f);
         else {
             boolean exponentialLevel = false;
             if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {

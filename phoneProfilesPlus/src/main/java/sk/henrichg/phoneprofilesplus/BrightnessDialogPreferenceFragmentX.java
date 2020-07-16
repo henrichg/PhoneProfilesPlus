@@ -301,7 +301,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             else*/ {
                 try {
                     Settings.System.putFloat(context.getContentResolver(),
-                            ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
+                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, value);
                 } catch (Exception ee) {
                     PPApplication.startHandlerThread(/*"BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -313,7 +313,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
-                                    String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " + value;
+                                    String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, false, command1); //, command2);

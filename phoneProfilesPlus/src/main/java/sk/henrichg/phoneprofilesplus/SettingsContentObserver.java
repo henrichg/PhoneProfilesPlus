@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
 
@@ -43,7 +44,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
         savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-        savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, -1);
+        savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "brightness mode=" + savedBrightnessMode);
             PPApplication.logE("[BRSD] SettingsContentObserver.constructor", "manual brightness value=" + savedBrightness);
@@ -113,12 +114,44 @@ class SettingsContentObserver  extends ContentObserver {
     }
 
     @Override
-    public void onChange(boolean selfChange) {
-        super.onChange(selfChange);
+    public void onChange(boolean selfChange, Uri uri) {
+        //super.onChange(selfChange);
 
-        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "xxx");
+        if (uri != null)
+            PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "uri="+uri.toString());
+        else
+            PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "without Uri");
+
+        boolean okSetting = false;
+        if (uri != null) {
+            String sUri = uri.toString();
+            if (sUri.startsWith("content://settings/system/"+Settings.System.VOLUME_RING))
+                okSetting = true;
+            else
+            if (sUri.startsWith("content://settings/system/"+Settings.System.VOLUME_NOTIFICATION))
+                okSetting = true;
+            else
+            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_BRIGHTNESS_MODE))
+                okSetting = true;
+            else
+            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_BRIGHTNESS))
+                okSetting = true;
+            else
+            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ))
+                okSetting = true;
+            else
+            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_OFF_TIMEOUT))
+                okSetting = true;
+        }
+        else
+            okSetting = true;
 
         //CallsCounter.logCounter(context, "SettingsContentObserver.onChange", "SettingsContentObserver_onChange");
+
+        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "okSetting="+okSetting);
+
+        if (!okSetting)
+            return;
 
         ////// volume change
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -139,13 +172,10 @@ class SettingsContentObserver  extends ContentObserver {
 
                 int newVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, ringMuted, audioManager);
                 int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, notificationMuted, audioManager);
-                //previousVolumeMusic = volumeChangeDetect(AudioManager.STREAM_MUSIC, previousVolumeMusic, audioManager);
-                //previousVolumeAlarm = volumeChangeDetect(AudioManager.STREAM_ALARM, previousVolumeAlarm, audioManager);
-                //previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
 
                 if ((newVolumeRing != -1) && (newVolumeNotification != -1)) {
                     if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
-                        ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
+                            ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
                         // volumes changed
 
                         if (!(ringMuted || notificationMuted)) {
@@ -199,7 +229,7 @@ class SettingsContentObserver  extends ContentObserver {
         if (!ActivateProfileHelper.brightnessDialogInternalChange) {
             savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
             savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-            savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, -1);
+            savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "brightness mode=" + savedBrightnessMode);
                 PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "manual brightness value=" + savedBrightness);
@@ -219,6 +249,11 @@ class SettingsContentObserver  extends ContentObserver {
         */
 
         /////////////
+    }
+
+    @Override
+    public void onChange(boolean selfChange) {
+        onChange(selfChange, null);
     }
 
 }

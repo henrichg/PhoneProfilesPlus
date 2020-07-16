@@ -8,6 +8,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -888,9 +890,12 @@ class EventsHandler {
 
             doEndHandler(dataWrapper);
 
-            // refresh GUI (for Editor sensors status)
-            if (PPApplication.isScreenOn)
-                PPApplication.updateGUI(false); //context, true, true);
+            // refresh Editor (for sensors status)
+            if (PPApplication.isScreenOn) {
+                Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver");
+                LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+                //PPApplication.updateGUI(false); //context, true, true);
+            }
 
 
             //dataWrapper.invalidateDataWrapper();

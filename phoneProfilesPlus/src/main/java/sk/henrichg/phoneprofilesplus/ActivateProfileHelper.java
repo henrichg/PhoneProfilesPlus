@@ -70,7 +70,7 @@ class ActivateProfileHelper {
     // bluetooth calls volume stream
     static final int STREAM_BLUETOOTH_SCO = 6;
 
-    static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
+    //static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
     // Setting.Global "zen_mode"
     static final int ZENMODE_ALL = 0;
@@ -2515,7 +2515,7 @@ class ActivateProfileHelper {
                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                             (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                         synchronized (PPApplication.rootMutex) {
-                            String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                            String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " +
                                     profile.getDeviceBrightnessAdaptiveValue(appContext);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -2919,7 +2919,7 @@ class ActivateProfileHelper {
                                     try {
                                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 2");
                                         Settings.System.putFloat(appContext.getContentResolver(),
-                                                ADAPTIVE_BRIGHTNESS_SETTING_NAME,
+                                                Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
                                                 profile.getDeviceBrightnessAdaptiveValue(appContext));
                                     } catch (Exception ee) {
                                         // run service for execute radios
