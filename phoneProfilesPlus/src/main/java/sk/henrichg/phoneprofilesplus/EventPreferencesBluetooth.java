@@ -499,24 +499,22 @@ class EventPreferencesBluetooth extends EventPreferences {
                             if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                                 (_connectionType == EventPreferencesBluetooth.CTYPE_NEARBY)){
                                 eventsHandler.bluetoothPassed = false;
-                                if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
-                                    ApplicationPreferences.applicationEventBluetoothEnableScanning) {
-                                    for (boolean conn : connected) {
-                                        if (conn) {
-                                            // when is connected to configured bt name, is also nearby
-                                            eventsHandler.bluetoothPassed = true;
-                                            break;
-                                        }
+                                for (boolean conn : connected) {
+                                    if (conn) {
+                                        // when is connected to configured bt name, is also nearby
+                                        eventsHandler.bluetoothPassed = true;
+                                        break;
                                     }
                                 }
-                                // not use scanner data
-                                done = true;
+                                if (eventsHandler.bluetoothPassed)
+                                    // not use scanner data
+                                    done = true;
                             }
                         } else {
                             //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "not any device connected");
 
                             if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
-                                    (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
+                                (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                                 // not use scanner data
                                 done = true;
                                 eventsHandler.bluetoothPassed = (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED);
@@ -526,7 +524,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetoothEnabled=true");
 
                         if ((_connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
-                                (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
+                            (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED)) {
                             // not use scanner data
                             done = true;
                             eventsHandler.bluetoothPassed = (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_CONNECTED);
@@ -537,7 +535,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 //PPApplication.logE("EventPreferencesBluetooth.doHandleEvent", "bluetoothPassed=" + bluetoothPassed);
 
                 if ((_connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
-                        (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)) {
+                    (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)) {
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                             //if (forRestartEvents)

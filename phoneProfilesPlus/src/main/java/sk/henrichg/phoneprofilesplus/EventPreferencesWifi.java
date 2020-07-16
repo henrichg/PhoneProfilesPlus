@@ -484,25 +484,23 @@ class EventPreferencesWifi extends EventPreferences {
                             if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                                 (_connectionType == EventPreferencesWifi.CTYPE_NEARBY)) {
                                 eventsHandler.wifiPassed = false;
-                                if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                                    ApplicationPreferences.applicationEventWifiEnableScanning) {
-                                    for (boolean conn : connected) {
-                                        if (conn) {
-                                            // when is connected to configured ssid, is also nearby
-                                            eventsHandler.wifiPassed = true;
-                                            break;
-                                        }
+                                for (boolean conn : connected) {
+                                    if (conn) {
+                                        // when is connected to configured ssid, is also nearby
+                                        eventsHandler.wifiPassed = true;
+                                        break;
                                     }
                                 }
-                                // not use scanner data
-                                done = true;
+                                if (eventsHandler.wifiPassed)
+                                    // not use scanner data
+                                    done = true;
                             }
                         } else {
                             //if (event._name.equals("Doma"))
                             //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi not connected");
 
                             if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                                    (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
+                                (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
                                 // not use scanner data
                                 done = true;
                                 eventsHandler.wifiPassed = (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED);
@@ -512,7 +510,7 @@ class EventPreferencesWifi extends EventPreferences {
                         //if (event._name.equals("Doma"))
                         //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiStateEnabled=false");
                         if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                                (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
+                            (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
                             // not use scanner data
                             done = true;
                             eventsHandler.wifiPassed = (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED);
@@ -523,7 +521,7 @@ class EventPreferencesWifi extends EventPreferences {
                     //   PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiPassed - connected =" + eventsHandler.wifiPassed);
 
                     if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
-                            (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
+                        (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
                         if (!done) {
                             if (!ApplicationPreferences.applicationEventWifiEnableScanning) {
                                 //if (forRestartEvents)
