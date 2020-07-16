@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Handler;
 
 import androidx.work.ExistingWorkPolicy;
@@ -10,12 +11,12 @@ import androidx.work.WorkManager;
 
 class ContactsContentObserver extends ContentObserver {
 
-    private final Context context;
+    //private final Context context;
 
     ContactsContentObserver(Context c, Handler handler) {
         super(handler);
 
-        context=c;
+        //context=c;
     }
 
     /*
@@ -26,9 +27,7 @@ class ContactsContentObserver extends ContentObserver {
     */
 
     @Override
-    public void onChange(boolean selfChange) {
-        super.onChange(selfChange);
-
+    public void onChange(boolean selfChange, Uri uri) {
         PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "xxx");
 
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
@@ -49,6 +48,11 @@ class ContactsContentObserver extends ContentObserver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
+    }
+
+    @Override
+    public void onChange(boolean selfChange) {
+        onChange(selfChange, null);
     }
 
 }

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -29,10 +30,9 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
     }
     */
 
-    @Override
-    public void onChange(boolean selfChange) {
-        super.onChange(selfChange);
 
+    @Override
+    public void onChange(boolean selfChange, Uri uri) {
         PPApplication.logE("[OBSERVER CALL] MobileDataStateChangedContentObserver.onChange", "xxx");
 
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
@@ -76,6 +76,11 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                 previousState = actualState;
             }
         }
+    }
+
+    @Override
+    public void onChange(boolean selfChange) {
+        onChange(selfChange, null);
     }
 
 }
