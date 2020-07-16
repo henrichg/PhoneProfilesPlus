@@ -125,22 +125,22 @@ class SettingsContentObserver  extends ContentObserver {
         boolean okSetting = false;
         if (uri != null) {
             String sUri = uri.toString();
-            if (sUri.startsWith("content://settings/system/"+Settings.System.VOLUME_RING))
+            if (sUri.contains(Settings.System.VOLUME_RING))
                 okSetting = true;
             else
-            if (sUri.startsWith("content://settings/system/"+Settings.System.VOLUME_NOTIFICATION))
+            if (sUri.contains(Settings.System.VOLUME_NOTIFICATION))
                 okSetting = true;
             else
-            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_BRIGHTNESS_MODE))
+            if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS_MODE))
                 okSetting = true;
             else
-            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_BRIGHTNESS))
+            if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS))
                 okSetting = true;
             else
-            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ))
+            if (sUri.contains(Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ))
                 okSetting = true;
             else
-            if (sUri.startsWith("content://settings/system/"+Settings.System.SCREEN_OFF_TIMEOUT))
+            if (sUri.contains(Settings.System.SCREEN_OFF_TIMEOUT))
                 okSetting = true;
         }
         else
