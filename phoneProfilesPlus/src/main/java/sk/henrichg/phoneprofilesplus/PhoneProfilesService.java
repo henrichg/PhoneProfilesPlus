@@ -134,9 +134,9 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
     //static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
     static final String EXTRA_LOG_TYPE = "log_type";
-    static final String EXTRA_DELAYED_WORK = "delayed_work";
+    //static final String EXTRA_DELAYED_WORK = "delayed_work";
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
-    static final String EXTRA_ELAPSED_ALARMS_WORK = "elapsed_alarms_work";
+    //static final String EXTRA_ELAPSED_ALARMS_WORK = "elapsed_alarms_work";
     //static final String EXTRA_FROM_DO_FIRST_START = "from_do_first_start";
 
     //------------------------
@@ -987,7 +987,7 @@ public class PhoneProfilesService extends Service
                     if (Permissions.checkContacts(appContext)) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER contacts content observer");
-                        PPApplication.contactsContentObserver = new ContactsContentObserver(appContext, new Handler());
+                        PPApplication.contactsContentObserver = new ContactsContentObserver(new Handler());
                         appContext.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, PPApplication.contactsContentObserver);
                     }
                 } catch (Exception e) {

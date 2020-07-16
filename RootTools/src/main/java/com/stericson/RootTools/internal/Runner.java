@@ -26,14 +26,13 @@ import android.content.Context;
 
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.RootTools;
 
 import java.io.IOException;
 
 public class Runner extends Thread
 {
 
-    private static final String LOG_TAG = "RootTools::Runner";
+    //private static final String LOG_TAG = "RootTools::Runner";
 
     @SuppressWarnings("WeakerAccess")
     final Context context;
@@ -58,10 +57,10 @@ public class Runner extends Thread
         }
         catch (IOException e)
         {
-            if (RootTools.debugMode)
+            /*if (RootTools.debugMode)
             {
                 //Log.e(LOG_TAG, "Problem occurred while trying to locate private files directory!");
-            }
+            }*/
             e.printStackTrace();
         }
         if (privateFilesPath != null)
