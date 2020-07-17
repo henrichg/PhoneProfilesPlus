@@ -330,6 +330,7 @@ public class BluetoothScanWorker extends Worker {
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
                             running = state == WorkInfo.State.RUNNING;
+                            break;
                         }
                         return running;
                     } catch (ExecutionException e) {
@@ -372,6 +373,7 @@ public class BluetoothScanWorker extends Worker {
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
                             running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                            break;
                         }
                         return running;
                     } catch (ExecutionException e) {

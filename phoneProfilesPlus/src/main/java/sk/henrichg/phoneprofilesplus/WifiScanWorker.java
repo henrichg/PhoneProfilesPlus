@@ -321,6 +321,7 @@ public class WifiScanWorker extends Worker {
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
                             running = state == WorkInfo.State.RUNNING;
+                            break;
                         }
                         return running;
                     } catch (ExecutionException e) {
@@ -364,6 +365,7 @@ public class WifiScanWorker extends Worker {
                             WorkInfo.State state = workInfo.getState();
                             running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
                             //PPApplication.logE("WifiScanWorker.isWorkScheduled", "running="+running);
+                            break;
                         }
                         return running;
                     } catch (ExecutionException e) {
