@@ -262,7 +262,7 @@ public class BluetoothScanWorker extends Worker {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
-                            PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
+                            //PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
                                 if (!state.isFinished()) {
@@ -325,7 +325,7 @@ public class BluetoothScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
+                        //PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -367,7 +367,7 @@ public class BluetoothScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+                        //PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();

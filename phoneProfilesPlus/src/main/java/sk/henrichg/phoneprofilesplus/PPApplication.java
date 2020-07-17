@@ -157,12 +157,12 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                +"|[WORKER CALL]"
-                                                +"|[HANDLER CALL]"
-                                                +"|[BROADCAST CALL]"
+                                                //+"|[WORKER CALL]"
+                                                //+"|[HANDLER CALL]"
+                                                //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
-                                                +"|[LISTENER CALL]"
-                                                +"|[TEST BATTERY]"
+                                                //+"|[LISTENER CALL]"
+                                                //+"|[TEST BATTERY]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
@@ -1560,7 +1560,7 @@ public class PPApplication extends Application
             //noinspection TryWithIdenticalCatches
             try {
                 List<WorkInfo> workInfoList = statuses.get();
-                PPApplication.logE("[TEST BATTERY] PPApplication.cancelWork", "workInfoList.size()="+workInfoList.size());
+                //PPApplication.logE("[TEST BATTERY] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
                 // cancel only enqueued works
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();

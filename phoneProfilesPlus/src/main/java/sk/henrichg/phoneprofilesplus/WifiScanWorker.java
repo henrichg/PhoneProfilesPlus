@@ -51,7 +51,7 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL]  WifiScanWorker.doWork", "xxxx");
+            //PPApplication.logE("[WORKER CALL]  WifiScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
             //Set<String> tags = getTags();
@@ -254,7 +254,7 @@ public class WifiScanWorker extends Worker {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
-                            PPApplication.logE("[TEST BATTERY] WifiScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
+                            //PPApplication.logE("[TEST BATTERY] WifiScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
                                 if (!state.isFinished()) {
@@ -316,7 +316,7 @@ public class WifiScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        PPApplication.logE("[TEST BATTERY] WifiScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
+                        //PPApplication.logE("[TEST BATTERY] WifiScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -358,7 +358,7 @@ public class WifiScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        PPApplication.logE("[TEST BATTERY] WifiScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+                        //PPApplication.logE("[TEST BATTERY] WifiScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();

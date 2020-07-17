@@ -263,7 +263,7 @@ public class GeofenceScanWorker extends Worker {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
-                            PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
+                            //PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
                                 if (!state.isFinished()) {
@@ -326,7 +326,7 @@ public class GeofenceScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
+                        //PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -368,7 +368,7 @@ public class GeofenceScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
+                        //PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
