@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -2454,13 +2455,14 @@ public class DataWrapper {
                         .addTag(RestartEventsWithDelayWorker.WORK_TAG)
                         .setInputData(workData)
                         .setInitialDelay(delay, TimeUnit.SECONDS)
-                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null)
-                    workManager.enqueue(restartEventsWithDelayWorker);
+                    //workManager.enqueue(restartEventsWithDelayWorker);
+                    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

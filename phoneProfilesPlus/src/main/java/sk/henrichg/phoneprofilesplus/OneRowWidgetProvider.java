@@ -23,7 +23,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
-        //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "in broadcast");
+        PPApplication.logE("[LISTENER CALL] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
@@ -33,7 +33,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
                     _onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             });
@@ -418,26 +418,28 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
+        PPApplication.logE("[BROADCAST CALL] OneRowWidgetProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
-                if ((action != null) &&
-                        (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
-                    AppWidgetManager manager = AppWidgetManager.getInstance(context);
-                    if (manager != null) {
-                        int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-                        if ((ids != null) && (ids.length > 0))
+        if ((action != null) &&
+                (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
+            final AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            if (manager != null) {
+                final int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+                if ((ids != null) && (ids.length > 0)) {
+                    PPApplication.startHandlerThreadWidget();
+                    final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
                             _onUpdate(context, manager, ids);
-                    }
+                        }
+                    });
                 }
             }
-        });
+        }
     }
 
     /*

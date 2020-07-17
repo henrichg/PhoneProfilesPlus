@@ -51,7 +51,7 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("[WORKER CALL]  WifiScanWorker.doWork", "xxxx");
+            PPApplication.logE("[WORKER CALL]  WifiScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
             //Set<String> tags = getTags();

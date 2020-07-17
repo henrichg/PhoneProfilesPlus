@@ -157,11 +157,12 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                //+"|[WORKER CALL]"
-                                                //+"|[HANDLER CALL]"
-                                                //+"|[BROADCAST CALL]"
+                                                +"|[WORKER CALL]"
+                                                +"|[HANDLER CALL]"
+                                                +"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
-                                                //+"|[LISTENER CALL]"
+                                                +"|[LISTENER CALL]"
+                                                +"|[TEST BATTERY]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
@@ -1553,49 +1554,24 @@ public class PPApplication extends Application
     static void cancelWork(String name) {
         // cancel only enqueued works
         WorkManager workManager = PPApplication.getWorkManagerInstance();
-        boolean foundEnqueued = false;
-        boolean foundRunning = false;
         if (workManager != null) {
             ListenableFuture<List<WorkInfo>> statuses;
             statuses = workManager.getWorkInfosByTag(name);
             //noinspection TryWithIdenticalCatches
             try {
                 List<WorkInfo> workInfoList = statuses.get();
-                for (WorkInfo workInfo : workInfoList) {
-                    WorkInfo.State state = workInfo.getState();
-                    if (state == WorkInfo.State.RUNNING) {
-                        // any work is running, do not cancel it
-                        foundRunning = true;
-                        break;
-                    }
-                }
+                // cancel only enqueued works
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();
                     if (state == WorkInfo.State.ENQUEUED) {
                         // any work is enqueued, cancel it
-                        foundEnqueued = true;
-                        break;
+                        workManager.cancelWorkById(workInfo.getId());
                     }
                 }
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            if (foundEnqueued && (!foundRunning)) {
-                //PPApplication.logE("PPApplication.cancelWork", "name="+name+" enqueued");
-                try {
-                    workManager.cancelAllWorkByTag(name);
-                } catch (Exception e) {
-                    //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                }
-                try {
-                    workManager.cancelUniqueWork(name);
-                } catch (Exception e) {
-                    //Log.e("------------ PhoneProfilesService.cancelWork", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                }
             }
         }
     }

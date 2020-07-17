@@ -19,6 +19,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -94,13 +95,14 @@ class TwilightScanner {
                                     .addTag(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
-                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                     .build();
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null)
-                                workManager.enqueue(worker);
+                                //workManager.enqueue(worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);

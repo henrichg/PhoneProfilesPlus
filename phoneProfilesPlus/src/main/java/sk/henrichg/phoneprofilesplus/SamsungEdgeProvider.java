@@ -300,18 +300,18 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @Override
     public void onUpdate(Context context, SlookCocktailManager cocktailBarManager, int[] cocktailIds) {
         super.onUpdate(context, cocktailBarManager, cocktailIds);
+        PPApplication.logE("[LISTENER CALL] SamsungEdgeProvider.onUpdate", "xxx");
         if (cocktailIds.length > 0) {
             final Context _context = context;
             final SlookCocktailManager _cocktailBarManager = cocktailBarManager;
             final int[] _cocktailIds = cocktailIds;
-
 
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
                     //createProfilesDataWrapper(_context);
 
                     for (int cocktailId : _cocktailIds) {
@@ -329,37 +329,38 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
+        PPApplication.logE("[BROADCAST CALL] SamsungEdgeProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
-        PPApplication.startHandlerThreadWidget();
-        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
-                //if (EditorProfilesActivity.doImport)
-                //    return;
+        if ((action != null) &&
+                (action.equalsIgnoreCase(ACTION_REFRESH_EDGEPANEL))) {
+            final SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
+            final int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
 
-                //createProfilesDataWrapper(context);
+            if ((cocktailIds != null) && (cocktailIds.length > 0)) {
+                PPApplication.startHandlerThreadWidget();
+                final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
+                        //if (EditorProfilesActivity.doImport)
+                        //    return;
 
-                if ((action != null) &&
-                        (action.equalsIgnoreCase(ACTION_REFRESH_EDGEPANEL))) {
-                    SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
-                    int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
+                        //createProfilesDataWrapper(context);
 
-                    if (cocktailIds != null) {
                         for (int cocktailId : cocktailIds) {
                             doOnUpdate(context, cocktailManager, cocktailId, false);
                         }
-                    }
-                }
 
-                //if (dataWrapper != null)
-                //    dataWrapper.invalidateDataWrapper();
-                //dataWrapper = null;
+                        //if (dataWrapper != null)
+                        //    dataWrapper.invalidateDataWrapper();
+                        //dataWrapper = null;
+                    }
+                });
             }
-        });
+        }
     }
 
     /*

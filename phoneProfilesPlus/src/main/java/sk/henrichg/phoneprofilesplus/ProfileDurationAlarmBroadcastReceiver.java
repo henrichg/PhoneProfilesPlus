@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -88,7 +89,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .addTag(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
-                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -100,7 +101,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
                                 PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
                             }*/
-                            workManager.enqueue(worker);
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                             PPApplication.elapsedAlarmsProfileDurationWork.add(MainWorker.PROFILE_DURATION_TAG_WORK +"_" + (int) profile._id);
                         }
                     }
