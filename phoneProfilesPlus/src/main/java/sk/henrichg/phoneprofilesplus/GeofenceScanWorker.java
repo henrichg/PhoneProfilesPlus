@@ -282,7 +282,7 @@ public class GeofenceScanWorker extends Worker {
                         }
 
                         //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                        SystemClock.sleep(1000);
+                        SystemClock.sleep(500);
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
                     //PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");

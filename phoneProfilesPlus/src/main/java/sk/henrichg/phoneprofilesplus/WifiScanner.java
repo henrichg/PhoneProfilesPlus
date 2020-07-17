@@ -461,7 +461,7 @@ class WifiScanner {
             }*/
 
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
-            SystemClock.sleep(1000);
+            SystemClock.sleep(500);
         } while (SystemClock.uptimeMillis() - start < WIFI_SCAN_DURATION * 1000);
     }
 

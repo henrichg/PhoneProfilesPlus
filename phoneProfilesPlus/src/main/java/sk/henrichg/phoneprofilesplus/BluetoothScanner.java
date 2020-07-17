@@ -421,7 +421,7 @@ class BluetoothScanner {
                     ApplicationPreferences.prefEventBluetoothWaitForResult))
                 break;
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
-            SystemClock.sleep(1000);
+            SystemClock.sleep(500);
         } while (SystemClock.uptimeMillis() - start < CLASSIC_BT_SCAN_DURATION * 1000);
 
         BluetoothScanWorker.finishCLScan(context);
@@ -439,7 +439,7 @@ class BluetoothScanner {
                     break;
 
                 //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                SystemClock.sleep(100);
+                SystemClock.sleep(500);
             } while (SystemClock.uptimeMillis() - start < applicationEventBluetoothLEScanDuration * 1000);
             BluetoothScanWorker.finishLEScan(context);
             BluetoothScanWorker.stopLEScan(context);
