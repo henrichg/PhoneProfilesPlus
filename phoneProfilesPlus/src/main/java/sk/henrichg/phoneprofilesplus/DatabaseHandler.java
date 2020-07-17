@@ -11061,9 +11061,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             exportedDBObj = SQLiteDatabase.openDatabase(exportedDB, openParams);
                         }*/
                         int version = 0;
-                        try {
+                        //try {
+                            // this will crash when PPP directory is not created by PPP :-(
                             version = exportedDBObj.getVersion();
-                        } catch (Exception ignored) {}
+                        //} catch (Exception ignored) {}
 
                         if (version <= DATABASE_VERSION) {
                             SQLiteDatabase db = getMyWritableDatabase();

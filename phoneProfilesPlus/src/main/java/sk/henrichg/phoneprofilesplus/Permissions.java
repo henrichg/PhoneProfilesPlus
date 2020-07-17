@@ -1681,6 +1681,7 @@ class Permissions {
                 try {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_IMPORT, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_IMPORT, permission.WRITE_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
