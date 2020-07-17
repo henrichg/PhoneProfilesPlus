@@ -1560,6 +1560,7 @@ public class PPApplication extends Application
             //noinspection TryWithIdenticalCatches
             try {
                 List<WorkInfo> workInfoList = statuses.get();
+                PPApplication.logE("[TEST BATTERY] PPApplication.cancelWork", "workInfoList.size()="+workInfoList.size());
                 // cancel only enqueued works
                 for (WorkInfo workInfo : workInfoList) {
                     WorkInfo.State state = workInfo.getState();

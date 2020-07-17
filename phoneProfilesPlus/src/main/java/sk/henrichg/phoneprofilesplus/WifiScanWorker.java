@@ -254,6 +254,7 @@ public class WifiScanWorker extends Worker {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
+                            PPApplication.logE("[TEST BATTERY] WifiScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
                                 if (!state.isFinished()) {
@@ -272,8 +273,8 @@ public class WifiScanWorker extends Worker {
                         }
 
                         //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                        SystemClock.sleep(100);
-                    } while (SystemClock.uptimeMillis() - start < WifiScanner.wifiScanDuration * 1000);
+                        SystemClock.sleep(1000);
+                    } while (SystemClock.uptimeMillis() - start < WifiScanner.WIFI_SCAN_DURATION * 1000);
                     //PPApplication.logE("WifiScanWorker.waitForFinish", "END WAIT FOR FINISH");
                 }
             }
@@ -315,8 +316,7 @@ public class WifiScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("WifiScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                        //return workInfoList.size() != 0;
+                        PPApplication.logE("[TEST BATTERY] WifiScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -358,8 +358,7 @@ public class WifiScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("WifiScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                        //return workInfoList.size() != 0;
+                        PPApplication.logE("[TEST BATTERY] WifiScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();

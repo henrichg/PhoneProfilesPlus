@@ -193,6 +193,7 @@ public class SearchCalendarEventsWorker extends Worker {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
+                            PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
                                 if (!state.isFinished()) {
@@ -211,8 +212,8 @@ public class SearchCalendarEventsWorker extends Worker {
                         }
 
                         //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                        SystemClock.sleep(100);
-                    } while (SystemClock.uptimeMillis() - start < 5 * 1000);
+                        SystemClock.sleep(1000);
+                    } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
                     //PPApplication.logE("SearchCalendarEventsWorker.waitForFinish", "END WAIT FOR FINISH");
                 }
@@ -256,8 +257,7 @@ public class SearchCalendarEventsWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("SearchCalendarEventsWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                        //return workInfoList.size() != 0;
+                        PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -299,8 +299,7 @@ public class SearchCalendarEventsWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("SearchCalendarEventsWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                        //return workInfoList.size() != 0;
+                        PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();

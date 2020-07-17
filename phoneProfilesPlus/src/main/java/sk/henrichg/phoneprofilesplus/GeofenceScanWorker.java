@@ -263,6 +263,7 @@ public class GeofenceScanWorker extends Worker {
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
+                            PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
                                 if (!state.isFinished()) {
@@ -281,7 +282,7 @@ public class GeofenceScanWorker extends Worker {
                         }
 
                         //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                        SystemClock.sleep(100);
+                        SystemClock.sleep(1000);
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
                     //PPApplication.logE("GeofenceScanWorker.waitForFinish", "END WAIT FOR FINISH");
@@ -325,8 +326,7 @@ public class GeofenceScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                        //return workInfoList.size() != 0;
+                        PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkRunning", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -368,8 +368,7 @@ public class GeofenceScanWorker extends Worker {
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
-                        //return workInfoList.size() != 0;
+                        PPApplication.logE("[TEST BATTERY] GeofenceScanWorker.isWorkScheduled", "workInfoList.size()="+workInfoList.size());
                         boolean running = false;
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();

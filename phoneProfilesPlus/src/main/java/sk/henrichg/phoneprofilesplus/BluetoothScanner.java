@@ -19,7 +19,7 @@ class BluetoothScanner {
 
     private final Context context;
 
-    static final int classicBTScanDuration = 25; // 25 seconds for classic bluetooth scan
+    static final int CLASSIC_BT_SCAN_DURATION = 25; // 25 seconds for classic bluetooth scan
 
     //static boolean bluetoothEnabledForScan;
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
@@ -421,8 +421,8 @@ class BluetoothScanner {
                     ApplicationPreferences.prefEventBluetoothWaitForResult))
                 break;
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
-            SystemClock.sleep(100);
-        } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
+            SystemClock.sleep(1000);
+        } while (SystemClock.uptimeMillis() - start < CLASSIC_BT_SCAN_DURATION * 1000);
 
         BluetoothScanWorker.finishCLScan(context);
         BluetoothScanWorker.stopCLScan();
