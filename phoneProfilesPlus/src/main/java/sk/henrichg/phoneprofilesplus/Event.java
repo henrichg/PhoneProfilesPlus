@@ -2108,7 +2108,6 @@ class Event {
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id)
                                 .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
-                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -2355,7 +2354,6 @@ class Event {
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id)
                                 .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
-                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

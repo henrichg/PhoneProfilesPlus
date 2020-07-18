@@ -115,7 +115,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                                 .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                 .setInputData(workData)
                                                 .setInitialDelay(5, TimeUnit.SECONDS)
-                                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                                 .build();
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {

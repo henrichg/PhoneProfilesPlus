@@ -105,7 +105,6 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     new OneTimeWorkRequest.Builder(MainWorker.class)
                                                             .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
                                                             .setInitialDelay(5, TimeUnit.SECONDS)
-                                                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                                             .build();
                                             try {
                                                 if (PPApplication.getApplicationStarted(true)) {

@@ -90,7 +90,6 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
                             .setInitialDelay(delay, TimeUnit.MINUTES)
-                            //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {

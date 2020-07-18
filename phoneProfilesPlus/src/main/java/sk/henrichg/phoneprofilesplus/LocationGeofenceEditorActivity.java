@@ -54,6 +54,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
                                      implements GoogleApiClient.ConnectionCallbacks,
@@ -770,7 +771,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 new OneTimeWorkRequest.Builder(FetchAddressWorker.class)
                         .addTag(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG)
                         .setInputData(workData)
-                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
 
         try {

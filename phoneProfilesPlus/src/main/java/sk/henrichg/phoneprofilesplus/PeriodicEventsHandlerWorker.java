@@ -80,7 +80,6 @@ public class PeriodicEventsHandlerWorker extends Worker {
                                 new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
                                         .addTag(PeriodicEventsHandlerWorker.WORK_TAG)
                                         .setInitialDelay(interval, TimeUnit.MINUTES)
-                                        //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                         .build();
                         try {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();

@@ -163,7 +163,6 @@ public class WifiScanWorker extends Worker {
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
                                 .addTag(WifiScanWorker.WORK_TAG)
-                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
 
 //                        //if (PPApplication.logEnabled()) {
@@ -183,7 +182,6 @@ public class WifiScanWorker extends Worker {
                         //waitForFinish(true);
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WifiScanWorker.class)
                                 .addTag(WifiScanWorker.WORK_TAG_SHORT)
-                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
 
 //                        //if (PPApplication.logEnabled()) {

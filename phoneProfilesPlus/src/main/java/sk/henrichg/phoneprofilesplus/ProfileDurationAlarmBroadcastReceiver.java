@@ -89,7 +89,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .addTag(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
-                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

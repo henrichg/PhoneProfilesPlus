@@ -90,7 +90,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK)
                             .setInitialDelay(delay, TimeUnit.SECONDS)
-                            //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {

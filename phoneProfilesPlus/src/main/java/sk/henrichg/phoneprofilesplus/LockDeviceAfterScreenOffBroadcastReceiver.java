@@ -74,7 +74,6 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
                             .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {

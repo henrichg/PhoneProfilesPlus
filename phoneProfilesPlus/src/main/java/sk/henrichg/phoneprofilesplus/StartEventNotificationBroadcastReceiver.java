@@ -103,7 +103,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 .addTag(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
-                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

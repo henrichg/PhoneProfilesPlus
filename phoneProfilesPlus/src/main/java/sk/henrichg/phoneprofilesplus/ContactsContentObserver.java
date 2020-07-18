@@ -8,6 +8,8 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import java.util.concurrent.TimeUnit;
+
 class ContactsContentObserver extends ContentObserver {
 
     ContactsContentObserver(Handler handler) {
@@ -31,7 +33,7 @@ class ContactsContentObserver extends ContentObserver {
                 new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
                         .addTag(ContactsContentObserverWorker.WORK_TAG)
                         //.setInitialDelay(1, TimeUnit.SECONDS)
-                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {

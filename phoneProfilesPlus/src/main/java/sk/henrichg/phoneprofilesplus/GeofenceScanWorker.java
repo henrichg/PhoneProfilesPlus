@@ -175,7 +175,6 @@ public class GeofenceScanWorker extends Worker {
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .setInitialDelay(interval, TimeUnit.SECONDS)
                                 .addTag(GeofenceScanWorker.WORK_TAG)
-                                //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
 
 //                        //if (PPApplication.logEnabled()) {
@@ -194,7 +193,6 @@ public class GeofenceScanWorker extends Worker {
                         //waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(GeofenceScanWorker.class)
                                 .addTag(GeofenceScanWorker.WORK_TAG_SHORT)
-                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
 
 //                        //if (PPApplication.logEnabled()) {

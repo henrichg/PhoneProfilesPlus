@@ -163,7 +163,7 @@ public class PPApplication extends Application
                                                 //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
                                                 //+"|[LISTENER CALL]"
-                                                //+"|[TEST BATTERY]"
+                                                +"|[TEST BATTERY]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
@@ -2000,7 +2000,6 @@ public class PPApplication extends Application
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
                             .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
@@ -2054,7 +2053,6 @@ public class PPApplication extends Application
             worker =
                     new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
                             .addTag(UpdateGUIWorker.WORK_TAG)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
         }
         else {
@@ -2062,7 +2060,6 @@ public class PPApplication extends Application
                     new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
                             .addTag(UpdateGUIWorker.WORK_TAG)
                             .setInitialDelay(1, TimeUnit.SECONDS)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
         }
         try {
@@ -4277,7 +4274,6 @@ public class PPApplication extends Application
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG)
                             .setInitialDelay(30, TimeUnit.SECONDS)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
