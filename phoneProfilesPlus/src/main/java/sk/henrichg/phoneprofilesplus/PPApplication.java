@@ -1558,6 +1558,7 @@ public class PPApplication extends Application
         if (workManager != null) {
             ListenableFuture<List<WorkInfo>> statuses;
             statuses = workManager.getWorkInfosByTag(name);
+            //statuses = workManager.getWorkInfosForUniqueWork(name);
             //noinspection TryWithIdenticalCatches
             try {
                 List<WorkInfo> workInfoList = statuses.get();
