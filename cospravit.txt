@@ -1527,3 +1527,13 @@ Po zapnuti obrazovky, odojeni a zasa pripojeni mobilu do PC:
 2020-07-16 01:13:53.364 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=ProfileListWidgetProvider.onReceive
 2020-07-16 01:13:53.370 27567-27750/sk.henrichg.phoneprofilesplus E/[HANDLER CALL] PPApplication.startHandlerThreadWidget: START run - from=SamsungEdgeProvider.onReceive
 2020-07-16 01:13:53.422 27567-27897/sk.henrichg.phoneprofilesplus E/[WORKER CALL]  ShowProfileNotificationWorker.doWork: xxxx
+
+----
+
+Battery historian:
+1. sudo apt install docker.io
+2. Ako pouzivat: https://developer.android.com/topic/performance/power/setup-battery-historian
+3. Spustaj ale takto:
+      sudo docker run -p 20000:9999 gcr.io/android-battery-historian/stable:3.0 --port 9999
+4. V Chrome potom: http://localhost:20000
+
