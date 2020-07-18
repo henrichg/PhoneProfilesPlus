@@ -880,8 +880,6 @@ class EventsHandler {
             }
 
             if (doSleep || notified) {
-                //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                //SystemClock.sleep(500);
                 PPApplication.sleep(500);
             }
             //}

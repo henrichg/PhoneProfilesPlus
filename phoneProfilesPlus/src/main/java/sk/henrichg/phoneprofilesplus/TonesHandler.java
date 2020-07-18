@@ -305,8 +305,6 @@ class TonesHandler {
                                 //}
                         );
 
-                        //try { Thread.sleep(300); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(300);
                         PPApplication.sleep(500);
                     } else {
                         Log.e("TonesHandler._installTone", "newUri is empty");
@@ -361,8 +359,6 @@ class TonesHandler {
 //                                        //}
 //                                );
 //
-//                                //try { Thread.sleep(300); } catch (InterruptedException e) { }
-//                                //SystemClock.sleep(300);
 //                                PPApplication.sleep(500);
 //                            }
 //                            else {

@@ -537,8 +537,6 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
                             PhoneProfilesService.getInstance().getPhoneStateScanner().getRegisteredCell();
 
-                            //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(200);
                             //PPApplication.sleep(200);
                         }
                     }

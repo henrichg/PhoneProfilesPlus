@@ -332,8 +332,6 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiScanWorker.startScanner(prefContext, true);
 
-                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(200);
                     //PPApplication.sleep(500);
                     //WifiBluetoothScanner.waitForWifiScanEnd(prefContext, this);
                     //PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","end rescan");

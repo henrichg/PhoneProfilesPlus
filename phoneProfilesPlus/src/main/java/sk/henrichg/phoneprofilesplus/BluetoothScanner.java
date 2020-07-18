@@ -151,8 +151,6 @@ class BluetoothScanner {
                                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
                                     }
                                 });
-                                //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                //SystemClock.sleep(1000);
                                 PPApplication.sleep(1000);
                                 //unlock();
                             }
@@ -285,8 +283,6 @@ class BluetoothScanner {
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanner.doScan.1");
                                 }
                             });
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
                             PPApplication.sleep(1000);
                             //unlock();
                         }
@@ -420,8 +416,7 @@ class BluetoothScanner {
             if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                     ApplicationPreferences.prefEventBluetoothWaitForResult))
                 break;
-            //try { Thread.sleep(100); } catch (InterruptedException e) { }
-            SystemClock.sleep(500);
+            PPApplication.sleep(500);
         } while (SystemClock.uptimeMillis() - start < CLASSIC_BT_SCAN_DURATION * 1000);
 
         BluetoothScanWorker.finishCLScan(context);
@@ -438,9 +433,8 @@ class BluetoothScanner {
                         ApplicationPreferences.prefEventBluetoothLEWaitForResult))
                     break;
 
-                //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                SystemClock.sleep(500);
-            } while (SystemClock.uptimeMillis() - start < applicationEventBluetoothLEScanDuration * 1000);
+                PPApplication.sleep(500);
+            } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5) * 1000);
             BluetoothScanWorker.finishLEScan(context);
             BluetoothScanWorker.stopLEScan(context);
 
@@ -448,65 +442,13 @@ class BluetoothScanner {
             // wait for ScanCallback.onBatchScanResults after stop scan
             start = SystemClock.uptimeMillis();
             do {
-                //try { Thread.sleep(100); } catch (InterruptedException e) { }
-                SystemClock.sleep(100);
+                PPApplication.sleep(500);
             } while (SystemClock.uptimeMillis() - start < 10 * 1000);
             // save ScanCallback.onBatchScanResults
             BluetoothScanWorker.finishLEScan(context);
 
         }
     }
-
-    /*
-    static void waitForForceOneBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask) {
-        long start = SystemClock.uptimeMillis();
-        do {
-            if (getForceOneBluetoothScan(context) == FORCE_ONE_SCAN_DISABLED)
-                break;
-            if (asyncTask != null)
-            {
-                if (asyncTask.isCancelled())
-                    break;
-            }
-
-            //try { Thread.sleep(100); } catch (InterruptedException e) { }
-            SystemClock.sleep(100);
-        } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
-        BluetoothScanWorker.finishCLScan(context);
-        BluetoothScanWorker.stopCLScan(context);
-
-        if (asyncTask != null)
-        {
-            if (asyncTask.isCancelled())
-                return;
-        }
-
-        int applicationEventBluetoothLEScanDuration = ApplicationPreferences.applicationEventBluetoothLEScanDuration(context);
-        start = SystemClock.uptimeMillis();
-        do {
-            if (getForceOneLEBluetoothScan(context) == FORCE_ONE_SCAN_DISABLED)
-                break;
-            if (asyncTask != null) {
-                if (asyncTask.isCancelled())
-                    break;
-            }
-
-            //try { Thread.sleep(100); } catch (InterruptedException e) { }
-            SystemClock.sleep(100);
-        } while (SystemClock.uptimeMillis() - start < applicationEventBluetoothLEScanDuration * 1000);
-        BluetoothScanWorker.finishLEScan(context);
-        BluetoothScanWorker.stopLEScan(context);
-
-        // wait for ScanCallback.onBatchScanResults after stop scan
-        start = SystemClock.uptimeMillis();
-        do {
-            //try { Thread.sleep(100); } catch (InterruptedException e) { }
-            SystemClock.sleep(100);
-        } while (SystemClock.uptimeMillis() - start < 10 * 1000);
-        // save ScanCallback.onBatchScanResults
-        BluetoothScanWorker.finishLEScan(context);
-    }
-    */
 
     @SuppressLint("InlinedApi")
     static boolean bluetoothLESupported(Context context) {

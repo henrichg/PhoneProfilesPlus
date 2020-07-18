@@ -349,8 +349,6 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     BluetoothScanner.setForceOneLEBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     BluetoothScanWorker.startScanner(prefContext, true);
 
-                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(200);
                     //PPApplication.sleep(500);
                     //WifiBluetoothScanner.waitForForceOneBluetoothScanEnd(prefContext, this);
                     //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView","end rescan");

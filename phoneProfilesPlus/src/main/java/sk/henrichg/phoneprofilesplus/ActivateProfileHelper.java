@@ -114,8 +114,6 @@ class ActivateProfileHelper {
                 // in array.xml, networkTypeGSMValues are 100+ values
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
                 setPreferredNetworkType(appContext, profile._deviceNetworkType - 100);
-                //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                //SystemClock.sleep(200);
                 PPApplication.sleep(200);
             }
         }
@@ -151,8 +149,6 @@ class ActivateProfileHelper {
                 if (_setMobileData) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
                     setMobileData(appContext, _isMobileData);
-                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(200);
                     PPApplication.sleep(200);
                 }
             }
@@ -210,8 +206,6 @@ class ActivateProfileHelper {
                         if (setWifiAPState) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
                             setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, appContext);
-                            //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(200);
                             PPApplication.sleep(1000);
                         }
                     }
@@ -254,8 +248,6 @@ class ActivateProfileHelper {
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
                         CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi);
-                        //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(200);
                         PPApplication.sleep(1000);
                     }
                 }
@@ -321,8 +313,6 @@ class ActivateProfileHelper {
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);;
                                 }
-                                //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                                //SystemClock.sleep(200);
                                 PPApplication.sleep(200);
                             }
                         }
@@ -1216,8 +1206,6 @@ class ActivateProfileHelper {
                         }
 
                         //if (!((zenMode == ZENMODE_PRIORITY) && (ringerMode == AudioManager.RINGER_MODE_VIBRATE))) {
-                            //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(500);
                             PPApplication.sleep(500);
                         //}
                     }
@@ -1232,8 +1220,6 @@ class ActivateProfileHelper {
                     /*
                     if (zenMode == ZENMODE_PRIORITY) {
                         PPApplication.logE("ActivateProfileHelper.setZenMode", "change ringer mode");
-                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(500);
                         PPApplication.sleep(1000);
                         //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         audioManager.setRingerMode(ringerMode);
@@ -1250,8 +1236,6 @@ class ActivateProfileHelper {
                     switch (zenMode) {
                         case ZENMODE_SILENT:
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
                             //PPApplication.sleep(1000);
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                             if ((systemZenMode != ZENMODE_ALL) && canChangeZenMode(appContext)) {
@@ -1652,8 +1636,6 @@ class ActivateProfileHelper {
                                     setRingerMode(appContext, profile, audioManager, /*false,*/ forProfileActivation);
                                 }
 
-                                //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                                //SystemClock.sleep(500);
                                 PPApplication.sleep(500);
 
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");

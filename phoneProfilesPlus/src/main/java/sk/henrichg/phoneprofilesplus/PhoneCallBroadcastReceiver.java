@@ -148,11 +148,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         long start = SystemClock.uptimeMillis();
         do {
             if (audioManager.getMode() != AudioManager.MODE_IN_CALL)
-                //try { Thread.sleep(100); } catch (InterruptedException e) {};
-                SystemClock.sleep(100);
+                PPApplication.sleep(500);
             else
                 break;
-        } while (SystemClock.uptimeMillis() - start < 3000);
+        } while (SystemClock.uptimeMillis() - start < 5000);
 
         // audio mode is set to MODE_IN_CALL by system
         //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "audio mode="+audioManager.getMode());
@@ -216,11 +215,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         long start = SystemClock.uptimeMillis();
         do {
             if (audioManager.getMode() != AudioManager.MODE_NORMAL)
-                //try { Thread.sleep(100); } catch (InterruptedException e) {};
-                SystemClock.sleep(100);
+                PPApplication.sleep(500);
             else
                 break;
-        } while (SystemClock.uptimeMillis() - start < 2000);
+        } while (SystemClock.uptimeMillis() - start < 5000);
 
         // audio mode is set to MODE_NORMAL by system
 
