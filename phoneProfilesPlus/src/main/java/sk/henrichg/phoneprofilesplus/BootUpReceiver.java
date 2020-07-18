@@ -124,7 +124,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
 //                                            //if (PPApplication.logEnabled()) {
 //                                            ListenableFuture<List<WorkInfo>> statuses;
-//                                            statuses = workManager.getWorkInfosByTag(PPApplication.AFTER_FIRST_START_WORK_TAG);
+//                                            statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 //                                            try {
 //                                                List<WorkInfo> workInfoList = statuses.get();
 //                                                PPApplication.logE("[TEST BATTERY] BootUpReceiver.onReceive", "for=" + PPApplication.AFTER_FIRST_START_WORK_TAG + " workInfoList.size()=" + workInfoList.size());

@@ -125,7 +125,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
 //                                                    //if (PPApplication.logEnabled()) {
 //                                                    ListenableFuture<List<WorkInfo>> statuses;
-//                                                    statuses = workManager.getWorkInfosByTag(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
+//                                                    statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
 //                                                    try {
 //                                                        List<WorkInfo> workInfoList = statuses.get();
 //                                                        PPApplication.logE("[TEST BATTERY] WifiScanBroadcastReceiver.onReceive", "for=" + MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());

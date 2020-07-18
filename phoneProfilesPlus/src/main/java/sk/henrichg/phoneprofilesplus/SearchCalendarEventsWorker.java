@@ -115,7 +115,7 @@ public class SearchCalendarEventsWorker extends Worker {
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(SearchCalendarEventsWorker.WORK_TAG);
+//                        statuses = workManager.getWorkInfosForUniqueWork(SearchCalendarEventsWorker.WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker._scheduleWork", "for=" + SearchCalendarEventsWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -134,7 +134,7 @@ public class SearchCalendarEventsWorker extends Worker {
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(SearchCalendarEventsWorker.WORK_TAG_SHORT);
+//                        statuses = workManager.getWorkInfosForUniqueWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker._scheduleWork", "for=" + SearchCalendarEventsWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
@@ -208,9 +208,9 @@ public class SearchCalendarEventsWorker extends Worker {
 
                         ListenableFuture<List<WorkInfo>> statuses;
                         if (shortWork)
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                         else
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
                         //noinspection TryWithIdenticalCatches
                         try {
@@ -272,9 +272,9 @@ public class SearchCalendarEventsWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
@@ -314,9 +314,9 @@ public class SearchCalendarEventsWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();

@@ -438,7 +438,7 @@ class EventsHandler {
                     boolean exists;
                     try {
                         WorkManager instance = WorkManager.getInstance(context.getApplicationContext());
-                        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag("restartEventsWithDelayWork");
+                        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosForUniqueWork("restartEventsWithDelayWork");
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();

@@ -1557,8 +1557,7 @@ public class PPApplication extends Application
         WorkManager workManager = PPApplication.getWorkManagerInstance();
         if (workManager != null) {
             ListenableFuture<List<WorkInfo>> statuses;
-            statuses = workManager.getWorkInfosByTag(name);
-            //statuses = workManager.getWorkInfosForUniqueWork(name);
+            statuses = workManager.getWorkInfosForUniqueWork(name);
             //noinspection TryWithIdenticalCatches
             try {
                 List<WorkInfo> workInfoList = statuses.get();
@@ -2010,7 +2009,7 @@ public class PPApplication extends Application
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(ShowProfileNotificationWorker.WORK_TAG);
+//                        statuses = workManager.getWorkInfosForUniqueWork(ShowProfileNotificationWorker.WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] PPApplication.forceUpdateGUI", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -2073,7 +2072,7 @@ public class PPApplication extends Application
                     /*boolean enqueue = immediate;
                     if (!enqueue) {
                         ListenableFuture<List<WorkInfo>> statuses;
-                        statuses = workManager.getWorkInfosByTag(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
+                        statuses = workManager.getWorkInfosForUniqueWork(ElapsedAlarmsWorker.ELAPSED_ALARMS_UPDATE_GUI_TAG_WORK);
                         //noinspection TryWithIdenticalCatches
                         try {
                             List<WorkInfo> workInfoList = statuses.get();
@@ -2114,7 +2113,7 @@ public class PPApplication extends Application
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosByTag(UpdateGUIWorker.WORK_TAG);
+//                    statuses = workManager.getWorkInfosForUniqueWork(UpdateGUIWorker.WORK_TAG);
 //                    try {
 //                        List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[TEST BATTERY] PPApplication.updateGUI", "for=" + UpdateGUIWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -4287,7 +4286,7 @@ public class PPApplication extends Application
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
+//                        statuses = workManager.getWorkInfosForUniqueWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] PPApplication.setBlockProfileEventActions", "for=" + PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG + " workInfoList.size()=" + workInfoList.size());

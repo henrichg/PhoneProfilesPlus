@@ -2464,7 +2464,7 @@ public class DataWrapper {
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosByTag(RestartEventsWithDelayWorker.WORK_TAG);
+//                    statuses = workManager.getWorkInfosForUniqueWork(RestartEventsWithDelayWorker.WORK_TAG);
 //                    try {
 //                        List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[TEST BATTERY] DataWrapper.restartEventsWithDelay", "for=" + RestartEventsWithDelayWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());

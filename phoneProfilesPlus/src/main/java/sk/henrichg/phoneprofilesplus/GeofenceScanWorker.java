@@ -180,7 +180,7 @@ public class GeofenceScanWorker extends Worker {
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(GeofenceScanWorker.WORK_TAG);
+//                        statuses = workManager.getWorkInfosForUniqueWork(GeofenceScanWorker.WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] GeofenceScanWorker._scheduleWork", "for=" + GeofenceScanWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -199,7 +199,7 @@ public class GeofenceScanWorker extends Worker {
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(GeofenceScanWorker.WORK_TAG_SHORT);
+//                        statuses = workManager.getWorkInfosForUniqueWork(GeofenceScanWorker.WORK_TAG_SHORT);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] GeofenceScanWorker._scheduleWork", "for=" + GeofenceScanWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
@@ -278,9 +278,9 @@ public class GeofenceScanWorker extends Worker {
 
                         ListenableFuture<List<WorkInfo>> statuses;
                         if (shortWork)
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                         else
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
                         //noinspection TryWithIdenticalCatches
                         try {
@@ -341,9 +341,9 @@ public class GeofenceScanWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
@@ -383,9 +383,9 @@ public class GeofenceScanWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();

@@ -168,7 +168,7 @@ public class WifiScanWorker extends Worker {
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(WifiScanWorker.WORK_TAG);
+//                        statuses = workManager.getWorkInfosForUniqueWork(WifiScanWorker.WORK_TAG);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] WifiScanWorker._scheduleWork", "for=" + WifiScanWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -188,7 +188,7 @@ public class WifiScanWorker extends Worker {
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(WifiScanWorker.WORK_TAG_SHORT);
+//                        statuses = workManager.getWorkInfosForUniqueWork(WifiScanWorker.WORK_TAG_SHORT);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] WifiScanWorker._scheduleWork", "for=" + WifiScanWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
@@ -269,9 +269,9 @@ public class WifiScanWorker extends Worker {
                     do {
                         ListenableFuture<List<WorkInfo>> statuses;
                         if (shortWork)
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                         else
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
                         //noinspection TryWithIdenticalCatches
                         try {
@@ -331,9 +331,9 @@ public class WifiScanWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
@@ -373,9 +373,9 @@ public class WifiScanWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();

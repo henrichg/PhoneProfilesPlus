@@ -2873,7 +2873,7 @@ public class PhoneProfilesService extends Service
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+//                        statuses = workManager.getWorkInfosForUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.scheduleBackgroundScanningWorker", "for=" + PeriodicEventsHandlerWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
@@ -3850,7 +3850,7 @@ public class PhoneProfilesService extends Service
 
 //                                    //if (PPApplication.logEnabled()) {
 //                                    ListenableFuture<List<WorkInfo>> statuses;
-//                                    statuses = workManager.getWorkInfosByTag(PPApplication.PACKAGE_REPLACED_WORK_TAG);
+//                                    statuses = workManager.getWorkInfosForUniqueWork(PPApplication.PACKAGE_REPLACED_WORK_TAG);
 //                                    try {
 //                                        List<WorkInfo> workInfoList = statuses.get();
 //                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doForFirstStart", "for=" + PPApplication.PACKAGE_REPLACED_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -3889,7 +3889,7 @@ public class PhoneProfilesService extends Service
 
 //                                        //if (PPApplication.logEnabled()) {
 //                                        ListenableFuture<List<WorkInfo>> statuses;
-//                                        statuses = workManager.getWorkInfosByTag(PPApplication.AFTER_FIRST_START_WORK_TAG);
+//                                        statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
 //                                        try {
 //                                            List<WorkInfo> workInfoList = statuses.get();
 //                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doForFirstStart", "for=" + PPApplication.AFTER_FIRST_START_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -5349,7 +5349,7 @@ public class PhoneProfilesService extends Service
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosByTag(ShowProfileNotificationWorker.WORK_TAG);
+//                    statuses = workManager.getWorkInfosForUniqueWork(ShowProfileNotificationWorker.WORK_TAG);
 //                    try {
 //                        List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.showProfileNotification", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());

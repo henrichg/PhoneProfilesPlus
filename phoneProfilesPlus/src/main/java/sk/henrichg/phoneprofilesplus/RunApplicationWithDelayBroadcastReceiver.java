@@ -111,7 +111,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "for=" + MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode + " workInfoList.size()=" + workInfoList.size());

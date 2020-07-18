@@ -104,7 +104,7 @@ class TwilightScanner {
 
 //                                //if (PPApplication.logEnabled()) {
 //                                ListenableFuture<List<WorkInfo>> statuses;
-//                                statuses = workManager.getWorkInfosByTag(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
+//                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
 //                                try {
 //                                    List<WorkInfo> workInfoList = statuses.get();
 //                                    PPApplication.logE("[TEST BATTERY] TwilightScanner.setTwilightState", "for=" + MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());

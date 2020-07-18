@@ -116,7 +116,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] StartEventNotificationBroadcastReceiver.setAlarm", "for=" + MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id + " workInfoList.size()=" + workInfoList.size());

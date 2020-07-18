@@ -40,7 +40,7 @@ class ContactsContentObserver extends ContentObserver {
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosByTag(ContactsContentObserverWorker.WORK_TAG);
+//                    statuses = workManager.getWorkInfosForUniqueWork(ContactsContentObserverWorker.WORK_TAG);
 //                    try {
 //                        List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "for=" + ContactsContentObserverWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());

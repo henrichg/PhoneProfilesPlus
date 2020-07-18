@@ -32,7 +32,7 @@ public class DisableScreenTimeoutInternalChangeWorker extends Worker {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
                 ListenableFuture<List<WorkInfo>> statuses;
-                statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                 //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();

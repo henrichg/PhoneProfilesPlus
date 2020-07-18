@@ -114,7 +114,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
 //                                                        //if (PPApplication.logEnabled()) {
 //                                                        ListenableFuture<List<WorkInfo>> statuses;
-//                                                        statuses = workManager.getWorkInfosByTag(WifiScanWorker.WORK_TAG_START_SCAN);
+//                                                        statuses = workManager.getWorkInfosForUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN);
 //                                                        try {
 //                                                            List<WorkInfo> workInfoList = statuses.get();
 //                                                            PPApplication.logE("[TEST BATTERY] WifiStateChangedBroadcastReceiver.onReceive", "for=" + WifiScanWorker.WORK_TAG_START_SCAN + " workInfoList.size()=" + workInfoList.size());

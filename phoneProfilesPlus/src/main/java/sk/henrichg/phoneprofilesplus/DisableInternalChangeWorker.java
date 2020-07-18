@@ -37,7 +37,7 @@ public class DisableInternalChangeWorker extends Worker {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
                 ListenableFuture<List<WorkInfo>> statuses;
-                statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                 //PPApplication.logE("DisableInternalChangeWorker.doWork", "statuses="+statuses);
                 //noinspection TryWithIdenticalCatches
                 try {
@@ -92,7 +92,7 @@ public class DisableInternalChangeWorker extends Worker {
                 if (workManager != null) {
                     /*boolean foundEnqueued = false;
                     ListenableFuture<List<WorkInfo>> statuses;
-                    statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                    statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //PPApplication.logE("DisableInternalChangeWorker.doWork", "statuses="+statuses);
                     //noinspection TryWithIdenticalCatches
                     try {
@@ -117,7 +117,7 @@ public class DisableInternalChangeWorker extends Worker {
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosByTag(DisableInternalChangeWorker.WORK_TAG);
+//                    statuses = workManager.getWorkInfosForUniqueWork(DisableInternalChangeWorker.WORK_TAG);
 //                    try {
 //                        List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[TEST BATTERY] DisableInternalChangeWorker.enqueueWork", "for=" + DisableInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());

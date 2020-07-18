@@ -2118,7 +2118,7 @@ class Event {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id);
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] Event.setDelayStartAlarm", "for=" + MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id + " workInfoList.size()=" + workInfoList.size());
@@ -2365,7 +2365,7 @@ class Event {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id);
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] Event.setDelayEndAlarm", "for=" + MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id + " workInfoList.size()=" + workInfoList.size());

@@ -100,7 +100,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
+//                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "for=" + MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK + " workInfoList.size()=" + workInfoList.size());

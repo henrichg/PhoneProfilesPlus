@@ -780,7 +780,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosByTag(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
+//                    statuses = workManager.getWorkInfosForUniqueWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
 //                    try {
 //                        List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[TEST BATTERY] LocationGeofenceEditorActivity.startIntentService", "for=" + LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG + " workInfoList.size()=" + workInfoList.size());

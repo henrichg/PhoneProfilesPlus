@@ -104,7 +104,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id);
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] ProfileDurationAlarmBroadcastReceiver.setAlarm", "for=" + MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id + " workInfoList.size()=" + workInfoList.size());

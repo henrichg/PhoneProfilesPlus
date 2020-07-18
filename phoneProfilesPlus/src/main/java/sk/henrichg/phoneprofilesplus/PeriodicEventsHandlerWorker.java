@@ -88,7 +88,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
 //                                //if (PPApplication.logEnabled()) {
 //                                ListenableFuture<List<WorkInfo>> statuses;
-//                                statuses = workManager.getWorkInfosByTag(PeriodicEventsHandlerWorker.WORK_TAG);
+//                                statuses = workManager.getWorkInfosForUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG);
 //                                try {
 //                                    List<WorkInfo> workInfoList = statuses.get();
 //                                    PPApplication.logE("[TEST BATTERY] PeriodicEventsHandlerWorker.doWork", "for=" + PeriodicEventsHandlerWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());

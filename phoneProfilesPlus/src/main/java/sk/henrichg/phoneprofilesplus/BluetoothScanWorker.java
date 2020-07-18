@@ -169,7 +169,7 @@ public class BluetoothScanWorker extends Worker {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(BluetoothScanWorker.WORK_TAG);
+//                            statuses = workManager.getWorkInfosForUniqueWork(BluetoothScanWorker.WORK_TAG);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] BluetoothScanWorker._scheduleWork", "for=" + BluetoothScanWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -190,7 +190,7 @@ public class BluetoothScanWorker extends Worker {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(BluetoothScanWorker.WORK_TAG_SHORT);
+//                            statuses = workManager.getWorkInfosForUniqueWork(BluetoothScanWorker.WORK_TAG_SHORT);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] BluetoothScanWorker._scheduleWork", "for=" + BluetoothScanWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
@@ -277,9 +277,9 @@ public class BluetoothScanWorker extends Worker {
 
                         ListenableFuture<List<WorkInfo>> statuses;
                         if (shortWork)
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                         else
-                            statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                            statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                         boolean allFinished = true;
                         //noinspection TryWithIdenticalCatches
                         try {
@@ -340,9 +340,9 @@ public class BluetoothScanWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
@@ -382,9 +382,9 @@ public class BluetoothScanWorker extends Worker {
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
                     if (shortWork)
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG_SHORT);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG_SHORT);
                     else
-                        statuses = workManager.getWorkInfosByTag(WORK_TAG);
+                        statuses = workManager.getWorkInfosForUniqueWork(WORK_TAG);
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
@@ -1056,7 +1056,7 @@ public class BluetoothScanWorker extends Worker {
 
 //                                //if (PPApplication.logEnabled()) {
 //                                ListenableFuture<List<WorkInfo>> statuses;
-//                                statuses = workManager.getWorkInfosByTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
+//                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
 //                                try {
 //                                    List<WorkInfo> workInfoList = statuses.get();
 //                                    PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.finishCLScan", "for=" + MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());

@@ -83,7 +83,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosByTag(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
+//                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
 //                            PPApplication.logE("[TEST BATTERY] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "for=" + MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK + " workInfoList.size()=" + workInfoList.size());

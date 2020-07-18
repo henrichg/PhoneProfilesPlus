@@ -220,7 +220,7 @@ class WifiScanner {
 
 //                                                    //if (PPApplication.logEnabled()) {
 //                                                    ListenableFuture<List<WorkInfo>> statuses;
-//                                                    statuses = workManager.getWorkInfosByTag(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
+//                                                    statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
 //                                                    try {
 //                                                        List<WorkInfo> workInfoList = statuses.get();
 //                                                        PPApplication.logE("[TEST BATTERY] WifiScanner.doScan", "for=" + MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());

@@ -3154,7 +3154,7 @@ class ActivateProfileHelper {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosByTag(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG);
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG);
 //                            try {
 //                                List<WorkInfo> workInfoList = statuses.get();
 //                                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "for=" + MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
@@ -3328,7 +3328,7 @@ class ActivateProfileHelper {
 
 //                    //if (PPApplication.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosByTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
+//                    statuses = workManager.getWorkInfosForUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
 //                    try {
 //                        List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.setScreenTimeout", "for=" + DisableScreenTimeoutInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
