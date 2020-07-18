@@ -64,8 +64,20 @@ public class AvoidRescheduleReceiverWorker extends Worker {
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
-            if (workManager != null)
+            if (workManager != null) {
+
+//                //if (PPApplication.logEnabled()) {
+//                ListenableFuture<List<WorkInfo>> statuses;
+//                statuses = workManager.getWorkInfosByTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                try {
+//                    List<WorkInfo> workInfoList = statuses.get();
+//                    PPApplication.logE("[TEST BATTERY] AvoidRescheduleReceiverWorker.enqueueWork", "for=" + PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                } catch (Exception ignored) {
+//                }
+//                //}
+
                 workManager.enqueueUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, avoidRescheduleReceiverWorker);
+            }
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

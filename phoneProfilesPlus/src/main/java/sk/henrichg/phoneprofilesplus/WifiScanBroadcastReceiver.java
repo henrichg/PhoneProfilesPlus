@@ -116,14 +116,28 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                         .addTag(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG)
                                                         .setInputData(workData)
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
-                                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                                         .build();
                                         try {
                                             if (PPApplication.getApplicationStarted(true)) {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                                if (workManager != null)
+                                                if (workManager != null) {
+
+//                                                    //if (PPApplication.logEnabled()) {
+//                                                    ListenableFuture<List<WorkInfo>> statuses;
+//                                                    statuses = workManager.getWorkInfosByTag(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
+//                                                    try {
+//                                                        List<WorkInfo> workInfoList = statuses.get();
+//                                                        PPApplication.logE("[TEST BATTERY] WifiScanBroadcastReceiver.onReceive", "for=" + MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                                                        WorkInfo info = workInfoList.get(0);
+//                                                        PPApplication.logE("[TEST BATTERY] WifiScanBroadcastReceiver.onReceive", "for=" + MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG + " info.toString()=" + info.toString());
+//                                                    } catch (Exception ignored) {
+//                                                    }
+//                                                    //}
+
                                                     //workManager.enqueue(worker);
                                                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                                }
                                             }
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);

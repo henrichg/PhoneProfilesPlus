@@ -84,8 +84,20 @@ public class PeriodicEventsHandlerWorker extends Worker {
                                         .build();
                         try {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null)
+                            if (workManager != null) {
+
+//                                //if (PPApplication.logEnabled()) {
+//                                ListenableFuture<List<WorkInfo>> statuses;
+//                                statuses = workManager.getWorkInfosByTag(PeriodicEventsHandlerWorker.WORK_TAG);
+//                                try {
+//                                    List<WorkInfo> workInfoList = statuses.get();
+//                                    PPApplication.logE("[TEST BATTERY] PeriodicEventsHandlerWorker.doWork", "for=" + PeriodicEventsHandlerWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                                } catch (Exception ignored) {
+//                                }
+//                                //}
+
                                 workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
+                            }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }

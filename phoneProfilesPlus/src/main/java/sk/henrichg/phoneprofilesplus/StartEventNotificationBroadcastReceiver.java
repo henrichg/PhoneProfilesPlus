@@ -113,6 +113,17 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._repeatNotificationIntervalStart=" + event._repeatNotificationIntervalStart);
                                 PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.setAlarm", "enqueueUniqueWork - event._id=" + event._id);
                             }*/
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosByTag(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] StartEventNotificationBroadcastReceiver.setAlarm", "for=" + MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
                             //workManager.enqueue(worker);
                             workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_" + (int) event._id);

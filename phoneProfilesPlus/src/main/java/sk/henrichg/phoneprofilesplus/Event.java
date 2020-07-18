@@ -2115,6 +2115,17 @@ class Event {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosByTag(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] Event.setDelayStartAlarm", "for=" + MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
                             workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id,
                                                                 ExistingWorkPolicy.REPLACE, worker);
                             PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK +"_" + (int) this._id);
@@ -2351,6 +2362,17 @@ class Event {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
                             //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosByTag(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] Event.setDelayEndAlarm", "for=" + MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
                             workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id,
                                                             ExistingWorkPolicy.REPLACE, worker);
                             PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK +"_" + (int) this._id);

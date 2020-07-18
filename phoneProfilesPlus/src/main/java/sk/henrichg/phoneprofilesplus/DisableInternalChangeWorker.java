@@ -114,7 +114,18 @@ public class DisableInternalChangeWorker extends Worker {
                     }*/
                     /*if (foundEnqueued)
                         PPApplication.cancelWork(WORK_TAG);*/
-                    workManager.enqueueUniqueWork(WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosByTag(DisableInternalChangeWorker.WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] DisableInternalChangeWorker.enqueueWork", "for=" + DisableInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
+                    workManager.enqueueUniqueWork(DisableInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                 }
             }
         } catch (Exception e) {

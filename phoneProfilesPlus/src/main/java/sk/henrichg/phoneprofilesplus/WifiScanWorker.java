@@ -165,6 +165,17 @@ public class WifiScanWorker extends Worker {
                                 .addTag(WifiScanWorker.WORK_TAG)
                                 //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(WifiScanWorker.WORK_TAG);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] WifiScanWorker._scheduleWork", "for=" + WifiScanWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     } else {
                         //PPApplication.logE("WifiScanWorker._scheduleWork", "start now work");
@@ -174,6 +185,17 @@ public class WifiScanWorker extends Worker {
                                 .addTag(WifiScanWorker.WORK_TAG_SHORT)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(WifiScanWorker.WORK_TAG_SHORT);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] WifiScanWorker._scheduleWork", "for=" + WifiScanWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     }
 

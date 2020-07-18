@@ -2455,14 +2455,26 @@ public class DataWrapper {
                         .addTag(RestartEventsWithDelayWorker.WORK_TAG)
                         .setInputData(workData)
                         .setInitialDelay(delay, TimeUnit.SECONDS)
-                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null)
+                if (workManager != null) {
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosByTag(RestartEventsWithDelayWorker.WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] DataWrapper.restartEventsWithDelay", "for=" + RestartEventsWithDelayWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
                     //workManager.enqueue(restartEventsWithDelayWorker);
                     workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
+                }
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

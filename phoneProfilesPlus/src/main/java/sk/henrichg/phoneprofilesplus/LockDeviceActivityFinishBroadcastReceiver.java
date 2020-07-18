@@ -96,6 +96,17 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "for=" + MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         //PPApplication.logE("[HANDLER] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "enqueueUniqueWork - alarmTime=" + delay);
                         workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                     }

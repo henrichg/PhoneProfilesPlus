@@ -112,6 +112,17 @@ public class SearchCalendarEventsWorker extends Worker {
                                 .addTag(SearchCalendarEventsWorker.WORK_TAG)
                                 //.keepResultsForAtLeast(24 * 5, TimeUnit.HOURS)
                                 .build();
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(SearchCalendarEventsWorker.WORK_TAG);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker._scheduleWork", "for=" + SearchCalendarEventsWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     } else {
                         //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "start now work");
@@ -120,6 +131,17 @@ public class SearchCalendarEventsWorker extends Worker {
                                 .addTag(SearchCalendarEventsWorker.WORK_TAG_SHORT)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(SearchCalendarEventsWorker.WORK_TAG_SHORT);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] SearchCalendarEventsWorker._scheduleWork", "for=" + SearchCalendarEventsWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     }
 

@@ -87,6 +87,7 @@ public class PPApplication extends Application
 
     static final long APPLICATION_START_DELAY = 2 * 60 * 1000;
     static final int WORK_PRUNE_DELAY_DAYS = 1;
+    static final int WORK_PRUNE_DELAY_MINUTES = 3 * 60;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
@@ -2005,6 +2006,17 @@ public class PPApplication extends Application
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(ShowProfileNotificationWorker.WORK_TAG);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] PPApplication.forceUpdateGUI", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
@@ -2098,6 +2110,17 @@ public class PPApplication extends Application
                     //PPApplication.logE("PPApplication.updateGUI", "enqueue=" + enqueue);
 
                     if (enqueue)*/
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosByTag(UpdateGUIWorker.WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] PPApplication.updateGUI", "for=" + UpdateGUIWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
                     workManager.enqueueUniqueWork(UpdateGUIWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
@@ -4259,8 +4282,20 @@ public class PPApplication extends Application
             try {
                 if (PPApplication.getApplicationStarted(true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null)
+                    if (workManager != null) {
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] PPApplication.setBlockProfileEventActions", "for=" + PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                    }
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);

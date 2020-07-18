@@ -770,13 +770,24 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 new OneTimeWorkRequest.Builder(FetchAddressWorker.class)
                         .addTag(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG)
                         .setInputData(workData)
-                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
 
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosByTag(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] LocationGeofenceEditorActivity.startIntentService", "for=" + LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
                     //workManager.enqueue(fetchAddressWorker);
                     workManager.enqueueUniqueWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, fetchAddressWorker);
 

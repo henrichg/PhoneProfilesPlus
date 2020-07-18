@@ -3150,8 +3150,20 @@ class ActivateProfileHelper {
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
-                        if (workManager != null)
+                        if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosByTag(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "for=" + MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
                             workManager.enqueueUniqueWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        }
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -3312,8 +3324,20 @@ class ActivateProfileHelper {
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null)
+                if (workManager != null) {
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosByTag(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.setScreenTimeout", "for=" + DisableScreenTimeoutInternalChangeWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
                     workManager.enqueueUniqueWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                }
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

@@ -2869,8 +2869,20 @@ public class PhoneProfilesService extends Service
                                 .build();
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null)
+                    if (workManager != null) {
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.scheduleBackgroundScanningWorker", "for=" + PeriodicEventsHandlerWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
+                    }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -3834,8 +3846,20 @@ public class PhoneProfilesService extends Service
                                 // do not test start of PPP, because is not started in this receiver
                                 //if (PPApplication.getApplicationStarted(true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                if (workManager != null)
+                                if (workManager != null) {
+
+//                                    //if (PPApplication.logEnabled()) {
+//                                    ListenableFuture<List<WorkInfo>> statuses;
+//                                    statuses = workManager.getWorkInfosByTag(PPApplication.PACKAGE_REPLACED_WORK_TAG);
+//                                    try {
+//                                        List<WorkInfo> workInfoList = statuses.get();
+//                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doForFirstStart", "for=" + PPApplication.PACKAGE_REPLACED_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                                    } catch (Exception ignored) {
+//                                    }
+//                                    //}
+
                                     workManager.enqueueUniqueWork(PPApplication.PACKAGE_REPLACED_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                                }
                                 //}
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -3855,15 +3879,27 @@ public class PhoneProfilesService extends Service
                                             .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                             .setInputData(workData)
                                             //.setInitialDelay(5, TimeUnit.SECONDS)
-                                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                             .build();
                             try {
                                 if (PPApplication.getApplicationStarted(true)) {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
-                                    if (workManager != null)
+                                    if (workManager != null) {
+
+//                                        //if (PPApplication.logEnabled()) {
+//                                        ListenableFuture<List<WorkInfo>> statuses;
+//                                        statuses = workManager.getWorkInfosByTag(PPApplication.AFTER_FIRST_START_WORK_TAG);
+//                                        try {
+//                                            List<WorkInfo> workInfoList = statuses.get();
+//                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doForFirstStart", "for=" + PPApplication.AFTER_FIRST_START_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                                        } catch (Exception ignored) {
+//                                        }
+//                                        //}
+
                                         //workManager.enqueue(worker);
                                         workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                    }
                                 }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -5310,6 +5346,17 @@ public class PhoneProfilesService extends Service
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosByTag(ShowProfileNotificationWorker.WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.showProfileNotification", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
                     workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }

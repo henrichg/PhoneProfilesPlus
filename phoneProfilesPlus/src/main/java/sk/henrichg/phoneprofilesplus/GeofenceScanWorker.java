@@ -177,6 +177,17 @@ public class GeofenceScanWorker extends Worker {
                                 .addTag(GeofenceScanWorker.WORK_TAG)
                                 //.keepResultsForAtLeast(keepResultsDelay, TimeUnit.MINUTES)
                                 .build();
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(GeofenceScanWorker.WORK_TAG);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] GeofenceScanWorker._scheduleWork", "for=" + GeofenceScanWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     } else {
                         //PPApplication.logE("GeofenceScanWorker._scheduleWork", "start now work");
@@ -185,6 +196,17 @@ public class GeofenceScanWorker extends Worker {
                                 .addTag(GeofenceScanWorker.WORK_TAG_SHORT)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY, TimeUnit.MINUTES)
                                 .build();
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosByTag(GeofenceScanWorker.WORK_TAG_SHORT);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] GeofenceScanWorker._scheduleWork", "for=" + GeofenceScanWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
                         workManager.enqueueUniqueWork(GeofenceScanWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     }
 
