@@ -151,7 +151,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 PPApplication.sleep(500);
             else
                 break;
-        } while (SystemClock.uptimeMillis() - start < 5000);
+        } while (SystemClock.uptimeMillis() - start < 5 * 1000);
 
         // audio mode is set to MODE_IN_CALL by system
         //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "audio mode="+audioManager.getMode());
@@ -218,7 +218,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 PPApplication.sleep(500);
             else
                 break;
-        } while (SystemClock.uptimeMillis() - start < 5000);
+        } while (SystemClock.uptimeMillis() - start < 5 * 1000);
 
         // audio mode is set to MODE_NORMAL by system
 
