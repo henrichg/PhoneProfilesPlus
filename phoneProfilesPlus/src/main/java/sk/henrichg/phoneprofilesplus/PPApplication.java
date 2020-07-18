@@ -163,7 +163,7 @@ public class PPApplication extends Application
                                                 //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
                                                 //+"|[LISTENER CALL]"
-                                                +"|[TEST BATTERY]"
+                                                //+"|[TEST BATTERY]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
