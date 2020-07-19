@@ -133,9 +133,9 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                     Application application = applicationList.get(i);
                     if (removePPApplications == 1) {
                         if (
-                                application.packageName.equals("sk.henrichg.phoneprofiles") ||
-                                        application.packageName.equals("sk.henrichg.phoneprofilesplus") ||
-                                        application.packageName.equals("sk.henrichg.phoneprofilesplusextender")
+                                application.packageName.equals(PPApplication.PACKAGE_NAME_PP) ||
+                                application.packageName.equals(PPApplication.PACKAGE_NAME) ||
+                                application.packageName.equals(PPApplication.PACKAGE_NAME_EXTENDER)
                         ) {
                             applicationList.remove(i);
                             continue;

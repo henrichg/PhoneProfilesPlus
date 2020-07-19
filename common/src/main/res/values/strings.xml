@@ -1546,6 +1546,10 @@
     <string name="profile_preferences_deviceWiFiInfo_summary">Options \"On (ignore hotspot)\", \"Toggle (ignore hotspot)\" must be supported byt system</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">\"Priority\" type is similar to system \"Do not disturb\". Will be used all options configured in system Settings for \"Do not disturb\"</string>
 
+    <string name="menu_import_from_pp">Import data from PhoneProfiles</string>
+    <string name="import_profiles_from_pp_alert_title">Import data from PhoneProfiles</string>
+    <string name="import_profiles_from_pp_alert_message">Are you sure?</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

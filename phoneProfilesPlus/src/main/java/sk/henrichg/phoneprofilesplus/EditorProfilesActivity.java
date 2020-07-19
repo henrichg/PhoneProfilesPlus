@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -87,6 +88,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     @SuppressWarnings("rawtypes")
     private AsyncTask importAsyncTask = null;
+    @SuppressWarnings("rawtypes")
+    private AsyncTask importFromPPAsyncTask = null;
     @SuppressWarnings("rawtypes")
     private AsyncTask exportAsyncTask = null;
     static boolean doImport = false;
@@ -762,6 +765,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             importAsyncTask.cancel(true);
             doImport = false;
         }
+        if ((importFromPPAsyncTask != null) && !importFromPPAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            importFromPPAsyncTask.cancel(true);
+            doImport = false;
+        }
         if ((exportAsyncTask != null) && !exportAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             exportAsyncTask.cancel(true);
         }
@@ -884,6 +891,17 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setEnabled(dbExists && appPreferencesExists);
         }
 
+        menuItem = menu.findItem(R.id.menu_import_from_pp);
+        if (menuItem != null) {
+            try {
+                PackageManager packageManager = getPackageManager();
+                packageManager.getPackageInfo(PPApplication.PACKAGE_NAME_PP, 0);
+                menuItem.setVisible(true);
+            } catch (PackageManager.NameNotFoundException e) {
+                menuItem.setVisible(false);
+            }
+        }
+
         onNextLayout(editorToolbar, new Runnable() {
             @Override
             public void run() {
@@ -967,15 +985,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 importData();
 
                 return true;
-            /*case R.id.menu_help:
-                try {
-                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/henrichg/PhoneProfilesPlus/wiki"));
-                    startActivity(myIntent);
-                } catch (ActivityNotFoundException e) {
-                    ToastCompat.makeText(getApplicationContext(), "No application can handle this request."
-                        + " Please install a web browser",  Toast.LENGTH_LONG).show();
-                }
-                return true;*/
             case R.id.menu_email_to_author:
                 intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:")); // only email apps should handle this
@@ -1149,6 +1158,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (!isFinishing())
                     dialog.show();
+                return true;
+            case R.id.menu_import_from_pp:
+                importDataFromPP();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -2069,39 +2081,194 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void importData()
     {
-        //final boolean _remoteExport = remoteExport;
-
         AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
-        /*if (remoteExport)
-        {
-            dialogBuilder2.setTitle(R.string.import_profiles_from_phoneprofiles_alert_title2);
-            dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
-            //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-        }
-        else
-        {*/
         dialogBuilder2.setTitle(R.string.import_profiles_alert_title);
         dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
-        //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-        //}
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                /*if (_remoteExport)
-                {
-                    // start RemoteExportDataActivity
-                    Intent intent = new Intent("phoneprofiles.intent.action.EXPORTDATA");
-
-                    final PackageManager packageManager = getPackageManager();
-                    List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    if (list.size() > 0)
-                        startActivityForResult(intent, REQUEST_CODE_REMOTE_EXPORT);
-                    else
-                        importExportErrorDialog(1);
-                }
-                else*/
                 if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/))
                     doImportData(PPApplication.EXPORT_PATH);
+            }
+        });
+        dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
+        AlertDialog dialog = dialogBuilder2.create();
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (!isFinishing())
+            dialog.show();
+    }
+
+    private void doImportDataFromPP() {
+        final EditorProfilesActivity activity = this;
+
+        @SuppressLint("StaticFieldLeak")
+        class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
+            private final DataWrapper _dataWrapper;
+            private int dbError = DatabaseHandler.IMPORT_OK;
+            private boolean appSettingsError = false;
+            private boolean sharedProfileError = false;
+
+            private ImportAsyncTask() {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
+
+                LayoutInflater inflater = (activity.getLayoutInflater());
+                @SuppressLint("InflateParams")
+                View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+                dialogBuilder.setView(layout);
+
+                importProgressDialog = dialogBuilder.create();
+
+//                    importProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+                _dataWrapper = getDataWrapper();
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                doImport = true;
+
+                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                importProgressDialog.setCancelable(false);
+                importProgressDialog.setCanceledOnTouchOutside(false);
+                if (!activity.isFinishing())
+                    importProgressDialog.show();
+
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null) {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment) fragment).removeAdapter();
+                    else
+                        ((EditorEventListFragment) fragment).removeAdapter();
+                }
+            }
+
+            @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
+            @Override
+            protected Integer doInBackground(Void... params) {
+                //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
+                if (_dataWrapper != null) {
+                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
+
+                    // import application preferences must be first,
+                    // because in DatabaseHandler.importDB is recompute of volumes in profiles
+
+                    //TODO start import from PP
+
+                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError)))
+                        return 1;
+                    else
+                        return 0;
+                }
+                else
+                    return 0;
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                super.onPostExecute(result);
+
+                doImport = false;
+
+                if (!isFinishing()) {
+                    if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
+                        if (!isDestroyed())
+                            importProgressDialog.dismiss();
+                        importProgressDialog = null;
+                    }
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (_dataWrapper != null) {
+                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+
+                    // clear shared preferences for last activated profile
+                    Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                    Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
+                    PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
+
+                    //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
+                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                    PPApplication.updateGUI(true/*_dataWrapper.context, true, true*/);
+
+                    PPApplication.setApplicationStarted(_dataWrapper.context, true);
+                    Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                    //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                    PPApplication.startPPService(activity, serviceIntent, true);
+                }
+
+                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError))) {
+                    //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+
+                    // restart events
+                    //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
+                    //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                    //}
+
+                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
+
+                    // toast notification
+                    if (!isFinishing())
+                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                                getResources().getString(R.string.toast_import_ok),
+                                Toast.LENGTH_SHORT);
+
+                    // refresh activity
+                    if (!isFinishing())
+                        GlobalGUIRoutines.reloadActivity(activity, true);
+
+                    DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                    //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
+                    IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+                } else {
+                    //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+
+                    int appSettingsResult = 1;
+                    if (appSettingsError) appSettingsResult = 0;
+                    int sharedProfileResult = 1;
+                    if (sharedProfileError) sharedProfileResult = 0;
+                    if (!isFinishing())
+                        importExportErrorDialog(1, dbError, appSettingsResult, sharedProfileResult);
+                }
+            }
+        }
+
+        importFromPPAsyncTask = new ImportAsyncTask().execute();
+    }
+
+    private void importDataFromPP() {
+        AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
+        dialogBuilder2.setTitle(R.string.import_profiles_from_pp_alert_title);
+        dialogBuilder2.setMessage(R.string.import_profiles_from_pp_alert_message);
+
+        dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                doImportDataFromPP();
             }
         });
         dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);

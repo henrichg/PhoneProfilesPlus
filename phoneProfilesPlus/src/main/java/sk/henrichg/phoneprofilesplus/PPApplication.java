@@ -853,6 +853,7 @@ public class PPApplication extends Application
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
+    static final String PACKAGE_NAME_PP = "sk.henrichg.phoneprofiles";
 
     //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
     //static final int VERSION_CODE_EXTENDER_2_0 = 100;
@@ -2144,6 +2145,7 @@ public class PPApplication extends Application
             public void run() {
                 try {
                     Toast msg = ToastCompat.makeText(appContext, text, length);
+                    //Toast msg = Toast.makeText(appContext, text, length);
                     msg.show();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
