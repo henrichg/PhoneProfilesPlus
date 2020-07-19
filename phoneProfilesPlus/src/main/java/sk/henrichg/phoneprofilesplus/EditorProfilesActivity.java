@@ -97,6 +97,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
 
+    private boolean importFromPPStopped = false;
+
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
     private static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 2;
@@ -2131,9 +2133,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             private final DataWrapper _dataWrapper;
             private int dbError = DatabaseHandler.IMPORT_OK;
             private boolean appSettingsError = false;
-            private boolean stopped = false;
 
             private ImportAsyncTask() {
+                importFromPPStopped = false;
+
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                 dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
 
@@ -2148,7 +2151,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 // send stop into PP
                                 Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_STOP);
                                 sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
-                                stopped = true;
+                                importFromPPStopped = true;
                             }
                         });
 
@@ -2203,14 +2206,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // get PP data
                     long start = SystemClock.uptimeMillis();
                     do {
-                        if (stopped)
+                        if (importFromPPStopped)
                             break;
                         PPApplication.sleep(500);
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
-                    // import application preferences must be first,
-                    // because in DatabaseHandler.importDB is recompute of volumes in profiles
-                    // TODO save PP data into PPP
+                    if (!importFromPPStopped) {
+                        // import application preferences must be first,
+                        // because in DatabaseHandler.importDB is recompute of volumes in profiles
+                        // TODO save PP data into PPP
+                    }
+
+                    if (importFromPPStopped)
+                        return 2;
 
                     if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError)))
                         return 1;
@@ -2236,59 +2244,61 @@ public class EditorProfilesActivity extends AppCompatActivity
                     GlobalGUIRoutines.unlockScreenOrientation(activity);
                 }
 
-                if (_dataWrapper != null) {
-                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+                if (!importFromPPStopped) {
+                    if (_dataWrapper != null) {
+                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
 
-                    // clear shared preferences for last activated profile
-                    Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                    Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
-                    PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
+                        // clear shared preferences for last activated profile
+                        Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                        Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
+                        PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-                    //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                    PPApplication.updateGUI(true);
+                        //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
+                        //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                        PPApplication.updateGUI(true);
 
-                    PPApplication.setApplicationStarted(_dataWrapper.context, true);
-                    Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                    //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                    PPApplication.startPPService(activity, serviceIntent, true);
-                }
+                        PPApplication.setApplicationStarted(_dataWrapper.context, true);
+                        Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                        //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                        PPApplication.startPPService(activity, serviceIntent, true);
+                    }
 
-                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!appSettingsError)) {
-                    //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+                    if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!appSettingsError)) {
+                        //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
 
-                    // restart events
-                    //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
-                    //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
-                    //}
+                        // restart events
+                        //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
+                        //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                        //}
 
-                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, null, 0, "");
+                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, null, 0, "");
 
-                    // toast notification
-                    if (!isFinishing())
-                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.toast_import_from_pp_ok),
-                                Toast.LENGTH_SHORT);
+                        // toast notification
+                        if (!isFinishing())
+                            PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                                    getResources().getString(R.string.toast_import_from_pp_ok),
+                                    Toast.LENGTH_SHORT);
 
-                    // refresh activity
-                    if (!isFinishing())
-                        GlobalGUIRoutines.reloadActivity(activity, true);
+                        // refresh activity
+                        if (!isFinishing())
+                            GlobalGUIRoutines.reloadActivity(activity, true);
 
-                    DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
-                    //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
-                    IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
-                } else {
-                    //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+                        DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
+                        IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+                    } else {
+                        //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
 
-                    int appSettingsResult = 1;
-                    if (appSettingsError) appSettingsResult = 0;
-                    if (!isFinishing())
-                        importExportErrorDialog(1, dbError, appSettingsResult, 1);
+                        int appSettingsResult = 1;
+                        if (appSettingsError) appSettingsResult = 0;
+                        if (!isFinishing())
+                            importExportErrorDialog(1, dbError, appSettingsResult, 1);
+                    }
                 }
             }
         }
