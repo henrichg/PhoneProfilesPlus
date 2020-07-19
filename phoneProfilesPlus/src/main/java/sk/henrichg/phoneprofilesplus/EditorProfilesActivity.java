@@ -2142,10 +2142,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
                 dialogBuilder.setView(layout);
 
-                // TODO pridaj negative button, ktory umozni ukoncenie tohoto importu
                 dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                // send stop into PP
+                                Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_STOP);
+                                sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
                                 stopped = true;
                             }
                         });
@@ -2194,17 +2196,21 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (_dataWrapper != null) {
                     PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
 
-                    // import application preferences must be first,
-                    // because in DatabaseHandler.importDB is recompute of volumes in profiles
+                    // send start into PP
+                    Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_START);
+                    sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
 
-                    //TODO start import from PP
-
+                    // get PP data
                     long start = SystemClock.uptimeMillis();
                     do {
                         if (stopped)
                             break;
                         PPApplication.sleep(500);
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000);
+
+                    // import application preferences must be first,
+                    // because in DatabaseHandler.importDB is recompute of volumes in profiles
+                    // TODO save PP data into PPP
 
                     if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError)))
                         return 1;
