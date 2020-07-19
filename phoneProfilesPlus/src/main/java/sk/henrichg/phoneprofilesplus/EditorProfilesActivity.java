@@ -1699,6 +1699,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (importExport == 1)
             title = getString(R.string.import_profiles_alert_title);
         else
+        if (importExport == 3)
+            title = getString(R.string.import_profiles_from_pp_alert_title);
+        else
             title = getString(R.string.export_profiles_alert_title);
         dialogBuilder.setTitle(title);
         String message;
@@ -1714,6 +1717,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                 message = message + "\n• " + getString(R.string.import_profiles_alert_error_appSettings_bug);
             if (sharedProfileResult == 0)
                 message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
+        }
+        else
+        if (importExport == 3) {
+            message = getString(R.string.import_profiles_from_pp_alert_error) + ":";
+            if (dbResult != DatabaseHandler.IMPORT_OK) {
+                message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_database_bug);
+            }
+            if (appSettingsResult == 0)
+                message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_appSettings_bug);
+            /*if (sharedProfileResult == 0)
+                message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_sharedProfile_bug);*/
         }
         else
             message = getString(R.string.export_profiles_alert_error);
@@ -2116,7 +2130,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             private final DataWrapper _dataWrapper;
             private int dbError = DatabaseHandler.IMPORT_OK;
             private boolean appSettingsError = false;
-            private boolean sharedProfileError = false;
 
             private ImportAsyncTask() {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2175,7 +2188,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     //TODO start import from PP
 
-                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError)))
+                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError)))
                         return 1;
                     else
                         return 0;
@@ -2209,7 +2222,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
                     //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                    PPApplication.updateGUI(true/*_dataWrapper.context, true, true*/);
+                    PPApplication.updateGUI(true);
 
                     PPApplication.setApplicationStarted(_dataWrapper.context, true);
                     Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
@@ -2222,7 +2235,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     PPApplication.startPPService(activity, serviceIntent, true);
                 }
 
-                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError))) {
+                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!appSettingsError)) {
                     //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
 
                     // restart events
@@ -2230,12 +2243,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                     //}
 
-                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
+                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, null, 0, "");
 
                     // toast notification
                     if (!isFinishing())
                         PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.toast_import_ok),
+                                getResources().getString(R.string.toast_import_from_pp_ok),
                                 Toast.LENGTH_SHORT);
 
                     // refresh activity
@@ -2250,10 +2263,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     int appSettingsResult = 1;
                     if (appSettingsError) appSettingsResult = 0;
-                    int sharedProfileResult = 1;
-                    if (sharedProfileError) sharedProfileResult = 0;
                     if (!isFinishing())
-                        importExportErrorDialog(1, dbError, appSettingsResult, sharedProfileResult);
+                        importExportErrorDialog(1, dbError, appSettingsResult, 1);
                 }
             }
         }
