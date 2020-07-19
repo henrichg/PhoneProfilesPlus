@@ -97,7 +97,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
 
-    private boolean importFromPPStopped = false;
+    static boolean importFromPPStopped = false;
 
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
@@ -2133,6 +2133,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             private final DataWrapper _dataWrapper;
             private int dbError = DatabaseHandler.IMPORT_OK;
             private boolean appSettingsError = false;
+            private ImportPPDataBroadcastReceiver importPPDataBroadcastReceiver = null;
 
             private ImportAsyncTask() {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2173,6 +2174,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 super.onPreExecute();
 
                 doImport = true;
+
+                // TODO add all actions
+                importPPDataBroadcastReceiver = new ImportPPDataBroadcastReceiver();
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_START);
+                registerReceiver(importPPDataBroadcastReceiver, intentFilter,
+                        PPApplication.EXPORT_PP_DATA_PERMISSION, null);
+
 
                 GlobalGUIRoutines.lockScreenOrientation(activity, false);
                 importProgressDialog.setCancelable(false);
@@ -2239,6 +2248,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                         importProgressDialog = null;
                     }
                     GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (importPPDataBroadcastReceiver != null) {
+                    try {
+                        unregisterReceiver(importPPDataBroadcastReceiver);
+                    } catch (Exception ignored) {
+                    }
                 }
 
                 if (!importFromPPStopped) {
