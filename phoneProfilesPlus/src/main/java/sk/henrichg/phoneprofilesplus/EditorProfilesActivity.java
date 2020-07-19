@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -2130,6 +2131,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             private final DataWrapper _dataWrapper;
             private int dbError = DatabaseHandler.IMPORT_OK;
             private boolean appSettingsError = false;
+            private boolean stopped = false;
 
             private ImportAsyncTask() {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2139,6 +2141,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 @SuppressLint("InflateParams")
                 View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
                 dialogBuilder.setView(layout);
+
+                // TODO pridaj negative button, ktory umozni ukoncenie tohoto importu
+                dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                stopped = true;
+                            }
+                        });
 
                 importProgressDialog = dialogBuilder.create();
 
@@ -2164,6 +2174,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 GlobalGUIRoutines.lockScreenOrientation(activity, false);
                 importProgressDialog.setCancelable(false);
                 importProgressDialog.setCanceledOnTouchOutside(false);
+
                 if (!activity.isFinishing())
                     importProgressDialog.show();
 
@@ -2187,6 +2198,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // because in DatabaseHandler.importDB is recompute of volumes in profiles
 
                     //TODO start import from PP
+
+                    long start = SystemClock.uptimeMillis();
+                    do {
+                        if (stopped)
+                            break;
+                        PPApplication.sleep(500);
+                    } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
                     if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError)))
                         return 1;
