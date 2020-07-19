@@ -2135,8 +2135,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             private boolean appSettingsError = false;
 
             private ImportAsyncTask() {
-                importFromPPStopped = false;
-
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                 dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
 
@@ -2200,6 +2198,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
 
                     // send start into PP
+                    importFromPPStopped = false;
                     Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_START);
                     sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
 
@@ -2212,8 +2211,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000);
 
                     if (!importFromPPStopped) {
-                        // import application preferences must be first,
-                        // because in DatabaseHandler.importDB is recompute of volumes in profiles
                         // TODO save PP data into PPP
                     }
 
