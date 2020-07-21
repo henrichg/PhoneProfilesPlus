@@ -1554,6 +1554,9 @@
     <string name="import_profiles_from_pp_alert_error_appSettings_bug">Error importing the application settings.</string>
     <string name="altype_dataImport_fromPP">import data from PhoneProfiles</string>
     <string name="toast_import_from_pp_ok">Data from PhoneProfiles imported</string>
+    <string name="export_pp_data_dialog_profiles_chb">Import profiles</string>
+    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Delete configured profiles</string>
+    <string name="export_pp_data_dialog_application_preferences_chb">Import application preferences</string>
 
     <!-- **************************************************************************************** -->
 

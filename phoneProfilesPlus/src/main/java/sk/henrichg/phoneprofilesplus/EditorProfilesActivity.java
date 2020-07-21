@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -2125,7 +2126,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialog.show();
     }
 
-    private void doImportDataFromPP() {
+    private void doImportDataFromPP(final boolean importProfiles,
+                                    final boolean deleteConfiguredProfiles,
+                                    final boolean importApplicationPreferences) {
         final EditorProfilesActivity activity = this;
 
         @SuppressLint("StaticFieldLeak")
@@ -2322,15 +2325,40 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void importDataFromPP() {
         AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
         dialogBuilder2.setTitle(R.string.import_profiles_from_pp_alert_title);
-        dialogBuilder2.setMessage(R.string.import_profiles_from_pp_alert_message);
+
+        LayoutInflater inflater = (getLayoutInflater());
+        @SuppressLint("InflateParams")
+        final View layout = inflater.inflate(R.layout.dialog_import_pp_data_alert, null);
+        dialogBuilder2.setView(layout);
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                doImportDataFromPP();
+                boolean importProfiles = true;
+                boolean deleteConfiguredProfiles = false;
+                boolean importApplicationPreferences = false;
+                CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
+                if (checkbox != null) importProfiles = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
+                if (checkbox != null) deleteConfiguredProfiles = checkbox.isChecked();
+                checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
+                if (checkbox != null) importApplicationPreferences = checkbox.isChecked();
+                doImportDataFromPP(importProfiles, deleteConfiguredProfiles, importApplicationPreferences);
             }
         });
         dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
+
         AlertDialog dialog = dialogBuilder2.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
+                if (checkbox != null) checkbox.setChecked(true);
+                checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
+                if (checkbox != null) checkbox.setChecked(false);
+                checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
+                if (checkbox != null) checkbox.setChecked(false);
+            }
+        });
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
