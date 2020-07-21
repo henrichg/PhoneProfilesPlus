@@ -32,4 +32,13 @@
         android:layout_marginBottom="3dp"
         android:text="@string/export_pp_data_dialog_application_preferences_chb" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/export_pp_data_dialog_start_pp" />
+
 </LinearLayout>

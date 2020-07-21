@@ -899,8 +899,20 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (menuItem != null) {
             try {
                 PackageManager packageManager = getPackageManager();
-                packageManager.getPackageInfo(PPApplication.PACKAGE_NAME_PP, 0);
-                menuItem.setVisible(true);
+                PackageInfo pInfo = packageManager.getPackageInfo(PPApplication.PACKAGE_NAME_PP, 0);
+                int packageVersionCode = PPApplication.getVersionCode(pInfo);
+
+                /*ActivityManager manager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+                List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
+                boolean isRunnning = false;
+                for (ActivityManager.RunningAppProcessInfo process : processes)
+                {
+                    if (process.processName.equals(PPApplication.PACKAGE_NAME_PP)) {
+                        isRunnning = true;
+                        break;
+                    }
+                }*/
+                menuItem.setVisible((packageVersionCode >= 3601) /*&& isRunnning*/);
             } catch (PackageManager.NameNotFoundException e) {
                 menuItem.setVisible(false);
             }

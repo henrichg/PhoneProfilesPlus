@@ -1557,6 +1557,7 @@
     <string name="export_pp_data_dialog_profiles_chb">Import profiles</string>
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Delete configured profiles</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Import application preferences</string>
+    <string name="export_pp_data_dialog_start_pp">If PhonePrifiles is not running, please start it.</string>
 
     <!-- **************************************************************************************** -->
 
