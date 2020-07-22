@@ -2401,10 +2401,96 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
 
                             if (deleteConfiguredProfiles) {
-                                _dataWrapper.deleteAllProfiles();
+                                DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
                             }
                             if (importProfiles) {
+                                // TODO if deleteConfiguredProfiles=false, you must insert
+                                //  shortcuts and intent into db without ids and then you must
+                                //  reconfigure shortucts and intents in profiles with new ids
+                                //  You must this in db, not in DataWrapper
 
+                                for (PPProfileForImport profileForImport : importPPDataBroadcastReceiver.profiles) {
+                                    Profile profile = new Profile (
+                                            profileForImport.KEY_ID,
+                                            profileForImport.KEY_NAME,
+                                            profileForImport.KEY_ICON,
+                                            profileForImport.KEY_CHECKED,
+                                            profileForImport.KEY_PORDER,
+                                            profileForImport.KEY_VOLUME_RINGER_MODE,
+                                            profileForImport.KEY_VOLUME_RINGTONE,
+                                            profileForImport.KEY_VOLUME_NOTIFICATION,
+                                            profileForImport.KEY_VOLUME_MEDIA,
+                                            profileForImport.KEY_VOLUME_ALARM,
+                                            profileForImport.KEY_VOLUME_SYSTEM,
+                                            profileForImport.KEY_VOLUME_VOICE,
+                                            profileForImport.KEY_SOUND_RINGTONE_CHANGE,
+                                            profileForImport.KEY_SOUND_RINGTONE,
+                                            profileForImport.KEY_SOUND_NOTIFICATION_CHANGE,
+                                            profileForImport.KEY_SOUND_NOTIFICATION,
+                                            profileForImport.KEY_SOUND_ALARM_CHANGE,
+                                            profileForImport.KEY_SOUND_ALARM,
+                                            profileForImport.KEY_DEVICE_AIRPLANE_MODE,
+                                            profileForImport.KEY_DEVICE_WIFI,
+                                            profileForImport.KEY_DEVICE_BLUETOOTH,
+                                            profileForImport.KEY_DEVICE_SCREEN_TIMEOUT,
+                                            profileForImport.KEY_DEVICE_BRIGHTNESS,
+                                            profileForImport.KEY_DEVICE_WALLPAPER_CHANGE,
+                                            profileForImport.KEY_DEVICE_WALLPAPER,
+                                            profileForImport.KEY_DEVICE_MOBILE_DATA,
+                                            profileForImport.KEY_DEVICE_MOBILE_DATA_PREFS,
+                                            profileForImport.KEY_DEVICE_GPS,
+                                            profileForImport.KEY_DEVICE_RUN_APPLICATION_CHANGE,
+                                            profileForImport.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
+                                            profileForImport.KEY_DEVICE_AUTOSYNC,
+                                            false,
+                                            profileForImport.KEY_DEVICE_AUTOROTATE,
+                                            profileForImport.KEY_DEVICE_LOCATION_SERVICE_PREFS,
+                                            profileForImport.KEY_VOLUME_SPEAKER_PHONE,
+                                            profileForImport.KEY_DEVICE_NFC,
+                                            profileForImport.KEY_DURATION,
+                                            profileForImport.KEY_AFTER_DURATION_DO,
+                                            profileForImport.KEY_VOLUME_ZEN_MODE,
+                                            profileForImport.KEY_DEVICE_KEYGUARD,
+                                            profileForImport.KEY_VIBRATE_ON_TOUCH,
+                                            profileForImport.KEY_DEVICE_WIFI_AP,
+                                            profileForImport.KEY_DEVICE_POWER_SAVE_MODE,
+                                            profileForImport.KEY_ASK_FOR_DURATION,
+                                            profileForImport.KEY_DEVICE_NETWORK_TYPE,
+                                            profileForImport.KEY_NOTIFICATION_LED,
+                                            profileForImport.KEY_VIBRATE_WHEN_RINGING,
+                                            profileForImport.KEY_DEVICE_WALLPAPER_FOR,
+                                            profileForImport.KEY_HIDE_STATUS_BAR_ICON,
+                                            profileForImport.KEY_LOCK_DEVICE,
+                                            profileForImport.KEY_DEVICE_CONNECT_TO_SSID,
+                                            0,
+                                            0,
+                                            profileForImport.KEY_DURATION_NOTIFICATION_SOUND,
+                                            profileForImport.KEY_DURATION_NOTIFICATION_VIBRATE,
+                                            profileForImport.KEY_DEVICE_WIFI_AP_PREFS,
+                                            0,
+                                            0,
+                                            0,
+                                            profileForImport.KEY_HEADS_UP_NOTIFICATIONS,
+                                            profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                                            profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
+                                            profileForImport.KEY_ACTIVATION_BY_USER_COUNT,
+                                            profileForImport.KEY_DEVICE_NETWORK_TYPE_PREFS,
+                                            profileForImport.KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
+                                            profileForImport.KEY_SCREEN_NIGHT_MODE,
+                                            profileForImport.KEY_DTMF_TONE_WHEN_DIALING,
+                                            profileForImport.KEY_SOUND_ON_TOUCH,
+                                            profileForImport.KEY_VOLUME_DTMF,
+                                            profileForImport.KEY_VOLUME_ACCESSIBILITY,
+                                            profileForImport.KEY_VOLUME_BLUETOOTH_SCO,
+                                            0,
+                                            0,
+                                            0,
+                                            false,
+                                            0
+                                    );
+
+                                    DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
+                                }
                             }
                         }
                     }

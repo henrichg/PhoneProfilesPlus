@@ -3650,8 +3650,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 try {
                     db.delete(TABLE_PROFILES, null, null);
-
                     db.delete(TABLE_SHORTCUTS, null, null);
+                    db.delete(TABLE_INTENTS, null, null);
 
                     // unlink profiles from events
                     ContentValues values = new ContentValues();
