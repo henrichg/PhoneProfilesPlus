@@ -1961,8 +1961,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (_dataWrapper != null) {
                         PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
 
-                        // import application preferences must be first,
-                        // because in DatabaseHandler.importDB is recompute of volumes in profiles
                         File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
 
@@ -1980,6 +1978,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             PPApplication.recordException(e);
                         }
 
+                        // import application preferences must be first,
+                        // because in DatabaseHandler.importDB is recompute of volumes in profiles
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         appSettingsError = !importApplicationPreferences(exportFile, 1);
                         exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
@@ -2243,6 +2243,162 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (importPPDataBroadcastReceiver.importStarted &&
                             importPPDataBroadcastReceiver.importEndeed) {
                             // TODO save PP data into PPP
+
+                            // import application preferences must be first,
+                            // because in DatabaseHandler.importDB is recompute of volumes in profiles
+                            if (importApplicationPreferences) {
+                                synchronized (PPApplication.applicationPreferencesMutex) {
+                                    ApplicationPreferences.applicationStartOnBoot = importPPDataBroadcastReceiver.applicationData.applicationStartOnBoot;
+                                    ApplicationPreferences.applicationActivate = importPPDataBroadcastReceiver.applicationData.applicationActivate;
+                                    ApplicationPreferences.applicationActivateWithAlert = importPPDataBroadcastReceiver.applicationData.applicationActivateWithAlert;
+                                    ApplicationPreferences.applicationClose = importPPDataBroadcastReceiver.applicationData.applicationClose;
+                                    ApplicationPreferences.applicationLongClickActivation = importPPDataBroadcastReceiver.applicationData.applicationLongClickActivation;
+                                    ApplicationPreferences.applicationTheme = importPPDataBroadcastReceiver.applicationData.applicationTheme;
+                                    ApplicationPreferences.applicationEditorPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationEditorPrefIndicator;
+                                    ApplicationPreferences.notificationsToast = importPPDataBroadcastReceiver.applicationData.notificationsToast;
+                                    ApplicationPreferences.notificationStatusBarStyle = importPPDataBroadcastReceiver.applicationData.notificationStatusBarStyle;
+                                    ApplicationPreferences.notificationShowInStatusBar = importPPDataBroadcastReceiver.applicationData.notificationShowInStatusBar;
+                                    ApplicationPreferences.notificationTextColor = importPPDataBroadcastReceiver.applicationData.notificationTextColor;
+                                    ApplicationPreferences.notificationHideInLockScreen = importPPDataBroadcastReceiver.applicationData.notificationHideInLockscreen;
+                                    ApplicationPreferences.applicationWidgetListPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetListPrefIndicator;
+                                    ApplicationPreferences.applicationWidgetListHeader = importPPDataBroadcastReceiver.applicationData.applicationWidgetListHeader;
+                                    ApplicationPreferences.applicationWidgetListBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackground;
+                                    ApplicationPreferences.applicationWidgetListLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessB;
+                                    ApplicationPreferences.applicationWidgetListLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessT;
+                                    ApplicationPreferences.applicationWidgetIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
+                                    ApplicationPreferences.applicationWidgetIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
+                                    ApplicationPreferences.applicationWidgetListIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconColor;
+                                    ApplicationPreferences.applicationWidgetListIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconLightness;
+                                    ApplicationPreferences.notificationPrefIndicator = importPPDataBroadcastReceiver.applicationData.notificationPrefIndicator;
+                                    ApplicationPreferences.applicationActivatorGridLayout = importPPDataBroadcastReceiver.applicationData.applicationActivatorGridLayout;
+                                    ApplicationPreferences.applicationWidgetListGridLayout = importPPDataBroadcastReceiver.applicationData.applicationWidgetListGridLayout;
+                                    ApplicationPreferences.applicationWidgetIconHideProfileName = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconHideProfileName;
+                                    ApplicationPreferences.applicationShortcutEmblem = importPPDataBroadcastReceiver.applicationData.applicationShortcutEmblem;
+                                    ApplicationPreferences.applicationWidgetIconBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackground;
+                                    ApplicationPreferences.applicationWidgetIconLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessB;
+                                    ApplicationPreferences.applicationWidgetIconLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessT;
+                                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationUnlinkRingerNotificationVolumes;
+                                    ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationForceSetMergeRingNotificationVolumes;
+                                    ApplicationPreferences.applicationSamsungEdgeHeader = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeHeader;
+                                    ApplicationPreferences.applicationSamsungEdgeBackground = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackground;
+                                    ApplicationPreferences.applicationSamsungEdgeLightnessB = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessB;
+                                    ApplicationPreferences.applicationSamsungEdgeLightnessT = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessT;
+                                    ApplicationPreferences.applicationSamsungEdgeIconColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconColor;
+                                    ApplicationPreferences.applicationSamsungEdgeIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconLightness;
+                                    ApplicationPreferences.applicationWidgetListRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetListRoundedCorners;
+                                    ApplicationPreferences.applicationWidgetIconRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconRoundedCorners;
+                                    ApplicationPreferences.applicationWidgetListBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundType;
+                                    ApplicationPreferences.applicationWidgetListBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundColor;
+                                    ApplicationPreferences.applicationWidgetIconBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundType;
+                                    ApplicationPreferences.applicationWidgetIconBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundColor;
+                                    ApplicationPreferences.applicationSamsungEdgeBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundType;
+                                    ApplicationPreferences.applicationSamsungEdgeBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundColor;
+                                    ApplicationPreferences.applicationNeverAskForGrantRoot = importPPDataBroadcastReceiver.applicationData.applicationNeverAskForGrantRoot;
+                                    ApplicationPreferences.notificationShowButtonExit = importPPDataBroadcastReceiver.applicationData.notificationShowButtonExit;
+                                    ApplicationPreferences.applicationWidgetOneRowPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowPrefIndicator;
+                                    ApplicationPreferences.applicationWidgetOneRowBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackground;
+                                    ApplicationPreferences.applicationWidgetOneRowLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessB;
+                                    ApplicationPreferences.applicationWidgetOneRowLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessT;
+                                    ApplicationPreferences.applicationWidgetOneRowIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconColor;
+                                    ApplicationPreferences.applicationWidgetOneRowIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconLightness;
+                                    ApplicationPreferences.applicationWidgetOneRowRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowRoundedCorners;
+                                    ApplicationPreferences.applicationWidgetOneRowBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundType;
+                                    ApplicationPreferences.applicationWidgetOneRowBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundColor;
+                                    ApplicationPreferences.applicationWidgetListLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessBorder;
+                                    ApplicationPreferences.applicationWidgetOneRowLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessBorder;
+                                    ApplicationPreferences.applicationWidgetIconLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessBorder;
+                                    ApplicationPreferences.applicationWidgetListShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListShowBorder;
+                                    ApplicationPreferences.applicationWidgetOneRowShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowShowBorder;
+                                    ApplicationPreferences.applicationWidgetIconShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconShowBorder;
+                                    ApplicationPreferences.applicationWidgetListCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListCustomIconLightness;
+                                    ApplicationPreferences.applicationWidgetOneRowCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowCustomIconLightness;
+                                    ApplicationPreferences.applicationWidgetIconCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
+                                    ApplicationPreferences.applicationSamsungEdgeCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeCustomIconLightness;
+                                    ApplicationPreferences.notificationUseDecoration = importPPDataBroadcastReceiver.applicationData.notificationUseDecoration;
+                                    ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
+                                    ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
+
+                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.applicationActivate);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.applicationActivateWithAlert);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.applicationClose);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.applicationLongClickActivation);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationTheme);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.applicationEditorPrefIndicator);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.notificationsToast);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyle);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.notificationTextColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, ApplicationPreferences.notificationHideInLockScreen);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.applicationWidgetListHeader);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.applicationWidgetIconColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR ApplicationPreferences.notificationPrefIndicator);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, ApplicationPreferences.applicationActivatorGridLayout);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.applicationWidgetListGridLayout);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.applicationWidgetIconHideProfileName);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, ApplicationPreferences.applicationShortcutEmblem);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackground);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, ApplicationPreferences.applicationWidgetIconLightnessB);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.applicationWidgetIconLightnessT);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.applicationSamsungEdgeHeader);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, ApplicationPreferences.applicationSamsungEdgeBackground);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, ApplicationPreferences.applicationSamsungEdgeLightnessB);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, ApplicationPreferences.applicationSamsungEdgeLightnessT);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.applicationSamsungEdgeIconColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetIconRoundedCorners);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetIconBackgroundType);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetIconBackgroundColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, ApplicationPreferences.applicationSamsungEdgeBackgroundType);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, ApplicationPreferences.applicationSamsungEdgeBackgroundColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, ApplicationPreferences.applicationNeverAskForGrantRoot);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, ApplicationPreferences.notificationShowButtonExit);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetOneRowPrefIndicator);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowBackground);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetOneRowLightnessB);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetOneRowLightnessT);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetOneRowIconColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetOneRowBackgroundType);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetOneRowBackgroundColor);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetListLightnessBorder);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetOneRowLightnessBorder);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetIconLightnessBorder);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.applicationWidgetListShowBorder);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.applicationWidgetOneRowShowBorder);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.applicationWidgetIconShowBorder);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListCustomIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconCustomIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
+                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
+
+                                    editor.apply();
+                                }
+                            }
+
+                            if (deleteConfiguredProfiles) {
+                                _dataWrapper.deleteAllProfiles();
+                            }
+                            if (importProfiles) {
+
+                            }
                         }
                     }
 

@@ -493,7 +493,7 @@ class ApplicationPreferences {
     }
     */
 
-    static void applicationTheme(Context context){
+    static void applicationTheme(Context context) {
         String defaultValue = "white";
         if (Build.VERSION.SDK_INT >= 28)
             defaultValue = "night_mode";
