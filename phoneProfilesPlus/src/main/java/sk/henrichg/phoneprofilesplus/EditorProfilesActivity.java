@@ -2404,10 +2404,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
                             }
                             if (importProfiles) {
-                                // TODO if deleteConfiguredProfiles=false, you must insert
-                                //  shortcuts and intent into db without ids and then you must
-                                //  reconfigure shortucts and intents in profiles with new ids
-                                //  You must this in db, not in DataWrapper
+                                List<Long> ppShortcutIds = new ArrayList<>();
+                                List<Long> importedShortcutIds = new ArrayList<>();
+                                List<Long> ppIntentIds = new ArrayList<>();
+                                List<Long> importedIntentIds = new ArrayList<>();
+
 
                                 // first import shortcuts and intents
                                 for (PPShortcutForImport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
@@ -2416,7 +2417,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     shortcut._name = shortcutForImport.KEY_S_NAME;
 
                                     DatabaseHandler.getInstance(_dataWrapper.context).addShortcut(shortcut);
-                                    // TODO id of shortcut from db is returned in shortcut._id
+                                    // save shortcut id
+                                    ppShortcutIds.add(shortcutForImport.KEY_S_ID);
+                                    importedShortcutIds.add(shortcut._id);
                                 }
                                 for (PPIntentForImport intentForImport : importPPDataBroadcastReceiver.intents) {
                                     PPIntent ppIntent = new PPIntent(
@@ -2464,7 +2467,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     );
 
                                     DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
-                                    // TODO id of intent from db is returned in ppIntent._id
+                                    // save intent id
+                                    ppIntentIds.add(intentForImport.KEY_IN_ID);
+                                    importedIntentIds.add(ppIntent._id);
                                 }
 
 
@@ -2546,6 +2551,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             false,
                                             0
                                     );
+
+                                    // replace ids in profile._deviceRunApplicationPackageName
+                                    // with new shortcut and intent ids
 
                                     DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
                                     // TODO id of profile from db is returned in profile._id
