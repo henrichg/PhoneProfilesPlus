@@ -2214,6 +2214,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
             }
 
+            @SuppressWarnings("StringConcatenationInLoop")
             @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
             @Override
             protected Integer doInBackground(Void... params) {
@@ -2554,9 +2555,61 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                                     // replace ids in profile._deviceRunApplicationPackageName
                                     // with new shortcut and intent ids
+                                    String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                                    String newValue = "";
+                                    for (String split : splits) {
+                                        String newSplit = "";
+                                        if (Application.isShortcut(split)) {
+                                            if (split.length() > 2) {
+                                                long id = Application.getShortcutId(split);
+                                                for (int i = 0; i < ppShortcutIds.size(); i++) {
+                                                    if (id == ppShortcutIds.get(i)) {
+                                                        id = importedShortcutIds.get(i);
+
+                                                        // "(s)package_name/activity#shortcut_id#delay"
+                                                        String[] valueSplits = split.split("#");
+                                                        if (valueSplits.length == 3)
+                                                            newSplit = valueSplits[0] + "#" + id + "#" + valueSplits[2];
+                                                        else
+                                                            newSplit = split;
+
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                                newSplit = split;
+                                        } else if (Application.isIntent(split)) {
+                                            if (split.length() > 2) {
+                                                long id = Application.getIntentId(split);
+                                                for (int i = 0; i < ppIntentIds.size(); i++) {
+                                                    if (id == ppIntentIds.get(i)) {
+                                                        id = importedIntentIds.get(i);
+
+                                                        // "(i)intent_id#delay"
+                                                        String[] valueSplits = split.split("#");
+                                                        if (valueSplits.length == 2)
+                                                            newSplit = "(i)" + id + "#" + valueSplits[1];
+                                                        else
+                                                            newSplit = split;
+
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                                newSplit = split;
+                                        }
+                                        else
+                                            newSplit = split;
+
+                                        if (!newValue.isEmpty())
+                                            newValue = newValue + "|";
+                                        newValue = newValue + newSplit;
+                                    }
+                                    profile._deviceRunApplicationPackageName = newValue;
 
                                     DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
-                                    // TODO id of profile from db is returned in profile._id
                                 }
                             }
                         }
