@@ -2400,9 +2400,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 }
                             }
 
-                            if (deleteConfiguredProfiles) {
+                            //if (deleteConfiguredProfiles) { // TODO termporary commented
                                 DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
-                            }
+                            //}
                             if (importProfiles) {
                                 // TODO if deleteConfiguredProfiles=false, you must insert
                                 //  shortcuts and intent into db without ids and then you must
@@ -2411,7 +2411,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                                 for (PPProfileForImport profileForImport : importPPDataBroadcastReceiver.profiles) {
                                     Profile profile = new Profile (
-                                            profileForImport.KEY_ID,
                                             profileForImport.KEY_NAME,
                                             profileForImport.KEY_ICON,
                                             profileForImport.KEY_CHECKED,
@@ -2490,6 +2489,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     );
 
                                     DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
+                                    // TODO id of profile from db is returned in profile._id
                                 }
                             }
                         }
