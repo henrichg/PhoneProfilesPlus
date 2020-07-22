@@ -2231,11 +2231,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                     do {
                         if (importFromPPStopped)
                             break;
+
+                        if (importPPDataBroadcastReceiver.importStarted &&
+                            importPPDataBroadcastReceiver.importEndeed)
+                            break;
+
                         PPApplication.sleep(500);
-                    } while (SystemClock.uptimeMillis() - start < 10 * 1000);
+                    } while (SystemClock.uptimeMillis() - start < 10 * 1000); // TODO max length 10 seconds? Test it.
 
                     if (!importFromPPStopped) {
-                        // TODO save PP data into PPP
+                        if (importPPDataBroadcastReceiver.importStarted &&
+                            importPPDataBroadcastReceiver.importEndeed) {
+                            // TODO save PP data into PPP
+                        }
                     }
 
                     if (importFromPPStopped)
