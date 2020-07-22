@@ -2400,14 +2400,73 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 }
                             }
 
-                            //if (deleteConfiguredProfiles) { // TODO termporary commented
+                            if (deleteConfiguredProfiles) {
                                 DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
-                            //}
+                            }
                             if (importProfiles) {
                                 // TODO if deleteConfiguredProfiles=false, you must insert
                                 //  shortcuts and intent into db without ids and then you must
                                 //  reconfigure shortucts and intents in profiles with new ids
                                 //  You must this in db, not in DataWrapper
+
+                                // first import shortcuts and intents
+                                for (PPShortcutForImport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
+                                    Shortcut shortcut = new Shortcut();
+                                    shortcut._intent = shortcutForImport.KEY_S_INTENT;
+                                    shortcut._name = shortcutForImport.KEY_S_NAME;
+
+                                    DatabaseHandler.getInstance(_dataWrapper.context).addShortcut(shortcut);
+                                    // TODO id of shortcut from db is returned in shortcut._id
+                                }
+                                for (PPIntentForImport intentForImport : importPPDataBroadcastReceiver.intents) {
+                                    PPIntent ppIntent = new PPIntent(
+                                            intentForImport.KEY_IN_ID,
+                                            intentForImport.KEY_IN_NAME,
+                                            intentForImport.KEY_IN_PACKAGE_NAME,
+                                            intentForImport.KEY_IN_CLASS_NAME,
+                                            intentForImport.KEY_IN_ACTION,
+                                            intentForImport.KEY_IN_DATA,
+                                            intentForImport.KEY_IN_MIME_TYPE,
+                                            intentForImport.KEY_IN_EXTRA_KEY_1,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_1,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_1,
+                                            intentForImport.KEY_IN_EXTRA_KEY_2,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_2,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_2,
+                                            intentForImport.KEY_IN_EXTRA_KEY_3,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_3,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_3,
+                                            intentForImport.KEY_IN_EXTRA_KEY_4,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_4,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_4,
+                                            intentForImport.KEY_IN_EXTRA_KEY_5,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_5,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_5,
+                                            intentForImport.KEY_IN_EXTRA_KEY_6,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_6,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_6,
+                                            intentForImport.KEY_IN_EXTRA_KEY_7,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_7,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_7,
+                                            intentForImport.KEY_IN_EXTRA_KEY_8,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_8,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_8,
+                                            intentForImport.KEY_IN_EXTRA_KEY_9,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_9,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_9,
+                                            intentForImport.KEY_IN_EXTRA_KEY_10,
+                                            intentForImport.KEY_IN_EXTRA_VALUE_10,
+                                            intentForImport.KEY_IN_EXTRA_TYPE_10,
+                                            intentForImport.KEY_IN_CATEGORIES,
+                                            intentForImport.KEY_IN_FLAGS,
+                                            intentForImport.KEY_IN_USED_COUNT,
+                                            intentForImport.KEY_IN_INTENT_TYPE
+                                    );
+
+                                    DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
+                                    // TODO id of intent from db is returned in ppIntent._id
+                                }
+
 
                                 for (PPProfileForImport profileForImport : importPPDataBroadcastReceiver.profiles) {
                                     Profile profile = new Profile (
