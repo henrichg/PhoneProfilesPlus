@@ -6,8 +6,13 @@ import android.os.Handler;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 class ContactsContentObserver extends ContentObserver {
@@ -25,36 +30,54 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-        //PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "xxx");
+        PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "xxx");
 
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
 
-        OneTimeWorkRequest worker =
-                new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
-                        .addTag(ContactsContentObserverWorker.WORK_TAG)
-                        //.setInitialDelay(1, TimeUnit.SECONDS)
-                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                        .build();
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(ContactsContentObserverWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "for=" + ContactsContentObserverWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-                    workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+        if (PPApplication.getApplicationStarted(true)) {
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+                boolean running = false;
+                ListenableFuture<List<WorkInfo>> statuses;
+                statuses = workManager.getWorkInfosForUniqueWork(ContactsContentObserverWorker.WORK_TAG);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
+                    PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "workInfoList.size()="+workInfoList.size());
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
+                        break;
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+
+                PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "running="+running);
+
+                OneTimeWorkRequest worker;
+                if (running) {
+                    // is already running enqueue work with delay
+                    worker =
+                            new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
+                                    .addTag(ContactsContentObserverWorker.WORK_TAG)
+                                    .setInitialDelay(1, TimeUnit.MINUTES)
+                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                    .build();
+                }
+                else {
+                    // is not running enqueue work without delay
+                    worker =
+                            new OneTimeWorkRequest.Builder(ContactsContentObserverWorker.class)
+                                    .addTag(ContactsContentObserverWorker.WORK_TAG)
+                                    //.setInitialDelay(1, TimeUnit.MINUTES)
+                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                    .build();
+                }
+                workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
             }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
         }
     }
 
