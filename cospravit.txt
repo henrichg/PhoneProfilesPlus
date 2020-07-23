@@ -1537,3 +1537,20 @@ Battery historian:
       sudo docker run -p 20000:9999 gcr.io/android-battery-historian/stable:3.0 --port 9999
 4. V Chrome potom: http://localhost:20000
 
+----------
+
+Observer pre kontakty a ake uri pride a ake sa pouziva:
+
+Toto uri pride v S10 zo servisu "Contacts Migrator"
+2020-07-23 18:51:27.043 29373-29480/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] ContactsContentObserver.onChange: uri=content://com.android.contacts
+Vzdy chodi toto uri, ci kontakt prodas, upravis zmazes. Takze nechaj to ako to mas.
+
+2020-07-23 18:51:27.044 29373-29480/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] ContactsContentObserver.onChange: ContactsContract.Contacts.CONTENT_URI=content://com.android.contacts/contacts
+2020-07-23 18:51:27.046 29373-29480/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] ContactsContentObserver.onChange: ContactsContract.CommonDataKinds.Phone.CONTENT_URI=content://com.android.contacts/data/phones
+2020-07-23 18:51:27.049 29373-29480/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] ContactsContentObserver.onChange: ContactsContract.Groups.CONTENT_SUMMARY_URI=content://com.android.contacts/groups_summary
+2020-07-23 18:51:27.051 29373-29480/sk.henrichg.phoneprofilesplus E/[OBSERVER CALL] ContactsContentObserver.onChange: ContactsContract.Data.CONTENT_URI=content://com.android.contacts/data
+
+Testni, ake uri pride pri zmene kontaktu a skupiny kontaktov:
+
+
+----------

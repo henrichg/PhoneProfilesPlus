@@ -24,6 +24,8 @@ class ContactGroupsCache {
     void getContactGroupList(Context context) {
         if (cached || caching) return;
 
+        //PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- START");
+
         caching = true;
         //cancelled = false;
 
@@ -135,6 +137,8 @@ class ContactGroupsCache {
                 contactGroupList.addAll(_contactGroupList);
             }
         //}
+
+        //PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- END");
 
         caching = false;
     }

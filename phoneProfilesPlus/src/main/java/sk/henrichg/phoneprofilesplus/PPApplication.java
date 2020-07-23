@@ -158,12 +158,12 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                +"|[WORKER CALL]"
+                                                //+"|[WORKER CALL]"
                                                 //+"|[HANDLER CALL]"
                                                 //+"|[BROADCAST CALL]"
-                                                +"|[OBSERVER CALL]"
+                                                //+"|[OBSERVER CALL]"
                                                 //+"|[LISTENER CALL]"
-                                                +"|[TEST BATTERY]"
+                                                //+"|[TEST BATTERY]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"

@@ -27,6 +27,8 @@ class ContactsCache {
     {
         if (cached || caching) return;
 
+        //PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
+
         caching = true;
         //cancelled = false;
 
@@ -126,6 +128,8 @@ class ContactsCache {
                 //updateContacts(_contactListWithoutNumber, true);
             }
         //}
+
+        //PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
 
         caching = false;
     }

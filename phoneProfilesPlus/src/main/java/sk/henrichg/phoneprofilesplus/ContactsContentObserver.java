@@ -30,7 +30,14 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-        PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "xxx");
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "uri=" + uri);
+//
+//            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "ContactsContract.Contacts.CONTENT_URI=" + ContactsContract.Contacts.CONTENT_URI);
+//            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "ContactsContract.CommonDataKinds.Phone.CONTENT_URI=" + ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+//            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "ContactsContract.Groups.CONTENT_SUMMARY_URI=" + ContactsContract.Groups.CONTENT_SUMMARY_URI);
+//            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
+//        }
 
         //CallsCounter.logCounter(context, "ContactsContentObserver.onChange", "ContactContentObserver_onChange");
 
@@ -43,7 +50,7 @@ class ContactsContentObserver extends ContentObserver {
                 //noinspection TryWithIdenticalCatches
                 try {
                     List<WorkInfo> workInfoList = statuses.get();
-                    PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "workInfoList.size()="+workInfoList.size());
+                    //PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "workInfoList.size()="+workInfoList.size());
                     for (WorkInfo workInfo : workInfoList) {
                         WorkInfo.State state = workInfo.getState();
                         running = (state == WorkInfo.State.RUNNING) || (state == WorkInfo.State.ENQUEUED);
@@ -55,7 +62,7 @@ class ContactsContentObserver extends ContentObserver {
                     e.printStackTrace();
                 }
 
-                PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "running="+running);
+                //PPApplication.logE("[TEST BATTERY] ContactsContentObserver.onChange", "running="+running);
 
                 OneTimeWorkRequest worker;
                 if (running) {
