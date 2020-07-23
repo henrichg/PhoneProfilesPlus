@@ -4,8 +4,13 @@ import android.content.Context;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import java.util.concurrent.TimeUnit;
 
 // https://issuetracker.google.com/issues/115575872#comment16
 
@@ -65,7 +70,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
 //        }
 
         PPApplication.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
-/*        OneTimeWorkRequest avoidRescheduleReceiverWorker =
+        OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
                         .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
                         .setInitialDelay(30 * 3, TimeUnit.DAYS)
@@ -89,7 +94,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
-        }*/
+        }
     }
 
 }
