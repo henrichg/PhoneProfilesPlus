@@ -124,7 +124,7 @@ public class MainWorker extends Worker {
                         doAfterFirstStart(appContext, getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true));
                         break;
                     case PPApplication.PACKAGE_REPLACED_WORK_TAG:
-                        PPApplication.logE("PackageReplacedReceiver.doWork", "START");
+                        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "START");
 
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -150,25 +150,25 @@ public class MainWorker extends Worker {
                         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
                         boolean restartService = false;
-                        PPApplication.logE("PackageReplacedReceiver.doWork", "oldVersionCode=" + oldVersionCode);
-                        PPApplication.logE("PackageReplacedReceiver.doWork", "actualVersionCode=" + actualVersionCode);
+                        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "oldVersionCode=" + oldVersionCode);
+                        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "actualVersionCode=" + actualVersionCode);
                         try {
                             if (oldVersionCode < actualVersionCode) {
-                                PPApplication.logE("PackageReplacedReceiver.doWork", "is new version");
+                                PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "is new version");
 
                                 //PhoneProfilesService.cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG, appContext);
 
                                 if (actualVersionCode <= 2322) {
                                     // for old packages use Priority in events
                                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                                    //PPApplication.logE("PackageReplacedReceiver.doWork", "applicationEventUsePriority=true");
+                                    //PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "applicationEventUsePriority=true");
                                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                                     editor.apply();
 
                                     restartService = true;
                                 }
                                 if (actualVersionCode <= 2400) {
-                                    PPApplication.logE("PackageReplacedReceiver.doWork", "donation alarm restart");
+                                    PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "donation alarm restart");
                                     PPApplication.setDaysAfterFirstStart(appContext, 0);
                                     PPApplication.setDonationNotificationCount(appContext, 0);
                                     DonationBroadcastReceiver.setAlarm(appContext);
@@ -382,7 +382,7 @@ public class MainWorker extends Worker {
                                 }
 
                                 if (actualVersionCode <= 5020) {
-                                    //PPApplication.logE("PackageReplacedReceiver.doWork", "set \"night_mode\" theme");
+                                    //PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "set \"night_mode\" theme");
                                     if (Build.VERSION.SDK_INT >= 28) {
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "night_mode");
@@ -489,21 +489,21 @@ public class MainWorker extends Worker {
                             editor.apply();
                             */
 
-                        PPApplication.logE("PackageReplacedReceiver.doWork", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
+                        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
                         if (PhoneStateScanner.enabledAutoRegistration) {
                             PhoneStateScanner.stopAutoRegistration(appContext, true);
-                            PPApplication.logE("PackageReplacedReceiver.doWork", "start of wait for end of autoregistration");
+                            PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "start of wait for end of autoregistration");
                             int count = 0;
                             while (MobileCellsRegistrationService.serviceStarted && (count < 50)) {
                                 PPApplication.sleep(100);
                                 count++;
                             }
-                            PPApplication.logE("PackageReplacedReceiver.doWork", "end of autoregistration");
+                            PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "end of autoregistration");
                         }
 
                             /*SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
                             if (sharedPreferences != null) {
-                                PPApplication.logE("--------------- PackageReplacedReceiver.doWork", "package replaced set to false");
+                                PPApplication.logE("--------------- PhoneProfilesService.afterPackageReplaced.doWork", "package replaced set to false");
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
                                 editor.apply();
@@ -529,7 +529,7 @@ public class MainWorker extends Worker {
                             }
                         }
 
-                        PPApplication.logE("PackageReplacedReceiver.doWork", "END");
+                        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "END");
                         break;
                     default:
                         if (tag.startsWith(PROFILE_DURATION_TAG_WORK)) {
@@ -585,13 +585,13 @@ public class MainWorker extends Worker {
 
         //if (isApplicationStarted)
         //{
-        PPApplication.logE("PackageReplacedReceiver.startService", "start of wait for end of service");
+        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.startService", "start of wait for end of service");
         int count = 0;
         while ((PhoneProfilesService.getInstance() != null) && (count < 50)) {
             PPApplication.sleep(100);
             count++;
         }
-        PPApplication.logE("PackageReplacedReceiver.startService", "service ended");
+        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.startService", "service ended");
 
         // start PhoneProfilesService
         //PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
@@ -618,12 +618,12 @@ public class MainWorker extends Worker {
 //                        return service.foreground;
 //                    }
 //                    else
-                    PPApplication.logE("PackageReplacedReceiver.isServiceRunning", "true");
+                    PPApplication.logE("PhoneProfilesService.afterPackageReplaced.isServiceRunning", "true");
                     return true;
                 }
             }
         }
-        PPApplication.logE("PackageReplacedReceiver.isServiceRunning", "false");
+        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.isServiceRunning", "false");
         return false;
     }
 
