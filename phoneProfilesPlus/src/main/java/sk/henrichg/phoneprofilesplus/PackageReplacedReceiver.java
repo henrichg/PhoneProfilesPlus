@@ -21,7 +21,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
             PPApplication.logE("PackageReplacedReceiver.onReceive", "serviceStarted="+serviceStarted);
 
-            if (!serviceStarted) {
+            if ((!serviceStarted) && PPApplication.getApplicationStarted(false)) {
                 // service is not started
                 PPApplication.logE("PackageReplacedReceiver.onReceive", "start service");
                 // service is not started, start it
