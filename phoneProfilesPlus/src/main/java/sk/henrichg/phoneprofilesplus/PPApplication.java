@@ -136,6 +136,8 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onUpgrade"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
+                                                +"|ImportPPDataBroadcastReceiver"
+
                                                 //+"|********* RingerModeChangeReceiver.setRingerMode"
                                                 //+"|********* PPNotificationListenerService.setZenMode"
                                                 //+"|********* InterruptionFilterChangedBroadcastReceiver.setZenMode"

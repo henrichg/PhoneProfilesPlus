@@ -2146,8 +2146,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         @SuppressLint("StaticFieldLeak")
         class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
             private final DataWrapper _dataWrapper;
-            private int dbError = DatabaseHandler.IMPORT_OK;
-            private boolean appSettingsError = false;
+            private boolean profilesError = true;
+            private boolean shortcutsError = true;
+            private boolean intentsError = true;
+            private boolean appSettingsError = true;
+            private boolean deleteProfilesError = true;
             private ImportPPDataBroadcastReceiver importPPDataBroadcastReceiver = null;
 
             private ImportAsyncTask() {
@@ -2190,7 +2193,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 doImport = true;
 
-                // TODO add all actions
                 importPPDataBroadcastReceiver = new ImportPPDataBroadcastReceiver();
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_START);
@@ -2220,7 +2222,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             protected Integer doInBackground(Void... params) {
                 //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
                 if (_dataWrapper != null) {
-                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
 
                     // send start into PP
                     importFromPPStopped = false;
@@ -2241,376 +2242,401 @@ public class EditorProfilesActivity extends AppCompatActivity
                     } while (SystemClock.uptimeMillis() - start < 10 * 1000); // TODO max length 10 seconds? Test it.
 
                     if (!importFromPPStopped) {
+                        PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
+
                         if (importPPDataBroadcastReceiver.importStarted &&
                             importPPDataBroadcastReceiver.importEndeed) {
-                            // TODO save PP data into PPP
 
                             // import application preferences must be first,
                             // because in DatabaseHandler.importDB is recompute of volumes in profiles
                             if (importApplicationPreferences) {
-                                synchronized (PPApplication.applicationPreferencesMutex) {
-                                    ApplicationPreferences.applicationStartOnBoot = importPPDataBroadcastReceiver.applicationData.applicationStartOnBoot;
-                                    ApplicationPreferences.applicationActivate = importPPDataBroadcastReceiver.applicationData.applicationActivate;
-                                    ApplicationPreferences.applicationActivateWithAlert = importPPDataBroadcastReceiver.applicationData.applicationActivateWithAlert;
-                                    ApplicationPreferences.applicationClose = importPPDataBroadcastReceiver.applicationData.applicationClose;
-                                    ApplicationPreferences.applicationLongClickActivation = importPPDataBroadcastReceiver.applicationData.applicationLongClickActivation;
-                                    ApplicationPreferences.applicationTheme = importPPDataBroadcastReceiver.applicationData.applicationTheme;
-                                    ApplicationPreferences.applicationEditorPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationEditorPrefIndicator;
-                                    ApplicationPreferences.notificationsToast = importPPDataBroadcastReceiver.applicationData.notificationsToast;
-                                    ApplicationPreferences.notificationStatusBarStyle = importPPDataBroadcastReceiver.applicationData.notificationStatusBarStyle;
-                                    ApplicationPreferences.notificationShowInStatusBar = importPPDataBroadcastReceiver.applicationData.notificationShowInStatusBar;
-                                    ApplicationPreferences.notificationTextColor = importPPDataBroadcastReceiver.applicationData.notificationTextColor;
-                                    ApplicationPreferences.notificationHideInLockScreen = importPPDataBroadcastReceiver.applicationData.notificationHideInLockscreen;
-                                    ApplicationPreferences.applicationWidgetListPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetListPrefIndicator;
-                                    ApplicationPreferences.applicationWidgetListHeader = importPPDataBroadcastReceiver.applicationData.applicationWidgetListHeader;
-                                    ApplicationPreferences.applicationWidgetListBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackground;
-                                    ApplicationPreferences.applicationWidgetListLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessB;
-                                    ApplicationPreferences.applicationWidgetListLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessT;
-                                    ApplicationPreferences.applicationWidgetIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
-                                    ApplicationPreferences.applicationWidgetIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
-                                    ApplicationPreferences.applicationWidgetListIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconColor;
-                                    ApplicationPreferences.applicationWidgetListIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconLightness;
-                                    ApplicationPreferences.notificationPrefIndicator = importPPDataBroadcastReceiver.applicationData.notificationPrefIndicator;
-                                    ApplicationPreferences.applicationActivatorGridLayout = importPPDataBroadcastReceiver.applicationData.applicationActivatorGridLayout;
-                                    ApplicationPreferences.applicationWidgetListGridLayout = importPPDataBroadcastReceiver.applicationData.applicationWidgetListGridLayout;
-                                    ApplicationPreferences.applicationWidgetIconHideProfileName = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconHideProfileName;
-                                    ApplicationPreferences.applicationShortcutEmblem = importPPDataBroadcastReceiver.applicationData.applicationShortcutEmblem;
-                                    ApplicationPreferences.applicationWidgetIconBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackground;
-                                    ApplicationPreferences.applicationWidgetIconLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessB;
-                                    ApplicationPreferences.applicationWidgetIconLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessT;
-                                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationUnlinkRingerNotificationVolumes;
-                                    ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationForceSetMergeRingNotificationVolumes;
-                                    ApplicationPreferences.applicationSamsungEdgeHeader = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeHeader;
-                                    ApplicationPreferences.applicationSamsungEdgeBackground = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackground;
-                                    ApplicationPreferences.applicationSamsungEdgeLightnessB = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessB;
-                                    ApplicationPreferences.applicationSamsungEdgeLightnessT = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessT;
-                                    ApplicationPreferences.applicationSamsungEdgeIconColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconColor;
-                                    ApplicationPreferences.applicationSamsungEdgeIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconLightness;
-                                    ApplicationPreferences.applicationWidgetListRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetListRoundedCorners;
-                                    ApplicationPreferences.applicationWidgetIconRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconRoundedCorners;
-                                    ApplicationPreferences.applicationWidgetListBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundType;
-                                    ApplicationPreferences.applicationWidgetListBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundColor;
-                                    ApplicationPreferences.applicationWidgetIconBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundType;
-                                    ApplicationPreferences.applicationWidgetIconBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundColor;
-                                    ApplicationPreferences.applicationSamsungEdgeBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundType;
-                                    ApplicationPreferences.applicationSamsungEdgeBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundColor;
-                                    ApplicationPreferences.applicationNeverAskForGrantRoot = importPPDataBroadcastReceiver.applicationData.applicationNeverAskForGrantRoot;
-                                    ApplicationPreferences.notificationShowButtonExit = importPPDataBroadcastReceiver.applicationData.notificationShowButtonExit;
-                                    ApplicationPreferences.applicationWidgetOneRowPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowPrefIndicator;
-                                    ApplicationPreferences.applicationWidgetOneRowBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackground;
-                                    ApplicationPreferences.applicationWidgetOneRowLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessB;
-                                    ApplicationPreferences.applicationWidgetOneRowLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessT;
-                                    ApplicationPreferences.applicationWidgetOneRowIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconColor;
-                                    ApplicationPreferences.applicationWidgetOneRowIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconLightness;
-                                    ApplicationPreferences.applicationWidgetOneRowRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowRoundedCorners;
-                                    ApplicationPreferences.applicationWidgetOneRowBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundType;
-                                    ApplicationPreferences.applicationWidgetOneRowBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundColor;
-                                    ApplicationPreferences.applicationWidgetListLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessBorder;
-                                    ApplicationPreferences.applicationWidgetOneRowLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessBorder;
-                                    ApplicationPreferences.applicationWidgetIconLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessBorder;
-                                    ApplicationPreferences.applicationWidgetListShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListShowBorder;
-                                    ApplicationPreferences.applicationWidgetOneRowShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowShowBorder;
-                                    ApplicationPreferences.applicationWidgetIconShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconShowBorder;
-                                    ApplicationPreferences.applicationWidgetListCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListCustomIconLightness;
-                                    ApplicationPreferences.applicationWidgetOneRowCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowCustomIconLightness;
-                                    ApplicationPreferences.applicationWidgetIconCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
-                                    ApplicationPreferences.applicationSamsungEdgeCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeCustomIconLightness;
-                                    ApplicationPreferences.notificationUseDecoration = importPPDataBroadcastReceiver.applicationData.notificationUseDecoration;
-                                    ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
-                                    ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
-                                    ApplicationPreferences.notificationNotificationStyle = "0"; // custom notification style
-                                    ApplicationPreferences.notificationNightMode = false;
-                                    ApplicationPreferences.notificationShowProfileIcon = true;
-                                    if (ApplicationPreferences.notificationBackgroundColor.equals("2")) {
-                                        ApplicationPreferences.notificationBackgroundColor = "0";
-                                        ApplicationPreferences.notificationNightMode = true;
+                                try {
+                                    synchronized (PPApplication.applicationPreferencesMutex) {
+                                        ApplicationPreferences.applicationStartOnBoot = importPPDataBroadcastReceiver.applicationData.applicationStartOnBoot;
+                                        ApplicationPreferences.applicationActivate = importPPDataBroadcastReceiver.applicationData.applicationActivate;
+                                        ApplicationPreferences.applicationActivateWithAlert = importPPDataBroadcastReceiver.applicationData.applicationActivateWithAlert;
+                                        ApplicationPreferences.applicationClose = importPPDataBroadcastReceiver.applicationData.applicationClose;
+                                        ApplicationPreferences.applicationLongClickActivation = importPPDataBroadcastReceiver.applicationData.applicationLongClickActivation;
+                                        ApplicationPreferences.applicationTheme = importPPDataBroadcastReceiver.applicationData.applicationTheme;
+                                        ApplicationPreferences.applicationEditorPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationEditorPrefIndicator;
+                                        ApplicationPreferences.notificationsToast = importPPDataBroadcastReceiver.applicationData.notificationsToast;
+                                        ApplicationPreferences.notificationStatusBarStyle = importPPDataBroadcastReceiver.applicationData.notificationStatusBarStyle;
+                                        ApplicationPreferences.notificationShowInStatusBar = importPPDataBroadcastReceiver.applicationData.notificationShowInStatusBar;
+                                        ApplicationPreferences.notificationTextColor = importPPDataBroadcastReceiver.applicationData.notificationTextColor;
+                                        ApplicationPreferences.notificationHideInLockScreen = importPPDataBroadcastReceiver.applicationData.notificationHideInLockscreen;
+                                        ApplicationPreferences.applicationWidgetListPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetListPrefIndicator;
+                                        ApplicationPreferences.applicationWidgetListHeader = importPPDataBroadcastReceiver.applicationData.applicationWidgetListHeader;
+                                        ApplicationPreferences.applicationWidgetListBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackground;
+                                        ApplicationPreferences.applicationWidgetListLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessB;
+                                        ApplicationPreferences.applicationWidgetListLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessT;
+                                        ApplicationPreferences.applicationWidgetIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
+                                        ApplicationPreferences.applicationWidgetIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
+                                        ApplicationPreferences.applicationWidgetListIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconColor;
+                                        ApplicationPreferences.applicationWidgetListIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconLightness;
+                                        ApplicationPreferences.notificationPrefIndicator = importPPDataBroadcastReceiver.applicationData.notificationPrefIndicator;
+                                        ApplicationPreferences.applicationActivatorGridLayout = importPPDataBroadcastReceiver.applicationData.applicationActivatorGridLayout;
+                                        ApplicationPreferences.applicationWidgetListGridLayout = importPPDataBroadcastReceiver.applicationData.applicationWidgetListGridLayout;
+                                        ApplicationPreferences.applicationWidgetIconHideProfileName = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconHideProfileName;
+                                        ApplicationPreferences.applicationShortcutEmblem = importPPDataBroadcastReceiver.applicationData.applicationShortcutEmblem;
+                                        ApplicationPreferences.applicationWidgetIconBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackground;
+                                        ApplicationPreferences.applicationWidgetIconLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessB;
+                                        ApplicationPreferences.applicationWidgetIconLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessT;
+                                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationUnlinkRingerNotificationVolumes;
+                                        ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationForceSetMergeRingNotificationVolumes;
+                                        ApplicationPreferences.applicationSamsungEdgeHeader = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeHeader;
+                                        ApplicationPreferences.applicationSamsungEdgeBackground = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackground;
+                                        ApplicationPreferences.applicationSamsungEdgeLightnessB = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessB;
+                                        ApplicationPreferences.applicationSamsungEdgeLightnessT = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessT;
+                                        ApplicationPreferences.applicationSamsungEdgeIconColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconColor;
+                                        ApplicationPreferences.applicationSamsungEdgeIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconLightness;
+                                        ApplicationPreferences.applicationWidgetListRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetListRoundedCorners;
+                                        ApplicationPreferences.applicationWidgetIconRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconRoundedCorners;
+                                        ApplicationPreferences.applicationWidgetListBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundType;
+                                        ApplicationPreferences.applicationWidgetListBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundColor;
+                                        ApplicationPreferences.applicationWidgetIconBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundType;
+                                        ApplicationPreferences.applicationWidgetIconBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundColor;
+                                        ApplicationPreferences.applicationSamsungEdgeBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundType;
+                                        ApplicationPreferences.applicationSamsungEdgeBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundColor;
+                                        ApplicationPreferences.applicationNeverAskForGrantRoot = importPPDataBroadcastReceiver.applicationData.applicationNeverAskForGrantRoot;
+                                        ApplicationPreferences.notificationShowButtonExit = importPPDataBroadcastReceiver.applicationData.notificationShowButtonExit;
+                                        ApplicationPreferences.applicationWidgetOneRowPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowPrefIndicator;
+                                        ApplicationPreferences.applicationWidgetOneRowBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackground;
+                                        ApplicationPreferences.applicationWidgetOneRowLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessB;
+                                        ApplicationPreferences.applicationWidgetOneRowLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessT;
+                                        ApplicationPreferences.applicationWidgetOneRowIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconColor;
+                                        ApplicationPreferences.applicationWidgetOneRowIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconLightness;
+                                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowRoundedCorners;
+                                        ApplicationPreferences.applicationWidgetOneRowBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundType;
+                                        ApplicationPreferences.applicationWidgetOneRowBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundColor;
+                                        ApplicationPreferences.applicationWidgetListLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessBorder;
+                                        ApplicationPreferences.applicationWidgetOneRowLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessBorder;
+                                        ApplicationPreferences.applicationWidgetIconLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessBorder;
+                                        ApplicationPreferences.applicationWidgetListShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListShowBorder;
+                                        ApplicationPreferences.applicationWidgetOneRowShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowShowBorder;
+                                        ApplicationPreferences.applicationWidgetIconShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconShowBorder;
+                                        ApplicationPreferences.applicationWidgetListCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListCustomIconLightness;
+                                        ApplicationPreferences.applicationWidgetOneRowCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowCustomIconLightness;
+                                        ApplicationPreferences.applicationWidgetIconCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
+                                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeCustomIconLightness;
+                                        ApplicationPreferences.notificationUseDecoration = importPPDataBroadcastReceiver.applicationData.notificationUseDecoration;
+                                        ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
+                                        ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
+                                        ApplicationPreferences.notificationNotificationStyle = "0"; // custom notification style
+                                        ApplicationPreferences.notificationNightMode = false;
+                                        ApplicationPreferences.notificationShowProfileIcon = true;
+                                        if (ApplicationPreferences.notificationBackgroundColor.equals("2")) {
+                                            ApplicationPreferences.notificationBackgroundColor = "0";
+                                            ApplicationPreferences.notificationNightMode = true;
+                                        }
+
+                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.applicationActivate);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.applicationActivateWithAlert);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.applicationClose);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.applicationLongClickActivation);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationTheme);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.applicationEditorPrefIndicator);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.notificationsToast);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyle);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.notificationTextColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, ApplicationPreferences.notificationHideInLockScreen);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.applicationWidgetListHeader);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.applicationWidgetIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconLightness);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, ApplicationPreferences.notificationPrefIndicator);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, ApplicationPreferences.applicationActivatorGridLayout);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.applicationWidgetListGridLayout);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.applicationWidgetIconHideProfileName);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, ApplicationPreferences.applicationShortcutEmblem);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, ApplicationPreferences.applicationWidgetIconLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.applicationWidgetIconLightnessT);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, String.valueOf(ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes));
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.applicationSamsungEdgeHeader);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, ApplicationPreferences.applicationSamsungEdgeBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, ApplicationPreferences.applicationSamsungEdgeLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, ApplicationPreferences.applicationSamsungEdgeLightnessT);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.applicationSamsungEdgeIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetIconRoundedCorners);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetIconBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetIconBackgroundColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, ApplicationPreferences.applicationSamsungEdgeBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, ApplicationPreferences.applicationSamsungEdgeBackgroundColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, ApplicationPreferences.applicationNeverAskForGrantRoot);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, ApplicationPreferences.notificationShowButtonExit);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetOneRowPrefIndicator);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetOneRowLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetOneRowLightnessT);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetOneRowIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetOneRowBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetOneRowBackgroundColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetListLightnessBorder);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetOneRowLightnessBorder);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetIconLightnessBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.applicationWidgetListShowBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.applicationWidgetOneRowShowBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.applicationWidgetIconShowBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
+
+                                        editor.apply();
                                     }
-
-                                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.applicationActivate);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.applicationActivateWithAlert);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.applicationClose);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.applicationLongClickActivation);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationTheme);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.applicationEditorPrefIndicator);
-                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.notificationsToast);
-                                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyle);
-                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
-                                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.notificationTextColor);
-                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, ApplicationPreferences.notificationHideInLockScreen);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.applicationWidgetListHeader);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.applicationWidgetIconColor);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconLightness);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness);
-                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, ApplicationPreferences.notificationPrefIndicator);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, ApplicationPreferences.applicationActivatorGridLayout);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.applicationWidgetListGridLayout);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.applicationWidgetIconHideProfileName);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, ApplicationPreferences.applicationShortcutEmblem);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackground);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, ApplicationPreferences.applicationWidgetIconLightnessB);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.applicationWidgetIconLightnessT);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, String.valueOf(ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes));
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.applicationSamsungEdgeHeader);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, ApplicationPreferences.applicationSamsungEdgeBackground);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, ApplicationPreferences.applicationSamsungEdgeLightnessB);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, ApplicationPreferences.applicationSamsungEdgeLightnessT);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.applicationSamsungEdgeIconColor);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeIconLightness);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetIconRoundedCorners);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetIconBackgroundType);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetIconBackgroundColor);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, ApplicationPreferences.applicationSamsungEdgeBackgroundType);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, ApplicationPreferences.applicationSamsungEdgeBackgroundColor);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, ApplicationPreferences.applicationNeverAskForGrantRoot);
-                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, ApplicationPreferences.notificationShowButtonExit);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetOneRowPrefIndicator);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowBackground);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetOneRowLightnessB);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetOneRowLightnessT);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetOneRowIconColor);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowIconLightness);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetOneRowBackgroundType);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetOneRowBackgroundColor);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetListLightnessBorder);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetOneRowLightnessBorder);
-                                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetIconLightnessBorder);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.applicationWidgetListShowBorder);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.applicationWidgetOneRowShowBorder);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.applicationWidgetIconShowBorder);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListCustomIconLightness);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconCustomIconLightness);
-                                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness);
-                                    editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
-                                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
-                                    editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
-
-                                    editor.apply();
+                                    appSettingsError = false;
+                                } catch (Exception e) {
+                                    appSettingsError = true;
                                 }
                             }
+                            else
+                                appSettingsError = false;
 
                             if (deleteConfiguredProfiles) {
-                                DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
+                                deleteProfilesError = !DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
                             }
-                            if (importProfiles) {
+                            else
+                                deleteProfilesError = false;
+                            if (importProfiles && (!deleteProfilesError)) {
                                 List<Long> ppShortcutIds = new ArrayList<>();
                                 List<Long> importedShortcutIds = new ArrayList<>();
                                 List<Long> ppIntentIds = new ArrayList<>();
                                 List<Long> importedIntentIds = new ArrayList<>();
 
 
-                                // first import shortcuts and intents
-                                for (PPShortcutForImport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
-                                    Shortcut shortcut = new Shortcut();
-                                    shortcut._intent = shortcutForImport.KEY_S_INTENT;
-                                    shortcut._name = shortcutForImport.KEY_S_NAME;
+                                try {
+                                    // first import shortcuts and intents
+                                    for (PPShortcutForImport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
+                                        Shortcut shortcut = new Shortcut();
+                                        shortcut._intent = shortcutForImport.KEY_S_INTENT;
+                                        shortcut._name = shortcutForImport.KEY_S_NAME;
 
-                                    DatabaseHandler.getInstance(_dataWrapper.context).addShortcut(shortcut);
-                                    // save shortcut id
-                                    ppShortcutIds.add(shortcutForImport.KEY_S_ID);
-                                    importedShortcutIds.add(shortcut._id);
-                                }
-                                for (PPIntentForImport intentForImport : importPPDataBroadcastReceiver.intents) {
-                                    PPIntent ppIntent = new PPIntent(
-                                            intentForImport.KEY_IN_ID,
-                                            intentForImport.KEY_IN_NAME,
-                                            intentForImport.KEY_IN_PACKAGE_NAME,
-                                            intentForImport.KEY_IN_CLASS_NAME,
-                                            intentForImport.KEY_IN_ACTION,
-                                            intentForImport.KEY_IN_DATA,
-                                            intentForImport.KEY_IN_MIME_TYPE,
-                                            intentForImport.KEY_IN_EXTRA_KEY_1,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_1,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_1,
-                                            intentForImport.KEY_IN_EXTRA_KEY_2,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_2,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_2,
-                                            intentForImport.KEY_IN_EXTRA_KEY_3,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_3,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_3,
-                                            intentForImport.KEY_IN_EXTRA_KEY_4,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_4,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_4,
-                                            intentForImport.KEY_IN_EXTRA_KEY_5,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_5,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_5,
-                                            intentForImport.KEY_IN_EXTRA_KEY_6,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_6,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_6,
-                                            intentForImport.KEY_IN_EXTRA_KEY_7,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_7,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_7,
-                                            intentForImport.KEY_IN_EXTRA_KEY_8,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_8,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_8,
-                                            intentForImport.KEY_IN_EXTRA_KEY_9,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_9,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_9,
-                                            intentForImport.KEY_IN_EXTRA_KEY_10,
-                                            intentForImport.KEY_IN_EXTRA_VALUE_10,
-                                            intentForImport.KEY_IN_EXTRA_TYPE_10,
-                                            intentForImport.KEY_IN_CATEGORIES,
-                                            intentForImport.KEY_IN_FLAGS,
-                                            intentForImport.KEY_IN_USED_COUNT,
-                                            intentForImport.KEY_IN_INTENT_TYPE
-                                    );
-
-                                    DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
-                                    // save intent id
-                                    ppIntentIds.add(intentForImport.KEY_IN_ID);
-                                    importedIntentIds.add(ppIntent._id);
-                                }
-
-
-                                for (PPProfileForImport profileForImport : importPPDataBroadcastReceiver.profiles) {
-                                    Profile profile = new Profile (
-                                            profileForImport.KEY_NAME,
-                                            profileForImport.KEY_ICON,
-                                            profileForImport.KEY_CHECKED,
-                                            profileForImport.KEY_PORDER,
-                                            profileForImport.KEY_VOLUME_RINGER_MODE,
-                                            profileForImport.KEY_VOLUME_RINGTONE,
-                                            profileForImport.KEY_VOLUME_NOTIFICATION,
-                                            profileForImport.KEY_VOLUME_MEDIA,
-                                            profileForImport.KEY_VOLUME_ALARM,
-                                            profileForImport.KEY_VOLUME_SYSTEM,
-                                            profileForImport.KEY_VOLUME_VOICE,
-                                            profileForImport.KEY_SOUND_RINGTONE_CHANGE,
-                                            profileForImport.KEY_SOUND_RINGTONE,
-                                            profileForImport.KEY_SOUND_NOTIFICATION_CHANGE,
-                                            profileForImport.KEY_SOUND_NOTIFICATION,
-                                            profileForImport.KEY_SOUND_ALARM_CHANGE,
-                                            profileForImport.KEY_SOUND_ALARM,
-                                            profileForImport.KEY_DEVICE_AIRPLANE_MODE,
-                                            profileForImport.KEY_DEVICE_WIFI,
-                                            profileForImport.KEY_DEVICE_BLUETOOTH,
-                                            profileForImport.KEY_DEVICE_SCREEN_TIMEOUT,
-                                            profileForImport.KEY_DEVICE_BRIGHTNESS,
-                                            profileForImport.KEY_DEVICE_WALLPAPER_CHANGE,
-                                            profileForImport.KEY_DEVICE_WALLPAPER,
-                                            profileForImport.KEY_DEVICE_MOBILE_DATA,
-                                            profileForImport.KEY_DEVICE_MOBILE_DATA_PREFS,
-                                            profileForImport.KEY_DEVICE_GPS,
-                                            profileForImport.KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                                            profileForImport.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                                            profileForImport.KEY_DEVICE_AUTOSYNC,
-                                            false,
-                                            profileForImport.KEY_DEVICE_AUTOROTATE,
-                                            profileForImport.KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                                            profileForImport.KEY_VOLUME_SPEAKER_PHONE,
-                                            profileForImport.KEY_DEVICE_NFC,
-                                            profileForImport.KEY_DURATION,
-                                            profileForImport.KEY_AFTER_DURATION_DO,
-                                            profileForImport.KEY_VOLUME_ZEN_MODE,
-                                            profileForImport.KEY_DEVICE_KEYGUARD,
-                                            profileForImport.KEY_VIBRATE_ON_TOUCH,
-                                            profileForImport.KEY_DEVICE_WIFI_AP,
-                                            profileForImport.KEY_DEVICE_POWER_SAVE_MODE,
-                                            profileForImport.KEY_ASK_FOR_DURATION,
-                                            profileForImport.KEY_DEVICE_NETWORK_TYPE,
-                                            profileForImport.KEY_NOTIFICATION_LED,
-                                            profileForImport.KEY_VIBRATE_WHEN_RINGING,
-                                            profileForImport.KEY_DEVICE_WALLPAPER_FOR,
-                                            profileForImport.KEY_HIDE_STATUS_BAR_ICON,
-                                            profileForImport.KEY_LOCK_DEVICE,
-                                            profileForImport.KEY_DEVICE_CONNECT_TO_SSID,
-                                            0,
-                                            0,
-                                            profileForImport.KEY_DURATION_NOTIFICATION_SOUND,
-                                            profileForImport.KEY_DURATION_NOTIFICATION_VIBRATE,
-                                            profileForImport.KEY_DEVICE_WIFI_AP_PREFS,
-                                            0,
-                                            0,
-                                            0,
-                                            profileForImport.KEY_HEADS_UP_NOTIFICATIONS,
-                                            profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
-                                            profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
-                                            profileForImport.KEY_ACTIVATION_BY_USER_COUNT,
-                                            profileForImport.KEY_DEVICE_NETWORK_TYPE_PREFS,
-                                            profileForImport.KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                            profileForImport.KEY_SCREEN_NIGHT_MODE,
-                                            profileForImport.KEY_DTMF_TONE_WHEN_DIALING,
-                                            profileForImport.KEY_SOUND_ON_TOUCH,
-                                            profileForImport.KEY_VOLUME_DTMF,
-                                            profileForImport.KEY_VOLUME_ACCESSIBILITY,
-                                            profileForImport.KEY_VOLUME_BLUETOOTH_SCO,
-                                            0,
-                                            0,
-                                            0,
-                                            false,
-                                            0
-                                    );
-
-                                    // replace ids in profile._deviceRunApplicationPackageName
-                                    // with new shortcut and intent ids
-                                    String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                                    String newValue = "";
-                                    for (String split : splits) {
-                                        String newSplit = "";
-                                        if (Application.isShortcut(split)) {
-                                            if (split.length() > 2) {
-                                                long id = Application.getShortcutId(split);
-                                                for (int i = 0; i < ppShortcutIds.size(); i++) {
-                                                    if (id == ppShortcutIds.get(i)) {
-                                                        id = importedShortcutIds.get(i);
-
-                                                        // "(s)package_name/activity#shortcut_id#delay"
-                                                        String[] valueSplits = split.split("#");
-                                                        if (valueSplits.length == 3)
-                                                            newSplit = valueSplits[0] + "#" + id + "#" + valueSplits[2];
-                                                        else
-                                                            newSplit = split;
-
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            else
-                                                newSplit = split;
-                                        } else if (Application.isIntent(split)) {
-                                            if (split.length() > 2) {
-                                                long id = Application.getIntentId(split);
-                                                for (int i = 0; i < ppIntentIds.size(); i++) {
-                                                    if (id == ppIntentIds.get(i)) {
-                                                        id = importedIntentIds.get(i);
-
-                                                        // "(i)intent_id#delay"
-                                                        String[] valueSplits = split.split("#");
-                                                        if (valueSplits.length == 2)
-                                                            newSplit = "(i)" + id + "#" + valueSplits[1];
-                                                        else
-                                                            newSplit = split;
-
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            else
-                                                newSplit = split;
-                                        }
-                                        else
-                                            newSplit = split;
-
-                                        if (!newValue.isEmpty())
-                                            newValue = newValue + "|";
-                                        newValue = newValue + newSplit;
+                                        DatabaseHandler.getInstance(_dataWrapper.context).addShortcut(shortcut);
+                                        // save shortcut id
+                                        ppShortcutIds.add(shortcutForImport.KEY_S_ID);
+                                        importedShortcutIds.add(shortcut._id);
                                     }
-                                    profile._deviceRunApplicationPackageName = newValue;
-
-                                    DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
+                                    shortcutsError = false;
+                                } catch (Exception e) {
+                                    shortcutsError = true;
                                 }
+                                try {
+                                    for (PPIntentForImport intentForImport : importPPDataBroadcastReceiver.intents) {
+                                        PPIntent ppIntent = new PPIntent(
+                                                intentForImport.KEY_IN_ID,
+                                                intentForImport.KEY_IN_NAME,
+                                                intentForImport.KEY_IN_PACKAGE_NAME,
+                                                intentForImport.KEY_IN_CLASS_NAME,
+                                                intentForImport.KEY_IN_ACTION,
+                                                intentForImport.KEY_IN_DATA,
+                                                intentForImport.KEY_IN_MIME_TYPE,
+                                                intentForImport.KEY_IN_EXTRA_KEY_1,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_1,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_1,
+                                                intentForImport.KEY_IN_EXTRA_KEY_2,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_2,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_2,
+                                                intentForImport.KEY_IN_EXTRA_KEY_3,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_3,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_3,
+                                                intentForImport.KEY_IN_EXTRA_KEY_4,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_4,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_4,
+                                                intentForImport.KEY_IN_EXTRA_KEY_5,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_5,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_5,
+                                                intentForImport.KEY_IN_EXTRA_KEY_6,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_6,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_6,
+                                                intentForImport.KEY_IN_EXTRA_KEY_7,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_7,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_7,
+                                                intentForImport.KEY_IN_EXTRA_KEY_8,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_8,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_8,
+                                                intentForImport.KEY_IN_EXTRA_KEY_9,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_9,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_9,
+                                                intentForImport.KEY_IN_EXTRA_KEY_10,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_10,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_10,
+                                                intentForImport.KEY_IN_CATEGORIES,
+                                                intentForImport.KEY_IN_FLAGS,
+                                                intentForImport.KEY_IN_USED_COUNT,
+                                                intentForImport.KEY_IN_INTENT_TYPE
+                                        );
+
+                                        DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
+                                        // save intent id
+                                        ppIntentIds.add(intentForImport.KEY_IN_ID);
+                                        importedIntentIds.add(ppIntent._id);
+                                    }
+                                    intentsError = false;
+                                } catch (Exception e) {
+                                    intentsError = true;
+                                }
+
+                                try {
+                                    for (PPProfileForImport profileForImport : importPPDataBroadcastReceiver.profiles) {
+                                        Profile profile = new Profile(
+                                                profileForImport.KEY_NAME,
+                                                profileForImport.KEY_ICON,
+                                                profileForImport.KEY_CHECKED,
+                                                profileForImport.KEY_PORDER,
+                                                profileForImport.KEY_VOLUME_RINGER_MODE,
+                                                profileForImport.KEY_VOLUME_RINGTONE,
+                                                profileForImport.KEY_VOLUME_NOTIFICATION,
+                                                profileForImport.KEY_VOLUME_MEDIA,
+                                                profileForImport.KEY_VOLUME_ALARM,
+                                                profileForImport.KEY_VOLUME_SYSTEM,
+                                                profileForImport.KEY_VOLUME_VOICE,
+                                                profileForImport.KEY_SOUND_RINGTONE_CHANGE,
+                                                profileForImport.KEY_SOUND_RINGTONE,
+                                                profileForImport.KEY_SOUND_NOTIFICATION_CHANGE,
+                                                profileForImport.KEY_SOUND_NOTIFICATION,
+                                                profileForImport.KEY_SOUND_ALARM_CHANGE,
+                                                profileForImport.KEY_SOUND_ALARM,
+                                                profileForImport.KEY_DEVICE_AIRPLANE_MODE,
+                                                profileForImport.KEY_DEVICE_WIFI,
+                                                profileForImport.KEY_DEVICE_BLUETOOTH,
+                                                profileForImport.KEY_DEVICE_SCREEN_TIMEOUT,
+                                                profileForImport.KEY_DEVICE_BRIGHTNESS,
+                                                profileForImport.KEY_DEVICE_WALLPAPER_CHANGE,
+                                                profileForImport.KEY_DEVICE_WALLPAPER,
+                                                profileForImport.KEY_DEVICE_MOBILE_DATA,
+                                                profileForImport.KEY_DEVICE_MOBILE_DATA_PREFS,
+                                                profileForImport.KEY_DEVICE_GPS,
+                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_CHANGE,
+                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
+                                                profileForImport.KEY_DEVICE_AUTOSYNC,
+                                                false,
+                                                profileForImport.KEY_DEVICE_AUTOROTATE,
+                                                profileForImport.KEY_DEVICE_LOCATION_SERVICE_PREFS,
+                                                profileForImport.KEY_VOLUME_SPEAKER_PHONE,
+                                                profileForImport.KEY_DEVICE_NFC,
+                                                profileForImport.KEY_DURATION,
+                                                profileForImport.KEY_AFTER_DURATION_DO,
+                                                profileForImport.KEY_VOLUME_ZEN_MODE,
+                                                profileForImport.KEY_DEVICE_KEYGUARD,
+                                                profileForImport.KEY_VIBRATE_ON_TOUCH,
+                                                profileForImport.KEY_DEVICE_WIFI_AP,
+                                                profileForImport.KEY_DEVICE_POWER_SAVE_MODE,
+                                                profileForImport.KEY_ASK_FOR_DURATION,
+                                                profileForImport.KEY_DEVICE_NETWORK_TYPE,
+                                                profileForImport.KEY_NOTIFICATION_LED,
+                                                profileForImport.KEY_VIBRATE_WHEN_RINGING,
+                                                profileForImport.KEY_DEVICE_WALLPAPER_FOR,
+                                                profileForImport.KEY_HIDE_STATUS_BAR_ICON,
+                                                profileForImport.KEY_LOCK_DEVICE,
+                                                profileForImport.KEY_DEVICE_CONNECT_TO_SSID,
+                                                0,
+                                                0,
+                                                profileForImport.KEY_DURATION_NOTIFICATION_SOUND,
+                                                profileForImport.KEY_DURATION_NOTIFICATION_VIBRATE,
+                                                profileForImport.KEY_DEVICE_WIFI_AP_PREFS,
+                                                0,
+                                                0,
+                                                0,
+                                                profileForImport.KEY_HEADS_UP_NOTIFICATIONS,
+                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
+                                                profileForImport.KEY_ACTIVATION_BY_USER_COUNT,
+                                                profileForImport.KEY_DEVICE_NETWORK_TYPE_PREFS,
+                                                profileForImport.KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
+                                                profileForImport.KEY_SCREEN_NIGHT_MODE,
+                                                profileForImport.KEY_DTMF_TONE_WHEN_DIALING,
+                                                profileForImport.KEY_SOUND_ON_TOUCH,
+                                                profileForImport.KEY_VOLUME_DTMF,
+                                                profileForImport.KEY_VOLUME_ACCESSIBILITY,
+                                                profileForImport.KEY_VOLUME_BLUETOOTH_SCO,
+                                                0,
+                                                0,
+                                                0,
+                                                false,
+                                                0
+                                        );
+
+                                        // replace ids in profile._deviceRunApplicationPackageName
+                                        // with new shortcut and intent ids
+                                        String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                                        String newValue = "";
+                                        for (String split : splits) {
+                                            String newSplit = "";
+                                            if (Application.isShortcut(split)) {
+                                                if (split.length() > 2) {
+                                                    long id = Application.getShortcutId(split);
+                                                    for (int i = 0; i < ppShortcutIds.size(); i++) {
+                                                        if (id == ppShortcutIds.get(i)) {
+                                                            id = importedShortcutIds.get(i);
+
+                                                            // "(s)package_name/activity#shortcut_id#delay"
+                                                            String[] valueSplits = split.split("#");
+                                                            if (valueSplits.length == 3)
+                                                                newSplit = valueSplits[0] + "#" + id + "#" + valueSplits[2];
+                                                            else
+                                                                newSplit = split;
+
+                                                            break;
+                                                        }
+                                                    }
+                                                } else
+                                                    newSplit = split;
+                                            } else if (Application.isIntent(split)) {
+                                                if (split.length() > 2) {
+                                                    long id = Application.getIntentId(split);
+                                                    for (int i = 0; i < ppIntentIds.size(); i++) {
+                                                        if (id == ppIntentIds.get(i)) {
+                                                            id = importedIntentIds.get(i);
+
+                                                            // "(i)intent_id#delay"
+                                                            String[] valueSplits = split.split("#");
+                                                            if (valueSplits.length == 2)
+                                                                newSplit = "(i)" + id + "#" + valueSplits[1];
+                                                            else
+                                                                newSplit = split;
+
+                                                            break;
+                                                        }
+                                                    }
+                                                } else
+                                                    newSplit = split;
+                                            } else
+                                                newSplit = split;
+
+                                            if (!newValue.isEmpty())
+                                                newValue = newValue + "|";
+                                            newValue = newValue + newSplit;
+                                        }
+                                        profile._deviceRunApplicationPackageName = newValue;
+
+                                        DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
+                                    }
+                                    profilesError = false;
+                                }  catch (Exception e) {
+                                    profilesError = true;
+                                }
+                            } else {
+                                profilesError = false;
+                                shortcutsError = false;
+                                intentsError = false;
                             }
                         }
                     }
@@ -2618,10 +2644,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (importFromPPStopped)
                         return 2;
 
-                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError)))
-                        return 1;
-                    else
+                    if (deleteProfilesError || profilesError || shortcutsError || intentsError || appSettingsError)
                         return 0;
+                    else
+                        return 1;
                 }
                 else
                     return 0;
@@ -2673,7 +2699,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.startPPService(activity, serviceIntent, true);
                     }
 
-                    if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!appSettingsError)) {
+                    if ((_dataWrapper != null) && (!deleteProfilesError) && (!profilesError) && (!shortcutsError) && (!intentsError) && (!appSettingsError)) {
                         //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
 
                         // restart events
@@ -2701,8 +2727,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         int appSettingsResult = 1;
                         if (appSettingsError) appSettingsResult = 0;
+                        int dbError = DatabaseHandler.IMPORT_OK;
+                        if (deleteProfilesError || profilesError || shortcutsError || intentsError)
+                            dbError = DatabaseHandler.IMPORT_ERROR_BUG;
                         if (!isFinishing())
-                            importExportErrorDialog(1, dbError, appSettingsResult, 1);
+                            importExportErrorDialog(2, dbError, appSettingsResult, 1);
                     }
                 }
             }
@@ -3064,7 +3093,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     } else {
                         if (!isFinishing())
-                            importExportErrorDialog(2, 0, 0, 0);
+                            importExportErrorDialog(3, 0, 0, 0);
                     }
                 }
 

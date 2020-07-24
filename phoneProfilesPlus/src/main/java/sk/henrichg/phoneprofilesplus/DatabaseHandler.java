@@ -60,7 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Condition runningCommandCondition = importExportLock.newCondition();
     private boolean runningImportExport = false;
     private boolean runningCommand = false;
-    private static final int IMPORT_ERROR_BUG = 0;
+    static final int IMPORT_ERROR_BUG = 0;
     static final int IMPORT_ERROR_NEVER_VERSION = -999;
     static final int IMPORT_OK = 1;
 
@@ -3637,7 +3637,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting all profiles
-    void deleteAllProfiles() {
+    boolean deleteAllProfiles() {
+        boolean ok = false;
         importExportLock.lock();
         try {
             try {
@@ -3662,6 +3663,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.update(TABLE_EVENTS, values, null, null);
 
                     db.setTransactionSuccessful();
+
+                    ok = true;
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 } finally {
@@ -3675,6 +3678,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } finally {
             stopRunningCommand();
         }
+        return ok;
     }
 
     // Getting profiles Count
