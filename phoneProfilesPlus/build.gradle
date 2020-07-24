@@ -63,7 +63,7 @@ dependencies {
 
     implementation "androidx.work:work-runtime:$ppVersions.workXLib"
 
-    implementation 'androidx.core:core:1.3.0'
+    implementation 'androidx.core:core:1.3.1'
     implementation 'androidx.fragment:fragment:1.2.5'
     implementation 'androidx.activity:activity:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
@@ -110,13 +110,14 @@ dependencies {
     //implementation 'me.drakeet.support:toastcompat:1.1.0'
     //implementation 'com.llew.huawei:verifier:1.1.2'
 
-    implementation project(':common')
-    implementation project(':ToastCompat')
-    implementation project(':RootShell')
-    implementation project(':RootTools')
-    implementation project(':android-betterpickers')
-    implementation project(':time-duration-picker')
-    implementation project(':AndroidClearChroma')
+    implementation project(path: ':common')
+    implementation project(path: ':ToastCompat')
+    implementation project(path: ':RootShell')
+    implementation project(path: ':RootTools')
+    implementation project(path: ':android-betterpickers')
+    implementation project(path: ':time-duration-picker')
+    implementation project(path: ':AndroidClearChroma')
+    implementation project(path: ':phoneProfilesImport')
 
     implementation files('libs/sdk-v1.0.0.jar')
     implementation files('libs/slook_v1.4.0.jar')

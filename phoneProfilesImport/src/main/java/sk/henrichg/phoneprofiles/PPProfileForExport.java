@@ -1,75 +1,75 @@
-package sk.henrichg.phoneprofilesplus;
+package sk.henrichg.phoneprofiles;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PPProfileForImport implements Parcelable {
+public class PPProfileForExport implements Parcelable {
 
-    long KEY_ID;
-    String KEY_NAME;
-    String KEY_ICON;
-    boolean KEY_CHECKED;
-    int KEY_PORDER;
-    int KEY_VOLUME_RINGER_MODE;
-    String KEY_VOLUME_RINGTONE;
-    String KEY_VOLUME_NOTIFICATION;
-    String KEY_VOLUME_MEDIA;
-    String KEY_VOLUME_ALARM;
-    String KEY_VOLUME_SYSTEM;
-    String KEY_VOLUME_VOICE;
-    int KEY_SOUND_RINGTONE_CHANGE;
-    String KEY_SOUND_RINGTONE;
-    int KEY_SOUND_NOTIFICATION_CHANGE;
-    String KEY_SOUND_NOTIFICATION;
-    int KEY_SOUND_ALARM_CHANGE;
-    String KEY_SOUND_ALARM;
-    int KEY_DEVICE_AIRPLANE_MODE;
-    int KEY_DEVICE_WIFI;
-    int KEY_DEVICE_BLUETOOTH;
-    int KEY_DEVICE_SCREEN_TIMEOUT;
-    String KEY_DEVICE_BRIGHTNESS;
-    int KEY_DEVICE_WALLPAPER_CHANGE;
-    String KEY_DEVICE_WALLPAPER;
-    int KEY_DEVICE_MOBILE_DATA;
-    int KEY_DEVICE_MOBILE_DATA_PREFS;
-    int KEY_DEVICE_GPS;
-    int KEY_DEVICE_RUN_APPLICATION_CHANGE;
-    String KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME;
-    int KEY_DEVICE_AUTOSYNC;
-    int KEY_DEVICE_AUTOROTATE;
-    int KEY_DEVICE_LOCATION_SERVICE_PREFS;
-    int KEY_VOLUME_SPEAKER_PHONE;
-    int KEY_DEVICE_NFC;
-    int KEY_DURATION;
-    int KEY_AFTER_DURATION_DO;
-    int KEY_VOLUME_ZEN_MODE;
-    int KEY_DEVICE_KEYGUARD;
-    int KEY_VIBRATE_ON_TOUCH;
-    int KEY_DEVICE_WIFI_AP;
-    int KEY_DEVICE_POWER_SAVE_MODE;
-    boolean KEY_ASK_FOR_DURATION;
-    int KEY_DEVICE_NETWORK_TYPE;
-    int KEY_NOTIFICATION_LED;
-    int KEY_VIBRATE_WHEN_RINGING;
-    int KEY_DEVICE_WALLPAPER_FOR;
-    boolean KEY_HIDE_STATUS_BAR_ICON;
-    int KEY_LOCK_DEVICE;
-    String KEY_DEVICE_CONNECT_TO_SSID;
-    String KEY_DURATION_NOTIFICATION_SOUND;
-    boolean KEY_DURATION_NOTIFICATION_VIBRATE;
-    int KEY_DEVICE_WIFI_AP_PREFS;
-    int KEY_HEADS_UP_NOTIFICATIONS;
-    int KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE;
-    String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME;
-    long KEY_ACTIVATION_BY_USER_COUNT;
-    int KEY_DEVICE_NETWORK_TYPE_PREFS;
-    int KEY_DEVICE_CLOSE_ALL_APPLICATIONS;
-    int KEY_SCREEN_NIGHT_MODE;
-    int KEY_DTMF_TONE_WHEN_DIALING;
-    int KEY_SOUND_ON_TOUCH;
-    String KEY_VOLUME_DTMF;
-    String KEY_VOLUME_ACCESSIBILITY;
-    String KEY_VOLUME_BLUETOOTH_SCO;
+    public long KEY_ID;
+    public String KEY_NAME;
+    public String KEY_ICON;
+    public boolean KEY_CHECKED;
+    public int KEY_PORDER;
+    public int KEY_VOLUME_RINGER_MODE;
+    public String KEY_VOLUME_RINGTONE;
+    public String KEY_VOLUME_NOTIFICATION;
+    public String KEY_VOLUME_MEDIA;
+    public String KEY_VOLUME_ALARM;
+    public String KEY_VOLUME_SYSTEM;
+    public String KEY_VOLUME_VOICE;
+    public int KEY_SOUND_RINGTONE_CHANGE;
+    public String KEY_SOUND_RINGTONE;
+    public int KEY_SOUND_NOTIFICATION_CHANGE;
+    public String KEY_SOUND_NOTIFICATION;
+    public int KEY_SOUND_ALARM_CHANGE;
+    public String KEY_SOUND_ALARM;
+    public int KEY_DEVICE_AIRPLANE_MODE;
+    public int KEY_DEVICE_WIFI;
+    public int KEY_DEVICE_BLUETOOTH;
+    public int KEY_DEVICE_SCREEN_TIMEOUT;
+    public String KEY_DEVICE_BRIGHTNESS;
+    public int KEY_DEVICE_WALLPAPER_CHANGE;
+    public String KEY_DEVICE_WALLPAPER;
+    public int KEY_DEVICE_MOBILE_DATA;
+    public int KEY_DEVICE_MOBILE_DATA_PREFS;
+    public int KEY_DEVICE_GPS;
+    public int KEY_DEVICE_RUN_APPLICATION_CHANGE;
+    public String KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME;
+    public int KEY_DEVICE_AUTOSYNC;
+    public int KEY_DEVICE_AUTOROTATE;
+    public int KEY_DEVICE_LOCATION_SERVICE_PREFS;
+    public int KEY_VOLUME_SPEAKER_PHONE;
+    public int KEY_DEVICE_NFC;
+    public int KEY_DURATION;
+    public int KEY_AFTER_DURATION_DO;
+    public int KEY_VOLUME_ZEN_MODE;
+    public int KEY_DEVICE_KEYGUARD;
+    public int KEY_VIBRATE_ON_TOUCH;
+    public int KEY_DEVICE_WIFI_AP;
+    public int KEY_DEVICE_POWER_SAVE_MODE;
+    public boolean KEY_ASK_FOR_DURATION;
+    public int KEY_DEVICE_NETWORK_TYPE;
+    public int KEY_NOTIFICATION_LED;
+    public int KEY_VIBRATE_WHEN_RINGING;
+    public int KEY_DEVICE_WALLPAPER_FOR;
+    public boolean KEY_HIDE_STATUS_BAR_ICON;
+    public int KEY_LOCK_DEVICE;
+    public String KEY_DEVICE_CONNECT_TO_SSID;
+    public String KEY_DURATION_NOTIFICATION_SOUND;
+    public boolean KEY_DURATION_NOTIFICATION_VIBRATE;
+    public int KEY_DEVICE_WIFI_AP_PREFS;
+    public int KEY_HEADS_UP_NOTIFICATIONS;
+    public int KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE;
+    public String KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME;
+    public long KEY_ACTIVATION_BY_USER_COUNT;
+    public int KEY_DEVICE_NETWORK_TYPE_PREFS;
+    public int KEY_DEVICE_CLOSE_ALL_APPLICATIONS;
+    public int KEY_SCREEN_NIGHT_MODE;
+    public int KEY_DTMF_TONE_WHEN_DIALING;
+    public int KEY_SOUND_ON_TOUCH;
+    public String KEY_VOLUME_DTMF;
+    public String KEY_VOLUME_ACCESSIBILITY;
+    public String KEY_VOLUME_BLUETOOTH_SCO;
 
     @Override
     public int describeContents() {
@@ -145,10 +145,10 @@ public class PPProfileForImport implements Parcelable {
         dest.writeString(this.KEY_VOLUME_BLUETOOTH_SCO);
     }
 
-    public PPProfileForImport() {
+    public PPProfileForExport() {
     }
 
-    protected PPProfileForImport(Parcel in) {
+    protected PPProfileForExport(Parcel in) {
         this.KEY_ID = in.readLong();
         this.KEY_NAME = in.readString();
         this.KEY_ICON = in.readString();
@@ -216,15 +216,15 @@ public class PPProfileForImport implements Parcelable {
         this.KEY_VOLUME_BLUETOOTH_SCO = in.readString();
     }
 
-    public static final Parcelable.Creator<PPProfileForImport> CREATOR = new Parcelable.Creator<PPProfileForImport>() {
+    public static final Parcelable.Creator<PPProfileForExport> CREATOR = new Parcelable.Creator<PPProfileForExport>() {
         @Override
-        public PPProfileForImport createFromParcel(Parcel source) {
-            return new PPProfileForImport(source);
+        public PPProfileForExport createFromParcel(Parcel source) {
+            return new PPProfileForExport(source);
         }
 
         @Override
-        public PPProfileForImport[] newArray(int size) {
-            return new PPProfileForImport[size];
+        public PPProfileForExport[] newArray(int size) {
+            return new PPProfileForExport[size];
         }
     };
 }

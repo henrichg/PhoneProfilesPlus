@@ -69,6 +69,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import sk.henrichg.phoneprofiles.PPIntentForExport;
+import sk.henrichg.phoneprofiles.PPProfileForExport;
+import sk.henrichg.phoneprofiles.PPShortcutForExport;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
@@ -2196,6 +2199,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 importPPDataBroadcastReceiver = new ImportPPDataBroadcastReceiver();
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_START);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STARTED);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_ENDED);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS);
                 registerReceiver(importPPDataBroadcastReceiver, intentFilter,
                         PPApplication.EXPORT_PP_DATA_PERMISSION, null);
 
@@ -2424,7 +2436,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                                 try {
                                     // first import shortcuts and intents
-                                    for (PPShortcutForImport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
+                                    for (PPShortcutForExport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
                                         Shortcut shortcut = new Shortcut();
                                         shortcut._intent = shortcutForImport.KEY_S_INTENT;
                                         shortcut._name = shortcutForImport.KEY_S_NAME;
@@ -2439,7 +2451,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     shortcutsError = true;
                                 }
                                 try {
-                                    for (PPIntentForImport intentForImport : importPPDataBroadcastReceiver.intents) {
+                                    for (PPIntentForExport intentForImport : importPPDataBroadcastReceiver.intents) {
                                         PPIntent ppIntent = new PPIntent(
                                                 intentForImport.KEY_IN_ID,
                                                 intentForImport.KEY_IN_NAME,
@@ -2495,7 +2507,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 }
 
                                 try {
-                                    for (PPProfileForImport profileForImport : importPPDataBroadcastReceiver.profiles) {
+                                    for (PPProfileForExport profileForImport : importPPDataBroadcastReceiver.profiles) {
                                         Profile profile = new Profile(
                                                 profileForImport.KEY_NAME,
                                                 profileForImport.KEY_ICON,

@@ -1,87 +1,87 @@
-package sk.henrichg.phoneprofilesplus;
+package sk.henrichg.phoneprofiles;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PPApplicationDataForImport implements Parcelable {
+public class PPApplicationDataForExport implements Parcelable {
 
-    boolean applicationStartOnBoot;
-    boolean applicationActivate;
-    boolean applicationActivateWithAlert;
-    boolean applicationClose;
-    boolean applicationLongClickActivation;
-    String applicationLanguage;
-    String applicationTheme;
-    boolean applicationActivatorPrefIndicator;
-    boolean applicationEditorPrefIndicator;
-    boolean applicationActivatorHeader;
-    boolean applicationEditorHeader;
-    boolean notificationsToast;
-    boolean notificationStatusBar;
-    boolean notificationStatusBarPermanent;
-    String notificationStatusBarCancel;
-    String notificationStatusBarStyle;
-    boolean notificationShowInStatusBar;
-    String notificationTextColor;
-    boolean notificationHideInLockscreen;
-    boolean applicationWidgetListPrefIndicator;
-    boolean applicationWidgetListHeader;
-    String applicationWidgetListBackground;
-    String applicationWidgetListLightnessB;
-    String applicationWidgetListLightnessT;
-    String applicationWidgetIconColor;
-    String applicationWidgetIconLightness;
-    String applicationWidgetListIconColor;
-    String applicationWidgetListIconLightness;
-    boolean notificationPrefIndicator;
-    String applicationBackgroundProfile;
-    boolean applicationActivatorGridLayout;
-    boolean applicationWidgetListGridLayout;
-    boolean applicationWidgetIconHideProfileName;
-    boolean applicationShortcutEmblem;
-    String applicationWidgetIconBackground;
-    String applicationWidgetIconLightnessB;
-    String applicationWidgetIconLightnessT;
-    boolean applicationUnlinkRingerNotificationVolumes;
-    int applicationForceSetMergeRingNotificationVolumes;
-    boolean applicationSamsungEdgeHeader;
-    String applicationSamsungEdgeBackground;
-    String applicationSamsungEdgeLightnessB;
-    String applicationSamsungEdgeLightnessT;
-    String applicationSamsungEdgeIconColor;
-    String applicationSamsungEdgeIconLightness;
-    boolean applicationWidgetListRoundedCorners;
-    boolean applicationWidgetIconRoundedCorners;
-    boolean applicationWidgetListBackgroundType;
-    String applicationWidgetListBackgroundColor;
-    boolean applicationWidgetIconBackgroundType;
-    String applicationWidgetIconBackgroundColor;
-    boolean applicationSamsungEdgeBackgroundType;
-    String applicationSamsungEdgeBackgroundColor;
-    boolean applicationNeverAskForGrantRoot;
-    boolean notificationShowButtonExit;
-    boolean applicationWidgetOneRowPrefIndicator;
-    String applicationWidgetOneRowBackground;
-    String applicationWidgetOneRowLightnessB;
-    String applicationWidgetOneRowLightnessT;
-    String applicationWidgetOneRowIconColor;
-    String applicationWidgetOneRowIconLightness;
-    boolean applicationWidgetOneRowRoundedCorners;
-    boolean applicationWidgetOneRowBackgroundType;
-    String applicationWidgetOneRowBackgroundColor;
-    String applicationWidgetListLightnessBorder;
-    String applicationWidgetOneRowLightnessBorder;
-    String applicationWidgetIconLightnessBorder;
-    boolean applicationWidgetListShowBorder;
-    boolean applicationWidgetOneRowShowBorder;
-    boolean applicationWidgetIconShowBorder;
-    boolean applicationWidgetListCustomIconLightness;
-    boolean applicationWidgetOneRowCustomIconLightness;
-    boolean applicationWidgetIconCustomIconLightness;
-    boolean applicationSamsungEdgeCustomIconLightness;
-    boolean notificationUseDecoration;
-    String notificationLayoutType;
-    String notificationBackgroundColor;
+    public boolean applicationStartOnBoot;
+    public boolean applicationActivate;
+    public boolean applicationActivateWithAlert;
+    public boolean applicationClose;
+    public boolean applicationLongClickActivation;
+    public String applicationLanguage;
+    public String applicationTheme;
+    public boolean applicationActivatorPrefIndicator;
+    public boolean applicationEditorPrefIndicator;
+    public boolean applicationActivatorHeader;
+    public boolean applicationEditorHeader;
+    public boolean notificationsToast;
+    public boolean notificationStatusBar;
+    public boolean notificationStatusBarPermanent;
+    public String notificationStatusBarCancel;
+    public String notificationStatusBarStyle;
+    public boolean notificationShowInStatusBar;
+    public String notificationTextColor;
+    public boolean notificationHideInLockscreen;
+    public boolean applicationWidgetListPrefIndicator;
+    public boolean applicationWidgetListHeader;
+    public String applicationWidgetListBackground;
+    public String applicationWidgetListLightnessB;
+    public String applicationWidgetListLightnessT;
+    public String applicationWidgetIconColor;
+    public String applicationWidgetIconLightness;
+    public String applicationWidgetListIconColor;
+    public String applicationWidgetListIconLightness;
+    public boolean notificationPrefIndicator;
+    public String applicationBackgroundProfile;
+    public boolean applicationActivatorGridLayout;
+    public boolean applicationWidgetListGridLayout;
+    public boolean applicationWidgetIconHideProfileName;
+    public boolean applicationShortcutEmblem;
+    public String applicationWidgetIconBackground;
+    public String applicationWidgetIconLightnessB;
+    public String applicationWidgetIconLightnessT;
+    public boolean applicationUnlinkRingerNotificationVolumes;
+    public int applicationForceSetMergeRingNotificationVolumes;
+    public boolean applicationSamsungEdgeHeader;
+    public String applicationSamsungEdgeBackground;
+    public String applicationSamsungEdgeLightnessB;
+    public String applicationSamsungEdgeLightnessT;
+    public String applicationSamsungEdgeIconColor;
+    public String applicationSamsungEdgeIconLightness;
+    public boolean applicationWidgetListRoundedCorners;
+    public boolean applicationWidgetIconRoundedCorners;
+    public boolean applicationWidgetListBackgroundType;
+    public String applicationWidgetListBackgroundColor;
+    public boolean applicationWidgetIconBackgroundType;
+    public String applicationWidgetIconBackgroundColor;
+    public boolean applicationSamsungEdgeBackgroundType;
+    public String applicationSamsungEdgeBackgroundColor;
+    public boolean applicationNeverAskForGrantRoot;
+    public boolean notificationShowButtonExit;
+    public boolean applicationWidgetOneRowPrefIndicator;
+    public String applicationWidgetOneRowBackground;
+    public String applicationWidgetOneRowLightnessB;
+    public String applicationWidgetOneRowLightnessT;
+    public String applicationWidgetOneRowIconColor;
+    public String applicationWidgetOneRowIconLightness;
+    public boolean applicationWidgetOneRowRoundedCorners;
+    public boolean applicationWidgetOneRowBackgroundType;
+    public String applicationWidgetOneRowBackgroundColor;
+    public String applicationWidgetListLightnessBorder;
+    public String applicationWidgetOneRowLightnessBorder;
+    public String applicationWidgetIconLightnessBorder;
+    public boolean applicationWidgetListShowBorder;
+    public boolean applicationWidgetOneRowShowBorder;
+    public boolean applicationWidgetIconShowBorder;
+    public boolean applicationWidgetListCustomIconLightness;
+    public boolean applicationWidgetOneRowCustomIconLightness;
+    public boolean applicationWidgetIconCustomIconLightness;
+    public boolean applicationSamsungEdgeCustomIconLightness;
+    public boolean notificationUseDecoration;
+    public String notificationLayoutType;
+    public String notificationBackgroundColor;
 
 
     @Override
@@ -170,10 +170,10 @@ public class PPApplicationDataForImport implements Parcelable {
         dest.writeString(this.notificationBackgroundColor);
     }
 
-    public PPApplicationDataForImport() {
+    public PPApplicationDataForExport() {
     }
 
-    protected PPApplicationDataForImport(Parcel in) {
+    protected PPApplicationDataForExport(Parcel in) {
         this.applicationStartOnBoot = in.readByte() != 0;
         this.applicationActivate = in.readByte() != 0;
         this.applicationActivateWithAlert = in.readByte() != 0;
@@ -253,15 +253,15 @@ public class PPApplicationDataForImport implements Parcelable {
         this.notificationBackgroundColor = in.readString();
     }
 
-    public static final Parcelable.Creator<PPApplicationDataForImport> CREATOR = new Parcelable.Creator<PPApplicationDataForImport>() {
+    public static final Parcelable.Creator<PPApplicationDataForExport> CREATOR = new Parcelable.Creator<PPApplicationDataForExport>() {
         @Override
-        public PPApplicationDataForImport createFromParcel(Parcel source) {
-            return new PPApplicationDataForImport(source);
+        public PPApplicationDataForExport createFromParcel(Parcel source) {
+            return new PPApplicationDataForExport(source);
         }
 
         @Override
-        public PPApplicationDataForImport[] newArray(int size) {
-            return new PPApplicationDataForImport[size];
+        public PPApplicationDataForExport[] newArray(int size) {
+            return new PPApplicationDataForExport[size];
         }
     };
 }

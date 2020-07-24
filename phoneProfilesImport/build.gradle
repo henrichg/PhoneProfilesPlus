@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion ppVersions.compileSdk
+    buildToolsVersion ppVersions.buildTools
+
+    defaultConfig {
+        minSdkVersion ppVersions.minSdk
+        targetSdkVersion ppVersions.targetSdk
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+}

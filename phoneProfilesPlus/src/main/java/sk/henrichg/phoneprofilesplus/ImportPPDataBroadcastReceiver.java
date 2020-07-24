@@ -8,17 +8,22 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
+import sk.henrichg.phoneprofiles.PPApplicationDataForExport;
+import sk.henrichg.phoneprofiles.PPIntentForExport;
+import sk.henrichg.phoneprofiles.PPProfileForExport;
+import sk.henrichg.phoneprofiles.PPShortcutForExport;
+
 public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
 
     boolean importStarted = false;
     boolean importEndeed = false;
-    PPApplicationDataForImport applicationData = null;
+    PPApplicationDataForExport applicationData = null;
     int profilesCount = 0;
-    List<PPProfileForImport> profiles = null;
+    List<PPProfileForExport> profiles = null;
     int shortcutsCount = 0;
-    List<PPShortcutForImport> shortcuts = null;
+    List<PPShortcutForExport> shortcuts = null;
     int intentsCount = 0;
-    List<PPIntentForImport> intents = null;
+    List<PPIntentForExport> intents = null;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -52,46 +57,55 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
             case PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    profilesCount = extras.getParcelable(PPApplication.EXTRA_PP_PROFILES_COUNT);
+                    profilesCount = extras.getInt(PPApplication.EXTRA_PP_PROFILES_COUNT);
                     profiles = new ArrayList<>();
+                    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profilesCount="+profilesCount);
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_PROFILES:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    PPProfileForImport profile = extras.getParcelable(PPApplication.EXTRA_PP_PROFILE_DATA);
-                    if (profile != null)
+                    PPProfileForExport profile = extras.getParcelable(PPApplication.EXTRA_PP_PROFILE_DATA);
+                    if (profile != null) {
                         profiles.add(profile);
+                        PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profile.KEY_NAME=" + profile.KEY_NAME);
+                    }
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    shortcutsCount = extras.getParcelable(PPApplication.EXTRA_PP_SHORTCUTS_COUNT);
+                    shortcutsCount = extras.getInt(PPApplication.EXTRA_PP_SHORTCUTS_COUNT);
                     shortcuts = new ArrayList<>();
+                    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcutsCount="+shortcutsCount);
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    PPShortcutForImport shortcut = extras.getParcelable(PPApplication.EXTRA_PP_SHORTCUT_DATA);
-                    if (shortcut != null)
+                    PPShortcutForExport shortcut = extras.getParcelable(PPApplication.EXTRA_PP_SHORTCUT_DATA);
+                    if (shortcut != null) {
                         shortcuts.add(shortcut);
+                        PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcut.KEY_S_NAME="+shortcut.KEY_S_NAME);
+                    }
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    intentsCount = extras.getParcelable(PPApplication.EXTRA_PP_INTENTS_COUNT);
+                    intentsCount = extras.getInt(PPApplication.EXTRA_PP_INTENTS_COUNT);
                     intents = new ArrayList<>();
+                    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intentsCount="+intentsCount);
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_INTENTS:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    PPIntentForImport ppIntent = extras.getParcelable(PPApplication.EXTRA_PP_INTENT_DATA);
-                    if (ppIntent != null)
+                    PPIntentForExport ppIntent = extras.getParcelable(PPApplication.EXTRA_PP_INTENT_DATA);
+                    if (ppIntent != null) {
                         intents.add(ppIntent);
+                        PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "ppIntent.KEY_IN_NAME="+ppIntent.KEY_IN_NAME);
+                    }
                 }
                 break;
         }

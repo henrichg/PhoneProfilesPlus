@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ToastCompat/ToastCompat.iml" filepath="$PROJECT_DIR$/.idea/modules/ToastCompat/ToastCompat.iml" group="PhoneProfilesPlus/ToastCompat" />
       <module fileurl="file://$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" filepath="$PROJECT_DIR$/android-betterpickers/android-betterpickers.iml" group="PhoneProfilesPlus/android-betterpickers" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" group="PhoneProfilesPlus/common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/phoneProfilesImport/phoneProfilesImport.iml" filepath="$PROJECT_DIR$/.idea/modules/phoneProfilesImport/phoneProfilesImport.iml" group="PhoneProfilesPlus/phoneProfilesImport" />
       <module fileurl="file://$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" filepath="$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" group="PhoneProfilesPlus/phoneProfilesPlus" />
       <module fileurl="file://$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" filepath="$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" group="PhoneProfilesPlus/time-duration-picker" />
     </modules>
