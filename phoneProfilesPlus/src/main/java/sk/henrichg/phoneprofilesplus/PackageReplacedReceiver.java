@@ -18,16 +18,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         final Context appContext = context.getApplicationContext();
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
-            boolean serviceStarted = false;
-            synchronized (PPApplication.phoneProfilesServiceMutex) {
-                try {
-                    serviceStarted = PhoneProfilesService.getInstance() != null;
-                } catch (Exception ignored) {}
-            }
+            boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+            PPApplication.logE("PackageReplacedReceiver.onReceive", "serviceStarted="+serviceStarted);
 
             if (!serviceStarted) {
                 // service is not started
-                PPApplication.logE("BootUpReceiver.onReceive", "start service");
+                PPApplication.logE("PackageReplacedReceiver.onReceive", "start service");
                 // service is not started, start it
                 PPApplication.setApplicationStarted(appContext, true);
                 Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);

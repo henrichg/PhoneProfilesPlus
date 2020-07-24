@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -5387,14 +5388,13 @@ public class PhoneProfilesService extends Service
         //}
     }
 
-    /*
     public static boolean isServiceRunning(Context context, Class<?> serviceClass, boolean inForeground) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (manager != null) {
             for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
                 if (serviceClass.getName().equals(service.service.getClassName())) {
                     if (inForeground) {
-                        PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "service.foreground=" + service.foreground);
+                        PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
                         return service.foreground;
                     }
                     else
@@ -5402,10 +5402,9 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
-        PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "false");
+        PPApplication.logE("PhoneProfilesService.isServiceRunning", "false");
         return false;
     }
-    */
 
     //--------------------------
 
