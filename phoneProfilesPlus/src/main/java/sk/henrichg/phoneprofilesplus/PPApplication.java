@@ -1041,17 +1041,17 @@ public class PPApplication extends Application
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
-    static final String ACTION_EXPORT_PP_DATA_START = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_START";
-    static final String ACTION_EXPORT_PP_DATA_STARTED = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_STARTED";
-    static final String ACTION_EXPORT_PP_DATA_ENDED = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_ENDED";
-    static final String ACTION_EXPORT_PP_DATA_STOP = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_STOP";
-    static final String ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES";
-    static final String ACTION_EXPORT_PP_DATA_PROFILES_COUNT = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_PROFILES_COUNT";
-    static final String ACTION_EXPORT_PP_DATA_PROFILES = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_PROFILES";
-    static final String ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT";
-    static final String ACTION_EXPORT_PP_DATA_SHORTCUTS = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_SHORTCUTS";
-    static final String ACTION_EXPORT_PP_DATA_INTENTS_COUNT = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_INTENTS_COUNT";
-    static final String ACTION_EXPORT_PP_DATA_INTENTS = PPApplication.PACKAGE_NAME + ".ACTION_EXPORT_PP_DATA_INTENTS";
+    static final String ACTION_EXPORT_PP_DATA_START = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_START";
+    static final String ACTION_EXPORT_PP_DATA_STARTED = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_STARTED";
+    static final String ACTION_EXPORT_PP_DATA_ENDED = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_ENDED";
+    static final String ACTION_EXPORT_PP_DATA_STOP = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_STOP";
+    static final String ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES";
+    static final String ACTION_EXPORT_PP_DATA_PROFILES_COUNT = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_PROFILES_COUNT";
+    static final String ACTION_EXPORT_PP_DATA_PROFILES = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_PROFILES";
+    static final String ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT";
+    static final String ACTION_EXPORT_PP_DATA_SHORTCUTS = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_SHORTCUTS";
+    static final String ACTION_EXPORT_PP_DATA_INTENTS_COUNT = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_INTENTS_COUNT";
+    static final String ACTION_EXPORT_PP_DATA_INTENTS = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_INTENTS";
     static final String EXTRA_PP_APPLICATION_DATA = "extra_pp_application_data";
     static final String EXTRA_PP_PROFILES_COUNT = "extra_pp_profiles_count";
     static final String EXTRA_PP_PROFILE_DATA = "extra_pp_profile_data";
@@ -1059,7 +1059,7 @@ public class PPApplication extends Application
     static final String EXTRA_PP_SHORTCUT_DATA = "extra_pp_shortcut_data";
     static final String EXTRA_PP_INTENTS_COUNT = "extra_pp_intents_count";
     static final String EXTRA_PP_INTENT_DATA = "extra_pp_intent_data";
-    static final String EXPORT_PP_DATA_PERMISSION = PPApplication.PACKAGE_NAME + ".EXPORT_PP_DATA_PERMISSION";
+    static final String EXPORT_PP_DATA_PERMISSION = PPApplication.PACKAGE_NAME_PP + ".EXPORT_PP_DATA_PERMISSION";
 
 
     static final String EXTRA_REGISTRATION_APP = "registration_app";
