@@ -23,17 +23,21 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             if ((!serviceStarted) && PPApplication.getApplicationStarted(false)) {
                 // service is not started
-                PPApplication.logE("PackageReplacedReceiver.onReceive", "start service");
-                // service is not started, start it
-                PPApplication.setApplicationStarted(appContext, true);
-                Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
-                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
-                PPApplication.startPPService(appContext, serviceIntent, true);
+                try {
+                    PPApplication.logE("PackageReplacedReceiver.onReceive", "start service");
+                    // service is not started, start it
+                    PPApplication.setApplicationStarted(appContext, true);
+                    Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                    //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
+                    PPApplication.startPPService(appContext, serviceIntent, true);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
         }
     }
