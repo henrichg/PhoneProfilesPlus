@@ -94,6 +94,7 @@ public class IgnoreBatteryOptimizationDisableActivity extends AppCompatActivity
     }
 
     private boolean showNotStartedToast() {
+        //PPApplication.logE("[APP START] IgnoreBatteryOptimizationDisableActivity.showNotStartedToast", "xxx");
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
         if (!applicationStarted) {

@@ -30,12 +30,10 @@ public class ShowProfileNotificationWorker extends Worker {
             if ((!PPApplication.doNotShowProfileNotification) &&
                     PhoneProfilesService.getInstance() != null) {
                 try {
-                    //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "xxx");
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                    //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "_showProfileNotification()");
                     if (PhoneProfilesService.getInstance() != null) {
-                        //PPApplication.logE("ShowProfileNotificationBroadcastReceiver._doWork", "handler");
+                        //PPApplication.logE("[APP START] ShowProfileNotificationWorker.doWork", "xxx");
                         PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, /*false,*/ false/*, cleared*/);
                     }
                 } catch (Exception e) {

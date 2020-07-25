@@ -108,13 +108,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     applicationWidgetIconCustomIconLightness);
 
         Profile profile;
-        boolean fullyStarted = PPApplication.applicationFullyStarted;
-        //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-        if ((!fullyStarted) /*|| applicationPackageReplaced*/)
-            profile = null;
-        else
+        //boolean fullyStarted = PPApplication.applicationFullyStarted;
+        //if ((!fullyStarted) /*|| applicationPackageReplaced*/)
+        //    profile = null;
+        //else
             profile = dataWrapper.getActivatedProfile(true, false);
-        //}
 
         //try {
             //PPApplication.logE("IconWidgetProvider.onUpdate", "refreshWidget="+refreshWidget);

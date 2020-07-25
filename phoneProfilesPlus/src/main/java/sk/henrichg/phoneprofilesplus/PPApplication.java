@@ -167,6 +167,7 @@ public class PPApplication extends Application
                                                 //+"|[OBSERVER CALL]"
                                                 //+"|[LISTENER CALL]"
                                                 //+"|[TEST BATTERY]"
+                                                //+"|[APP START]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
@@ -1971,8 +1972,9 @@ public class PPApplication extends Application
         /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
         PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
 
-        if (!PPApplication.applicationFullyStarted)
-            return;
+        // update gui even when app is not fully started
+        //if (!PPApplication.applicationFullyStarted)
+        //    return;
 
         // icon widget
         try {

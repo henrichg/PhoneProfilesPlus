@@ -5269,9 +5269,10 @@ public class PhoneProfilesService extends Service
             if (forServiceStart) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                //PPApplication.logE("[APP START] PhoneProfilesService.showProfileNotification", "forServiceStart="+forServiceStart);
                 _showProfileNotification(null, dataWrapper, /*true,*/ true/*, cleared*/);
                 //dataWrapper.invalidateDataWrapper();
-                return;
+                //return; // do not return, dusplay activated profile immediatelly
             }
         //}
 
@@ -5280,6 +5281,7 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
+        //PPApplication.logE("[APP START] PhoneProfilesService.showProfileNotification", "PPApplication.doNotShowProfileNotification="+PPApplication.doNotShowProfileNotification);
         if (PPApplication.doNotShowProfileNotification)
             return;
 
@@ -5335,13 +5337,21 @@ public class PhoneProfilesService extends Service
         */
 
         // KEEP IT AS WORK !!!
-        OneTimeWorkRequest worker =
-                new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
-                        .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                        .setInitialDelay(1, TimeUnit.SECONDS)
-                        .build();
+        OneTimeWorkRequest worker;
+        if (forServiceStart)
+            worker =
+                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
+                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
+                            //.setInitialDelay(1, TimeUnit.SECONDS)
+                            .build();
+        else
+            worker =
+                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
+                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
+                            .setInitialDelay(1, TimeUnit.SECONDS)
+                            .build();
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(false)) { // do not needed to by PPP fully started
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 

@@ -113,13 +113,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     applicationWidgetOneRowCustomIconLightness);
 
         Profile profile;
-        boolean fullyStarted = PPApplication.applicationFullyStarted;
-        //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-        if ((!fullyStarted) /*|| applicationPackageReplaced*/)
-            profile = null;
-        else
+        //boolean fullyStarted = PPApplication.applicationFullyStarted;
+        //if ((!fullyStarted) /*|| applicationPackageReplaced*/)
+        //    profile = null;
+        //else
             profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
-        //}
 
         //try {
             // set background

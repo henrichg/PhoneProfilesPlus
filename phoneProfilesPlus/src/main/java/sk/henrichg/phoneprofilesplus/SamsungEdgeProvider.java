@@ -123,10 +123,10 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             //boolean fullyStarted = false;
             //if (PhoneProfilesService.getInstance() != null)
             //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
-            boolean fullyStarted = PPApplication.applicationFullyStarted;
+            //boolean fullyStarted = PPApplication.applicationFullyStarted;
             //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-            if ((!fullyStarted) /*|| applicationPackageReplaced*/)
-                profile = null;
+            //if ((!fullyStarted) /*|| applicationPackageReplaced*/)
+            //    profile = null;
 
             boolean isIconResourceID;
             String iconIdentifier;

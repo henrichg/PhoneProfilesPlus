@@ -77,6 +77,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     }
 
     private boolean showNotStartedToast() {
+        //PPApplication.logE("[APP START] BackgroundActivateProfileActivity.showNotStartedToast", "xxx");
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
         if (!applicationStarted) {
