@@ -3934,10 +3934,11 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
         startForegroundNotification = true;
-        showProfileNotification(/*true,*/ true/*, false*/);
+
+        Context appContext = getApplicationContext();
+        showProfileNotification(/*true,*/ !isServiceRunning(appContext, PhoneProfilesService.class, true)/*, false*/);
 
         if (!serviceHasFirstStart) {
-            Context appContext = getApplicationContext();
             String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
             PPApplication.showToast(appContext.getApplicationContext(), text, Toast.LENGTH_SHORT);
 
