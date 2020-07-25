@@ -4890,7 +4890,7 @@ public class PhoneProfilesService extends Service
         }
         else {
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
-            notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+            notificationBuilder.setSmallIcon(R.drawable.ic_empty);
             //noinspection ConstantConditions
             if (notificationNotificationStyle.equals("0")) {
                 try {
