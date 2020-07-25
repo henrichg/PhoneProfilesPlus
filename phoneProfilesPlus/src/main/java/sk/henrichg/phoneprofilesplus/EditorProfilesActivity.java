@@ -2252,7 +2252,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             break;
 
                         PPApplication.sleep(500);
-                    } while (SystemClock.uptimeMillis() - start < 10 * 1000); // TODO max length 10 seconds? Test it.
+                    } while (SystemClock.uptimeMillis() - start < 30 * 1000);
 
                     if (!importFromPPStopped) {
                         PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
@@ -2415,6 +2415,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                                         editor.apply();
                                     }
+
+                                    PPApplication.loadGlobalApplicationData(getApplicationContext());
+                                    PPApplication.loadApplicationPreferences(getApplicationContext());
+                                    PPApplication.loadProfileActivationData(getApplicationContext());
+
                                     appSettingsError = false;
                                 } catch (Exception e) {
                                     appSettingsError = true;
