@@ -138,6 +138,10 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
     public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
 
+    private static final int IMPORTEXPORT_IMPORT = 1;
+    private static final int IMPORTEXPORT_EXPORT = 2;
+    private static final int IMPORTEXPORT_IMPORTFROMPP = 3;
+
     private Toolbar editorToolbar;
     //Toolbar bottomToolbar;
     //private DrawerLayout drawerLayout;
@@ -1716,16 +1720,16 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         String title;
-        if (importExport == 1)
+        if (importExport == IMPORTEXPORT_IMPORT)
             title = getString(R.string.import_profiles_alert_title);
         else
-        if (importExport == 3)
+        if (importExport == IMPORTEXPORT_IMPORTFROMPP)
             title = getString(R.string.import_profiles_from_pp_alert_title);
         else
             title = getString(R.string.export_profiles_alert_title);
         dialogBuilder.setTitle(title);
         String message;
-        if (importExport == 1) {
+        if (importExport == IMPORTEXPORT_IMPORT) {
             message = getString(R.string.import_profiles_alert_error) + ":";
             if (dbResult != DatabaseHandler.IMPORT_OK) {
                 if (dbResult == DatabaseHandler.IMPORT_ERROR_NEVER_VERSION)
@@ -1739,7 +1743,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
         }
         else
-        if (importExport == 3) {
+        if (importExport == IMPORTEXPORT_IMPORTFROMPP) {
             message = getString(R.string.import_profiles_from_pp_alert_error) + ":";
             if (dbResult != DatabaseHandler.IMPORT_OK) {
                 message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_database_bug);
@@ -2103,7 +2107,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         int sharedProfileResult = 1;
                         if (sharedProfileError) sharedProfileResult = 0;
                         if (!isFinishing())
-                            importExportErrorDialog(1, dbError, appSettingsResult, sharedProfileResult);
+                            importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult, sharedProfileResult);
                     }
                 }
 
@@ -2749,7 +2753,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (deleteProfilesError || profilesError || shortcutsError || intentsError)
                             dbError = DatabaseHandler.IMPORT_ERROR_BUG;
                         if (!isFinishing())
-                            importExportErrorDialog(2, dbError, appSettingsResult, 1);
+                            importExportErrorDialog(IMPORTEXPORT_IMPORTFROMPP, dbError, appSettingsResult, 1);
                     }
                 }
             }
@@ -3111,7 +3115,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     } else {
                         if (!isFinishing())
-                            importExportErrorDialog(3, 0, 0, 0);
+                            importExportErrorDialog(IMPORTEXPORT_EXPORT, 0, 0, 0);
                     }
                 }
 
