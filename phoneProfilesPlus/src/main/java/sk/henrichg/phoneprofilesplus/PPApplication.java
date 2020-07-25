@@ -131,10 +131,10 @@ public class PPApplication extends Application
                                                 +"|BootUpReceiver"
                                                 +"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
+                                                +"|DatabaseHandler.onUpgrade"
                                                 //+"|IgnoreBatteryOptimizationNotification"
 
                                                 //+"|DatabaseHandler.onCreate"
-                                                //+"|DatabaseHandler.onUpgrade"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
                                                 +"|ImportPPDataBroadcastReceiver"

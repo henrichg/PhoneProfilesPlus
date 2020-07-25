@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2429;
+    private static final int DATABASE_VERSION = 2434;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -444,7 +444,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return instance;
     }
     
-    private SQLiteDatabase getMyWritableDatabase() {
+    SQLiteDatabase getMyWritableDatabase() {
         if ((writableDb == null) || (!writableDb.isOpen())) {
             writableDb = this.getWritableDatabase();
         }
@@ -2910,10 +2910,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("DatabaseHandler.onUpgrade", "--------- START");
             PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
             PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
-        }*/
+        }
 
         /*
         // Drop older table if existed
@@ -2941,7 +2942,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
         dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
 
-        //PPApplication.logE("DatabaseHandler.onUpgrade", "END");
+        //PPApplication.sleep(10000); // for test only
+
+        PPApplication.logE("DatabaseHandler.onUpgrade", " --------- END");
 
     }
 

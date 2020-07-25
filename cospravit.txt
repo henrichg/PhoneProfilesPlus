@@ -1554,3 +1554,25 @@ Testni, ake uri pride pri zmene kontaktu a skupiny kontaktov:
 
 
 ----------
+
+Upgrade PPP + databaza, shared preferences:
+
+Databaza:
+Problem je, ze testujem verziu ppp. Je to na tom zavisle.
+Na druhej strane je toho strasne vela, co sa tam deje.
+- Inicializuju sa polia, Vsetky. Tu by som asi mal proste pozriet polo po poli a ak hodnota nie je nastavena, tak
+  vtedy nastavit. Bez ohladu na verziu.
+- V specialnych pripadoch sa udatuju polia na ine hodnoty. Testuju sa tam zavislosti a podla toho sa to nastavuje.
+  Toto treba nechat tak ako je, ale vylucit tu verziu. Proste testivat zavislosti a robit to co treba.
+- onUpgrade sa vola ak je zavolane getMyWritableDatabase(). Je to volane paralelne, cize pocas tohoto
+  sa kludne spusta PPP. Caka to na nasledujucom volani databazy. Co sa mi moc nepaci.
+  Proste to citanie databazy je pomale.
+  Momentalne sa zavola na showProfileNotification() volany z PPService.onCreate(), lebo tam je
+  volany work na zobrazenie aktivovaneho profilu a ten sa cita z db. OK, aspon je to vo worku,
+  ale dalsie volania db podla mna budu cakat na koniec onUpgrade(). Cas ukaze, ci zacnu dake ANR kvoli tomu vznikat.
+
+Shared preferences:
+- Tu sa len updatuje to, co treba podla verzie. Updatnut, ale len ak treba, teda ak to ma inu hodnotu akoje
+  pozadovana.
+- Tu sa aj restartuje servis po zmene. Toto je dobre. To by sa malo.
+

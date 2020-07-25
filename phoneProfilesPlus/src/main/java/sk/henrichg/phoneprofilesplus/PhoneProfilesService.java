@@ -46,6 +46,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -3825,10 +3826,19 @@ public class PhoneProfilesService extends Service
                         if ((oldVersionCode == 0) || (actualVersionCode == 0) || (oldVersionCode < actualVersionCode)) {
                             PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start work for package replaced");
 
-                            // cancel all PPP notification
+                            // cancel all PPP notification (except PPService notification
                             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                            if (notificationManager != null)
-                                notificationManager.cancelAll();
+                            if (notificationManager != null) {
+                                StatusBarNotification[] notitications = notificationManager.getActiveNotifications();
+                                for (StatusBarNotification notification : notitications) {
+                                    if (notification.getId() != PPApplication.PROFILE_NOTIFICATION_ID) {
+                                        if (notification.getTag().isEmpty())
+                                            notificationManager.cancel(notification.getId());
+                                        else
+                                            notificationManager.cancel(notification.getTag(), notification.getId());
+                                    }
+                                }
+                            }
 
                             //PPApplication.applicationPackageReplaced = true;
 

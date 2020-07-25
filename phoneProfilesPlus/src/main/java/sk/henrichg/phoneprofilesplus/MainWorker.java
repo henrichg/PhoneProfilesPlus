@@ -482,13 +482,6 @@ public class MainWorker extends Worker {
                         PPApplication.loadApplicationPreferences(appContext);
                         PPApplication.loadProfileActivationData(appContext);
 
-                            /*
-                            ApplicationPreferences.getSharedPreferences(appContext);
-                            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
-                            editor.apply();
-                            */
-
                         PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
                         if (PhoneStateScanner.enabledAutoRegistration) {
                             PhoneStateScanner.stopAutoRegistration(appContext, true);
@@ -501,14 +494,7 @@ public class MainWorker extends Worker {
                             PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "end of autoregistration");
                         }
 
-                            /*SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(appContext);
-                            if (sharedPreferences != null) {
-                                PPApplication.logE("--------------- PhoneProfilesService.afterPackageReplaced.doWork", "package replaced set to false");
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_PACKAGE_REPLACED, false);
-                                editor.apply();
-                            }*/
-                        //PPApplication.applicationPackageReplaced = false;
+                        //restartService = true; // for test only
 
                         // Start service only when is not started or restart is required
                         // Is not needed to start it when it is not required. Code is already replaced after this call.
