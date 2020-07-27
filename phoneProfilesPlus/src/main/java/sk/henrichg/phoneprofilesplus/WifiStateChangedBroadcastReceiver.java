@@ -19,7 +19,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[BROADCAST CALL] WifiStateChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] WifiStateChangedBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "WifiStateChangedBroadcastReceiver.onReceive", "WifiStateChangedBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -53,7 +53,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
 

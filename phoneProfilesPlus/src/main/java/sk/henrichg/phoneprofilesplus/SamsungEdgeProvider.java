@@ -300,7 +300,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @Override
     public void onUpdate(Context context, SlookCocktailManager cocktailBarManager, int[] cocktailIds) {
         super.onUpdate(context, cocktailBarManager, cocktailIds);
-        //PPApplication.logE("[LISTENER CALL] SamsungEdgeProvider.onUpdate", "xxx");
+        PPApplication.logE("[LISTENER CALL] SamsungEdgeProvider.onUpdate", "xxx");
         if (cocktailIds.length > 0) {
             final Context _context = context;
             final SlookCocktailManager _cocktailBarManager = cocktailBarManager;
@@ -311,7 +311,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
                     //createProfilesDataWrapper(_context);
 
                     for (int cocktailId : _cocktailIds) {
@@ -329,7 +329,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
-        //PPApplication.logE("[BROADCAST CALL] SamsungEdgeProvider.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] SamsungEdgeProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
@@ -344,7 +344,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
                         //if (EditorProfilesActivity.doImport)
                         //    return;
 

@@ -27,6 +27,8 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        PPApplication.logE("[BROADCAST CALL] ImportPPDataBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+
         //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
@@ -36,10 +38,8 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
         if ((intent == null) || (intent.getAction() == null))
             return;
 
-        //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
-
         switch (intent.getAction()) {
-            case PPApplication.ACTION_EXPORT_PP_DATA_STOP:
+            case PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PP:
                 EditorProfilesActivity.importFromPPStopped = true;
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_STARTED:

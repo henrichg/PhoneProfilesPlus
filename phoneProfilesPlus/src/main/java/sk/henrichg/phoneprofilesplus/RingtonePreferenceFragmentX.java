@@ -88,7 +88,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragmentX.onDialogClosed");
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragmentX.onDialogClosed");
                 preference.stopPlayRingtone();
             }
         });

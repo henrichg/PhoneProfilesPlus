@@ -10,7 +10,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[BROADCAST CALL] PackageReplacedReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] PackageReplacedReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "PackageReplacedReceiver.onReceive->action="+intent.getAction(), "PackageReplacedReceiver_onReceive");

@@ -10,7 +10,7 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[BROADCAST CALL] OrientationEventBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] OrientationEventBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "OrientationEventBroadcastReceiver.onReceive", "OrientationEventBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,7 +44,7 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=OrientationEventBroadcastReceiver.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=OrientationEventBroadcastReceiver.doWork");
 
                         //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
                         EventsHandler eventsHandler = new EventsHandler(appContext);

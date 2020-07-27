@@ -19,7 +19,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[BROADCAST CALL] BootUpReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] BootUpReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BootUpReceiver.onReceive", "BootUpReceiver_onReceive");
 
@@ -70,7 +70,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
                         if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());

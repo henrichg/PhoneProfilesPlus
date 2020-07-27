@@ -161,11 +161,11 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                //+"|[WORKER CALL]"
-                                                //+"|[HANDLER CALL]"
-                                                //+"|[BROADCAST CALL]"
-                                                //+"|[OBSERVER CALL]"
-                                                //+"|[LISTENER CALL]"
+                                                +"|[WORKER CALL]"
+                                                +"|[HANDLER CALL]"
+                                                +"|[BROADCAST CALL]"
+                                                +"|[OBSERVER CALL]"
+                                                +"|[LISTENER CALL]"
                                                 //+"|[TEST BATTERY]"
                                                 //+"|[APP START]"
 
@@ -1043,10 +1043,11 @@ public class PPApplication extends Application
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
-    static final String ACTION_EXPORT_PP_DATA_START = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_START";
+    static final String ACTION_EXPORT_PP_DATA_START_FROM_PPP = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_START_FROM_PPP";
+    static final String ACTION_EXPORT_PP_DATA_STOP_FROM_PPP = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_STOP_FROM_PPP";
+    static final String ACTION_EXPORT_PP_DATA_STOP_FROM_PP = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_STOP_FROM_PP";
     static final String ACTION_EXPORT_PP_DATA_STARTED = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_STARTED";
     static final String ACTION_EXPORT_PP_DATA_ENDED = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_ENDED";
-    static final String ACTION_EXPORT_PP_DATA_STOP = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_STOP";
     static final String ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES";
     static final String ACTION_EXPORT_PP_DATA_PROFILES_COUNT = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_PROFILES_COUNT";
     static final String ACTION_EXPORT_PP_DATA_PROFILES = PPApplication.PACKAGE_NAME_PP + ".ACTION_EXPORT_PP_DATA_PROFILES";

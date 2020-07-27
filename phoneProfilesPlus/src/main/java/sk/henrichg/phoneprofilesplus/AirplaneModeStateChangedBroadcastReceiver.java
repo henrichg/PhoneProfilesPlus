@@ -10,7 +10,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[BROADCAST CALL] AirplaneModeStateChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] AirplaneModeStateChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "AirplaneModeStateChangedBroadcastReceiver.onReceive", "AirplaneModeStateChangedBroadcastReceiver_onReceive");
 
@@ -37,7 +37,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AirplaneModeStateChangedBroadcastReceiver.onReceive");
+                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AirplaneModeStateChangedBroadcastReceiver.onReceive");
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);

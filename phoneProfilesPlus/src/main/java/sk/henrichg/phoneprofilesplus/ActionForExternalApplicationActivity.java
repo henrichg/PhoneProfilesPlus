@@ -145,7 +145,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-                                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
+                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
                                         event.pauseEvent(_dataWrapper, true, false,
                                                 false, true, null, false, false, true);
@@ -204,7 +204,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-                                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
+                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
                                         event.stopEvent(_dataWrapper, true, false,
                                                 true, true, true); // activate return profile

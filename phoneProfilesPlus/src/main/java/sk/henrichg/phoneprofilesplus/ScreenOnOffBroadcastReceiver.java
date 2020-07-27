@@ -13,7 +13,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
         /*if (intent != null)
@@ -47,10 +47,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    /*if (PPApplication.logEnabled()) {
+                    //if (PPApplication.logEnabled()) {
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
                         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
-                    }*/
+                    //}
 
                     switch (action) {
                         case Intent.ACTION_SCREEN_ON: {

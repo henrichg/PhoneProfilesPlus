@@ -23,7 +23,7 @@ public class ContactsContentObserverWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("[WORKER CALL]  ContactsContentObserverWorker.doWork", "xxxx");
+            PPApplication.logE("[WORKER CALL]  ContactsContentObserverWorker.doWork", "xxxx");
 
             Context appContext = context.getApplicationContext();
 

@@ -33,7 +33,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-        //PPApplication.logE("[OBSERVER CALL] MobileDataStateChangedContentObserver.onChange", "xxx");
+        PPApplication.logE("[OBSERVER CALL] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
 
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
 
@@ -56,7 +56,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=MobileDataStateChangedContentObserver.onChange");
+                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=MobileDataStateChangedContentObserver.onChange");
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);

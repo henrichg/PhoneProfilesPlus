@@ -31,7 +31,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("[WORKER CALL]  PeriodicEventsHandlerWorker.doWork", "xxxx");
+            PPApplication.logE("[WORKER CALL]  PeriodicEventsHandlerWorker.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -66,7 +66,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=PeriodicEventsHandlerWorker.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=PeriodicEventsHandlerWorker.doWork");
                         int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
                         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);

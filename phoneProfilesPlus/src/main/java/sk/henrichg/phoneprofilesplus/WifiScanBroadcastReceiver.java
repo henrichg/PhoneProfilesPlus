@@ -18,7 +18,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive","xxx");
+        PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
         //CallsCounter.logCounter(context, "WifiScanBroadcastReceiver.onReceive", "WifiScanBroadcastReceiver_onReceive");
 
@@ -75,7 +75,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
+                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
 
                                 boolean scanStarted = ApplicationPreferences.prefEventWifiWaitForResult;
                                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
