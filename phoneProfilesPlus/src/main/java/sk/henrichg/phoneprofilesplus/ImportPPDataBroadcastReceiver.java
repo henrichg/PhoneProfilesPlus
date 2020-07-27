@@ -36,7 +36,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
         if ((intent == null) || (intent.getAction() == null))
             return;
 
-        PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+        //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_EXPORT_PP_DATA_STOP:
@@ -59,7 +59,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                 if (extras != null) {
                     profilesCount = extras.getInt(PPApplication.EXTRA_PP_PROFILES_COUNT);
                     profiles = new ArrayList<>();
-                    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profilesCount="+profilesCount);
+                    //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profilesCount="+profilesCount);
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_PROFILES:
@@ -68,7 +68,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                     PPProfileForExport profile = extras.getParcelable(PPApplication.EXTRA_PP_PROFILE_DATA);
                     if (profile != null) {
                         profiles.add(profile);
-                        PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profile.KEY_NAME=" + profile.KEY_NAME);
+                        //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profile.KEY_NAME=" + profile.KEY_NAME);
                     }
                 }
                 break;
@@ -77,7 +77,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                 if (extras != null) {
                     shortcutsCount = extras.getInt(PPApplication.EXTRA_PP_SHORTCUTS_COUNT);
                     shortcuts = new ArrayList<>();
-                    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcutsCount="+shortcutsCount);
+                    //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcutsCount="+shortcutsCount);
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS:
@@ -86,7 +86,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                     PPShortcutForExport shortcut = extras.getParcelable(PPApplication.EXTRA_PP_SHORTCUT_DATA);
                     if (shortcut != null) {
                         shortcuts.add(shortcut);
-                        PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcut.KEY_S_NAME="+shortcut.KEY_S_NAME);
+                        //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcut.KEY_S_NAME="+shortcut.KEY_S_NAME);
                     }
                 }
                 break;
@@ -95,7 +95,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                 if (extras != null) {
                     intentsCount = extras.getInt(PPApplication.EXTRA_PP_INTENTS_COUNT);
                     intents = new ArrayList<>();
-                    PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intentsCount="+intentsCount);
+                    //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intentsCount="+intentsCount);
                 }
                 break;
             case PPApplication.ACTION_EXPORT_PP_DATA_INTENTS:
@@ -104,7 +104,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
                     PPIntentForExport ppIntent = extras.getParcelable(PPApplication.EXTRA_PP_INTENT_DATA);
                     if (ppIntent != null) {
                         intents.add(ppIntent);
-                        PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "ppIntent.KEY_IN_NAME="+ppIntent.KEY_IN_NAME);
+                        //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "ppIntent.KEY_IN_NAME="+ppIntent.KEY_IN_NAME);
                     }
                 }
                 break;

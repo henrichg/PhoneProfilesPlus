@@ -1893,7 +1893,7 @@ class ActivateProfileHelper {
                     if (!isAudibleSystemRingerMode(audioManager, context)) {
                         // change ringer mode to ringing becaiuse configured is ringing volume
                         // Priority zen mode is audible. DO NOT DISABLE IT !!!
-                        PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "system ringer mode is not audible - changed to ringing");
+                        //PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "system ringer mode is not audible - changed to ringing");
                         profile._volumeRingerMode = Profile.RINGERMODE_RING;
                     }
                 }
