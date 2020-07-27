@@ -6,7 +6,7 @@
     <string name="menu_edit_profiles">Düzenleyici</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
-    <string name="title_activity_profile_preferences">Profil tercihleri</string>
+    <string name="title_activity_profile_preferences">Tercih ayarları</string>
     <string name="title_activity_event_preferences">Durum tercihleri</string>
     <string name="menu_new_profile">Yeni profil</string>
     <string name="menu_delete_all_profiles">Profillerin tamamını sil</string>
@@ -1437,9 +1437,38 @@
     <string name="colorChooser_pref_dialog_customColor">Hususi renk</string>
     <string name="background_jobs_not_working_alert_title">PhoneProfilesPlus başlangıcında hata</string>
     <string name="background_jobs_not_working_alert_message">Arka plan işlemleri başlatılmadı. Lütfen cihazınızı tekrar başlatın. Teşekkürler.</string>
-    <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi) </string>
-    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
+    <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi)</string>
+    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Değiştir (Wi-Fi kapatılmasın)</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Wi-Fi Hotspot\'u ihmal et</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
+    <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>
+    <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Option \"On (do not disable Wi-Fi)\" must be supported byt system</string>
+    <string name="profile_preferences_deviceWiFiInfo_summary">Options \"On (ignore hotspot)\", \"Toggle (ignore hotspot)\" must be supported by system</string>
+    <string name="profile_preferences_volumeZenModeMInfo_summary">\"Priority\" type is similar to system \"Do not disturb\". Will be used all options configured in system Settings for \"Do not disturb\"</string>
+    <string name="menu_import_from_pp">Import data from PhoneProfiles</string>
+    <string name="import_profiles_from_pp_alert_title">Import data from PhoneProfiles</string>
+    <string name="import_profiles_from_pp_alert_message">Are you sure?</string>
+    <string name="import_profiles_from_pp_alert_error">Error during import from PhoneProfiles process</string>
+    <string name="import_profiles_from_pp_alert_error_database_bug">Error importing the database.</string>
+    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Error importing the application settings.</string>
+    <string name="altype_dataImport_fromPP">import data from PhoneProfiles</string>
+    <string name="toast_import_from_pp_ok">Data from PhoneProfiles imported</string>
+    <string name="export_pp_data_dialog_profiles_chb">Import profiles</string>
+    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Delete configured profiles</string>
+    <string name="export_pp_data_dialog_application_preferences_chb">Import application preferences</string>
+    <string name="export_pp_data_dialog_start_pp">If PhonePrifiles is not running, please start it.</string>
+    <!-- **************************************************************************************** -->
+    <!-- for PhoneProfiles -->
+    <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>
+    <string name="notification_channel_exportPPData">Export into PhoneProfilesPlus</string>
+    <string name="notification_channel_export_pp_data_description">Shows when is running export of PhoneProfiles data into PhoneProfilesPlus.</string>
+    <string name="export_pp_data_text">Export into PhoneProfilesPlus is running</string>
+    <string name="phone_profiles_export_pp_data_stop">Stop</string>
+    <string name="export_pp_data_permission">PhoneProfiles export data</string>
+    <string name="not_more_maintained_notification_title">No more maintained</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".\"</string>
+    <string name="not_more_maintained_notification_disable_button">Do not show again</string>
+    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1722,7 +1751,6 @@
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
-    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->

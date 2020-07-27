@@ -1437,9 +1437,38 @@
     <string name="colorChooser_pref_dialog_customColor">Vlastní barva</string>
     <string name="background_jobs_not_working_alert_title">Chyba při spuštění PhoneProfilesPlus</string>
     <string name="background_jobs_not_working_alert_message">Úkoly na pozadí se nespustili. Prosím restartujte zařízení. Děkuji.</string>
-    <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi) </string>
-    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
+    <string name="array_pref_wifiAPModeArray_on_keepWifi">Zapnout (nevypínat Wi-Fi)</string>
+    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Přepnout stav (nevypínat Wi-Fi)</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignorovat Wi-Fi přístupový bod</string>
+    <string name="ignore_battery_optimization_notification_disable_button">Příště nezobrazovat</string>
+    <string name="ignore_battery_optimization_confirm_notification_disable">Pokud PhoneProfilesPlus nebude přidán \"neoptimalizované\", nebude pracovat správně při vypnuté obrazovce. Opravdu nechcete více zobrazovat tuto notifikaci?</string>
+    <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Nastavení \"Zapnout (nevypínat Wi-Fi)\" musí být podporovány systémem</string>
+    <string name="profile_preferences_deviceWiFiInfo_summary">Nastavení \"Zapnout (ignorovat přístupový bod)\", \"Přepnout stav (ignorovat přístupový bod)\" musí být podporovány systémem</string>
+    <string name="profile_preferences_volumeZenModeMInfo_summary">Typ \"Prioritní\" je stejný jako systémové \"Nerušit\". Budou použity všechny nastavení nakonfigurované v systémových nastaveních pro \"Nerušit\"</string>
+    <string name="menu_import_from_pp">Import údajů z PhoneProfiles</string>
+    <string name="import_profiles_from_pp_alert_title">Import údajů z PhoneProfiles</string>
+    <string name="import_profiles_from_pp_alert_message">Jste si jistý?</string>
+    <string name="import_profiles_from_pp_alert_error">Chyba při importu dat z PhoneProfiles</string>
+    <string name="import_profiles_from_pp_alert_error_database_bug">Chyba při importu databáze.</string>
+    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Chyba při importu nastavení aplikace.</string>
+    <string name="altype_dataImport_fromPP">import dat z PhoneProfiles</string>
+    <string name="toast_import_from_pp_ok">Údaje z PhoneProfiles importované</string>
+    <string name="export_pp_data_dialog_profiles_chb">Importovat profily</string>
+    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Vymazat nakonfigurovány profily</string>
+    <string name="export_pp_data_dialog_application_preferences_chb">Importovat aplikační nastavení</string>
+    <string name="export_pp_data_dialog_start_pp">Pokud PhoneProfiles neběží, prosím spusťte jej.</string>
+    <!-- **************************************************************************************** -->
+    <!-- for PhoneProfiles -->
+    <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>
+    <string name="notification_channel_exportPPData">Export do PhoneProfilesPlus</string>
+    <string name="notification_channel_export_pp_data_description">Zobrazí se, pokud běží export dat PhoneProfiles do PhoneProfilesPlus.</string>
+    <string name="export_pp_data_text">Export do PhoneProfilesPlus běží</string>
+    <string name="phone_profiles_export_pp_data_stop">Zastavit</string>
+    <string name="export_pp_data_permission">Export PhoneProfiles dat</string>
+    <string name="not_more_maintained_notification_title">Již se více neudržuje</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles se už více neudržuje. Pouze kritické chyby budou opravovány. Pokud chcete, nainstalujte PhoneProfilesPlus a v menu Editoru použijte funkci \"Záloha/Obnova\"/\"Import dat z PhoneProfiles\"</string>
+    <string name="not_more_maintained_notification_disable_button">Příště nezobrazovat</string>
+    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles již není udržován. Už nezobrazovat tuto notifikaci?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1722,7 +1751,6 @@
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->
-    <!--    <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationSound">Default profile: Notification sound</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Default profile: Notify by vibration</string>-->
     <!--    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>-->
