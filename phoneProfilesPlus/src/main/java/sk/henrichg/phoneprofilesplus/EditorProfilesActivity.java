@@ -2099,6 +2099,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                         //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
                         IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
                     } else {
                         //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
 
@@ -2108,6 +2110,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (sharedProfileError) sharedProfileResult = 0;
                         if (!isFinishing())
                             importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult, sharedProfileResult);
+
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
                     }
                 }
 
@@ -2744,6 +2748,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                         //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
                         IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, true);
                     } else {
                         //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
 
@@ -2754,6 +2760,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             dbError = DatabaseHandler.IMPORT_ERROR_BUG;
                         if (!isFinishing())
                             importExportErrorDialog(IMPORTEXPORT_IMPORTFROMPP, dbError, appSettingsResult, 1);
+
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, false);
                     }
                 }
             }

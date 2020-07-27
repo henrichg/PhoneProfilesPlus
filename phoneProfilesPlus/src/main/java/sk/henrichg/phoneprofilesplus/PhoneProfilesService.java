@@ -268,7 +268,7 @@ public class PhoneProfilesService extends Service
         PPApplication.setActivityProfileName(appContext, 3, "");
         */
 
-        try {
+        //try {
             if ((Build.VERSION.SDK_INT < 26)) {
                 PPApplication.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
             }
@@ -283,10 +283,10 @@ public class PhoneProfilesService extends Service
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
-        } catch (Exception e) {
+        //} catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
-        }
+        //}
 
         /*
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
@@ -3630,11 +3630,11 @@ public class PhoneProfilesService extends Service
                                     PPApplication.recordException(e);
                                 }
                             } else {
-                                try {
+                                //try {
                                     PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, "ask for grant disabled");
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
+                                //} catch (Exception e) {
+                                //    PPApplication.recordException(e);
+                                //}
                             }
                         }
                     }

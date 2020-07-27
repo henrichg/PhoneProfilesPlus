@@ -1082,6 +1082,8 @@ public class PPApplication extends Application
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED_WITH = "ROOTED_WITH";
     static final String CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION = "GOOGLE_PLAY_SERVICES_VERSION";
+    static final String CRASHLYTICS_LOG_RESTORE_BACKUP_OK = "RESTORE_BACKUP_OK";
+    static final String CRASHLYTICS_LOG_IMPORT_FROM_PP_OK = "IMPORT_FROM_PP_OK";
 
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
 
@@ -1416,12 +1418,12 @@ public class PPApplication extends Application
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
         }
-        try {
+        //try {
             PPApplication.setCustomKey("DEBUG", DebugVersion.enabled);
-        } catch (Exception e) {
+        //} catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             //PPApplication.recordException(e);
-        }
+        //}
 
 
         //lastUptimeTime = SystemClock.elapsedRealtime();

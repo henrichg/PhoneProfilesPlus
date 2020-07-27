@@ -414,7 +414,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         PPApplication.loadApplicationPreferences(getApplicationContext());
 
-        try {
+       //try {
             if ((Build.VERSION.SDK_INT < 26)) {
                 PPApplication.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
             }
@@ -429,10 +429,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
-        } catch (Exception e) {
+        //} catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             // PPApplication.recordException(e);
-        }
+        //}
 
         if (Permissions.grantRootChanged) {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "grant root changed");
