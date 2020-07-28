@@ -6,14 +6,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 public class BootUpReceiver extends BroadcastReceiver {
 
-    static boolean bootUpCompleted = false;
+    //static boolean bootUpCompleted = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -72,14 +67,17 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                         if (ApplicationPreferences.applicationStartOnBoot) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
-                            PPApplication.logE("BootUpReceiver.onReceive", "bootUpCompleted="+bootUpCompleted);
+                            //PPApplication.logE("BootUpReceiver.onReceive", "bootUpCompleted="+bootUpCompleted);
 
                             PPApplication.deviceBoot = true;
 
                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
 
+                            boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                            PPApplication.logE("BootUpReceiver.onReceive", "serviceStarted="+serviceStarted);
+
                             //PPApplication.sleep(3000);
-                            if (!PPApplication.getApplicationStarted(true)) {
+                            if (!serviceStarted) {
                                 // service is not started
                                 PPApplication.logE("BootUpReceiver.onReceive", "start service");
                                 // service is not started, start it
@@ -93,7 +91,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                                 PPApplication.startPPService(appContext, serviceIntent, true);
                             }
-                            else
+                            /*else
                             if (!bootUpCompleted) {
                                 // service is started
                                 PPApplication.logE("BootUpReceiver.onReceive", "activate profiles");
@@ -131,13 +129,13 @@ public class BootUpReceiver extends BroadcastReceiver {
 //                                            //}
 
                                             //workManager.enqueue(worker);
-                                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                         }
                                     }
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
-                            }
+                            }*/
                         } else {
                             if (PPApplication.logEnabled()) {
                                 PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");

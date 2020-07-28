@@ -611,7 +611,7 @@ public class MainWorker extends Worker {
     private static void doAfterFirstStart(Context appContext, boolean activateProfiles) {
         PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
 
-        BootUpReceiver.bootUpCompleted = true;
+        //BootUpReceiver.bootUpCompleted = true;
 
         //boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
 
