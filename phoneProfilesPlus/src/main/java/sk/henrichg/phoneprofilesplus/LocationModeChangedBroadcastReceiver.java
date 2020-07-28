@@ -44,6 +44,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
+                            PPApplication.logE("[EVENTS_HANDLER] LocationModeChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 

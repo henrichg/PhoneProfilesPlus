@@ -46,7 +46,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
 
-                        //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
+                        PPApplication.logE("[EVENTS_HANDLER] SMSEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_SMS_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
 

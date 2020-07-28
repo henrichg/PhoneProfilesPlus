@@ -58,6 +58,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
                                 PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=MobileDataStateChangedContentObserver.onChange");
 
+                                PPApplication.logE("[EVENTS_HANDLER] MobileDataStateChangedContentObserver.onChange", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 

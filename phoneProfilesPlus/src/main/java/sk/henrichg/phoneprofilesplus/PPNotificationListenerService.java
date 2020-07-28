@@ -143,6 +143,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
 
+                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         //eventsHandler.setEventNotificationParameters("posted");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
@@ -201,6 +202,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
 
+                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         //eventsHandler.setEventNotificationParameters("removed");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);

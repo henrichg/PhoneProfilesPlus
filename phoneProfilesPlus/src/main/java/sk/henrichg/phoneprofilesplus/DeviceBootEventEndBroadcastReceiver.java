@@ -46,7 +46,7 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DeviceBootEventEndBroadcastReceiver.doWork");
 
-                        //PPApplication.logE("[BOOT] DeviceBootEventEndBroadcastReceiver.doWork", "handle events");
+                        PPApplication.logE("[EVENTS_HANDLER] DeviceBootEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_DEVICE_BOOT_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END);
 

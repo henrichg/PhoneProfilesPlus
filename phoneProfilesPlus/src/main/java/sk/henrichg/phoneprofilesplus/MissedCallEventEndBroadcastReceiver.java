@@ -46,6 +46,7 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=MissedCallEventEndBroadcastReceiver.doWork");
 
+                        PPApplication.logE("[EVENTS_HANDLER] MissedCallEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_PHONE_CALL_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END);
 

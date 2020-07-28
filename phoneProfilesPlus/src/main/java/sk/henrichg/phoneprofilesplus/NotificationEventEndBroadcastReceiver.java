@@ -46,7 +46,7 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
 
-                        //PPApplication.logE("NotificationEventEndBroadcastReceiver.doWork", "handle events");
+                        PPApplication.logE("[EVENTS_HANDLER] NotificationEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_NOTIFICATION");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 

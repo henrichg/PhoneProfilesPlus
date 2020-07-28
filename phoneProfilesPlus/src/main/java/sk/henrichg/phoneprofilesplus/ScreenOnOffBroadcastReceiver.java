@@ -212,6 +212,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     if (Event.getGlobalEventsRunning()) {
                         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
+                        PPApplication.logE("[EVENTS_HANDLER] ScreenOnOffBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SCREEN");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 

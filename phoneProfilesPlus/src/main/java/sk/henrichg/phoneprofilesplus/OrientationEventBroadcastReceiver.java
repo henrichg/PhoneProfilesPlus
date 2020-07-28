@@ -46,7 +46,7 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=OrientationEventBroadcastReceiver.doWork");
 
-                        //PPApplication.logE("SMSEventEndBroadcastReceiver.doWork", "handle events");
+                        PPApplication.logE("[EVENTS_HANDLER] OrientationEventBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 

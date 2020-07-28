@@ -44,6 +44,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                             // start events handler
+                            PPApplication.logE("[EVENTS_HANDLER] DeviceIdleModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_IDLE_MODE");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
 

@@ -47,6 +47,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
 
+                        PPApplication.logE("[EVENTS_HANDLER] AlarmClockBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_ALARM_CLOCK");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventAlarmClockParameters(_time, alarmPackageName);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);

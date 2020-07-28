@@ -46,6 +46,7 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NFCEventEndBroadcastReceiver.doWork");
 
+                        PPApplication.logE("[EVENTS_HANDLER] NFCEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_NFC_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
 

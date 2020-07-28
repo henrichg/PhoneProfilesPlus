@@ -2119,6 +2119,7 @@ public class DataWrapper {
         if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (1)");
 
+            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
             EventsHandler eventsHandler = new EventsHandler(context);
             // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
@@ -2166,10 +2167,14 @@ public class DataWrapper {
         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (2)");
 
         EventsHandler eventsHandler = new EventsHandler(context);
-        if (manualRestart)
-            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
-        else
+        if (manualRestart) {
+            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
+           eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+        }
+        else {
+            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
+        }
 
         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DataWrapper._restartEvents (2)");
     }

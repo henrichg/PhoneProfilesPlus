@@ -43,6 +43,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
                             PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
 
+                            PPApplication.logE("[EVENTS_HANDLER] DockConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DOCK_CONNECTION");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
 

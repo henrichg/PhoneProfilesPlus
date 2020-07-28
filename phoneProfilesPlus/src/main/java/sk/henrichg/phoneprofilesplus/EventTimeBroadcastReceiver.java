@@ -46,7 +46,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
 
-                        //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                        PPApplication.logE("[EVENTS_HANDLER] EventTimeBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_TIME");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
 

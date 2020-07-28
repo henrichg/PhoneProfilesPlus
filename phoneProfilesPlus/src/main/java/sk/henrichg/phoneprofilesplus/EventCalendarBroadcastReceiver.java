@@ -46,7 +46,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventCalendarBroadcastReceiver.doWork");
 
-                        //PPApplication.logE("EventCalendarBroadcastReceiver.doWork", "handle events");
+                        PPApplication.logE("[EVENTS_HANDLER] EventCalendarBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_CALENDAR");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR);
 

@@ -199,6 +199,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
 
                             // start events handler
+                            PPApplication.logE("[EVENTS_HANDLER] BatteryLevelChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 

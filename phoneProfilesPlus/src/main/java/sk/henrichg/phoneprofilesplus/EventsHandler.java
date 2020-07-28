@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 class EventsHandler {
-    
+
     final Context context;
 
     String sensorType;
@@ -122,7 +122,7 @@ class EventsHandler {
     public EventsHandler(Context context) {
         this.context = context.getApplicationContext();
     }
-    
+
     void handleEvents(String _sensorType) {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
@@ -695,18 +695,18 @@ class EventsHandler {
                 // no manual profile activation
                 if (runningEventCountE == 0) {
                     //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
-                        // activate default profile, only when will not be do restart events from paused events
+                    // activate default profile, only when will not be do restart events from paused events
 
-                        //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
-                        // no events running
-                        defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                        //if (!fullyStarted)
-                        //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                        if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                            //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
-                            long activatedProfileId = 0;
-                            if (activatedProfile != null)
-                                activatedProfileId = activatedProfile._id;
+                    //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
+                    // no events running
+                    defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                    //if (!fullyStarted)
+                    //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                    if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                        //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
+                        long activatedProfileId = 0;
+                        if (activatedProfile != null)
+                            activatedProfileId = activatedProfile._id;
 
                             /*if (ApplicationPreferences.applicationDefaultProfileUsage) {
                                 // do not activate default profile when not any event is paused and no any profile is activated
@@ -746,15 +746,15 @@ class EventsHandler {
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             }*/
-                            if ((activatedProfileId == 0) ||
-                                    isRestart ||
-                                    (activatedProfileId != defaultProfileId)) {
-                                notifyDefaultProfile = true;
-                                mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
-                                mergedProfilesCount++;
-                                //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
-                            }
+                        if ((activatedProfileId == 0) ||
+                                isRestart ||
+                                (activatedProfileId != defaultProfileId)) {
+                            notifyDefaultProfile = true;
+                            mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                            mergedProfilesCount++;
+                            //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                         }
+                    }
                     //}
                     //else
                     //if (ppService != null)
@@ -816,8 +816,8 @@ class EventsHandler {
                 //if (mergedProfile._id != oldActivatedProfileId)
                 if (!mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### isRestart=" + isRestart);
+                //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
+                //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### isRestart=" + isRestart);
 
                 if (profileChanged || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
                     // log only when merged profile is not the same as last activated
@@ -941,14 +941,14 @@ class EventsHandler {
                         sensorEnabled = _event._eventPreferencesBluetooth._enabled;
                         sensorEnabled = sensorEnabled &&
                                 ((_event._eventPreferencesBluetooth._connectionType == 0) ||
-                                 (_event._eventPreferencesBluetooth._connectionType == 2));
+                                        (_event._eventPreferencesBluetooth._connectionType == 2));
                         break;
                     case SENSOR_TYPE_BLUETOOTH_SCANNER:
                         //eventType = DatabaseHandler.ETYPE_BLUETOOTH_NEARBY;
                         sensorEnabled = _event._eventPreferencesBluetooth._enabled;
                         sensorEnabled = sensorEnabled &&
                                 ((_event._eventPreferencesBluetooth._connectionType == 1) ||
-                                 (_event._eventPreferencesBluetooth._connectionType == 3));
+                                        (_event._eventPreferencesBluetooth._connectionType == 3));
                         break;
                     case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
                     case SENSOR_TYPE_CALENDAR:
@@ -992,14 +992,14 @@ class EventsHandler {
                         sensorEnabled = _event._eventPreferencesWifi._enabled;
                         sensorEnabled = sensorEnabled &&
                                 ((_event._eventPreferencesWifi._connectionType == 0) ||
-                                 (_event._eventPreferencesWifi._connectionType == 2));
+                                        (_event._eventPreferencesWifi._connectionType == 2));
                         break;
                     case SENSOR_TYPE_WIFI_SCANNER:
                         //eventType = DatabaseHandler.ETYPE_WIFI_NEARBY;
                         sensorEnabled = _event._eventPreferencesWifi._enabled;
                         sensorEnabled = sensorEnabled &&
                                 ((_event._eventPreferencesWifi._connectionType == 1) ||
-                                 (_event._eventPreferencesWifi._connectionType == 3));
+                                        (_event._eventPreferencesWifi._connectionType == 3));
                         break;
                     case SENSOR_TYPE_GEOFENCES_SCANNER:
                     case SENSOR_TYPE_LOCATION_MODE:

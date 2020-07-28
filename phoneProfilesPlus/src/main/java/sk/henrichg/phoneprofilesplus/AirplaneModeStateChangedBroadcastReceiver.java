@@ -39,6 +39,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
 
                                 PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AirplaneModeStateChangedBroadcastReceiver.onReceive");
 
+                                PPApplication.logE("[EVENTS_HANDLER] AirplaneModeStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 

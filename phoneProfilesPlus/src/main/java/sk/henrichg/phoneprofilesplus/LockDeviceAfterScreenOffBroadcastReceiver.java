@@ -169,6 +169,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
                             PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
 
+                            PPApplication.logE("[EVENTS_HANDLER] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (1)");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 
@@ -186,6 +187,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             } else {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (2)");
 
+                PPApplication.logE("[EVENTS_HANDLER] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 

@@ -49,6 +49,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
                             PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
 
+                            PPApplication.logE("[EVENTS_HANDLER] CalendarProviderChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
 

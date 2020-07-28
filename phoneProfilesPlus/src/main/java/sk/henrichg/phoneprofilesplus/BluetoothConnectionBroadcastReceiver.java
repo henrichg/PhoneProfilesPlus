@@ -145,6 +145,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                     // start events handler
                                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
 
+                                    PPApplication.logE("[EVENTS_HANDLER] BluetoothConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_CONNECTION");
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
 

@@ -46,7 +46,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AlarmClockEventEndBroadcastReceiver.doWork");
 
-                        //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
+                        PPApplication.logE("[EVENTS_HANDLER] AlarmClockEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_ALARM_CLOCK_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END);
 

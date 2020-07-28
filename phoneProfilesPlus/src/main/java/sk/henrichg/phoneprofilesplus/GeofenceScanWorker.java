@@ -87,6 +87,7 @@ public class GeofenceScanWorker extends Worker {
                     // start events handler
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=GeofenceScanWorker.doWork");
 
+                    PPApplication.logE("[EVENTS_HANDLER] GeofenceScanWorker.doWork", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
 

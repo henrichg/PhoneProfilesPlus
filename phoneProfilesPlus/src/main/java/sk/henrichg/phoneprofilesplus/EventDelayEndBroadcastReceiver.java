@@ -46,7 +46,7 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
 
                             PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventDelayEndBroadcastReceiver.doWork (1)");
 
-                            //PPApplication.logE("EventDelayEndBroadcastReceiver.doWork", "handle events");
+                            PPApplication.logE("[EVENTS_HANDLER] EventDelayEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_END (1)");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
 
@@ -65,6 +65,7 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("EventDelayEndBroadcastReceiver.doWork", "handle events");
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayEndBroadcastReceiver.doWork (2)");
 
+                PPApplication.logE("[EVENTS_HANDLER] EventDelayEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_END (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
 

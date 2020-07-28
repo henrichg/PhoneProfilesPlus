@@ -52,6 +52,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 // start events handler
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SearchCalendarEventsWorker.doWork");
 
+                PPApplication.logE("[EVENTS_HANDLER] SearchCalendarEventsWorker.doWork", "sensorType=SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
 
