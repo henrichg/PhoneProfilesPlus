@@ -1,21 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.ActivityManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Set;
 
 public class MainWorker extends Worker {
@@ -124,7 +116,7 @@ public class MainWorker extends Worker {
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
                         doAfterFirstStart(appContext, getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true));
                         break;
-                    case PPApplication.PACKAGE_REPLACED_WORK_TAG:
+                    /*case PPApplication.PACKAGE_REPLACED_WORK_TAG:
                         PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "START");
 
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
@@ -227,27 +219,27 @@ public class MainWorker extends Worker {
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT, ApplicationPreferences.applicationActivateWithAlert);
 
-                                            /*String rescan;
-                                            rescan = ApplicationPreferences.applicationEventLocationRescan;
-                                            if (rescan.equals("0"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
-                                            if (rescan.equals("2"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
-                                            rescan = ApplicationPreferences.applicationEventWifiRescan;
-                                            if (rescan.equals("0"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
-                                            if (rescan.equals("2"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
-                                            rescan = ApplicationPreferences.applicationEventBluetoothRescan;
-                                            if (rescan.equals("0"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
-                                            if (rescan.equals("2"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
-                                            rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
-                                            if (rescan.equals("0"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
-                                            if (rescan.equals("2"))
-                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");*/
+//                                            String rescan;
+//                                            rescan = ApplicationPreferences.applicationEventLocationRescan;
+//                                            if (rescan.equals("0"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
+//                                            if (rescan.equals("2"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_RESCAN, "3");
+//                                            rescan = ApplicationPreferences.applicationEventWifiRescan;
+//                                            if (rescan.equals("0"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
+//                                            if (rescan.equals("2"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_RESCAN, "3");
+//                                            rescan = ApplicationPreferences.applicationEventBluetoothRescan;
+//                                            if (rescan.equals("0"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "1");
+//                                            if (rescan.equals("2"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN, "3");
+//                                            rescan = ApplicationPreferences.applicationEventMobileCellsRescan;
+//                                            if (rescan.equals("0"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+//                                            if (rescan.equals("2"))
+//                                                editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
 
                                         editor.apply();
 
@@ -511,13 +503,13 @@ public class MainWorker extends Worker {
 
                                 doAfterFirstStart(appContext, true);
 
-                                //instance.setApplicationFullyStarted(/*true, */true);
+                                //instance.setApplicationFullyStarted(true);
                                 //PPApplication.updateGUI(appContext, true, true);
                             }
                         }
 
                         PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "END");
-                        break;
+                        break; */
                     default:
                         if (tag.startsWith(PROFILE_DURATION_TAG_WORK)) {
                             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -554,12 +546,13 @@ public class MainWorker extends Worker {
         }
     }
 
+    /*
     private void startService(DataWrapper dataWrapper, boolean exitApp) {
         //boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
         //PPApplication.logE("PackageReplacedReceiver.startService", "isApplicationStarted="+isApplicationStarted);
 
         if (exitApp)
-            PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
+            PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false);
 
         //DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
         //DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
@@ -613,6 +606,7 @@ public class MainWorker extends Worker {
         PPApplication.logE("PhoneProfilesService.afterPackageReplaced.isServiceRunning", "false");
         return false;
     }
+    */
 
     private static void doAfterFirstStart(Context appContext, boolean activateProfiles) {
         PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");

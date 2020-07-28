@@ -11,8 +11,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import java.util.concurrent.TimeUnit;
-
 public class BootUpReceiver extends BroadcastReceiver {
 
     static boolean bootUpCompleted = false;
@@ -115,7 +113,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                                 .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                                 .setInputData(workData)
                                                 //.setInitialDelay(5, TimeUnit.SECONDS)
-                                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                                 .build();
                                 try {
                                     if (PPApplication.getApplicationStarted(true)) {
@@ -133,7 +131,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 //                                            //}
 
                                             //workManager.enqueue(worker);
-                                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                                         }
                                     }
                                 } catch (Exception e) {

@@ -111,7 +111,7 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesService.onCreate"
                                                 +"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
-                                                +"|PhoneProfilesService.afterPackageReplaced"
+                                                +"|PhoneProfilesService.doForPackageReplaced"
                                                 +"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"

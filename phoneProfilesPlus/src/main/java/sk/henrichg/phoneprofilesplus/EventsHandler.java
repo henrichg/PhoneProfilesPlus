@@ -123,7 +123,7 @@ class EventsHandler {
         this.context = context.getApplicationContext();
     }
 
-    void handleEvents(String _sensorType) {
+    void handleEvents(String sensorType) {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
@@ -145,7 +145,7 @@ class EventsHandler {
 
             //boolean interactive;
 
-            sensorType = _sensorType;
+            this.sensorType = sensorType;
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //PPApplication.logE("$$$ EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
@@ -246,7 +246,7 @@ class EventsHandler {
             boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
-            if (!eventsExists(dataWrapper)) {
+            if (!eventsExists(sensorType, dataWrapper)) {
                 // events not exists
 
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "events not exists: sensorType="+sensorType);
@@ -902,7 +902,7 @@ class EventsHandler {
         }
     }
 
-    private boolean alwaysEnabledSensors() {
+    private boolean alwaysEnabledSensors (String sensorType) {
         switch (sensorType) {
             case SENSOR_TYPE_SCREEN:
                 // call doHandleEvents for all screen on/off changes
@@ -919,7 +919,7 @@ class EventsHandler {
         return false;
     }
 
-    private boolean eventsExists(DataWrapper dataWrapper/*, boolean onlyRunning*/) {
+    private boolean eventsExists(String sensorType, DataWrapper dataWrapper/*, boolean onlyRunning*/) {
 
         boolean sensorEnabled;
         for (Event _event : dataWrapper.eventList) {
@@ -1039,13 +1039,13 @@ class EventsHandler {
                 }
 
                 if (!sensorEnabled)
-                    sensorEnabled = alwaysEnabledSensors();
+                    sensorEnabled = alwaysEnabledSensors(sensorType);
 
                 if (sensorEnabled)
                     return true;
             }
         }
-        return alwaysEnabledSensors();
+        return alwaysEnabledSensors(sensorType);
     }
 
     private void doEndHandler(DataWrapper dataWrapper) {
