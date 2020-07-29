@@ -69,11 +69,13 @@ public class ActivityLogActivity extends AppCompatActivity {
         listView = findViewById(R.id.activity_log_list);
 
         // Setup cursor adapter using cursor from last step
-        activityLogAdapter = new ActivityLogAdapter(getBaseContext(), DatabaseHandler.getInstance(getApplicationContext()).getActivityLogCursor());
+        Cursor activityLogCursor =  DatabaseHandler.getInstance(getApplicationContext()).getActivityLogCursor();
+        if (activityLogCursor != null) {
+            activityLogAdapter = new ActivityLogAdapter(getBaseContext(), activityLogCursor);
 
-        // Attach cursor adapter to the ListView
-        listView.setAdapter(activityLogAdapter);
-
+            // Attach cursor adapter to the ListView
+            listView.setAdapter(activityLogAdapter);
+        }
     }
 
 
