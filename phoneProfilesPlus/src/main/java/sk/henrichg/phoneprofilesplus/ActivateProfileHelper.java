@@ -935,15 +935,15 @@ class ActivateProfileHelper {
                     //PPApplication.logE("ActivateProfileHelper.setVolumes", "ActivateProfileHelper.getMergedRingNotificationVolumes()=" + ActivateProfileHelper.getMergedRingNotificationVolumes());
                     //PPApplication.logE("ActivateProfileHelper.setVolumes", "ApplicationPreferences.applicationUnlinkRingerNotificationVolumes=" + ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
 
-                    if ((!audioManager.isStreamMute(AudioManager.STREAM_RING)) &&
-                        (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))) {
+                    boolean volumesSet = false;
+                    //TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (/*(telephony != null) &&*/ ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                        if ((!audioManager.isStreamMute(AudioManager.STREAM_RING)) &&
+                            (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))) {
 
-                        boolean volumesSet = false;
-                        //TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                        if (/*(telephony != null) &&*/ ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
                             //int callState = telephony.getCallState();
                             if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK)/* ||
-                                (callState == TelephonyManager.CALL_STATE_RINGING)*/) {
+                            (callState == TelephonyManager.CALL_STATE_RINGING)*/) {
                                 // for separating ringing and notification
                                 // in ringing state ringer volumes must by set
                                 // and notification volumes must not by set
@@ -997,7 +997,7 @@ class ActivateProfileHelper {
                                 //correctVolume0(audioManager);
                                 volumesSet = true;
                             } else if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_NONE)/* ||
-                                        (callState == TelephonyManager.CALL_STATE_IDLE)*/) {
+                                    (callState == TelephonyManager.CALL_STATE_IDLE)*/) {
                                 int volume = ApplicationPreferences.prefRingerVolume;
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  ringer volume=" + volume);
                                 if (volume != -999) {
@@ -1028,10 +1028,12 @@ class ActivateProfileHelper {
                                 volumesSet = true;
                             }
                         }
-                        if (!volumesSet) {
-                            // reverted order for disabled unlink
-                            int volume;
-                            if (!ActivateProfileHelper.getMergedRingNotificationVolumes()) {
+                    }
+                    if (!volumesSet) {
+                        // reverted order for disabled unlink
+                        int volume;
+                        if (!ActivateProfileHelper.getMergedRingNotificationVolumes()) {
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
                                 volume = ApplicationPreferences.prefNotificationVolume;
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
                                 if (volume != -999) {
@@ -1046,6 +1048,8 @@ class ActivateProfileHelper {
                                     }
                                 }
                             }
+                        }
+                        if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
                             volume = ApplicationPreferences.prefRingerVolume;
                             //PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
                             if (volume != -999) {
@@ -1061,10 +1065,10 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        //}
-                        //else
-                        //    PPApplication.logE("ActivateProfileHelper.setVolumes", "not granted");
                     }
+                    //}
+                    //else
+                    //    PPApplication.logE("ActivateProfileHelper.setVolumes", "not granted");
                 }
             }
         }
