@@ -1542,7 +1542,7 @@
     <string name="ignore_battery_optimization_notification_disable_button">Do not show again</string>
     <string name="ignore_battery_optimization_confirm_notification_disable">If PhoneProfilesPlus will not be added to \"Not optimized\", it will not working good with the screen off. Are you sure to not show this notification in future?</string>
 
-    <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Option \"On (do not disable Wi-Fi)\" must be supported byt system</string>
+    <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Option \"On (do not disable Wi-Fi)\" must be supported by system</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Options \"On (ignore hotspot)\", \"Toggle (ignore hotspot)\" must be supported by system</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">\"Priority\" type is similar to system \"Do not disturb\". Will be used all options configured in system Settings for \"Do not disturb\"</string>
 
