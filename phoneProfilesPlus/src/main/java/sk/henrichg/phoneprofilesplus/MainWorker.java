@@ -42,7 +42,7 @@ public class MainWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL]  MainWorker.doWork", "xxxx");
+            //PPApplication.logE("[WORKER CALL]  MainWorker.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -56,7 +56,7 @@ public class MainWorker extends Worker {
                 if (tag.startsWith(PPApplication.PACKAGE_NAME))
                     continue;
 
-                PPApplication.logE("[WORKER CALL]  MainWorker.doWork", "tag=" + tag);
+                //PPApplication.logE("[WORKER CALL]  MainWorker.doWork", "tag=" + tag);
 
                 switch (tag) {
                     case WifiScanWorker.WORK_TAG_START_SCAN:
@@ -76,7 +76,7 @@ public class MainWorker extends Worker {
                             // start events handler
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
 
-                            PPApplication.logE("[EVENTS_HANDLER] MainWorker.doWork", "sensorType="+sensorType);
+//                            PPApplication.logE("[EVENTS_HANDLER] MainWorker.doWork", "sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
 
@@ -653,7 +653,7 @@ public class MainWorker extends Worker {
                     // start events handler
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
 
-                    PPApplication.logE("[EVENTS_HANDLER] MainWorker.doAfterFirstStart", "sensorType=SENSOR_TYPE_DEVICE_BOOT");
+//                    PPApplication.logE("[EVENTS_HANDLER] MainWorker.doAfterFirstStart", "sensorType=SENSOR_TYPE_DEVICE_BOOT");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
 
                     Calendar now = Calendar.getInstance();

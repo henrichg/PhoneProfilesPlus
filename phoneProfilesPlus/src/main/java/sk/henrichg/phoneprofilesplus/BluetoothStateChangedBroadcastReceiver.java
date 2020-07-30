@@ -11,7 +11,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothStateChangedBroadcastReceiver.onReceive", "BluetoothStateChangedBroadcastReceiver_onReceive");
 
@@ -44,7 +44,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
 
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
@@ -83,7 +83,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // start events handler
                                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive (1)");
 
-                                    PPApplication.logE("[EVENTS_HANDLER] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                                    PPApplication.logE("[EVENTS_HANDLER] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
@@ -92,7 +92,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // start events handler
                                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive (2)");
 
-                                    PPApplication.logE("[EVENTS_HANDLER] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_STATE");
+//                                    PPApplication.logE("[EVENTS_HANDLER] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_STATE");
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
 
                                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BluetoothStateChangedBroadcastReceiver.onReceive (2)");

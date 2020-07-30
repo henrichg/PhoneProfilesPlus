@@ -20,7 +20,7 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 public class DonationBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] DonationBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] DonationBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "DonationBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -118,7 +118,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DonationBroadcastReceiver.doWork");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DonationBroadcastReceiver.doWork");
 
                         _doWork(appContext);
                         setAlarm(appContext);

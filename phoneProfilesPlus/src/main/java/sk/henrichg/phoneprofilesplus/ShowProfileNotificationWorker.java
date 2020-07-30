@@ -23,7 +23,7 @@ public class ShowProfileNotificationWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL]  ShowProfileNotificationWorker.doWork", "xxxx");
+            //PPApplication.logE("[WORKER CALL]  ShowProfileNotificationWorker.doWork", "xxxx");
 
             Context appContext = context.getApplicationContext();
 

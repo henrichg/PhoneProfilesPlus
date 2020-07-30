@@ -19,7 +19,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] WifiStateChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] WifiStateChangedBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "WifiStateChangedBroadcastReceiver.onReceive", "WifiStateChangedBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -53,7 +53,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
+//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
 
@@ -137,7 +137,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         // start events handler
                                         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=WifiStateChangedBroadcastReceiver.onReceive (1)");
 
-                                        PPApplication.logE("[EVENTS_HANDLER] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                                        PPApplication.logE("[EVENTS_HANDLER] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
                                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
@@ -146,7 +146,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         // start events handler
                                         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=WifiStateChangedBroadcastReceiver.onReceive (2)");
 
-                                        PPApplication.logE("[EVENTS_HANDLER] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_WIFI_STATE");
+//                                        PPApplication.logE("[EVENTS_HANDLER] WifiStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_WIFI_STATE");
                                         eventsHandler = new EventsHandler(appContext);
                                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_STATE);
 

@@ -172,7 +172,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
+//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
 
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                 GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -518,7 +518,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
+//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
 
                                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                             GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -528,7 +528,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                         if (startEventsHandler) {
                                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
 
-                                            PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "sensorType=SENSOR_TYPE_LOCATION_MODE");
+//                                            PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "sensorType=SENSOR_TYPE_LOCATION_MODE");
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
 

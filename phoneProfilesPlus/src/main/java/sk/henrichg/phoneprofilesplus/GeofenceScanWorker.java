@@ -36,7 +36,7 @@ public class GeofenceScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL]  GeofenceScanWorker.doWork", "xxxx");
+            //PPApplication.logE("[WORKER CALL]  GeofenceScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("GeofenceScanWorker.doWork", "---------------------------------------- START");
 
@@ -87,7 +87,7 @@ public class GeofenceScanWorker extends Worker {
                     // start events handler
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=GeofenceScanWorker.doWork");
 
-                    PPApplication.logE("[EVENTS_HANDLER] GeofenceScanWorker.doWork", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
+//                    PPApplication.logE("[EVENTS_HANDLER] GeofenceScanWorker.doWork", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
 
@@ -229,7 +229,7 @@ public class GeofenceScanWorker extends Worker {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.scheduleWork");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.scheduleWork");
                     _scheduleWork(context, shortInterval/*, forScreenOn*/);
                 }
             }, 500);
@@ -323,7 +323,7 @@ public class GeofenceScanWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.cancelWork");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.cancelWork");
                     _cancelWork();
                 }
             });
