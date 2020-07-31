@@ -4042,6 +4042,11 @@ public class PPApplication extends Application
 
 //                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                             _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");

@@ -142,6 +142,12 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 //PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
                             }
                             PPApplication.deviceBoot = false;
+
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                             PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
                         }
 
