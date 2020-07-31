@@ -95,7 +95,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode)
+                                .addTag(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
                                 .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -120,8 +120,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 //                            //}
 
                             //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
-                            PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_" + requestCode);
+                            workManager.enqueueUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                            PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_" + requestCode);
                         }
                     }
                 } catch (Exception e) {
@@ -201,8 +201,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
-        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
+        PPApplication.cancelWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode);
+        PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode);
         //PPApplication.logE("[HANDLER] RunApplicationWithDelayBroadcastReceiver.removeAlarm", "removed");
     }
 

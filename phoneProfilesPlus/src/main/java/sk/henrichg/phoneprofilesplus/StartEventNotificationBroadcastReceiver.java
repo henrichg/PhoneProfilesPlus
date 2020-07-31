@@ -51,8 +51,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
-        PPApplication.elapsedAlarmsStartEventNotificationWork.remove(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
+        PPApplication.cancelWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id);
+        PPApplication.elapsedAlarmsStartEventNotificationWork.remove(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id);
         //PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.removeAlarm", "removed");
     }
 
@@ -100,7 +100,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id)
+                                .addTag(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
                                 .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -125,8 +125,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 //                            //}
 
                             //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
-                            PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_" + (int) event._id);
+                            workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                            PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_" + (int) event._id);
                         }
                     }
                 } catch (Exception e) {

@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -62,47 +61,31 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
                 }
 
-                PPApplication.startHandlerThreadPPScanners();
-                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=PeriodicEventsHandlerWorker.doWork");
-                        int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
-                        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
-                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                        if (isPowerSaveMode && ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("1"))
-                            interval = 2 * interval;
+                //enqueueWork();
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG)
+                                //.setInitialDelay(200, TimeUnit.MILLISECONDS)
+                                .build();
+                try {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
 
-                        /*int keepResultsDelay = (interval * 5);
-                        if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-                        OneTimeWorkRequest periodicEventsHandlerWorker =
-                                new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
-                                        .addTag(PeriodicEventsHandlerWorker.WORK_TAG)
-                                        .setInitialDelay(interval, TimeUnit.MINUTES)
-                                        .build();
-                        try {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null) {
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] PeriodicEventsHandlerWorker.doWork", "for=" + MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
 
-//                                //if (PPApplication.logEnabled()) {
-//                                ListenableFuture<List<WorkInfo>> statuses;
-//                                statuses = workManager.getWorkInfosForUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG);
-//                                try {
-//                                    List<WorkInfo> workInfoList = statuses.get();
-//                                    PPApplication.logE("[TEST BATTERY] PeriodicEventsHandlerWorker.doWork", "for=" + PeriodicEventsHandlerWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                                } catch (Exception ignored) {
-//                                }
-//                                //}
-
-                                workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
-                            }
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+                        workManager.enqueueUniqueWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
-                }, 500);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
 
             }
 
@@ -118,6 +101,42 @@ public class PeriodicEventsHandlerWorker extends Worker {
             };
             _handler.postDelayed(r, 1000);*/
             return Result.failure();
+        }
+    }
+
+    static void enqueueWork(Context appContext) {
+        int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
+        if (isPowerSaveMode && ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("1"))
+            interval = 2 * interval;
+
+        /*int keepResultsDelay = (interval * 5);
+        if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+            keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+        OneTimeWorkRequest periodicEventsHandlerWorker =
+                new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
+                        .addTag(PeriodicEventsHandlerWorker.WORK_TAG)
+                        .setInitialDelay(interval, TimeUnit.MINUTES)
+                        .build();
+        try {
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+
+//                                //if (PPApplication.logEnabled()) {
+//                                ListenableFuture<List<WorkInfo>> statuses;
+//                                statuses = workManager.getWorkInfosForUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG);
+//                                try {
+//                                    List<WorkInfo> workInfoList = statuses.get();
+//                                    PPApplication.logE("[TEST BATTERY] PeriodicEventsHandlerWorker.enqueueWork", "for=" + PeriodicEventsHandlerWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                                } catch (Exception ignored) {
+//                                }
+//                                //}
+
+                workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
         }
     }
 

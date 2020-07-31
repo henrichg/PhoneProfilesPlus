@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
@@ -29,7 +28,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
         try {
             //PPApplication.logE("[WORKER CALL] AvoidRescheduleReceiverWorker.doWork", "xxxx");
 
-            PPApplication.startHandlerThreadPPScanners();
+            /*PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
@@ -37,7 +36,32 @@ public class AvoidRescheduleReceiverWorker extends Worker {
                     PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=AvoidRescheduleReceiverWorker.doWork");
                     enqueueWork();
                 }
-            }, 500);
+            }, 500);*/
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
+                            //.setInitialDelay(200, TimeUnit.MILLISECONDS)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] AvoidRescheduleReceiverWorker.doWork", "for=" + MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+                    workManager.enqueueUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
 
             return Result.success();
         } catch (Exception e) {

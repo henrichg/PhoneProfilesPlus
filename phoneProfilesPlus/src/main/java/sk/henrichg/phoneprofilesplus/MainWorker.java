@@ -19,15 +19,23 @@ public class MainWorker extends Worker {
     static final String EVENT_DELAY_END_TAG_WORK = "eventDelayEndWork";
     static final String CLOSE_ALL_APPLICATIONS_WORK_TAG = "closeAllApplicationsWork";
 
+    static final String SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "scheduleAvoidRescheduleReceiverWork";
+    static final String SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG = "scheduleLongIntervalWifiWork";
+    static final String SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG = "scheduleLongIntervalBluetoothWork";
+    static final String SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG = "scheduleLongIntervalGeofenceWork";
+    static final String SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG = "scheduleLongIntervalPeriodicEventsHandlerWork";
+    static final String SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG = "scheduleLongIntervalSearchCalendarWork";
+
     static final String HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG = "handleEventsBluetoothLEScannerWork";
     static final String HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG = "handleEventsBluetoothCLScannerWork";
     static final String HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG = "handleEventsWifiScannerFromReceiverWork";
     static final String HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG = "handleEventsWifiScannerFromScannerWork";
     static final String HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG = "handleEventsTwilightScannerWork";
     static final String HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG = "handleEventsMobileCellsScannerWork";
-    static final String START_EVENT_NOTIFICATION_TAG_WORK = "startEventNotificationWork";
-    static final String RUN_APPLICATION_WITH_DELAY_TAG_WORK = "runApplicationWithDelayWork";
-    static final String PROFILE_DURATION_TAG_WORK = "profileDurationWork";
+    static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
+    static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
+    static final String PROFILE_DURATION_WORK_TAG = "profileDurationWork";
+
 
     final Context context;
 
@@ -510,15 +518,33 @@ public class MainWorker extends Worker {
 
                         PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "END");
                         break; */
+                    case SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG:
+                        AvoidRescheduleReceiverWorker.enqueueWork();
+                        break;
+                    case SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG:
+                        BluetoothScanWorker.scheduleWork(appContext, false);
+                        break;
+                    case SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG:
+                        GeofenceScanWorker.scheduleWork(appContext, false);
+                        break;
+                    case SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG:
+                        PeriodicEventsHandlerWorker.enqueueWork(appContext);
+                        break;
+                    case SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG:
+                        SearchCalendarEventsWorker.scheduleWork(false);
+                        break;
+                    case SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG:
+                        WifiScanWorker.scheduleWork(appContext, false);
+                        break;
                     default:
-                        if (tag.startsWith(PROFILE_DURATION_TAG_WORK)) {
+                        if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {
                             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
                             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
                             int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
                             ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
                         }
                         else
-                        if (tag.startsWith(RUN_APPLICATION_WITH_DELAY_TAG_WORK)) {
+                        if (tag.startsWith(RUN_APPLICATION_WITH_DELAY_WORK_TAG)) {
                             String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
                             String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
                             RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
@@ -530,7 +556,7 @@ public class MainWorker extends Worker {
                         if (tag.startsWith(EVENT_DELAY_END_TAG_WORK))
                             EventDelayEndBroadcastReceiver.doWork(false, appContext);
                         else
-                        if (tag.startsWith(START_EVENT_NOTIFICATION_TAG_WORK)) {
+                        if (tag.startsWith(START_EVENT_NOTIFICATION_WORK_TAG)) {
                             long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
                             StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
                         }
