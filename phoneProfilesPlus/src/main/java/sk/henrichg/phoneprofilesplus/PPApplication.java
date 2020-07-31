@@ -1660,11 +1660,19 @@ public class PPApplication extends Application
         }
         cancelWork(SearchCalendarEventsWorker.WORK_TAG);
         cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
-        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
         cancelWork(WifiScanWorker.WORK_TAG);
         cancelWork(WifiScanWorker.WORK_TAG_SHORT);
         cancelWork(WifiScanWorker.WORK_TAG_START_SCAN);
+        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG);
     }
 
     /*

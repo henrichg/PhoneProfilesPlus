@@ -18,11 +18,11 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
     boolean importStarted = false;
     boolean importEndeed = false;
     PPApplicationDataForExport applicationData = null;
-    int profilesCount = 0;
+    //int profilesCount = 0;
     List<PPProfileForExport> profiles = null;
-    int shortcutsCount = 0;
+    //int shortcutsCount = 0;
     List<PPShortcutForExport> shortcuts = null;
-    int intentsCount = 0;
+    //int intentsCount = 0;
     List<PPIntentForExport> intents = null;
 
     @Override
@@ -57,7 +57,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
             case PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    profilesCount = extras.getInt(PPApplication.EXTRA_PP_PROFILES_COUNT);
+                    //profilesCount = extras.getInt(PPApplication.EXTRA_PP_PROFILES_COUNT);
                     profiles = new ArrayList<>();
                     //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "profilesCount="+profilesCount);
                 }
@@ -75,7 +75,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
             case PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    shortcutsCount = extras.getInt(PPApplication.EXTRA_PP_SHORTCUTS_COUNT);
+                    //shortcutsCount = extras.getInt(PPApplication.EXTRA_PP_SHORTCUTS_COUNT);
                     shortcuts = new ArrayList<>();
                     //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "shortcutsCount="+shortcutsCount);
                 }
@@ -93,7 +93,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
             case PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT:
                 extras = intent.getExtras();
                 if (extras != null) {
-                    intentsCount = extras.getInt(PPApplication.EXTRA_PP_INTENTS_COUNT);
+                    //intentsCount = extras.getInt(PPApplication.EXTRA_PP_INTENTS_COUNT);
                     intents = new ArrayList<>();
                     //PPApplication.logE("ImportPPDataBroadcastReceiver.onReceive", "intentsCount="+intentsCount);
                 }

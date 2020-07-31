@@ -93,7 +93,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
 //            //}
 //        }
 
-        PPApplication.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+        //PPApplication.cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         OneTimeWorkRequest avoidRescheduleReceiverWorker =
                 new OneTimeWorkRequest.Builder(AvoidRescheduleReceiverWorker.class)
                         .addTag(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
