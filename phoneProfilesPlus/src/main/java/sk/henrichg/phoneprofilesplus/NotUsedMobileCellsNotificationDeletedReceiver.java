@@ -31,7 +31,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellInfoChanged");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsNotificationDeletedReceiver_onReceive");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
