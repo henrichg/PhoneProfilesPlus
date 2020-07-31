@@ -159,13 +159,13 @@ public class SearchCalendarEventsWorker extends Worker {
         //if (useHandler/* && (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            handler.post(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork");
                     _scheduleWork(shortInterval);
                 }
-            });
+            }, 500);
         //}
         //else {
         //    _scheduleWork(shortInterval);
