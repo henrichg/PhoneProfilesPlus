@@ -34,7 +34,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=AvoidRescheduleReceiverWorker.doWork");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=AvoidRescheduleReceiverWorker.doWork");
                     enqueueWork();
                 }
             }, 500);

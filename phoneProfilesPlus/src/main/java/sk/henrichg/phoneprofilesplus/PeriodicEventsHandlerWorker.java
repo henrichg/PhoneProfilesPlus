@@ -67,7 +67,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=PeriodicEventsHandlerWorker.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=PeriodicEventsHandlerWorker.doWork");
                         int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
                         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);

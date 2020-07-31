@@ -217,7 +217,7 @@ public class WifiScanWorker extends Worker {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork");
                         _scheduleWork(context, shortInterval);
                     }
                 }, 500);

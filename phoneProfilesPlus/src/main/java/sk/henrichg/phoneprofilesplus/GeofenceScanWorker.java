@@ -229,7 +229,7 @@ public class GeofenceScanWorker extends Worker {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.scheduleWork");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.scheduleWork");
                     _scheduleWork(context, shortInterval/*, forScreenOn*/);
                 }
             }, 500);

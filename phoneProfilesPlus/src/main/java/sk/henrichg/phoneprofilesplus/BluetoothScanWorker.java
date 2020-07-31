@@ -219,7 +219,7 @@ public class BluetoothScanWorker extends Worker {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork");
                         _scheduleWork(context, shortInterval/*, forScreenOn*/);
                     }
                 }, 500);
