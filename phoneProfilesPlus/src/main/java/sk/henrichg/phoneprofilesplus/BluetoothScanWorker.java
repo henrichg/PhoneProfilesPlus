@@ -208,14 +208,23 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, /*final boolean useHandler,*/ final boolean shortInterval/*, final boolean forScreenOn*/) {
+    static void scheduleWork(final Context context, final boolean shortInterval) {
         //PPApplication.logE("BluetoothScanWorker.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            //if (useHandler /*&& (_handler == null)*/) {
-                PPApplication.startHandlerThreadPPScanners();
-                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            if (shortInterval) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork (short)");
+                        _scheduleWork(context, shortInterval/*, forScreenOn*/);
+                    }
+                });
+            }
+            else {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -223,10 +232,7 @@ public class BluetoothScanWorker extends Worker {
                         _scheduleWork(context, shortInterval/*, forScreenOn*/);
                     }
                 }, 500);
-            //}
-            //else {
-            //    _scheduleWork(context, shortInterval/*, forScreenOn*/);
-            //}
+            }
         }
         //else
         //    PPApplication.logE("BluetoothScanWorker.scheduleJob","BluetoothHardware=false");

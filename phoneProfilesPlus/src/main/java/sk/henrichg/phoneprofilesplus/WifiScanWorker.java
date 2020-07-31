@@ -206,14 +206,23 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, /*final boolean useHandler,*/ final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
-        //PPApplication.logE("WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
+    static void scheduleWork(final Context context, final boolean shortInterval) {
+        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            //if (useHandler /*&& (_handler == null)*/) {
-                PPApplication.startHandlerThreadPPScanners();
-                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            if (shortInterval) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork (short)");
+                        _scheduleWork(context, shortInterval);
+                    }
+                });
+            }
+            else {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -221,10 +230,7 @@ public class WifiScanWorker extends Worker {
                         _scheduleWork(context, shortInterval);
                     }
                 }, 500);
-            //}
-            //else {
-            //    _scheduleWork(context, shortInterval);
-            //}
+            }
         }
         //else
         //    PPApplication.logE("WifiScanWorker.scheduleWork","WifiHardware=false");

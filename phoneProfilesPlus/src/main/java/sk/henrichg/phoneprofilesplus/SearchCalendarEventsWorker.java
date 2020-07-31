@@ -153,12 +153,21 @@ public class SearchCalendarEventsWorker extends Worker {
         }
     }
 
-    static void scheduleWork(/*final boolean useHandler,*/ final boolean shortInterval) {
+    static void scheduleWork(final boolean shortInterval) {
         //PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
 
-        //if (useHandler/* && (_handler == null)*/) {
-            PPApplication.startHandlerThreadPPScanners();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        PPApplication.startHandlerThreadPPScanners();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        if (shortInterval) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork (short)");
+                    _scheduleWork(shortInterval);
+                }
+            });
+        }
+        else {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -166,10 +175,7 @@ public class SearchCalendarEventsWorker extends Worker {
                     _scheduleWork(shortInterval);
                 }
             }, 500);
-        //}
-        //else {
-        //    _scheduleWork(shortInterval);
-        //}
+        }
     }
 
     private static void _cancelWork() {

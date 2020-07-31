@@ -218,14 +218,21 @@ public class GeofenceScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, /*final boolean useHandler,*/
-                            final boolean shortInterval/*, final boolean forScreenOn*/) {
+    static void scheduleWork(final Context context, final boolean shortInterval) {
         //PPApplication.logE("GeofenceScanWorker.scheduleWork", "startScanning="+startScanning);
 
-        //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-        //if (useHandler/* && (_handler == null)*/) {
-            PPApplication.startHandlerThreadPPScanners();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        PPApplication.startHandlerThreadPPScanners();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        if (shortInterval) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=GeofenceScanWorker.scheduleWork (short)");
+                    _scheduleWork(context, shortInterval/*, forScreenOn*/);
+                }
+            });
+        }
+        else {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -233,11 +240,7 @@ public class GeofenceScanWorker extends Worker {
                     _scheduleWork(context, shortInterval/*, forScreenOn*/);
                 }
             }, 500);
-        //}
-        //else {
-        //    _scheduleWork(context, startScanning/*, forScreenOn*/);
-        //}
-        //}
+        }
         //else
         //    PPApplication.logE("GeofenceScanWorker.scheduleWork", "scanner is not started");
     }
