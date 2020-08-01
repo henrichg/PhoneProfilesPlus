@@ -2211,11 +2211,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STARTED);
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_ENDED);
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT);
+                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT);
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT);
+                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT);
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT);
+                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT);
                 intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS);
                 registerReceiver(importPPDataBroadcastReceiver, intentFilter,
                         PPApplication.EXPORT_PP_DATA_PERMISSION, null);

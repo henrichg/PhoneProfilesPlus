@@ -1447,7 +1447,6 @@
     <string name="profile_preferences_volumeZenModeMInfo_summary">Typ \"Prioritní\" je stejný jako systémové \"Nerušit\". Budou použity všechny nastavení nakonfigurované v systémových nastaveních pro \"Nerušit\"</string>
     <string name="menu_import_from_pp">Import údajů z PhoneProfiles</string>
     <string name="import_profiles_from_pp_alert_title">Import údajů z PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_message">Jste si jistý?</string>
     <string name="import_profiles_from_pp_alert_error">Chyba při importu dat z PhoneProfiles</string>
     <string name="import_profiles_from_pp_alert_error_database_bug">Chyba při importu databáze.</string>
     <string name="import_profiles_from_pp_alert_error_appSettings_bug">Chyba při importu nastavení aplikace.</string>
