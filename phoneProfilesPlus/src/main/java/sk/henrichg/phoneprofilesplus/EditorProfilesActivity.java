@@ -2447,9 +2447,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 List<Long> ppIntentIds = new ArrayList<>();
                                 List<Long> importedIntentIds = new ArrayList<>();
 
-
+                                // first import shortcuts and intents
                                 try {
-                                    // first import shortcuts and intents
                                     for (PPShortcutForExport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
                                         Shortcut shortcut = new Shortcut();
                                         shortcut._intent = shortcutForImport.KEY_S_INTENT;
@@ -2553,7 +2552,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 profileForImport.KEY_DEVICE_RUN_APPLICATION_CHANGE,
                                                 profileForImport.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
                                                 profileForImport.KEY_DEVICE_AUTOSYNC,
-                                                false,
+                                                true,
                                                 profileForImport.KEY_DEVICE_AUTOROTATE,
                                                 profileForImport.KEY_DEVICE_LOCATION_SERVICE_PREFS,
                                                 profileForImport.KEY_VOLUME_SPEAKER_PHONE,
