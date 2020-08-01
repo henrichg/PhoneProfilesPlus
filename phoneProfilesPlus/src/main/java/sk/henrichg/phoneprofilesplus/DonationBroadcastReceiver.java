@@ -131,7 +131,10 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
 //                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DonationBroadcastReceiver.doWork");
 
-                        _doWork(appContext);
+                        try {
+                            _doWork(appContext);
+                        } catch (Exception ignored) {}
+
                         setAlarm(appContext);
 
 
