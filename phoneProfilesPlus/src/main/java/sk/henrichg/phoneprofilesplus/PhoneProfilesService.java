@@ -3789,7 +3789,7 @@ public class PhoneProfilesService extends Service
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "14");
 
-                    PPApplication.logE("[DONATION] PhoneProfilesService.doForFirstStart - handler", "start donation alarm");
+                    //PPApplication.logE("[DONATION] PhoneProfilesService.doForFirstStart - handler", "start donation alarm");
                     DonationBroadcastReceiver.setAlarm(appContext);
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");

@@ -170,7 +170,7 @@ public class PPApplication extends Application
                                                 //+"|[TEST BATTERY]"
                                                 //+"|[APP START]"
                                                 //+"|[SHEDULE_WORK]"
-                                                +"|[DONATION]"
+                                                //+"|[DONATION]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"

@@ -34,7 +34,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
     {
         removeAlarm(context);
 
-        PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "xxx");
+        //PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "xxx");
 
         Calendar now = Calendar.getInstance();
         //if (DebugVersion.enabled) {
@@ -51,7 +51,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String result = sdf.format(now.getTimeInMillis());
-                PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
+                //PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
             }
         //}
 
@@ -113,7 +113,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        PPApplication.logE("[DONATION] DonationBroadcastReceiver.doWork", "xxx");
+        //PPApplication.logE("[DONATION] DonationBroadcastReceiver.doWork", "xxx");
 
         //if (useHandler) {
             PPApplication.startHandlerThread(/*"DonationBroadcastReceiver.onReceive"*/);
