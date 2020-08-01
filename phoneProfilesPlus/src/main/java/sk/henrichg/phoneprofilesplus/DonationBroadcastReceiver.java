@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -13,6 +14,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -32,6 +34,8 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
     {
         removeAlarm(context);
 
+        PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "xxx");
+
         Calendar now = Calendar.getInstance();
         //if (DebugVersion.enabled) {
         //    now.add(Calendar.MINUTE, 1);
@@ -42,6 +46,13 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
             now.set(Calendar.MILLISECOND, 0);
+
+            if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(now.getTimeInMillis());
+                PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
+            }
         //}
 
         long alarmTime = now.getTimeInMillis();
@@ -75,8 +86,6 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
     static private void removeAlarm(Context context)
     {
-        //PPApplication.logE("DonationBroadcastReceiver.removeAlarm", "xxx");
-
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
@@ -103,6 +112,8 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
+
+        PPApplication.logE("[DONATION] DonationBroadcastReceiver.doWork", "xxx");
 
         //if (useHandler) {
             PPApplication.startHandlerThread(/*"DonationBroadcastReceiver.onReceive"*/);
@@ -149,12 +160,12 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
         if (DebugVersion.enabled) {
             donationDonated = false;
-                                /*if (donationNotificationCount == 5) {
-                                    donationNotificationCount = 3;
-                                    daysAfterFirstStart = 120;
-                                    PPApplication.setDonationNotificationCount(context, donationNotificationCount);
-                                    PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-                                }*/
+            /*if (donationNotificationCount == 5) {
+                donationNotificationCount = 3;
+                daysAfterFirstStart = 120;
+                PPApplication.setDonationNotificationCount(context, donationNotificationCount);
+                PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
+            }*/
             //donationNotificationCount = 3;
             //daysAfterFirstStart = 1168;
             //PPApplication.setDonationNotificationCount(context, donationNotificationCount);

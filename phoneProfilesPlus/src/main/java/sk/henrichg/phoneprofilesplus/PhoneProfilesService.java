@@ -3522,6 +3522,7 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         serviceHasFirstStart = true;
+        PPApplication.setApplicationStarted(getApplicationContext(), true);
 
         boolean applicationStart = false;
         //boolean deactivateProfile = false;
@@ -3788,6 +3789,7 @@ public class PhoneProfilesService extends Service
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "14");
 
+                    PPApplication.logE("[DONATION] PhoneProfilesService.doForFirstStart - handler", "start donation alarm");
                     DonationBroadcastReceiver.setAlarm(appContext);
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
