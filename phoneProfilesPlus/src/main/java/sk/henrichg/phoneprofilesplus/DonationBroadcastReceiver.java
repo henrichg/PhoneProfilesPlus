@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -14,7 +13,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -47,12 +45,12 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             now.set(Calendar.SECOND, 0);
             now.set(Calendar.MILLISECOND, 0);
 
-            if (PPApplication.logEnabled()) {
+            /*if (PPApplication.logEnabled()) {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String result = sdf.format(now.getTimeInMillis());
-                //PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
-            }
+                PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
+            }*/
         //}
 
         long alarmTime = now.getTimeInMillis();

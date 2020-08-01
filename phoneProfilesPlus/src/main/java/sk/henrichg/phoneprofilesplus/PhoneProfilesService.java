@@ -4256,9 +4256,11 @@ public class PhoneProfilesService extends Service
                     editor.apply();
                 }
 
+                /*
                 if (actualVersionCode <= 5700) {
                     // restart service for move screen timeout 24hr and permanent to Keep screen on
                 }
+                */
 
                 if (actualVersionCode <= 5910) {
                     ApplicationPreferences.startStopTargetHelps(appContext, false);

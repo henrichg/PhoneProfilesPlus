@@ -23,7 +23,6 @@ final class WifiApManager {
     private ConnectivityManager mConnectivityManager;
     private String packageName;
 
-    @SuppressWarnings("deprecation")
     @SuppressLint("PrivateApi")
     WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -50,7 +49,6 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings("deprecation")
     private void setWifiApState(WifiConfiguration config, boolean enabled, boolean doNotChangeWifi) {
         try {
             /*if (PPApplication.logEnabled()) {
@@ -83,7 +81,6 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings("deprecation")
     void setWifiApState(boolean enabled, boolean doNotChangeWifi) {
         WifiConfiguration wifiConfiguration = getWifiApConfiguration();
         /*return*/ setWifiApState(wifiConfiguration, enabled, doNotChangeWifi);
@@ -91,7 +88,6 @@ final class WifiApManager {
 
     // not working in Android 8+ :-/
     // https://stackoverflow.com/questions/46392277/changing-android-hotspot-settings
-    @SuppressWarnings("deprecation")
     private WifiConfiguration getWifiApConfiguration()
     {
         try{
