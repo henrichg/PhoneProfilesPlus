@@ -79,6 +79,8 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     static void setAlarm(Context context)
     {
+        removeAlarm(context);
+
         int delay = 1; // one minute with GPS ON
         if (!GeofencesScanner.useGPS)
             delay = 30;  // 30 minutes with GPS OFF
