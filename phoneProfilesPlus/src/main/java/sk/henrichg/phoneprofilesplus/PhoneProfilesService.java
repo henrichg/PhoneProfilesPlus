@@ -4743,8 +4743,6 @@ public class PhoneProfilesService extends Service
 
         if (PPApplication.doNotShowProfileNotification)
             return;
-        if (PhoneProfilesService.instance == null)
-            return;
 
         /*
         if (ActivateProfileHelper.lockRefresh)
@@ -4755,6 +4753,13 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService.showProfileNotification", "no lockRefresh");
 
         final Context appContext = this; //dataWrapper.context.getApplicationContext();
+
+        if ((!forFirstStart) &&
+            (!PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, true)))
+            return;
+
+        if (PhoneProfilesService.instance == null)
+            return;
 
 //        if (Build.VERSION.SDK_INT >= 26) {
 //            if (!PPApplication.createProfileNotificationChannel(appContext))
