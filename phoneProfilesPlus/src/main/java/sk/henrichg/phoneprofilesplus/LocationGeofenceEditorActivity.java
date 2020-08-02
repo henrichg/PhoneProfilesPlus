@@ -856,7 +856,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
-    private void onDialogDismissed() {
+    private void dialogDismiss() {
         mResolvingError = false;
     }
 
@@ -879,7 +879,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         @Override
         public void onDismiss(@NonNull DialogInterface dialog) {
             if (getActivity() != null)
-                ((LocationGeofenceEditorActivity) getActivity()).onDialogDismissed();
+                ((LocationGeofenceEditorActivity) getActivity()).dialogDismiss();
         }
     }
 

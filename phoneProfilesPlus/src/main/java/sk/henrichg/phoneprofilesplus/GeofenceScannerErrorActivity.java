@@ -52,6 +52,8 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
                 }
             }
         }
+        finish();
+        //activity = null;
     }
 
     //------------------------------------------
@@ -70,13 +72,13 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
-    private void onDialogDismissed() {
+    private void dialogDismiss() {
         synchronized (PPApplication.geofenceScannerMutex) {
             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
                 PhoneProfilesService.getInstance().getGeofencesScanner().mResolvingError = false;
-            finish();
-            //activity = null;
         }
+        finish();
+        //activity = null;
     }
 
     /* A fragment to display an error dialog */
@@ -118,7 +120,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
         @Override
         public void onDismiss(@NonNull DialogInterface dialog) {
             if (this.getActivity() != null)
-                ((GeofenceScannerErrorActivity) getActivity()).onDialogDismissed();
+                ((GeofenceScannerErrorActivity) getActivity()).dialogDismiss();
         }
     }
 
