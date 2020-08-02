@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.PowerManager;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -19,7 +21,33 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[BROADCAST CALL] GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
-        doWork();
+
+        final Context appContext = context.getApplicationContext();
+
+        PPApplication.startHandlerThread(/*"BootUpReceiver.onReceive2"*/);
+        final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
+        handler2.post(new Runnable() {
+            @Override
+            public void run() {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    doWork();
+
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
+                }
+            }
+        });
     }
 
     static void removeAlarm(Context context)

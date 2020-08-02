@@ -165,12 +165,17 @@ public class PPApplication extends Application
                                                 //+"|[HANDLER CALL]"
                                                 //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
-                                                //+"|[LISTENER CALL]"
+                                                +"|[LISTENER CALL]"
                                                 //+"|[EVENTS_HANDLER]"
                                                 //+"|[TEST BATTERY]"
                                                 //+"|[APP START]"
                                                 //+"|[SHEDULE_WORK]"
                                                 //+"|[DONATION]"
+
+                                                +"|GeofenceScanner.createLocationRequest"
+                                                +"|GeofenceScanner.startLocationUpdates"
+                                                +"|GeofenceScanner.stopLocationUpdates"
+                                                +"|GeofenceScanner.updateTransitionsByLastKnownLocation"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
