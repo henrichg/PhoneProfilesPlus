@@ -188,13 +188,14 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     }
 
     static void doWork() {
-        //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
+        PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
             GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
             GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
             if (geofencesScanner != null) {
                 geofencesScanner.stopLocationUpdates();
                 geofencesScanner.startLocationUpdates();
+                geofencesScanner.updateTransitionsByLastKnownLocation(false);
             }
         }
     }
