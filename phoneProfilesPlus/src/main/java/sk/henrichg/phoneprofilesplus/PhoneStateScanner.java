@@ -871,8 +871,8 @@ class PhoneStateScanner extends PhoneStateListener {
                                                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
                                                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "_registeredCell=" + _registeredCell);
                                             }*/
-                                            if (configuredCells.contains("|" + _registeredCell + "|")) {
-                                                // cell is between others
+                                            if (configuredCells.equals(String.valueOf(_registeredCell))) {
+                                                // only this cell is configured
                                                 found = true;
                                                 break;
                                             }
@@ -886,8 +886,8 @@ class PhoneStateScanner extends PhoneStateListener {
                                                 found = true;
                                                 break;
                                             }
-                                            if (configuredCells.equals(String.valueOf(_registeredCell))) {
-                                                // only this cell is configured
+                                            if (configuredCells.contains("|" + _registeredCell + "|")) {
+                                                // cell is between others
                                                 found = true;
                                                 break;
                                             }
