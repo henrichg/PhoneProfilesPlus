@@ -9202,13 +9202,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void loadMobileCellsSensorRunningPausedEvents(List<Long> runningEventList, boolean outsideParameter) {
+    void loadMobileCellsSensorRunningPausedEvents(List<Long> eventList, boolean outsideParameter) {
         importExportLock.lock();
         try {
             try {
                 startRunningCommand();
 
-                runningEventList.clear();
+                eventList.clear();
 
                 final String countQuery;
                 String eventTypeChecked;
@@ -9234,7 +9234,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (cursor.moveToFirst()) {
                         do {
                             long eventId = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
-                            runningEventList.add(eventId);
+                            eventList.add(eventId);
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
@@ -9249,6 +9249,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+
+    String getEventMobileCellsCells(long eventId) {
+        importExportLock.lock();
+        try {
+            String cells = "";
+            try {
+                startRunningCommand();
+
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{KEY_E_MOBILE_CELLS_CELLS},
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(eventId)}, null, null, null, null);
+                if (cursor != null)
+                {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0)
+                    {
+                        cells = cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_CELLS));
+                    }
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
+            return cells;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
 
 // NFC_TAGS ----------------------------------------------------------------------
 
