@@ -9127,7 +9127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single event
-    void updateMobileCellsCells(Event event) {
+    void updateMobileCellsCells(long eventId, String cells) {
         importExportLock.lock();
         try {
             try {
@@ -9138,16 +9138,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
-                EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
-
-                values.put(KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cells);
+                //EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
+                //values.put(KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cells);
+                values.put(KEY_E_MOBILE_CELLS_CELLS, cells);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                            new String[] { String.valueOf(event._id) });
+                            new String[] { String.valueOf(eventId) });
 
                     db.setTransactionSuccessful();
 

@@ -796,14 +796,11 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         synchronized (autoRegistrationEventList) {
                             for (Long event_id : autoRegistrationEventList) {
-                                //Event event = dataWrapper.getEventById(event_id);
-                                Event event = db.getEvent(event_id);
-                                if (event != null) {
-                                    //PPApplication.logE("PhoneStateScanner.doAutoRegistration", "save cellId to event="+event._name);
-                                    String cells = event._eventPreferencesMobileCells._cells;
-                                    cells = addCellId(cells, _registeredCell);
-                                    event._eventPreferencesMobileCells._cells = cells;
-                                    db.updateMobileCellsCells(event);
+                                String currentCells = db.getEventMobileCellsCells(event_id);
+                                if (!currentCells.isEmpty()) {
+                                    //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
+                                    String newCells = addCellId(currentCells, _registeredCell);
+                                    db.updateMobileCellsCells(event_id, newCells);
 
                                     // broadcast new cell to
                                     Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);

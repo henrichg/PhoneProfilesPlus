@@ -112,13 +112,12 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             String[] eventIds = _lastRunningEvents.split("\\|");
                             for (String eventId : eventIds) {
                                 if (!eventId.isEmpty()) {
-                                    Event event = db.getEvent(Long.parseLong(eventId));
-                                    if (event != null) {
+                                    long _eventId = Long.parseLong(eventId);
+                                    String currentCells = db.getEventMobileCellsCells(_eventId);
+                                    if (!currentCells.isEmpty()) {
                                         //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
-                                        String cells = event._eventPreferencesMobileCells._cells;
-                                        cells = PhoneStateScanner.addCellId(cells, mobileCellId);
-                                        event._eventPreferencesMobileCells._cells = cells;
-                                        db.updateMobileCellsCells(event);
+                                        String newCells = PhoneStateScanner.addCellId(currentCells, _mobileCellId);
+                                        db.updateMobileCellsCells(_eventId, newCells);
 
                                         // broadcast for event preferences
                                         Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
@@ -136,13 +135,12 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             eventIds = _lastPausedEvents.split("\\|");
                             for (String eventId : eventIds) {
                                 if (!eventId.isEmpty()) {
-                                    Event event = db.getEvent(Long.parseLong(eventId));
-                                    if (event != null) {
+                                    long _eventId = Long.parseLong(eventId);
+                                    String currentCells = db.getEventMobileCellsCells(_eventId);
+                                    if (!currentCells.isEmpty()) {
                                         //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
-                                        String cells = event._eventPreferencesMobileCells._cells;
-                                        cells = PhoneStateScanner.addCellId(cells, mobileCellId);
-                                        event._eventPreferencesMobileCells._cells = cells;
-                                        db.updateMobileCellsCells(event);
+                                        String newCells = PhoneStateScanner.addCellId(currentCells, _mobileCellId);
+                                        db.updateMobileCellsCells(_eventId, newCells);
 
                                         // broadcast for event preferences
                                         Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
