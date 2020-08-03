@@ -8028,7 +8028,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_G_NAME + "," +
                         KEY_G_LATITUDE + "," +
                         KEY_G_LONGITUDE + "," +
-                        KEY_G_RADIUS +
+                        KEY_G_RADIUS + "," +
+                        KEY_G_TRANSITION +
                         " FROM " + TABLE_GEOFENCES +
                         " ORDER BY " + KEY_G_ID;
 
@@ -8046,6 +8047,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         geofence._latitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LATITUDE));
                         geofence._longitude = cursor.getDouble(cursor.getColumnIndex(KEY_G_LONGITUDE));
                         geofence._radius = cursor.getFloat(cursor.getColumnIndex(KEY_G_RADIUS));
+                        geofence._transition = cursor.getInt(cursor.getColumnIndex(KEY_G_TRANSITION));
                         geofenceList.add(geofence);
                     } while (cursor.moveToNext());
                 }
