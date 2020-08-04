@@ -24,30 +24,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
         final Context appContext = context.getApplicationContext();
 
-        PPApplication.startHandlerThread(/*"BootUpReceiver.onReceive2"*/);
-        final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
-        handler2.post(new Runnable() {
-            @Override
-            public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    doWork();
-
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
-                    }
-                }
-            }
-        });
+        doWork(appContext);
     }
 
     static void removeAlarm(Context context)
@@ -81,9 +58,9 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     {
         removeAlarm(context);
 
-        int delay = 1; // one minute with GPS ON
+        int delay = 120; // 120 seconds with GPS ON
         if (!GeofencesScanner.useGPS)
-            delay = 30;  // 30 minutes with GPS OFF
+            delay = 30 * 60;  // 30 minutes with GPS OFF
 
         if (ApplicationPreferences.applicationUseAlarmClock) {
             //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
@@ -96,7 +73,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 Calendar now = Calendar.getInstance();
-                now.add(Calendar.MINUTE, delay);
+                now.add(Calendar.SECOND, delay);
                 long alarmTime = now.getTimeInMillis();
 
                 /*if (PPApplication.logEnabled()) {
@@ -119,7 +96,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
-                            .setInitialDelay(delay, TimeUnit.MINUTES)
+                            .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
             try {
                 if (PPApplication.getApplicationStarted(true)) {
@@ -187,17 +164,41 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
         */
     }
 
-    static void doWork() {
+    static void doWork(final Context appContext) {
         PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
-        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-            GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
-            GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-            if (geofencesScanner != null) {
-                geofencesScanner.stopLocationUpdates();
-                geofencesScanner.startLocationUpdates();
-                geofencesScanner.updateTransitionsByLastKnownLocation(false);
+
+        PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
+        final Handler handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        handler2.post(new Runnable() {
+            @Override
+            public void run() {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                        GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
+                        GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                        if (geofencesScanner != null) {
+                            geofencesScanner.stopLocationUpdates();
+                            geofencesScanner.startLocationUpdates();
+                            geofencesScanner.updateTransitionsByLastKnownLocation(false);
+                        }
+                    }
+
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
+                }
             }
-        }
+        });
     }
 
 }

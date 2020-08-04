@@ -70,11 +70,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
                 //CallsCounter.logCounter(GeofencesScanner.this.context, "GeofencesScanner.LocationCallback", "GeofencesScanner_onLocationResult");
                 //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "locationResult="+locationResult);
-                //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
+                PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
 
                 synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                     lastLocation.set(locationResult.getLastLocation());
-                    PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
+                    //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
                 }
 
                 /*for (Location location : locationResult.getLocations()) {
@@ -165,8 +165,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 useGPS = true;
 
-                PPApplication.startHandlerThread(/*"GeofenceScanner.onConnected"*/);
-                final Handler handler6 = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadPPScanners(/*"GeofenceScanner.onConnected"*/);
+                final Handler handler6 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 handler6.post(new Runnable() {
                     @Override
                     public void run() {
@@ -368,8 +368,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
          * The desired interval for location updates. Inexact. Updates may be more or less frequent.
          */
         int interval = 25; // seconds
-        //if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
-        //    interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / 8; // interval is in minutes
+        if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
+            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / 8; // interval is in minutes
         //PPApplication.logE("##### GeofenceScanner.createLocationRequest", "ApplicationPreferences.applicationEventLocationUpdateInterval="+ApplicationPreferences.applicationEventLocationUpdateInterval);
         PPApplication.logE("##### GeofenceScanner.createLocationRequest", "interval="+interval);
         if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
@@ -515,10 +515,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "location=" + location);
                             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                                 lastLocation.set(location);
-                                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "lastLocation="+lastLocation);
+                                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "lastLocation="+lastLocation);
                             }
-                            PPApplication.startHandlerThread(/*"GeofenceScanner.updateTransitionsByLastKnownLocation"*/);
-                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPScanners(/*"GeofenceScanner.updateTransitionsByLastKnownLocation"*/);
+                            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {

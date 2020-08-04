@@ -92,7 +92,7 @@ public class MainWorker extends Worker {
                         }
                         break;
                     case GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK:
-                        GeofencesScannerSwitchGPSBroadcastReceiver.doWork();
+                        GeofencesScannerSwitchGPSBroadcastReceiver.doWork(appContext);
                         break;
                     case LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK:
                         LockDeviceActivityFinishBroadcastReceiver.doWork();

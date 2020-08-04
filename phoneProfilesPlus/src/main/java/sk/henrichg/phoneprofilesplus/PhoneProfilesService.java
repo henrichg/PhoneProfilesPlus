@@ -5794,7 +5794,7 @@ public class PhoneProfilesService extends Service
             for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
                 if (serviceClass.getName().equals(service.service.getClassName())) {
                     if (inForeground) {
-                        PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
+                        //PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
                         return service.foreground;
                     }
                     else
@@ -5802,7 +5802,7 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
-        PPApplication.logE("PhoneProfilesService.isServiceRunning", "false");
+        //PPApplication.logE("PhoneProfilesService.isServiceRunning", "false");
         return false;
     }
 
