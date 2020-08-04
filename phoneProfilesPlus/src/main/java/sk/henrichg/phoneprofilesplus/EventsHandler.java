@@ -8,8 +8,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -842,8 +840,9 @@ class EventsHandler {
                         if (PPApplication.prefLastActivatedProfile != 0) {
                             // last activated profile is not 0
                             PPApplication.setLastActivatedProfile(context, 0);
+                            // not needed, update gui is at end
                             //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (3)");
-                            PPApplication.updateGUI(false); //context, true, true);
+                            //PPApplication.updateGUI(false); //context, true, true);
                         }
                     }
                 }
@@ -888,11 +887,9 @@ class EventsHandler {
 
             doEndHandler(dataWrapper);
 
-            // refresh Editor (for sensors status)
+            // refresh all GUI - must be for for restart scanners
             if (PPApplication.isScreenOn) {
-                Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver");
-                LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
-                //PPApplication.updateGUI(false); //context, true, true);
+                PPApplication.updateGUI(false); //context, true, true);
             }
 
 
