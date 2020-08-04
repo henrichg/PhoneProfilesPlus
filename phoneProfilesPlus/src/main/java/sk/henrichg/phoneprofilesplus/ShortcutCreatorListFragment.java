@@ -370,24 +370,19 @@ public class ShortcutCreatorListFragment extends Fragment {
             {
                 super.onPostExecute(result);
 
-                if (profile != null) {
-                    //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "create result intent");
+                if ((getActivity() != null) && !getActivity().isFinishing()) {
+                    if (profile != null) {
+                        //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "create result intent");
 
-                    //intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-                    //context.sendBroadcast(intent);
+                        //intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+                        //context.sendBroadcast(intent);
 
-                    ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                    Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
-                    //noinspection ConstantConditions
-                    getActivity().setResult(Activity.RESULT_OK, intent);
-                }
+                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                        Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
+                        getActivity().setResult(Activity.RESULT_OK, intent);
+                    }
 
-                try {
-                    //noinspection ConstantConditions
                     getActivity().finish();
-                } catch (Exception e) {
-                    //Log.e("ShortcutCreatorListFragment.createShortcut", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
                 }
             }
 
