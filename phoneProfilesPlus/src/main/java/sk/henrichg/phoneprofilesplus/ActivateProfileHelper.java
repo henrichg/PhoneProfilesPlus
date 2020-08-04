@@ -1073,13 +1073,14 @@ class ActivateProfileHelper {
             }
         }
 
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeMediaChange()=" + profile.getVolumeMediaChange());
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAlarmChange()=" + profile.getVolumeAlarmChange());
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeAlarmValue()=" + profile.getVolumeAlarmValue());
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeVoiceChange()=" + profile.getVolumeVoiceChange());
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeVoiceValue()=" + profile.getVolumeVoiceValue());
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeBluetoothSCOChange()=" + profile.getVolumeBluetoothSCOChange());
-        //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeBluetoothSCOValue()=" + profile.getVolumeBluetoothSCOValue());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeMediaChange()=" + profile.getVolumeMediaChange());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeMediaValue()=" + profile.getVolumeMediaValue());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeAlarmChange()=" + profile.getVolumeAlarmChange());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeAlarmValue()=" + profile.getVolumeAlarmValue());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeVoiceChange()=" + profile.getVolumeVoiceChange());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeVoiceValue()=" + profile.getVolumeVoiceValue());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeBluetoothSCOChange()=" + profile.getVolumeBluetoothSCOChange());
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setVolumes", "profile.getVolumeBluetoothSCOValue()=" + profile.getVolumeBluetoothSCOValue());
 
         if (forProfileActivation) {
             if (profile.getVolumeBluetoothSCOChange()) {
@@ -1121,56 +1122,56 @@ class ActivateProfileHelper {
     }
 
     static void setMediaVolume(Context context, AudioManager audioManager, int value) {
-        //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "value="+value);
+        PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "value="+value);
 
         // Fatal Exception: java.lang.SecurityException: Only SystemUI can disable the safe media volume:
         // Neither user 10118 nor current process has android.permission.STATUS_BAR_SERVICE.
         try {
-            //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume (1)");
+            PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (1)");
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
         } catch (SecurityException e) {
-            //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume (1) - SecurityException");
+            PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (1) - SecurityException");
             //PPApplication.recordException(e);
             Context appContext = context.getApplicationContext();
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "WRITE_SECURE_SETTINGS granted");
+                PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "WRITE_SECURE_SETTINGS granted");
                 try {
-                    //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "disable safe volume without root");
+                    PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "disable safe volume without root");
                     Settings.Global.putInt(appContext.getContentResolver(), "audio_safe_volume_state", 2);
-                    //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume (2)");
+                    PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (2)");
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
                 }
                 catch (Exception e2) {
-                    //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume (2) - Exception");
+                    PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (2) - Exception");
                     PPApplication.recordException(e);
                 }
             }
             else {
-                //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "WRITE_SECURE_SETTINGS NOT granted");
+                PPApplication.logE("ActivateProfileHelper.setMediaVolume", "[TEST MEDIA VOLUME] WRITE_SECURE_SETTINGS NOT granted");
                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                         (PPApplication.isRooted(false))) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "settings put global audio_safe_volume_state 2";
                         Command command = new Command(0, false, command1);
                         try {
-                            //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "disable safe volume with root");
+                            PPApplication.logE("ActivateProfileHelper.setMediaVolume", "[TEST MEDIA VOLUME] disable safe volume with root");
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command, "ActivateProfileHelper.setMediaVolume");
-                            //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume (3)");
+                            PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (3)");
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
                         } catch (Exception ee) {
                             // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
                             //PPApplication.recordException(e);;
-                            //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume (3) - Exception");
+                            PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (3) - Exception");
                         }
                     }
                 }
             }
         } catch (Exception e3) {
             PPApplication.recordException(e3);
-            //PPApplication.logE("ActivateProfileHelper.setMediaVolume", "set media volume (1) - Exception");
+            PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (1) - Exception");
         }
     }
 
