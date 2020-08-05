@@ -12,7 +12,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] PackageReplacedReceiver.onReceive", "xxx");
+        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "PackageReplacedReceiver.onReceive->action="+intent.getAction(), "PackageReplacedReceiver_onReceive");
@@ -37,12 +37,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 //                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
 
                         boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                        PPApplication.logE("PackageReplacedReceiver.onReceive", "serviceStarted="+serviceStarted);
+                        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted="+serviceStarted);
 
                         if ((!serviceStarted) && PPApplication.getApplicationStarted(false)) {
                             // service is not started
                             try {
-                                PPApplication.logE("PackageReplacedReceiver.onReceive", "start service");
+                                PPApplication.logE("##### PackageReplacedReceiver.onReceive", "start service");
                                 // service is not started, start it
                                 PPApplication.setApplicationStarted(appContext, true);
                                 Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
