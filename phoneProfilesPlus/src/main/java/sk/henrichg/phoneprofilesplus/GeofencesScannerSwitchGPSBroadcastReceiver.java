@@ -165,7 +165,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     }
 
     static void doWork(final Context appContext) {
-        PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
+        //PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
 
         PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
         final Handler handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
