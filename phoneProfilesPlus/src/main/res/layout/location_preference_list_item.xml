@@ -50,7 +50,8 @@
             android:layout_centerVertical="true"
             android:paddingStart="3dp"
             android:paddingEnd="3dp"
-            android:text="@string/empty_string" />
+            android:text="@string/empty_string"
+            android:textColor="@color/activityNormalTextColor" />
 
     </RelativeLayout>
 
