@@ -503,7 +503,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         try {
             if (Permissions.checkLocation(context) && (mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {
                 PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "xxx");
-                FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                final FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                fusedLocationClient.flushLocations();
                 final Context appContext = context.getApplicationContext();
                 //noinspection MissingPermission
                 fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -531,6 +532,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                         }
 
 //                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
+
+                                        fusedLocationClient.flushLocations();
 
                                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                             GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();

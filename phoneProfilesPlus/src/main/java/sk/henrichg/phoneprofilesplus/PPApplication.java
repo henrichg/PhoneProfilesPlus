@@ -2961,17 +2961,19 @@ public class PPApplication extends Application
         PPApplication.createDonationNotificationChannel(appContext);
     }
 
-    static void showProfileNotification(/*final boolean refresh*/) {
+    /*
+    static void showProfileNotification() {
         try {
             //PPApplication.logE("PPApplication.showProfileNotification", "xxx");
 
             if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
+                PhoneProfilesService.getInstance().showProfileNotification(false);
 
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
     }
+    */
 
     // -----------------------------------------------
 

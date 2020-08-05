@@ -4744,22 +4744,28 @@ public class PhoneProfilesService extends Service
         if (PPApplication.doNotShowProfileNotification)
             return;
 
+        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "!PPApplication.doNotShowProfileNotification");
+
         /*
         if (ActivateProfileHelper.lockRefresh)
             // no refresh notification
             return;
         */
 
-        //PPApplication.logE("PhoneProfilesService.showProfileNotification", "no lockRefresh");
-
         final Context appContext = this; //dataWrapper.context.getApplicationContext();
+
+        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "forFirstStart="+forFirstStart);
 
         if ((!forFirstStart) &&
             (!PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, true)))
             return;
 
+        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "service is foreground");
+
         if (PhoneProfilesService.instance == null)
             return;
+
+        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "PhoneProfilesService.instance != null");
 
 //        if (Build.VERSION.SDK_INT >= 26) {
 //            if (!PPApplication.createProfileNotificationChannel(appContext))

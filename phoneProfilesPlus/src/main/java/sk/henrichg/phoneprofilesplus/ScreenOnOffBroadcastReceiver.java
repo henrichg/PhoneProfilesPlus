@@ -158,7 +158,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             });
 
                             if (!Event.getGlobalEventsRunning()) {
-                                PPApplication.showProfileNotification(/*true*/);
+                                //PPApplication.showProfileNotification(/*true*/);
+                                if (PhoneProfilesService.getInstance() != null)
+                                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
                             }
                             break;
                         }
@@ -168,7 +170,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             if (Build.VERSION.SDK_INT < 26) {
                                 if (ApplicationPreferences.notificationShowInStatusBar &&
                                         ApplicationPreferences.notificationHideInLockScreen) {
-                                    PPApplication.showProfileNotification(/*true*/);
+                                    //PPApplication.showProfileNotification(/*true*/);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
                                 }
                             }
 
@@ -223,7 +227,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         if (action.equals(Intent.ACTION_SCREEN_ON)) {
                             if (ApplicationPreferences.notificationShowInStatusBar &&
                                     ApplicationPreferences.notificationHideInLockScreen) {
-                                PPApplication.showProfileNotification(/*true*/);
+                                //PPApplication.showProfileNotification(/*true*/);
+                                if (PhoneProfilesService.getInstance() != null)
+                                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
                             }
                         }
                     }

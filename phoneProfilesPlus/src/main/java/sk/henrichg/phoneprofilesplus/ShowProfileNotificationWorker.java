@@ -23,7 +23,7 @@ public class ShowProfileNotificationWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("[WORKER CALL]  ShowProfileNotificationWorker.doWork", "xxxx");
+            //PPApplication.logE("[WORKER CALL] ShowProfileNotificationWorker.doWork", "xxxx");
 
             Context appContext = context.getApplicationContext();
 
@@ -33,7 +33,7 @@ public class ShowProfileNotificationWorker extends Worker {
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                     if (PhoneProfilesService.getInstance() != null) {
-                        //PPApplication.logE("[APP START] ShowProfileNotificationWorker.doWork", "xxx");
+                        //PPApplication.logE("[WORKER CALL] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
                         PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, /*false,*/ false/*, cleared*/);
                     }
                 } catch (Exception e) {
