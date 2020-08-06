@@ -131,9 +131,9 @@ class SettingsContentObserver  extends ContentObserver {
             else
             if (sUri.contains(Settings.System.VOLUME_NOTIFICATION))
                 okSetting = true;
-            else
-            if (sUri.contains(Settings.System.VOLUME_MUSIC))
-                okSetting = true;
+            //else
+            //if (sUri.contains(Settings.System.VOLUME_MUSIC))
+            //    okSetting = true;
             else
             if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS_MODE))
                 okSetting = true;
