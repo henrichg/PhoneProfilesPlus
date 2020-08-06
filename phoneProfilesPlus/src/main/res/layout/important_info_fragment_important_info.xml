@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_important_info_scroll_view"
     android:layout_width="wrap_content"
@@ -203,7 +204,7 @@
             android:text="@string/info_notification_event_start_order_handler_icon"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_event_start_order2_news"
-            android:drawableEnd="?attr/dragHandleIcon" />
+            app:drawableEndCompat="?attr/dragHandleIcon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -377,7 +378,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_profile_activation7a"
             android:textStyle="bold"
-            android:drawableEnd="?attr/importantInfoEventsRestartIcon"
+            app:drawableEndCompat="?attr/importantInfoEventsRestartIcon"
             android:drawablePadding="4dp" />
         <TextView
             android:layout_width="wrap_content"
@@ -642,7 +643,7 @@
             android:text="@string/info_notification_event_states_manual_profile_activation"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_manual_profile_activation"
-            android:drawableStart="@drawable/ic_event_status_pause_manual_activation"
+            app:drawableStartCompat="@drawable/ic_event_status_pause_manual_activation"
             android:drawablePadding="6dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -651,7 +652,7 @@
             android:text="@string/info_notification_event_states_running"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_running"
-            android:drawableStart="@drawable/ic_event_status_running"
+            app:drawableStartCompat="@drawable/ic_event_status_running"
             android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
@@ -660,7 +661,7 @@
             android:text="@string/info_notification_event_states_paused"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_paused"
-            android:drawableStart="@drawable/ic_event_status_pause"
+            app:drawableStartCompat="@drawable/ic_event_status_pause"
             android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
@@ -669,7 +670,7 @@
             android:text="@string/info_notification_event_states_paused_delay"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_paused_delay"
-            android:drawableStart="@drawable/ic_event_status_pause_delay"
+            app:drawableStartCompat="@drawable/ic_event_status_pause_delay"
             android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
@@ -678,7 +679,7 @@
             android:text="@string/info_notification_event_states_running_delay"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_running_delay"
-            android:drawableStart="@drawable/ic_event_status_running_delay"
+            app:drawableStartCompat="@drawable/ic_event_status_running_delay"
             android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"
@@ -687,7 +688,7 @@
             android:text="@string/info_notification_event_states_stopped"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_states_stopped"
-            android:drawableStart="?attr/eventStopStatusIndicator"
+            app:drawableStartCompat="?attr/eventStopStatusIndicator"
             android:drawablePadding="6dp" />
 
         <TextView
@@ -702,7 +703,7 @@
             android:text="@string/info_notification_event_start_order_handler_icon"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_event_start_order2"
-            android:drawableEnd="?attr/dragHandleIcon" />
+            app:drawableEndCompat="?attr/dragHandleIcon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -726,7 +727,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_profile_activation7b"
             android:textStyle="bold"
-            android:drawableEnd="?attr/importantInfoEventsRestartIcon"
+            app:drawableEndCompat="?attr/importantInfoEventsRestartIcon"
             android:drawablePadding="4dp" />
         <LinearLayout
             android:id="@+id/fragment_important_info_liLa3"
