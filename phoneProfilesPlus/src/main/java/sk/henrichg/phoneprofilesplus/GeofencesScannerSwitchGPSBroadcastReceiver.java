@@ -186,7 +186,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                         if (geofencesScanner != null) {
                             geofencesScanner.stopLocationUpdates();
                             geofencesScanner.startLocationUpdates();
-                            geofencesScanner.updateTransitionsByLastKnownLocation(false);
+                            geofencesScanner.updateTransitionsByLastKnownLocation();
                         }
                     }
 

@@ -3036,7 +3036,7 @@ public class PhoneProfilesService extends Service
                 synchronized (PPApplication.geofenceScannerMutex) {
                     if (isGeofenceScannerStarted()) {
                         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
-                        getGeofencesScanner().updateTransitionsByLastKnownLocation(false);
+                        getGeofencesScanner().updateTransitionsByLastKnownLocation();
                     }
                 }
                 GeofenceScanWorker.scheduleWork(appContext, true);

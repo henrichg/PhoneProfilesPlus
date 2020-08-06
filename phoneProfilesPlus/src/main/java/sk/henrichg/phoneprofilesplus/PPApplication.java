@@ -172,6 +172,7 @@ public class PPApplication extends Application
                                                 //+"|[SHEDULE_WORK]"
                                                 //+"|[DONATION]"
 
+                                                +"|GeofenceScanner"
                                                 //+"|GeofenceScanner.createLocationRequest"
                                                 //+"|GeofenceScanner.startLocationUpdates"
                                                 //+"|GeofenceScanner.stopLocationUpdates"
