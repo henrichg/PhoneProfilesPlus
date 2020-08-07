@@ -27,8 +27,8 @@
 // 5900 = remove tap target helps, user can it start from Editor
 
 ext.ppVersions = [
-    publishVersion: '4.1.11.1b',
-    publishVersionCode: 6148,
+    publishVersion: '4.1.11.1',
+    publishVersionCode: 6150,
 
     minSdk: 23,
     targetSdk: 28,
