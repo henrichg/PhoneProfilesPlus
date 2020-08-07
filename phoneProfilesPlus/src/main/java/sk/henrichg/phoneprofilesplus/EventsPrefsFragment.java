@@ -541,9 +541,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     public boolean onPreferenceClick(Preference preference) {
                         boolean ok = false;
                         //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_IP_SETTINGS, context.getApplicationContext())) {
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_SETTINGS, context.getApplicationContext())) {
                             try {
-                                Intent intent = new Intent(Settings.ACTION_WIFI_IP_SETTINGS);
+                                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
                                 ok = true;
