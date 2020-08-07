@@ -2486,7 +2486,7 @@ class ActivateProfileHelper {
                 Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
-                appContext.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
             }
         //}
     }
@@ -4547,6 +4547,7 @@ class ActivateProfileHelper {
             public void run() {
                 //PPApplication.logE("ActivateProfileHelper.lockDevice", "in handler");
 
+                PPApplication.logE("[TEST_BLOCK_PROFILE_EVENTS_ACTIONS] ActivateProfileHelper.lockDevice", "PPApplication.blockProfileEventActions="+PPApplication.blockProfileEventActions);
                 if (PPApplication.blockProfileEventActions)
                     // not lock device after boot
                     return;
@@ -4635,7 +4636,7 @@ class ActivateProfileHelper {
                             break;
                         case 3:
                             Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
-                            appContext.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                            appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                             break;
                     }
                 } finally {
