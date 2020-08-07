@@ -1576,3 +1576,10 @@ Shared preferences:
   pozadovana.
 - Tu sa aj restartuje servis po zmene. Toto je dobre. To by sa malo.
 
+------------------
+
+Privacy Policy - novy web:
+sites.google.com/site/phoneprofiles
+- https://sites.google.com/site/phoneprofiles/home/privacy-policy
+sites.google.com/site/phoneprofilesplus
+- https://sites.google.com/site/phoneprofilesplus/home/privacy-policy
