@@ -622,16 +622,16 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 handler.post(new Runnable() {
                      @Override
                      public void run() {
+                         if (mFusedLocationClient == null)
+                             return;
+
+                         if (mUpdateTransitionsByLastKnownLocationIsRunning)
+                             return;
+
                          PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                          PowerManager.WakeLock wakeLock = null;
                          try {
                              try {
-                                 if (mFusedLocationClient == null)
-                                     return;
-
-                                 if (mUpdateTransitionsByLastKnownLocationIsRunning)
-                                     return;
-
                                  if (powerManager != null) {
                                      wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner_updateTransitionsByLastKnownLocation");
                                      wakeLock.acquire(10 * 60 * 1000);
