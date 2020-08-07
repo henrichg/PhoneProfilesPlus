@@ -921,7 +921,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                 }*/
                 menuItem.setVisible((packageVersionCode >= 3601) /*&& isRunnning*/);
-            } catch (PackageManager.NameNotFoundException e) {
+            } catch (Exception e) {
                 menuItem.setVisible(false);
             }
         }
