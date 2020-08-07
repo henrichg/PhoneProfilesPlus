@@ -118,10 +118,22 @@ class SettingsContentObserver  extends ContentObserver {
         //super.onChange(selfChange);
 
 //        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "uri="+uri);
-        /*if (uri != null)
-            PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "uri="+uri.toString());
+        if (uri != null)
+            PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "uri="+uri.toString());
         else
-            PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "without Uri");*/
+            PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "without Uri");
+
+        if (PPApplication.logEnabled()) {
+            //int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+            //PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_RING + " currentVolume=" + currentVolume);
+            //currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+            //PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_NOTIFICATION + " currentVolume=" + currentVolume);
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
+                int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "STREAM_MUSIC=" + currentVolume);
+            }
+        }
 
         boolean okSetting = false;
         if (uri != null) {
@@ -160,15 +172,6 @@ class SettingsContentObserver  extends ContentObserver {
         ////// volume change
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
-
-            /*if (PPApplication.logEnabled()) {
-                //int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                //PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_RING + " currentVolume=" + currentVolume);
-                //currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-                //PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_NOTIFICATION + " currentVolume=" + currentVolume);
-                int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-                PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "STREAM_MUSIC=" + currentVolume);
-            }*/
 
             int audioMode = audioManager.getMode();
 
