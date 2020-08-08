@@ -3411,7 +3411,7 @@ public class PhoneProfilesService extends Service
         scheduleWifiWorker(/*true,*/  dataWrapper, /*false, false, false,*/ true);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true, */dataWrapper/*, true*/);
-        scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
+        //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
     }
 
     private void unregisterReceiversAndWorkers() {
@@ -3510,7 +3510,7 @@ public class PhoneProfilesService extends Service
         scheduleSearchCalendarEventsWorker(/*true,*/ dataWrapper /*, true*/);
 
         startGeofenceScanner(true, true, dataWrapper, false);
-        scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
+        //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
 
         startPhoneStateScanner(true, true, dataWrapper, false, false);
         startOrientationScanner(true, true, dataWrapper);
@@ -4560,7 +4560,7 @@ public class PhoneProfilesService extends Service
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
                                     registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
                                     startGeofenceScanner(true, true, dataWrapper, true);
-                                    scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
+                                    //scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
                                     break;
                                 case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
@@ -4636,7 +4636,7 @@ public class PhoneProfilesService extends Service
                                         if ((!fromBatteryChange) || canRestart) {
                                             registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
                                             startGeofenceScanner(true, true, dataWrapper, true);
-                                            scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
+                                            //scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
                                         }
                                     }
 
