@@ -172,15 +172,15 @@ public class PPApplication extends Application
                                                 //+"|[SHEDULE_WORK]"
                                                 //+"|[DONATION]"
 
-                                                //+"|GeofenceScanner"
+                                                +"|GeofenceScanner"
                                                 //+"|GeofenceScanner.createLocationRequest"
                                                 //+"|GeofenceScanner.startLocationUpdates"
                                                 //+"|GeofenceScanner.stopLocationUpdates"
                                                 //+"|GeofenceScanner.updateTransitionsByLastKnownLocation"
                                                 //+"|GeofencesScannerSwitchGPSBroadcastReceiver.doWork"
 
-                                                +"|[TEST MEDIA VOLUME]"
-                                                +"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
+                                                //+"|[TEST MEDIA VOLUME]"
+                                                //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromEvent"
                                                 //+"|&&&&&&& DataWrapper.activateProfileFromMainThread"
@@ -919,6 +919,8 @@ public class PPApplication extends Application
     static final String DONATION_CHANNEL = "phoneProfilesPlus_donation";
 
     static final int PROFILE_NOTIFICATION_ID = 100;
+    static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
+
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 101;
     static final String IMPORTANT_INFO_NOTIFICATION_TAG = PACKAGE_NAME+"_IMPORTANT_INFO_NOTIFICATION";
     static final int GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID = 102;

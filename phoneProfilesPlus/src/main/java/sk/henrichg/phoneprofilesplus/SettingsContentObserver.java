@@ -118,12 +118,12 @@ class SettingsContentObserver  extends ContentObserver {
         //super.onChange(selfChange);
 
 //        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "uri="+uri);
-        if (uri != null)
+        /*if (uri != null)
             PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "uri="+uri.toString());
         else
-            PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "without Uri");
+            PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "without Uri");*/
 
-        if (PPApplication.logEnabled()) {
+        /*if (PPApplication.logEnabled()) {
             //int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
             //PPApplication.logE("********** SettingsContentObserver.onChange", "channel=" + AudioManager.STREAM_RING + " currentVolume=" + currentVolume);
             //currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
@@ -133,7 +133,7 @@ class SettingsContentObserver  extends ContentObserver {
                 int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                 PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "STREAM_MUSIC=" + currentVolume);
             }
-        }
+        }*/
 
         boolean okSetting = false;
         if (uri != null) {

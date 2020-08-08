@@ -119,7 +119,7 @@ public class MainWorker extends Worker {
                         }
                         break;
                     case PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG:
-                        PPApplication.logE("[TEST_BLOCK_PROFILE_EVENTS_ACTIONS] MainWorker.doWork", "unblock");
+                        //PPApplication.logE("[TEST_BLOCK_PROFILE_EVENTS_ACTIONS] MainWorker.doWork", "unblock");
                         PPApplication.blockProfileEventActions = false;
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:

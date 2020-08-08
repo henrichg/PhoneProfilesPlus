@@ -404,8 +404,10 @@ public class PhoneProfilesService extends Service
             stopForeground(true);
 
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (notificationManager != null)
+            if (notificationManager != null) {
                 notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+            }
 
             /*else {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -4276,7 +4278,7 @@ public class PhoneProfilesService extends Service
 
         if (oldVersionCode < actualVersionCode) {
             // block any profile and event actions for package replaced
-            PPApplication.logE("[TEST_BLOCK_PROFILE_EVENTS_ACTIONS] PhoneProfilesService.doForPackageReplaced", "block");
+            //PPApplication.logE("[TEST_BLOCK_PROFILE_EVENTS_ACTIONS] PhoneProfilesService.doForPackageReplaced", "block");
             PPApplication.setBlockProfileEventActions(true);
 
             PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
@@ -4834,7 +4836,10 @@ public class PhoneProfilesService extends Service
         boolean notificationShowButtonExit;
         String notificationLayoutType;
         if (forFirstStart) {
-            notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
+            //notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
+            synchronized (PPApplication.applicationPreferencesMutex) {
+                notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+            }
             notificationShowProfileIcon = false; // for small notification at start
             notificationShowInStatusBar = true;
             notificationUseDecoration = false;
@@ -5312,6 +5317,7 @@ public class PhoneProfilesService extends Service
             if (contentView != null)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
 
+            /*
             // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
             try {
                 notificationBuilder.setContentTitle(profileName);
@@ -5320,6 +5326,7 @@ public class PhoneProfilesService extends Service
                 //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
+            */
         }
         else {
             notificationBuilder.setContentTitle(profileName);
@@ -5340,6 +5347,7 @@ public class PhoneProfilesService extends Service
                             contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
                         }
                     }
+                    /*
                     // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
                     try {
                         String indicators = ProfilePreferencesIndicator.getString(profile, 0, appContext);
@@ -5349,12 +5357,14 @@ public class PhoneProfilesService extends Service
                         //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
+                    */
                 }
                 else {
                     if (preferencesIndicatorExistsLarge) {
                         //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
                     }
+                    /*
                     // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
                     try {
                         notificationBuilder.setContentText(null);
@@ -5363,6 +5373,7 @@ public class PhoneProfilesService extends Service
                         //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
+                    */
                 }
             }
             else {
@@ -5633,14 +5644,20 @@ public class PhoneProfilesService extends Service
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                 if (startForegroundNotification) {
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
-                    startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                    if (notificationNotificationStyle.equals("0"))
+                        startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                    else
+                        startForeground(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
                     startForegroundNotification = false;
                 }
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null) {
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notify()");
-                        notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                        if (notificationNotificationStyle.equals("0"))
+                            notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                        else
+                            notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
                     }
                 }
 
@@ -5785,8 +5802,10 @@ public class PhoneProfilesService extends Service
                 startForegroundNotification = true;
                 stopForeground(true);
                 NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null)
+                if (notificationManager != null) {
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                }
             } catch (Exception e) {
                 //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
