@@ -185,9 +185,13 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     }
 
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                        GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
                         GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         if (geofencesScanner != null) {
+                            if (GeofencesScanner.useGPS) {
+                                geofencesScanner.flushLocations();
+                                PPApplication.sleep(50000);
+                            }
+                            GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
                             geofencesScanner.stopLocationUpdates();
                             geofencesScanner.startLocationUpdates();
                             geofencesScanner.updateTransitionsByLastKnownLocation();

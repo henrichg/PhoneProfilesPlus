@@ -694,6 +694,15 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }
     }
 
+    void flushLocations() {
+        synchronized (PPApplication.geofenceScannerMutex) {
+            if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected()) &&
+                    (mFusedLocationClient != null)) {
+                mFusedLocationClient.flushLocations();
+            }
+        }
+    }
+
     //-------------------------------------------
 
     private void showErrorNotification(int errorCode) {
