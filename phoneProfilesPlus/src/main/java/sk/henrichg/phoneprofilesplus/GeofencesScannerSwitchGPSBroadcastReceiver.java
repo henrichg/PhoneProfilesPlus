@@ -189,7 +189,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                         if (geofencesScanner != null) {
                             if (GeofencesScanner.useGPS) {
                                 geofencesScanner.flushLocations();
-                                PPApplication.sleep(50000);
+                                PPApplication.sleep(5000);
                             }
                             GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
                             geofencesScanner.stopLocationUpdates();
