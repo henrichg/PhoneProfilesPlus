@@ -335,6 +335,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 //PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
 
                 if (geofence._transition != transitionType) {
+
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "transition changed");
 

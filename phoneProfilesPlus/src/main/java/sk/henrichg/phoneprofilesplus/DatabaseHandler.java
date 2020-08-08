@@ -8143,6 +8143,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
+    void updateAllGeofenceTransitions(List<Geofence> geofences) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                try {
+
+                    for (Geofence geofence : geofences) {
+                        ContentValues values = new ContentValues();
+                        values.put(KEY_G_TRANSITION, geofence._transition);
+                        db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?", new String[]{String.valueOf(geofence._id)});
+                    }
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+    */
+
     void clearAllGeofenceTransitions() {
         importExportLock.lock();
         try {
