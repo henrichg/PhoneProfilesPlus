@@ -625,7 +625,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                  //FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                                  mFusedLocationClient.requestLocationUpdates(locationRequest, updateTransitionsByLastKnownLocationCallback, null);
 
-                                 PPApplication.sleep(10000);
+                                 PPApplication.sleep(6000);
 
                                  mFusedLocationClient.flushLocations();
                                  mFusedLocationClient.removeLocationUpdates(updateTransitionsByLastKnownLocationCallback);
