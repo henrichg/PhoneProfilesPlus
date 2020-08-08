@@ -51,19 +51,19 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=LocationModeChangedBroadcastReceiver.onReceive");
                         }
 
-                        synchronized (PPApplication.geofenceScannerMutex) {
-                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                                PhoneProfilesService.getInstance().getGeofencesScanner().clearAllEventGeofences();
-                                //PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
-                                PhoneProfilesService.getInstance().getGeofencesScanner().updateTransitionsByLastKnownLocation();
-
-                                PPApplication.sleep(10000);
-
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
-
-                            }
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                            PhoneProfilesService.getInstance().getGeofencesScanner().clearAllEventGeofences();
+                            //PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
                         }
+
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                            PhoneProfilesService.getInstance().getGeofencesScanner().updateTransitionsByLastKnownLocation();
+
+                        PPApplication.sleep(10000);
+
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
+
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

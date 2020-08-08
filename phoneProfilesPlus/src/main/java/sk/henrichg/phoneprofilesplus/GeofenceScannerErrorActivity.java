@@ -40,15 +40,16 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == GeofencesScanner.REQUEST_RESOLVE_ERROR) {
-            synchronized (PPApplication.geofenceScannerMutex) {
-                if (PhoneProfilesService.getInstance() != null) {
-                    if (PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+            if (PhoneProfilesService.getInstance() != null) {
+                if (PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                    synchronized (PPApplication.geofenceScannerMutex) {
                         PhoneProfilesService.getInstance().getGeofencesScanner().mResolvingError = false;
-                    if (resultCode == RESULT_OK) {
-                        // Make sure the app is not already connected or attempting to connect
-                        if (PhoneProfilesService.getInstance().isGeofenceScannerStarted())
-                            PhoneProfilesService.getInstance().getGeofencesScanner().connectForResolve();
                     }
+                }
+                if (resultCode == RESULT_OK) {
+                    // Make sure the app is not already connected or attempting to connect
+                    if (PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                        PhoneProfilesService.getInstance().getGeofencesScanner().connectForResolve();
                 }
             }
         }
@@ -73,9 +74,10 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
     private void dialogDismiss() {
-        synchronized (PPApplication.geofenceScannerMutex) {
-            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+            synchronized (PPApplication.geofenceScannerMutex) {
                 PhoneProfilesService.getInstance().getGeofencesScanner().mResolvingError = false;
+            }
         }
         finish();
         //activity = null;

@@ -331,10 +331,12 @@ class EventPreferencesLocation extends EventPreferences {
                             eventsHandler.notAllowedLocation = true;
                         }
                     } else {
-                        synchronized (PPApplication.geofenceScannerMutex) {
-                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
-                                    PhoneProfilesService.getInstance().getGeofencesScanner().mTransitionsUpdated) {
-
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                            boolean transitionsUpdated;
+                            synchronized (PPApplication.geofenceScannerMutex) {
+                                transitionsUpdated = PhoneProfilesService.getInstance().getGeofencesScanner().mTransitionsUpdated;
+                            }
+                            if (transitionsUpdated) {
                                 /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("EventPreferencesLocation.doHandleEvent", "--------");
                                     PPApplication.logE("EventPreferencesLocation.doHandleEvent", "_eventPreferencesLocation._geofences=" + event._eventPreferencesLocation._geofences);
@@ -350,10 +352,10 @@ class EventPreferencesLocation extends EventPreferences {
                                         //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
 
                                         int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
-                                        /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
-                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_ENTER");
-                                        else
-                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
+                                    /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                                        PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_ENTER");
+                                    else
+                                        PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
 
                                         if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
                                             passed[i] = true;
@@ -371,8 +373,7 @@ class EventPreferencesLocation extends EventPreferences {
                                             break;
                                         }
                                     }
-                                }
-                                else {
+                                } else {
                                     // one location must be passed
                                     eventsHandler.locationPassed = false;
                                     for (boolean pass : passed) {
@@ -383,10 +384,12 @@ class EventPreferencesLocation extends EventPreferences {
                                     }
                                 }
                                 //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "locationPassed=" + locationPassed);
-
-                            } else {
-                                eventsHandler.notAllowedLocation = true;
                             }
+                            else
+                                eventsHandler.notAllowedLocation = false;
+
+                        } else {
+                            eventsHandler.notAllowedLocation = true;
                         }
                     }
                 }

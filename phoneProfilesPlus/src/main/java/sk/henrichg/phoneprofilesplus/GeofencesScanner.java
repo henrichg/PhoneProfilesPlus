@@ -31,17 +31,16 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private final GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mFusedLocationClient;
     private final LocationCallback mLocationCallback;
+    private LocationRequest mLocationRequest;
+
     final Context context;
     //private final DataWrapper dataWrapper;
 
     private final Location lastLocation;
 
-    private LocationRequest mLocationRequest;
     static boolean useGPS = true; // must be static
     //boolean mUpdatesStarted = false;
     boolean mTransitionsUpdated = false;
-
-    private boolean mUpdateTransitionsByLastKnownLocationIsRunning;
 
     // Bool to track whether the app is already resolving an error
     boolean mResolvingError = false;
@@ -49,6 +48,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     static final int REQUEST_RESOLVE_ERROR = 1001;
     // Unique tag for the error dialog fragment
     static final String DIALOG_ERROR = "dialog_error";
+
+    private boolean mUpdateTransitionsByLastKnownLocationIsRunning;
 
     GeofencesScanner(Context context) {
         this.context = context;
@@ -83,12 +84,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 }
 
                 if (Event.getGlobalEventsRunning()) {
-                    synchronized (PPApplication.geofenceScannerMutex) {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                            PPApplication.logE("##### GeofenceScanner.LocationCallback", "updateGeofencesInDB");
-                            GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                            scanner.updateGeofencesInDB();
-                        }
+                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                        PPApplication.logE("##### GeofenceScanner.LocationCallback", "updateGeofencesInDB");
+                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                        scanner.updateGeofencesInDB();
                     }
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -112,11 +111,13 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 PPApplication.logE("##### GeofenceScanner.connect", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
         }*/
         try {
-            if (!mResolvingError) {
-                //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
-                if (resetUseGPS)
-                    useGPS = true;
-                mGoogleApiClient.connect();
+            synchronized (PPApplication.geofenceScannerMutex) {
+                if (!mResolvingError) {
+                    //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
+                    if (resetUseGPS)
+                        useGPS = true;
+                    mGoogleApiClient.connect();
+                }
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -261,24 +262,26 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             //PPApplication.recordException(e);
         }
         try {
-            //noinspection StatementWithEmptyBody
-            if (mResolvingError) {
-                // Already attempting to resolve an error.
-                //return;
-            } else if (connectionResult.hasResolution()) {
-            /*try {
-                mResolvingError = true;
-                connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
-            } catch (IntentSender.SendIntentException e) {
-                // There was an error with the resolution intent. Try again.
-                mGoogleApiClient.connect();
-            }*/
-                showErrorNotification(connectionResult.getErrorCode());
-                mResolvingError = true;
-            } else {
-                // Show dialog using GoogleApiAvailability.getErrorDialog()
-                showErrorNotification(connectionResult.getErrorCode());
-                mResolvingError = true;
+            synchronized (PPApplication.geofenceScannerMutex) {
+                //noinspection StatementWithEmptyBody
+                if (mResolvingError) {
+                    // Already attempting to resolve an error.
+                    //return;
+                } else if (connectionResult.hasResolution()) {
+                /*try {
+                    mResolvingError = true;
+                    connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+                } catch (IntentSender.SendIntentException e) {
+                    // There was an error with the resolution intent. Try again.
+                    mGoogleApiClient.connect();
+                }*/
+                    showErrorNotification(connectionResult.getErrorCode());
+                    mResolvingError = true;
+                } else {
+                    // Show dialog using GoogleApiAvailability.getErrorDialog()
+                    showErrorNotification(connectionResult.getErrorCode());
+                    mResolvingError = true;
+                }
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -296,7 +299,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     */
 
     void updateGeofencesInDB() {
-        //synchronized (PPApplication.geofenceScannerLastLocationMutex) {
+        synchronized (PPApplication.geofenceScannerMutex) {
             //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateGeofencesInDB", "xxx");
             /*if (PPApplication.logEnabled()) {
                 if (PhoneProfilesService.getInstance() != null)
@@ -356,13 +359,15 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
 
             mTransitionsUpdated = true;
-        //}
+        }
     }
 
     void clearAllEventGeofences() {
-        // clear all geofence transitions
-        DatabaseHandler.getInstance(context).clearAllGeofenceTransitions();
-        mTransitionsUpdated = false;
+        synchronized (PPApplication.geofenceScannerMutex) {
+            // clear all geofence transitions
+            DatabaseHandler.getInstance(context).clearAllGeofenceTransitions();
+            mTransitionsUpdated = false;
+        }
     }
 
     //-------------------------------------------
@@ -531,12 +536,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
 
             if (Event.getGlobalEventsRunning()) {
-                synchronized (PPApplication.geofenceScannerMutex) {
-                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                        PPApplication.logE("##### GeofenceScanner.LocationCallback", "updateGeofencesInDB");
-                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                        scanner.updateGeofencesInDB();
-                    }
+                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                    PPApplication.logE("##### GeofenceScanner.LocationCallback", "updateGeofencesInDB");
+                    GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    scanner.updateGeofencesInDB();
                 }
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
