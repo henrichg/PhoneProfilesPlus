@@ -58,7 +58,11 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
     {
         removeAlarm(context);
 
-        int delay = 120; // 120 seconds with GPS ON
+        int interval = 25; // seconds
+        if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
+            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / 8; // interval is in minutes
+        int delay = interval + 10; // interval from settings + 10 seconds;
+
         if (!GeofencesScanner.useGPS)
             delay = 30 * 60;  // 30 minutes with GPS OFF
 

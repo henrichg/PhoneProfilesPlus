@@ -1683,7 +1683,7 @@ public class PPApplication extends Application
         cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG);
+        //cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG);
     }

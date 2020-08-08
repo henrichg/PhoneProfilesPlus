@@ -22,7 +22,7 @@ public class MainWorker extends Worker {
     static final String SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "scheduleAvoidRescheduleReceiverWork";
     static final String SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG = "scheduleLongIntervalWifiWork";
     static final String SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG = "scheduleLongIntervalBluetoothWork";
-    static final String SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG = "scheduleLongIntervalGeofenceWork";
+    //static final String SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG = "scheduleLongIntervalGeofenceWork";
     static final String SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG = "scheduleLongIntervalPeriodicEventsHandlerWork";
     static final String SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG = "scheduleLongIntervalSearchCalendarWork";
 
@@ -525,9 +525,9 @@ public class MainWorker extends Worker {
                     case SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG:
                         BluetoothScanWorker.scheduleWork(appContext, false);
                         break;
-                    case SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG:
-                        GeofenceScanWorker.scheduleWork(appContext, false);
-                        break;
+                    //case SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG:
+                    //    GeofenceScanWorker.scheduleWork(appContext, false);
+                    //    break;
                     case SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG:
                         PeriodicEventsHandlerWorker.enqueueWork(appContext);
                         break;

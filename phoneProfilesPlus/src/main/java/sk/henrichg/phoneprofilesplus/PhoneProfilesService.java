@@ -3000,19 +3000,19 @@ public class PhoneProfilesService extends Service
         //    cancelBluetoothWorker(appContext, handler);
     }
 
+    /*
     private void cancelGeofenceWorker(boolean forSchedule) {
         if ((!forSchedule) ||
                 (GeofenceScanWorker.isWorkScheduled(false) || GeofenceScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelGeofenceWorker->CANCEL", "PhoneProfilesService_cancelGeofenceWorker");
             //PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceWorker", "CANCEL");
-            GeofenceScanWorker.cancelWork(true/*, null*/);
+            GeofenceScanWorker.cancelWork(true);
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceWorker", "not scheduled");
     }
 
-    private void scheduleGeofenceWorker(/*final boolean schedule,*/ /*final boolean cancel,*/ final DataWrapper dataWrapper
-                                    /*final boolean forScreenOn,*/ /*final boolean rescan*/) {
+    private void scheduleGeofenceWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceWorker", "PhoneProfilesService_scheduleGeofenceWorker");
         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "xxx");
@@ -3024,7 +3024,7 @@ public class PhoneProfilesService extends Service
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)) {
                 // start only for screen On
                 dataWrapper.fillEventList();
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
+                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION);
                 if (eventsExists)
                     eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
                             PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -3033,7 +3033,7 @@ public class PhoneProfilesService extends Service
                 // location scanner is enabled
                 //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
                 if (GeofenceScanWorker.isWorkScheduled(false) || GeofenceScanWorker.isWorkScheduled(true)) {
-                    GeofenceScanWorker.cancelWork(true/*, null*/);
+                    GeofenceScanWorker.cancelWork(true);
                 }
                 synchronized (PPApplication.geofenceScannerMutex) {
                     if (isGeofenceScannerStarted()) {
@@ -3050,6 +3050,7 @@ public class PhoneProfilesService extends Service
         //else
         //    cancelGeofenceWorker(appContext, handler);
     }
+    */
 
     private void cancelSearchCalendarEventsWorker(boolean forSchedule) {
         if ((!forSchedule) ||
@@ -3462,7 +3463,7 @@ public class PhoneProfilesService extends Service
         cancelBackgroundScanningWorker();
         cancelWifiWorker(appContext, false);
         cancelBluetoothWorker(appContext, false);
-        cancelGeofenceWorker(false);
+        //cancelGeofenceWorker(false);
         cancelSearchCalendarEventsWorker(false);
     }
 
@@ -5292,7 +5293,6 @@ public class PhoneProfilesService extends Service
         else {
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
             notificationBuilder.setSmallIcon(R.drawable.ic_empty);
-            //noinspection ConstantConditions
             if (notificationNotificationStyle.equals("0")) {
                 try {
                     contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
@@ -5466,10 +5466,8 @@ public class PhoneProfilesService extends Service
         }
         else {
             try {
-                //noinspection ConstantConditions
                 if (contentViewLarge != null)
                     contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
-                //noinspection ConstantConditions
                 if (contentView != null)
                     contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
             } catch (Exception e) {

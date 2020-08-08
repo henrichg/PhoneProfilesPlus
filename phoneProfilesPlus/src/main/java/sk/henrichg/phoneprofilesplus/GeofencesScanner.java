@@ -38,7 +38,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     private LocationRequest mLocationRequest;
     static boolean useGPS = true; // must be static
-    boolean mUpdatesStarted = false;
+    //boolean mUpdatesStarted = false;
     boolean mTransitionsUpdated = false;
 
     private boolean mUpdateTransitionsByLastKnownLocationIsRunning;
@@ -448,18 +448,18 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             if (mFusedLocationClient != null)
                                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
                             //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
-                            mUpdatesStarted = true;
+                            //mUpdatesStarted = true;
                         } catch (SecurityException securityException) {
                             // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
                             //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
-                            mUpdatesStarted = false;
+                            //mUpdatesStarted = false;
                             return;
                         }
                     }
                 }
             } catch (Exception e) {
                 //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
-                mUpdatesStarted = false;
+                //mUpdatesStarted = false;
             }
         }
 
@@ -491,7 +491,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     if (mFusedLocationClient != null)
                         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
                     //PPApplication.logE("##### GeofenceScanWorker.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
-                    mUpdatesStarted = false;
+                    //mUpdatesStarted = false;
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
