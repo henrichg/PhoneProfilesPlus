@@ -852,6 +852,10 @@ class EventPreferencesNotification extends EventPreferences {
                             // ignore PPP notification
                             if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME))
                                 continue;
+                            if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_PP))
+                                continue;
+                            if (statusBarNotification.getPackageName().equals(PPApplication.PACKAGE_NAME_EXTENDER))
+                                continue;
 
                             if (this._inCall) {
                                 // Nexus/Pixel??? stock ROM

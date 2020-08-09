@@ -32,7 +32,7 @@
         app:defaultValue="@string/dash_string"
         app:key="eventNotificationApplications"
         app:title="@string/event_preferences_notifications_applications"
-        app:removePPApplications="0"
+        app:removePPApplications="1"
         app:systemSettings="notifications"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
