@@ -3413,6 +3413,8 @@ public class PhoneProfilesService extends Service
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true, */dataWrapper/*, true*/);
         //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
+
+        AvoidRescheduleReceiverWorker.enqueueWork();
     }
 
     private void unregisterReceiversAndWorkers() {
@@ -3465,6 +3467,7 @@ public class PhoneProfilesService extends Service
         cancelBluetoothWorker(appContext, false);
         //cancelGeofenceWorker(false);
         cancelSearchCalendarEventsWorker(false);
+
     }
 
     private void reregisterReceiversAndWorkers() {
@@ -3516,6 +3519,8 @@ public class PhoneProfilesService extends Service
         startPhoneStateScanner(true, true, dataWrapper, false, false);
         startOrientationScanner(true, true, dataWrapper);
         startTwilightScanner(true, true, dataWrapper);
+
+        AvoidRescheduleReceiverWorker.enqueueWork();
     }
 
     // start service for first start
@@ -4531,6 +4536,7 @@ public class PhoneProfilesService extends Service
                                 case PPApplication.SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER");
                                     scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
@@ -4539,6 +4545,7 @@ public class PhoneProfilesService extends Service
                                     registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
                                     registerWifiScannerReceiver(true, dataWrapper, false);
                                     scheduleWifiWorker(/*true,*/ dataWrapper, /*forScreenOn, false, false,*/ true);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
@@ -4546,30 +4553,36 @@ public class PhoneProfilesService extends Service
                                     registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
                                     registerBluetoothScannerReceivers(true, dataWrapper, false);
                                     scheduleBluetoothWorker(/*true,*/ dataWrapper /*forScreenOn, false,*/ /*, true*/);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
                                     //PhoneStateScanner.forceStart = false;
                                     startPhoneStateScanner(true, true, dataWrapper, false, true);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
                                     //PhoneStateScanner.forceStart = true;
                                     startPhoneStateScanner(true, false, dataWrapper, true, false);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
                                     registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
                                     startGeofenceScanner(true, true, dataWrapper, true);
                                     //scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
                                     startOrientationScanner(true, false, dataWrapper);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_TWILIGHT_SCANNER:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_TWILIGHT_SCANNER");
                                     startTwilightScanner(true, false, dataWrapper);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
                                     //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
@@ -4651,6 +4664,8 @@ public class PhoneProfilesService extends Service
 
                                     // twilight - DO NOT RESTART BECAUSE THIS MISS ACTUAL LOCATION
                                     //startTwilightScanner(true, false, dataWrapper);
+
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
 
                                     break;
                             }
