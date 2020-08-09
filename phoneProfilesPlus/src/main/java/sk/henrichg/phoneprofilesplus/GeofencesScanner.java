@@ -36,7 +36,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     final Context context;
     //private final DataWrapper dataWrapper;
 
-    private final Location lastLocation;
+    private static final Location lastLocation = new Location("GL");
 
     static boolean useGPS = true; // must be static
     //boolean mUpdatesStarted = false;
@@ -110,7 +110,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         };
 
         //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
-        lastLocation = new Location("GL");
+        //lastLocation = new Location("GL");
 
         mUpdateTransitionsByLastKnownLocationIsRunning= false;
     }
