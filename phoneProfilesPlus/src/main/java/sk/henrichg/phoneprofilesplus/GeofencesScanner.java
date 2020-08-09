@@ -39,7 +39,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private static final Location lastLocation = new Location("GL");
 
     static boolean useGPS = true; // must be static
-    //boolean mUpdatesStarted = false;
+    static boolean mUpdatesStarted = false; // must be static
+
     boolean mTransitionsUpdated = false;
 
     // Bool to track whether the app is already resolving an error
@@ -459,30 +460,32 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
         }*/
 
-        synchronized (PPApplication.geofenceScannerMutex) {
-            try {
-                if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
+        if (!mUpdatesStarted) {
+            synchronized (PPApplication.geofenceScannerMutex) {
+                try {
+                    if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
 
-                    if (Permissions.checkLocation(context)) {
-                        try {
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "xxx");
-                            createLocationRequest();
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mFusedLocationClient="+mFusedLocationClient);
-                            if (mFusedLocationClient != null)
-                                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
-                            //mUpdatesStarted = true;
-                        } catch (SecurityException securityException) {
-                            // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
-                            //mUpdatesStarted = false;
-                            return;
+                        if (Permissions.checkLocation(context)) {
+                            try {
+                                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "xxx");
+                                createLocationRequest();
+                                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mFusedLocationClient="+mFusedLocationClient);
+                                if (mFusedLocationClient != null)
+                                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+                                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
+                                mUpdatesStarted = true;
+                            } catch (SecurityException securityException) {
+                                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                                mUpdatesStarted = false;
+                                return;
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                    mUpdatesStarted = false;
                 }
-            } catch (Exception e) {
-                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
-                //mUpdatesStarted = false;
             }
         }
 
@@ -507,17 +510,19 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
         }*/
 
-        synchronized (PPApplication.geofenceScannerMutex) {
-            try {
-                if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
-                    //PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
-                    if (mFusedLocationClient != null)
-                        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                    //PPApplication.logE("##### GeofenceScanWorker.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
-                    //mUpdatesStarted = false;
+        if (mUpdatesStarted) {
+            synchronized (PPApplication.geofenceScannerMutex) {
+                try {
+                    if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
+                        //PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
+                        if (mFusedLocationClient != null)
+                            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                        //PPApplication.logE("##### GeofenceScanWorker.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
+                        mUpdatesStarted = false;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
                 }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
             }
         }
     }
