@@ -68,8 +68,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "xxx");
-                PPApplication.logE("##### GeofenceScanner.LocationCallback", "xxx");
-                PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult);
+                //PPApplication.logE("##### GeofenceScanner.LocationCallback", "xxx");
+                //PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult);
                 if (locationResult == null) {
                     return;
                 }
@@ -77,21 +77,21 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 //CallsCounter.logCounter(GeofencesScanner.this.context, "GeofencesScanner.LocationCallback", "GeofencesScanner_onLocationResult");
                 //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "locationResult="+locationResult);
                 //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
-                PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
+                //PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
 
                 synchronized (PPApplication.geofenceScannerLastLocationMutex) {
-                    PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation update");
+                    //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation update");
                     lastLocation.set(locationResult.getLastLocation());
                     //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
-                    PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
-                    PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation.getAltitude()=" + lastLocation.getAltitude());
-                    PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation.getLongitude()=" + lastLocation.getLongitude());
-                    PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation.getAccuracy()=" + lastLocation.getAccuracy());
+                    //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
+                    //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation.getAltitude()=" + lastLocation.getAltitude());
+                    //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation.getLongitude()=" + lastLocation.getLongitude());
+                    //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation.getAccuracy()=" + lastLocation.getAccuracy());
                 }
 
                 if (Event.getGlobalEventsRunning()) {
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                        PPApplication.logE("##### GeofenceScanner.LocationCallback", "updateGeofencesInDB");
+                        //PPApplication.logE("##### GeofenceScanner.LocationCallback", "updateGeofencesInDB");
                         GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         scanner.updateGeofencesInDB();
                         /*if (useGPS) {
@@ -101,7 +101,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     //}
                     //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                        PPApplication.logE("##### GeofenceScanner.LocationCallback", "handleEvents");
+                        //PPApplication.logE("##### GeofenceScanner.LocationCallback", "handleEvents");
                         EventsHandler eventsHandler = new EventsHandler(scanner.context);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                     }
@@ -109,7 +109,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             }
         };
 
-        PPApplication.logE("##### GeofenceScanner", "lastLocation update");
+        //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
         lastLocation = new Location("GL");
 
         mUpdateTransitionsByLastKnownLocationIsRunning= false;
@@ -531,8 +531,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         @Override
         public void onLocationResult(LocationResult locationResult) {
             //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
-            PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
-            PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
+            //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
+            //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
 
             if (locationResult == null) {
                 return;
@@ -541,27 +541,27 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             //CallsCounter.logCounter(GeofencesScanner.this.context, "GeofencesScanner.updateTransitionsByLastKnownLocation.LocationCallback", "GeofencesScanner_updateTransitionsByLastKnownLocation_onLocationResult");
             //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
             //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult.getLocations().size());
-            PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult.getLocations().size());
+            //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult.getLocations().size());
 
             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
-                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "lastLocation update");
+                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "lastLocation update");
                 lastLocation.set(locationResult.getLastLocation());
                 //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
-                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
-                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation.getAltitude()=" + lastLocation.getAltitude());
-                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation.getLongitude()=" + lastLocation.getLongitude());
-                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation.getAccuracy()=" + lastLocation.getAccuracy());
+                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
+                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation.getAltitude()=" + lastLocation.getAltitude());
+                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation.getLongitude()=" + lastLocation.getLongitude());
+                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation.getAccuracy()=" + lastLocation.getAccuracy());
             }
 
             if (Event.getGlobalEventsRunning()) {
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                    PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "updateGeofencesInDB");
+                    //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "updateGeofencesInDB");
                     GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     scanner.updateGeofencesInDB();
                 //}
                 //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                    PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "handleEvents");
+                    //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "handleEvents");
                     EventsHandler eventsHandler = new EventsHandler(scanner.context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                 }
