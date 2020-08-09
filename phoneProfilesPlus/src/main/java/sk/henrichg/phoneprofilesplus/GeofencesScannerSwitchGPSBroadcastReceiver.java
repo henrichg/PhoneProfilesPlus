@@ -60,7 +60,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
         int interval = 25; // seconds
         if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
-            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / 8; // interval is in minutes
+            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / GeofencesScanner.INTRVAL_DIVIDE_VALUE; // interval is in minutes
         int delay = interval + 10; // interval from settings + 10 seconds;
 
         if (!GeofencesScanner.useGPS)
