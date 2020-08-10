@@ -178,6 +178,7 @@ public class PPApplication extends Application
                                                 //+"|GeofenceScanner.stopLocationUpdates"
                                                 //+"|GeofenceScanner.updateTransitionsByLastKnownLocation"
                                                 //+"|GeofencesScannerSwitchGPSBroadcastReceiver.doWork"
+                                                //+"|EventPreferencesLocation.doHandleEvent"
 
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"

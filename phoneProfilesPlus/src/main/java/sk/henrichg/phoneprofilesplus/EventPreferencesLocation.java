@@ -410,6 +410,8 @@ class EventPreferencesLocation extends EventPreferences {
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_LOCATION);
             }
+            //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" +  eventsHandler.locationPassed);
+            //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" +  eventsHandler.notAllowedLocation);
         }
     }
 
