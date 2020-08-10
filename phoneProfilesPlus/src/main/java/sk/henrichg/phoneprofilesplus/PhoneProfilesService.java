@@ -4757,8 +4757,8 @@ public class PhoneProfilesService extends Service
     // profile notification -------------------
 
     @SuppressLint("NewApi")
-    void _showProfileNotification(Profile profile, /*boolean inHandlerThread,*/ final DataWrapper dataWrapper,
-                                          /*boolean refresh,*/ boolean forFirstStart/*, boolean cleared*/)
+    void _showProfileNotification(Profile profile, final DataWrapper dataWrapper,
+                                          boolean forFirstStart, boolean setForeground)
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
@@ -4777,9 +4777,11 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "forFirstStart="+forFirstStart);
 
-        if ((!forFirstStart) &&
-            (!PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, true)))
-            return;
+        if (!setForeground) {
+            if ((!forFirstStart) &&
+                (!PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, true)))
+                return;
+        }
 
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "service is foreground");
 
@@ -4801,42 +4803,6 @@ public class PhoneProfilesService extends Service
         int requestCode = 0;
         if (profile != null)
             requestCode = (int)profile._id;
-
-        /*
-        if ((!refresh) && (!forFirstStart)) {
-            // not redraw notification when activated profile is not changed
-            // activated profile is in requestCode
-
-            //PPApplication.logE("PhoneProfilesService._showProfileNotification", "not redraw notification");
-
-            // get old notification
-            PendingIntent oldPIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_NO_CREATE);
-            //PPApplication.logE("PhoneProfilesService._showProfileNotification", "oldPIntent="+oldPIntent);
-            if (oldPIntent != null) {
-                String pNameNotification = PPApplication.prefNotificationProfileName;
-
-                if (!pNameNotification.isEmpty()) {
-                    String pName;
-                    if (profile != null)
-                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
-                    else
-                        pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
-
-                    if (pName.equals(pNameNotification)) {
-                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile NOT changed");
-                        return;
-                    }
-                }
-            }
-        }
-        */
-
-        /*if (PPApplication.logEnabled()) {
-            if (refresh)
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "refresh");
-            else
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile changed");
-        }*/
 
         String notificationNotificationStyle;
         boolean notificationShowProfileIcon;
@@ -5657,7 +5623,7 @@ public class PhoneProfilesService extends Service
             }*/
 
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
-                if (startForegroundNotification) {
+                if (startForegroundNotification || setForeground) {
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
                     //if (notificationNotificationStyle.equals("0"))
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
@@ -5699,7 +5665,7 @@ public class PhoneProfilesService extends Service
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 //PPApplication.logE("[APP START] PhoneProfilesService.showProfileNotification", "forServiceStart="+forServiceStart);
-                _showProfileNotification(null, dataWrapper, /*true,*/ true/*, cleared*/);
+                _showProfileNotification(null, dataWrapper, true, true);
                 //dataWrapper.invalidateDataWrapper();
                 //return; // do not return, dusplay activated profile immediatelly
             }
@@ -5714,6 +5680,7 @@ public class PhoneProfilesService extends Service
         if (PPApplication.doNotShowProfileNotification)
             return;
 
+        /* moved into ShowProfileNotificationWorker
         boolean clear = false;
         if (Build.MANUFACTURER.equals("HMD Global"))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
@@ -5723,8 +5690,9 @@ public class PhoneProfilesService extends Service
             clear = true;
         if (clear) {
             // next show will be with startForeground()
-            clearProfileNotification(/*getApplicationContext(), true*/);
+            clearProfileNotification();
         }
+        */
 
         /*
         long now = SystemClock.elapsedRealtime();

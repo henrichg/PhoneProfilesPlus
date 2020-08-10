@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -34,7 +35,21 @@ public class ShowProfileNotificationWorker extends Worker {
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                     if (PhoneProfilesService.getInstance() != null) {
                         //PPApplication.logE("[WORKER CALL] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
-                        PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, /*false,*/ false/*, cleared*/);
+
+                        boolean clear = false;
+                        if (Build.MANUFACTURER.equals("HMD Global"))
+                            // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
+                            clear = true;
+                        if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
+                            // clear it for redraw icon in "Glance view" for LG with Android 9
+                            clear = true;
+                        if (clear) {
+                            // next show will be with startForeground()
+                            PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
+                            PPApplication.sleep(100);
+                        }
+
+                        PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, false, clear);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
