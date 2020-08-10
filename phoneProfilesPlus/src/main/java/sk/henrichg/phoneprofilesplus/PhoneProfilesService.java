@@ -406,7 +406,9 @@ public class PhoneProfilesService extends Service
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                try {
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                } catch (Exception ignored) {}
             }
 
             /*else {
@@ -5657,20 +5659,20 @@ public class PhoneProfilesService extends Service
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                 if (startForegroundNotification) {
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
-                    if (notificationNotificationStyle.equals("0"))
+                    //if (notificationNotificationStyle.equals("0"))
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
-                    else
-                        startForeground(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
+                    //else
+                    //    startForeground(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
                     startForegroundNotification = false;
                 }
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null) {
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notify()");
-                        if (notificationNotificationStyle.equals("0"))
+                        //if (notificationNotificationStyle.equals("0"))
                             notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
-                        else
-                            notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
+                        //else
+                        //    notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
                     }
                 }
 
@@ -5817,7 +5819,9 @@ public class PhoneProfilesService extends Service
                 NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null) {
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                    try {
+                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                    } catch (Exception ignored) {}
                 }
             } catch (Exception e) {
                 //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
