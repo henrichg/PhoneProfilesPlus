@@ -332,9 +332,11 @@ class EventPreferencesLocation extends EventPreferences {
                         }
                     } else {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                            boolean transitionsUpdated;
+                            boolean transitionsUpdated = false;
                             synchronized (PPApplication.geofenceScannerMutex) {
-                                transitionsUpdated = PhoneProfilesService.getInstance().getGeofencesScanner().mTransitionsUpdated;
+                                GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                                if (scanner != null)
+                                    transitionsUpdated = scanner.mTransitionsUpdated;
                             }
                             if (transitionsUpdated) {
                                 /*if (PPApplication.logEnabled()) {
