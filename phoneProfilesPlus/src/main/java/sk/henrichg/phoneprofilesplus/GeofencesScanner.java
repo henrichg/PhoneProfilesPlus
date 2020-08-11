@@ -41,7 +41,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     static boolean useGPS = true; // must be static
     static boolean mUpdatesStarted = false; // must be static
 
-    boolean mTransitionsUpdated = false;
+    static boolean mTransitionsUpdated = false;
 
     // Bool to track whether the app is already resolving an error
     boolean mResolvingError = false;
