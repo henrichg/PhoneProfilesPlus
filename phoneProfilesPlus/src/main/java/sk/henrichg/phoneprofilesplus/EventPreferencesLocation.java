@@ -306,6 +306,8 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
+        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "_event._name=" + _event._name);
+        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.sensorType=" + eventsHandler.sensorType);
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -338,6 +340,7 @@ class EventPreferencesLocation extends EventPreferences {
                                 if (scanner != null)
                                     transitionsUpdated = scanner.mTransitionsUpdated;
                             }
+                            PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "transitionsUpdated=" + transitionsUpdated);
                             if (transitionsUpdated) {
                                 /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("EventPreferencesLocation.doHandleEvent", "--------");
@@ -347,11 +350,12 @@ class EventPreferencesLocation extends EventPreferences {
                                 String[] splits = _geofences.split("\\|");
                                 boolean[] passed = new boolean[splits.length];
 
+                                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "splits.length=" + splits.length);
+
                                 int i = 0;
                                 for (String _geofence : splits) {
                                     passed[i] = false;
                                     if (!_geofence.isEmpty()) {
-                                        //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
 
                                         int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
                                         /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
@@ -388,7 +392,7 @@ class EventPreferencesLocation extends EventPreferences {
                                 //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "locationPassed=" + locationPassed);
                             }
                             else
-                                eventsHandler.notAllowedLocation = false;
+                                eventsHandler.notAllowedLocation = true;
 
                         } else {
                             eventsHandler.notAllowedLocation = true;
@@ -410,12 +414,9 @@ class EventPreferencesLocation extends EventPreferences {
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_LOCATION);
             }
-            if (_enabled) {
-                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "_event._name=" + _event._name);
-                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" + eventsHandler.locationPassed);
-                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" + eventsHandler.notAllowedLocation);
-            }
         }
+        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" + eventsHandler.locationPassed);
+        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" + eventsHandler.notAllowedLocation);
     }
 
 }
