@@ -1038,7 +1038,7 @@ public class BluetoothScanWorker extends Worker {
     }
 
     static void finishCLScan(final Context context) {
-        synchronized (PPApplication.bluetoothScanMutex) {
+        synchronized (PPApplication.bluetoothCLScanMutex) {
             //PPApplication.logE("BluetoothScanWorker.finishCLScan", "BluetoothScanBroadcastReceiver: discoveryStarted=" + WifiBluetoothScanner.bluetoothDiscoveryStarted);
 
             if (BluetoothScanner.bluetoothDiscoveryStarted) {

@@ -1,4 +1,4 @@
 package sk.henrichg.phoneprofilesplus;
 
-class BluetoothScanMutex {
+class BluetoothCLScanMutex {
 }

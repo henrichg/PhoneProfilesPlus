@@ -843,19 +843,19 @@ public class PPApplication extends Application
     static final RootMutex rootMutex = new RootMutex();
     private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
-    static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     //static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
-    static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
     static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
     static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
     static final WifiScannerMutex wifiScannerMutex = new WifiScannerMutex();
+    static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
+    static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     static final BluetoothScannerMutex bluetoothScannerMutex = new BluetoothScannerMutex();
+    static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
+    static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
+    static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
     static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
     static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
-    static final BluetoothScanMutex bluetoothScanMutex = new BluetoothScanMutex();
-    static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
-    static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
@@ -1218,7 +1218,7 @@ public class PPApplication extends Application
     public static HandlerThread handlerThreadPlayTone = null;
     public static HandlerThread handlerThreadPPScanners = null;
     public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
-    public static HandlerThread handlerThreadBluetoothLECallback = null;
+    //public static HandlerThread handlerThreadBluetoothLECallback = null;
     public static HandlerThread handlerThreadPPCommand = null;
 
     //private static HandlerThread handlerThreadRoot = null;
@@ -1477,7 +1477,7 @@ public class PPApplication extends Application
         //startHandlerThreadInternalChangeToFalse();
         startHandlerThreadPPScanners(); // for minutes interval
         startHandlerThreadOrientationScanner(); // for seconds interval
-        startHandlerThreadBluetoothLECallback();
+        //startHandlerThreadBluetoothLECallback();
         startHandlerThreadPPCommand();
         //startHandlerThreadRoot();
         startHandlerThreadWidget();
@@ -4148,12 +4148,12 @@ public class PPApplication extends Application
         }
     }
 
-    static void startHandlerThreadBluetoothLECallback() {
+    /*static void startHandlerThreadBluetoothLECallback() {
         if (handlerThreadBluetoothLECallback == null) {
             handlerThreadBluetoothLECallback = new HandlerThread("handlerThreadBluetoothLECallback", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadBluetoothLECallback.start();
         }
-    }
+    }*/
 
     static void startHandlerThreadPPCommand() {
         if (handlerThreadPPCommand == null) {
