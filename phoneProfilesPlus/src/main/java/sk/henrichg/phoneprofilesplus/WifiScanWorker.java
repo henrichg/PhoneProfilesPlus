@@ -721,8 +721,8 @@ public class WifiScanWorker extends Worker {
 
     static void fillScanResults(Context context)
     {
-        List<WifiSSIDData> scanResults = new ArrayList<>();
-        boolean save = false;
+        List<WifiSSIDData> scanResults = null;
+        //boolean save = false;
 
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -736,12 +736,13 @@ public class WifiScanWorker extends Worker {
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "getScanResults() called");
             //}
             if (_scanResults != null) {
+                scanResults = new ArrayList<>();
+
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 //boolean isScreenOn = PPApplication.isScreenOn(pm);
                 //PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "isScreenOn="+isScreenOn);
                 //if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
-                save = true;
-                scanResults.clear();
+                //scanResults.clear();
                 for (ScanResult _device : _scanResults) {
                     /*if (_device.SSID.equals("OLIN")) {
                         PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_device.SSID=" + _device.SSID);
@@ -769,10 +770,7 @@ public class WifiScanWorker extends Worker {
             //else
             //    PPApplication.logE("%%%% WifiScanWorker.fillScanResults", "_scanResults=null");
         }
-        else
-            save = true;
-        if (save)
-            saveScanResults(context, scanResults);
+        saveScanResults(context, scanResults);
     }
 
     private static final String SCAN_RESULT_COUNT_PREF = "count";
@@ -873,13 +871,17 @@ public class WifiScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+            if (scanResults == null)
+                editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            else {
+                editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
 
-            Gson gson = new Gson();
+                Gson gson = new Gson();
 
-            for (int i = 0; i < scanResults.size(); i++) {
-                String json = gson.toJson(scanResults.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                for (int i = 0; i < scanResults.size(); i++) {
+                    String json = gson.toJson(scanResults.get(i));
+                    editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                }
             }
 
             editor.apply();
