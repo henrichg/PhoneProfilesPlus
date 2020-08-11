@@ -540,13 +540,14 @@ class EventPreferencesWifi extends EventPreferences {
                                         eventsHandler.notAllowedWifi = true;
                                 } else {
 
-                                    eventsHandler.wifiPassed = false;
-
                                     List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(eventsHandler.context);
 
                                     //PPApplication.logE("----- EventPreferencesWifi.doHandleEvent","scanResults="+scanResults);
 
                                     if (scanResults != null) {
+
+                                        eventsHandler.wifiPassed = false;
+
                                         /*if (PPApplication.logEnabled()) {
                                             if (event._name.equals("Doma")) {
                                                 PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults != null");
@@ -643,9 +644,13 @@ class EventPreferencesWifi extends EventPreferences {
                                             }
                                         }
 
-                                    } /*else
-                                    if (event._name.equals("Doma"))
-                                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults == null");*/
+                                    }
+                                    else {
+                                        // not allowed for screen Off
+                                        eventsHandler.notAllowedWifi = true;
+                                        //if (event._name.equals("Doma"))
+                                        //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults == null");*/
+                                    }
                                 }
                             }
                         }
