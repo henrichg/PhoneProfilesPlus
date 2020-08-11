@@ -354,10 +354,10 @@ class EventPreferencesLocation extends EventPreferences {
                                         //PPApplication.logE("EventPreferencesLocation.doHandleEvent", "geofence=" + DatabaseHandler.getInstance(context).getGeofenceName(Long.valueOf(_geofence)));
 
                                         int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
-                                    /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
-                                        PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_ENTER");
-                                    else
-                                        PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
+                                        /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_ENTER");
+                                        else
+                                            PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
 
                                         if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
                                             passed[i] = true;
@@ -410,8 +410,11 @@ class EventPreferencesLocation extends EventPreferences {
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_LOCATION);
             }
-            //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" +  eventsHandler.locationPassed);
-            //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" +  eventsHandler.notAllowedLocation);
+            if (_enabled) {
+                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "_event._name=" + _event._name);
+                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" + eventsHandler.locationPassed);
+                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" + eventsHandler.notAllowedLocation);
+            }
         }
     }
 
