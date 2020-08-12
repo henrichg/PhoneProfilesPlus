@@ -1234,79 +1234,139 @@ class EventsHandler {
 
         boolean allPassed = true;
         boolean someNotAllowed = false;
-        if (!notAllowedTime)
-            //noinspection ConstantConditions
-            allPassed &= timePassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedBattery)
-            allPassed &= batteryPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedCall)
-            allPassed &= callPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedPeripheral)
-            allPassed &= peripheralPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedCalendar)
-            allPassed &= calendarPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedWifi)
-            allPassed &= wifiPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedScreen)
-            allPassed &= screenPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedBluetooth)
-            allPassed &= bluetoothPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedSms)
-            allPassed &= smsPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedNotification)
-            allPassed &= notificationPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedApplication)
-            allPassed &= applicationPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedLocation)
-            allPassed &= locationPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedOrientation)
-            allPassed &= orientationPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedMobileCell)
-            allPassed &= mobileCellPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedNfc)
-            allPassed &= nfcPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedRadioSwitch)
-            allPassed &= radioSwitchPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedAlarmClock)
-            allPassed &= alarmClockPassed;
-        else
-            someNotAllowed = true;
-        if (!notAllowedDeviceBoot)
-            allPassed &= deviceBootPassed;
-        else
-            someNotAllowed = true;
+        boolean anySensorEnabled = false;
+        if (event._eventPreferencesTime._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedTime)
+                //noinspection ConstantConditions
+                allPassed &= timePassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesBattery._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedBattery)
+                allPassed &= batteryPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesCall._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedCall)
+                allPassed &= callPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesPeripherals._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedPeripheral)
+                allPassed &= peripheralPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesCalendar._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedCalendar)
+                allPassed &= calendarPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesWifi._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedWifi)
+                allPassed &= wifiPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesScreen._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedScreen)
+                allPassed &= screenPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesBluetooth._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedBluetooth)
+                allPassed &= bluetoothPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesSMS._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedSms)
+                allPassed &= smsPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesNotification._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedNotification)
+                allPassed &= notificationPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesApplication._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedApplication)
+                allPassed &= applicationPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesLocation._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedLocation)
+                allPassed &= locationPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesOrientation._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedOrientation)
+                allPassed &= orientationPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesMobileCells._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedMobileCell)
+                allPassed &= mobileCellPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesNFC._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedNfc)
+                allPassed &= nfcPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesRadioSwitch._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedRadioSwitch)
+                allPassed &= radioSwitchPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesAlarmClock._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedAlarmClock)
+                allPassed &= alarmClockPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesDeviceBoot._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedDeviceBoot)
+                allPassed &= deviceBootPassed;
+            else
+                someNotAllowed = true;
+        }
+        if (!anySensorEnabled) {
+            // force set event as paused
+            allPassed = false;
+            someNotAllowed = false;
+        }
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("EventsHandler.doHandleEvents", "timePassed=" + timePassed);
