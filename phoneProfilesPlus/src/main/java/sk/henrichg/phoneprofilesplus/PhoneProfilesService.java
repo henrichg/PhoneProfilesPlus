@@ -216,13 +216,6 @@ public class PhoneProfilesService extends Service
         }
         startForegroundNotification = true;
 
-        PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
-
-        // show empty notification to avoid ANR in api level 26
-        showProfileNotification(/*true,*/ true/*, false*/);
-
-        PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
-
         if (PPApplication.getInstance() == null) {
             PPApplication.loadGlobalApplicationData(getApplicationContext());
             PPApplication.loadApplicationPreferences(getApplicationContext());
@@ -234,6 +227,13 @@ public class PhoneProfilesService extends Service
             PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
             PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
         }
+
+        PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
+
+        // show empty notification to avoid ANR in api level 26
+        showProfileNotification(/*true,*/ true/*, false*/);
+
+        PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
 
         serviceHasFirstStart = false;
         //serviceRunning = false;
