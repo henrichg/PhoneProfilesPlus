@@ -217,15 +217,7 @@ public class PhoneProfilesService extends Service
         startForegroundNotification = true;
 
         if (PPApplication.getInstance() == null) {
-            PPApplication.loadGlobalApplicationData(getApplicationContext());
             PPApplication.loadApplicationPreferences(getApplicationContext());
-            PPApplication.loadProfileActivationData(getApplicationContext());
-
-            PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
-            PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
-            PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
-            PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
-            PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
         }
 
         PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
@@ -234,6 +226,17 @@ public class PhoneProfilesService extends Service
         showProfileNotification(/*true,*/ true/*, false*/);
 
         PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
+
+        if (PPApplication.getInstance() == null) {
+            PPApplication.loadGlobalApplicationData(getApplicationContext());
+            PPApplication.loadProfileActivationData(getApplicationContext());
+
+            PPApplication.sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+            PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
+            PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
+            PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
+            PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
+        }
 
         serviceHasFirstStart = false;
         //serviceRunning = false;
@@ -4820,10 +4823,10 @@ public class PhoneProfilesService extends Service
         boolean notificationShowButtonExit;
         String notificationLayoutType;
         if (forFirstStart) {
-            //notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
-            synchronized (PPApplication.applicationPreferencesMutex) {
-                notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
-            }
+            notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
+            //synchronized (PPApplication.applicationPreferencesMutex) {
+            //    notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+            //}
             notificationShowProfileIcon = false; // for small notification at start
             notificationShowInStatusBar = true;
             notificationUseDecoration = false;
