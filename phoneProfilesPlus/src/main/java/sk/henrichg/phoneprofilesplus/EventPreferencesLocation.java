@@ -306,8 +306,8 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
-        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "_event._name=" + _event._name);
-        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.sensorType=" + eventsHandler.sensorType);
+        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "_event._name=" + _event._name);
+        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.sensorType=" + eventsHandler.sensorType);
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -340,7 +340,7 @@ class EventPreferencesLocation extends EventPreferences {
                                 if (scanner != null)
                                     transitionsUpdated = GeofencesScanner.mTransitionsUpdated;
                             }
-                            PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "transitionsUpdated=" + transitionsUpdated);
+                            //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "transitionsUpdated=" + transitionsUpdated);
                             if (transitionsUpdated) {
                                 /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("EventPreferencesLocation.doHandleEvent", "--------");
@@ -350,7 +350,7 @@ class EventPreferencesLocation extends EventPreferences {
                                 String[] splits = _geofences.split("\\|");
                                 boolean[] passed = new boolean[splits.length];
 
-                                PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "splits.length=" + splits.length);
+                                //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "splits.length=" + splits.length);
 
                                 int i = 0;
                                 for (String _geofence : splits) {
@@ -415,8 +415,8 @@ class EventPreferencesLocation extends EventPreferences {
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_LOCATION);
             }
         }
-        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" + eventsHandler.locationPassed);
-        PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" + eventsHandler.notAllowedLocation);
+        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.locationPassed=" + eventsHandler.locationPassed);
+        //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "eventsHandler.notAllowedLocation=" + eventsHandler.notAllowedLocation);
     }
 
 }
