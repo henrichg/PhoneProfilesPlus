@@ -11,7 +11,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] StartLauncherFromNotificationReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] StartLauncherFromNotificationReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "StartLauncherFromNotificationReceiver.onReceive", "StartLauncherFromNotificationReceiver_onReceive");
 

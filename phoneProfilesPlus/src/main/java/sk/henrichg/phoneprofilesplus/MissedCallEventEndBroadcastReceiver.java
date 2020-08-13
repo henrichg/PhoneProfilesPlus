@@ -10,7 +10,7 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] MissedCallEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] MissedCallEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "MissedCallEventEndBroadcastReceiver.onReceive", "MissedCallEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,9 +44,9 @@ public class MissedCallEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=MissedCallEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=MissedCallEventEndBroadcastReceiver.doWork");
 
-//                        PPApplication.logE("[EVENTS_HANDLER] MissedCallEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_PHONE_CALL_EVENT_END");
+                        PPApplication.logE("[EVENTS_HANDLER] MissedCallEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_PHONE_CALL_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END);
 

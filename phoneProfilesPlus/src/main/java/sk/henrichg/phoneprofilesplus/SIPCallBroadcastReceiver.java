@@ -8,7 +8,7 @@ public class SIPCallBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] SIPCallBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] SIPCallBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "SIPCallBroadcastReceiver.onReceive", "SIPCallBroadcastReceiver_onReceive");
 

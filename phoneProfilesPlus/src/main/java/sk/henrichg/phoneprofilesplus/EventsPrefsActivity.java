@@ -558,7 +558,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
                         if (old_event_status != Event.ESTATUS_STOP) {
                             // pause event - must be called, because status is ESTATUS_STOP
@@ -601,7 +601,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
                         // pause event
                         event.pauseEvent(dataWrapper, true, false,
@@ -717,7 +717,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
+            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
             if (fragment != null) {
                 long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
@@ -733,7 +733,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
+            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
             if (fragment != null)
                 ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();

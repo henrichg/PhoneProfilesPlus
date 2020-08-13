@@ -68,7 +68,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "xxx");
+                PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "xxx");
                 //PPApplication.logE("##### GeofenceScanner.LocationCallback", "xxx");
                 //PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult);
                 if (locationResult == null)
@@ -194,7 +194,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnected(Bundle bundle) {
-        //PPApplication.logE("[LISTENER CALL] GeofenceScanner.onConnected", "xxx");
+        PPApplication.logE("[LISTENER CALL] GeofenceScanner.onConnected", "xxx");
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
@@ -225,7 +225,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
 
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                 GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -256,7 +256,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnectionSuspended(int i) {
-        //PPApplication.logE("[LISTENER CALL] GeofenceScanner.onConnectionSuspended", "xxx");
+        PPApplication.logE("[LISTENER CALL] GeofenceScanner.onConnectionSuspended", "xxx");
         /*if (PPApplication.logEnabled()) {
             if (PhoneProfilesService.getInstance() != null)
                 PPApplication.logE("##### GeofenceScanner.onConnectionSuspended", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
@@ -278,7 +278,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        //PPApplication.logE("[LISTENER CALL] GeofenceScanner.onConnectionFailed", "xxx");
+        PPApplication.logE("[LISTENER CALL] GeofenceScanner.onConnectionFailed", "xxx");
         /*if (PPApplication.logEnabled()) {
             if (PhoneProfilesService.getInstance() != null)
                 PPApplication.logE("##### GeofenceScanner.onConnectionFailed", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
@@ -566,7 +566,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     final LocationCallback updateTransitionsByLastKnownLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-            //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
+            PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
 
@@ -693,7 +693,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                      wakeLock.acquire(10 * 60 * 1000);
                                  }
 
-                                 //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "START update");
+                                 PPApplication.logE("[HANDLER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation", "START update");
 
                                  final LocationRequest locationRequest = LocationRequest.create();
 

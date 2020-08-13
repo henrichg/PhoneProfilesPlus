@@ -26,17 +26,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("[WORKER CALL] AvoidRescheduleReceiverWorker.doWork", "xxxx");
-
-            /*PPApplication.startHandlerThreadPPScanners();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=AvoidRescheduleReceiverWorker.doWork");
-                    enqueueWork();
-                }
-            }, 500);*/
+            PPApplication.logE("[WORKER CALL] AvoidRescheduleReceiverWorker.doWork", "xxxx");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)

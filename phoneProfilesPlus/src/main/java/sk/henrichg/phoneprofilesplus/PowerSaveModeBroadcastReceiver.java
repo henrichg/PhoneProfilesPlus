@@ -11,7 +11,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PowerSaveModeBroadcastReceiver.onReceive", "PowerSaveModeBroadcastReceiver_onReceive");
 
@@ -64,10 +64,10 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
 
                         // start events handler
-//                        PPApplication.logE("[EVENTS_HANDLER] PowerSaveModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_POWER_SAVE_MODE");
+                        PPApplication.logE("[EVENTS_HANDLER] PowerSaveModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_POWER_SAVE_MODE");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE);
 

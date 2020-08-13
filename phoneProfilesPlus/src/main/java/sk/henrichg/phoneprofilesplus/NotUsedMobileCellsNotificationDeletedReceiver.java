@@ -14,7 +14,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "NewMobileCellsNotificationDeletedReceiver_onReceive");
 
@@ -36,8 +36,8 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                             }
 
                             //if (PPApplication.logEnabled()) {
-//                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
-                            //    PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId=" + mobileCellId);
+                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+                                //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId=" + mobileCellId);
                             //}
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);

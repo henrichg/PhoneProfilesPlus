@@ -51,7 +51,7 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            //PPApplication.logE("[WORKER CALL]  WifiScanWorker.doWork", "xxxx");
+            PPApplication.logE("[WORKER CALL]  WifiScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- START");
             //Set<String> tags = getTags();
@@ -237,24 +237,13 @@ public class WifiScanWorker extends Worker {
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            //if (shortInterval) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork" + " shortInterval="+shortInterval);
-                        _scheduleWork(context, shortInterval);
-                    }
-                });
-            /*}
-            else {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork");
-                        _scheduleWork(context, shortInterval);
-                    }
-                }, 500);
-            }*/
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork" + " shortInterval="+shortInterval);
+                    _scheduleWork(context, shortInterval);
+                }
+            });
         }
         //else
         //    PPApplication.logE("WifiScanWorker.scheduleWork","WifiHardware=false");
@@ -342,7 +331,7 @@ public class WifiScanWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.cancelWork");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.cancelWork");
                     _cancelWork(context);
                 }
             });

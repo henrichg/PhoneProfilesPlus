@@ -101,7 +101,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
 
                     for (ScanResult result : _results) {
                         //PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());

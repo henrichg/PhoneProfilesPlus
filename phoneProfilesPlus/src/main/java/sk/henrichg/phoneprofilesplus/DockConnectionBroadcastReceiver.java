@@ -10,7 +10,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] DockConnectionBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] DockConnectionBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "DockConnectionBroadcastReceiver.onReceive", "DockConnectionBroadcastReceiver_onReceive");
 
@@ -41,9 +41,9 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
 
-//                            PPApplication.logE("[EVENTS_HANDLER] DockConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DOCK_CONNECTION");
+                            PPApplication.logE("[EVENTS_HANDLER] DockConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DOCK_CONNECTION");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
 

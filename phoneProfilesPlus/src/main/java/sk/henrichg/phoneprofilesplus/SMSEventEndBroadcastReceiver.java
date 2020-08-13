@@ -10,7 +10,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] SMSEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] SMSEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "SMSEventEndBroadcastReceiver.onReceive", "SMSEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,9 +44,9 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=SMSEventEndBroadcastReceiver.doWork");
 
-//                        PPApplication.logE("[EVENTS_HANDLER] SMSEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_SMS_EVENT_END");
+                        PPApplication.logE("[EVENTS_HANDLER] SMSEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_SMS_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS_EVENT_END);
 

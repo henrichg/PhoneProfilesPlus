@@ -174,7 +174,7 @@ public class PhoneProfilesService extends Service
     private final BroadcastReceiver commandReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[BROADCAST CALL] PhoneProfilesService.commandReceiver", "xxx");
+            PPApplication.logE("[BROADCAST CALL] PhoneProfilesService.commandReceiver", "xxx");
             doCommand(intent);
         }
     };
@@ -3592,7 +3592,7 @@ public class PhoneProfilesService extends Service
                     // is needed beacuse will be changed
                     boolean __activateProfiles = _activateProfiles;
 
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
 
                     // create application directory
                     File sd = Environment.getExternalStorageDirectory();
@@ -4365,7 +4365,7 @@ public class PhoneProfilesService extends Service
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
 
                         //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- START");
 

@@ -44,7 +44,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[BROADCAST CALL] ActivateProfileActivity.refreshGUIBroadcastReceiver", "xxx");
+            PPApplication.logE("[BROADCAST CALL] ActivateProfileActivity.refreshGUIBroadcastReceiver", "xxx");
             //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
             boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
             ActivateProfileActivity.this.refreshGUI(/*refresh,*//*true,*/  refreshIcons);
@@ -55,7 +55,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[BROADCAST CALL] ActivateProfileActivity.showTargetHelpsBroadcastReceiver", "xxx");
+            PPApplication.logE("[BROADCAST CALL] ActivateProfileActivity.showTargetHelpsBroadcastReceiver", "xxx");
             if (ActivateProfileActivity.this.isFinishing()) {
                 if (ActivatorTargetHelpsActivity.activity != null)
                     ActivatorTargetHelpsActivity.activity.finish();
@@ -94,7 +94,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[BROADCAST CALL] ActivateProfileActivity.finishBroadcastReceiver", "xxx");
+            PPApplication.logE("[BROADCAST CALL] ActivateProfileActivity.finishBroadcastReceiver", "xxx");
             String action = intent.getAction();
             if (action != null) {
                 if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {

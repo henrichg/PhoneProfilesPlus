@@ -13,7 +13,7 @@ public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RefreshActivitiesBroadcastReceiver.onReceive", "RefreshGUIBroadcastReceiver_onReceive");
 
         boolean refreshIcons = intent.getBooleanExtra(EXTRA_REFRESH_ICONS, false);
