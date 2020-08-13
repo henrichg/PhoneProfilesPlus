@@ -145,6 +145,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive (2)");
                                     //if (PhoneProfilesService.getInstance() != null) {
                                         if (PPApplication.lockDeviceActivity != null) {
                                             try {

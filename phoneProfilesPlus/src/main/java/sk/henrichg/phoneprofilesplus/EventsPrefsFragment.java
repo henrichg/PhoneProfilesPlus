@@ -279,6 +279,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
                 if (getActivity() == null)
                     return;
 
@@ -1149,6 +1150,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
                         if (getActivity() == null)
                             return;
 

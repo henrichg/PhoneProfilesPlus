@@ -25,7 +25,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     Handler _handler = new Handler(appContext.getMainLooper());
                     Runnable r = new Runnable() {
                         public void run() {
-                            //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "start activity");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
 
                             // intent to LauncherActivity, for click on notification
                             Intent launcherIntent = new Intent(appContext, LauncherActivity.class);

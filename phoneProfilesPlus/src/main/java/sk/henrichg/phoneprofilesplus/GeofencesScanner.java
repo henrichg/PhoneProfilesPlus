@@ -111,6 +111,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         //PPApplication.logE("##### GeofenceScanner.LocationCallback", "handleEvents");
+                        PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                         EventsHandler eventsHandler = new EventsHandler(scanner.context);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                     }
@@ -606,6 +607,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "handleEvents");
+                    PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                     EventsHandler eventsHandler = new EventsHandler(scanner.context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                 }

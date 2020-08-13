@@ -1953,6 +1953,8 @@ public class DataWrapper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.finishActivity");
+
                     try {
                         //if (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR)
                         //    _activity.finishAndRemoveTask();
@@ -2424,6 +2426,7 @@ public class DataWrapper {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithAlert");
                         try {
                             activity.finish();
                         } catch (Exception e) {

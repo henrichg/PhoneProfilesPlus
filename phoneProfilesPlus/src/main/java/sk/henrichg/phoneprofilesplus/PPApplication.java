@@ -2198,6 +2198,7 @@ public class PPApplication extends Application
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
                 try {
                     Toast msg = ToastCompat.makeText(appContext, text, length);
                     //Toast msg = Toast.makeText(appContext, text, length);
@@ -4017,6 +4018,7 @@ public class PPApplication extends Application
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {
                     public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
                         try {
                             if (activity != null)
                                 activity.finish();
@@ -4065,7 +4067,7 @@ public class PPApplication extends Application
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

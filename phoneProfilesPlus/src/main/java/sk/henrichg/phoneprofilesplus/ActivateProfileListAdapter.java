@@ -320,6 +320,8 @@ class ActivateProfileListAdapter extends BaseAdapter
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (1)");
+
                             if (ActivatorTargetHelpsActivity.activity != null) {
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 try {
@@ -346,6 +348,8 @@ class ActivateProfileListAdapter extends BaseAdapter
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (2)");
+
                             if (ActivatorTargetHelpsActivity.activity != null) {
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 try {
@@ -370,6 +374,8 @@ class ActivateProfileListAdapter extends BaseAdapter
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (3)");
+
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                         try {

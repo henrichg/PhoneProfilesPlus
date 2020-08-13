@@ -717,6 +717,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (1)");
+
                                 if (ActivatorTargetHelpsActivity.activity != null) {
                                     //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                                     try {
@@ -750,6 +752,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (2)");
+
                         Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
                         intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
@@ -768,6 +772,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (3)");
+
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                         try {

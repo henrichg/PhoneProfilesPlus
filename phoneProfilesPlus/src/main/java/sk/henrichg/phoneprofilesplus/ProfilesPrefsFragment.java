@@ -234,6 +234,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
                 if (getActivity() == null)
                     return;
 
@@ -827,6 +828,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onSharedPreferenceChanged");
                         if (getActivity() == null)
                             return;
 

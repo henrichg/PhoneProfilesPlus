@@ -214,6 +214,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPreferencesFragment.onActivityCreated");
                 if (getActivity() == null)
                     return;
 

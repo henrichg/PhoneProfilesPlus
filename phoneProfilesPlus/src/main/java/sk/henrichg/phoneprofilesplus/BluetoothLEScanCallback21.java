@@ -51,12 +51,14 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                        String btName = _device.getName();
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
 
-                        BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, _device.getAddress(),
-                                BluetoothScanWorker.getBluetoothType(_device), false, 0, false, true);
+                    String btName = _device.getName();
 
-                        BluetoothScanWorker.addLEScanResult(deviceData);
+                    BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, _device.getAddress(),
+                            BluetoothScanWorker.getBluetoothType(_device), false, 0, false, true);
+
+                    BluetoothScanWorker.addLEScanResult(deviceData);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

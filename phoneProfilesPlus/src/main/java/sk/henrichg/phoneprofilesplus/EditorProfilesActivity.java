@@ -3229,6 +3229,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.redrawProfileListFragment");
                             if (!editorActivity.isFinishing()) {
                                 boolean changeFilter = false;
                                 switch (filterProfilesSelectedItem) {
@@ -3409,6 +3410,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.redrawEventListFragment");
                             if (!editorActivity.isFinishing()) {
                                 boolean changeFilter = false;
                                 switch (filterEventsSelectedItem) {
@@ -3959,6 +3961,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.showTargetHelps");
                         Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver");
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                         /*if (EditorProfilesActivity.getInstance() != null) {

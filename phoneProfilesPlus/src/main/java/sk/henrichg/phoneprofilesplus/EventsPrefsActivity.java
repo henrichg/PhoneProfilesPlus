@@ -393,6 +393,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
                     //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                     toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
                 }

@@ -184,6 +184,8 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
+
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         if (geofencesScanner != null) {

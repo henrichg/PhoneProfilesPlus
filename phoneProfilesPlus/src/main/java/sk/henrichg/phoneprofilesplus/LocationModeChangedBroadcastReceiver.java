@@ -61,6 +61,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.sleep(10000);
 
+                        PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
 
