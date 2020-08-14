@@ -31,7 +31,7 @@ class ContactsContentObserver extends ContentObserver {
     @Override
     public void onChange(boolean selfChange, Uri uri) {
 //        if (PPApplication.logEnabled()) {
-            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "uri=" + uri);
+//            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "uri=" + uri);
 //
 //            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "ContactsContract.Contacts.CONTENT_URI=" + ContactsContract.Contacts.CONTENT_URI);
 //            PPApplication.logE("[OBSERVER CALL] ContactsContentObserver.onChange", "ContactsContract.CommonDataKinds.Phone.CONTENT_URI=" + ContactsContract.CommonDataKinds.Phone.CONTENT_URI);

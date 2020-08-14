@@ -10,7 +10,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NextAlarmClockBroadcastReceiver.onReceive", "NextAlarmClockBroadcastReceiver_onReceive");
 

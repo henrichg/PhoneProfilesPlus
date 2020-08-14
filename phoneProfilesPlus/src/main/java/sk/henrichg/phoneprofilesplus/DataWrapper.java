@@ -841,7 +841,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
 
                     dataWrapper.setDynamicLauncherShortcuts();
 
@@ -995,7 +995,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
 
                     dataWrapper.stopEventsForProfile(profile, alsoUnlink);
 
@@ -1073,7 +1073,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
 
                     dataWrapper.pauseAllEvents(true, false);
 
@@ -1127,7 +1127,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
 
                     dataWrapper.stopAllEvents(saveEventStatus, alsoDelete, true, true);
 
@@ -1746,7 +1746,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
                     boolean granted = true;
                     if (testGrant)
@@ -1953,7 +1953,7 @@ public class DataWrapper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.finishActivity");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.finishActivity");
 
                     try {
                         //if (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR)
@@ -2121,7 +2121,7 @@ public class DataWrapper {
         if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (1)");
 
-            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
+//            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
             EventsHandler eventsHandler = new EventsHandler(context);
             // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
@@ -2170,11 +2170,11 @@ public class DataWrapper {
 
         EventsHandler eventsHandler = new EventsHandler(context);
         if (manualRestart) {
-            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
+//            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
         }
         else {
-            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
+//            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
         }
 
@@ -2291,7 +2291,7 @@ public class DataWrapper {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
 
                         dataWrapper._restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
 
@@ -2426,7 +2426,7 @@ public class DataWrapper {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithAlert");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithAlert");
                         try {
                             activity.finish();
                         } catch (Exception e) {

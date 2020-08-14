@@ -275,7 +275,7 @@ class GlobalGUIRoutines {
             new Handler(getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
                     try {
                         switchNightMode(appContext);
                     } catch (Exception e) {
@@ -300,7 +300,7 @@ class GlobalGUIRoutines {
                 @Override
                 public void run() {
                     try {
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
                         Context context = activity.getApplicationContext();
 
                         Intent intent = activity.getIntent();

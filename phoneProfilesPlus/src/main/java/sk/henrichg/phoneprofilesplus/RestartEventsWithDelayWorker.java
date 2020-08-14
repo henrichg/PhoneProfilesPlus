@@ -24,7 +24,7 @@ public class RestartEventsWithDelayWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL]  RestartEventsWithDelayWorker.doWork", "xxxx");
+//            PPApplication.logE("[WORKER CALL]  RestartEventsWithDelayWorker.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started

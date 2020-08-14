@@ -141,7 +141,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ShortcutCreatorListFragment.LoadProfileListAsyncTask");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ShortcutCreatorListFragment.LoadProfileListAsyncTask");
                         //fragment.textViewNoData.setVisibility(GONE);
                         fragment.progressBar.setVisibility(View.VISIBLE);
                     }

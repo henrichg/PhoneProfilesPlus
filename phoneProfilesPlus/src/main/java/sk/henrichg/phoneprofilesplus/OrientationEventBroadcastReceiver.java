@@ -10,7 +10,7 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] OrientationEventBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] OrientationEventBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "OrientationEventBroadcastReceiver.onReceive", "OrientationEventBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,9 +44,9 @@ public class OrientationEventBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=OrientationEventBroadcastReceiver.doWork");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=OrientationEventBroadcastReceiver.doWork");
 
-                        PPApplication.logE("[EVENTS_HANDLER] OrientationEventBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION");
+//                        PPApplication.logE("[EVENTS_HANDLER] OrientationEventBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
