@@ -5809,15 +5809,24 @@ public class PhoneProfilesService extends Service
     public static boolean isServiceRunning(Context context, Class<?> serviceClass, boolean inForeground) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (manager != null) {
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (serviceClass.getName().equals(service.service.getClassName())) {
-                    if (inForeground) {
-                        //PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
-                        return service.foreground;
+            List<ActivityManager.RunningServiceInfo> services;
+            try {
+                services = manager.getRunningServices(Integer.MAX_VALUE);
+            } catch (Exception e) {
+                return false;
+            }
+            try {
+                for (ActivityManager.RunningServiceInfo service : services) {
+                    if (serviceClass.getName().equals(service.service.getClassName())) {
+                        if (inForeground) {
+                            //PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
+                            return service.foreground;
+                        } else
+                            return true;
                     }
-                    else
-                        return true;
                 }
+            } catch (Exception e) {
+                return false;
             }
         }
         //PPApplication.logE("PhoneProfilesService.isServiceRunning", "false");
