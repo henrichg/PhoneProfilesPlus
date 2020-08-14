@@ -5815,18 +5815,20 @@ public class PhoneProfilesService extends Service
             } catch (Exception e) {
                 return false;
             }
-            try {
-                for (ActivityManager.RunningServiceInfo service : services) {
-                    if (serviceClass.getName().equals(service.service.getClassName())) {
-                        if (inForeground) {
-                            //PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
-                            return service.foreground;
-                        } else
-                            return true;
+            if (services != null) {
+                try {
+                    for (ActivityManager.RunningServiceInfo service : services) {
+                        if (serviceClass.getName().equals(service.service.getClassName())) {
+                            if (inForeground) {
+                                //PPApplication.logE("PhoneProfilesService.isServiceRunning", "service.foreground=" + service.foreground);
+                                return service.foreground;
+                            } else
+                                return true;
+                        }
                     }
+                } catch (Exception e) {
+                    return false;
                 }
-            } catch (Exception e) {
-                return false;
             }
         }
         //PPApplication.logE("PhoneProfilesService.isServiceRunning", "false");
