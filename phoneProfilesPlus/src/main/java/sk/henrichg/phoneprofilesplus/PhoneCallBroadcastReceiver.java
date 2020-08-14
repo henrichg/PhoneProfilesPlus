@@ -110,7 +110,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
             //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "unlinkEnabled="+unlinkEnabled);
             if (unlinkEnabled) {
-                boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context);
+                int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
+                boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, context*/);
                 //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode="+audibleSystemRingerMode);
                 if (audibleSystemRingerMode) {
                     //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);

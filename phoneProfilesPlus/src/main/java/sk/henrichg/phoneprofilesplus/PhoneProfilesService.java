@@ -5279,6 +5279,7 @@ public class PhoneProfilesService extends Service
         else {
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
             notificationBuilder.setSmallIcon(R.drawable.ic_empty);
+            //noinspection ConstantConditions
             if (notificationNotificationStyle.equals("0")) {
                 try {
                     contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
@@ -5451,13 +5452,16 @@ public class PhoneProfilesService extends Service
             }
         }
         else {
-            try {
-                if (contentViewLarge != null)
-                    contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
-                if (contentView != null)
-                    contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+            //noinspection ConstantConditions
+            if (notificationNotificationStyle.equals("0")) {
+                try {
+                    if (contentViewLarge != null)
+                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                    if (contentView != null)
+                        contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
         }
 
@@ -6825,7 +6829,8 @@ public class PhoneProfilesService extends Service
                 //int ringerMode = ApplicationPreferences.prefRingerMode;
                 //int zenMode = ApplicationPreferences.prefZenMode;
                 //boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode/*, false*/);
-                boolean isAudible = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, this);
+                int systemZenMode = ActivateProfileHelper.getSystemZenMode(getApplicationContext());
+                boolean isAudible = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
                 //PPApplication.logE("PhoneProfilesService.playNotificationSound", "isAudible="+isAudible);
                 if (isAudible) {
 

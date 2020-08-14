@@ -143,6 +143,8 @@ public class PPApplication extends Application
                                                 //+"|********* PPNotificationListenerService.setZenMode"
                                                 //+"|********* InterruptionFilterChangedBroadcastReceiver.setZenMode"
                                                 //+"|ActivateProfileHelper.setRingerMode"
+                                                //+"|ActivateProfileHelper.setZenMode"
+                                                //+"|ActivateProfileHelper.getSystemZenMode"
                                                 //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                                 //+"|RingerModeChangeReceiver.getRingerMode"
                                                 //+"|RingerModeChangeReceiver.onReceive"

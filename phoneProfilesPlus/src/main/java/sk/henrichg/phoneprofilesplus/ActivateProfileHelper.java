@@ -676,7 +676,7 @@ class ActivateProfileHelper {
     }
 
 
-    static boolean isAudibleSystemRingerMode(AudioManager audioManager, Context context) {
+    static boolean isAudibleSystemRingerMode(AudioManager audioManager, int systemZenMode/*, Context context*/) {
         /*int ringerMode = audioManager.getRingerMode();
         PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "ringerMode="+ringerMode);
         if (ringerMode != AudioManager.RINGER_MODE_NORMAL) {
@@ -691,7 +691,7 @@ class ActivateProfileHelper {
             return true;*/
 
         int systemRingerMode = audioManager.getRingerMode();
-        int systemZenMode = getSystemZenMode(context/*, -1*/);
+        //int systemZenMode = getSystemZenMode(context/*, -1*/);
 
         /*return (audibleRingerMode) ||
                 ((systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY) &&
@@ -803,7 +803,7 @@ class ActivateProfileHelper {
     }
 
     @SuppressLint("NewApi")
-    private static void setVolumes(Context context, Profile profile, AudioManager audioManager,
+    private static void setVolumes(Context context, Profile profile, AudioManager audioManager, int systemZenMode,
                                    int linkUnlink, boolean forProfileActivation, boolean forRingerMode)
     {
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile=" + profile);
@@ -822,7 +822,7 @@ class ActivateProfileHelper {
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile._volumeMuteSound=" + profile._volumeMuteSound);
 
         if (profile._volumeMuteSound) {
-            if (isAudibleSystemRingerMode(audioManager, appContext) || (ringerMode == 0)) {
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
                 if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
                 if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
@@ -836,7 +836,7 @@ class ActivateProfileHelper {
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
         }
         else {
-            if (isAudibleSystemRingerMode(audioManager, appContext) || (ringerMode == 0)) {
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING))
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
                 if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
@@ -894,7 +894,7 @@ class ActivateProfileHelper {
 
             if (!profile._volumeMuteSound) {
                 //if (isAudibleRinging(ringerMode, zenMode, true) || (ringerMode == 0)) {
-                if (isAudibleSystemRingerMode(audioManager, appContext) || (ringerMode == 0)) {
+                if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
                     // test only system ringer mode
 
                     //PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer/notification/system change");
@@ -1177,7 +1177,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setZenMode(Context context, int zenMode, AudioManager audioManager, int ringerMode)
+    private static void setZenMode(Context context, int zenMode, AudioManager audioManager, int systemZenMode, int ringerMode)
     {
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //{
@@ -1188,7 +1188,7 @@ class ActivateProfileHelper {
 
             Context appContext = context.getApplicationContext();
 
-            int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+            //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
             //PPApplication.logE("ActivateProfileHelper.setZenMode", "systemZenMode=" + systemZenMode);
             //int systemRingerMode = audioManager.getRingerMode();
             //PPApplication.logE("ActivateProfileHelper.setZenMode", "systemRingerMode=" + systemRingerMode);
@@ -1634,7 +1634,7 @@ class ActivateProfileHelper {
                                 int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeRingerModeForVolumeEqual0()");
-                                changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
+                                changeRingerModeForVolumeEqual0(profile, audioManager, systemZenMode/*, appContext*/);
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "changeNotificationVolumeForVolumeEqual0()");
                                 changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
@@ -1645,16 +1645,16 @@ class ActivateProfileHelper {
                                 // !!! DO NOT CALL setVolumes before setRingerMode(..., firsCall:false).
                                 //     Ringer mode must be changed before call of setVolumes() because is checked in setVolumes().
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode() 1");
-                                setRingerMode(appContext, profile, audioManager, /*false,*/ forProfileActivation);
+                                setRingerMode(appContext, profile, audioManager, systemZenMode, /*false,*/ forProfileActivation);
                                 //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 PPApplication.sleep(500);
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
-                                setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, true);
+                                setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
                                 //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                 if (systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY) {
                                     //PPApplication.sleep(500);
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode() 2");
-                                    setRingerMode(appContext, profile, audioManager, /*false,*/ forProfileActivation);
+                                    setRingerMode(appContext, profile, audioManager, systemZenMode, /*false,*/ forProfileActivation);
                                 }
 
                                 PPApplication.sleep(500);
@@ -1685,8 +1685,10 @@ class ActivateProfileHelper {
 
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
 
+                            int systemZenMode = getSystemZenMode(appContext/*, -1*/);
+
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
-                            setVolumes(appContext, profile, audioManager, linkUnlink, forProfileActivation, false);
+                            setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
                         }
                         /*else {
                             PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
@@ -1886,7 +1888,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager, Context context) {
+    private static void changeRingerModeForVolumeEqual0(Profile profile, AudioManager audioManager, int systemZenMode/*, Context context*/) {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneChange=" + profile.getVolumeRingtoneChange());
             PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
@@ -1911,7 +1913,7 @@ class ActivateProfileHelper {
                  //   PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "vibrate ringer mode in profile");
             } else {
                 if ((profile._volumeRingerMode == 0) && (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT)) {
-                    if (!isAudibleSystemRingerMode(audioManager, context)) {
+                    if (!isAudibleSystemRingerMode(audioManager, systemZenMode/*, context*/)) {
                         // change ringer mode to ringing becaiuse configured is ringing volume
                         // Priority zen mode is audible. DO NOT DISABLE IT !!!
                         //PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "system ringer mode is not audible - changed to ringing");
@@ -1976,10 +1978,15 @@ class ActivateProfileHelper {
         Context appContext = context.getApplicationContext();
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+            //PPApplication.logE("ActivateProfileHelper.getSystemZenMode", "no60="+no60);
+            boolean activityExists = GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context);
+            //PPApplication.logE("ActivateProfileHelper.getSystemZenMode", "activityExists="+activityExists);
+            if (no60 && activityExists) {
                 NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                //PPApplication.logE("ActivateProfileHelper.getSystemZenMode", "mNotificationManager="+mNotificationManager);
                 if (mNotificationManager != null) {
                     int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+                    //PPApplication.logE("ActivateProfileHelper.getSystemZenMode", "interruptionFilter="+interruptionFilter);
                     switch (interruptionFilter) {
                         case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                             return ActivateProfileHelper.ZENMODE_ALARMS;
@@ -1989,6 +1996,7 @@ class ActivateProfileHelper {
                             return ActivateProfileHelper.ZENMODE_PRIORITY;
                         case NotificationManager.INTERRUPTION_FILTER_ALL:
                         case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
+                        case 5:
                             return ActivateProfileHelper.ZENMODE_ALL;
                     }
                 }
@@ -2053,7 +2061,7 @@ class ActivateProfileHelper {
     }
     */
 
-    private static void setRingerMode(Context context, Profile profile, AudioManager audioManager, /*boolean firstCall,*/ boolean forProfileActivation)
+    private static void setRingerMode(Context context, Profile profile, AudioManager audioManager, int systemZenMode, /*boolean firstCall,*/ boolean forProfileActivation)
     {
         //PPApplication.logE("@@@ ActivateProfileHelper.setRingerMode", "audioM.ringerMode=" + audioManager.getRingerMode());
 
@@ -2095,23 +2103,23 @@ class ActivateProfileHelper {
                 case Profile.RINGERMODE_RING:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING");
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                    setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
                     setVibrateWhenRinging(appContext, profile, -1);
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                    setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
                     setVibrateWhenRinging(appContext, null, 1);
                     break;
                 case Profile.RINGERMODE_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=VIBRATE");
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
+                    setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
                     setVibrateWhenRinging(appContext, null, 1);
                     break;
                 case Profile.RINGERMODE_SILENT:
-                    setZenMode(appContext, ZENMODE_SILENT, audioManager, AudioManager.RINGER_MODE_SILENT);
+                    setZenMode(appContext, ZENMODE_SILENT, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
                     setVibrateWhenRinging(appContext, profile, -1);
                     break;
                 case Profile.RINGERMODE_ZENMODE:
@@ -2119,36 +2127,36 @@ class ActivateProfileHelper {
                     switch (zenMode) {
                         case Profile.ZENMODE_ALL:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL");
-                            setZenMode(appContext, ZENMODE_ALL, audioManager, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
+                            setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
                             setVibrateWhenRinging(appContext, profile, -1);
                             break;
                         case Profile.ZENMODE_PRIORITY:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, profile._ringerModeForZenMode);
+                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, profile._ringerModeForZenMode);
                             setVibrateWhenRinging(appContext, profile, -1);
                             break;
                         case Profile.ZENMODE_NONE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=NONE");
-                            setZenMode(appContext, ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_SILENT);
+                            setZenMode(appContext, ZENMODE_NONE, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
                             break;
                         case Profile.ZENMODE_ALL_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL & VIBRATE");
                             // this is as Sound mode = Vibrate
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                            setZenMode(appContext, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
+                            setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(appContext, null, 1);
                             break;
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY & VIBRATE");
                             // must be set 2x to keep vibraton
-                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_VIBRATE);
-                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_VIBRATE);
+                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
+                            setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(appContext, null, 1);
                             break;
                         case Profile.ZENMODE_ALARMS:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALARMS");
-                            setZenMode(appContext, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
+                            setZenMode(appContext, ZENMODE_ALARMS, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
                             break;
                     }
                     break;
