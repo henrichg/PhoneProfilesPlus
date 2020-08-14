@@ -1996,7 +1996,7 @@ class ActivateProfileHelper {
                             return ActivateProfileHelper.ZENMODE_PRIORITY;
                         case NotificationManager.INTERRUPTION_FILTER_ALL:
                         case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
-                        case 5:
+                        default:
                             return ActivateProfileHelper.ZENMODE_ALL;
                     }
                 }
