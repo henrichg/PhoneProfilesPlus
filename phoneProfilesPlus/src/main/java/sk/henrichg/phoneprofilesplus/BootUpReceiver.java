@@ -74,7 +74,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
 
-                            boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                            boolean serviceStarted = PhoneProfilesService.isServiceRunning(/*appContext, PhoneProfilesService.class, */false);
                             PPApplication.logE("BootUpReceiver.onReceive", "serviceStarted="+serviceStarted);
 
                             //PPApplication.sleep(3000);
