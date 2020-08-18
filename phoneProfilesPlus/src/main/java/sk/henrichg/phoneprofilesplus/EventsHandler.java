@@ -766,7 +766,9 @@ class EventsHandler {
                 //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
 
+                //noinspection ConstantConditions
                 if (oldActivatedProfile != null) {
+                    //noinspection ConstantConditions
                     defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     mergedProfile.mergeProfiles(oldActivatedProfile._id, dataWrapper/*, false*/);
                     mergedProfilesCount++;
