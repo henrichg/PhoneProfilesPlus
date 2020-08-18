@@ -618,7 +618,8 @@
         <service
             android:name=".MobileCellsRegistrationService"
             android:enabled="true"
-            android:stopWithTask="false"/>
+            android:stopWithTask="false"
+            android:foregroundServiceType="location"/>
 
     </application>
 
