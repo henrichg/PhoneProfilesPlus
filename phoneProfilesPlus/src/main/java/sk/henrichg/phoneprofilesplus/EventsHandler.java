@@ -675,6 +675,10 @@ class EventsHandler {
             int runningEventCountE = eventTimelineList.size();
 
             Profile activatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
+            /*if (activatedProfile != null)
+                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfile._name="+activatedProfile._name);
+            else
+                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "not profile activated");*/
             long defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyDefaultProfile = false;
 
@@ -761,16 +765,25 @@ class EventsHandler {
             } else {
                 //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
-                defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                //if (!fullyStarted)
-                //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                    if (activatedProfile == null) {
-                        // if not profile activated, activate Default profile
-                        notifyDefaultProfile = true;
-                        mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
-                        mergedProfilesCount++;
-                        //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
+
+                if (oldActivatedProfile != null) {
+                    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                    mergedProfile.mergeProfiles(oldActivatedProfile._id, dataWrapper/*, false*/);
+                    mergedProfilesCount++;
+                    //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated old profile");
+                }
+                else {
+                    defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                    //if (!fullyStarted)
+                    //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                    if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                        if (activatedProfile == null) {
+                            // if not profile activated, activate Default profile
+                            notifyDefaultProfile = true;
+                            mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                            mergedProfilesCount++;
+                            //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
+                        }
                     }
                 }
             }
