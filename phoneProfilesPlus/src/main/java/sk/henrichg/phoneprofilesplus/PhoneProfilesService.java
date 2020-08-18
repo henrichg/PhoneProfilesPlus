@@ -39,7 +39,6 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -65,7 +64,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
@@ -3600,12 +3598,16 @@ public class PhoneProfilesService extends Service
 
 //                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
 
+                    /*
                     // create application directory
+                    // not working because this requires Storage permission
                     File sd = Environment.getExternalStorageDirectory();
                     File exportDir = new File(sd, PPApplication.EXPORT_PATH);
                     if (!(exportDir.exists() && exportDir.isDirectory())) {
+                        Log.e("PhoneProfilesService.doForFirstStart", "create PPP folder - start");
                         //noinspection ResultOfMethodCallIgnored
-                        exportDir.mkdirs();
+                        boolean created = exportDir.mkdirs();
+                        Log.e("PhoneProfilesService.doForFirstStart", "created="+created);
                         try {
                             //noinspection ResultOfMethodCallIgnored
                             exportDir.setReadable(true, false);
@@ -3619,6 +3621,7 @@ public class PhoneProfilesService extends Service
                             PPApplication.recordException(ee);
                         }
                     }
+                    */
 
                     //PhoneProfilesService.cancelWork(DelayedWorksWorker.DELAYED_WORK_AFTER_FIRST_START_WORK_TAG, appContext);
 
