@@ -85,7 +85,7 @@ public class PhoneProfilesService extends Service
     //private static boolean isInForeground = false;
 
     // must be in PPService !!!
-    static boolean startForegroundNotification = true;
+    //static boolean startForegroundNotification = true;
 
     static final String ACTION_COMMAND = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_COMMAND";
     //private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_STOP_SERVICE";
@@ -216,7 +216,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
-        startForegroundNotification = true;
+        //startForegroundNotification = true;
         //isInForeground = false;
 
         if (PPApplication.getInstance() == null) {
@@ -4337,7 +4337,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
-        startForegroundNotification = true;
+        //startForegroundNotification = true;
 
         Context appContext = getApplicationContext();
         showProfileNotification(/*true,*/ !isServiceRunning(appContext, PhoneProfilesService.class, true)/*, false*/);
@@ -4786,11 +4786,11 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "forFirstStart="+forFirstStart);
 
-        if ((!setForeground) /*&& isInForeground*/) {
-            if ((!forFirstStart) &&
-                (!PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, true)))
-                return;
-        }
+        //if ((!setForeground) /*&& isInForeground*/) {
+        //    if ((!forFirstStart) &&
+        //        (!PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, true)))
+        //        return;
+        //}
 
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "service is foreground");
 
@@ -5636,25 +5636,25 @@ public class PhoneProfilesService extends Service
             }*/
 
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
-                if (startForegroundNotification || setForeground /*|| (!isInForeground)*/) {
+                //if (startForegroundNotification || setForeground /*|| (!isInForeground)*/) {
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
                     //if (notificationNotificationStyle.equals("0"))
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                     //else
                     //    startForeground(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
-                    startForegroundNotification = false;
+                    //startForegroundNotification = false;
                     //isInForeground = true;
-                }
-                else {
-                    NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (notificationManager != null) {
+                //}
+                //else {
+                //    NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                //    if (notificationManager != null) {
                         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notify()");
                         //if (notificationNotificationStyle.equals("0"))
-                            notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                //            notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                         //else
                         //    notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
-                    }
-                }
+                //    }
+                //}
 
                 //runningInForeground = true;
             /*}
@@ -5796,7 +5796,7 @@ public class PhoneProfilesService extends Service
         }
         else {*/
             try {
-                startForegroundNotification = true;
+                //startForegroundNotification = true;
                 //isInForeground = false;
                 stopForeground(true);
                 NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);

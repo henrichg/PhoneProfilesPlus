@@ -1980,8 +1980,8 @@ public class PPApplication extends Application
     //--------------------------------------------------------------
 
     static void startPPService(Context context, Intent serviceIntent, boolean isPPService) {
-        if (isPPService)
-            PhoneProfilesService.startForegroundNotification = true;
+        //if (isPPService)
+        //    PhoneProfilesService.startForegroundNotification = true;
         //PPApplication.logE("PPApplication.startPPService", "xxx");
         if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);
