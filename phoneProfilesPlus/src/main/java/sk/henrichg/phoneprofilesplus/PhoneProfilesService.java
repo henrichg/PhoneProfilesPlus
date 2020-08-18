@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -81,7 +82,7 @@ public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
     private boolean serviceHasFirstStart = false;
-    private static boolean isInForeground = false;
+    //private static boolean isInForeground = false;
 
     // must be in PPService !!!
     static boolean startForegroundNotification = true;
@@ -216,18 +217,18 @@ public class PhoneProfilesService extends Service
             instance = this;
         }
         startForegroundNotification = true;
-        isInForeground = false;
+        //isInForeground = false;
 
         if (PPApplication.getInstance() == null) {
             PPApplication.loadApplicationPreferences(getApplicationContext());
         }
 
-        PPApplication.logE("PhoneProfilesService.onCreate", "before show profile notification");
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "before show profile notification");
 
         // show empty notification to avoid ANR in api level 26
         showProfileNotification(/*true,*/ true/*, false*/);
 
-        PPApplication.logE("PhoneProfilesService.onCreate", "after show profile notification");
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
         if (PPApplication.getInstance() == null) {
             PPApplication.loadGlobalApplicationData(getApplicationContext());
@@ -406,7 +407,7 @@ public class PhoneProfilesService extends Service
         try {
             //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
 
-            isInForeground = false;
+            //isInForeground = false;
             stopForeground(true);
 
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -4333,13 +4334,13 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        //PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
-        //PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
         startForegroundNotification = true;
 
         Context appContext = getApplicationContext();
-        showProfileNotification(/*true,*/ !isServiceRunning(/*appContext, PhoneProfilesService.class,*/ true)/*, false*/);
+        showProfileNotification(/*true,*/ !isServiceRunning(appContext, PhoneProfilesService.class, true)/*, false*/);
 
         if (!serviceHasFirstStart) {
             String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
@@ -4785,9 +4786,9 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "forFirstStart="+forFirstStart);
 
-        if (!setForeground) {
+        if ((!setForeground) /*&& isInForeground*/) {
             if ((!forFirstStart) &&
-                (!PhoneProfilesService.isServiceRunning(/*appContext, PhoneProfilesService.class,*/ true)))
+                (!PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, true)))
                 return;
         }
 
@@ -5635,14 +5636,14 @@ public class PhoneProfilesService extends Service
             }*/
 
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
-                if (startForegroundNotification || setForeground) {
+                if (startForegroundNotification || setForeground /*|| (!isInForeground)*/) {
                     //PPApplication.logE("PhoneProfilesService._showProfileNotification", "startForeground()");
                     //if (notificationNotificationStyle.equals("0"))
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                     //else
                     //    startForeground(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
                     startForegroundNotification = false;
-                    isInForeground = true;
+                    //isInForeground = true;
                 }
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -5796,7 +5797,7 @@ public class PhoneProfilesService extends Service
         else {*/
             try {
                 startForegroundNotification = true;
-                isInForeground = false;
+                //isInForeground = false;
                 stopForeground(true);
                 NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null) {
@@ -5813,15 +5814,14 @@ public class PhoneProfilesService extends Service
         //}
     }
 
-    public static boolean isServiceRunning(/*Context context, Class<?> serviceClass, */boolean inForeground) {
-        boolean isRunning = (instance != null);
+    public static boolean isServiceRunning(Context context, Class<?> serviceClass, boolean inForeground) {
+        /*boolean isRunning = (instance != null);
         if (inForeground)
             isRunning = isRunning && isInForeground;
 
-        PPApplication.logE("PhoneProfilesService.isServiceRunning", "isRunning="+isRunning);
-        return isRunning;
+        //PPApplication.logE("PhoneProfilesService.isServiceRunning", "isRunning="+isRunning);
+        return isRunning;*/
 
-        /*
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (manager != null) {
             List<ActivityManager.RunningServiceInfo> services;
@@ -5849,7 +5849,6 @@ public class PhoneProfilesService extends Service
         }
         //PPApplication.logE("PhoneProfilesService.isServiceRunning", "false");
         return false;
-        */
     }
 
     //--------------------------
