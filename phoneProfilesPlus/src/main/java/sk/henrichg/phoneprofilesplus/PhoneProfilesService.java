@@ -4767,7 +4767,7 @@ public class PhoneProfilesService extends Service
 
     @SuppressLint("NewApi")
     void _showProfileNotification(Profile profile, final DataWrapper dataWrapper,
-                                          boolean forFirstStart, boolean setForeground)
+                                          boolean forFirstStart/*, boolean setForeground*/)
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
@@ -5679,7 +5679,7 @@ public class PhoneProfilesService extends Service
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 //PPApplication.logE("[APP START] PhoneProfilesService.showProfileNotification", "forServiceStart="+forServiceStart);
-                _showProfileNotification(null, dataWrapper, true, true);
+                _showProfileNotification(null, dataWrapper, true/*, true*/);
                 //dataWrapper.invalidateDataWrapper();
                 //return; // do not return, dusplay activated profile immediatelly
             }

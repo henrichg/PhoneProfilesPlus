@@ -1094,7 +1094,7 @@ class PhoneStateScanner extends PhoneStateListener {
             try {
                 // start registration service
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
-                PPApplication.startPPService(context, serviceIntent, false);
+                PPApplication.startPPService(context, serviceIntent/*, false*/);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }

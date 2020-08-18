@@ -1561,7 +1561,7 @@ public class PPApplication extends Application
                 //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, false);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                startPPService(getApplicationContext(), serviceIntent, true);
+                startPPService(getApplicationContext(), serviceIntent/*, true*/);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -1979,7 +1979,7 @@ public class PPApplication extends Application
 
     //--------------------------------------------------------------
 
-    static void startPPService(Context context, Intent serviceIntent, boolean isPPService) {
+    static void startPPService(Context context, Intent serviceIntent/*, boolean isPPService*/) {
         //if (isPPService)
         //    PhoneProfilesService.startForegroundNotification = true;
         //PPApplication.logE("PPApplication.startPPService", "xxx");

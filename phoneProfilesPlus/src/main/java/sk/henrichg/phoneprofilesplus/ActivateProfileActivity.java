@@ -387,7 +387,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-            PPApplication.startPPService(this, serviceIntent, true);
+            PPApplication.startPPService(this, serviceIntent/*, true*/);
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
@@ -406,7 +406,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                PPApplication.startPPService(this, serviceIntent, true);
+                PPApplication.startPPService(this, serviceIntent/*, true*/);
                 return true;
             }
             //else {

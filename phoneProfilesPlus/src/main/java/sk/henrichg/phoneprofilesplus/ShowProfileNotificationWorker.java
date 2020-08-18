@@ -49,7 +49,7 @@ public class ShowProfileNotificationWorker extends Worker {
                             PPApplication.sleep(100);
                         }
 
-                        PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, false, clear);
+                        PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, false/*, clear*/);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
