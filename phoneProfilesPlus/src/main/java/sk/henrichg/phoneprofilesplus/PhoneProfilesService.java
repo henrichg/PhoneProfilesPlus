@@ -5295,7 +5295,6 @@ public class PhoneProfilesService extends Service
         else {
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
             notificationBuilder.setSmallIcon(R.drawable.ic_empty);
-            //noinspection ConstantConditions
             if (notificationNotificationStyle.equals("0")) {
                 try {
                     contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
@@ -5468,9 +5467,9 @@ public class PhoneProfilesService extends Service
             }
         }
         else {
-            //noinspection ConstantConditions
             if (notificationNotificationStyle.equals("0")) {
                 try {
+                    //noinspection ConstantConditions
                     if (contentViewLarge != null)
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
                     if (contentView != null)

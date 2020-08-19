@@ -1973,11 +1973,11 @@ class ActivateProfileHelper {
     }
 
     private static void changeNotificationVolumeForVolumeEqual0(Profile profile) {
-        if (PPApplication.logEnabled()) {
+        //if (PPApplication.logEnabled()) {
             //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationChange=" + profile.getVolumeNotificationChange());
             //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "mergedRingNotificationVolumes=" + getMergedRingNotificationVolumes(context));
             //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationValue=" + profile.getVolumeNotificationValue());
-        }
+        //}
         if (profile.getVolumeNotificationChange() && ActivateProfileHelper.getMergedRingNotificationVolumes()) {
             if (profile.getVolumeNotificationValue() == 0) {
                 //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "changed notification value to 1");
