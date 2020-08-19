@@ -4611,11 +4611,9 @@ public class PhoneProfilesService extends Service
                                         boolean canRestart = (!ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                         /*PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn);
                                         PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
-                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "wifi - canRestart="+canRestart);*/
+                                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "background scanning - canRestart="+canRestart);*/
                                         if ((!fromBatteryChange) || canRestart) {
-                                            //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "wifi - restart");
-                                            //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
-                                            //registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                            //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "background scanning - restart");
                                             scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
                                         }
                                     }
