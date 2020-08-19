@@ -855,6 +855,9 @@ class ActivateProfileHelper {
         boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "ring mute status="+ringMuted);
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification mute status="+notificationMuted);
+        boolean systemMuted = audioManager.isStreamMute(AudioManager.STREAM_SYSTEM);
+        boolean dtmfMuted = audioManager.isStreamMute(AudioManager.STREAM_DTMF);
+        boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
 
         if (forRingerMode) {
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeRingtoneChange()=" + profile.getVolumeRingtoneChange());
@@ -862,7 +865,7 @@ class ActivateProfileHelper {
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeNotificationChange()=" + profile.getVolumeNotificationChange());
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeNotificationValue()=" + profile.getVolumeNotificationValue());
             if (!profile._volumeMuteSound) {
-                if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                if (!ringMuted) {
                     if (profile.getVolumeRingtoneChange()) {
                         if (forProfileActivation) {
                             RingerModeChangeReceiver.notUnlinkVolumes = false;
@@ -870,7 +873,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+                if (!notificationMuted) {
                     if (profile.getVolumeNotificationChange()) {
                         if (forProfileActivation) {
                             RingerModeChangeReceiver.notUnlinkVolumes = false;
@@ -913,7 +916,7 @@ class ActivateProfileHelper {
                     //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeSystemValue()=" + profile.getVolumeSystemValue());
 
                     if (forProfileActivation) {
-                        if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF)) {
+                        if (!dtmfMuted) {
                             if (profile.getVolumeDTMFChange()) {
                                 RingerModeChangeReceiver.notUnlinkVolumes = false;
                                 try {
@@ -924,7 +927,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM)) {
+                        if (!systemMuted) {
                             if (profile.getVolumeSystemChange()) {
                                 RingerModeChangeReceiver.notUnlinkVolumes = false;
                                 try {
@@ -1043,7 +1046,7 @@ class ActivateProfileHelper {
                         // reverted order for disabled unlink
                         int volume;
                         if (!ActivateProfileHelper.getMergedRingNotificationVolumes()) {
-                            if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)) {
+                            if (!notificationMuted) {
                                 volume = ApplicationPreferences.prefNotificationVolume;
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
                                 if (volume != -999) {
@@ -1059,7 +1062,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        if (!audioManager.isStreamMute(AudioManager.STREAM_RING)) {
+                        if (!ringMuted) {
                             volume = ApplicationPreferences.prefRingerVolume;
                             //PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
                             if (volume != -999) {
@@ -1120,7 +1123,7 @@ class ActivateProfileHelper {
                 }
             }
             if (!profile._volumeMuteSound) {
-                if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC)) {
+                if (!musicMuted) {
                     if (profile.getVolumeMediaChange()) {
                         setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
                     }
