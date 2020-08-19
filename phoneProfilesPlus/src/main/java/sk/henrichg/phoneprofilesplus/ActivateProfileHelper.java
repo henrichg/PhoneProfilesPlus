@@ -850,6 +850,12 @@ class ActivateProfileHelper {
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, 0);
         }
 
+        // get mute state before set of all volumes; system stream may set mute to true
+        boolean ringMuted = audioManager.isStreamMute(AudioManager.STREAM_RING);
+        boolean notificationMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION);
+        //PPApplication.logE("ActivateProfileHelper.setVolumes", "ring mute status="+ringMuted);
+        //PPApplication.logE("ActivateProfileHelper.setVolumes", "notification mute status="+notificationMuted);
+
         if (forRingerMode) {
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeRingtoneChange()=" + profile.getVolumeRingtoneChange());
             //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile.getVolumeRingtoneValue()=" + profile.getVolumeRingtoneValue());
@@ -890,7 +896,7 @@ class ActivateProfileHelper {
                 }
             }
 
-            //PPApplication.logE("ActivateProfileHelper.setVolumes", "isAudibleSystemRingerMode=" + isAudibleSystemRingerMode(audioManager, appContext));
+            //PPApplication.logE("ActivateProfileHelper.setVolumes", "isAudibleSystemRingerMode=" + isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/));
 
             if (!profile._volumeMuteSound) {
                 //if (isAudibleRinging(ringerMode, zenMode, true) || (ringerMode == 0)) {
@@ -938,8 +944,12 @@ class ActivateProfileHelper {
                     boolean volumesSet = false;
                     //TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (/*(telephony != null) &&*/ ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                        if ((!audioManager.isStreamMute(AudioManager.STREAM_RING)) &&
-                            (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))) {
+
+                        //PPApplication.logE("ActivateProfileHelper.setVolumes", "do unlink volumes");
+
+                        if ((!ringMuted) && (!notificationMuted)) {
+
+                            //PPApplication.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
 
                             //int callState = telephony.getCallState();
                             if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK)/* ||
@@ -1960,11 +1970,11 @@ class ActivateProfileHelper {
     }
 
     private static void changeNotificationVolumeForVolumeEqual0(Profile profile) {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationChange=" + profile.getVolumeNotificationChange());
-            PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "mergedRingNotificationVolumes=" + getMergedRingNotificationVolumes(context));
-            PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationValue=" + profile.getVolumeNotificationValue());
-        }*/
+        if (PPApplication.logEnabled()) {
+            //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationChange=" + profile.getVolumeNotificationChange());
+            //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "mergedRingNotificationVolumes=" + getMergedRingNotificationVolumes(context));
+            //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "volumeNotificationValue=" + profile.getVolumeNotificationValue());
+        }
         if (profile.getVolumeNotificationChange() && ActivateProfileHelper.getMergedRingNotificationVolumes()) {
             if (profile.getVolumeNotificationValue() == 0) {
                 //PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "changed notification value to 1");
