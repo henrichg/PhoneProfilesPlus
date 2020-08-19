@@ -1583,3 +1583,19 @@ sites.google.com/site/phoneprofiles
 - https://sites.google.com/site/phoneprofiles/home/privacy-policy
 sites.google.com/site/phoneprofilesplus
 - https://sites.google.com/site/phoneprofilesplus/home/privacy-policy
+
+------------------
+
+ActivateProfileHelper.execute()
+- volany je setLockScreenDisabled() - mastavuje to ApplicationPreferences.prefLockScreenDisabled
+
+PhoneProfileService.doCommand()
+- EXTRA_SWITCH_KEYGUARD = true
+  - tu sa reenabluje a disabluje keyguard
+  - testuje sa ApplicationPreferences.prefLockScreenDisabled - nastavuje sa to v ActivateProfileHelper.setLockScreenDisabled()
+
+ScreenOnOffBroadcastReceiver.onReceive()
+- pre ACTION_USER_PRESENT
+  - tu sa natvrdo vola PPS.doCommand() s EXTRA_SWITCH_KEYGUARD - preco? To aby sa znova nastavilo vypnutie keyguardu?
+
+Ako pozeram, tak pozeram, bud sa testuje, ci je to nastavene v profile alebo ci je to na ACTION_USER_PRESENT
