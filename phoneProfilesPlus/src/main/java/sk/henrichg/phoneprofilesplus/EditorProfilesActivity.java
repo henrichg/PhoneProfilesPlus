@@ -3043,7 +3043,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         exportProgressDialog.show();
 
                     runStopEvents = Event.getGlobalEventsRunning();
-                    dataWrapper.globalRunStopEvents(true);
                 }
 
                 @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
@@ -3051,6 +3050,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected Integer doInBackground(Void... params) {
 
                     if (this.dataWrapper != null) {
+                        dataWrapper.globalRunStopEvents(true);
+
                         File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
                         File exportDir = new File(sd, PPApplication.EXPORT_PATH);
