@@ -63,18 +63,19 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 6)
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
                     } else {
-                        // volume on
+                        // sound mode sound
                         if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2))
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_on;
-                        // vibration
+                        // sound mode vibrate
                         if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
-                        // volume off
+                        // sound mode alarms only
                         if (profile._volumeRingerMode == 4) {
-                            if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
+                            /*if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off_mono;
                             else
-                                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off;
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off;*/
                         }
                     }
                 }
@@ -628,15 +629,15 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 6)
                             indicator1 = addIntoIndicator(indicator1, "dnd:ala", maxLineLength);
                     } else {
-                        // volume on
+                        // sound mode sound
                         if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2))
                             indicator1 = addIntoIndicator(indicator1, "ring", maxLineLength);
-                        // vibration
+                        // sound mode vibrate
                         if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
                             indicator1 = addIntoIndicator(indicator1, "vibr", maxLineLength);
-                        // volume off
+                        // sound mode alarms only
                         if (profile._volumeRingerMode == 4)
-                            indicator1 = addIntoIndicator(indicator1, "slnt", maxLineLength);
+                            indicator1 = addIntoIndicator(indicator1, "alrm", maxLineLength);
                     }
                 }
             }
