@@ -2265,6 +2265,14 @@ class ActivateProfileHelper {
                                 //PPApplication.sleep(500);
                                 PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                                 InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+
+                                PPApplication.sleep(1000);
+
+                                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                                setVibrateSettings(true, audioManager);
+                                //PPApplication.sleep(500);
+                                PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
+                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                             }
                             else {
                                 // must be set 2x to keep vibraton
