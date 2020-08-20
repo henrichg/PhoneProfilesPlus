@@ -77,14 +77,19 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn == null)
             return;
 
-        final Context appContext = getApplicationContext();
-
         //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
 
-        if (sbn.getPackageName().equals(PPApplication.PACKAGE_NAME))
+        String packageName = sbn.getPackageName();
+        if (packageName.equals(PPApplication.PACKAGE_NAME))
+            return;
+        if (packageName.equals("com.android.systemui"))
             return;
 
+        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
+
         //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
+
+        final Context appContext = getApplicationContext();
 
 //        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 //        long time = sbn.getPostTime() + gmtOffset;
@@ -171,12 +176,19 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn == null)
             return;
 
-        final Context appContext = getApplicationContext();
+        //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","packageName="+sbn.getPackageName());
 
-        if (sbn.getPackageName().equals(PPApplication.PACKAGE_NAME))
+        String packageName = sbn.getPackageName();
+        if (packageName.equals(PPApplication.PACKAGE_NAME))
+            return;
+        if (packageName.equals("com.android.systemui"))
             return;
 
-        //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","packageName="+sbn.getPackageName());
+        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
+
+        //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "is not PPP");
+
+        final Context appContext = getApplicationContext();
 
         //getNotifiedPackages(context);
         //removeNotifiedPackage(sbn.getPackageName());

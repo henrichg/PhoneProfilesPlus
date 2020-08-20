@@ -18,12 +18,12 @@ class EventsHandler {
 
     String sensorType;
 
-    private static int oldRingerMode;
-    private static int oldSystemRingerMode;
-    private static int oldZenMode;
-    private static String oldRingtone;
-    //private static String oldNotificationTone;
-    private static int oldSystemRingerVolume;
+    private int oldRingerMode;
+    private int oldSystemRingerMode;
+    private int oldZenMode;
+    private String oldRingtone;
+    //private String oldNotificationTone;
+    private int oldSystemRingerVolume;
 
     private String eventSMSPhoneNumber;
     private long eventSMSDate;
@@ -150,20 +150,13 @@ class EventsHandler {
 
             //restartAtEndOfEvent = false;
 
-            // disabled for firstStartEvents
-            //if (!PPApplication.getApplicationStarted(context))
-            // application is not started
-            //	return;
-
-            //PPApplication.setApplicationStarted(context, true);
-
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);
 
             // save ringer mode, zen mode, ringtone before handle events
-            // used by ringing call simulation
+            // used by ringing call simulation (in doEndHandler())
             oldRingerMode = ApplicationPreferences.prefRingerMode;
             oldZenMode = ApplicationPreferences.prefZenMode;
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -171,7 +164,6 @@ class EventsHandler {
                 oldSystemRingerMode = audioManager.getRingerMode();
                 oldSystemRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
             }
-
             try {
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
                 if (uri != null)
@@ -184,7 +176,6 @@ class EventsHandler {
             } catch (Exception e) {
                 oldRingtone = "";
             }
-
             /*
             try {
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
@@ -200,20 +191,6 @@ class EventsHandler {
             }
             */
 
-            /*
-            if (ppService != null) {
-                // start of GeofenceScanner
-                if (!PhoneProfilesService.isGeofenceScannerStarted())
-                    PPApplication.startGeofenceScanner(context);
-                // start of CellTowerScanner
-                if (!PhoneProfilesService.isPhoneStateScannerStarted()) {
-                    PPApplication.logE("EventsHandler.handleEvents", "startPhoneStateScanner");
-                    //PPApplication.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
-                    PPApplication.startPhoneStateScanner(context);
-                }
-            }
-            */
-
             if (!Event.getGlobalEventsRunning()) {
                 // events are globally stopped
 
@@ -224,22 +201,6 @@ class EventsHandler {
 
                 return;
             }
-
-            /*
-            // start orientation listener only when events exists
-            if (ppService != null) {
-                if (!PhoneProfilesService.isOrientationScannerStarted()) {
-                    int eventCount = 0;
-                    for (Event _event : dataWrapper.eventList) {
-                        if ((_event.getStatus() != Event.ESTATUS_STOP) &&
-                                (_event._eventPreferencesOrientation._enabled))
-                            eventCount++;
-                    }
-                    //if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
-                    //    PPApplication.startOrientationScanner(context);
-                }
-            }
-            */
 
             boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
@@ -282,7 +243,7 @@ class EventsHandler {
                 return;
             }
 
-            //PPApplication.logE("#### EventsHandler.handleEvents", "do EventsHandler");
+            PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", " ------ do EventsHandler, sensorType="+sensorType+" ------");
 
             //interactive = (!isRestart) || _interactive;
 
