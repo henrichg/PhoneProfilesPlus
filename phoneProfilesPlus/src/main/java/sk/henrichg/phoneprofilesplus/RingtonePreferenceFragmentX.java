@@ -61,7 +61,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=RingtonePreferenceFragmentX.onBindDialogView");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=RingtonePreferenceFragmentX.onBindDialogView");
                     //preference.oldRingtoneUri = preference.ringtoneUri;
                     preference.refreshListView();
                 }
@@ -89,7 +89,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         handler.post(new Runnable() {
             @Override
             public void run() {
-//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragmentX.onDialogClosed");
+                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragmentX.onDialogClosed");
                 preference.stopPlayRingtone();
             }
         });

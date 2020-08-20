@@ -12,7 +12,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] BatteryLevelChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] BatteryLevelChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BatteryLevelChangedBroadcastReceiver.onReceive", "BatteryLevelChangedBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "BatteryLevelChangedBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryLevelChangedBroadcastReceiver_onReceive");
@@ -196,10 +196,10 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
 
                             // start events handler
-//                            PPApplication.logE("[EVENTS_HANDLER] BatteryLevelChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
+                            PPApplication.logE("[EVENTS_HANDLER] BatteryLevelChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 

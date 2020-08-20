@@ -19,7 +19,7 @@ public class DelayedWorksWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-//        PPApplication.logE("[WORKER CALL]  DelayedWorksWorker.doWork", "xxxx");
+        PPApplication.logE("[WORKER CALL]  DelayedWorksWorker.doWork", "xxxx");
 
         return Result.success();
     }

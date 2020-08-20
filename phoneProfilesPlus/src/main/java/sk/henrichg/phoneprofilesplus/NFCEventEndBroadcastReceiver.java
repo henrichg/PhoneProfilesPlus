@@ -10,7 +10,7 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] NFCEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] NFCEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "NFCEventEndBroadcastReceiver.onReceive", "NFCEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,9 +44,9 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NFCEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NFCEventEndBroadcastReceiver.doWork");
 
-//                        PPApplication.logE("[EVENTS_HANDLER] NFCEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_NFC_EVENT_END");
+                        PPApplication.logE("[EVENTS_HANDLER] NFCEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_NFC_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
 

@@ -30,7 +30,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL]  PeriodicEventsHandlerWorker.doWork", "xxxx");
+            PPApplication.logE("[WORKER CALL]  PeriodicEventsHandlerWorker.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -54,7 +54,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
 
-//                    PPApplication.logE("[EVENTS_HANDLER] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
+                    PPApplication.logE("[EVENTS_HANDLER] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
                     EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
 

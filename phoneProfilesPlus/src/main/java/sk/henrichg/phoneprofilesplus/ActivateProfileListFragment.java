@@ -282,7 +282,7 @@ public class ActivateProfileListFragment extends Fragment {
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (1)");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (1)");
 
                         //fragment.textViewNoData.setVisibility(View.GONE);
                         fragment.progressBar.setVisibility(View.VISIBLE);
@@ -381,7 +381,7 @@ public class ActivateProfileListFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (2)");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (2)");
 
                         if (fragment.getActivity() != null) {
                             if (!fragment.getActivity().isFinishing())
@@ -638,7 +638,7 @@ public class ActivateProfileListFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (1)");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (1)");
                         showAdapterTargetHelps();
                     }
                 }, 500);
@@ -649,7 +649,7 @@ public class ActivateProfileListFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (2)");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (2)");
 
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
@@ -697,7 +697,7 @@ public class ActivateProfileListFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showAdapterTargetHelps");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showAdapterTargetHelps");
 
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");

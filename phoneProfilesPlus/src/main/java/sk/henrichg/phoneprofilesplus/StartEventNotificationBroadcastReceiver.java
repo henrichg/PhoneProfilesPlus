@@ -21,7 +21,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "StartEventNotificationBroadcastReceiver.onReceive", "StartEventNotificationBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -204,7 +204,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
+                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             Event event = databaseHandler.getEvent(event_id);

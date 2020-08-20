@@ -479,7 +479,7 @@ public class EditorEventListFragment extends Fragment
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
                         //fragment.textViewNoData.setVisibility(GONE);
                         fragment.progressBar.setVisibility(VISIBLE);
                     }
@@ -1651,7 +1651,7 @@ public class EditorEventListFragment extends Fragment
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
                         showAdapterTargetHelps();
                     }
                 }, 500);

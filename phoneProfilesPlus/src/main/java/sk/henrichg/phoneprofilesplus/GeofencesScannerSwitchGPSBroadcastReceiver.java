@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[BROADCAST CALL] GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -184,7 +184,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
+                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
 
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
