@@ -1904,12 +1904,12 @@ class ActivateProfileHelper {
             PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "volumeRingtoneValue=" + profile.getVolumeRingtoneValue());
         }*/
 
-        profile._ringerModeForZenMode = AudioManager.RINGER_MODE_NORMAL;
+        //profile._ringerModeForZenMode = AudioManager.RINGER_MODE_NORMAL;
 
         if (profile.getVolumeRingtoneChange()) {
             if (profile.getVolumeRingtoneValue() == 0) {
                 profile.setVolumeRingtoneValue(1);
-                profile._ringerModeForZenMode = AudioManager.RINGER_MODE_SILENT;
+                //profile._ringerModeForZenMode = AudioManager.RINGER_MODE_SILENT;
 
                 // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
                 if (!isVibrateRingerMode(profile._volumeRingerMode/*, profile._volumeZenMode*/)) {

@@ -105,7 +105,7 @@ public class Profile {
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
-    int _ringerModeForZenMode;
+    //int _ringerModeForZenMode;
 
     static final long PROFILE_NO_ACTIVATE = -999;
 
