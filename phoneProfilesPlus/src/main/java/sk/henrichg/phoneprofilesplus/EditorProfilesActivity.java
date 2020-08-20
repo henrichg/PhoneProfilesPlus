@@ -882,7 +882,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(PPApplication.logIntoFile || PPApplication.crashIntoFile);
         }
 
-        menuItem = menu.findItem(R.id.menu_test_crash);
+        menuItem = menu.findItem(R.id.menu_debug);
+        //Log.e("EditorProfilesActivity.onPrepareOptionsMenu", "menuItem="+menuItem);
+        if (menuItem != null) {
+            menuItem.setVisible(DebugVersion.enabled);
+        }
+        /*menuItem = menu.findItem(R.id.menu_test_crash);
         if (menuItem != null)
         {
             menuItem.setVisible(DebugVersion.enabled);
@@ -891,7 +896,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (menuItem != null)
         {
             menuItem.setVisible(DebugVersion.enabled);
-        }
+        }*/
 
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
@@ -1185,6 +1190,66 @@ public class EditorProfilesActivity extends AppCompatActivity
                 return true;
             case R.id.menu_import_from_pp:
                 importDataFromPP();
+                return true;
+            case R.id.menu_show_sound_mode:
+                dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle("Sound mode in system");
+
+                String soundModeString = "Ringer mode=";
+
+                final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                if (audioManager != null) {
+                    switch (audioManager.getRingerMode()) {
+                        case AudioManager.RINGER_MODE_NORMAL:
+                            soundModeString = soundModeString + "RINGER_MODE_NORMAL";
+                            break;
+                        case AudioManager.RINGER_MODE_VIBRATE:
+                            soundModeString = soundModeString + "RINGER_MODE_VIBRATE";
+                            break;
+                        case AudioManager.RINGER_MODE_SILENT:
+                            soundModeString = soundModeString + "RINGER_MODE_SILENT";
+                            break;
+                    }
+                }
+
+                soundModeString = soundModeString + "\nZen mode=";
+                switch (ActivateProfileHelper.getSystemZenMode(getApplicationContext())) {
+                    case ActivateProfileHelper.ZENMODE_ALL:
+                        soundModeString = soundModeString + "ZENMODE_ALL";
+                        break;
+                    case ActivateProfileHelper.ZENMODE_PRIORITY:
+                        soundModeString = soundModeString + "ZENMODE_PRIORITY";
+                        break;
+                    case ActivateProfileHelper.ZENMODE_ALARMS:
+                        soundModeString = soundModeString + "ZENMODE_ALARMS";
+                        break;
+                    case ActivateProfileHelper.ZENMODE_NONE:
+                        soundModeString = soundModeString + "ZENMODE_NONE";
+                        break;
+                    case ActivateProfileHelper.ZENMODE_SILENT:
+                        soundModeString = soundModeString + "ZENMODE_SILENT";
+                        break;
+                }
+
+                dialogBuilder.setMessage(soundModeString);
+
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+                if (!isFinishing())
+                    dialog.show();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

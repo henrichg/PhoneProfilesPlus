@@ -135,7 +135,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
     }
 
     public static void requestInterruptionFilter(Context context, final int zenMode) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
+        try {
+            //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
@@ -157,7 +158,10 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                 if (mNotificationManager != null)
                     mNotificationManager.setInterruptionFilter(interruptionFilter);
             }
-        //}
+            //}
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
 }

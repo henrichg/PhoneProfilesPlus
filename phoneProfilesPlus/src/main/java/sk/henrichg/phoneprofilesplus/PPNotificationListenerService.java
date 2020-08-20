@@ -400,30 +400,34 @@ public class PPNotificationListenerService extends NotificationListenerService {
     /** Convenience method for sending an {@link android.content.Intent} with {@link #ACTION_REQUEST_INTERRUPTION_FILTER}. */
     @SuppressLint("InlinedApi")
     public static void requestInterruptionFilter(final Context context, final int zenMode) {
-        boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
-        if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
-            if (isNotificationListenerServiceEnabled(context)) {
-                int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
-                switch (zenMode) {
-                    case ActivateProfileHelper.ZENMODE_ALL:
-                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
-                        break;
-                    case ActivateProfileHelper.ZENMODE_PRIORITY:
-                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
-                        break;
-                    case ActivateProfileHelper.ZENMODE_NONE:
-                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
-                        break;
-                    case ActivateProfileHelper.ZENMODE_ALARMS:
-                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
-                        break;
+        try {
+            boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+            if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
+                if (isNotificationListenerServiceEnabled(context)) {
+                    int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                    switch (zenMode) {
+                        case ActivateProfileHelper.ZENMODE_ALL:
+                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                            break;
+                        case ActivateProfileHelper.ZENMODE_PRIORITY:
+                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
+                            break;
+                        case ActivateProfileHelper.ZENMODE_NONE:
+                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
+                            break;
+                        case ActivateProfileHelper.ZENMODE_ALARMS:
+                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
+                            break;
+                    }
+                    //Intent request = getInterruptionFilterRequestIntent(interruptionFilter, context);
+                    Intent request = new Intent(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
+                    request.putExtra(EXTRA_FILTER, interruptionFilter);
+                    request.setPackage(PPApplication.PACKAGE_NAME);
+                    context.sendBroadcast(request);
                 }
-                //Intent request = getInterruptionFilterRequestIntent(interruptionFilter, context);
-                Intent request = new Intent(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
-                request.putExtra(EXTRA_FILTER, interruptionFilter);
-                request.setPackage(PPApplication.PACKAGE_NAME);
-                context.sendBroadcast(request);
             }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
         }
     }
 

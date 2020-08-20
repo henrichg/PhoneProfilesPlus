@@ -1586,16 +1586,23 @@ sites.google.com/site/phoneprofilesplus
 
 ------------------
 
-ActivateProfileHelper.execute()
-- volany je setLockScreenDisabled() - mastavuje to ApplicationPreferences.prefLockScreenDisabled
+Toto daj do Important info. Je to ako nastavit PPP pre znizenie spotreby baterie:
 
-PhoneProfileService.doCommand()
-- EXTRA_SWITCH_KEYGUARD = true
-  - tu sa reenabluje a disabluje keyguard
-  - testuje sa ApplicationPreferences.prefLockScreenDisabled - nastavuje sa to v ActivateProfileHelper.setLockScreenDisabled()
+1. Battery optimization, must by dislabled - it is PPP Settings/System/Ignore battery optimization
+2. Scanning intervals, set it >= recommended
+    - Background scanning = 15 minutes
+    - Location scanning = 15 minutes
+    - Wi-Fi scanning = 15 minutes
+    - Bluetooth scanning = 15 minutes
+    - Orientation scanning = 10 seconds
+3. For location scanning disable "Use GPS when not in Power Save mode". This is required only when another location sources are not available.
+    Location sources used by Android:
+    - Wi-Fi
+    - Bluetooth
+    - network
+    - mobile cells
+    - GPS
+4. For increasing location accuracy, you can force usage of Wi-Fi and BLuetooth as source. For this, enable it in Location system setting "Wi-Fi and Bluetooth scanning"
+5. Battery sensor: do not use battery levels when are not needed. Set levels: 0%-100%
 
-ScreenOnOffBroadcastReceiver.onReceive()
-- pre ACTION_USER_PRESENT
-  - tu sa natvrdo vola PPS.doCommand() s EXTRA_SWITCH_KEYGUARD - preco? To aby sa znova nastavilo vypnutie keyguardu?
-
-Ako pozeram, tak pozeram, bud sa testuje, ci je to nastavene v profile alebo ci je to na ACTION_USER_PRESENT
+---------------------
