@@ -82,8 +82,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME))
             return;
-        if (packageName.equals("com.android.systemui"))
-            return;
+        // check also systemui notificatyion, may be required for notification sensor
+        //if (packageName.equals("com.android.systemui"))
+        //    return;
 
         PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
 
@@ -181,8 +182,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME))
             return;
-        if (packageName.equals("com.android.systemui"))
-            return;
+        // check also systemui notificatyion, may be required for notification sensor
+        //if (packageName.equals("com.android.systemui"))
+        //    return;
 
         PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
 

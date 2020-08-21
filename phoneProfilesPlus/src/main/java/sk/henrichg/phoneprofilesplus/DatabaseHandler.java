@@ -7768,6 +7768,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    // Getting max(eorder)
+    int getCountEventsInTimeline() {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                String countQuery = "SELECT COUNT(" + KEY_ET_ID + ") FROM " + TABLE_EVENT_TIMELINE;
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor.getCount() > 0) {
+                    if (cursor.moveToFirst()) {
+                        r = cursor.getInt(0);
+                    }
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
     String getLastStartedEventName() {
         importExportLock.lock();
         try {

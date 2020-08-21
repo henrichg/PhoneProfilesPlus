@@ -152,8 +152,6 @@ class EventsHandler {
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
             dataWrapper.fillEventList();
-            dataWrapper.fillEventTimelineList();
-            dataWrapper.fillProfileList(false, false);
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())
@@ -217,7 +215,7 @@ class EventsHandler {
                 if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
                     // not manual profile activation
                     //PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
-                    if (dataWrapper.getEventTimelineList(false).size() == 0) {
+                    if (DatabaseHandler.getInstance(context).getCountEventsInTimeline() == 0) {
                         // not any event is running
                         //PPApplication.logE("$$$ EventsHandler.handleEvents", "not any event is running");
                         if (PPApplication.prefLastActivatedProfile != 0) {
@@ -244,6 +242,9 @@ class EventsHandler {
             }
 
             PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", " ------ do EventsHandler, sensorType="+sensorType+" ------");
+
+            dataWrapper.fillEventTimelineList();
+            dataWrapper.fillProfileList(false, false);
 
             //interactive = (!isRestart) || _interactive;
 
