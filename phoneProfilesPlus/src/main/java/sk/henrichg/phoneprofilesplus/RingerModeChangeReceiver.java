@@ -68,7 +68,12 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         int pRingerMode = getRingerMode(context, audioManager);
         //PPApplication.logE("********* RingerModeChangeReceiver.setRingerMode", "from="+from+" pRingerMode="+pRingerMode);
         if (pRingerMode != 0) {
-            ActivateProfileHelper.saveRingerMode(context, pRingerMode);
+            int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
+            ActivateProfileHelper.saveZenMode(context, systemZenMode);
+            if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL)
+                ActivateProfileHelper.saveRingerMode(context, pRingerMode);
+            else
+                ActivateProfileHelper.saveRingerMode(context, Profile.RINGERMODE_ZENMODE);
         }
     }
 
