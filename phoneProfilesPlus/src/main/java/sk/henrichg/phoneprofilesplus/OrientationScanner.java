@@ -250,7 +250,7 @@ class OrientationScanner implements SensorEventListener {
             PPApplication.logE("OrientationScanner.onSensorChanged", "orientationHandler.resultLight="+orientationHandler.resultLight);
             */
 
-            PPApplication.logE("OrientationScanner.onSensorChanged", "values chanhged");
+            //PPApplication.logE("OrientationScanner.onSensorChanged", "values chanhged");
 
             if (Event.getGlobalEventsRunning())
             {

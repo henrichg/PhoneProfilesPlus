@@ -528,7 +528,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.startListeningOrientationSensors"
                                                 //+"|PhoneProfilesService.stopListeningOrientationSensors"
                                                 //+"|EventPreferencesOrientation"
-                                                +"|OrientationScanner.onSensorChanged"
+                                                //+"|OrientationScanner.onSensorChanged"
                                                 //+"|OrientationEventBroadcastReceiver"
                                                 //+"|PhoneProfilesService.startOrientationScanner"
                                                 //+"|PPPExtenderBroadcastReceiver"

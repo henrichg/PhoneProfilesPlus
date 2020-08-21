@@ -882,11 +882,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(PPApplication.logIntoFile || PPApplication.crashIntoFile);
         }
 
-        // TODO !!!! enable this for release version !!!
-        //menuItem = menu.findItem(R.id.menu_debug);
-        //if (menuItem != null) {
-        //    menuItem.setVisible(DebugVersion.enabled);
-        //}
+        menuItem = menu.findItem(R.id.menu_debug);
+        if (menuItem != null) {
+            menuItem.setVisible(DebugVersion.enabled);
+        }
 
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
