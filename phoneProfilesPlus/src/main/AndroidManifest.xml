@@ -108,10 +108,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:resizeableActivity="true"
-        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:allowBackup="false"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- Do not use this. this may shutdown PPP
+
+        https://developer.android.com/guide/topics/data/autobackup#BackupSchedule
+        During Auto Backup, the system shuts down the app to make sure it is no longer writing to the file system.
+
         android:allowBackup="true"
         android:backupAgent=".PhoneProfilesBackupAgent"
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
