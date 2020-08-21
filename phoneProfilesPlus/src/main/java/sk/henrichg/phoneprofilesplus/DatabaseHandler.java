@@ -7594,7 +7594,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 final String countQuery;
                 String eventTypeChecked;
-                eventTypeChecked = KEY_E_STATUS + "!=0";  //  only not stopped events
+                eventTypeChecked = KEY_E_STATUS + "!=0 AND ";  //  only not stopped events
                 eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1 AND " +
                                             KEY_E_ORIENTATION_CHECK_LIGHT + "=1";
 
