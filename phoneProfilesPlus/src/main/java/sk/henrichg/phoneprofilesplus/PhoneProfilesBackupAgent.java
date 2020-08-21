@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
 
+@SuppressWarnings("unused")
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override

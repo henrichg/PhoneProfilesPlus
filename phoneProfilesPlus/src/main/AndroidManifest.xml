@@ -103,10 +103,6 @@
 
     <application
         android:name=".PPApplication"
-        android:allowBackup="true"
-        android:backupAgent=".PhoneProfilesBackupAgent"
-        android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
-        android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/ppp_app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -114,6 +110,13 @@
         android:resizeableActivity="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
         android:largeHeap="true">
+
+        <!-- Do not use this. this may shutdown PPP
+        android:allowBackup="true"
+        android:backupAgent=".PhoneProfilesBackupAgent"
+        android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
+        android:fullBackupOnly="true"
+        -->
 
         <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
         <meta-data
