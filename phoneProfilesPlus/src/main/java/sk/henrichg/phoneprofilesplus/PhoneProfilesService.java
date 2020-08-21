@@ -6068,8 +6068,8 @@ public class PhoneProfilesService extends Service
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 1000000 * interval, handler);
             }
 
-            if (DatabaseHandler.getInstance(getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0) {
-                if (PPApplication.lightSensor != null) {
+            if (PPApplication.lightSensor != null) {
+                if (DatabaseHandler.getInstance(getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0) {
                     PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
                     if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)
                         PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 200000 * interval, 1000000 * interval, handler);
