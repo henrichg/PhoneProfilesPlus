@@ -287,18 +287,19 @@ class OrientationScanner implements SensorEventListener {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
-//                        //if (PPApplication.logEnabled()) {
-//                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
-//                        try {
-//                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] OrientationScanner.runEventsHandlerForOrientationChange", "for=" + MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                        } catch (Exception ignored) {
-//                        }
-//                        //}
+        //                        //if (PPApplication.logEnabled()) {
+        //                        ListenableFuture<List<WorkInfo>> statuses;
+        //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
+        //                        try {
+        //                            List<WorkInfo> workInfoList = statuses.get();
+        //                            PPApplication.logE("[TEST BATTERY] OrientationScanner.runEventsHandlerForOrientationChange", "for=" + MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+        //                        } catch (Exception ignored) {
+        //                        }
+        //                        //}
 
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                                // MUST BE KEEP !!! REPLACE cause to not call worker, because is replaced with delat again !!!
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                             }
                         }
                     } catch (Exception e) {
