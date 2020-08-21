@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -1710,6 +1709,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    /*
     private void registerReceiverForOrientationSensor(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForOrientationSensor", "PhoneProfilesService_registerReceiverForOrientationSensor");
@@ -1735,7 +1735,7 @@ public class PhoneProfilesService extends Service
                 if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)) {
                     // start only for screen On
                     dataWrapper.fillEventList();
-                    boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                    boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
                     if (eventsExists)
                         eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                 PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -1756,6 +1756,7 @@ public class PhoneProfilesService extends Service
                 registerReceiverForOrientationSensor(false, dataWrapper);
         }
     }
+    */
 
     private void registerReceiverForDeviceBootSensor(boolean register, DataWrapper dataWrapper) {
         //if (android.os.Build.VERSION.SDK_INT < 21)
@@ -3408,7 +3409,7 @@ public class PhoneProfilesService extends Service
         registerGeofencesScannerReceiver(true, dataWrapper);
 
         // required for orientation event
-        registerReceiverForOrientationSensor(true, dataWrapper);
+        //registerReceiverForOrientationSensor(true, dataWrapper);
 
         //Log.e("------ PhoneProfilesService.registerReceiversAndWorkers", "fromCommand="+fromCommand);
         WifiScanWorker.initialize(appContext, !fromCommand);
@@ -3458,7 +3459,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForCallSensor(false, null);
         registerGeofencesScannerReceiver(false, null);
         registerReceiverForNotificationSensor(false, null);
-        registerReceiverForOrientationSensor(false, null);
+        //registerReceiverForOrientationSensor(false, null);
 
         //if (alarmClockBroadcastReceiver != null)
         //    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
@@ -3516,7 +3517,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForNFCSensor(true, dataWrapper);
         registerReceiverForCallSensor(true, dataWrapper);
         registerGeofencesScannerReceiver(true, dataWrapper);
-        registerReceiverForOrientationSensor(true, dataWrapper);
+        //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
 
         scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
@@ -6059,34 +6060,42 @@ public class PhoneProfilesService extends Service
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.magneticFieldSensor, 1000000 * interval, handler);
             }
 
-            if (PPApplication.lightSensor != null) {
-                PPApplication.handlerThreadOrientationScanner.mMaxLightDistance = PPApplication.lightSensor.getMaximumRange();
-                if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)
-                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 200000 * interval, 1000000 * interval, handler);
-                else
-                    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 1000000 * interval, handler);
-            }
-
             if (PPApplication.proximitySensor != null) {
-                PPApplication.handlerThreadOrientationScanner.mMaxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
+                PPApplication.handlerThreadOrientationScanner.maxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
                 if (PPApplication.proximitySensor.getFifoMaxEventCount() > 0)
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 200000 * interval, 1000000 * interval, handler);
                 else
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 1000000 * interval, handler);
             }
 
+            if (DatabaseHandler.getInstance(getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0) {
+                if (PPApplication.lightSensor != null) {
+                    PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
+                    if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)
+                        PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 200000 * interval, 1000000 * interval, handler);
+                    else
+                        PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 1000000 * interval, handler);
+                }
+            }
+
             //Sensor orientation = PPApplication.getOrientationSensor(this);
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
             PPApplication.mStartedOrientationSensors = true;
 
-            PPApplication.handlerThreadOrientationScanner.mDisplayUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
-            PPApplication.handlerThreadOrientationScanner.mSideUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
-            PPApplication.handlerThreadOrientationScanner.mDeviceDistance = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
-
             PPApplication.handlerThreadOrientationScanner.tmpSideUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
             PPApplication.handlerThreadOrientationScanner.tmpSideTimestamp = 0;
 
-            setOrientationSensorAlarm(getApplicationContext());
+            PPApplication.handlerThreadOrientationScanner.previousResultDisplayUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
+            PPApplication.handlerThreadOrientationScanner.previousResultSideUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
+            PPApplication.handlerThreadOrientationScanner.previousResultDeviceDistance = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
+            PPApplication.handlerThreadOrientationScanner.previousResultLight = 0;
+
+            PPApplication.handlerThreadOrientationScanner.resultDisplayUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
+            PPApplication.handlerThreadOrientationScanner.resultSideUp = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
+            PPApplication.handlerThreadOrientationScanner.resultDeviceDistance = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
+            PPApplication.handlerThreadOrientationScanner.resultLight = 0;
+
+            //setOrientationSensorAlarm(getApplicationContext());
             Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
             sendBroadcast(intent);
         }
@@ -6096,7 +6105,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService.stopListeningOrientationSensors", "PPApplication.sensorManager="+PPApplication.sensorManager);
         if (PPApplication.sensorManager != null) {
             PPApplication.sensorManager.unregisterListener(PPApplication.orientationScanner);
-            removeOrientationSensorAlarm(getApplicationContext());
+            //removeOrientationSensorAlarm(getApplicationContext());
             PPApplication.orientationScanner = null;
             //PPApplication.sensorManager = null;
         }
@@ -6112,6 +6121,7 @@ public class PhoneProfilesService extends Service
     }
     */
 
+    /*
     private void removeOrientationSensorAlarm(Context context)
     {
         try {
@@ -6161,11 +6171,11 @@ public class PhoneProfilesService extends Service
         long alarmTime;
         alarmTime = calEndTime.getTimeInMillis();
 
-        /*if (PPApplication.logEnabled()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("EventPreferencesOrientation.setAlarm", "alarmTime=" + result);
-        }*/
+        //if (PPApplication.logEnabled()) {
+        //    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+        //    String result = sdf.format(alarmTime);
+        //    PPApplication.logE("EventPreferencesOrientation.setAlarm", "alarmTime=" + result);
+        //}
 
         //Intent intent = new Intent(context, OrientationEventEndBroadcastReceiver.class);
         Intent intent = new Intent();
@@ -6195,6 +6205,7 @@ public class PhoneProfilesService extends Service
             }
         }
     }
+    */
 
     // Twilight scanner ----------------------------------------------------------------
 

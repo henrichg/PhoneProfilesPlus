@@ -7584,6 +7584,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    int getOrientationWithLightSensorEventsCount()
+    {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                final String countQuery;
+                String eventTypeChecked;
+                eventTypeChecked = KEY_E_STATUS + "!=0";  //  only not stopped events
+                eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1 AND " +
+                                            KEY_E_ORIENTATION_CHECK_LIGHT + "=1";
+
+                countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
+                        " WHERE " + eventTypeChecked;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = cursor.getInt(0);
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
 
 // EVENT TIMELINE ------------------------------------------------------------------
 

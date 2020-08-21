@@ -779,7 +779,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                             for (String split : splits) {
                                                 try {
                                                     int side = Integer.parseInt(split);
-                                                    if (side == PPApplication.handlerThreadOrientationScanner.mDisplayUp) {
+                                                    if (side == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
                                                         lDisplayPassed = true;
                                                         break;
                                                     }
@@ -802,12 +802,12 @@ class EventPreferencesOrientation extends EventPreferences {
                                                 try {
                                                     int side = Integer.parseInt(split);
                                                     if (side == OrientationScannerHandlerThread.DEVICE_ORIENTATION_HORIZONTAL) {
-                                                        if (PPApplication.handlerThreadOrientationScanner.mSideUp == PPApplication.handlerThreadOrientationScanner.mDisplayUp) {
+                                                        if (PPApplication.handlerThreadOrientationScanner.resultSideUp == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
                                                             lSidePassed = true;
                                                             break;
                                                         }
                                                     } else {
-                                                        if (side == PPApplication.handlerThreadOrientationScanner.mSideUp) {
+                                                        if (side == PPApplication.handlerThreadOrientationScanner.resultSideUp) {
                                                             lSidePassed = true;
                                                             break;
                                                         }
@@ -825,7 +825,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                 if (hasProximity) {
                                     if (_distance != 0) {
                                         configuredDistance = true;
-                                        lDistancePassed = _distance == PPApplication.handlerThreadOrientationScanner.mDeviceDistance;
+                                        lDistancePassed = _distance == PPApplication.handlerThreadOrientationScanner.resultDeviceDistance;
                                     }
                                 }
 
@@ -834,7 +834,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                 if (hasLight) {
                                     if (_checkLight) {
                                         configuredLight = true;
-                                        int light = PPApplication.handlerThreadOrientationScanner.mLight;
+                                        int light = PPApplication.handlerThreadOrientationScanner.resultLight;
                                         int min = Integer.parseInt(_lightMin);
                                         int max = Integer.parseInt(_lightMax);
                                         lLightPassed = (light >= min) && (light <= max);

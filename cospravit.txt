@@ -1606,3 +1606,17 @@ Toto daj do Important info. Je to ako nastavit PPP pre znizenie spotreby baterie
 5. Battery sensor: do not use battery levels when are not needed. Set levels: 0%-100%
 
 ---------------------
+
+Orientation sensor:
+Pouziva to OrientationScannerHandlerThread. Cize onSensorChanged je volany v inom threade.
+Toto je super, nazatazuje to main thread.
+Ale mam tu este broadcast receiver, ktory sa vola v intervale.
+Strasny problem je, ze onSensochChanged sa vola aj tak desiatky krat za interval. Toto je uplne ze zle.
+Nad tymto proste nemam kontrolu. Android :-(
+Mono je to len, ak mam na nabijacke, lebo to robi aj pri zhasnutej obrazovke. Toto sa da testnut.
+Ja rozmyslam na tymto:
+- EventsHandler sa vola z OrientationEventBroadcastReceiver. Co tak namiesto toho pouzit Wiork?
+- Alebo: co tak skusit zistovat zmeny, co zrovna je nastavene je v OrientationScannerHandlerThread:
+  -
+
+

@@ -528,7 +528,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.startListeningOrientationSensors"
                                                 //+"|PhoneProfilesService.stopListeningOrientationSensors"
                                                 //+"|EventPreferencesOrientation"
-                                                //+"|OrientationScanner.onSensorChanged"
+                                                +"|OrientationScanner.onSensorChanged"
                                                 //+"|OrientationEventBroadcastReceiver"
                                                 //+"|PhoneProfilesService.startOrientationScanner"
                                                 //+"|PPPExtenderBroadcastReceiver"
@@ -1183,7 +1183,7 @@ public class PPApplication extends Application
     static AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
     static NotificationEventEndBroadcastReceiver notificationEventEndBroadcastReceiver = null;
     static LockDeviceAfterScreenOffBroadcastReceiver lockDeviceAfterScreenOffBroadcastReceiver = null;
-    static OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
+    //static OrientationEventBroadcastReceiver orientationEventBroadcastReceiver = null;
     static PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     static DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
@@ -1685,6 +1685,7 @@ public class PPApplication extends Application
         cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
         cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
         cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG);
