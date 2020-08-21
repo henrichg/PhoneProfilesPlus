@@ -3049,7 +3049,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected Integer doInBackground(Void... params) {
 
                     if (this.dataWrapper != null) {
-                        dataWrapper.globalRunStopEvents(true);
+                        //dataWrapper.globalRunStopEvents(true);
+                        PPApplication.exitApp(false, getApplicationContext(), this.dataWrapper, null, false);
+
+                        // wait for end of PPService
+                        PPApplication.sleep(3000);
 
                         File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
@@ -3083,7 +3087,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 ret = 0;
                         }
 
-                        Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
+                        //Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
+                        PPApplication.setApplicationStarted(getApplicationContext(), true);
+                        Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                        //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                        PPApplication.startPPService(getApplicationContext(), serviceIntent/*, true*/);
 
                         return ret;
                     }
@@ -3111,7 +3123,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (!isFinishing())
                             PPApplication.showToast(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
 
-                        dataWrapper.restartEventsWithRescan(false, false, true, false, false, false);
+                        //dataWrapper.restartEventsWithRescan(false, false, true, false, false, false);
 
                         if (email) {
                             // email backup
