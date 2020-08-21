@@ -24,6 +24,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     protected void onInitialize(boolean isReconnect) {
         super.onInitialize(isReconnect);
 
+        PPApplication.logE("[LISTENER CALL] DashClockExtension.onInitialize", "xxx");
+
         //GlobalGUIRoutines.setLanguage(this);
 
         if (dataWrapper == null)
@@ -37,6 +39,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     {
         super.onDestroy();
 
+        PPApplication.logE("[LISTENER CALL] DashClockExtension.onDestroy", "xxx");
+
         instance = null;
         /*if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
@@ -45,6 +49,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     @Override
     protected void onUpdateData(int reason) {
+        PPApplication.logE("[LISTENER CALL] DashClockExtension.onUpdateData", "xxx");
+
         Profile profile;
 
         if (dataWrapper == null)

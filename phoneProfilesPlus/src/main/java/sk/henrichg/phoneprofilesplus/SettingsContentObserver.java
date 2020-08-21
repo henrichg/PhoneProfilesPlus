@@ -164,10 +164,10 @@ class SettingsContentObserver  extends ContentObserver {
 
         //CallsCounter.logCounter(context, "SettingsContentObserver.onChange", "SettingsContentObserver_onChange");
 
-        //PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "okSetting="+okSetting);
-
         if (!okSetting)
             return;
+
+        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "------ do onChange ------");
 
         ////// volume change
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

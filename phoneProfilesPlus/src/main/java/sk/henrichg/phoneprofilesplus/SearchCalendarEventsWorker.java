@@ -114,7 +114,7 @@ public class SearchCalendarEventsWorker extends Worker {
     }
 
     public void onStopped () {
-        //PPApplication.logE("SearchCalendarEventsWorker.onStopped", "xxx");
+        PPApplication.logE("[LISTENER CALL] SearchCalendarEventsWorker.onStopped", "xxx");
 
         //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
     }

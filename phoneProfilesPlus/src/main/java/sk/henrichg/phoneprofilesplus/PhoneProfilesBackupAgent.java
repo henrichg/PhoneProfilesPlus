@@ -16,6 +16,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onRestoreFinished() {
+        PPApplication.logE("[LISTENER CALL] PhoneProfilesBackupAgent.onRestoreFinished", "xxx");
+
         PPApplication.restoreFinished = false;
 
         PPApplication.logE("PhoneProfilesBackupAgent","onRestoreFinished");

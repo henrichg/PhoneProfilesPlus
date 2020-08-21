@@ -20,6 +20,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanResult(int callbackType, ScanResult result) {
+        PPApplication.logE("[LISTENER CALL] BluetoothLEScanCallback21.onScanResult", "xxx");
+
         //CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onScanResult", "BluetoothLEScanCallback21.onScanResult");
 
         final BluetoothDevice _device = result.getDevice();
@@ -71,6 +73,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onBatchScanResults(List<ScanResult> results) {
+        PPApplication.logE("[LISTENER CALL] BluetoothLEScanCallback21.onBatchScanResults", "xxx");
+
         //CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onBatchScanResults", "BluetoothLEScanCallback21.onBatchScanResults");
 
         if ((results == null) || (results.size() == 0))
@@ -133,6 +137,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanFailed(int errorCode) {
+        PPApplication.logE("[LISTENER CALL] BluetoothLEScanCallback21.onScanFailed", "xxx");
+
         //Log.e("BluetoothLEScanCallback21.onScanFailed", "errorCode=" + errorCode);
         PPApplication.logToCrashlytics("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
     }

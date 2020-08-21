@@ -147,6 +147,8 @@ public class BluetoothScanWorker extends Worker {
     }
 
     public void onStopped () {
+        PPApplication.logE("[LISTENER CALL] BluetoothScanWorker.onStopped", "xxx");
+
         //PPApplication.logE("BluetoothScanWorker.onStopped", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothScanWorker.onStopped", "BluetoothScanWorker_onStopped");

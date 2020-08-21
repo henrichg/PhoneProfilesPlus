@@ -567,7 +567,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     final LocationCallback updateTransitionsByLastKnownLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-//            PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
+            PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
 

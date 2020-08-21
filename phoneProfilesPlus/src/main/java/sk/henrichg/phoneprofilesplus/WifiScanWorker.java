@@ -151,7 +151,7 @@ public class WifiScanWorker extends Worker {
     }
 
     public void onStopped () {
-        //PPApplication.logE("WifiScanWorker.onStopped", "xxx");
+        PPApplication.logE("[LISTENER CALL] WifiScanWorker.onStopped", "xxx");
 
         //CallsCounter.logCounter(context, "WifiScanWorker.onStopped", "WifiScanWorker_onStopped");
 

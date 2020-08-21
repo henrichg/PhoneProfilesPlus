@@ -4720,6 +4720,8 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        PPApplication.logE("[LISTENER CALL] PhoneProfilesService.onConfigurationChanged", "xxx");
+
         super.onConfigurationChanged(newConfig);
         //PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
         //PPApplication.showProfileNotification(true, false/*, false*/);

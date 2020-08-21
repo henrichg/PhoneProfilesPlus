@@ -9,6 +9,8 @@ class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
+        PPApplication.logE("[LISTENER CALL] OrientationScanner.onSensorChanged", "xxx");
+
         //PPApplication.logE("OrientationScanner.onSensorChanged", "current thread="+Thread.currentThread());
 
         if (PhoneProfilesService.getInstance() == null)
@@ -262,7 +264,7 @@ class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+        PPApplication.logE("[LISTENER CALL] OrientationScanner.onAccuracyChanged", "xxx");
     }
 
 }
