@@ -49,7 +49,8 @@ public class ShowProfileNotificationWorker extends Worker {
                             PPApplication.sleep(100);
                         }
 
-                        PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, false/*, clear*/);
+                        if (PhoneProfilesService.getInstance() != null)
+                            PhoneProfilesService.getInstance()._showProfileNotification(profile, dataWrapper, false/*, clear*/);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
