@@ -48,6 +48,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -63,6 +64,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -119,6 +121,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
     //static final String EXTRA_SELECTED_FILTER = "selected_filter";
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
+    private static final String EXTRA_CREATE_PPP_FOLDER = "create_ppp_folder";
 
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
@@ -130,6 +133,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;
     // request code for startActivityForResult with intent "phoneprofiles.intent.action.EXPORTDATA"
     //private static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
+    // request code for startActivityForResult with intent ACTION_OPEN_DOCUMENT_TREE
+    private static final int REQUEST_CODE_BACKUP_SETTINGS = 6230;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
@@ -1747,6 +1752,126 @@ public class EditorProfilesActivity extends AppCompatActivity
                 doExportData(true, true);
             }
         }
+        else
+        if (requestCode == REQUEST_CODE_BACKUP_SETTINGS) {
+            if (resultCode == RESULT_OK) {
+                // uri of folder
+                Uri treeUri = data.getData();
+                if (treeUri != null) {
+                    // persistent permissions
+                    final int takeFlags = data.getFlags()
+                            & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
+
+                    boolean ok = true;
+
+                    DocumentFile pickedDir = DocumentFile.fromTreeUri(this, treeUri);
+                    if (pickedDir != null) {
+
+                        if (pickedDir.canWrite()) {
+                            boolean createPPPFolder = data.getBooleanExtra(EXTRA_CREATE_PPP_FOLDER, true);
+                            if (createPPPFolder) {
+                                if ((pickedDir.findFile("PhoneProfilesPlus") == null) || (!pickedDir.isDirectory())) {
+                                    // create subdirectory
+                                    pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
+                                    if (pickedDir == null) {
+                                        // error for create directory
+                                        ok = false;
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            // pickedDir is not writable
+                            ok = false;
+                        }
+
+                        if (ok) {
+                            if (pickedDir.canWrite()) {
+                                File applicationDir = getApplicationContext().getExternalFilesDir(null);
+
+                                DocumentFile newFile = pickedDir.createFile("text/plain", GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                                if (newFile != null) {
+                                    try {
+                                        File exportFile = new File(applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                                        FileInputStream inStream = new FileInputStream(exportFile);
+                                        OutputStream outStream = getContentResolver().openOutputStream(newFile.getUri());
+                                        if (outStream != null) {
+                                            try {
+                                                byte[] buf = new byte[1024];
+                                                int len;
+                                                while ((len = inStream.read(buf)) > 0) {
+                                                    outStream.write(buf, 0, len);
+                                                }
+                                            } finally {
+                                                inStream.close();
+                                                outStream.close();
+                                            }
+                                        }
+                                        else {
+                                            // cannot open GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME stream
+                                            ok = false;
+                                        }
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                        ok = false;
+                                    }
+                                }
+                                else {
+                                    // cannot create GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME
+                                    ok = false;
+                                }
+
+                                newFile = pickedDir.createFile("text/plain", DatabaseHandler.EXPORT_DBFILENAME);
+                                if (newFile != null) {
+                                    try {
+                                        File exportFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
+                                        FileInputStream inStream = new FileInputStream(exportFile);
+                                        OutputStream outStream = getContentResolver().openOutputStream(newFile.getUri());
+                                        if (outStream != null) {
+                                            try {
+                                                byte[] buf = new byte[1024];
+                                                int len;
+                                                while ((len = inStream.read(buf)) > 0) {
+                                                    outStream.write(buf, 0, len);
+                                                }
+                                            } finally {
+                                                inStream.close();
+                                                outStream.close();
+                                            }
+                                        }
+                                        else {
+                                            // cannot open DatabaseHandler.EXPORT_DBFILENAME stream
+                                            ok = false;
+                                        }
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                        ok = false;
+                                    }
+                                }
+                                else {
+                                    // cannot create DatabaseHandler.EXPORT_DBFILENAME
+                                    ok = false;
+                                }
+                            }
+                            else {
+                                // cannot copy backup files - pickedDir is not writable
+                                ok = false;
+                            }
+                        }
+
+                    }
+                    else {
+                        // pickedDir is null
+                        ok = false;
+                    }
+
+                    if (!ok) {
+                        // TODO show alert about copy error
+                    }
+                }
+            }
+        }
     }
 
     /*
@@ -3219,13 +3344,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                             View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                             dialogBuilder.setView(layout);
                             dialogBuilder.setTitle(R.string.backup_profiles_alert_title);
-                            //TextView text = layout.findViewById(R.id.backup_settings_alert_dialog_text);
-                            //text.setText("Copy settings into folder?");
                             final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
                             checkBox.setChecked(true);
-                            //checkBox.setText("Create \"PhoneProfilesPlus\" subdirectory");
                             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                    intent.putExtra(EXTRA_CREATE_PPP_FOLDER, checkBox.isChecked());
+                                    startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
                                 }
                             });
                             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
