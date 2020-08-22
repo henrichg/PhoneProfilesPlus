@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1776,6 +1777,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
                                     if (pickedDir == null) {
                                         // error for create directory
+                                        PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
                                         ok = false;
                                     }
                                 }
@@ -1783,6 +1785,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                         else {
                             // pickedDir is not writable
+                            PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
                             ok = false;
                         }
 
@@ -1795,18 +1798,21 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
                             }
                             else {
-                                // cannot copy backup files - pickedDir is not writable
+                                // cannot copy backup files, pickedDir is not writable
+                                PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
                                 ok = false;
                             }
                         }
                     }
                     else {
                         // pickedDir is null
+                        PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
                         ok = false;
                     }
 
                     if (!ok) {
                         // TODO show alert about copy error
+                        PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backu files");
                     }
                 }
             }
@@ -4382,12 +4388,15 @@ public class EditorProfilesActivity extends AppCompatActivity
         return body;
     }
 
-    boolean copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName) {
+    private boolean copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName) {
         DocumentFile oldFile = pickedDir.findFile(fileName);
         if (oldFile != null) {
             // delete old file
-            if (!oldFile.delete())
+            if (!oldFile.delete()) {
+                // cannot delete existed file
+                PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot delete existed file");
                 return false;
+            }
         }
         // copy file
         DocumentFile newFile = pickedDir.createFile("text/plain", fileName);
@@ -4410,15 +4419,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 else {
                     // cannot open fileName stream
+                    PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot open fileName stream");
                     return false;
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
+                PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", Log.getStackTraceString(e));
                 return false;
             }
         }
         else {
             // cannot create fileName
+            PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot create fileName");
             return false;
         }
         return true;

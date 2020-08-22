@@ -137,6 +137,9 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
+                                                +"|EditorProfilesActivity.copyToBackupDirectory"
+                                                +"|EditorProfilesActivity.onActivityResult"
+
                                                 //+"|ImportPPDataBroadcastReceiver"
 
                                                 //+"|********* RingerModeChangeReceiver.setRingerMode"
