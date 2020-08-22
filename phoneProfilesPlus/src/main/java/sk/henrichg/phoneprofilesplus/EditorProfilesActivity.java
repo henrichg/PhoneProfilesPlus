@@ -1771,7 +1771,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (pickedDir.canWrite()) {
                             boolean createPPPFolder = data.getBooleanExtra(EXTRA_CREATE_PPP_FOLDER, true);
                             if (createPPPFolder) {
-                                if ((pickedDir.findFile("PhoneProfilesPlus") == null) || (!pickedDir.isDirectory())) {
+                                if ((pickedDir.findFile("PhoneProfilesPlus") == null) /*|| (!pickedDir.isDirectory())*/) {
                                     // create subdirectory
                                     pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
                                     if (pickedDir == null) {
