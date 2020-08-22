@@ -1964,7 +1964,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         final EditorProfilesActivity activity = this;
         //final String _applicationDataPath = applicationDataPath;
 
-        // TODO maybe is not required, but test it again, when will be added copy via action intent
         //if (Permissions.checkImport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
@@ -3015,7 +3014,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         final EditorProfilesActivity activity = this;
 
-        // TODO maybe is not required, but test it again, when will be added copy via action intent
         //if (Permissions.checkExport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
