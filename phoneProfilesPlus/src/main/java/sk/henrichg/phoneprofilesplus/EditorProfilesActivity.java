@@ -1790,76 +1790,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (pickedDir.canWrite()) {
                                 File applicationDir = getApplicationContext().getExternalFilesDir(null);
 
-                                DocumentFile newFile = pickedDir.createFile("text/plain", GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                                if (newFile != null) {
-                                    try {
-                                        File exportFile = new File(applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                                        FileInputStream inStream = new FileInputStream(exportFile);
-                                        OutputStream outStream = getContentResolver().openOutputStream(newFile.getUri());
-                                        if (outStream != null) {
-                                            try {
-                                                byte[] buf = new byte[1024];
-                                                int len;
-                                                while ((len = inStream.read(buf)) > 0) {
-                                                    outStream.write(buf, 0, len);
-                                                }
-                                            } finally {
-                                                inStream.close();
-                                                outStream.close();
-                                            }
-                                        }
-                                        else {
-                                            // cannot open GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME stream
-                                            ok = false;
-                                        }
-                                    } catch (Exception e) {
-                                        PPApplication.recordException(e);
-                                        ok = false;
-                                    }
-                                }
-                                else {
-                                    // cannot create GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME
-                                    ok = false;
-                                }
-
-                                newFile = pickedDir.createFile("text/plain", DatabaseHandler.EXPORT_DBFILENAME);
-                                if (newFile != null) {
-                                    try {
-                                        File exportFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
-                                        FileInputStream inStream = new FileInputStream(exportFile);
-                                        OutputStream outStream = getContentResolver().openOutputStream(newFile.getUri());
-                                        if (outStream != null) {
-                                            try {
-                                                byte[] buf = new byte[1024];
-                                                int len;
-                                                while ((len = inStream.read(buf)) > 0) {
-                                                    outStream.write(buf, 0, len);
-                                                }
-                                            } finally {
-                                                inStream.close();
-                                                outStream.close();
-                                            }
-                                        }
-                                        else {
-                                            // cannot open DatabaseHandler.EXPORT_DBFILENAME stream
-                                            ok = false;
-                                        }
-                                    } catch (Exception e) {
-                                        PPApplication.recordException(e);
-                                        ok = false;
-                                    }
-                                }
-                                else {
-                                    // cannot create DatabaseHandler.EXPORT_DBFILENAME
-                                    ok = false;
-                                }
+                                ok = copyToBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                                if (ok)
+                                    ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
                             }
                             else {
                                 // cannot copy backup files - pickedDir is not writable
                                 ok = false;
                             }
                         }
-
                     }
                     else {
                         // pickedDir is null
@@ -4441,6 +4380,48 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
         return body;
+    }
+
+    boolean copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName) {
+        DocumentFile oldFile = pickedDir.findFile(fileName);
+        if (oldFile != null) {
+            // delete old file
+            if (!oldFile.delete())
+                return false;
+        }
+        // copy file
+        DocumentFile newFile = pickedDir.createFile("text/plain", fileName);
+        if (newFile != null) {
+            try {
+                File exportFile = new File(applicationDir, fileName);
+                FileInputStream inStream = new FileInputStream(exportFile);
+                OutputStream outStream = getContentResolver().openOutputStream(newFile.getUri());
+                if (outStream != null) {
+                    try {
+                        byte[] buf = new byte[1024];
+                        int len;
+                        while ((len = inStream.read(buf)) > 0) {
+                            outStream.write(buf, 0, len);
+                        }
+                    } finally {
+                        inStream.close();
+                        outStream.close();
+                    }
+                }
+                else {
+                    // cannot open fileName stream
+                    return false;
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+                return false;
+            }
+        }
+        else {
+            // cannot create fileName
+            return false;
+        }
+        return true;
     }
 
 }
