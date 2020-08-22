@@ -1771,14 +1771,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         if (pickedDir.canWrite()) {
                             if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
-                                if ((pickedDir.findFile("PhoneProfilesPlus") == null) /*|| (!pickedDir.isDirectory())*/) {
-                                    // create subdirectory
-                                    pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
-                                    if (pickedDir == null) {
-                                        // error for create directory
-                                        PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
-                                        ok = false;
-                                    }
+                                // if directory exits, create new = "PhoneProfilesPlus (x)"
+                                // create subdirectory
+                                pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
+                                if (pickedDir == null) {
+                                    // error for create directory
+                                    PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
+                                    ok = false;
                                 }
                             }
                         }
