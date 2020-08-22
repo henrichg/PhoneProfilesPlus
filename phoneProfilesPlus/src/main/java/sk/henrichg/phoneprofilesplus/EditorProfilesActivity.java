@@ -3213,6 +3213,37 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                         else {
                             // TODO do copy into user folder
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            LayoutInflater inflater = (activity).getLayoutInflater();
+                            @SuppressLint("InflateParams")
+                            View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
+                            dialogBuilder.setView(layout);
+                            dialogBuilder.setTitle(R.string.backup_profiles_alert_title);
+                            //TextView text = layout.findViewById(R.id.backup_settings_alert_dialog_text);
+                            //text.setText("Copy settings into folder?");
+                            final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
+                            checkBox.setChecked(true);
+                            //checkBox.setText("Create \"PhoneProfilesPlus\" subdirectory");
+                            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                            AlertDialog dialog = dialogBuilder.create();
+
+                            //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            //            @Override
+                            //            public void onShow(DialogInterface dialog) {
+                            //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            //                if (positive != null) positive.setAllCaps(false);
+                            //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            //                if (negative != null) negative.setAllCaps(false);
+                            //            }
+                            //        });
+
+                            if (!isFinishing())
+                                dialog.show();
+
                         }
 
                     } else {
