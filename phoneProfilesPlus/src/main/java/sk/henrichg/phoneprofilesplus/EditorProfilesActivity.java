@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -1018,7 +1019,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     PPApplication.recordException(e);
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
-                intent.putExtra(Intent.EXTRA_TEXT, AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */this));
+                intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                 try {
                     startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
                 } catch (Exception e) {
@@ -1060,6 +1061,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.recordException(e);
                     }
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                     emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                     List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
@@ -1069,6 +1071,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                         intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                        intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                         intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
@@ -2975,26 +2978,27 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void exportData(final boolean email, final boolean toAuthor)
     {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle(R.string.export_profiles_alert_title);
-        //File sd = Environment.getExternalStorageDirectory();
-        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" /*+ "/" + Environment.DIRECTORY_DOCUMENTS*/ + PPApplication.EXPORT_PATH + "\".\n\n" +
-                                 getString(R.string.export_profiles_alert_message_note));
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        if (!email) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.export_profiles_alert_title);
+            //File sd = Environment.getExternalStorageDirectory();
+            //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+            dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" /*+ "/" + Environment.DIRECTORY_DOCUMENTS*/ + PPApplication.EXPORT_PATH + "\".\n\n" +
+                    getString(R.string.export_profiles_alert_message_note));
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
+            dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                doExportData(email, toAuthor);
+                public void onClick(DialogInterface dialog, int which) {
+                    doExportData(email, toAuthor);
 
-                // TODO maybe is not required, but test it again, when will be added copy via action intent
-                //if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this, email, toAuthor))
-                //    doExportData(email, toAuthor);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        AlertDialog dialog = dialogBuilder.create();
+                    // TODO maybe is not required, but test it again, when will be added copy via action intent
+                    //if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this, email, toAuthor))
+                    //    doExportData(email, toAuthor);
+                }
+            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+            AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -3006,8 +3010,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 //            }
 //        });
 
-        if (!isFinishing())
-            dialog.show();
+            if (!isFinishing())
+                dialog.show();
+        }
+        else
+            doExportData(email, toAuthor);
     }
 
     private void doExportData(final boolean email, final boolean toAuthor)
@@ -3179,7 +3186,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
                             }
-                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.export_data_email_subject));
+                            emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                             emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                             List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
@@ -3189,7 +3197,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                                 if (!emailAddress.isEmpty())
                                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.menu_export));
+                                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.export_data_email_subject));
+                                intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                                 intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
@@ -4259,6 +4268,24 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (!activity.isFinishing())
                 dialog.show();
         }
+    }
+
+    String getEmailBodyText() {
+        String body;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+            body = getString(R.string.important_info_email_body_device) + " " +
+                    Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+                    " (" + Build.MODEL + ")" + " \n";
+        else {
+            String manufacturer = Build.MANUFACTURER;
+            String model = Build.MODEL;
+            if (model.startsWith(manufacturer))
+                body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
+            else
+                body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
+        }
+        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
+        return body;
     }
 
 }
