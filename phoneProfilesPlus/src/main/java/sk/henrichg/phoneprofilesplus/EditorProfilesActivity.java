@@ -2975,24 +2975,29 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void exportData(final boolean email, final boolean toAuthor)
     {
-        if (!email) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.export_profiles_alert_title);
-            //File sd = Environment.getExternalStorageDirectory();
-            //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-            dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" /*+ "/" + Environment.DIRECTORY_DOCUMENTS*/ + PPApplication.EXPORT_PATH + "\".\n\n" +
-                    getString(R.string.export_profiles_alert_message_note));
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle(R.string.export_profiles_alert_title);
+        //File sd = Environment.getExternalStorageDirectory();
+        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        if (email)
+            dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message_note));
+        else
+            dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + "\n\n" +
+                                        getString(R.string.export_profiles_alert_message_note));
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-            dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
 
-                public void onClick(DialogInterface dialog, int which) {
-                     if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this))
-                         doExportData(false, toAuthor);
-                }
-            });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-            AlertDialog dialog = dialogBuilder.create();
+            public void onClick(DialogInterface dialog, int which) {
+                if (email)
+                    doExportData(true, toAuthor);
+                else
+                if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this))
+                    doExportData(false, false);
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -3004,11 +3009,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 //            }
 //        });
 
-            if (!isFinishing())
-                dialog.show();
-        }
-        else
-            doExportData(false, toAuthor);
+        if (!isFinishing())
+            dialog.show();
     }
 
     private void doExportData(final boolean email, final boolean toAuthor)
