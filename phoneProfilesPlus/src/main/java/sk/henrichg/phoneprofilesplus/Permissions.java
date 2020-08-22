@@ -623,7 +623,8 @@ class Permissions {
     static boolean checkImport(Context context) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23)
-                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
+                    (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
             //else
             //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
         } catch (Exception e) {
@@ -634,7 +635,8 @@ class Permissions {
     static boolean checkExport(Context context) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23)
-                return (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
+                    (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
             //else
             //    return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE);
         } catch (Exception e) {
@@ -1638,6 +1640,7 @@ class Permissions {
             if (!granted) {
                 try {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
+                    permissions.add(new PermissionType(PERMISSION_EXPORT, permission.READ_EXTERNAL_STORAGE));
                     permissions.add(new PermissionType(PERMISSION_EXPORT, permission.WRITE_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);

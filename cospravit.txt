@@ -1615,5 +1615,31 @@ Spravil som sice:
 Ale aj tak to musi zrat vela. Kazdych 5 sekund volat eventsHandler je proste vela.
 Zatial mam nenapadlo, co s tym. Do nastaveni senzora daj aspon info preference o tom ze check light zerie bateriu.
 
+---------------------
 
+Storage permission je vyzadovane pre RingtonePreferences, pre zmenu tonov, pre ich prehravanie? Pozri.
+
+Permisions metody, kde sa poizva Storage permission:
+READ_EXTERNAL_STORAGE:
+checkPlayRingtoneNotification()
+checkProfileRingtones()
+checkProfileWallpaper()
+checkCustomProfileIcon()
+checkGallery()
+checkImport()
+checkExport()
+checkStorage()
+checkRingtonePreference()
+grantWallpaperPermissions()
+grantCustomProfileIconPermissions()
+grantExportPermissions()
+grantImportPermissions()
+grantRingtonePreferenceDialogPermissions()
+
+WRITE_EXTERNAL_STORAGE:
+checkImport()
+checkExport()
+checkStorage()
+grantExportPermissions()
+grantImportPermissions()
 

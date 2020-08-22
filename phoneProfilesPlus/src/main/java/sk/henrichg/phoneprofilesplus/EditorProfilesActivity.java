@@ -21,7 +21,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
@@ -889,10 +888,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
-            File sd = Environment.getExternalStorageDirectory();
-            File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+            //File sd = Environment.getExternalStorageDirectory();
+            File sd = getExternalFilesDir(null);
+            //File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+            File exportedDB = new File(sd, DatabaseHandler.EXPORT_DBFILENAME);
             boolean dbExists = exportedDB.exists();
-            File exportedAppPreferences = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+            //File exportedAppPreferences = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+            File exportedAppPreferences = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
             boolean appPreferencesExists = exportedAppPreferences.exists();
             menuItem.setEnabled(dbExists && appPreferencesExists);
         }
@@ -1733,7 +1735,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMPORT) {
             if ((resultCode == RESULT_OK) && (data != null)) {
-                doImportData(data.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH));
+                doImportData(/*data.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH)*/);
             }
         }
         else
@@ -1957,12 +1959,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         return res;
     }
 
-    private void doImportData(String applicationDataPath)
+    private void doImportData(/*String applicationDataPath*/)
     {
         final EditorProfilesActivity activity = this;
-        final String _applicationDataPath = applicationDataPath;
+        //final String _applicationDataPath = applicationDataPath;
 
-        if (Permissions.checkImport(getApplicationContext())) {
+        // TODO maybe is not required, but test it again, when will be added copy via action intent
+        //if (Permissions.checkImport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -2023,10 +2026,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (_dataWrapper != null) {
                         PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
 
-                        File sd = Environment.getExternalStorageDirectory();
+                        //File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                        File sd = getApplicationContext().getExternalFilesDir(null);
 
-                        try {
+                        /*try {
                             File exportPath = new File(sd, _applicationDataPath);
                             if (exportPath.exists()) {
                                 //noinspection ResultOfMethodCallIgnored
@@ -2038,17 +2042,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-                        }
+                        }*/
 
                         // import application preferences must be first,
                         // because in DatabaseHandler.importDB is recompute of volumes in profiles
-                        File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                        //File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                        File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         appSettingsError = !importApplicationPreferences(exportFile, 1);
-                        exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                        //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                        exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                         if (exportFile.exists())
                             sharedProfileError = !importApplicationPreferences(exportFile, 2);
 
-                        dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
+                        //dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
+                        dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(/*_applicationDataPath*/);
                         if (dbError == DatabaseHandler.IMPORT_OK) {
                             DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
                             DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
@@ -2172,7 +2179,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             importAsyncTask = new ImportAsyncTask().execute();
-        }
+        //}
     }
 
     private void importData()
@@ -2183,8 +2190,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/))
-                    doImportData(PPApplication.EXPORT_PATH);
+                doImportData();
+
+                // TODO maybe is not required, but test it again, when will be added copy via action intent
+                //if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
+                //    //doImportData(PPApplication.EXPORT_PATH);
+                //    doImportData();
+                //}
             }
         });
         dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
@@ -2975,8 +2987,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this, email, toAuthor))
-                    doExportData(email, toAuthor);
+                doExportData(email, toAuthor);
+
+                // TODO maybe is not required, but test it again, when will be added copy via action intent
+                //if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this, email, toAuthor))
+                //    doExportData(email, toAuthor);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -3000,7 +3015,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         final EditorProfilesActivity activity = this;
 
-        if (Permissions.checkExport(getApplicationContext())) {
+        // TODO maybe is not required, but test it again, when will be added copy via action intent
+        //if (Permissions.checkExport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
             class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -3055,9 +3071,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // wait for end of PPService
                         PPApplication.sleep(3000);
 
-                        File sd = Environment.getExternalStorageDirectory();
+                        //File sd = Environment.getExternalStorageDirectory();
+                        File sd = getApplicationContext().getExternalFilesDir(null);
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                        File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+
+                        /*File exportDir = new File(sd, PPApplication.EXPORT_PATH);
                         if (!(exportDir.exists() && exportDir.isDirectory())) {
                             //noinspection ResultOfMethodCallIgnored
                             exportDir.mkdirs();
@@ -3073,11 +3091,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
                             }
-                        }
+                        }*/
 
                         int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
                         if (ret == 1) {
-                            File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                            //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                            File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                             if (exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
@@ -3131,14 +3150,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ArrayList<Uri> uris = new ArrayList<>();
 
                             try {
-                                File sd = Environment.getExternalStorageDirectory();
+                                //File sd = Environment.getExternalStorageDirectory();
                                 //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                                File sd = context.getExternalFilesDir(null);
 
-                                File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+                                //File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+                                File exportedDB = new File(sd, DatabaseHandler.EXPORT_DBFILENAME);
                                 Uri fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", exportedDB);
                                 uris.add(fileUri);
 
-                                File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                                //File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                                File appSettingsFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                                 fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", appSettingsFile);
                                 uris.add(fileUri);
                             } catch (Exception e) {
@@ -3196,7 +3218,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             exportAsyncTask = new ExportAsyncTask().execute();
-        }
+        //}
 
     }
 

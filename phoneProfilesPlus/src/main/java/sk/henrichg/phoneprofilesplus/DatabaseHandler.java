@@ -11173,7 +11173,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-    int importDB(String applicationDataPath) {
+    int importDB(/*String applicationDataPath*/) {
         importExportLock.lock();
         try {
             int ret = IMPORT_ERROR_BUG;
@@ -11188,12 +11188,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //close();
 
                 try {
-                    File sd = Environment.getExternalStorageDirectory();
-                    //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                    //File data = Environment.getDataDirectory();
+                    //File sd = Environment.getExternalStorageDirectory();
+                    File sd = context.getExternalFilesDir(null);
 
-                    //File dataDB = new File(data, DB_FILEPATH + "/" + DATABASE_NAME);
-                    File exportedDB = new File(sd, applicationDataPath + "/" + EXPORT_DBFILENAME);
+                    //File exportedDB = new File(sd, applicationDataPath + "/" + EXPORT_DBFILENAME);
+                    File exportedDB = new File(sd, EXPORT_DBFILENAME);
 
                     if (exportedDB.exists()) {
                         //PPApplication.logE("DatabaseHandler.importDB", "exportedDB.getAbsolutePath()="+exportedDB.getAbsolutePath());
@@ -11289,12 +11288,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 FileOutputStream dst = null;
                 try {
                     try {
-                        File sd = Environment.getExternalStorageDirectory();
+                        //File sd = Environment.getExternalStorageDirectory();
                         //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                        File sd = context.getExternalFilesDir(null);
+
                         File data = Environment.getDataDirectory();
 
                         File dataDB = new File(data, GlobalGUIRoutines.DB_FILEPATH + "/" + DATABASE_NAME);
-                        File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
+                        //File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
+                        File exportedDB = new File(sd, EXPORT_DBFILENAME);
 
                         if (dataDB.exists()) {
                             // close db
