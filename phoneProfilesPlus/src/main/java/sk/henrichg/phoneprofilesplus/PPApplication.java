@@ -139,6 +139,7 @@ public class PPApplication extends Application
 
                                                 +"|EditorProfilesActivity.copyToBackupDirectory"
                                                 +"|EditorProfilesActivity.onActivityResult"
+                                                +"|EditorProfilesActivity.doExportData"
 
                                                 //+"|ImportPPDataBroadcastReceiver"
 

@@ -122,7 +122,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
     //static final String EXTRA_SELECTED_FILTER = "selected_filter";
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
-    private static final String EXTRA_CREATE_PPP_FOLDER = "create_ppp_folder";
 
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
@@ -136,6 +135,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
     // request code for startActivityForResult with intent ACTION_OPEN_DOCUMENT_TREE
     private static final int REQUEST_CODE_BACKUP_SETTINGS = 6230;
+    private static final int REQUEST_CODE_BACKUP_SETTINGS_2 = 6231;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
@@ -1754,7 +1754,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
         else
-        if (requestCode == REQUEST_CODE_BACKUP_SETTINGS) {
+        if ((requestCode == REQUEST_CODE_BACKUP_SETTINGS) || (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2)) {
             if (resultCode == RESULT_OK) {
                 // uri of folder
                 Uri treeUri = data.getData();
@@ -1770,8 +1770,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (pickedDir != null) {
 
                         if (pickedDir.canWrite()) {
-                            boolean createPPPFolder = data.getBooleanExtra(EXTRA_CREATE_PPP_FOLDER, true);
-                            if (createPPPFolder) {
+                            if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
                                 if ((pickedDir.findFile("PhoneProfilesPlus") == null) /*|| (!pickedDir.isDirectory())*/) {
                                     // create subdirectory
                                     pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
@@ -3294,8 +3293,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                                    intent.putExtra(EXTRA_CREATE_PPP_FOLDER, checkBox.isChecked());
-                                    startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
+                                    PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
+                                    if (checkBox.isChecked())
+                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
+                                    else
+                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
                                 }
                             });
                             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -4399,7 +4401,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
         // copy file
-        DocumentFile newFile = pickedDir.createFile("text/plain", fileName);
+        DocumentFile newFile = pickedDir.createFile("application/x-binary", fileName);
         if (newFile != null) {
             try {
                 File exportFile = new File(applicationDir, fileName);
