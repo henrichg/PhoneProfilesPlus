@@ -1771,7 +1771,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         if (pickedDir.canWrite()) {
                             if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
-                                // if directory exits, create new = "PhoneProfilesPlus (x)"
+                                // if directory exists, create new = "PhoneProfilesPlus (x)"
                                 // create subdirectory
                                 pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
                                 if (pickedDir == null) {
@@ -1809,8 +1809,30 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
 
                     if (!ok) {
-                        // TODO show alert about copy error
                         PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backu files");
+
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+                        dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+
+                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //            @Override
+                        //            public void onShow(DialogInterface dialog) {
+                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //                if (positive != null) positive.setAllCaps(false);
+                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //                if (negative != null) negative.setAllCaps(false);
+                        //            }
+                        //        });
+
+                        if (!isFinishing())
+                            dialog.show();
+                    }
+                    else {
+                        PPApplication.showToast(getApplicationContext(), getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
                     }
                 }
             }
@@ -3286,7 +3308,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             @SuppressLint("InflateParams")
                             View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                             dialogBuilder.setView(layout);
-                            dialogBuilder.setTitle(R.string.backup_profiles_alert_title);
+                            dialogBuilder.setTitle(R.string.backup_settings_alert_title);
                             final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
                             checkBox.setChecked(true);
                             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {

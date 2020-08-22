@@ -10,7 +10,7 @@
         android:id="@+id/backup_settings_alert_dialog_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_backup_profiles_alert_text"
+        android:text="@string/dialog_backup_settings_alert_text"
         android:textSize="16sp" />
 
     <CheckBox
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="-5dp"
-        android:text="@string/dialog_backup_profiles_alert_checkBox" />
+        android:text="@string/dialog_backup_settings_alert_checkBox" />
 
 </LinearLayout>
 
