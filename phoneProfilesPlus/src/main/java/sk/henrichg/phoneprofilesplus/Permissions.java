@@ -1634,7 +1634,7 @@ class Permissions {
         //    return true;
     }
 
-    static boolean grantExportPermissions(Context context, EditorProfilesActivity editor, boolean email, boolean toAuthor) {
+    static boolean grantExportPermissions(Context context, EditorProfilesActivity editor) {
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkExport(context);
             if (!granted) {
@@ -1646,25 +1646,11 @@ class Permissions {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    if (email) {
-                        if (toAuthor)
-                            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR);
-                        else
-                            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT_AND_EMAIL);
-                    }
-                    else
-                        intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    if (email) {
-                        if (toAuthor)
-                            editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR);
-                        else
-                            editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT_AND_EMAIL);
-                    }
-                    else
-                        editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
+                    editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
                     //editorActivity = editor;
                     //context.startActivity(intent);
                 } catch (Exception e) {

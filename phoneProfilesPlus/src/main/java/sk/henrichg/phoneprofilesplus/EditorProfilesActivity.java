@@ -1967,7 +1967,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         final EditorProfilesActivity activity = this;
         //final String _applicationDataPath = applicationDataPath;
 
-        //if (Permissions.checkImport(getApplicationContext())) {
+        if (Permissions.checkImport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -2181,7 +2181,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             importAsyncTask = new ImportAsyncTask().execute();
-        //}
+        }
     }
 
     private void importData()
@@ -2192,13 +2192,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                doImportData();
-
-                // TODO maybe is not required, but test it again, when will be added copy via action intent
-                //if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
-                //    //doImportData(PPApplication.EXPORT_PATH);
-                //    doImportData();
-                //}
+                if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
+                    //doImportData(PPApplication.EXPORT_PATH);
+                    doImportData();
+                }
             }
         });
         dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
@@ -2990,11 +2987,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-                    doExportData(email, toAuthor);
-
-                    // TODO maybe is not required, but test it again, when will be added copy via action intent
-                    //if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this, email, toAuthor))
-                    //    doExportData(email, toAuthor);
+                     if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this))
+                         doExportData(false, toAuthor);
                 }
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -3014,14 +3008,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 dialog.show();
         }
         else
-            doExportData(email, toAuthor);
+            doExportData(false, toAuthor);
     }
 
     private void doExportData(final boolean email, final boolean toAuthor)
     {
         final EditorProfilesActivity activity = this;
 
-        //if (Permissions.checkExport(getApplicationContext())) {
+        if (email || Permissions.checkExport(getApplicationContext())) {
 
             @SuppressLint("StaticFieldLeak")
             class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -3215,6 +3209,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 }
                             }
                         }
+                        else {
+                            // TODO do copy into user folder
+                        }
 
                     } else {
                         if (!isFinishing())
@@ -3225,7 +3222,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             exportAsyncTask = new ExportAsyncTask().execute();
-        //}
+        }
 
     }
 
