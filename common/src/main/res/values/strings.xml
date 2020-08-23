@@ -1560,7 +1560,7 @@
 
     <string name="export_data_email_subject">Exported settings</string>
     <string name="backup_settings_alert_title">Backup settings</string>
-    <string name="dialog_backup_settings_alert_text">Copy settings into folder?</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
     <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
     <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
     <string name="backup_settings_ok_backed_up">Settings backed up</string>
