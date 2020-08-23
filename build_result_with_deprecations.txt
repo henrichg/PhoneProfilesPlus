@@ -757,7 +757,7 @@ Build Analyzer results available
 setWifiEnabled()
 - ActivateProfileHelper.doExecuteForRadio() - Settings.Panel?
 - ActivateProfileHelper.setWifiAP() - je volane reflection, treba testnut !!!  V Settings.Panel to nie je.
-                                    - je tan cez reflection aj disable wifi, ale to nefunguje, cize asi len Extender.
+                                    - je tan cez reflection aj disable wifi, ale to nefunguje, cize len Extender.
 - ConnectToSSIDDialogPreferenceFragmentX.refreshListView() - treba na zistenie, ktore SSID su v okoli, Settings.Panel ak nie je zapnuta
 - WifiAPManager.setWifiAPState() - nie je volane pre Android 10
 - WifiAPManager.startTethering() - nie je volane pre Android 10
@@ -774,7 +774,7 @@ android.net.wifi.WifiConfiguration
 Cize vysledok je:
 - zapnutie/vypnutie wifi v ActivateProfileHelper - Settings.Panel alebo Extender
 - zapnutie/vypnutie wifi AP v ActivateProfileHelper - je volane reflection, treba testnut !!! V Settings.Panel to nie je.
-                                    - je tan cez reflection aj disable wifi, ale to nefunguje, cize asi len Extender.
+                                    - je tan cez reflection aj disable wifi, ale to nefunguje, cize len Extender.
 - connect do konkretneho SSID v ActivateProfileHelper a WifiStateChangedBroadcastReceiver - po zapnuti wifi - Settings.Panel alebo Extender
 - wifi skenovanie - do Extendera
 - Pozri, ci budu fungovat tie location veci, tie su toez deprecated
