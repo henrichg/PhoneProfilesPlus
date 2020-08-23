@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Není možné</string>
     <string name="menu_export">Záloha nastavení aplikace</string>
     <string name="menu_import">Obnova nastavení aplikace</string>
-    <string name="toast_export_ok">Nastavení aplikace je zálohováno</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">Nastavení aplikace jsou obnoveny</string>
     <string name="import_profiles_alert_title">Obnova nastavení aplikace</string>
     <string name="import_profiles_alert_message">Jste si jistí?</string>
     <string name="import_profiles_alert_error">Chyba během procesu obnovy</string>
-    <string name="export_profiles_alert_title">Záloha nastavení aplikace</string>
-    <string name="export_profiles_alert_error">Chyba během procesu zálohování</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">Mobilní data</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Nastavení mobilních dat</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Barevné</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">DTMF zvuk při vytáčení</string>
     <string name="not_saved_changes_alert_title">Parametry se změnily</string>
     <string name="not_saved_changes_alert_message">Uložit změny?</string>
-    <string name="export_profiles_alert_message">Zálohovací soubory se uloží do interního úložiště zařízení do složky</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Poznámka: Zálohovací soubory obsahují citlivé soukromé údaje. Distribuujte soubory třetím stranám, například v Zip souboru s heslem.</string>
-    <string name="alert_button_backup">Zálohuj</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">Zásady ochrany osobních údajů se změnily. Zejména o zálohovaných souborech generovaných funkcí zálohování.</string>
     <string name="important_info_privacy_policy_backup_files_2">Klikněte zde, pokud chcete zobrazit zásady ochrany osobních údajů.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Systémová nastavení</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Seřadit seznam</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Podle názvu buňky</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Podle času připojení</string>
-    <string name="menu_export_and_email">Zálohovat a poslat nastavení e-mailem</string>
-    <string name="menu_export_and_email_to_author">Zálohovat a poslat nastavení e-mailem autorovi</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">Poslat e-mailem ladící soubory autorovi</string>
     <string name="menu_support">Podpora</string>
     <string name="email_debug_log_files_subject">Ladící soubory</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Vymazat nakonfigurovány profily</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Importovat aplikační nastavení</string>
     <string name="export_pp_data_dialog_start_pp">Pokud PhoneProfiles neběží, prosím spusťte jej.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

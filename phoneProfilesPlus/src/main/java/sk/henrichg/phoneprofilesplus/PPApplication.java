@@ -137,9 +137,10 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
-                                                +"|EditorProfilesActivity.copyToBackupDirectory"
-                                                +"|EditorProfilesActivity.onActivityResult"
-                                                +"|EditorProfilesActivity.doExportData"
+                                                //+"|EditorProfilesActivity.copyToBackupDirectory"
+                                                //+"|EditorProfilesActivity.copyFromBackupDirectory"
+                                                //+"|EditorProfilesActivity.onActivityResult"
+                                                //+"|EditorProfilesActivity.doExportData"
 
                                                 //+"|ImportPPDataBroadcastReceiver"
 

@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Nem engedélyezett</string>
     <string name="menu_export">Alkalmazás beállítások mentése</string>
     <string name="menu_import">Alkalmazás beállítások visszaállítása</string>
-    <string name="toast_export_ok">Elmentett beállítások</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">A beállítások visszaálltak</string>
     <string name="import_profiles_alert_title">Beállítások visszaállítása</string>
     <string name="import_profiles_alert_message">Biztos vagy benne?</string>
     <string name="import_profiles_alert_error">Hiba a visszaállítási folyamat közben</string>
-    <string name="export_profiles_alert_title">Beállítások mentése</string>
-    <string name="export_profiles_alert_error">Hiba a biztonsági mentési folyamat közben</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">Mobil adatok</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Mobil adatok tulajdonságai</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Színes</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">DTMF hang tárcsázásakor</string>
     <string name="not_saved_changes_alert_title">Beállítások megváltoztak</string>
     <string name="not_saved_changes_alert_message">Menti a módosításokat?</string>
-    <string name="export_profiles_alert_message">Hát fájlokat mentése a készülék belső tároló könyvtárában lesz</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Megjegyzés: A biztonsági másolat-fájlok érzékeny személyes adatokat tartalmazhatnak. Terjeszteni a harmadik félnek, például a titkosított tömörített fájlként.</string>
-    <string name="alert_button_backup">Biztonsági mentés</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">Adatvédelmi politika megváltozik. Különösen a biztonsági másolat fájlokra melyeket a biztonsági másolat funkció generál.</string>
     <string name="important_info_privacy_policy_backup_files_2">Ide kattintva adatvédelmi politikát mutatja.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Rendszerbeállítások</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Lista rendezés</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Cella nevével</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Kapcsolat idejével</string>
-    <string name="menu_export_and_email">Biztonsági mentés és e-mail beállításai</string>
-    <string name="menu_export_and_email_to_author">Biztonsági másolat és e-mail beállítások a szerzőnek</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">E-mailben küldje el a hibakeresési naplófájlokat a szerzőnek</string>
     <string name="menu_support">Támogatás</string>
     <string name="email_debug_log_files_subject">Hibakeresési naplófájlok</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Delete configured profiles</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Import application preferences</string>
     <string name="export_pp_data_dialog_start_pp">If PhoneProfiles is not running, please start it.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>

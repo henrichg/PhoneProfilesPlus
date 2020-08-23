@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Non autorisé</string>
     <string name="menu_export">Sauvegarder les paramètres</string>
     <string name="menu_import">Restaurer les paramètres</string>
-    <string name="toast_export_ok">Paramètres sauvegardés</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">Paramètres restaurés</string>
     <string name="import_profiles_alert_title">Restaurer les paramètres</string>
     <string name="import_profiles_alert_message">Êtes-vous sûr?</string>
     <string name="import_profiles_alert_error">Erreur lors du processus de restauration</string>
-    <string name="export_profiles_alert_title">Exporter les paramètres de l\'application</string>
-    <string name="export_profiles_alert_error">Erreur pendant le processus de sauvegarde</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">Données mobiles</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Préférences pour les données mobiles</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Coloré</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">Tonalité DTMF lors de la numérotation</string>
     <string name="not_saved_changes_alert_title">Préférences changées</string>
     <string name="not_saved_changes_alert_message">Enregistrer les modifications?</string>
-    <string name="export_profiles_alert_message">Les fichiers de sauvegarde seront sauvegardés dans la mémoire interne de l\'appareil dans le dossier</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Remarque : Les fichiers de sauvegarde contiennent des données privées sensibles. Distribuer les fichiers à des tiers, par exemple dans un fichier zip avec mot de passe.</string>
-    <string name="alert_button_backup">Effectuer des sauvegardes</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">La politique de confidentialité est modifiée. En particulier sur les fichiers de sauvegarde générés par la fonction Sauvegarde.</string>
     <string name="important_info_privacy_policy_backup_files_2">Cliquez ici pour afficher la politique de confidentialité.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Paramètres système</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Trier par</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Par nom de cellule</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Par temps de connexion</string>
-    <string name="menu_export_and_email">Réglages pour la sauvegarde et le courriel</string>
-    <string name="menu_export_and_email_to_author">Sauvegarder les paramètres et les transmettre par email à l\'auteur</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">Envoyer les fichiers de débogage à l\'auteur</string>
     <string name="menu_support">Support</string>
     <string name="email_debug_log_files_subject">Fichiers journaux de débogage</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Supprimer les profils configurés</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Importer les préférences de l\'application</string>
     <string name="export_pp_data_dialog_start_pp">Si PhoneProfiles n\'est pas en cours d\'exécution, veuillez le démarrer.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporter vers PhoneProfilesPlus</string>

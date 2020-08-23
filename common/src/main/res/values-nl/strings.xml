@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Niet toegestaan</string>
     <string name="menu_export">Back-up instellingen</string>
     <string name="menu_import">Herstel Instellingen</string>
-    <string name="toast_export_ok">Instellingen back-upped</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">Instellingen hersteld</string>
     <string name="import_profiles_alert_title">Herstel Instellingen</string>
     <string name="import_profiles_alert_message">Weet je het zeker?</string>
     <string name="import_profiles_alert_error">Fout tijdens herstelproces</string>
-    <string name="export_profiles_alert_title">Back-upinstellingen</string>
-    <string name="export_profiles_alert_error">Fout tijdens back-upproces</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">Mobiele data</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Voorkeuren mobiele data</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Kleurrijk</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">DTMF toon bij nummer kiezen</string>
     <string name="not_saved_changes_alert_title">Voorkeuren gewijzigd</string>
     <string name="not_saved_changes_alert_message">Wijzigingen opslaan?</string>
-    <string name="export_profiles_alert_message">Back-up bestanden worden opgeslagen in de interne opslag in een folder</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Opmerking: Back-up bestanden bevatte gevoelige persoonlijke gegevens. Distribueer deze bestanden aan derden, bijvoorbeeld in zip-bestand met een wachtwoord.</string>
-    <string name="alert_button_backup">Backup</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">Privacybeleid is gewijzigd. Vooral over backup bestanden gegenereerd door de backup functie.</string>
     <string name="important_info_privacy_policy_backup_files_2">Klik hierop om de Privacy Policy te tonen.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Systeeminstellingen</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Sorteer lijst</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Op celnaam</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Op verbonden tijd</string>
-    <string name="menu_export_and_email">Back-up en e-mail instellingen</string>
-    <string name="menu_export_and_email_to_author">Back-up en e-mail instellingen naar auteur</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">E-mail debug logbestanden naar auteur</string>
     <string name="menu_support">Ondersteuning</string>
     <string name="email_debug_log_files_subject">Debug logbestand</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Verwijder geconfigureerde profielen</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Importeer applicatie voorkeuren</string>
     <string name="export_pp_data_dialog_start_pp">Als PhoneProfiles niet actief is, start het.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>

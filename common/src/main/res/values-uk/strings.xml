@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Не дозволено</string>
     <string name="menu_export">Резервування</string>
     <string name="menu_import">Відновлення</string>
-    <string name="toast_export_ok">Створено резервну копію налаштувань</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">Відновлено рез. копію налаштувань</string>
     <string name="import_profiles_alert_title">Відновлення рез. копії</string>
     <string name="import_profiles_alert_message">Ви впевнені?</string>
     <string name="import_profiles_alert_error">Помилка під час відновлення</string>
-    <string name="export_profiles_alert_title">Створення рез. копії</string>
-    <string name="export_profiles_alert_error">Помилка під час резервування</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">Передача даних</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Налаштування передачі даних</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Кольорова</string>
@@ -625,7 +625,7 @@
     <string name="about_application_donate_button">Підтримайте нас копійчиною</string>
     <string name="donation_activity_title">Грошева підтримка</string>
     <string name="donation_description">Вам сподобався цей додаток?\nПідтримайте його розвиток надіславши копійчину розробнику.</string>
-    <string name="about_application_releases">Релізи:</string>
+    <string name="about_application_releases">Версії:</string>
     <string name="permission_group_name_draw_overlays">Відображати поверх інших додатків</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Відображення поверх інших додатків вимкнуто. Більше не питати?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">Відображати поверх інших додатків</string>
@@ -918,7 +918,7 @@
     <string name="notification_channel_notify_event_start">Сповіщення про початок події</string>
     <string name="notification_channel_notify_event_start_description">Показує сповіщення про початок події.</string>
     <string name="important_info_accessibility_service_new_version">Будь ласка, встановіть нову версію PhoneProfilesPlusExtender. Додаткові відомості про встановлення - в параметрах, для яких потрібен PhoneProfilesPlusExtender.</string>
-    <string name="important_info_accessibility_service_new_version_2">Натисніть тут аби побачити релізи PhoneProfilesPlusExtender на GitHub.</string>
+    <string name="important_info_accessibility_service_new_version_2">Натисніть тут аби побачити версії PhoneProfilesPlusExtender на GitHub.</string>
     <string name="array_pref_no_force_stop">Не зупиняти примусово</string>
     <string name="array_pref_force_stop">Примусово припиняти</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Примусова зупинка додатків</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">DTMF сигнал під час дзвінка</string>
     <string name="not_saved_changes_alert_title">Налаштування змінені</string>
     <string name="not_saved_changes_alert_message">Зберегти зміни?</string>
-    <string name="export_profiles_alert_message">Файли резевного копіювання будуть збережені у пам’ять пристрою до папки</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Примітка: Файли резервного копіювання містять особисті дані. Використовуйте пароль при збережені, наприклад у zip-файл.</string>
-    <string name="alert_button_backup">Резервувати</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">Політику конфіденційності змінено, особливо щодо резервного копіювання файлів, згенерованих за допомогою функції резервного копіювання.</string>
     <string name="important_info_privacy_policy_backup_files_2">Натисніть тут, щоб переглянути політику конфіденційності.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Налаштування системи</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Сортувати</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">За ім\'ям вишки</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">За часом з\'єднання</string>
-    <string name="menu_export_and_email">Налаштування резервування та електронної пошти</string>
-    <string name="menu_export_and_email_to_author">Налаштування резервування та електронної пошти автору програми</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">Відправити файли журналу відлагодження автору програми</string>
     <string name="menu_support">Підтримка</string>
     <string name="email_debug_log_files_subject">Файли журналу відлагодження</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Видалити налаштовані профілі</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Імпорт налаштувань додатку</string>
     <string name="export_pp_data_dialog_start_pp">Якщо PhoneProfiles не запущений, запустіть його.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Експортувати у PhoneProfilesPlus</string>
@@ -1489,7 +1499,7 @@
     <string name="extender_permissions_event_sensor_call_28">• Дозволи до параметру подій \"Датчик викликів\" - дозвіл Телефон, Журнал викликів:</string>
     <string name="extender_toast_permissions_not_granted">Дозволи не надані</string>
     <string name="extender_accessibility_service_profile_lock_device">• Служба спец. можливостей для параметра профілю \"Блокування телефону\":</string>
-    <string name="extender_application_releases">Релізи:</string>
+    <string name="extender_application_releases">Версії:</string>
     <string name="extender_web_browser_chooser">Перегляд веб-посилання за допомогою</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->

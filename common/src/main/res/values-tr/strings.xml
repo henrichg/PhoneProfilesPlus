@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">İzin verilmiyor</string>
     <string name="menu_export">Yedekleme ayarları</string>
     <string name="menu_import">Geri yükleme ayarları</string>
-    <string name="toast_export_ok">Uygulama ayarları yedeklendi</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">Uygulama ayarları geri yüklendi</string>
     <string name="import_profiles_alert_title">Uygulama ayarlarını geri yükle</string>
     <string name="import_profiles_alert_message">Emin misiniz?</string>
     <string name="import_profiles_alert_error">Geri yüklerken hata belirdi</string>
-    <string name="export_profiles_alert_title">Ayarları yedekle</string>
-    <string name="export_profiles_alert_error">Yedeklerken hata belirdi</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">Şebeke interneti</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Şebeke internet bağlantı ayarları</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Renkli</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">Çağrı esnasında DTMF ton</string>
     <string name="not_saved_changes_alert_title">Tercihler değişti</string>
     <string name="not_saved_changes_alert_message">Değişikler kaydedilsin mi?</string>
-    <string name="export_profiles_alert_message">Yedek dosyalar cihaz dahili depolama klasörüne kaydedilir</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Not: Yedekleme dosyaları gizli özel veri içerir. Dosyaları 3. parti olan bir uygulama ile açın, Misalen şifreli zip dosyasında.</string>
-    <string name="alert_button_backup">Yedekle</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">Mahremiyet düsturları değişti. Hususen yedekleme hizmeti kullanılarak üretilen yedek dosyaları hakkında.</string>
     <string name="important_info_privacy_policy_backup_files_2">Mahremiyet hareket tarzını göstermek için buna dokunun.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Sistem ayarları</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Listeyi sırala</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Hücre ismine göre</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Bağlantı süresine göre</string>
-    <string name="menu_export_and_email">Yedekleme ve e-posta ayarları</string>
-    <string name="menu_export_and_email_to_author">Yazılımcıya yedekleyip e-posta ile gönderme ayarları</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">Hata ayıklama dosyalarını yazılımcıya e-posta ile gönder</string>
     <string name="menu_support">Destek</string>
     <string name="email_debug_log_files_subject">Hata Kayıt dosyaları</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Ayarlanmış Tercihleri sil</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Uygulama tercihlerini içe aktar</string>
     <string name="export_pp_data_dialog_start_pp">PhoneProfiles çalışmıyorsa, lütfen başlatın.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">PhoneProfilesPlus\'a veri aktar</string>

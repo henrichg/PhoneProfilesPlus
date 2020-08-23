@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Nije dopušteno</string>
     <string name="menu_export">Postavke sigurnosne kopije</string>
     <string name="menu_import">Postavke vraćanja</string>
-    <string name="toast_export_ok">Napravljena kopija postavki</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">Postavke su vraćene</string>
     <string name="import_profiles_alert_title">Vraćanje postavki</string>
     <string name="import_profiles_alert_message">Jeste li sigurni?</string>
     <string name="import_profiles_alert_error">Dogodila se pogreška tijekom povrata</string>
-    <string name="export_profiles_alert_title">Postavke sigurnosne kopije</string>
-    <string name="export_profiles_alert_error">Dogodila se greška tijekom stvaranja pričuvne kopije</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">Mobilni podaci</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Postavke mobilnih podataka</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Spektar</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">DTMF zvuk prilikom poziva</string>
     <string name="not_saved_changes_alert_title">Postavke su izmenjene</string>
     <string name="not_saved_changes_alert_message">Spremi promjene?</string>
-    <string name="export_profiles_alert_message">Rezervna kopija će biti spremljena u pohrani uređaja u folderu</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">Napomena: Rezervna kopija sadržava osetljive privatne podatke. Dijelite ove podatke sa drugim licima u Zip formatu zaštićene šifrom.</string>
-    <string name="alert_button_backup">Uradi rez. kopiju</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">Politika privatnosti je promjenjena. Naročito za kopiju podataka kreiranu sa funkcijom za rezervne kopije.</string>
     <string name="important_info_privacy_policy_backup_files_2">Klikni ovdje za prikaz Politike privatnosti.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Postavke Sustava</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Sortiraj popise</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Prema imenu ćelije</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Po vremenu povezivanja</string>
-    <string name="menu_export_and_email">Rezervna kopija i slanje postavki putem e-pošte</string>
-    <string name="menu_export_and_email_to_author">Rezervna kopija i slanje postavki putem e-pošte autoru</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">Slanje dnevnika sa pogreškama putem e-pošte autoru</string>
     <string name="menu_support">Podrška</string>
     <string name="email_debug_log_files_subject">Dnevnik sa greškama datoteka</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Brisanje konfiguriranih profila</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Uvoz postavki aplikacije</string>
     <string name="export_pp_data_dialog_start_pp">Ako Profili telefona nisu pokrenuti, molimo da ih pokrenete.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Izvoz u PhoneProfilesPlus</string>

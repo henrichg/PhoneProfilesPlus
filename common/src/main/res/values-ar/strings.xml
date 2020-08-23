@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">غير مسموح به</string>
     <string name="menu_export">تخزين الإعدادات</string>
     <string name="menu_import">إستعادة الإعدادات</string>
-    <string name="toast_export_ok">ضبط النسخ الاحتياطي</string>
+    <string name="toast_export_ok">Settings exported</string>
     <string name="toast_import_ok">إعادة الضبط</string>
     <string name="import_profiles_alert_title">إستعادة الإعدادات</string>
     <string name="import_profiles_alert_message">هل أنت واثق؟</string>
     <string name="import_profiles_alert_error">خطأ أثناء عملية الاستعادة</string>
-    <string name="export_profiles_alert_title">تخزين الإعدادات</string>
-    <string name="export_profiles_alert_error">خطأ أثناء عملية النسخ الاحتياطي</string>
+    <string name="export_profiles_alert_title">Export settings</string>
+    <string name="export_profiles_alert_error">Error during export process</string>
     <string name="profile_preferences_deviceMobileData">بيانات الجوال</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) إعدادات بيانات الجوال</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">ملون</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">نغمة DTMF عند الاتصال</string>
     <string name="not_saved_changes_alert_title">الإعدادات قد تغيرت</string>
     <string name="not_saved_changes_alert_message">حفظ التغييرات ؟</string>
-    <string name="export_profiles_alert_message">سيتم حفظ ملفات النسخ الاحتياطي في وحدة التخزين الداخلية للجهاز في مجلد</string>
+    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
     <string name="export_profiles_alert_message_note">ملاحظة: تحتوي ملفات النسخ الاحتياطي على بيانات خاصة بك قد تكون حساسة. قم بحماية الملفات ، على سبيل المثال في ملف مضغوط محمي بكلمة مرور.</string>
-    <string name="alert_button_backup">قم بالتخزين</string>
+    <string name="alert_button_backup">Do export</string>
     <string name="important_info_privacy_policy_backup_files">تم تغيير سياسة الخصوصية. خاصة حول ملفات النسخ الاحتياطي التي تم إنشاؤها بواسطة وظيفة النسخ الاحتياطي.</string>
     <string name="important_info_privacy_policy_backup_files_2">انقر هنا لعرض سياسة الخصوصية.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">اعدادات النظام</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Sort list</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">By cell name</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">By connected time</string>
-    <string name="menu_export_and_email">Backup and e-mail settings</string>
-    <string name="menu_export_and_email_to_author">Backup and e-mail settings to author</string>
+    <string name="menu_export_and_email">Export and e-mail settings</string>
+    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">E-mail debug log files to author</string>
     <string name="menu_support">Support</string>
     <string name="email_debug_log_files_subject">Debug log files</string>
@@ -1456,6 +1456,16 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Delete configured profiles</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Import application preferences</string>
     <string name="export_pp_data_dialog_start_pp">If PhoneProfiles is not running, please start it.</string>
+    <string name="export_data_email_subject">Exported settings</string>
+    <string name="backup_settings_alert_title">Backup settings</string>
+    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
+    <string name="backup_settings_ok_backed_up">Settings backed up</string>
+    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>
