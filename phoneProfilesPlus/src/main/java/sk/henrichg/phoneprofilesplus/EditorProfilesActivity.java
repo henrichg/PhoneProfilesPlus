@@ -100,9 +100,13 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AsyncTask importFromPPAsyncTask = null;
     @SuppressWarnings("rawtypes")
     private AsyncTask exportAsyncTask = null;
+    @SuppressWarnings("rawtypes")
+    private AsyncTask backupAsyncTask = null;
+
     static boolean doImport = false;
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
+    private AlertDialog backupProgressDialog = null;
 
     static boolean importFromPPStopped = false;
 
@@ -779,6 +783,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             exportProgressDialog.dismiss();
             exportProgressDialog = null;
         }
+        if ((backupProgressDialog != null) && backupProgressDialog.isShowing()) {
+            backupProgressDialog.dismiss();
+            backupProgressDialog = null;
+        }
         if ((importAsyncTask != null) && !importAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             importAsyncTask.cancel(true);
             doImport = false;
@@ -789,6 +797,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
         if ((exportAsyncTask != null) && !exportAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             exportAsyncTask.cancel(true);
+        }
+        if ((backupAsyncTask != null) && !backupAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            backupAsyncTask.cancel(true);
         }
 
         if (!savedInstanceStateChanged)
@@ -1762,78 +1773,136 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // persistent permissions
                     final int takeFlags = data.getFlags()
                             & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
+                    getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 
-                    boolean ok = true;
+                    class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
+                        DocumentFile pickedDir;
+                        Uri treeUri;
+                        Activity activity;
 
-                    DocumentFile pickedDir = DocumentFile.fromTreeUri(this, treeUri);
-                    if (pickedDir != null) {
+                        int requestCode;
+                        int ok = 1;
 
-                        if (pickedDir.canWrite()) {
-                            if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
-                                // if directory exists, create new = "PhoneProfilesPlus (x)"
-                                // create subdirectory
-                                pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
-                                if (pickedDir == null) {
-                                    // error for create directory
-                                    PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
-                                    ok = false;
+                        private BackupAsyncTask(int requestCode, Uri treeUri, Activity activity) {
+                            this.treeUri = treeUri;
+                            this.requestCode = requestCode;
+                            this.activity = activity;
+
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.backup_settings_alert_title);
+
+                            LayoutInflater inflater = (activity.getLayoutInflater());
+                            @SuppressLint("InflateParams")
+                            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+                            dialogBuilder.setView(layout);
+
+                            backupProgressDialog = dialogBuilder.create();
+
+                        }
+
+                        @Override
+                        protected void onPreExecute() {
+                            super.onPreExecute();
+
+                            pickedDir = DocumentFile.fromTreeUri(getApplicationContext(), treeUri);
+
+                            GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                            backupProgressDialog.setCancelable(false);
+                            backupProgressDialog.setCanceledOnTouchOutside(false);
+                            if (!activity.isFinishing())
+                                backupProgressDialog.show();
+                        }
+
+                        @Override
+                        protected Integer doInBackground(Void... params) {
+                            if (pickedDir != null) {
+                                if (pickedDir.canWrite()) {
+                                    if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
+                                        // if directory exists, create new = "PhoneProfilesPlus (x)"
+                                        // create subdirectory
+                                        pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
+                                        if (pickedDir == null) {
+                                            // error for create directory
+                                            PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
+                                            ok = 0;
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                        else {
-                            // pickedDir is not writable
-                            PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
-                            ok = false;
-                        }
+                                else {
+                                    // pickedDir is not writable
+                                    PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
+                                    ok = 0;
+                                }
 
-                        if (ok) {
-                            if (pickedDir.canWrite()) {
-                                File applicationDir = getApplicationContext().getExternalFilesDir(null);
+                                if (ok == 1) {
+                                    if (pickedDir.canWrite()) {
+                                        File applicationDir = getApplicationContext().getExternalFilesDir(null);
 
-                                ok = copyToBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                                if (ok)
-                                    ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
+                                        ok = copyToBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, getApplicationContext());
+                                        if (ok == 1)
+                                            ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
+                                    }
+                                    else {
+                                        // cannot copy backup files, pickedDir is not writable
+                                        PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
+                                        ok = 0;
+                                    }
+                                }
+
                             }
                             else {
-                                // cannot copy backup files, pickedDir is not writable
-                                PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
-                                ok = false;
+                                // pickedDir is null
+                                PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
+                                ok = 0;
+                            }
+
+                            return ok;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Integer result) {
+                            super.onPostExecute(result);
+
+                            if (!isFinishing()) {
+                                if ((backupProgressDialog != null) && backupProgressDialog.isShowing()) {
+                                    if (!isDestroyed())
+                                        backupProgressDialog.dismiss();
+                                    backupProgressDialog = null;
+                                }
+                                GlobalGUIRoutines.unlockScreenOrientation(activity);
+                            }
+
+                            if (result == 0) {
+                                PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backu files");
+
+                                if (!activity.isFinishing()) {
+                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                                    dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+                                    dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
+                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = dialogBuilder.create();
+
+                                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    //            @Override
+                                    //            public void onShow(DialogInterface dialog) {
+                                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    //                if (positive != null) positive.setAllCaps(false);
+                                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    //                if (negative != null) negative.setAllCaps(false);
+                                    //            }
+                                    //        });
+
+                                    dialog.show();
+                                }
+                            }
+                            else {
+                                PPApplication.showToast(getApplicationContext(), getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
                             }
                         }
                     }
-                    else {
-                        // pickedDir is null
-                        PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
-                        ok = false;
-                    }
 
-                    if (!ok) {
-                        PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backu files");
-
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
-                        dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        //            @Override
-                        //            public void onShow(DialogInterface dialog) {
-                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        //                if (positive != null) positive.setAllCaps(false);
-                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        //                if (negative != null) negative.setAllCaps(false);
-                        //            }
-                        //        });
-
-                        if (!isFinishing())
-                            dialog.show();
-                    }
-                    else {
-                        PPApplication.showToast(getApplicationContext(), getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
-                    }
+                    backupAsyncTask = new BackupAsyncTask(requestCode, treeUri, this).execute();
                 }
             }
         }
@@ -4411,14 +4480,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         return body;
     }
 
-    private boolean copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName) {
+    private static int copyToBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
         DocumentFile oldFile = pickedDir.findFile(fileName);
         if (oldFile != null) {
             // delete old file
             if (!oldFile.delete()) {
                 // cannot delete existed file
                 PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot delete existed file");
-                return false;
+                return 0;
             }
         }
         // copy file
@@ -4427,7 +4496,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             try {
                 File exportFile = new File(applicationDir, fileName);
                 FileInputStream inStream = new FileInputStream(exportFile);
-                OutputStream outStream = getContentResolver().openOutputStream(newFile.getUri());
+                OutputStream outStream = context.getContentResolver().openOutputStream(newFile.getUri());
                 if (outStream != null) {
                     try {
                         byte[] buf = new byte[1024];
@@ -4443,20 +4512,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                 else {
                     // cannot open fileName stream
                     PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot open fileName stream");
-                    return false;
+                    return 0;
                 }
             } catch (Exception e) {
                 PPApplication.recordException(e);
                 PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", Log.getStackTraceString(e));
-                return false;
+                return 0;
             }
         }
         else {
             // cannot create fileName
             PPApplication.logE("--------- EditorProfilesActivity.copyToBackupDirectory", "cannot create fileName");
-            return false;
+            return 0;
         }
-        return true;
+        return 1;
     }
 
 }
