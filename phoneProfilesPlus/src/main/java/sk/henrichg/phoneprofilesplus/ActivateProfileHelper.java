@@ -308,6 +308,7 @@ class ActivateProfileHelper {
                                     //    CmdWifi.setWifi(isWifiEnabled);
                                     //else
                                         wifiManager.setWifiEnabled(isWifiEnabled);
+                                        //CmdWifi.setWifiEnabled(isWifiAPEnabled);
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));

@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.net.wifi.IWifiManager;
 import android.os.ServiceManager;
 
+//import androidx.test.platform.app.InstrumentationRegistry;
+
 @SuppressWarnings("WeakerAccess")
 public class CmdWifi {
 
@@ -29,6 +31,15 @@ public class CmdWifi {
             return false;
         }
     }
+
+    /*
+    static void setWifiEnabled(boolean enable) {
+        if (enable)
+            InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc wifi enable");
+        else
+            InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc wifi disable");
+    }
+    */
 
     /*
     static boolean isEnabled() {

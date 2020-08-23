@@ -1,0 +1,753 @@
+Executing tasks: [clean, :phoneProfilesPlus:assembleDebug, :common:assembleDebug, :time-duration-picker:assembleDebug, :phoneProfilesImport:assembleDebug, :RootTools:assembleDebug, :android-betterpickers:assembleDebug, :ToastCompat:assembleDebug, :AndroidClearChroma:assembleDebug, :RootShell:assembleDebug] in project /home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus
+
+> Task :android-betterpickers:clean
+> Task :AndroidClearChroma:clean
+> Task :common:clean
+> Task :phoneProfilesImport:clean
+> Task :phoneProfilesPlus:clean
+> Task :RootShell:clean
+> Task :RootTools:clean
+> Task :time-duration-picker:clean
+> Task :ToastCompat:clean
+> Task :android-betterpickers:preBuild UP-TO-DATE
+> Task :android-betterpickers:preDebugBuild UP-TO-DATE
+> Task :common:preBuild UP-TO-DATE
+> Task :common:preDebugBuild UP-TO-DATE
+> Task :common:compileDebugAidl NO-SOURCE
+> Task :android-betterpickers:compileDebugAidl NO-SOURCE
+> Task :common:packageDebugRenderscript NO-SOURCE
+> Task :android-betterpickers:generateDebugBuildConfig
+> Task :android-betterpickers:compileDebugRenderscript NO-SOURCE
+> Task :android-betterpickers:generateDebugResValues
+> Task :android-betterpickers:generateDebugResources
+> Task :android-betterpickers:packageDebugResources
+> Task :common:compileDebugRenderscript NO-SOURCE
+> Task :common:generateDebugResValues
+> Task :common:generateDebugResources
+> Task :common:packageDebugResources
+> Task :android-betterpickers:processDebugManifest
+> Task :android-betterpickers:parseDebugLocalResources
+> Task :common:generateDebugBuildConfig
+> Task :common:processDebugManifest
+> Task :common:javaPreCompileDebug
+> Task :android-betterpickers:javaPreCompileDebug
+> Task :common:parseDebugLocalResources
+> Task :AndroidClearChroma:preBuild UP-TO-DATE
+> Task :AndroidClearChroma:preDebugBuild UP-TO-DATE
+> Task :AndroidClearChroma:compileDebugAidl NO-SOURCE
+> Task :AndroidClearChroma:generateDebugBuildConfig
+> Task :AndroidClearChroma:compileDebugRenderscript NO-SOURCE
+> Task :AndroidClearChroma:generateDebugResValues
+> Task :AndroidClearChroma:generateDebugResources
+> Task :AndroidClearChroma:packageDebugResources
+> Task :common:generateDebugRFile
+> Task :common:compileDebugJavaWithJavac
+> Task :android-betterpickers:generateDebugRFile
+> Task :AndroidClearChroma:parseDebugLocalResources
+> Task :phoneProfilesImport:preBuild UP-TO-DATE
+> Task :phoneProfilesImport:preDebugBuild UP-TO-DATE
+> Task :phoneProfilesImport:compileDebugAidl NO-SOURCE
+> Task :phoneProfilesImport:compileDebugRenderscript NO-SOURCE
+> Task :phoneProfilesImport:generateDebugBuildConfig
+> Task :phoneProfilesImport:generateDebugResValues
+> Task :AndroidClearChroma:javaPreCompileDebug
+> Task :phoneProfilesImport:generateDebugResources
+> Task :phoneProfilesImport:packageDebugResources
+> Task :common:bundleLibCompileToJarDebug
+> Task :android-betterpickers:compileDebugJavaWithJavac
+> Task :phoneProfilesImport:parseDebugLocalResources
+> Task :AndroidClearChroma:processDebugManifest
+> Task :android-betterpickers:bundleLibCompileToJarDebug
+> Task :phoneProfilesImport:processDebugManifest
+> Task :phoneProfilesImport:javaPreCompileDebug
+> Task :phoneProfilesImport:generateDebugRFile
+> Task :phoneProfilesImport:compileDebugJavaWithJavac
+> Task :AndroidClearChroma:generateDebugRFile
+> Task :AndroidClearChroma:compileDebugJavaWithJavac
+> Task :phoneProfilesImport:bundleLibCompileToJarDebug
+> Task :AndroidClearChroma:bundleLibCompileToJarDebug
+> Task :phoneProfilesPlus:preBuild UP-TO-DATE
+> Task :phoneProfilesPlus:preDebugBuild UP-TO-DATE
+> Task :RootShell:preBuild UP-TO-DATE
+> Task :RootShell:preDebugBuild UP-TO-DATE
+> Task :RootShell:compileDebugAidl NO-SOURCE
+> Task :RootTools:preBuild UP-TO-DATE
+> Task :RootTools:preDebugBuild UP-TO-DATE
+> Task :RootTools:compileDebugAidl NO-SOURCE
+> Task :time-duration-picker:preBuild UP-TO-DATE
+> Task :time-duration-picker:preDebugBuild UP-TO-DATE
+> Task :time-duration-picker:compileDebugAidl NO-SOURCE
+> Task :ToastCompat:preBuild UP-TO-DATE
+> Task :ToastCompat:preDebugBuild UP-TO-DATE
+> Task :ToastCompat:compileDebugAidl NO-SOURCE
+> Task :phoneProfilesPlus:compileDebugAidl NO-SOURCE
+> Task :android-betterpickers:packageDebugRenderscript NO-SOURCE
+> Task :AndroidClearChroma:packageDebugRenderscript NO-SOURCE
+> Task :phoneProfilesImport:packageDebugRenderscript NO-SOURCE
+> Task :RootShell:packageDebugRenderscript NO-SOURCE
+> Task :RootTools:packageDebugRenderscript NO-SOURCE
+> Task :time-duration-picker:packageDebugRenderscript NO-SOURCE
+> Task :ToastCompat:packageDebugRenderscript NO-SOURCE
+> Task :phoneProfilesPlus:compileDebugRenderscript NO-SOURCE
+> Task :phoneProfilesPlus:generateDebugBuildConfig
+> Task :phoneProfilesPlus:javaPreCompileDebug
+> Task :phoneProfilesImport:compileDebugLibraryResources
+> Task :AndroidClearChroma:compileDebugLibraryResources
+> Task :android-betterpickers:compileDebugLibraryResources
+> Task :phoneProfilesPlus:generateDebugResValues
+> Task :phoneProfilesPlus:generateDebugResources
+> Task :phoneProfilesPlus:injectCrashlyticsMappingFileIdDebug
+
+> Task :phoneProfilesPlus:processDebugGoogleServices
+Parsing json file: /home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/google-services.json
+
+> Task :RootShell:compileDebugRenderscript NO-SOURCE
+> Task :RootShell:generateDebugResValues
+> Task :common:compileDebugLibraryResources
+> Task :RootShell:generateDebugResources
+> Task :RootShell:packageDebugResources
+> Task :RootTools:generateDebugResValues
+> Task :RootTools:compileDebugRenderscript NO-SOURCE
+> Task :RootTools:generateDebugResources
+> Task :RootTools:packageDebugResources
+> Task :time-duration-picker:generateDebugResValues
+> Task :time-duration-picker:compileDebugRenderscript NO-SOURCE
+> Task :time-duration-picker:generateDebugResources
+> Task :time-duration-picker:packageDebugResources
+> Task :ToastCompat:generateDebugResValues
+> Task :ToastCompat:compileDebugRenderscript NO-SOURCE
+> Task :ToastCompat:generateDebugResources
+> Task :ToastCompat:packageDebugResources
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rCN/values-zh-rCN.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-vi/values-vi.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-fi/values-fi.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ro/values-ro.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-af/values-af.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ca/values-ca.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-iw/values-iw.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pt-rPT/values-pt-rPT.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-bn-rIN/values-bn-rIN.xml:493: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-uk/values-uk.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-te/values-te.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-fa/values-fa.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-is/values-is.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es/values-es.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-cs/values-cs.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sl/values-sl.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ru/values-ru.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-el/values-el.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-in/values-in.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sk/values-sk.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hu/values-hu.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml:2716: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ku/values-ku.xml:493: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-da/values-da.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-lb/values-lb.xml:493: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sv/values-sv.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-et/values-et.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ja/values-ja.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pt-rBR/values-pt-rBR.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ga-rIE/values-ga-rIE.xml:493: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-bg/values-bg.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sr/values-sr.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ms/values-ms.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-tr/values-tr.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hi/values-hi.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ko/values-ko.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+> Task :android-betterpickers:extractDeepLinksDebug
+> Task :AndroidClearChroma:extractDeepLinksDebug
+> Task :common:extractDeepLinksDebug
+> Task :phoneProfilesImport:extractDeepLinksDebug
+> Task :phoneProfilesPlus:createDebugCompatibleScreenManifests
+> Task :phoneProfilesPlus:extractDeepLinksDebug
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-no/values-no.xml:493: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+> Task :RootShell:extractDeepLinksDebug
+> Task :RootTools:extractDeepLinksDebug
+> Task :RootTools:processDebugManifest
+> Task :time-duration-picker:extractDeepLinksDebug
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hr/values-hr.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+> Task :ToastCompat:extractDeepLinksDebug
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-lv/values-lv.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+> Task :RootShell:processDebugManifest
+> Task :RootShell:compileDebugLibraryResources
+> Task :ToastCompat:processDebugManifest
+> Task :RootShell:parseDebugLocalResources
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-th/values-th.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+> Task :time-duration-picker:processDebugManifest
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-de/values-de.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-it/values-it.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-fr/values-fr.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ar/values-ar.xml:539: warn: multiple substitutions specified in non-positional format; did you mean to add the formatted="false" attribute?.
+
+> Task :phoneProfilesPlus:processDebugManifest
+> Task :RootTools:compileDebugLibraryResources
+> Task :RootShell:generateDebugRFile
+> Task :phoneProfilesPlus:mergeDebugResources
+> Task :RootTools:parseDebugLocalResources
+> Task :time-duration-picker:compileDebugLibraryResources
+> Task :ToastCompat:compileDebugLibraryResources
+> Task :ToastCompat:parseDebugLocalResources
+> Task :RootShell:generateDebugBuildConfig
+> Task :time-duration-picker:parseDebugLocalResources
+> Task :RootShell:javaPreCompileDebug
+> Task :RootShell:compileDebugJavaWithJavac
+> Task :RootTools:generateDebugRFile
+> Task :RootTools:generateDebugBuildConfig
+> Task :RootTools:javaPreCompileDebug
+> Task :time-duration-picker:generateDebugBuildConfig
+> Task :RootShell:bundleLibCompileToJarDebug
+
+> Task :RootTools:compileDebugJavaWithJavac
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/RootTools/src/main/java/com/stericson/RootTools/SanityCheckRootTools.java:27: warning: [deprecation] ProgressDialog in android.app has been deprecated
+import android.app.ProgressDialog;
+                  ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/RootTools/src/main/java/com/stericson/RootTools/internal/RootToolsInternalMethods.java:1030: warning: [deprecation] getExternalStorageDirectory() in Environment has been deprecated
+            File path = Environment.getExternalStorageDirectory();
+                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/RootTools/src/main/java/com/stericson/RootTools/SanityCheckRootTools.java:48: warning: [deprecation] ProgressDialog in android.app has been deprecated
+    private ProgressDialog mPDialog;
+            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/RootTools/src/main/java/com/stericson/RootTools/SanityCheckRootTools.java:107: warning: [deprecation] ProgressDialog in android.app has been deprecated
+        mPDialog = new ProgressDialog(this);
+                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/RootTools/src/main/java/com/stericson/RootTools/SanityCheckRootTools.java:109: warning: [deprecation] ProgressDialog in android.app has been deprecated
+        mPDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                  ^
+5 warnings
+
+> Task :RootTools:bundleLibCompileToJarDebug
+> Task :time-duration-picker:javaPreCompileDebug
+> Task :ToastCompat:generateDebugRFile
+> Task :ToastCompat:generateDebugBuildConfig
+> Task :time-duration-picker:generateDebugRFile
+> Task :phoneProfilesPlus:processDebugResources
+> Task :time-duration-picker:compileDebugJavaWithJavac
+> Task :ToastCompat:javaPreCompileDebug
+> Task :ToastCompat:compileDebugJavaWithJavac
+> Task :ToastCompat:bundleLibCompileToJarDebug
+> Task :time-duration-picker:bundleLibCompileToJarDebug
+
+> Task :phoneProfilesPlus:compileDebugJavaWithJavac
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiStateChangedBroadcastReceiver.java:6: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+import android.net.wifi.WifiConfiguration;
+                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/TwilightScanner.java:19: warning: [deprecation] Time in android.text.format has been deprecated
+import android.text.format.Time;
+                          ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:6: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+import android.net.wifi.WifiConfiguration;
+                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:30: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+import android.net.wifi.WifiConfiguration;
+                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiApManager.java:6: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+import android.net.wifi.WifiConfiguration;
+                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/BluetoothConnectedDevices.java:7: warning: [deprecation] BluetoothHealth in android.bluetooth has been deprecated
+import android.bluetooth.BluetoothHealth;
+                        ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PPApplication.java:4410: warning: [deprecation] locale in Configuration has been deprecated
+            appLocale = Resources.getSystem().getConfiguration().locale;
+                                                                ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/LockDeviceActivity.java:48: warning: [deprecation] TYPE_SYSTEM_ERROR in LayoutParams has been deprecated
+                params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+                                                        ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiStateChangedBroadcastReceiver.java:72: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+                                                List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                                     ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiStateChangedBroadcastReceiver.java:72: warning: [deprecation] getConfiguredNetworks() in WifiManager has been deprecated
+                                                List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                                                                          ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiStateChangedBroadcastReceiver.java:74: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+                                                    for (WifiConfiguration i : list) {
+                                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiStateChangedBroadcastReceiver.java:77: warning: [deprecation] enableNetwork(int,boolean) in WifiManager has been deprecated
+                                                            wifiManager.enableNetwork(i.networkId, true);
+                                                                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/DonationBroadcastReceiver.java:265: warning: [deprecation] vibrate in Notification has been deprecated
+                notification.vibrate = null;
+                            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/DonationBroadcastReceiver.java:266: warning: [deprecation] defaults in Notification has been deprecated
+                notification.defaults &= ~DEFAULT_VIBRATE;
+                            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/TwilightScanner.java:373: warning: [deprecation] Time in android.text.format has been deprecated
+                Time currentTime = new Time();
+                ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/TwilightScanner.java:373: warning: [deprecation] Time in android.text.format has been deprecated
+                Time currentTime = new Time();
+                                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/TwilightScanner.java:586: warning: [deprecation] onStatusChanged(String,int,Bundle) in LocationListener has been deprecated
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/TwilightScanner.java:605: warning: [deprecation] onStatusChanged(String,int,Bundle) in LocationListener has been deprecated
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/Event.java:2973: warning: [deprecation] sound in Notification has been deprecated
+                notification.sound = null;
+                            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/Event.java:2974: warning: [deprecation] vibrate in Notification has been deprecated
+                notification.vibrate = null;
+                            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/Event.java:2975: warning: [deprecation] defaults in Notification has been deprecated
+                notification.defaults &= ~DEFAULT_SOUND;
+                            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/Event.java:2976: warning: [deprecation] defaults in Notification has been deprecated
+                notification.defaults &= ~DEFAULT_VIBRATE;
+                            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/EditorProfilesActivity.java:2179: warning: [unchecked] unchecked cast
+                    Map<String, ?> entries = (Map<String, ?>) input.readObject();
+                                                                              ^
+  required: Map<String,?>
+  found:    Object
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ProfilesPrefsFragment.java:967: warning: [deprecation] EXTRA_SHORTCUT_INTENT in Intent has been deprecated
+                        (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
+                                                              ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ProfilesPrefsFragment.java:968: warning: [deprecation] EXTRA_SHORTCUT_NAME in Intent has been deprecated
+                        data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
+                                                  ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanner.java:383: warning: [deprecation] isScanAlwaysAvailable() in WifiManager has been deprecated
+                    isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
+                                                ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/GlobalGUIRoutines.java:602: warning: [deprecation] fromHtml(String,ImageGetter,TagHandler) in Html has been deprecated
+                htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());
+                                  ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/GlobalGUIRoutines.java:604: warning: [deprecation] fromHtml(String) in Html has been deprecated
+                htmlSpanned = Html.fromHtml(source);
+                                  ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ApplicationEditorIntentActivityX.java:777: warning: [deprecation] ACTION_INSTALL_PACKAGE in Intent has been deprecated
+                    action = Intent.ACTION_INSTALL_PACKAGE;
+                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ApplicationEditorIntentActivityX.java:843: warning: [deprecation] ACTION_UNINSTALL_PACKAGE in Intent has been deprecated
+                    action = Intent.ACTION_UNINSTALL_PACKAGE;
+                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:481: warning: [deprecation] WIFI_MODE_SCAN_ONLY in WifiManager has been deprecated
+            wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
+                                                      ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:552: warning: [deprecation] startScan() in WifiManager has been deprecated
+                startScan = wifi.startScan();
+                                ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:678: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+        List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
+             ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:678: warning: [deprecation] getConfiguredNetworks() in WifiManager has been deprecated
+        List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
+                                                             ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:691: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+            for (WifiConfiguration device : _wifiConfigurationList)
+                 ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:921: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+            List<WifiConfiguration> listOfConfigurations = wifiManager.getConfiguredNetworks();
+                 ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:921: warning: [deprecation] getConfiguredNetworks() in WifiManager has been deprecated
+            List<WifiConfiguration> listOfConfigurations = wifiManager.getConfiguredNetworks();
+                                                                      ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiScanWorker.java:925: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+                    WifiConfiguration configuration = listOfConfigurations.get(index);
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:372: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+                                    List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:372: warning: [deprecation] getConfiguredNetworks() in WifiManager has been deprecated
+                                    List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                                                              ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:374: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+                                        for (WifiConfiguration i : list) {
+                                             ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:384: warning: [deprecation] disconnect() in WifiManager has been deprecated
+                                                        wifiManager.disconnect();
+                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:385: warning: [deprecation] enableNetwork(int,boolean) in WifiManager has been deprecated
+                                                        wifiManager.enableNetwork(i.networkId, true);
+                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:386: warning: [deprecation] reconnect() in WifiManager has been deprecated
+                                                        wifiManager.reconnect();
+                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:389: warning: [deprecation] enableNetwork(int,boolean) in WifiManager has been deprecated
+                                                    wifiManager.enableNetwork(i.networkId, true);
+                                                               ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:484: warning: [deprecation] LOCATION_MODE_SENSORS_ONLY in Secure has been deprecated
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
+                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:488: warning: [deprecation] LOCATION_MODE_BATTERY_SAVING in Secure has been deprecated
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
+                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:492: warning: [deprecation] LOCATION_MODE_HIGH_ACCURACY in Secure has been deprecated
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:3411: warning: [deprecation] vibrate in Notification has been deprecated
+        notification.vibrate = null;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:3412: warning: [deprecation] defaults in Notification has been deprecated
+        notification.defaults &= ~DEFAULT_VIBRATE;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:3732: warning: [deprecation] TYPE_SYSTEM_OVERLAY in LayoutParams has been deprecated
+                type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                                                 ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:4511: warning: [deprecation] LOCATION_PROVIDERS_ALLOWED in Secure has been deprecated
+                Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                                                                                          ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:4560: warning: [deprecation] LOCATION_PROVIDERS_ALLOWED in Secure has been deprecated
+                Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                                                                                          ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/ActivateProfileHelper.java:4610: warning: [deprecation] LOCATION_MODE in Secure has been deprecated
+            Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
+                                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiApManager.java:41: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+                wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
+                                                                                          ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiApManager.java:52: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+    private void setWifiApState(WifiConfiguration config, boolean enabled, boolean doNotChangeWifi) {
+                                ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiApManager.java:86: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+        WifiConfiguration wifiConfiguration = getWifiApConfiguration();
+        ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiApManager.java:92: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+    private WifiConfiguration getWifiApConfiguration()
+            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/WifiApManager.java:96: warning: [deprecation] WifiConfiguration in android.net.wifi has been deprecated
+            return (WifiConfiguration)wifiApConfigurationMethod.invoke(mWifiManager/*, null*/);
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/BluetoothConnectedDevices.java:30: warning: [deprecation] BluetoothHealth in android.bluetooth has been deprecated
+    private static BluetoothHealth bluetoothHealth = null;
+                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/BluetoothConnectedDevices.java:95: warning: [deprecation] HEALTH in BluetoothProfile has been deprecated
+                        if (profile == BluetoothProfile.HEALTH) {
+                                                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/BluetoothConnectedDevices.java:99: warning: [deprecation] BluetoothHealth in android.bluetooth has been deprecated
+                            bluetoothHealth = (BluetoothHealth) proxy;
+                                               ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/BluetoothConnectedDevices.java:130: warning: [deprecation] HEALTH in BluetoothProfile has been deprecated
+                                bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
+                                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/BluetoothConnectedDevices.java:199: warning: [deprecation] HEALTH in BluetoothProfile has been deprecated
+                        if (profile == BluetoothProfile.HEALTH) {
+                                                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/BluetoothConnectedDevices.java:235: warning: [deprecation] HEALTH in BluetoothProfile has been deprecated
+                    bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
+                                                                                               ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/MobileCellsRegistrationService.java:226: warning: [deprecation] FLAG_SHOW_LIGHTS in Notification has been deprecated
+        notification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
+                                           ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/MobileCellsRegistrationService.java:227: warning: [deprecation] ledOnMS in Notification has been deprecated
+        notification.ledOnMS = 0;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/MobileCellsRegistrationService.java:228: warning: [deprecation] ledOffMS in Notification has been deprecated
+        notification.ledOffMS = 0;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/MobileCellsRegistrationService.java:229: warning: [deprecation] sound in Notification has been deprecated
+        notification.sound = null;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/MobileCellsRegistrationService.java:230: warning: [deprecation] vibrate in Notification has been deprecated
+        notification.vibrate = null;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/MobileCellsRegistrationService.java:231: warning: [deprecation] defaults in Notification has been deprecated
+        notification.defaults &= ~DEFAULT_SOUND;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/MobileCellsRegistrationService.java:232: warning: [deprecation] defaults in Notification has been deprecated
+        notification.defaults &= ~DEFAULT_VIBRATE;
+                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:316: warning: [deprecation] newKeyguardLock(String) in KeyguardManager has been deprecated
+            PPApplication.keyguardLock = PPApplication.keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
+                                                                      ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5100: warning: [deprecation] Builder(Context) in Builder has been deprecated
+            notificationBuilder = new Notification.Builder(appContext);
+                                  ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5112: warning: [deprecation] PRIORITY_MIN in Notification has been deprecated
+                        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                                                                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5112: warning: [deprecation] setPriority(int) in Builder has been deprecated
+                        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                                           ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5114: warning: [deprecation] PRIORITY_LOW in Notification has been deprecated
+                        notificationBuilder.setPriority(Notification.PRIORITY_LOW);
+                                                                    ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5114: warning: [deprecation] setPriority(int) in Builder has been deprecated
+                        notificationBuilder.setPriority(Notification.PRIORITY_LOW);
+                                           ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5117: warning: [deprecation] PRIORITY_LOW in Notification has been deprecated
+                    notificationBuilder.setPriority(Notification.PRIORITY_LOW);
+                                                                ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5117: warning: [deprecation] setPriority(int) in Builder has been deprecated
+                    notificationBuilder.setPriority(Notification.PRIORITY_LOW);
+                                       ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5120: warning: [deprecation] PRIORITY_MIN in Notification has been deprecated
+                notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                                                            ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5120: warning: [deprecation] setPriority(int) in Builder has been deprecated
+                notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5586: warning: [deprecation] setContent(RemoteViews) in Builder has been deprecated
+                notificationBuilder.setContent(contentViewLarge);
+                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5631: warning: [deprecation] FLAG_SHOW_LIGHTS in Notification has been deprecated
+                phoneProfilesNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
+                                                                ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5632: warning: [deprecation] ledOnMS in Notification has been deprecated
+                phoneProfilesNotification.ledOnMS = 0;
+                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5633: warning: [deprecation] ledOffMS in Notification has been deprecated
+                phoneProfilesNotification.ledOffMS = 0;
+                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5634: warning: [deprecation] sound in Notification has been deprecated
+                phoneProfilesNotification.sound = null;
+                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5635: warning: [deprecation] vibrate in Notification has been deprecated
+                phoneProfilesNotification.vibrate = null;
+                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5636: warning: [deprecation] defaults in Notification has been deprecated
+                phoneProfilesNotification.defaults &= ~DEFAULT_SOUND;
+                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5637: warning: [deprecation] defaults in Notification has been deprecated
+                phoneProfilesNotification.defaults &= ~DEFAULT_VIBRATE;
+                                         ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5835: warning: [deprecation] getRunningServices(int) in ActivityManager has been deprecated
+                services = manager.getRunningServices(Integer.MAX_VALUE);
+                                  ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:5922: warning: [deprecation] LOCATION_MODE in Secure has been deprecated
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+                                                                                                   ^
+/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/src/main/java/sk/henrichg/phoneprofilesplus/PhoneProfilesService.java:6873: warning: [deprecation] vibrate(long) in Vibrator has been deprecated
+                        vibrator.vibrate(500);
+                                ^
+93 warnings
+
+> Task :phoneProfilesPlus:compileDebugSources
+> Task :android-betterpickers:mergeDebugShaders
+> Task :android-betterpickers:compileDebugShaders NO-SOURCE
+> Task :android-betterpickers:generateDebugAssets UP-TO-DATE
+> Task :android-betterpickers:packageDebugAssets
+> Task :AndroidClearChroma:mergeDebugShaders
+> Task :AndroidClearChroma:compileDebugShaders NO-SOURCE
+> Task :AndroidClearChroma:generateDebugAssets UP-TO-DATE
+> Task :AndroidClearChroma:packageDebugAssets
+> Task :common:mergeDebugShaders
+> Task :common:compileDebugShaders NO-SOURCE
+> Task :common:generateDebugAssets UP-TO-DATE
+> Task :common:packageDebugAssets
+> Task :phoneProfilesImport:mergeDebugShaders
+> Task :phoneProfilesImport:compileDebugShaders NO-SOURCE
+> Task :phoneProfilesImport:generateDebugAssets UP-TO-DATE
+> Task :phoneProfilesImport:packageDebugAssets
+> Task :phoneProfilesPlus:mergeDebugShaders
+> Task :phoneProfilesPlus:compileDebugShaders NO-SOURCE
+> Task :phoneProfilesPlus:generateDebugAssets UP-TO-DATE
+> Task :RootShell:mergeDebugShaders
+> Task :RootShell:compileDebugShaders NO-SOURCE
+> Task :RootShell:generateDebugAssets UP-TO-DATE
+> Task :RootShell:packageDebugAssets
+> Task :RootTools:mergeDebugShaders
+> Task :RootTools:compileDebugShaders NO-SOURCE
+> Task :RootTools:generateDebugAssets UP-TO-DATE
+> Task :RootTools:packageDebugAssets
+> Task :time-duration-picker:mergeDebugShaders
+> Task :time-duration-picker:compileDebugShaders NO-SOURCE
+> Task :time-duration-picker:generateDebugAssets UP-TO-DATE
+> Task :time-duration-picker:packageDebugAssets
+> Task :ToastCompat:mergeDebugShaders
+> Task :ToastCompat:compileDebugShaders NO-SOURCE
+> Task :ToastCompat:generateDebugAssets UP-TO-DATE
+> Task :ToastCompat:packageDebugAssets
+> Task :phoneProfilesPlus:mergeDebugAssets
+> Task :android-betterpickers:processDebugJavaRes NO-SOURCE
+> Task :android-betterpickers:bundleLibResDebug NO-SOURCE
+> Task :AndroidClearChroma:processDebugJavaRes NO-SOURCE
+> Task :AndroidClearChroma:bundleLibResDebug NO-SOURCE
+> Task :common:processDebugJavaRes NO-SOURCE
+> Task :common:bundleLibResDebug NO-SOURCE
+> Task :phoneProfilesImport:processDebugJavaRes NO-SOURCE
+> Task :phoneProfilesImport:bundleLibResDebug NO-SOURCE
+> Task :phoneProfilesPlus:processDebugJavaRes NO-SOURCE
+> Task :RootShell:processDebugJavaRes NO-SOURCE
+> Task :RootShell:bundleLibResDebug NO-SOURCE
+> Task :RootTools:processDebugJavaRes NO-SOURCE
+> Task :RootTools:bundleLibResDebug NO-SOURCE
+> Task :time-duration-picker:processDebugJavaRes NO-SOURCE
+> Task :time-duration-picker:bundleLibResDebug NO-SOURCE
+> Task :ToastCompat:processDebugJavaRes NO-SOURCE
+> Task :ToastCompat:bundleLibResDebug NO-SOURCE
+> Task :phoneProfilesPlus:checkDebugDuplicateClasses
+> Task :RootTools:bundleLibRuntimeToJarDebug
+> Task :ToastCompat:bundleLibRuntimeToJarDebug
+> Task :android-betterpickers:bundleLibRuntimeToJarDebug
+> Task :time-duration-picker:bundleLibRuntimeToJarDebug
+> Task :AndroidClearChroma:bundleLibRuntimeToJarDebug
+> Task :common:bundleLibRuntimeToJarDebug
+> Task :RootShell:bundleLibRuntimeToJarDebug
+> Task :phoneProfilesImport:bundleLibRuntimeToJarDebug
+> Task :phoneProfilesPlus:dexBuilderDebug
+> Task :phoneProfilesPlus:mergeExtDexDebug
+> Task :phoneProfilesPlus:mergeDebugJavaResource
+> Task :phoneProfilesPlus:mergeLibDexDebug
+> Task :android-betterpickers:mergeDebugJniLibFolders
+> Task :android-betterpickers:mergeDebugNativeLibs
+> Task :android-betterpickers:stripDebugDebugSymbols NO-SOURCE
+> Task :android-betterpickers:copyDebugJniLibsProjectOnly
+> Task :AndroidClearChroma:mergeDebugJniLibFolders
+> Task :common:mergeDebugJniLibFolders
+> Task :common:mergeDebugNativeLibs
+> Task :common:stripDebugDebugSymbols NO-SOURCE
+> Task :common:copyDebugJniLibsProjectOnly
+> Task :AndroidClearChroma:mergeDebugNativeLibs
+> Task :AndroidClearChroma:stripDebugDebugSymbols NO-SOURCE
+> Task :AndroidClearChroma:copyDebugJniLibsProjectOnly
+> Task :phoneProfilesImport:mergeDebugJniLibFolders
+> Task :phoneProfilesPlus:mergeDebugJniLibFolders
+> Task :RootShell:mergeDebugJniLibFolders
+> Task :RootTools:mergeDebugJniLibFolders
+> Task :phoneProfilesImport:mergeDebugNativeLibs
+> Task :phoneProfilesImport:stripDebugDebugSymbols NO-SOURCE
+> Task :phoneProfilesImport:copyDebugJniLibsProjectOnly
+> Task :RootTools:mergeDebugNativeLibs
+> Task :RootTools:stripDebugDebugSymbols NO-SOURCE
+> Task :RootTools:copyDebugJniLibsProjectOnly
+> Task :time-duration-picker:mergeDebugJniLibFolders
+> Task :time-duration-picker:mergeDebugNativeLibs
+> Task :RootShell:mergeDebugNativeLibs
+> Task :RootShell:stripDebugDebugSymbols NO-SOURCE
+> Task :RootShell:copyDebugJniLibsProjectOnly
+> Task :time-duration-picker:stripDebugDebugSymbols NO-SOURCE
+> Task :time-duration-picker:copyDebugJniLibsProjectOnly
+> Task :ToastCompat:mergeDebugJniLibFolders
+> Task :ToastCompat:mergeDebugNativeLibs
+> Task :ToastCompat:stripDebugDebugSymbols NO-SOURCE
+> Task :ToastCompat:copyDebugJniLibsProjectOnly
+> Task :phoneProfilesPlus:validateSigningDebug
+> Task :common:copyDebugJniLibsProjectAndLocalJars
+> Task :common:extractDebugAnnotations
+> Task :common:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :common:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :common:prepareLintJarForPublish UP-TO-DATE
+> Task :common:compileDebugSources
+> Task :time-duration-picker:copyDebugJniLibsProjectAndLocalJars
+> Task :time-duration-picker:extractDebugAnnotations
+> Task :common:mergeDebugJavaResource
+> Task :common:syncDebugLibJars
+> Task :common:bundleDebugAar
+> Task :common:assembleDebug
+> Task :time-duration-picker:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :phoneProfilesPlus:mergeDebugNativeLibs
+> Task :phoneProfilesPlus:stripDebugDebugSymbols NO-SOURCE
+> Task :time-duration-picker:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :time-duration-picker:prepareLintJarForPublish UP-TO-DATE
+> Task :time-duration-picker:compileDebugSources
+> Task :phoneProfilesImport:copyDebugJniLibsProjectAndLocalJars
+> Task :phoneProfilesImport:extractDebugAnnotations
+> Task :time-duration-picker:mergeDebugJavaResource
+> Task :time-duration-picker:syncDebugLibJars
+> Task :time-duration-picker:bundleDebugAar
+> Task :time-duration-picker:assembleDebug
+> Task :phoneProfilesImport:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :phoneProfilesImport:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :phoneProfilesImport:prepareLintJarForPublish UP-TO-DATE
+> Task :phoneProfilesImport:mergeDebugJavaResource
+> Task :phoneProfilesImport:syncDebugLibJars
+> Task :phoneProfilesImport:bundleDebugAar
+> Task :phoneProfilesImport:compileDebugSources
+> Task :phoneProfilesImport:assembleDebug
+> Task :RootTools:copyDebugJniLibsProjectAndLocalJars
+> Task :RootTools:extractDebugAnnotations
+> Task :RootTools:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :RootTools:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :RootTools:prepareLintJarForPublish UP-TO-DATE
+> Task :phoneProfilesPlus:mergeProjectDexDebug
+> Task :phoneProfilesPlus:packageDebug
+> Task :phoneProfilesPlus:assembleDebug
+> Task :RootTools:compileDebugSources
+> Task :android-betterpickers:copyDebugJniLibsProjectAndLocalJars
+> Task :RootTools:mergeDebugJavaResource
+> Task :RootTools:syncDebugLibJars
+> Task :RootTools:bundleDebugAar
+> Task :RootTools:assembleDebug
+> Task :android-betterpickers:extractDebugAnnotations
+> Task :android-betterpickers:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :android-betterpickers:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :android-betterpickers:prepareLintJarForPublish UP-TO-DATE
+> Task :android-betterpickers:mergeDebugJavaResource
+> Task :android-betterpickers:syncDebugLibJars
+> Task :android-betterpickers:bundleDebugAar
+> Task :android-betterpickers:compileDebugSources
+> Task :android-betterpickers:assembleDebug
+> Task :ToastCompat:copyDebugJniLibsProjectAndLocalJars
+> Task :ToastCompat:extractDebugAnnotations
+> Task :ToastCompat:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :ToastCompat:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :ToastCompat:prepareLintJarForPublish UP-TO-DATE
+> Task :ToastCompat:compileDebugSources
+> Task :AndroidClearChroma:copyDebugJniLibsProjectAndLocalJars
+> Task :AndroidClearChroma:extractDebugAnnotations
+> Task :AndroidClearChroma:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :AndroidClearChroma:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :AndroidClearChroma:prepareLintJarForPublish UP-TO-DATE
+> Task :AndroidClearChroma:compileDebugSources
+> Task :RootShell:copyDebugJniLibsProjectAndLocalJars
+> Task :RootShell:extractDebugAnnotations
+> Task :RootShell:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :RootShell:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :RootShell:prepareLintJarForPublish UP-TO-DATE
+> Task :ToastCompat:mergeDebugJavaResource
+> Task :ToastCompat:syncDebugLibJars
+> Task :ToastCompat:bundleDebugAar
+> Task :ToastCompat:assembleDebug
+> Task :RootShell:compileDebugSources
+> Task :RootShell:mergeDebugJavaResource
+> Task :RootShell:syncDebugLibJars
+> Task :RootShell:bundleDebugAar
+> Task :RootShell:assembleDebug
+> Task :AndroidClearChroma:mergeDebugJavaResource
+> Task :AndroidClearChroma:syncDebugLibJars
+> Task :AndroidClearChroma:bundleDebugAar
+> Task :AndroidClearChroma:assembleDebug
+
+BUILD SUCCESSFUL in 34s
+232 actionable tasks: 208 executed, 24 up-to-date
+
+Build Analyzer results available

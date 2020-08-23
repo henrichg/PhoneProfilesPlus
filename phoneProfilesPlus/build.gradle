@@ -95,6 +95,8 @@ dependencies {
     implementation 'com.android.billingclient:billing:3.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //implementation 'androidx.test:core:1.2.0'
+    //implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     //implementation 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
