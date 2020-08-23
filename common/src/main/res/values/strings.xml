@@ -1565,6 +1565,9 @@
     <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
     <string name="backup_settings_ok_backed_up">Settings backed up</string>
     <string name="backup_settings_error_on_backup">Error on backup of settings</string>
+    <string name="restore_settings_alert_title">Restore settings</string>
+    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
+    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
