@@ -756,10 +756,10 @@ Build Analyzer results available
 
 setWifiEnabled()
 - ActivateProfileHelper.doExecuteForRadio() - Settings.Panel?
-- ActivateProfileHelper.SetWifiAP() - Settings.Panel?
-- ConnectToSSIDDialogPreferenceFragmentX.refreshListView() - treba na zistenie, ktore SSID su v okoli, Settings.Panel ak nie je zapnuta?
-- WifiAPManager.setWifiAPState() - Settings.Panel?
-- WifiAPManager.startTetehering() - Settings.Panel?
+- ActivateProfileHelper.setWifiAP() - je volane reflection, treba testnut !!!
+- ConnectToSSIDDialogPreferenceFragmentX.refreshListView() - treba na zistenie, ktore SSID su v okoli, Settings.Panel ak nie je zapnuta
+- WifiAPManager.setWifiAPState() - nie je volane pre Android 10
+- WifiAPManager.startTethering() - nie je volane pre Android 10
 
 - WifiScanner - presun do Extendera
 - WifiScanWorker - presun do Extendera
@@ -768,11 +768,11 @@ android.net.wifi.WifiConfiguration
 - WifiStateChangedBroadcastReceiver - pre connect to ssid chcem sa connectnut na konkretnu wifi ak sa wifi povoli - Settings.Panel?
 - WifiScanWorker - presun do Extendera
 - ActivateProfileHelper.doExecuteForRadio() - connect ot ssid - Settings.Panel?
-- WifiApManager - Settings.Panel?
+- WifiApManager - nie je volane pre Android 10
 
 Cize vysledok je:
 - zapnutie/vypnutue wifi v ActivateProfileHelper - Settings.Panel alebo Extender
-- zapnutie/vypnutoie wifi AP v ActivateProfileHelper - Settings.Panel alebo Extender
+- zapnutie/vypnutoie wifi AP v ActivateProfileHelper - je volane reflection, treba testnut !!!
 - connect do konkretneho SSID v ActivateProfileHelper a WifiStateChangedBroadcastReceiver - po zapnuti wifi - Settings.Panel alebo Extender
 - wifi skenovanie - do Extendera
 - Pozri, ci budu fungovat tie location veci, tie su toez deprecated
