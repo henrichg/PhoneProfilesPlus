@@ -781,3 +781,5 @@ Cize vysledok je:
 - wifi skenovanie - do Extendera
 
 - Pozri, ci budu fungovat tie location veci, tie su toez deprecated
+
+Bacha na permissions, asi bude treba pridat WRITE_SETTINGS do Extendera.
