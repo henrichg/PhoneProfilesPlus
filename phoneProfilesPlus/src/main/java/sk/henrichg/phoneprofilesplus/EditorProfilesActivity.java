@@ -36,7 +36,9 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -3378,8 +3380,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                             View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                             dialogBuilder.setView(layout);
                             dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+                            final TextView rewriteInfo = layout.findViewById(R.id.backup_settings_alert_dialog_rewrite_files_info);
+                            rewriteInfo.setEnabled(false);
                             final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
                             checkBox.setChecked(true);
+                            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                @Override
+                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                    rewriteInfo.setEnabled(!isChecked);
+                                }
+                            });
                             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
