@@ -84,6 +84,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.string.altype_profileError_setTone_alarm);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.string.altype_profileError_setWallpaper);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, R.string.altype_dataImport_fromPP);
+        activityTypeStrings.put(PPApplication.ALTYPE_DATA_EXPORT, R.string.altype_dataExport);
 
         int otherColor = R.color.altype_other;
         /*//noinspection SwitchStatementWithTooFewBranches
@@ -134,6 +135,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_DATA_EXPORT, otherColor);
 
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, R.color.altype_error);

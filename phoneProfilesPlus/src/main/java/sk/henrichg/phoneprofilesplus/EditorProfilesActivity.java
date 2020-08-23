@@ -917,6 +917,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(DebugVersion.enabled);
         }
 
+        /*
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
             //File sd = Environment.getExternalStorageDirectory();
@@ -929,6 +930,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             boolean appPreferencesExists = exportedAppPreferences.exists();
             menuItem.setEnabled(dbExists && appPreferencesExists);
         }
+        */
 
         menuItem = menu.findItem(R.id.menu_import_from_pp);
         if (menuItem != null) {
@@ -3410,6 +3412,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                             } else
                                 ret = 0;
                         }
+
+                        PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, null, 0, "");
 
                         //Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
                         PPApplication.setApplicationStarted(getApplicationContext(), true);

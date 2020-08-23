@@ -1568,6 +1568,7 @@
     <string name="restore_settings_alert_title">Restore settings</string>
     <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
     <string name="restore_settings_ok_backed_up">Files to restore copied</string>
+    <string name="altype_dataExport">backup settings</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->

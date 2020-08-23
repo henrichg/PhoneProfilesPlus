@@ -235,6 +235,7 @@ public class PPApplication extends Application
     static final int ALTYPE_PROFILE_ERROR_SET_WALLPAPER = 1006;
 
     static final int ALTYPE_DATA_IMPORT_FROM_PP = 100;
+    static final int ALTYPE_DATA_EXPORT = 101;
 
     static boolean doNotShowProfileNotification = false;
     private static boolean applicationStarted = false;
