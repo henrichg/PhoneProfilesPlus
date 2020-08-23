@@ -1792,10 +1792,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
                         DocumentFile pickedDir;
-                        Uri treeUri;
-                        Activity activity;
+                        final Uri treeUri;
+                        final Activity activity;
 
-                        int requestCode;
+                        final int requestCode;
                         int ok = 1;
 
                         private BackupAsyncTask(int requestCode, Uri treeUri, Activity activity) {
@@ -1934,15 +1934,15 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
                         DocumentFile pickedDir;
-                        Uri treeUri;
-                        Activity activity;
+                        final Uri treeUri;
+                        final Activity activity;
 
-                        int requestCode;
+                        //int _requestCode;
                         int ok = 1;
 
-                        private RestoreAsyncTask(int requestCode, Uri treeUri, Activity activity) {
+                        private RestoreAsyncTask(/*int requestCode, */Uri treeUri, Activity activity) {
                             this.treeUri = treeUri;
-                            this.requestCode = requestCode;
+                            //this._requestCode = requestCode;
                             this.activity = activity;
 
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2046,7 +2046,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                     }
 
-                    restoreAsyncTask = new RestoreAsyncTask(requestCode, treeUri, this).execute();
+                    restoreAsyncTask = new RestoreAsyncTask(/*requestCode, */treeUri, this).execute();
 
                 }
             }

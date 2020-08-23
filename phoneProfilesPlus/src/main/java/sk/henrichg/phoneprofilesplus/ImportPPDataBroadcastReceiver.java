@@ -35,6 +35,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
             // application is not started
             return;
 
+        //noinspection ConstantConditions
         if ((intent == null) || (intent.getAction() == null))
             return;
 
