@@ -181,8 +181,6 @@ public class PPApplication extends Application
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
-                                                +"|ActivateProfileHelper.executeForRunApplications"
-                                                +"|RunApplicationWithDelayBroadcastReceiver.doWork"
                                                 ;
 
     // activity log types
