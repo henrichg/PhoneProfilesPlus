@@ -2451,16 +2451,17 @@ class ActivateProfileHelper {
                         //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
                         //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
 
+                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","profile._name="+profile._name);
                         for (String split : splits) {
                             //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
                             int startApplicationDelay = Application.getStartApplicationDelay(split);
                             if (Application.getStartApplicationDelay(split) > 0) {
+                                //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","run with delay");
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
                                 if (Application.isShortcut(split)) {
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut");
                                     long shortcutId = Application.getShortcutId(split);
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - shortcutId="+shortcutId);
                                     if (shortcutId > 0) {
                                         //Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
                                         Shortcut shortcut = DatabaseHandler.getInstance(appContext).getShortcut(shortcutId);
@@ -2477,9 +2478,11 @@ class ActivateProfileHelper {
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         appContext.startActivity(intent);
                                                     } catch (ActivityNotFoundException e) {
+                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (01)");
                                                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
                                                                 profile._name, profile._icon, 0, "");
                                                     } catch (SecurityException e) {
+                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (02)");
                                                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
                                                                 profile._name, profile._icon, 0, "");
                                                     } catch (Exception e) {
@@ -2488,6 +2491,7 @@ class ActivateProfileHelper {
                                                     //} else
                                                     //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                                 } else {
+                                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (1)");
                                                     PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
                                                             profile._name, profile._icon, 0, "");
                                                 }
@@ -2495,16 +2499,18 @@ class ActivateProfileHelper {
                                                 PPApplication.recordException(ee);
                                             }
                                         } else {
+                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (2)");
                                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
                                                     profile._name, profile._icon, 0, "");
                                         }
                                     } else {
+                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (3)");
                                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
                                                 profile._name, profile._icon, 0, "");
                                     }
                                 } else if (Application.isIntent(split)) {
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent");
                                     long intentId = Application.getIntentId(split);
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - intentId="+intentId);
                                     if (intentId > 0) {
                                         PPIntent ppIntent = DatabaseHandler.getInstance(appContext).getIntent(intentId);
                                         if (ppIntent != null) {
@@ -2516,9 +2522,11 @@ class ActivateProfileHelper {
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         appContext.startActivity(intent);
                                                     } catch (ActivityNotFoundException e) {
+                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (01)");
                                                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
                                                                 profile._name, profile._icon, 0, "");
                                                     } catch (SecurityException e) {
+                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (02)");
                                                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
                                                                 profile._name, profile._icon, 0, "");
                                                     } catch (Exception e) {
@@ -2532,22 +2540,24 @@ class ActivateProfileHelper {
                                                     }
                                                 }
                                             } else {
+                                                //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (1)");
                                                 PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
                                                         profile._name, profile._icon, 0, "");
                                             }
                                         } else {
+                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (2)");
                                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
                                                     profile._name, profile._icon, 0, "");
                                         }
                                     } else {
+                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (3)");
                                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
                                                 profile._name, profile._icon, 0, "");
                                     }
                                 } else {
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application");
                                     String packageName = Application.getPackageName(split);
                                     intent = packageManager.getLaunchIntentForPackage(packageName);
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - intent="+intent);
                                     if (intent != null) {
                                         //if (!isRunning(procInfo, packageName)) {
                                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
@@ -2559,9 +2569,11 @@ class ActivateProfileHelper {
                                             appContext.startActivity(intent);
                                             //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application started");
                                         } catch (ActivityNotFoundException e) {
+                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - ERROR (01)");
                                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
                                                     profile._name, profile._icon, 0, "");
                                         } catch (SecurityException e) {
+                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - ERROR (02)");
                                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
                                                     profile._name, profile._icon, 0, "");
                                         } catch (Exception e) {
@@ -2572,6 +2584,7 @@ class ActivateProfileHelper {
                                         //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": running");
                                     }
                                     else {
+                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - ERROR (1)");
                                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
                                                 profile._name, profile._icon, 0, "");
                                     }
