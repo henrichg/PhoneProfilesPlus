@@ -1066,7 +1066,7 @@ public class BluetoothScanWorker extends Worker {
                                     .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(5, TimeUnit.SECONDS)
-                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
@@ -1084,7 +1084,7 @@ public class BluetoothScanWorker extends Worker {
 //                                //}
 
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {

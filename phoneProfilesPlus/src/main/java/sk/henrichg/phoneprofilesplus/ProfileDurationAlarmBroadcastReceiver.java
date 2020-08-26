@@ -89,7 +89,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 .addTag(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int)profile._id)
                                 .setInputData(workData)
                                 .setInitialDelay(profile._duration, TimeUnit.SECONDS)
-                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -113,7 +113,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 //                            //}
 
                             //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int)profile._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                            workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int)profile._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             PPApplication.elapsedAlarmsProfileDurationWork.add(MainWorker.PROFILE_DURATION_WORK_TAG +"_" + (int) profile._id);
                         }
                     }

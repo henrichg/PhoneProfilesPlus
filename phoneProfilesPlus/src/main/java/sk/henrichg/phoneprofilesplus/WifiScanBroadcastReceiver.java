@@ -116,7 +116,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                         .addTag(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG)
                                                         .setInputData(workData)
                                                         .setInitialDelay(5, TimeUnit.SECONDS)
-                                                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                                         .build();
                                         try {
                                             if (PPApplication.getApplicationStarted(true)) {
@@ -134,7 +134,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 //                                                    //}
 
                                                     //workManager.enqueue(worker);
-                                                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                                                 }
                                             }
                                         } catch (Exception e) {

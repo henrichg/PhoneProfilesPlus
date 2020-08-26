@@ -95,7 +95,7 @@ class TwilightScanner {
                                     .addTag(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG)
                                     .setInputData(workData)
                                     .setInitialDelay(10, TimeUnit.SECONDS) // 10 seconds to get location
-                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
                         if (PPApplication.getApplicationStarted(true)) {
@@ -113,7 +113,7 @@ class TwilightScanner {
 //                                //}
 
                                 //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {

@@ -2463,7 +2463,7 @@ public class DataWrapper {
                         .addTag(RestartEventsWithDelayWorker.WORK_TAG)
                         .setInputData(workData)
                         .setInitialDelay(delay, TimeUnit.SECONDS)
-                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
@@ -2481,7 +2481,7 @@ public class DataWrapper {
 //                    //}
 
                     //workManager.enqueue(restartEventsWithDelayWorker);
-                    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
+                    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, restartEventsWithDelayWorker);
                 }
             }
         } catch (Exception e) {
