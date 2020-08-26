@@ -98,7 +98,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 .addTag(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode)
                                 .setInputData(workData)
                                 .setInitialDelay(startApplicationDelay, TimeUnit.SECONDS)
-                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {
@@ -120,7 +120,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 //                            //}
 
                             //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                            workManager.enqueueUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                             PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_" + requestCode);
                         }
                     }
