@@ -2921,6 +2921,10 @@ public class PhoneProfilesService extends Service
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiWorker", "not scheduled");
+
+        WifiScanWorker.setScanRequest(context, false);
+        WifiScanWorker.setWaitForResults(context, false);
+        WifiScanWorker.setWifiEnabledForScan(context, false);
     }
 
     void scheduleWifiWorker(/*final boolean schedule,*/ /*final boolean cancel,*/ final DataWrapper dataWrapper,
@@ -2975,6 +2979,13 @@ public class PhoneProfilesService extends Service
         }
         //else
         //    PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothWorker", "not scheduled");
+
+        BluetoothScanWorker.setScanRequest(context, false);
+        BluetoothScanWorker.setLEScanRequest(context, false);
+        BluetoothScanWorker.setWaitForResults(context, false);
+        BluetoothScanWorker.setWaitForLEResults(context, false);
+        BluetoothScanWorker.setBluetoothEnabledForScan(context, false);
+        BluetoothScanWorker.setScanKilled(context, false);
     }
 
     private void scheduleBluetoothWorker(/*final boolean schedule,*/ /*final boolean cancel,*/ final DataWrapper dataWrapper
