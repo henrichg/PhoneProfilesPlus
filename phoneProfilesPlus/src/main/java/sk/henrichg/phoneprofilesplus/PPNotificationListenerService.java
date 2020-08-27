@@ -172,7 +172,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
         super.onNotificationRemoved(sbn);
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "xxx");
+        //PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "xxx");
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
 
@@ -218,10 +218,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
 
-                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        //eventsHandler.setEventNotificationParameters("removed");
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION, false) > 0) {
+                            PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            //eventsHandler.setEventNotificationParameters("removed");
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                        }
 
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPNotificationListenerService.onNotificationRemoved");
                     } finally {
