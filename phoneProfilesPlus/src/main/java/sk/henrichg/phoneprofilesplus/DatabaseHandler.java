@@ -6628,6 +6628,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     int getTypeEventsCount(int eventType, boolean onlyRunning)
     {
         importExportLock.lock();
