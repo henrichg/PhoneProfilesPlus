@@ -68,8 +68,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-            PPApplication.startHandlerThread(/*"BluetoothConnectionBroadcastReceiver.onReceive"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"BluetoothConnectionBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

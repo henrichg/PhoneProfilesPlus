@@ -21,8 +21,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 
-            PPApplication.startHandlerThread(/*"PackageReplacedReceiver.onReceive"*/);
-            final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"PackageReplacedReceiver.onReceive"*/);
+            final Handler handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler2.post(new Runnable() {
                 @Override
                 public void run() {

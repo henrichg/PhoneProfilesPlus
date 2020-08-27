@@ -31,8 +31,8 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
-            PPApplication.startHandlerThread(/*"DeviceBootEventEndBroadcastReceiver.doWork"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"DeviceBootEventEndBroadcastReceiver.doWork"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

@@ -51,8 +51,8 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             final Context appContext = context.getApplicationContext();
 
-            PPApplication.startHandlerThread(/*"BootUpReceiver.onReceive2"*/);
-            final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"BootUpReceiver.onReceive2"*/);
+            final Handler handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler2.post(new Runnable() {
                 @Override
                 public void run() {

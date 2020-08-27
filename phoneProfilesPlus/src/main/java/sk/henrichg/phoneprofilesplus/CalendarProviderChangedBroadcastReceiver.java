@@ -33,8 +33,8 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
             if (calendarEventsExists)
             {*/
-                PPApplication.startHandlerThread(/*"CalendarProviderChangedBroadcastReceiver.onReceive"*/);
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadBroadcast(/*"CalendarProviderChangedBroadcastReceiver.onReceive"*/);
+                final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

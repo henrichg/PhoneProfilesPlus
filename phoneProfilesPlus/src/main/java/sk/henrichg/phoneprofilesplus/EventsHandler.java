@@ -206,7 +206,7 @@ class EventsHandler {
             if (!eventsExists(sensorType, dataWrapper)) {
                 // events not exists
 
-                //PPApplication.logE("$$$ EventsHandler.handleEvents", "events not exists: sensorType="+sensorType);
+                PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "events not exists: sensorType="+sensorType);
 
                 doEndHandler(dataWrapper);
                 //dataWrapper.invalidateDataWrapper();

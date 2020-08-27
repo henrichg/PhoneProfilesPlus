@@ -31,8 +31,8 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning() || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
-            PPApplication.startHandlerThread(/*"BluetoothLEScanBroadcastReceiver.onReceive.1"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"BluetoothLEScanBroadcastReceiver.onReceive.1"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

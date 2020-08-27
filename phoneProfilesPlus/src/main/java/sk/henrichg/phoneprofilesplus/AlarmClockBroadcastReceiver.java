@@ -32,8 +32,8 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             //PPApplication.logE("@@@ AlarmClockBroadcastReceiver.onReceive", "start service");
 
-            PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"AlarmClockBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

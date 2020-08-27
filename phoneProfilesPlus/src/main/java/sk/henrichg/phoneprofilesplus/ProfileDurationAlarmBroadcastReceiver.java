@@ -202,8 +202,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (useHandler) {
-            PPApplication.startHandlerThread(/*"ProfileDurationAlarmBroadcastReceiver.onReceive"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"ProfileDurationAlarmBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

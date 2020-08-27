@@ -134,8 +134,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
             }*/
 
-            PPApplication.startHandlerThread(/*"PPNotificationListenerService.onNotificationPosted"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"PPNotificationListenerService.onNotificationPosted"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -201,8 +201,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (Event.getGlobalEventsRunning()) {
-            PPApplication.startHandlerThread(/*"PPNotificationListenerService.onNotificationRemoved"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"PPNotificationListenerService.onNotificationRemoved"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

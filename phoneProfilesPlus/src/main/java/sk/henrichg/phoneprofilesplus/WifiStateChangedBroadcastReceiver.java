@@ -40,8 +40,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
-                PPApplication.startHandlerThread(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadBroadcast(/*"WifiStateChangedBroadcastReceiver.onReceive.1"*/);
+                final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

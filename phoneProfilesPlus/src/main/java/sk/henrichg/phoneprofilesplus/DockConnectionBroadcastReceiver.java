@@ -28,8 +28,8 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
             if (peripheralEventsExists)
             {*/
-                PPApplication.startHandlerThread(/*"DockConnectionBroadcastReceiver.onReceive"*/);
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadBroadcast(/*"DockConnectionBroadcastReceiver.onReceive"*/);
+                final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

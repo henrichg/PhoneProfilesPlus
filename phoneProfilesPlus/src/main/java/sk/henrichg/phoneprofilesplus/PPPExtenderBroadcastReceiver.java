@@ -52,8 +52,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
-                PPApplication.startHandlerThread(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
-                final Handler handler0 = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
+                final Handler handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 handler0.post(new Runnable() {
                     @Override
                     public void run() {
@@ -106,8 +106,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         setApplicationInForeground(appContext, packageName);
 
                         if (Event.getGlobalEventsRunning()) {
-                            PPApplication.startHandlerThread(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED"*/);
-                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED"*/);
+                            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -159,8 +159,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 setApplicationInForeground(appContext, "");
 
                 if (Event.getGlobalEventsRunning()) {
-                    PPApplication.startHandlerThread(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
+                    final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -204,8 +204,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END:
                 final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
                 if (profileId != 0) {
-                    PPApplication.startHandlerThread(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END"*/);
-                    final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END"*/);
+                    final Handler handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     handler2.post(new Runnable() {
                         @Override
                         public void run() {
@@ -245,8 +245,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 }*/
 
                 if (Event.getGlobalEventsRunning()) {
-                    PPApplication.startHandlerThread(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED"*/);
-                    final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED"*/);
+                    final Handler handler3 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     handler3.post(new Runnable() {
                         @Override
                         public void run() {
@@ -294,8 +294,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 }*/
 
                 if (Event.getGlobalEventsRunning()) {
-                    PPApplication.startHandlerThread(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED"*/);
-                    final Handler handler4 = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED"*/);
+                    final Handler handler4 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     handler4.post(new Runnable() {
                         @Override
                         public void run() {

@@ -114,8 +114,8 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("[DONATION] DonationBroadcastReceiver.doWork", "xxx");
 
         //if (useHandler) {
-            PPApplication.startHandlerThread(/*"DonationBroadcastReceiver.onReceive"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

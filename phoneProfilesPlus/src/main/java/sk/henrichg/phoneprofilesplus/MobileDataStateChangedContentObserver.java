@@ -43,8 +43,8 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
                 if (Event.getGlobalEventsRunning()) {
                     final Context appContext = context.getApplicationContext();
-                    PPApplication.startHandlerThread(/*"MobileDataStateChangedContentObserver.onChange"*/);
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"MobileDataStateChangedContentObserver.onChange"*/);
+                    final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

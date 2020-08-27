@@ -91,7 +91,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -641,6 +641,7 @@ public class PPApplication extends Application
     //public static boolean isPowerSaveMode;
 
     public static HandlerThread handlerThread = null;
+    public static HandlerThread handlerThreadBroadcast = null;
     //public static HandlerThread handlerThreadInternalChangeToFalse = null;
     public static HandlerThread handlerThreadWidget = null;
     //public static HandlerThread handlerThreadIconWidget = null;
@@ -907,6 +908,7 @@ public class PPApplication extends Application
         //firstStartServiceStarted = false;
 
         startHandlerThread(/*"PPApplication.onCreate"*/);
+        startHandlerThreadBroadcast();
         //startHandlerThreadInternalChangeToFalse();
         startHandlerThreadPPScanners(); // for minutes interval
         startHandlerThreadOrientationScanner(); // for seconds interval
@@ -3567,6 +3569,13 @@ public class PPApplication extends Application
         if (handlerThread == null) {
             handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThread.start();
+        }
+    }
+
+    static void startHandlerThreadBroadcast(/*String from*/) {
+        if (handlerThreadBroadcast == null) {
+            handlerThreadBroadcast = new HandlerThread("PPHandlerThreadBroadcast", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadBroadcast.start();
         }
     }
 

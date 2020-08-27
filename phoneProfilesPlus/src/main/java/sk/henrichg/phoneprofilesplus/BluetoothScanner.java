@@ -81,8 +81,8 @@ class BluetoothScanner {
                 }
             }
 
-            PPApplication.startHandlerThread(/*"BluetoothScanner.doScan.1"*/);
-            final Handler bluetoothChangeHandler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadPPScanners(/*"BluetoothScanner.doScan.1"*/);
+            final Handler bluetoothChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
 
             //synchronized (PPApplication.radioChangeStateMutex) {
 

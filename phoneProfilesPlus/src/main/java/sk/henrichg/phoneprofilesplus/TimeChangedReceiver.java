@@ -61,8 +61,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 //if (timeChanged) {
                     //PPApplication.logE("TimeChangedReceiver.onReceive", "do time change");
 
-                    PPApplication.startHandlerThread(/*"TimeChangedReceiver.onReceive"*/);
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"TimeChangedReceiver.onReceive"*/);
+                    final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

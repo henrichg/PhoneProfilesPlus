@@ -58,8 +58,8 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
         //PPApplication.logE("[TEST BATTERY] PPWifiNetworkCallback.doConnection", "connected or disconnected");
 
-        PPApplication.startHandlerThread(/*"WifiConnectionBroadcastReceiver.onReceive"*/);
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        PPApplication.startHandlerThreadBroadcast(/*"WifiConnectionBroadcastReceiver.onReceive"*/);
+        final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {

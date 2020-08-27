@@ -51,8 +51,8 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (Event.getGlobalEventsRunning()) {
-            PPApplication.startHandlerThread(/*"PowerSaveModeBroadcastReceiver.onReceive"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadBroadcast(/*"PowerSaveModeBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

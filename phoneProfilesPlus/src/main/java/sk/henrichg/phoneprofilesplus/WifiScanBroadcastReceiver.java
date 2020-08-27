@@ -62,8 +62,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
                 if (Event.getGlobalEventsRunning() || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
-                    PPApplication.startHandlerThread(/*"WifiScanBroadcastReceiver.onReceive.1"*/);
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"WifiScanBroadcastReceiver.onReceive.1"*/);
+                    final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
