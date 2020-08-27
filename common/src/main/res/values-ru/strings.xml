@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Не разрешено</string>
     <string name="menu_export">Сохранить настройки</string>
     <string name="menu_import">Восстановить настройки</string>
-    <string name="toast_export_ok">Settings exported</string>
+    <string name="toast_export_ok">Настройки экспортированы</string>
     <string name="toast_import_ok">Настройки восстановлены</string>
     <string name="import_profiles_alert_title">Восстановить настройки</string>
     <string name="import_profiles_alert_message">Вы уверены?</string>
     <string name="import_profiles_alert_error">Ошибка во время процесса восстановления</string>
-    <string name="export_profiles_alert_title">Export settings</string>
-    <string name="export_profiles_alert_error">Error during export process</string>
+    <string name="export_profiles_alert_title">Экспортировать настройки</string>
+    <string name="export_profiles_alert_error">Ошибка при экспорте настроек</string>
     <string name="profile_preferences_deviceMobileData">Мобильные данные</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки мобильных данных</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Цветная иконка</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">Тональный сигнал при наборе номера</string>
     <string name="not_saved_changes_alert_title">Настройки изменены</string>
     <string name="not_saved_changes_alert_message">Сохранить изменения?</string>
-    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
+    <string name="export_profiles_alert_message">Резервная копия будет сохранена в указанную пользователем папку.</string>
     <string name="export_profiles_alert_message_note">Примечание: Файлы резервной копии содержат конфиденциальные личные данные. Передавайте файлы, например, в zip-архиве с паролем.</string>
-    <string name="alert_button_backup">Do export</string>
+    <string name="alert_button_backup">Экспортировать</string>
     <string name="important_info_privacy_policy_backup_files">Политика конфиденциальности изменена, особенно в отношении файлов, создаваемых функцией Резервного копирования.</string>
     <string name="important_info_privacy_policy_backup_files_2">Нажмите сюда для просмотра Политики конфиденциальности.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Настройки системы</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Сортировать</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">По имени вышки</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">По длительности подключения</string>
-    <string name="menu_export_and_email">Export and e-mail settings</string>
-    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
+    <string name="menu_export_and_email">Экспортировать настройки и отправить их на e-mail</string>
+    <string name="menu_export_and_email_to_author">Экспортировать настройки и отправить их автору</string>
     <string name="menu_email_debug_logs_to_author">Отправить файлы журнала отладки разработчику</string>
     <string name="menu_support">Поддержка</string>
     <string name="email_debug_log_files_subject">Файл журнала отладки</string>
@@ -1456,16 +1456,17 @@
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Удалить настроенные профили</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Импорт настроек приложения</string>
     <string name="export_pp_data_dialog_start_pp">Если PhoneProfiles не запущено, пожалуйста, запустите его.</string>
-    <string name="export_data_email_subject">Exported settings</string>
-    <string name="backup_settings_alert_title">Backup settings</string>
-    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
-    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
-    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
-    <string name="backup_settings_ok_backed_up">Settings backed up</string>
-    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
-    <string name="restore_settings_alert_title">Restore settings</string>
-    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
-    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
+    <string name="export_data_email_subject">Экспортированные настройки</string>
+    <string name="backup_settings_alert_title">Создать резервную копию настроек</string>
+    <string name="dialog_backup_settings_alert_text">Скопировать настройки в папку?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Создайте подпапку PhoneProfilesPlus</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Внимание! Существующая резервная копия будет перезаписана.</string>
+    <string name="backup_settings_ok_backed_up">Резервная копия настроек создана</string>
+    <string name="backup_settings_error_on_backup">Ошибка при создании резервной копии настроек</string>
+    <string name="restore_settings_alert_title">Восстановить настройки</string>
+    <string name="restore_settings_error_on_backup">Ошибка при копировании файлов для восстановления</string>
+    <string name="restore_settings_ok_backed_up">Файлы для восстановления скопированы</string>
+    <string name="altype_dataExport">создание резервной копии настроек</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Экспорт в PhoneProfilesPlus</string>

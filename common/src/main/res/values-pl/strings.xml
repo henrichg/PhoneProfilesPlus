@@ -80,13 +80,13 @@
     <string name="profile_preferences_device_not_allowed">Niedozwolone</string>
     <string name="menu_export">Kopia zapasowa ustawień</string>
     <string name="menu_import">Przywróć ustawienia aplikacji</string>
-    <string name="toast_export_ok">Settings exported</string>
+    <string name="toast_export_ok">Ustawienia wyeksportowane</string>
     <string name="toast_import_ok">Ustawienia przywrócone</string>
     <string name="import_profiles_alert_title">Przywracanie ustawień</string>
     <string name="import_profiles_alert_message">Czy na pewno?</string>
     <string name="import_profiles_alert_error">Błąd podczas przywracania</string>
-    <string name="export_profiles_alert_title">Export settings</string>
-    <string name="export_profiles_alert_error">Error during export process</string>
+    <string name="export_profiles_alert_title">Eksport ustawień</string>
+    <string name="export_profiles_alert_error">Błąd podczas eksportu</string>
     <string name="profile_preferences_deviceMobileData">Dane komórkowe</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Ustawienia danych mobilnych</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Kolorowa</string>
@@ -946,9 +946,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">Tony DTMF podczas wybierania</string>
     <string name="not_saved_changes_alert_title">Zmieniono ustawienia</string>
     <string name="not_saved_changes_alert_message">Zachować zmiany?</string>
-    <string name="export_profiles_alert_message">Backup files will be saved into directory defined by user.</string>
+    <string name="export_profiles_alert_message">Pliki kopii zapasowej zostaną zapisane w folderze zdefiniowanym przez użytkownika.</string>
     <string name="export_profiles_alert_message_note">Ważne: pliki kopii zapasowych zawierają wrażliwe dane prywatne. Udostępniaj je innym, używając na przykład archiwum ZIP zabezpieczonego hasłem.</string>
-    <string name="alert_button_backup">Do export</string>
+    <string name="alert_button_backup">Eksportuj</string>
     <string name="important_info_privacy_policy_backup_files">Zmiana Polityki Prywatności. Dotyczy szczególnie plików kopii zapasowych tworzonych za pomocą funkcji backup\'u.</string>
     <string name="important_info_privacy_policy_backup_files_2">Kliknij tu aby zobaczyć Politykę Prywatności.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Ustawienia systemowe</string>
@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Sortuj listę</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Wg nazwy stacji</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Wg czasu połączenia</string>
-    <string name="menu_export_and_email">Export and e-mail settings</string>
-    <string name="menu_export_and_email_to_author">Export and e-mail settings to author</string>
+    <string name="menu_export_and_email">Eksportuj ustawienia i wyślij e-mailem</string>
+    <string name="menu_export_and_email_to_author">Eksportuj ustawienia i wyślij e-mailem do autora</string>
     <string name="menu_email_debug_logs_to_author">Wyślij pliki debugowania do autora</string>
     <string name="menu_support">Wsparcie</string>
     <string name="email_debug_log_files_subject">Pliki z logami</string>
@@ -1457,16 +1457,17 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Usuń skonfigurowane profile</string>
     <string name="export_pp_data_dialog_application_preferences_chb">Importuj ustawienia aplikacji</string>
     <string name="export_pp_data_dialog_start_pp">Jeśli PhoneProfiles nie jest uruchomiony, uruchom go proszę.</string>
-    <string name="export_data_email_subject">Exported settings</string>
-    <string name="backup_settings_alert_title">Backup settings</string>
-    <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
-    <string name="dialog_backup_settings_alert_checkBox">Create \"PhoneProfilesPlus\" subdirectory</string>
-    <string name="dialog_backup_settings_rewrite_files_info">Warning: Existing backup files will be rewrited.</string>
-    <string name="backup_settings_ok_backed_up">Settings backed up</string>
-    <string name="backup_settings_error_on_backup">Error on backup of settings</string>
-    <string name="restore_settings_alert_title">Restore settings</string>
-    <string name="restore_settings_error_on_backup">Error on copying files for restore</string>
-    <string name="restore_settings_ok_backed_up">Files to restore copied</string>
+    <string name="export_data_email_subject">Wyeksportowane ustawienia</string>
+    <string name="backup_settings_alert_title">Kopia zapasowa ustawień</string>
+    <string name="dialog_backup_settings_alert_text">Skopiować ustawienia do katalogu?</string>
+    <string name="dialog_backup_settings_alert_checkBox">Utworzyć podkatalog \"PhoneProfilesPlus\"</string>
+    <string name="dialog_backup_settings_rewrite_files_info">Ostrzeżenie: istniejąca kopia zapasowa zostanie nadpisana.</string>
+    <string name="backup_settings_ok_backed_up">Kod zapasowa wykonana</string>
+    <string name="backup_settings_error_on_backup">Błąd podczas tworzenia kopii zapasowej</string>
+    <string name="restore_settings_alert_title">Przywróć ustawienia</string>
+    <string name="restore_settings_error_on_backup">Błąd podczas kopiowania plików backup\'u</string>
+    <string name="restore_settings_ok_backed_up">Pliki backup\'u skopiowane</string>
+    <string name="altype_dataExport">kopia zapasowa ustawień</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Eksportuj do PhoneProfilesPlus</string>

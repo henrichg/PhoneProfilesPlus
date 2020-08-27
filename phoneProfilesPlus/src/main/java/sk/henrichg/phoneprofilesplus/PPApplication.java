@@ -87,7 +87,7 @@ public class PPApplication extends Application
 
     static final long APPLICATION_START_DELAY = 2 * 60 * 1000;
     static final int WORK_PRUNE_DELAY_DAYS = 1;
-    static final int WORK_PRUNE_DELAY_MINUTES = 3 * 60;
+    //static final int WORK_PRUNE_DELAY_MINUTES = 3 * 60;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
