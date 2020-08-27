@@ -6628,8 +6628,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
-    int getTypeEventsCount(int eventType, boolean onlyRunning)
+    int getTypeEventsCount(int eventType/*, boolean onlyRunning*/)
     {
         importExportLock.lock();
         try {
@@ -6639,9 +6638,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 final String countQuery;
                 String eventTypeChecked;
-                if (onlyRunning)
-                    eventTypeChecked = KEY_E_STATUS + "=2";  //  only running events
-                else
+                //if (onlyRunning)
+                //    eventTypeChecked = KEY_E_STATUS + "=2";  //  only running events
+                //else
                     eventTypeChecked = KEY_E_STATUS + "!=0";  //  only not stopped events
                 if (eventType != ETYPE_ALL) {
                     eventTypeChecked = eventTypeChecked  + " AND ";

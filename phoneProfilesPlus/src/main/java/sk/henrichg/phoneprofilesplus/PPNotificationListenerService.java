@@ -149,12 +149,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
 
-                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION, false) > 0) {
-                            PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            //eventsHandler.setEventNotificationParameters("posted");
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-                        }
+                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        //eventsHandler.setEventNotificationParameters("posted");
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPNotificationListenerService.onNotificationPosted");
                     } finally {
@@ -218,12 +216,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
 
-                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION, false) > 0) {
-                            PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            //eventsHandler.setEventNotificationParameters("removed");
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-                        }
+                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        //eventsHandler.setEventNotificationParameters("removed");
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPNotificationListenerService.onNotificationRemoved");
                     } finally {

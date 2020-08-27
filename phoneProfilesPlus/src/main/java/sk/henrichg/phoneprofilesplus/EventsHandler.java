@@ -141,17 +141,10 @@ class EventsHandler {
             else
                 return;
 
-            //boolean interactive;
-
             this.sensorType = sensorType;
-            //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
-            //PPApplication.logE("$$$ EventsHandler.handleEvents", "sensorType=" + this.sensorType);
-            //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
+            PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
-            //restartAtEndOfEvent = false;
-
-            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-            dataWrapper.fillEventList();
+            //boolean interactive;
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())
@@ -192,7 +185,7 @@ class EventsHandler {
             if (!Event.getGlobalEventsRunning()) {
                 // events are globally stopped
 
-                doEndHandler(dataWrapper);
+                doEndHandler(null);
                 //dataWrapper.invalidateDataWrapper();
 
                 //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
@@ -200,51 +193,60 @@ class EventsHandler {
                 return;
             }
 
-            boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
-            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
+            //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
+            //PPApplication.logE("$$$ EventsHandler.handleEvents", "sensorType=" + this.sensorType);
+            //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
-            if (!eventsExists(sensorType, dataWrapper)) {
-                // events not exists
+            if (!alwaysEnabledSensors(sensorType)) {
+                int eventType = getEventTypeForSensor(sensorType);
+                if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType/*, false*/) == 0) {
+                    // events not exists
 
-                PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "events not exists: sensorType="+sensorType);
+                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
-                doEndHandler(dataWrapper);
-                //dataWrapper.invalidateDataWrapper();
+                    doEndHandler(null);
+                    //dataWrapper.invalidateDataWrapper();
 
 
-                if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
-                    // not manual profile activation
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
-                    if (DatabaseHandler.getInstance(context).getCountEventsInTimeline() == 0) {
-                        // not any event is running
-                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "not any event is running");
-                        if (PPApplication.prefLastActivatedProfile != 0) {
-                            // last activated profile is not 0
-                            PPApplication.setLastActivatedProfile(context, 0);
-                            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
-                            PPApplication.updateGUI(false); //context, true, true);
+                    if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
+                        // not manual profile activation
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
+                        if (DatabaseHandler.getInstance(context).getCountEventsInTimeline() == 0) {
+                            // not any event is running
+                            //PPApplication.logE("$$$ EventsHandler.handleEvents", "not any event is running");
+                            if (PPApplication.prefLastActivatedProfile != 0) {
+                                // last activated profile is not 0
+                                PPApplication.setLastActivatedProfile(context, 0);
+                                //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
+                                PPApplication.updateGUI(false); //context, true, true);
+                            }
                         }
                     }
+
+                    //if (isRestart) {
+                    //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
+                    //    PPApplication.updateGUI(/*context, true, true*/);
+                    //}
+                    //else {
+                    //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (2)");
+                    //    PPApplication.updateGUI(/*context, true, false*/);
+                    //}
+
+                    //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
+
+                    return;
                 }
-
-                //if (isRestart) {
-                //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
-                //    PPApplication.updateGUI(/*context, true, true*/);
-                //}
-                //else {
-                //    PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (2)");
-                //    PPApplication.updateGUI(/*context, true, false*/);
-                //}
-
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
-
-                return;
             }
 
-            PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", " ------ do EventsHandler, sensorType="+sensorType+" ------");
+            //restartAtEndOfEvent = false;
 
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+            dataWrapper.fillEventList();
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);
+
+            boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
             //interactive = (!isRestart) || _interactive;
 
@@ -893,15 +895,75 @@ class EventsHandler {
         return false;
     }
 
-    private boolean eventsExists(String sensorType, DataWrapper dataWrapper/*, boolean onlyRunning*/) {
+    private int getEventTypeForSensor(String sensorType) {
+        switch (sensorType) {
+            case SENSOR_TYPE_BATTERY:
+            case SENSOR_TYPE_POWER_SAVE_MODE:
+                return DatabaseHandler.ETYPE_BATTERY;
+            case SENSOR_TYPE_BLUETOOTH_CONNECTION:
+            case SENSOR_TYPE_BLUETOOTH_STATE:
+                return DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED;
+            case SENSOR_TYPE_BLUETOOTH_SCANNER:
+                return DatabaseHandler.ETYPE_BLUETOOTH_NEARBY;
+            case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
+            case SENSOR_TYPE_CALENDAR:
+            case SENSOR_TYPE_SEARCH_CALENDAR_EVENTS:
+                return DatabaseHandler.ETYPE_CALENDAR;
+            case SENSOR_TYPE_DOCK_CONNECTION:
+            case SENSOR_TYPE_HEADSET_CONNECTION:
+                return DatabaseHandler.ETYPE_PERIPHERAL;
+            case SENSOR_TYPE_TIME:
+                return DatabaseHandler.ETYPE_TIME;
+            case SENSOR_TYPE_APPLICATION:
+                return DatabaseHandler.ETYPE_APPLICATION;
+            case SENSOR_TYPE_NOTIFICATION:
+                return DatabaseHandler.ETYPE_NOTIFICATION;
+            /*case SENSOR_TYPE_NOTIFICATION_EVENT_END:
+                return DatabaseHandler.ETYPE_NOTIFICATION;*/
+            case SENSOR_TYPE_PHONE_CALL:
+            case SENSOR_TYPE_PHONE_CALL_EVENT_END:
+                return DatabaseHandler.ETYPE_CALL;
+            case SENSOR_TYPE_SMS:
+            case SENSOR_TYPE_SMS_EVENT_END:
+                return DatabaseHandler.ETYPE_SMS;
+            case SENSOR_TYPE_WIFI_CONNECTION:
+            case SENSOR_TYPE_WIFI_STATE:
+                return DatabaseHandler.ETYPE_WIFI_CONNECTED;
+            case SENSOR_TYPE_WIFI_SCANNER:
+                return DatabaseHandler.ETYPE_WIFI_NEARBY;
+            case SENSOR_TYPE_GEOFENCES_SCANNER:
+            case SENSOR_TYPE_LOCATION_MODE:
+                return DatabaseHandler.ETYPE_LOCATION;
+            case SENSOR_TYPE_DEVICE_ORIENTATION:
+                return DatabaseHandler.ETYPE_ORIENTATION;
+            case SENSOR_TYPE_PHONE_STATE:
+                return DatabaseHandler.ETYPE_MOBILE_CELLS;
+            case SENSOR_TYPE_NFC_TAG:
+            case SENSOR_TYPE_NFC_EVENT_END:
+                return DatabaseHandler.ETYPE_NFC;
+            case SENSOR_TYPE_RADIO_SWITCH:
+                return DatabaseHandler.ETYPE_RADIO_SWITCH;
+            case SENSOR_TYPE_ALARM_CLOCK:
+            case SENSOR_TYPE_ALARM_CLOCK_EVENT_END:
+                return DatabaseHandler.ETYPE_ALARM_CLOCK;
+            case SENSOR_TYPE_DEVICE_BOOT:
+            case SENSOR_TYPE_DEVICE_BOOT_EVENT_END:
+                return DatabaseHandler.ETYPE_DEVICE_BOOT;
+            default:
+                return DatabaseHandler.ETYPE_ALL;
+        }
+    }
+
+    /*
+    private boolean eventsExists(String sensorType, DataWrapper dataWrapper) {
 
         boolean sensorEnabled;
         for (Event _event : dataWrapper.eventList) {
-            /*boolean eventEnabled;
-            if (onlyRunning)
-                eventEnabled = _event.getStatus() == Event.ESTATUS_RUNNING;
-            else
-                eventEnabled = _event.getStatus() != Event.ESTATUS_STOP;*/
+            //boolean eventEnabled;
+            //if (onlyRunning)
+            //    eventEnabled = _event.getStatus() == Event.ESTATUS_RUNNING;
+            //else
+            //    eventEnabled = _event.getStatus() != Event.ESTATUS_STOP;
             if (_event.getStatus() != Event.ESTATUS_STOP) {
                 switch (sensorType) {
                     case SENSOR_TYPE_BATTERY:
@@ -947,9 +1009,9 @@ class EventsHandler {
                         //eventType = DatabaseHandler.ETYPE_NOTIFICATION;
                         sensorEnabled = _event._eventPreferencesNotification._enabled;
                         break;
-                    /*case SENSOR_TYPE_NOTIFICATION_EVENT_END:
-                        eventType = DatabaseHandler.ETYPE_NOTIFICATION;
-                        break;*/
+                    //case SENSOR_TYPE_NOTIFICATION_EVENT_END:
+                    //    eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+                    //    break;
                     case SENSOR_TYPE_PHONE_CALL:
                     case SENSOR_TYPE_PHONE_CALL_EVENT_END:
                         //eventType = DatabaseHandler.ETYPE_CALL;
@@ -1021,12 +1083,13 @@ class EventsHandler {
         }
         return alwaysEnabledSensors(sensorType);
     }
+    */
 
     private void doEndHandler(DataWrapper dataWrapper) {
         //PPApplication.logE("EventsHandler.doEndHandler","sensorType="+sensorType);
         //PPApplication.logE("EventsHandler.doEndHandler","callEventType="+callEventType);
 
-        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
+        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL) && (dataWrapper != null)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
             //PPApplication.logE("EventsHandler.doEndHandler", "running event exists");
