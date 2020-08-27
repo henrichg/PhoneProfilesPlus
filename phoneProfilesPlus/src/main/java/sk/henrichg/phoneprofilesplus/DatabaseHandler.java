@@ -6628,7 +6628,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    /*
     int getTypeEventsCount(int eventType, boolean onlyRunning)
     {
         importExportLock.lock();
@@ -6736,7 +6735,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
-    */
 
     void updateEventCalendarTimes(Event event)
     {

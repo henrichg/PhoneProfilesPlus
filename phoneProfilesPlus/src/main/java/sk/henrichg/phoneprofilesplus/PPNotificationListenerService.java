@@ -72,7 +72,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onNotificationPosted(sbn);
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
+        //PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
 
         if (sbn == null)
             return;
@@ -149,10 +149,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
                         PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
 
-                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        //eventsHandler.setEventNotificationParameters("posted");
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION, false) > 0) {
+                            PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            //eventsHandler.setEventNotificationParameters("posted");
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                        }
 
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPNotificationListenerService.onNotificationPosted");
                     } finally {
