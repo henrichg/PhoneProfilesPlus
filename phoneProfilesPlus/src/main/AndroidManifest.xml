@@ -575,11 +575,6 @@
         -->
 
         <!-- main service -->
-        <!--<service
-            android:name=".PhoneProfilesService"
-            android:enabled="true"
-            android:stopWithTask="false"/> -->
-        <!--TODO: Android 10 -->
         <service
             android:name=".PhoneProfilesService"
             android:enabled="true"
