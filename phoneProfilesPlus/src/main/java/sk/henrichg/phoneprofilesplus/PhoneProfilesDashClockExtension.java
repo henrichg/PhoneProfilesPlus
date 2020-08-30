@@ -13,7 +13,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     public PhoneProfilesDashClockExtension()
     {
-        instance = this;
+        //instance = this;
     }
 
     public static PhoneProfilesDashClockExtension getInstance()
@@ -26,6 +26,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         super.onInitialize(isReconnect);
 
         PPApplication.logE("[LISTENER CALL] DashClockExtension.onInitialize", "xxx");
+
+        instance = this;
 
         //GlobalGUIRoutines.setLanguage(this);
 

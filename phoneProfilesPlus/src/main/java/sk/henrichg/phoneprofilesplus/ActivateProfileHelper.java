@@ -206,7 +206,7 @@ class ActivateProfileHelper {
                         if (setWifiAPState) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
                             setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, appContext);
-                            PPApplication.sleep(1000);
+                            PPApplication.sleep(1500);
                         }
                     }
                 }
@@ -248,7 +248,7 @@ class ActivateProfileHelper {
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
                         CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi);
-                        PPApplication.sleep(1000);
+                        PPApplication.sleep(1500);
                     }
                 }
             }
