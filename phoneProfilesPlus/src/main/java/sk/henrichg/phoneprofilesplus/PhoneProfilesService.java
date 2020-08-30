@@ -4856,10 +4856,10 @@ public class PhoneProfilesService extends Service
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
             }
             notificationShowProfileIcon = false; // for small notification at start
-            notificationShowInStatusBar = true;
+            notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
             notificationUseDecoration = false;
             notificationPrefIndicator = false;
-            notificationHideInLockScreen = false;
+            notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
             notificationStatusBarStyle = "1";
             notificationTextColor = "0";
             notificationBackgroundColor = "0";
@@ -4872,6 +4872,7 @@ public class PhoneProfilesService extends Service
             synchronized (PPApplication.applicationPreferencesMutex) {
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
                 notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon || (Build.VERSION.SDK_INT < 24);
+                //notificationShowProfileIcon = true;
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 //notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
                 //notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
@@ -5109,7 +5110,7 @@ public class PhoneProfilesService extends Service
         }
         else {
             notificationBuilder = new Notification.Builder(appContext);
-            //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
+            PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
             if (notificationShowInStatusBar) {
                 KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {
@@ -5127,13 +5128,15 @@ public class PhoneProfilesService extends Service
                 else
                     notificationBuilder.setPriority(Notification.PRIORITY_LOW);
             }
-            else
+            else {
+                PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "set priority MIN");
                 notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+            }
         }
 
         notificationBuilder.setContentIntent(pIntent);
         notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
-        notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
+        notificationBuilder.setCategory(Notification.CATEGORY_SERVICE);
         notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
 
         //notificationBuilder.setTicker(profileName);
@@ -5648,13 +5651,14 @@ public class PhoneProfilesService extends Service
                 phoneProfilesNotification.defaults &= ~DEFAULT_VIBRATE;
             }
 
-            //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
+            //if ((Build.VERSION.SDK_INT >= 26) /*|| notificationStatusBarPermanent*/) {
                 // do not use Notification.FLAG_ONGOING_EVENT,
                 // with this flag, is not possible to minimize this notification
                 phoneProfilesNotification.flags |= Notification.FLAG_NO_CLEAR;// | Notification.FLAG_ONGOING_EVENT;
-            /*} else {
-            //    setAlarmForNotificationCancel(appContext);
-            }*/
+            //} else {
+                //setAlarmForNotificationCancel(appContext);
+            //    phoneProfilesNotification.flags |= /*Notification.FLAG_NO_CLEAR |*/ Notification.FLAG_ONGOING_EVENT;
+            //}
 
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                 //if (startForegroundNotification || setForeground /*|| (!isInForeground)*/) {

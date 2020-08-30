@@ -109,7 +109,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
         if ((PPApplication.isCharging != _isCharging) ||
             ((_plugged != -1) && (PPApplication.plugged != _plugged)) ||
             ((_level != -1) && (PPApplication.batteryPct != _batteryPct))) {
-            //PPApplication.logE("[TEST BATTERY] BatteryLevelChangedBroadcastReceiver.onReceive", "---- state changed");
+            PPApplication.logE("[BROADCAST CALL] BatteryLevelChangedBroadcastReceiver.onReceive", "---- state changed");
 
             PPApplication.isCharging = _isCharging;
 
