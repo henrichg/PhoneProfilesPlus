@@ -71,6 +71,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 if (dataWrapper == null)
                     return;
 
+                PPApplication.logE("[HANDLER CALL] PhoneProfilesDashClockExtension.onUpdateData", "do it");
+
                 //profile = Profile.getMappedProfile(
                 //                            dataWrapper.getActivatedProfile(true, false), this);
                 Profile profile = dataWrapper.getActivatedProfile(true, false);
