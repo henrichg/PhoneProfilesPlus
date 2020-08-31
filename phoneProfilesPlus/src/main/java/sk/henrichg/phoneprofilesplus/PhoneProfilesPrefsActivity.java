@@ -167,6 +167,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "orientationScanningCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsOrientationScanning();
                     break;
+                case "notificationScanningCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsNotificationScanning();
+                    break;
                 case "categoryActivatorRoot":
                     preferenceFragment = new PhoneProfilesPrefsActivator();
                     break;
@@ -978,6 +981,31 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, "1"));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, true));
+        }
+    }
+
+    static public class PhoneProfilesPrefsNotificationScanning extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsNotificationScanning");
+
+            PreferenceManager prefMng = getPreferenceManager();
+            SharedPreferences preferences = prefMng.getSharedPreferences();
+            if (getContext() != null) {
+                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+                loadSharedPreferences(preferences, applicationPreferences);
+            }
+
+            setPreferencesFromResource(R.xml.phone_profiles_prefs_notification_scanning, rootKey);
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsNotificationScanning");
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, "1"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, true));
         }
     }
 

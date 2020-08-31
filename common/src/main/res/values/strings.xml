@@ -1570,6 +1570,11 @@
     <string name="restore_settings_ok_backed_up">Files to restore copied</string>
     <string name="altype_dataExport">backup settings</string>
 
+    <string name="phone_profiles_pref_category_notification_scanning">Notification scanning</string>
+    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Enable notification scanning</string>
+    <string name="phone_profiles_pref_applicationEventNotification_info">These settings are for Notification event sensor.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Notification scan in Power Save mode</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 

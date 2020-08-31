@@ -4730,7 +4730,7 @@ public class PhoneProfilesService extends Service
                                     if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                         boolean canRestart = (!ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                         if ((!fromBatteryChange) || canRestart) {
-                                            startOrientationScanner(true, true, dataWrapper);
+                                            startNotificationScanner(true, true, dataWrapper);
                                         }
                                     }
 
