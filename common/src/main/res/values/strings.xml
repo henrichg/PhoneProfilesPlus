@@ -1575,6 +1575,10 @@
     <string name="phone_profiles_pref_applicationEventNotification_info">These settings are for Notification event sensor.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Notification scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Setup Notififcation scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Notification access system settings</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Notification access disabled</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Notification access enabled</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->

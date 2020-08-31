@@ -14,6 +14,13 @@
         app:title="@string/phone_profiles_pref_applicationEventNotificationEnableScanning"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventNotificationNotificationsAccessSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:key="applicationEventNotificationScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
