@@ -7,15 +7,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Build;
-import android.os.Handler;
-import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 
@@ -72,7 +75,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onNotificationPosted(sbn);
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
+        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         if (!PPApplication.notificationScannerRunning)
             return;
@@ -80,7 +83,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn == null)
             return;
 
-        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
 
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME))
@@ -137,7 +140,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
             }*/
 
-            PPApplication.startHandlerThreadBroadcast(/*"PPNotificationListenerService.onNotificationPosted"*/);
+            /*
+            PPApplication.startHandlerThreadBroadcast();
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -167,13 +171,48 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     }
                 }
             });
+            */
+
+            Data workData = new Data.Builder()
+                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                    .build();
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG)
+                            .setInputData(workData)
+                            .setInitialDelay(5, TimeUnit.SECONDS)
+                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                            .build();
+            try {
+                if (PPApplication.getApplicationStarted(true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationPosted", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
+                        //workManager.enqueue(worker);
+                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                    }
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
     }
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
         super.onNotificationRemoved(sbn);
-        //PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "xxx");
+        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
 
@@ -206,8 +245,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
+        /*
         if (Event.getGlobalEventsRunning()) {
-            PPApplication.startHandlerThreadBroadcast(/*"PPNotificationListenerService.onNotificationRemoved"*/);
+            PPApplication.startHandlerThreadBroadcast();
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -238,6 +278,42 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
             });
         }
+        */
+
+        Data workData = new Data.Builder()
+                .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                .build();
+
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG)
+                        .setInputData(workData)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .build();
+        try {
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                        //if (PPApplication.logEnabled()) {
+//                        ListenableFuture<List<WorkInfo>> statuses;
+//                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
+//                        try {
+//                            List<WorkInfo> workInfoList = statuses.get();
+//                            PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                        } catch (Exception ignored) {
+//                        }
+//                        //}
+
+                    //workManager.enqueue(worker);
+                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
     }
 
     @Override

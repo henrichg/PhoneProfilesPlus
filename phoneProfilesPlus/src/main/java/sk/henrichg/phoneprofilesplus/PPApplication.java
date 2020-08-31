@@ -182,7 +182,6 @@ public class PPApplication extends Application
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
                                                 //+"|---- BitmapManipulator.resampleBitmapUri"
-                                                +"|PPNotificationListenerService.onNotificationPosted"
                                                 ;
 
     // activity log types
@@ -1121,6 +1120,7 @@ public class PPApplication extends Application
         cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
         cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG);
         cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG);
