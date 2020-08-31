@@ -166,7 +166,6 @@ public class PhoneProfilesService extends Service
     String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     boolean connectToSSIDStarted = false;
 
-
     //--------------------------
 
     private final BroadcastReceiver commandReceiver = new BroadcastReceiver() {
@@ -3295,6 +3294,37 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void startNotificationScanner(boolean start, boolean stop, DataWrapper dataWrapper) {
+        //Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.startNotificationScanner", "PhoneProfilesService_startNotificationScanner");
+        //PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "xxx");
+        if (stop) {
+            if (PPApplication.notificationScannerRunning) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startNotificationScanner->STOP", "PhoneProfilesService_startNotificationScanner");
+                PPApplication.notificationScannerRunning = false;
+                //PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "STOP");
+            }
+            //else
+            //    PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "not started");
+        }
+        if (start) {
+            dataWrapper.fillEventList();
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
+            if (eventsExists) {
+                if (!PPApplication.notificationScannerRunning) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startNotificationScanner->START", "PhoneProfilesService_startNotificationScanner");
+                    PPApplication.notificationScannerRunning = true;
+                    //PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "START");
+                }
+                //else
+                //    PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "started");
+            } else {
+                startNotificationScanner(false, true, dataWrapper);
+                //PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "STOP");
+            }
+        }
+    }
+
     private void registerReceiversAndWorkers(boolean fromCommand) {
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiversAndWorkers", "xxx");
 
@@ -3430,6 +3460,7 @@ public class PhoneProfilesService extends Service
         startPhoneStateScanner(true, true, dataWrapper, false, false);
         startOrientationScanner(true, true, dataWrapper);
         startTwilightScanner(true, true, dataWrapper);
+        startNotificationScanner(true, true, dataWrapper);
 
         scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper, /*false, false, false,*/ true);
@@ -3484,6 +3515,7 @@ public class PhoneProfilesService extends Service
         startPhoneStateScanner(false, true, null, false, false);
         startOrientationScanner(false, true, null);
         startTwilightScanner(false, true, null);
+        startNotificationScanner(false, true, null);
 
         cancelBackgroundScanningWorker();
         cancelWifiWorker(appContext, false);
@@ -3542,6 +3574,7 @@ public class PhoneProfilesService extends Service
         startPhoneStateScanner(true, true, dataWrapper, false, false);
         startOrientationScanner(true, true, dataWrapper);
         startTwilightScanner(true, true, dataWrapper);
+        startNotificationScanner(true, true, dataWrapper);
 
         AvoidRescheduleReceiverWorker.enqueueWork();
     }
@@ -4612,6 +4645,11 @@ public class PhoneProfilesService extends Service
                                     startTwilightScanner(true, false, dataWrapper);
                                     AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
+                                case PPApplication.SCANNER_RESTART_NOTIFICATION_SCANNER:
+                                    PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_NOTIFICATION_SCANNER");
+                                    startNotificationScanner(true, true, dataWrapper);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
+                                    break;
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
                                     PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
 
@@ -4683,6 +4721,14 @@ public class PhoneProfilesService extends Service
                                     // orientation
                                     if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                                         boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        if ((!fromBatteryChange) || canRestart) {
+                                            startOrientationScanner(true, true, dataWrapper);
+                                        }
+                                    }
+
+                                    // notification
+                                    if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
+                                        boolean canRestart = (!ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                         if ((!fromBatteryChange) || canRestart) {
                                             startOrientationScanner(true, true, dataWrapper);
                                         }

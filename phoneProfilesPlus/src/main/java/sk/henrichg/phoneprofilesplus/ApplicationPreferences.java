@@ -191,6 +191,9 @@ class ApplicationPreferences {
     static String applicationEventBackgroundScanningScanInPowerSaveMode;
     static boolean applicationEventBackgroundScanningScanOnlyWhenScreenIsOn;
     static boolean applicationEventWifiScanIgnoreHotspot;
+    static boolean applicationEventNotificationEnableScanning;
+    static String applicationEventNotificationScanInPowerSaveMode;
+    static boolean applicationEventNotificationScanOnlyWhenScreenIsOn;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -375,6 +378,9 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE = "applicationEventBackgroundScanningScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventBackgroundScanningScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT = "applicationEventWifiScanIgnoreHotspot";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING = "applicationEventNotificationEnableScannig";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventNotificationScanInPowerSaveMode";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventNotificationScanOnlyWhenScreenIsOn";
 
     @CheckResult
     static SharedPreferences getSharedPreferences(Context context) {
@@ -1075,6 +1081,18 @@ class ApplicationPreferences {
 
     static void applicationEventWifiScanIgnoreHotspot(Context context) {
         applicationEventWifiScanIgnoreHotspot = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT, false);
+    }
+
+    static void applicationEventNotificationEnableScanning(Context context) {
+        applicationEventNotificationEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false);
+    }
+
+    static void applicationEventNotificationScanInPowerSaveMode(Context context) {
+        applicationEventNotificationScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE, "1");
+    }
+
+    static void applicationEventNotificationScanOnlyWhenScreenIsOn(Context context) {
+        applicationEventNotificationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
 
     static void loadStartTargetHelps(Context context) {

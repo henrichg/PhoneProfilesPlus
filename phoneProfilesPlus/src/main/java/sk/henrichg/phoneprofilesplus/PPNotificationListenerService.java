@@ -74,6 +74,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
 
+        if (!PPApplication.notificationScannerRunning)
+            return;
+
         if (sbn == null)
             return;
 
@@ -173,6 +176,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "xxx");
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
+
+        if (!PPApplication.notificationScannerRunning)
+            return;
 
         if (sbn == null)
             return;

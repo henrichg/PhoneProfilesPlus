@@ -529,6 +529,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart twilight scanner");
             PPApplication.restartTwilightScanner(appContext);
+            PPApplication.restartNotificationScanner(appContext);
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
