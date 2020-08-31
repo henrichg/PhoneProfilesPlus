@@ -3295,7 +3295,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void startNotificationScanner(boolean start, boolean stop, DataWrapper dataWrapper) {
-        //Context appContext = getApplicationContext();
+        Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.startNotificationScanner", "PhoneProfilesService_startNotificationScanner");
         //PPApplication.logE("[RJS] PhoneProfilesService.startTwilightScanner", "xxx");
         if (stop) {
@@ -3308,20 +3308,28 @@ public class PhoneProfilesService extends Service
             //    PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "not started");
         }
         if (start) {
-            dataWrapper.fillEventList();
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
-            if (eventsExists) {
-                if (!PPApplication.notificationScannerRunning) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startNotificationScanner->START", "PhoneProfilesService_startNotificationScanner");
-                    PPApplication.notificationScannerRunning = true;
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "START");
+            if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
+                boolean eventAllowed = false;
+                if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn)) {
+                    // start only for screen On
+                    dataWrapper.fillEventList();
+                    boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
+                    if (eventsExists)
+                        eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed ==
+                                PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
-                //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "started");
-            } else {
+                if (eventAllowed) {
+                    if (!PPApplication.notificationScannerRunning) {
+                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startNotificationScanner->START", "PhoneProfilesService_startNotificationScanner");
+                        PPApplication.notificationScannerRunning = true;
+                        //PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "START");
+                    }
+                    //else
+                    //    PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "started");
+                } else
+                    startNotificationScanner(false, true, dataWrapper);
+            } else
                 startNotificationScanner(false, true, dataWrapper);
-                //PPApplication.logE("[RJS] PhoneProfilesService.startNotificationScanner", "STOP");
-            }
         }
     }
 

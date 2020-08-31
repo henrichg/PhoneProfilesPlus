@@ -10,6 +10,13 @@
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
+        app:key="eventEnableNotificationScanningAppSettings"
+        app:title="@string/phone_profiles_pref_category_notification_scanning"
+        app:summary="@string/phone_profiles_pref_eventNotificationAppSettings_summary"
+        app:dependency="eventNotificationEnabled"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
         app:key="eventNotificationNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
         app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"

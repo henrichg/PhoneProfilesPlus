@@ -72,7 +72,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onNotificationPosted(sbn);
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
-        //PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
+        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
 
         if (!PPApplication.notificationScannerRunning)
             return;
@@ -80,7 +80,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn == null)
             return;
 
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
+        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "sbn.getPackageName()="+sbn.getPackageName());
 
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME))

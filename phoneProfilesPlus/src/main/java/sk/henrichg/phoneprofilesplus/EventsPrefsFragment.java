@@ -65,6 +65,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_TIME_LOCATION_SYSTEM_SETTINGS = 1994;
     private static final int RESULT_TIME_SCANNING_APP_SETTINGS = 1995;
     private static final int RESULT_CALENDAR_SCANNING_APP_SETTINGS = 1995;
+    private static final int RESULT_NOTIFICATION_SCANNING_APP_SETTINGS = 1997;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -780,6 +781,21 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             });
         }
+        preference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_APP_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "notificationScanningCategoryRoot");
+                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    startActivityForResult(intent, RESULT_NOTIFICATION_SCANNING_APP_SETTINGS);
+                    return false;
+                }
+            });
+        }
         MobileCellsRegistrationDialogPreferenceX mobileCellsRegistrationDialogPreference =
                 prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
         if (mobileCellsRegistrationDialogPreference != null) {
@@ -1245,6 +1261,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
         if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_NOTIFICATION_SCANNING_APP_SETTINGS) {
+            event._eventPreferencesNotification.checkPreferences(prefMng, context);
         }
         if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
             WifiSSIDPreferenceX preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);

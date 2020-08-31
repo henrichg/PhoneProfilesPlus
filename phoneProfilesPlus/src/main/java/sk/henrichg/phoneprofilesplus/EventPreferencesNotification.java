@@ -10,8 +10,13 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -45,6 +50,7 @@ class EventPreferencesNotification extends EventPreferences {
     private static final String PREF_EVENT_NOTIFICATION_CONTACTS = "eventNotificationContacts";
     private static final String PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE = "eventNotificationContactListType";
     private static final String PREF_EVENT_NOTIFICATION_TEXT = "eventNotificationText";
+    static final String PREF_EVENT_NOTIFICATION_APP_SETTINGS = "eventEnableNotificationScanningAppSettings";
 
     private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
 
@@ -144,7 +150,12 @@ class EventPreferencesNotification extends EventPreferences {
                     descr = descr + "</b> ";
                 }
 
-                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
+                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                    //else
+                    //    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                } else if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
                     descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
                 } else {
                     //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
@@ -228,6 +239,44 @@ class EventPreferencesNotification extends EventPreferences {
             }
         }
 
+        if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED) ||
+            key.equals(PREF_EVENT_NOTIFICATION_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APP_SETTINGS);
+            if (preference != null) {
+                String summary;
+                int titleColor;
+                if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventNotififcationDisabledScannigByProfile) {
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
+                                context.getResources().getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                        titleColor = Color.RED; //0xFFffb000;
+                    //}
+                    //else {
+                    //    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                    //            context.getResources().getString(R.string.phone_profiles_pref_eventNotififcationAppSettings_summary);
+                    //    titleColor = 0;
+                    //}
+                }
+                else {
+                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                    titleColor = 0;
+                }
+                CharSequence sTitle = preference.getTitle();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
+                preference.setSummary(summary);
+            }
+        }
         if (key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -344,7 +393,8 @@ class EventPreferencesNotification extends EventPreferences {
             key.equals(PREF_EVENT_NOTIFICATION_CONTACTS) ||
             key.equals(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS) ||
             key.equals(PREF_EVENT_NOTIFICATION_TEXT) ||
-            key.equals(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE))
+            key.equals(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE) ||
+            key.equals(PREF_EVENT_NOTIFICATION_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -364,6 +414,7 @@ class EventPreferencesNotification extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_CHECK_TEXT, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_TEXT, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_APP_SETTINGS, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -407,7 +458,9 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
+            boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
+                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
+            Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
             ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
             Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
@@ -417,7 +470,11 @@ class EventPreferencesNotification extends EventPreferences {
             SwitchPreferenceCompat checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
             Preference textPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             Preference contactListTypePreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
+            Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
 
+            if (notififcationAccess != null) {
+                notififcationAccess.setEnabled(ApplicationPreferences.applicationEventNotificationEnableScanning);
+            }
             if (applicationsPreference != null) {
                 applicationsPreference.setEnabled(enabled);
                 applicationsPreference.setSummaryAMSDP();
@@ -450,9 +507,13 @@ class EventPreferencesNotification extends EventPreferences {
                 boolean checkEnabled = (checkTextPreference != null) && (checkTextPreference.isChecked());
                 textPreference.setEnabled(enabled && checkEnabled);
             }
+            if (maximumDuration != null) {
+                maximumDuration.setEnabled(enabled);
+            }
 
             SharedPreferences preferences = prefMng.getSharedPreferences();
             setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
+            setSummary(prefMng, PREF_EVENT_NOTIFICATION_APP_SETTINGS, preferences, context);
             setCategorySummary(prefMng, preferences, context);
         /*}
         else {
@@ -841,7 +902,8 @@ class EventPreferencesNotification extends EventPreferences {
 
     private boolean isNotificationVisible(Context context) {
         //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
-        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+        if (ApplicationPreferences.applicationEventNotificationEnableScanning &&
+            PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
             if (service != null) {
                 try {
@@ -1059,7 +1121,8 @@ class EventPreferencesNotification extends EventPreferences {
 
     private StatusBarNotification getNewestVisibleNotification(Context context) {
         //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
-        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+        if (ApplicationPreferences.applicationEventNotificationEnableScanning &&
+                PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
             if (service != null) {
                 StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();

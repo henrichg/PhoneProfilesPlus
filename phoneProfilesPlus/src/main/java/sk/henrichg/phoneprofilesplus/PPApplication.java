@@ -182,6 +182,7 @@ public class PPApplication extends Application
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
                                                 //+"|---- BitmapManipulator.resampleBitmapUri"
+                                                +"|PPNotificationListenerService.onNotificationPosted"
                                                 ;
 
     // activity log types
