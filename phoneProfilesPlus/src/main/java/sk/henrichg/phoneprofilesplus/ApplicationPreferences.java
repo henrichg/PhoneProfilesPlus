@@ -152,6 +152,7 @@ class ApplicationPreferences {
     static boolean applicationEventLocationDisabledScannigByProfile;
     static boolean applicationEventMobileCellDisabledScannigByProfile;
     static boolean applicationEventOrientationDisabledScannigByProfile;
+    static boolean applicationEventNotificationDisabledScannigByProfile;
     static boolean applicationUseAlarmClock;
     static boolean notificationShowButtonExit;
     static boolean applicationWidgetOneRowPrefIndicator;
@@ -240,6 +241,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE = "applicationEventLocationDisabledScannigByProfile";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE = "applicationEventMobileCellDisabledScannigByProfile";
     static final String PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE = "applicationEventOrientationDisabledScannigByProfile";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE = "applicationEventNotificationDisabledScannigByProfile";
 
     static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
     static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
@@ -919,6 +921,10 @@ class ApplicationPreferences {
 
     static void applicationEventOrientationDisabledScannigByProfile(Context context) {
         applicationEventOrientationDisabledScannigByProfile = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+    }
+
+    static void applicationEventNotificationDisabledScannigByProfile(Context context) {
+        applicationEventNotificationDisabledScannigByProfile = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
     static void applicationUseAlarmClock(Context context) {

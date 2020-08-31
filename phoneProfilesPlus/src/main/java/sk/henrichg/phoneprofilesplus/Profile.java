@@ -102,6 +102,7 @@ public class Profile {
     int _screenOnPermanent;
     boolean _volumeMuteSound;
     int _deviceLocationMode;
+    int _applicationDisableNotificationScanning;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -185,6 +186,7 @@ public class Profile {
     static final String PREF_PROFILE_SCREEN_ON_PERMANENT = "prf_pref_screenOnPermanent";
     static final String PREF_PROFILE_VOLUME_MUTE_SOUND = "prf_pref_volumeMuteSound";
     static final String PREF_PROFILE_DEVICE_LOCATION_MODE = "prf_pref_deviceLocationMode";
+    static final String PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "prf_pref_applicationDisableNotificationScanning";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -268,6 +270,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_alwaysOnDisplay", "0");
         defaultValuesString.put("prf_pref_screenOnPermanent", "0");
         defaultValuesString.put("prf_pref_deviceLocationMode", "0");
+        defaultValuesString.put("prf_pref_applicationDisableNotificationScanning", "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -814,7 +817,9 @@ public class Profile {
                    int alwaysOnDisplay,
                    int screenOnPermanent,
                    boolean volumeMuteSound,
-                   int deviceLocationMode)
+                   int deviceLocationMode,
+                   int applicationDisableNotificationScanning
+    )
     {
         this._id = id;
         this._name = name;
@@ -891,6 +896,7 @@ public class Profile {
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
+        this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -972,7 +978,9 @@ public class Profile {
                    int alwaysOnDisplay,
                    int screenOnPermanent,
                    boolean volumeMuteSound,
-                   int deviceLocationMode)
+                   int deviceLocationMode,
+                   int applicationDisableNotificationScanning
+    )
     {
         this._name = name;
         this._icon = icon;
@@ -1048,6 +1056,7 @@ public class Profile {
         this._screenOnPermanent = screenOnPermanent;
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
+        this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1131,6 +1140,7 @@ public class Profile {
         this._screenOnPermanent = profile._screenOnPermanent;
         this._volumeMuteSound = profile._volumeMuteSound;
         this._deviceLocationMode = profile._deviceLocationMode;
+        this._applicationDisableNotificationScanning = profile._applicationDisableNotificationScanning;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1393,6 +1403,8 @@ public class Profile {
                     this._screenOnPermanent = withProfile._screenOnPermanent;
                 if (withProfile._deviceLocationMode != 0)
                     this._deviceLocationMode = withProfile._deviceLocationMode;
+                if (withProfile._applicationDisableNotificationScanning != 0)
+                    this._applicationDisableNotificationScanning = withProfile._applicationDisableNotificationScanning;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -1710,6 +1722,10 @@ public class Profile {
             }
             if (this._deviceLocationMode != withProfile._deviceLocationMode) {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_deviceLocationMode");
+                return false;
+            }
+            if (this._applicationDisableNotificationScanning != withProfile._applicationDisableNotificationScanning) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableNotificationScanning");
                 return false;
             }
 
@@ -2956,6 +2972,7 @@ public class Profile {
         profile._screenOnPermanent = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_ON_PERMANENT, "0"));
         profile._volumeMuteSound = preferences.getBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         profile._deviceLocationMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_MODE, "0"));
+        profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0"));
 
         return profile;
     }
@@ -3031,6 +3048,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_SCREEN_ON_PERMANENT, String.valueOf(profile._screenOnPermanent));
         editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
         editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, String.valueOf(profile._deviceLocationMode));
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, String.valueOf(profile._applicationDisableNotificationScanning));
 
         editor.apply();
     }
@@ -3120,7 +3138,9 @@ public class Profile {
                     profile._alwaysOnDisplay,
                     profile._screenOnPermanent,
                     profile._volumeMuteSound,
-                    profile._deviceLocationMode);
+                    profile._deviceLocationMode,
+                    profile._applicationDisableNotificationScanning
+                    );
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
@@ -3255,6 +3275,8 @@ public class Profile {
                 mappedProfile._screenOnPermanent = sharedProfile._screenOnPermanent;
             if (profile._deviceLocationMode == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceLocationMode = sharedProfile._deviceLocationMode;
+            if (profile._applicationDisableNotificationScanning == SHARED_PROFILE_VALUE)
+                mappedProfile._applicationDisableNotificationScanning = sharedProfile._applicationDisableNotificationScanning;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;

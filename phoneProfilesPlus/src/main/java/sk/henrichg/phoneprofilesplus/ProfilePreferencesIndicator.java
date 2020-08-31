@@ -552,6 +552,19 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
                 }
             }
+            /*// disable notification scanning
+            if (profile._applicationDisableNotificationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3)) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification;
+                    }
+                    if (profile._applicationDisableNotificationScanning == 2)
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_off;
+                }
+            }*/
         }
         else
             countDrawables = -1;
@@ -1002,6 +1015,15 @@ class ProfilePreferencesIndicator {
                         indicator1 = addIntoIndicator(indicator1, "ors:0", maxLineLength);
                     if (profile._applicationDisableOrientationScanning == 2)
                         indicator1 = addIntoIndicator(indicator1, "ors:1", maxLineLength);
+                }
+            }
+            // disable notification scanning
+            if (profile._applicationDisableNotificationScanning != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null,null,  true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3))
+                        indicator1 = addIntoIndicator(indicator1, "nos:0", maxLineLength);
+                    if (profile._applicationDisableNotificationScanning == 2)
+                        indicator1 = addIntoIndicator(indicator1, "nos:1", maxLineLength);
                 }
             }
         }

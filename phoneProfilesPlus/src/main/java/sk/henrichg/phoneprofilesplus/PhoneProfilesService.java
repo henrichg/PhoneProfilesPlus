@@ -3893,12 +3893,14 @@ public class PhoneProfilesService extends Service
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, false);
                         editor.apply();
                         ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(appContext);
                         ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(appContext);
                         ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
                         ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
                         ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
+                        ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
                     }
 
                     //boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);

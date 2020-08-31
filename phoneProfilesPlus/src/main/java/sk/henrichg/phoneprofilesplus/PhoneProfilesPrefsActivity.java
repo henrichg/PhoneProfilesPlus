@@ -36,6 +36,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     private boolean bluetoothScannerEnabled;
     private boolean orientationScannerEnabled;
     private boolean mobileCellScannerEnabled;
+    private boolean notificationScannerEnabled;
     private int backgroundScanInterval;
     private int wifiScanInterval;
     private int bluetoothScanInterval;
@@ -104,6 +105,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         bluetoothScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, false);
         orientationScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, false);
         mobileCellScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, false);
+        notificationScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false);
 
         backgroundScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, "15"));
         wifiScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "15"));
@@ -395,6 +397,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     private void doPreferenceChanges() {
+        //Log.e("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxx");
         Context appContext = getApplicationContext();
 
         PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -415,6 +418,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
         if (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+        if (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, false);
         editor.apply();
 
         PPApplication.loadApplicationPreferences(getApplicationContext());
@@ -434,6 +439,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
+            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventNotificationEnableScanning);
         //} catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             // PPApplication.recordException(e);
@@ -524,6 +530,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (permissionsChanged ||
+                (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)) {
+            //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart notification scanner");
+            PPApplication.restartNotificationScanner(appContext);
+        }
+
+        if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart phone state scanner");
             PPApplication.restartPhoneStateScanner(appContext);
@@ -532,7 +544,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart twilight scanner");
             PPApplication.restartTwilightScanner(appContext);
-            PPApplication.restartNotificationScanner(appContext);
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {

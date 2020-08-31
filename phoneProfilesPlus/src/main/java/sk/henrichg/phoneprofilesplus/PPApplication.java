@@ -1799,6 +1799,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context);
+            ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventNeverAskForEnableRun(context);
             ApplicationPreferences.applicationUseAlarmClock(context);
             ApplicationPreferences.applicationNeverAskForGrantRoot(context);

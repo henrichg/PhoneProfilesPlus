@@ -362,7 +362,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._alwaysOnDisplay,
                         origProfile._screenOnPermanent,
                         origProfile._volumeMuteSound,
-                        origProfile._deviceLocationMode);
+                        origProfile._deviceLocationMode,
+                        origProfile._applicationDisableNotificationScanning
+                );
                 showSaveMenu = true;
             }
             else
@@ -472,6 +474,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(profile._screenOnPermanent));
             editor.putBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
             editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(profile._deviceLocationMode));
+            editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(profile._applicationDisableNotificationScanning));
             editor.apply();
         }
     }
@@ -596,6 +599,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, ""));
             profile._volumeMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
             profile._deviceLocationMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, ""));
+            profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, ""));
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

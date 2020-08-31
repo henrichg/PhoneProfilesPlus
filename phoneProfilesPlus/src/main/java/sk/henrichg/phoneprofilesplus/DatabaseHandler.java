@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2436;
+    private static final int DATABASE_VERSION = 2437;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -180,6 +180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SCREEN_ON_PERMANENT = "screenOnPermanent";
     private static final String KEY_VOLUME_MUTE_SOUND = "volumeMuteSound";
     private static final String KEY_DEVICE_LOCATION_MODE = "deviceLocationMode";
+    private static final String KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -553,7 +554,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ALWAYS_ON_DISPLAY + " " + INTEGER_TYPE + ","
                 + KEY_SCREEN_ON_PERMANENT + " " + INTEGER_TYPE + ","
                 + KEY_VOLUME_MUTE_SOUND + " " + INTEGER_TYPE + ","
-                + KEY_DEVICE_LOCATION_MODE + " " + INTEGER_TYPE
+                + KEY_DEVICE_LOCATION_MODE + " " + INTEGER_TYPE + ","
+                + KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -967,6 +969,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_SCREEN_ON_PERMANENT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_VOLUME_MUTE_SOUND, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2596,6 +2599,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             0,
                             0,
                             false,
+                            0,
                             0
                     );
 
@@ -2669,6 +2673,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.put(KEY_SCREEN_DARK_MODE, profile._screenDarkMode);
                         values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
                         values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
+                        values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
                         // do not add another columns here
 
                         // updating row
@@ -2911,6 +2916,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             cursor.close();
         }
+
+        if (oldVersion < 2437)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "=0");
+        }
+
     }
 
     @Override
@@ -3058,6 +3071,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
                 values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
                 values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
+                values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
 
                 // Insert Row
                 if (!merged) {
@@ -3168,7 +3182,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_ALWAYS_ON_DISPLAY,
                                 KEY_SCREEN_ON_PERMANENT,
                                 KEY_VOLUME_MUTE_SOUND,
-                                KEY_DEVICE_LOCATION_MODE
+                                KEY_DEVICE_LOCATION_MODE,
+                                KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3252,7 +3267,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1,
-                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE))
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING))
                         );
                     }
 
@@ -3356,7 +3372,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_ALWAYS_ON_DISPLAY + "," +
                         KEY_SCREEN_ON_PERMANENT + "," +
                         KEY_VOLUME_MUTE_SOUND + "," +
-                        KEY_DEVICE_LOCATION_MODE +
+                        KEY_DEVICE_LOCATION_MODE + "," +
+                        KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3444,6 +3461,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._screenOnPermanent = cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT));
                         profile._volumeMuteSound = cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1;
                         profile._deviceLocationMode = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE));
+                        profile._applicationDisableNotificationScanning = cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -3549,6 +3567,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SCREEN_ON_PERMANENT, profile._screenOnPermanent);
                 values.put(KEY_VOLUME_MUTE_SOUND, (profile._volumeMuteSound) ? 1 : 0);
                 values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
+                values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3908,7 +3927,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_ALWAYS_ON_DISPLAY,
                                 KEY_SCREEN_ON_PERMANENT,
                                 KEY_VOLUME_MUTE_SOUND,
-                                KEY_DEVICE_LOCATION_MODE
+                                KEY_DEVICE_LOCATION_MODE,
+                                KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -3994,7 +4014,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SCREEN_ON_PERMANENT)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VOLUME_MUTE_SOUND)) == 1,
-                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE))
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING))
                         );
                     }
 

@@ -1579,6 +1579,7 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Notification access disabled</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Notification access enabled</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
+    <string name="profile_preferences_applicationDisableNotificationScanning">Disable notification scanning</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->

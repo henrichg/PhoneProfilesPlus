@@ -151,10 +151,10 @@ class EventPreferencesNotification extends EventPreferences {
                 }
 
                 if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
-                    //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
+                    if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
-                    //else
-                    //    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                    else
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 } else if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
                     descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
                 } else {
@@ -246,16 +246,16 @@ class EventPreferencesNotification extends EventPreferences {
                 String summary;
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventNotificationEnableScanning) {
-                    //if (!ApplicationPreferences.applicationEventNotififcationDisabledScannigByProfile) {
+                    if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
-                    //}
-                    //else {
-                    //    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
-                    //            context.getResources().getString(R.string.phone_profiles_pref_eventNotififcationAppSettings_summary);
-                    //    titleColor = 0;
-                    //}
+                    }
+                    else {
+                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                                context.getResources().getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                        titleColor = 0;
+                    }
                 }
                 else {
                     summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +

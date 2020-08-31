@@ -3308,6 +3308,17 @@ class ActivateProfileHelper {
             //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableOrientationScanning");
             PPApplication.restartOrientationScanner(appContext);
         }
+        if (profile._applicationDisableNotificationScanning != 0) {
+            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, profile._applicationDisableNotificationScanning == 2);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_DISABLED_SCANNING_BY_PROFILE, profile._applicationDisableNotificationScanning == 1);
+            editor.apply();
+            ApplicationPreferences.applicationEventNotificationEnableScanning(appContext);
+            ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(appContext);
+            //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableNotificationScanning");
+            PPApplication.restartNotificationScanner(appContext);
+        }
 
         // set heads-up notifications
         if (profile._headsUpNotifications != 0) {

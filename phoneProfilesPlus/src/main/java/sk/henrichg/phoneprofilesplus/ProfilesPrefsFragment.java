@@ -2234,6 +2234,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, R.string.profile_preferences_applicationDisableNotificationScanning, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
+                        R.array.applicationDisableScanningValues, R.array.applicationDisableScanningArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
         }
 
         /*if (PPApplication.logEnabled()) {
@@ -2727,7 +2739,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING) ||
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING) ||
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
+                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING) ||
+                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING))
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -2975,6 +2988,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY);
         setSummary(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT);
         setSummary(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND);
+        setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

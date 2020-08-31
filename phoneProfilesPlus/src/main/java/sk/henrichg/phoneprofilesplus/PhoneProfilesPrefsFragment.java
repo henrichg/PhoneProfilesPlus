@@ -2106,12 +2106,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON);
         setSummary(PREF_BACKGROUND_SCANNING_POWER_SAVE_MODE_SETTINGS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON);
         setSummary(PREF_NOTIFICATION_POWER_SAVE_MODE_SETTINGS);
         setSummary(PREF_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
 
@@ -2477,10 +2479,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING)) {
             if (!preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false)) {
-                //if (ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile)
-                //    preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
-                //else
-                preference.setSummary(R.string.empty_string);
+                if (ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
+                    preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
+                else
+                    preference.setSummary(R.string.empty_string);
             }
             else
                 preference.setSummary(R.string.empty_string);
@@ -3081,7 +3083,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else {
                 ApplicationPreferences.applicationEventNotificationEnableScanning(context);
-                //ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile(context);
+                ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventNotificationEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
@@ -3097,7 +3099,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = summary + "<br><br>";
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
                 } else {
-                    summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_disabled) + "</b>";
+                    if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
+                        summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_disabled) + "</b>";
+                    else
+                        summary = summary + "<b>" + getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "</b>";
                 }
             }
         }
