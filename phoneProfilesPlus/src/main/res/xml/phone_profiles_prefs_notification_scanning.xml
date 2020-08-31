@@ -33,7 +33,7 @@
     <SwitchPreferenceCompat
         app:key="applicationEventNotificationScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
-        app:defaultValue="true"
+        app:defaultValue="false"
         app:dependency="applicationEventNotificationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     

@@ -86,7 +86,7 @@
         app:title="@string/phone_profiles_pref_category_notification_scanning"
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsNotirficationScanning" />
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsNotificationScanning" />
 
     <Preference
         app:title="@string/phone_profiles_pref_category_gui"
