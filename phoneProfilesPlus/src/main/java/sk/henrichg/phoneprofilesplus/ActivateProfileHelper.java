@@ -2363,11 +2363,13 @@ class ActivateProfileHelper {
                                 //noinspection SuspiciousNameCombination
                                 width = displayMetrics.heightPixels;
                             }
-                            //Log.d("ActivateProfileHelper.executeForWallpaper", "height="+height);
-                            //Log.d("ActivateProfileHelper.executeForWallpaper", "width="+width);
+                            //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWallpaper", "height="+height);
+                            //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWallpaper", "width="+width);
+
                             // for lock screen no double width
                             if ((android.os.Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
                                 width = width << 1; // best wallpaper width is twice screen width
+                            //PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWallpaper", "width (2)="+width);
 
                             Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, false, true, appContext);
                             if (decodedSampleBitmap != null) {

@@ -17,7 +17,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 
 import androidx.appcompat.content.res.AppCompatResources;
@@ -30,6 +32,11 @@ class BitmapManipulator {
 
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, boolean checkOrientation, Context context) {
         //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
+        //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "width="+width);
+        //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "height="+height);
+        //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "checkSize="+checkSize);
+        //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "checkOrientation="+checkOrientation);
+
         if (bitmapUri == null)
             return null;
 
@@ -40,6 +47,28 @@ class BitmapManipulator {
         //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "uri="+uri);
         if (uri != null) {
             try {
+
+                int rotatedWidth = width;
+                int rotatedHeight = height;
+                int orientation = 0;
+
+                if (checkOrientation) {
+                    orientation = getBitmapUriOrientation(context, uri);
+
+                    if (orientation == 90 || orientation == 270) {
+                        //noinspection SuspiciousNameCombination
+                        rotatedWidth = height;
+                        //noinspection SuspiciousNameCombination
+                        rotatedHeight = width;
+                    } /*else {
+                    rotatedWidth = width;
+                    rotatedHeight = height;
+                }*/
+                }
+                //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "orientation="+orientation);
+                //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "rotatedWidth="+rotatedWidth);
+                //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "rotatedHeight="+rotatedHeight);
+
                 ContentResolver contentResolver = context.getContentResolver();
 
                 //boolean ok = false;
@@ -91,24 +120,6 @@ class BitmapManipulator {
                     }
                 }
 
-                int rotatedWidth = width;
-                int rotatedHeight = height;
-                int orientation = 0;
-
-                if (checkOrientation) {
-                    orientation = getBitmapUriOrientation(context, uri);
-
-                    if (orientation == 90 || orientation == 270) {
-                        //noinspection SuspiciousNameCombination
-                        rotatedWidth = height;
-                        //noinspection SuspiciousNameCombination
-                        rotatedHeight = width;
-                    } /*else {
-                    rotatedWidth = width;
-                    rotatedHeight = height;
-                }*/
-                }
-
                 Bitmap decodedSampleBitmap;
                 inputStream = context.getContentResolver().openInputStream(uri);
 
@@ -127,6 +138,8 @@ class BitmapManipulator {
                      * have to do a rotation.
                      */
                     if (checkOrientation && (orientation > 0)) {
+                        //PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "rotated");
+
                         Matrix matrix = new Matrix();
                         matrix.postRotate(orientation);
 
@@ -148,22 +161,46 @@ class BitmapManipulator {
 
     private static int getBitmapUriOrientation(Context context, Uri photoUri) {
         try {
-            Cursor cursor = context.getContentResolver().query(photoUri,
-                    new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
-            if (cursor != null) {
-                if (cursor.getCount() != 1) {
-                    cursor.close();
-                    return -1;
+            if (Build.VERSION.SDK_INT >= 24) {
+                InputStream inputStream;
+                inputStream = context.getContentResolver().openInputStream(photoUri);
+                if (inputStream != null) {
+                    ExifInterface exif = new ExifInterface(inputStream);
+                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                    inputStream.close();
+
+                    switch (orientation) {
+                        case ExifInterface.ORIENTATION_ROTATE_270:
+                            return 270;
+                        case ExifInterface.ORIENTATION_ROTATE_180:
+                            return  180;
+                        case ExifInterface.ORIENTATION_ROTATE_90:
+                            return  90;
+                        default:
+                            return 0;
+                    }
                 }
+                else
+                    return -1;
+            }
+            else {
+                Cursor cursor = context.getContentResolver().query(photoUri,
+                        new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
+                if (cursor != null) {
+                    if (cursor.getCount() != 1) {
+                        cursor.close();
+                        return -1;
+                    }
 
-                cursor.moveToFirst();
+                    cursor.moveToFirst();
 
-                int orientation = cursor.getInt(0);
+                    int orientation = cursor.getInt(0);
 
-                cursor.close();
-                return orientation;
-            } else
-                return -1;
+                    cursor.close();
+                    return orientation;
+                } else
+                    return -1;
+            }
         } catch (Exception e) {
             return -1;
         }
