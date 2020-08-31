@@ -4342,6 +4342,17 @@ public class PhoneProfilesService extends Service
                 if (actualVersionCode <= 5910) {
                     ApplicationPreferences.startStopTargetHelps(appContext, false);
                 }
+
+                if (actualVersionCode <= 5200) {
+                    if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        if (preferences != null) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, true);
+                            editor.apply();
+                        }
+                    }
+                }
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);
@@ -4655,7 +4666,7 @@ public class PhoneProfilesService extends Service
                                     break;
                                 case PPApplication.SCANNER_RESTART_NOTIFICATION_SCANNER:
                                     PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_NOTIFICATION_SCANNER");
-                                    startNotificationScanner(true, true, dataWrapper);
+                                    startNotificationScanner(true, false, dataWrapper);
                                     AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:

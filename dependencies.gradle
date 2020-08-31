@@ -25,6 +25,7 @@
 // 5400 = move night mode background color to "Use night mode"
 // 5700 = removed usage of screen timeout 24 hours and permanent on
 // 5900 = remove tap target helps, user can it start from Editor
+// 6200 = enable notification scanning when any non-stopped event has Notification sensor
 
 ext.ppVersions = [
     publishVersion: '4.1.11.4b',
