@@ -552,7 +552,7 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
                 }
             }
-            /*// disable notification scanning
+            // disable notification scanning
             if (profile._applicationDisableNotificationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3)) {
@@ -564,7 +564,7 @@ class ProfilePreferencesIndicator {
                     if (profile._applicationDisableNotificationScanning == 2)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_off;
                 }
-            }*/
+            }
         }
         else
             countDrawables = -1;
