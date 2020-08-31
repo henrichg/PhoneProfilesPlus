@@ -4343,7 +4343,7 @@ public class PhoneProfilesService extends Service
                     ApplicationPreferences.startStopTargetHelps(appContext, false);
                 }
 
-                if (actualVersionCode <= 5200) {
+                if (actualVersionCode <= 6200) {
                     if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
                         if (preferences != null) {
