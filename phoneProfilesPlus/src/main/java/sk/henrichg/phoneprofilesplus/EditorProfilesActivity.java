@@ -1770,7 +1770,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMPORT) {
             if ((resultCode == RESULT_OK) && (data != null)) {
-                doImportData(/*data.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH)*/);
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
             }
         }
         else
@@ -1979,20 +1980,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, getApplicationContext());
                                         if (ok == 1)
                                             ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, getApplicationContext());
-                                    }
-                                    else {
+                                    } else {
                                         // cannot copy backup files, pickedDir is not writable
                                         //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - cannot copy restore files, pickedDir is not writable");
                                         ok = 0;
                                     }
-                                }
-                                else {
+                                } else {
                                     // pickedDir is not writable
                                     //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
                                     ok = 0;
                                 }
-                            }
-                            else {
+                            } else {
                                 // pickedDir is null
                                 //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
                                 ok = 0;
@@ -2037,8 +2035,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                                     dialog.show();
                                 }
-                            }
-                            else {
+                            } else {
                                 PPApplication.showToast(getApplicationContext(), getString(R.string.restore_settings_ok_backed_up), Toast.LENGTH_SHORT);
 
                                 doImportData();
@@ -2271,25 +2268,23 @@ public class EditorProfilesActivity extends AppCompatActivity
         final EditorProfilesActivity activity = this;
         //final String _applicationDataPath = applicationDataPath;
 
-        if (Permissions.checkImport(getApplicationContext())) {
+        @SuppressLint("StaticFieldLeak")
+        class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
+            private final DataWrapper _dataWrapper;
+            private int dbError = DatabaseHandler.IMPORT_OK;
+            private boolean appSettingsError = false;
+            private boolean sharedProfileError = false;
 
-            @SuppressLint("StaticFieldLeak")
-            class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
-                private final DataWrapper _dataWrapper;
-                private int dbError = DatabaseHandler.IMPORT_OK;
-                private boolean appSettingsError = false;
-                private boolean sharedProfileError = false;
+            private ImportAsyncTask() {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setMessage(R.string.import_profiles_alert_title);
 
-                private ImportAsyncTask() {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setMessage(R.string.import_profiles_alert_title);
+                LayoutInflater inflater = (activity.getLayoutInflater());
+                @SuppressLint("InflateParams")
+                View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+                dialogBuilder.setView(layout);
 
-                    LayoutInflater inflater = (activity.getLayoutInflater());
-                    @SuppressLint("InflateParams")
-                    View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                    dialogBuilder.setView(layout);
-
-                    importProgressDialog = dialogBuilder.create();
+                importProgressDialog = dialogBuilder.create();
 
 //                    importProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                        @Override
@@ -2301,191 +2296,188 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                        }
 //                    });
 
-                    _dataWrapper = getDataWrapper();
-                }
-
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-
-                    doImport = true;
-
-                    GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                    importProgressDialog.setCancelable(false);
-                    importProgressDialog.setCanceledOnTouchOutside(false);
-                    if (!activity.isFinishing())
-                        importProgressDialog.show();
-
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                    if (fragment != null) {
-                        if (fragment instanceof EditorProfileListFragment)
-                            ((EditorProfileListFragment) fragment).removeAdapter();
-                        else
-                            ((EditorEventListFragment) fragment).removeAdapter();
-                    }
-                }
-
-                @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-                @Override
-                protected Integer doInBackground(Void... params) {
-                    //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
-                    if (_dataWrapper != null) {
-                        PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
-
-                        //File sd = Environment.getExternalStorageDirectory();
-                        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                        File sd = getApplicationContext().getExternalFilesDir(null);
-
-                        /*try {
-                            File exportPath = new File(sd, _applicationDataPath);
-                            if (exportPath.exists()) {
-                                //noinspection ResultOfMethodCallIgnored
-                                exportPath.setReadable(true, false);
-                            }
-                            if (exportPath.exists()) {
-                                //noinspection ResultOfMethodCallIgnored
-                                exportPath.setWritable(true, false);
-                            }
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }*/
-
-                        // import application preferences must be first,
-                        // because in DatabaseHandler.importDB is recompute of volumes in profiles
-                        //File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        appSettingsError = !importApplicationPreferences(exportFile, 1);
-                        //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                        exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                        if (exportFile.exists())
-                            sharedProfileError = !importApplicationPreferences(exportFile, 2);
-
-                        //dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
-                        dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(/*_applicationDataPath*/);
-                        if (dbError == DatabaseHandler.IMPORT_OK) {
-                            DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-                            DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
-                            DatabaseHandler.getInstance(_dataWrapper.context).deactivateProfile();
-                            DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
-                            DatabaseHandler.getInstance(_dataWrapper.context).disableNotAllowedPreferences();
-                            //this.dataWrapper.invalidateProfileList();
-                            //this.dataWrapper.invalidateEventList();
-                            //this.dataWrapper.invalidateEventTimelineList();
-                            Event.setEventsBlocked(_dataWrapper.context, false);
-                            DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
-                            Event.setForceRunEventRunning(_dataWrapper.context, false);
-                        }
-
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
-                            PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
-                            PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
-                        }*/
-
-                        if (!appSettingsError) {
-                            /*Editor editor = ApplicationPreferences.preferences.edit();
-                            editor.putInt(EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
-                            editor.putInt(EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
-                            editor.putInt(EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
-                            editor.apply();*/
-
-                            Permissions.setAllShowRequestPermissions(_dataWrapper.context, true);
-
-                            //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-                            //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-                            //PhoneStateScanner.setShowEnableLocationNotification(_dataWrapper.context, true);
-                        }
-
-                        if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError)))
-                            return 1;
-                        else
-                            return 0;
-                    }
-                    else
-                        return 0;
-                }
-
-                @Override
-                protected void onPostExecute(Integer result) {
-                    super.onPostExecute(result);
-
-                    doImport = false;
-
-                    if (!isFinishing()) {
-                        if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
-                            if (!isDestroyed())
-                                importProgressDialog.dismiss();
-                            importProgressDialog = null;
-                        }
-                        GlobalGUIRoutines.unlockScreenOrientation(activity);
-                    }
-
-                    if (_dataWrapper != null) {
-                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
-
-                        // clear shared preferences for last activated profile
-                        Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                        Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
-                        PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
-
-                        //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                        //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                        PPApplication.updateGUI(true/*_dataWrapper.context, true, true*/);
-
-                        PPApplication.setApplicationStarted(_dataWrapper.context, true);
-                        Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
-                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                        //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                        PPApplication.startPPService(activity, serviceIntent/*, true*/);
-                    }
-
-                    if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError))) {
-                        //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
-
-                        // restart events
-                        //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
-                        //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
-                        //}
-
-                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
-
-                        // toast notification
-                        if (!isFinishing())
-                            PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                    getResources().getString(R.string.toast_import_ok),
-                                    Toast.LENGTH_SHORT);
-
-                        // refresh activity
-                        if (!isFinishing())
-                            GlobalGUIRoutines.reloadActivity(activity, true);
-
-                        DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
-                        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
-                        IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
-
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
-                    } else {
-                        //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
-
-                        int appSettingsResult = 1;
-                        if (appSettingsError) appSettingsResult = 0;
-                        int sharedProfileResult = 1;
-                        if (sharedProfileError) sharedProfileResult = 0;
-                        if (!isFinishing())
-                            importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult, sharedProfileResult);
-
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
-                    }
-                }
-
+                _dataWrapper = getDataWrapper();
             }
 
-            importAsyncTask = new ImportAsyncTask().execute();
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                doImport = true;
+
+                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                importProgressDialog.setCancelable(false);
+                importProgressDialog.setCanceledOnTouchOutside(false);
+                if (!activity.isFinishing())
+                    importProgressDialog.show();
+
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null) {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment) fragment).removeAdapter();
+                    else
+                        ((EditorEventListFragment) fragment).removeAdapter();
+                }
+            }
+
+            @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
+            @Override
+            protected Integer doInBackground(Void... params) {
+                //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
+                if (_dataWrapper != null) {
+                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
+
+                    //File sd = Environment.getExternalStorageDirectory();
+                    //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                    File sd = getApplicationContext().getExternalFilesDir(null);
+
+                    /*try {
+                        File exportPath = new File(sd, _applicationDataPath);
+                        if (exportPath.exists()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportPath.setReadable(true, false);
+                        }
+                        if (exportPath.exists()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportPath.setWritable(true, false);
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }*/
+
+                    // import application preferences must be first,
+                    // because in DatabaseHandler.importDB is recompute of volumes in profiles
+                    //File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                    File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                    appSettingsError = !importApplicationPreferences(exportFile, 1);
+                    //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                    exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                    if (exportFile.exists())
+                        sharedProfileError = !importApplicationPreferences(exportFile, 2);
+
+                    //dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
+                    dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(/*_applicationDataPath*/);
+                    if (dbError == DatabaseHandler.IMPORT_OK) {
+                        DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                        DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
+                        DatabaseHandler.getInstance(_dataWrapper.context).deactivateProfile();
+                        DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
+                        DatabaseHandler.getInstance(_dataWrapper.context).disableNotAllowedPreferences();
+                        //this.dataWrapper.invalidateProfileList();
+                        //this.dataWrapper.invalidateEventList();
+                        //this.dataWrapper.invalidateEventTimelineList();
+                        Event.setEventsBlocked(_dataWrapper.context, false);
+                        DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
+                        Event.setForceRunEventRunning(_dataWrapper.context, false);
+                    }
+
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
+                        PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
+                        PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
+                    }*/
+
+                    if (!appSettingsError) {
+                        /*Editor editor = ApplicationPreferences.preferences.edit();
+                        editor.putInt(EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
+                        editor.putInt(EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
+                        editor.putInt(EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+                        editor.apply();*/
+
+                        Permissions.setAllShowRequestPermissions(_dataWrapper.context, true);
+
+                        //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+                        //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+                        //PhoneStateScanner.setShowEnableLocationNotification(_dataWrapper.context, true);
+                    }
+
+                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError)))
+                        return 1;
+                    else
+                        return 0;
+                } else
+                    return 0;
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                super.onPostExecute(result);
+
+                doImport = false;
+
+                if (!isFinishing()) {
+                    if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
+                        if (!isDestroyed())
+                            importProgressDialog.dismiss();
+                        importProgressDialog = null;
+                    }
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (_dataWrapper != null) {
+                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+
+                    // clear shared preferences for last activated profile
+                    Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                    Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
+                    PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
+
+                    //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
+                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                    PPApplication.updateGUI(true/*_dataWrapper.context, true, true*/);
+
+                    PPApplication.setApplicationStarted(_dataWrapper.context, true);
+                    Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                    //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                    PPApplication.startPPService(activity, serviceIntent/*, true*/);
+                }
+
+                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError))) {
+                    //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+
+                    // restart events
+                    //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
+                    //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                    //}
+
+                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
+
+                    // toast notification
+                    if (!isFinishing())
+                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                                getResources().getString(R.string.toast_import_ok),
+                                Toast.LENGTH_SHORT);
+
+                    // refresh activity
+                    if (!isFinishing())
+                        GlobalGUIRoutines.reloadActivity(activity, true);
+
+                    DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                    //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(_dataWrapper.context, true);
+                    IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+
+                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
+                } else {
+                    //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+
+                    int appSettingsResult = 1;
+                    if (appSettingsError) appSettingsResult = 0;
+                    int sharedProfileResult = 1;
+                    if (sharedProfileError) sharedProfileResult = 0;
+                    if (!isFinishing())
+                        importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult, sharedProfileResult);
+
+                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
+                }
+            }
         }
+
+        importAsyncTask = new ImportAsyncTask().execute();
     }
 
     private void importData()
@@ -2499,8 +2491,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                     startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-
-                    //doImportData(PPApplication.EXPORT_PATH);
                 }
             }
         });
