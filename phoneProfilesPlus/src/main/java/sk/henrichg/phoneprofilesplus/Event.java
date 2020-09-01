@@ -1349,25 +1349,30 @@ class Event {
             // events are globally stopped
             return;
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("Event.startEvent", "event_id=" + this._id + "-----------------------------------");
-            PPApplication.logE("Event.startEvent", "-- event_name=" + this._name);
-        }*/
+//        if (PPApplication.logEnabled()) {
+//            if (_name.equals("Event")) {
+//                PPApplication.logE("[***] Event.startEvent", "event_id=" + this._id + "-----------------------------------");
+//                PPApplication.logE("[***] Event.startEvent", "-- event_name=" + this._name);
+//            }
+//        }
 
         if (!this.isRunnable(dataWrapper.context, true)) {
             // event is not runnable, no start it
-            //PPApplication.logE("Event.startEvent","event is not runnable, no start it");
+            if (_name.equals("Event"))
+                PPApplication.logE("Event.startEvent","event is not runnable, no start it");
             return;
         }
 
         if (ApplicationPreferences.prefEventsBlocked)
         {
             // blocked by manual profile activation
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("Event.startEvent", "event_id=" + this._id + " events blocked");
-                PPApplication.logE("Event.startEvent", "event_id=" + this._id + " forceRun=" + _forceRun);
-                PPApplication.logE("Event.startEvent", "event_id=" + this._id + " blocked=" + _blocked);
-            }*/
+//            if (PPApplication.logEnabled()) {
+//                if (_name.equals("Event")) {
+//                    PPApplication.logE("[***] Event.startEvent", "event_id=" + this._id + " events blocked");
+//                    PPApplication.logE("[***] Event.startEvent", "event_id=" + this._id + " forceRun=" + _forceRun);
+//                    PPApplication.logE("[***] Event.startEvent", "event_id=" + this._id + " blocked=" + _blocked);
+//                }
+//            }
 
             if (!_forceRun)
                 // event is not forceRun
@@ -1391,7 +1396,8 @@ class Event {
                 }
                 if (!found) {
                     // if activated profile is not _startWhenActivatedProfile, not start event
-                    //PPApplication.logE("Event.startEvent","is not started _startWhenActivatedProfile");
+//                    if (_name.equals("Event"))
+//                        PPApplication.logE("[***] Event.startEvent","is not started _startWhenActivatedProfile");
                     return;
                 }
             }
@@ -1406,7 +1412,8 @@ class Event {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
             if ((event != null) && applicationEventUsePriority && (event._priority > this._priority)) {
                 // is running event with higher priority
-                //PPApplication.logE("Event.startEvent","is running event with higher priority");
+//                if (_name.equals("Event"))
+//                    PPApplication.logE("[***] Event.startEvent","is running event with higher priority");
                 return;
             }
         }
@@ -1427,7 +1434,8 @@ class Event {
             // test whenever event exists in timeline
             eventTimeline = null;
             int eventPosition = getEventTimelinePosition(eventTimelineList);
-            //PPApplication.logE("Event.startEvent","eventPosition="+eventPosition);
+//            if (_name.equals("Event"))
+//                PPApplication.logE("[***] Event.startEvent","eventPosition="+eventPosition);
             if (eventPosition != -1)
                 eventTimeline = eventTimelineList.get(eventPosition);
 
@@ -1472,10 +1480,12 @@ class Event {
             PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START, _name, null, null, 0, "");
         }
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("Event.startEvent", "event=" + this._id + " activate profile id=" + this._fkProfileStart);
-            PPApplication.logE("Event.startEvent", "mergedProfile=" + mergedProfile);
-        }*/
+//        if (PPApplication.logEnabled()) {
+//            if (_name.equals("Event")) {
+//                PPApplication.logE("[***] Event.startEvent", "event=" + this._id + " activate profile id=" + this._fkProfileStart);
+//                PPApplication.logE("[***] Event.startEvent", "mergedProfile=" + mergedProfile);
+//            }
+//        }
 
         if (mergedProfile == null) {
             long activatedProfileId = 0;
@@ -1483,7 +1493,8 @@ class Event {
             if (activatedProfile != null)
                 activatedProfileId = activatedProfile._id;
             if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
-                //PPApplication.logE("&&&&&&& Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
+//                if (_name.equals("Event"))
+//                    PPApplication.logE("[***] Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, false, false, forRestartEvents);
             }
             else {
@@ -1498,7 +1509,8 @@ class Event {
             //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
             if (this._manualProfileActivation) {
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                //PPApplication.logE("&&&&&&& Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
+//                if (_name.equals("Event"))
+//                    PPApplication.logE("[***] Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, true, true, forRestartEvents);
                 mergedProfile._id = 0;
             }

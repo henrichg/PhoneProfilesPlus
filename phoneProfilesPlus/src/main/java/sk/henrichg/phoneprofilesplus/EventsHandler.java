@@ -1447,18 +1447,19 @@ class EventsHandler {
             PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedNfc=" + notAllowedNfc);
             PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
             PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
+        */
 
-            if (event._name.equals("Event")) {
-                PPApplication.logE("[***] EventsHandler.doHandleEvents", "allPassed=" + allPassed);
-                PPApplication.logE("[***] EventsHandler.doHandleEvents", "someNotAllowed=" + someNotAllowed);
-            }
-
-            if (event._name.equals("Event")) {
-                //PPApplication.logE("EventsHandler.doHandleEvents","eventStart="+eventStart);
-                PPApplication.logE("[***] EventsHandler.doHandleEvents", "forRestartEvents=" + forRestartEvents);
-                PPApplication.logE("[***] EventsHandler.doHandleEvents", "statePause=" + statePause);
-            }
-        }*/
+//            if (event._name.equals("Event")) {
+//                PPApplication.logE("[***] EventsHandler.doHandleEvents", "allPassed=" + allPassed);
+//                PPApplication.logE("[***] EventsHandler.doHandleEvents", "someNotAllowed=" + someNotAllowed);
+//            }
+//
+//            if (event._name.equals("Event")) {
+//                //PPApplication.logE("EventsHandler.doHandleEvents","eventStart="+eventStart);
+//                PPApplication.logE("[***] EventsHandler.doHandleEvents", "forRestartEvents=" + forRestartEvents);
+//                PPApplication.logE("[***] EventsHandler.doHandleEvents", "statePause=" + statePause);
+//            }
+        //}
 
         if (!someNotAllowed) {
             // some sensor is not allowed, do not change event status
@@ -1474,18 +1475,18 @@ class EventsHandler {
             } else
                 newEventStatus = Event.ESTATUS_PAUSE;
 
-            /*if (PPApplication.logEnabled()) {
-                if (event._name.equals("Event")) {
-                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "event.getStatus()=" + event.getStatus());
-                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "newEventStatus=" + newEventStatus);
-                }
-            }*/
+//            if (PPApplication.logEnabled()) {
+//                if (event._name.equals("Event")) {
+//                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "event.getStatus()=" + event.getStatus());
+//                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "newEventStatus=" + newEventStatus);
+//                }
+//            }
 
             //PPApplication.logE("@@@ EventsHandler.doHandleEvents","restartEvent="+restartEvent);
 
             if ((event.getStatus() != newEventStatus) || forRestartEvents || event._isInDelayStart || event._isInDelayEnd) {
-                //if (event._name.equals("Event"))
-                //    PPApplication.logE("[***] EventsHandler.doHandleEvents", " do new event status");
+//                if (event._name.equals("Event"))
+//                    PPApplication.logE("[***] EventsHandler.doHandleEvents", " do new event status");
 
                 if (((newEventStatus == Event.ESTATUS_RUNNING) || forRestartEvents) && (!statePause)) {
                     // do start of events, all sensors are passed
@@ -1507,15 +1508,19 @@ class EventsHandler {
                         return;
                     }
 
-                    /*if (PPApplication.logEnabled()) {
-                        if (event._name.equals("Event")) {
-                            PPApplication.logE("[***] EventsHandler.doHandleEvents", "start event");
-                            PPApplication.logE("[***] EventsHandler.doHandleEvents", "event._name=" + event._name);
-                        }
-                    }*/
+//                    if (PPApplication.logEnabled()) {
+//                        if (event._name.equals("Event")) {
+//                            PPApplication.logE("[***] EventsHandler.doHandleEvents", "start event");
+//                            PPApplication.logE("[***] EventsHandler.doHandleEvents", "event._name=" + event._name);
+//                        }
+//                    }
 
                     if ((!isInDelayEnd) || forRestartEvents) {
+//                        if (event._name.equals("Event"))
+//                            PPApplication.logE("[***] EventsHandler.doHandleEvents", "start event (2)");
                         if (!forDelayStartAlarm) {
+//                            if (event._name.equals("Event"))
+//                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "start event (3)");
                             // called not for delay alarm
                             /*if (forRestartEvents) {
                                 event._isInDelayStart = false;
@@ -1531,29 +1536,35 @@ class EventsHandler {
                                     event.checkDelayStart(/*this*/);
                                 }
                             }
-                            //if (event._name.equals("Event"))
-                            //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
+//                            if (event._name.equals("Event"))
+//                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
                                 long oldMergedProfile = mergedProfile._id;
+                                Profile _oldMergedProfile = mergedProfile;
                                 event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                                 startProfileMerged = oldMergedProfile != mergedProfile._id;
-                                //if (event._name.equals("Event"))
-                                //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
+//                                if (event._name.equals("Event")) {
+//                                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "_oldMergedProfile="+_oldMergedProfile._name);
+//                                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._name);
+//                                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "startProfileMerged="+startProfileMerged);
+//                                }
                             }
                         }
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("[DSTART] EventsHandler.doHandleEvents", "forDelayStartAlarm=" + forDelayStartAlarm);
-                            PPApplication.logE("[DSTART] EventsHandler.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
-                        }*/
                         if (forDelayStartAlarm && event._isInDelayStart) {
+//                            if (event._name.equals("Event"))
+//                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "start event (4)");
                             // called for delay alarm
                             // start event
                             long oldMergedProfile = mergedProfile._id;
                             event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                             startProfileMerged = oldMergedProfile != mergedProfile._id;
-                            //PPApplication.logE("[DSTART] EventsHandler.doHandleEvents", "mergedProfile=" + mergedProfile._name);
+//                            if (event._name.equals("Event")) {
+//                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "oldMergedProfile="+oldMergedProfile);
+//                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
+//                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "startProfileMerged="+startProfileMerged);
+//                            }
                         }
                     }
                 }

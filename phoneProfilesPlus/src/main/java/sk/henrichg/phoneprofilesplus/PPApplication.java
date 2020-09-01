@@ -79,6 +79,7 @@ public class PPApplication extends Application
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
+    static boolean serviceHasFirstStart = false;
 
     static boolean applicationFullyStarted = false;
 
@@ -136,6 +137,9 @@ public class PPApplication extends Application
 
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
+
+                                                //+"|[***] EventsHandler.doHandleEvents"
+                                                //+"|[***] Event.startEvent"
 
                                                 //+"|EditorProfilesActivity.copyToBackupDirectory"
                                                 //+"|EditorProfilesActivity.copyFromBackupDirectory"
@@ -1868,7 +1872,7 @@ public class PPApplication extends Application
             if (testService) {
                 try {
                     return applicationStarted &&
-                            (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
+                            (PhoneProfilesService.getInstance() != null) && PPApplication.serviceHasFirstStart;
                 } catch (Exception e) {
                     return false;
                 }

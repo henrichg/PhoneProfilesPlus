@@ -1592,7 +1592,7 @@ public class DataWrapper {
 
 //        if (PPApplication.logEnabled()) {
 //            if (PhoneProfilesService.getInstance() != null) {
-//                PPApplication.logE("### DataWrapper._activateProfile", "serviceHasFirstStart=" + PhoneProfilesService.getInstance().getServiceHasFirstStart());
+//                PPApplication.logE("### DataWrapper._activateProfile", "serviceHasFirstStart=" + PPApplication.serviceHasFirstStart);
 //                PPApplication.logE("### DataWrapper._activateProfile", "serviceRunning=" + PhoneProfilesService.getInstance().getServiceRunning());
 //            }
 //        }

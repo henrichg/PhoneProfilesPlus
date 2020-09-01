@@ -64,6 +64,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -78,7 +79,6 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 public class PhoneProfilesService extends Service
 {
     private static volatile PhoneProfilesService instance = null;
-    private boolean serviceHasFirstStart = false;
     //private static boolean isInForeground = false;
 
     // must be in PPService !!!
@@ -237,7 +237,6 @@ public class PhoneProfilesService extends Service
             PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
         }
 
-        serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
         PPApplication.applicationFullyStarted = false;
@@ -430,7 +429,7 @@ public class PhoneProfilesService extends Service
             instance = null;
         }
 
-        serviceHasFirstStart = false;
+        //serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
         PPApplication.applicationFullyStarted = false;
@@ -469,9 +468,9 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    boolean getServiceHasFirstStart() {
+    /*boolean getServiceHasFirstStart() {
         return serviceHasFirstStart;
-    }
+    }*/
 
 //    boolean getServiceRunning() {
 //        return serviceRunning;
@@ -3593,7 +3592,8 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        serviceHasFirstStart = true;
+        final boolean oldServiceHasFirstStart = PPApplication.serviceHasFirstStart;
+        PPApplication.serviceHasFirstStart = true;
         PPApplication.setApplicationStarted(getApplicationContext(), true);
 
         boolean applicationStart = false;
@@ -3807,13 +3807,27 @@ public class PhoneProfilesService extends Service
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "7");
 
-                    dataWrapper.fillProfileList(false, false);
-                    for (Profile profile : dataWrapper.profileList)
-                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
-                    Profile.setActivatedProfileForDuration(appContext, 0);
-                    Profile profile = DataWrapper.getNonInitializedProfile(
-                            getString(R.string.empty_string), Profile.PROFILE_ICON_DEFAULT, 0);
-                    Profile.saveProfileToSharedPreferences(profile, appContext);
+                    if (!oldServiceHasFirstStart) {
+                        dataWrapper.fillProfileList(false, false);
+                        for (Profile profile : dataWrapper.profileList)
+                            ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
+                        Profile.setActivatedProfileForDuration(appContext, 0);
+                        Profile profile = DataWrapper.getNonInitializedProfile(
+                                getString(R.string.empty_string), Profile.PROFILE_ICON_DEFAULT, 0);
+                        Profile.saveProfileToSharedPreferences(profile, appContext);
+                        Event.setEventsBlocked(appContext, false);
+                        dataWrapper.fillEventList();
+                        synchronized (dataWrapper.eventList) {
+                            //noinspection ForLoopReplaceableByForEach
+                            for (Iterator<Event> it = dataWrapper.eventList.iterator(); it.hasNext(); ) {
+                                Event event = it.next();
+                                if (event != null)
+                                    event._blocked = false;
+                            }
+                        }
+                        DatabaseHandler.getInstance(appContext).unblockAllEvents();
+                        Event.setForceRunEventRunning(appContext, false);
+                    }
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "8");
 
@@ -4409,14 +4423,14 @@ public class PhoneProfilesService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
-        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+PPApplication.serviceHasFirstStart);
 
         //startForegroundNotification = true;
 
         Context appContext = getApplicationContext();
         showProfileNotification(/*true,*/ !isServiceRunning(appContext, PhoneProfilesService.class, true)/*, false*/);
 
-        if (!serviceHasFirstStart) {
+        if (!PPApplication.serviceHasFirstStart) {
             String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
             PPApplication.showToast(appContext.getApplicationContext(), text, Toast.LENGTH_SHORT);
 
