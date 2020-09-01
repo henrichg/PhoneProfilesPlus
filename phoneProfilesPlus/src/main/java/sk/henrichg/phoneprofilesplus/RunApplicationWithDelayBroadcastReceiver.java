@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.PowerManager;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -27,11 +29,44 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         PPApplication.logE("[BROADCAST CALL] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RunApplicationWithDelayBroadcastReceiver.onReceive", "RunApplicationWithDelayBroadcastReceiver_onReceive");
 
+        if (!PPApplication.getApplicationStarted(true))
+            // application is not started
+            return;
+
         if (intent != null) {
-            String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
-            String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
-            Context appContext = context.getApplicationContext();
-            doWork(appContext, profileName, runApplicationData);
+            final String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
+            final String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
+
+            final Context appContext = context.getApplicationContext();
+
+            PPApplication.startHandlerThreadBroadcast(/*"RunApplicationWithDelayBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":RunApplicationWithDelayBroadcastReceiver_onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
+
+                        doWork(appContext, profileName, runApplicationData);
+
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                }
+            });
         }
     }
 

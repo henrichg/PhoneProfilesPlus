@@ -92,51 +92,6 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                                 PPApplication.startPPService(appContext, serviceIntent/*, true*/);
                             }
-                            /*else
-                            if (!bootUpCompleted) {
-                                // service is started
-                                PPApplication.logE("BootUpReceiver.onReceive", "activate profiles");
-
-                                //if (PhoneProfilesService.getInstance() != null)
-                                //    PhoneProfilesService.getInstance().removeRestartEventsForFirstStartHandler(true);
-
-                                PPApplication.logE("BootUpReceiver.onReceive", "called work for first start");
-
-                                // work after first start
-                                Data workData = new Data.Builder()
-                                        .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true)
-                                        .build();
-
-                                OneTimeWorkRequest worker =
-                                        new OneTimeWorkRequest.Builder(MainWorker.class)
-                                                .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
-                                                .setInputData(workData)
-                                                //.setInitialDelay(5, TimeUnit.SECONDS)
-                                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                                .build();
-                                try {
-                                    if (PPApplication.getApplicationStarted(true)) {
-                                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                        if (workManager != null) {
-
-//                                            //if (PPApplication.logEnabled()) {
-//                                            ListenableFuture<List<WorkInfo>> statuses;
-//                                            statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG);
-//                                            try {
-//                                                List<WorkInfo> workInfoList = statuses.get();
-//                                                PPApplication.logE("[TEST BATTERY] BootUpReceiver.onReceive", "for=" + PPApplication.AFTER_FIRST_START_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                                            } catch (Exception ignored) {
-//                                            }
-//                                            //}
-
-                                            //workManager.enqueue(worker);
-                                            workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                                        }
-                                    }
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            }*/
                         } else {
                             if (PPApplication.logEnabled()) {
                                 PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");

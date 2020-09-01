@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 
 public class LocaleChangedReceiver extends BroadcastReceiver {
 
@@ -17,7 +16,16 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
             //final Context appContext = context.getApplicationContext();
 
             if (PPApplication.getApplicationStarted(false)) {
-                PPApplication.startHandlerThreadBroadcast(/*"LocaleChangedReceiver.onReceive"*/);
+
+                PPApplication.collator = PPApplication.getCollator();
+                //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
+                //PPApplication.showProfileNotification(/*true*/);
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
+                //}
+
+/*
+                PPApplication.startHandlerThreadBroadcast();
                 final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -26,14 +34,15 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
                         PPApplication.collator = PPApplication.getCollator();
                         //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
-                            //PPApplication.showProfileNotification(/*true*/);
+                            //PPApplication.showProfileNotification();
                         if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
+                            PhoneProfilesService.getInstance().showProfileNotification(false);
                         //}
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocaleChangedReceiver.onReceive");
                     }
                 });
+*/
             }
         }
     }
