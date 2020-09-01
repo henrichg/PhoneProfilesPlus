@@ -2977,9 +2977,8 @@ public class Profile {
         return profile;
     }
 
-    static void saveProfileToSharedPreferences(Profile profile, Context context,
-                                               @SuppressWarnings("SameParameterValue") String prefsName) {
-        SharedPreferences preferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
+    static void saveProfileToSharedPreferences(Profile profile, Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putLong(PREF_PROFILE_ID, profile._id);

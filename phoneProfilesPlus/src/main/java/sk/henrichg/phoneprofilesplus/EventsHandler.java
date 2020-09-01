@@ -866,8 +866,9 @@ class EventsHandler {
 
             doEndHandler(dataWrapper);
 
-            // refresh all GUI - must be for for restart scanners
-            if (PPApplication.isScreenOn) {
+            // refresh all GUI - must be for restart scanners
+            //if (PPApplication.isScreenOn) {
+            if (profileChanged || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
                 PPApplication.updateGUI(false); //context, true, true);
             }
 

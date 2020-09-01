@@ -1564,7 +1564,7 @@ public class DataWrapper {
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");*/
 
         if (_profile != null)
-            Profile.saveProfileToSharedPreferences(_profile, context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
+            Profile.saveProfileToSharedPreferences(_profile, context);
 
         //boolean fullyStarted = false;
         //if (PhoneProfilesService.getInstance() != null)

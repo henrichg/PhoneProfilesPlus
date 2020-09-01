@@ -3811,6 +3811,9 @@ public class PhoneProfilesService extends Service
                     for (Profile profile : dataWrapper.profileList)
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
                     Profile.setActivatedProfileForDuration(appContext, 0);
+                    Profile profile = DataWrapper.getNonInitializedProfile(
+                            getString(R.string.empty_string), Profile.PROFILE_ICON_DEFAULT, 0);
+                    Profile.saveProfileToSharedPreferences(profile, appContext);
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "8");
 

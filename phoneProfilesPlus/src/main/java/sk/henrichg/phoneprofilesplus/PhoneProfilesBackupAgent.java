@@ -116,7 +116,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
                     // clear shared preferences for last activated profile
                     Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                    Profile.saveProfileToSharedPreferences(profile, appContext, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
+                    Profile.saveProfileToSharedPreferences(profile, appContext);
                     PPApplication.setLastActivatedProfile(appContext, 0);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesBackupAgent.onRestoreFinished");
