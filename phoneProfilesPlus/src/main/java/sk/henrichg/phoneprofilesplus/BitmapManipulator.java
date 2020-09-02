@@ -17,12 +17,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.exifinterface.media.ExifInterface;
 
 import java.io.InputStream;
 

@@ -25,6 +25,7 @@ class BluetoothScanner {
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static boolean bluetoothDiscoveryStarted = false;
     static BluetoothLeScanner bluetoothLEScanner = null;
+    static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
     //static BluetoothLEScanCallback18 bluetoothLEScanCallback18 = null;
     //static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
 
@@ -211,7 +212,7 @@ class BluetoothScanner {
                                 if (leDevicesScan && !ApplicationPreferences.prefEventBluetoothScanKilled) {
                                     ///////// LE BT scan
 
-                                    //PPApplication.logE("$$$BLE BluetoothScanner.doScan", "LE devices scan");
+                                    //PPApplication.logE("%%%%BLE BluetoothScanner.doScan", "LE devices scan");
 
                                 /*if (android.os.Build.VERSION.SDK_INT < 21)
                                     // for old BT LE scan must by acquired lock
@@ -223,7 +224,7 @@ class BluetoothScanner {
                                                                     true);
 
                                     if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                        //PPApplication.logE("$$$BLE BluetoothScanner.doScan", "start LE scan");
+                                        //PPApplication.logE("%%%%BLE BluetoothScanner.doScan", "start LE scan");
                                         BluetoothScanWorker.startLEScan(context);
                                     } else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                                         BluetoothScanWorker.setLEScanRequest(context, false);
@@ -233,12 +234,12 @@ class BluetoothScanner {
 
                                     if (ApplicationPreferences.prefEventBluetoothLEScanRequest ||
                                             ApplicationPreferences.prefEventBluetoothLEWaitForResult) {
-                                        //PPApplication.logE("$$$BLE BluetoothScanner.doScan", "waiting for LE scan end");
+                                        //PPApplication.logE("%%%%BLE BluetoothScanner.doScan", "waiting for LE scan end");
 
                                         // wait for scan end
                                         waitForLEBluetoothScanEnd(context);
 
-                                        //PPApplication.logE("$$$BLE BluetoothScanner.doScan", "LE scan ended");
+                                        //PPApplication.logE("%%%%BLE BluetoothScanner.doScan", "LE scan ended");
 
                                         // send broadcast for start EventsHandler
                                         /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
@@ -304,7 +305,7 @@ class BluetoothScanner {
             //}
 
             /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("$$$ BluetoothScanner.doScan", "after synchronized block - scannerType=" + scannerType);
+                //PPApplication.logE("$$$ BluetoothScanner.doScan", "after synchronized block - scannerType=" + scannerType);
 
                 PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END ------------");
             }*/
@@ -435,7 +436,9 @@ class BluetoothScanner {
 
                 PPApplication.sleep(500);
             } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5) * 1000);
+            //PPApplication.logE("%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd", "do finishLEScan");
             BluetoothScanWorker.finishLEScan(context);
+            //PPApplication.logE("%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd", "do stopLEScan");
             BluetoothScanWorker.stopLEScan(context);
 
 

@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofiles;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@SuppressWarnings("unused")
 public class PPProfileForExport implements Parcelable {
 
     public long KEY_ID;
@@ -150,6 +149,7 @@ public class PPProfileForExport implements Parcelable {
         dest.writeString(this.KEY_VOLUME_BLUETOOTH_SCO);
     }
 
+    @SuppressWarnings("unused")
     public PPProfileForExport() {
     }
 

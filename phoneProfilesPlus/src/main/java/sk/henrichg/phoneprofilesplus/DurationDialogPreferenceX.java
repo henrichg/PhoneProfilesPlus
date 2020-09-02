@@ -138,7 +138,6 @@ public class DurationDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<DurationDialogPreferenceX.SavedState> CREATOR =
                 new Creator<DurationDialogPreferenceX.SavedState>() {
                     public DurationDialogPreferenceX.SavedState createFromParcel(Parcel in)

@@ -243,7 +243,6 @@ public class LocationGeofencePreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<LocationGeofencePreferenceX.SavedState> CREATOR =
                 new Creator<LocationGeofencePreferenceX.SavedState>() {
                     public LocationGeofencePreferenceX.SavedState createFromParcel(Parcel in)

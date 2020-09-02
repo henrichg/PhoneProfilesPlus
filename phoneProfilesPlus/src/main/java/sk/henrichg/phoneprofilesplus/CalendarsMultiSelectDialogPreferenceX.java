@@ -10,10 +10,10 @@ import android.os.Parcelable;
 import android.provider.CalendarContract.Calendars;
 import android.util.AttributeSet;
 
+import androidx.preference.DialogPreference;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.DialogPreference;
 
 public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference {
     CalendarsMultiSelectDialogPreferenceFragmentX fragment;
@@ -191,7 +191,6 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<CalendarsMultiSelectDialogPreferenceX.SavedState> CREATOR =
                 new Creator<CalendarsMultiSelectDialogPreferenceX.SavedState>() {
                     public CalendarsMultiSelectDialogPreferenceX.SavedState createFromParcel(Parcel in)

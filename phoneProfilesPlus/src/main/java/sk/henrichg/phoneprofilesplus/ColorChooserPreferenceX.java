@@ -212,7 +212,6 @@ public class ColorChooserPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<ColorChooserPreferenceX.SavedState> CREATOR =
                 new Creator<ColorChooserPreferenceX.SavedState>() {
                     public ColorChooserPreferenceX.SavedState createFromParcel(Parcel in)

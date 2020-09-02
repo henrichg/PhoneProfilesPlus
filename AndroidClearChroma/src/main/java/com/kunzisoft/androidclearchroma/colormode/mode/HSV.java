@@ -12,7 +12,6 @@ import java.util.List;
  * Class for managed Hue-Saturation-Value color mode
  * @author Pavel Sikun
  */
-@SuppressWarnings("unused")
 public class HSV implements AbstractColorMode {
 
     private float[] colorToHSV(int color) {

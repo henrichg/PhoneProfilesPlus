@@ -229,7 +229,6 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<ContactGroupsMultiSelectDialogPreferenceX.SavedState> CREATOR =
                 new Creator<ContactGroupsMultiSelectDialogPreferenceX.SavedState>() {
                     public ContactGroupsMultiSelectDialogPreferenceX.SavedState createFromParcel(Parcel in)

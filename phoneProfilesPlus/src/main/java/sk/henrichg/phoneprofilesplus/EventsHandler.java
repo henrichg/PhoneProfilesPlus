@@ -1542,7 +1542,7 @@ class EventsHandler {
                                 // no delay alarm is set
                                 // start event
                                 long oldMergedProfile = mergedProfile._id;
-                                Profile _oldMergedProfile = mergedProfile;
+                                //Profile _oldMergedProfile = mergedProfile;
                                 event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                                 startProfileMerged = oldMergedProfile != mergedProfile._id;
 //                                if (event._name.equals("Event")) {

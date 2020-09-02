@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+@SuppressWarnings("unused")
 public class Shell {
 
     public enum ShellType {
@@ -52,7 +53,6 @@ public class Shell {
     }
 
     //this is only used with root shells
-    @SuppressWarnings("unused")
     public enum ShellContext {
         NORMAL("normal"), //The normal context...
         SHELL("u:r:shell:s0"), //unprivileged shell (such as an adb shell)
@@ -121,7 +121,7 @@ public class Shell {
 
     public boolean isReading = false;
 
-    @SuppressWarnings({"WeakerAccess", "unused"})
+    @SuppressWarnings({"WeakerAccess"})
     public boolean isClosed = false;
 
     private final int maxCommands = 5000;
@@ -278,7 +278,7 @@ public class Shell {
         return command;
     }
 
-    @SuppressWarnings({"RedundantThrows", "unused"})
+    @SuppressWarnings({"RedundantThrows"})
     public final void useCWD(Context context) throws IOException, TimeoutException, RootDeniedException {
         add(
                 new Command(
@@ -402,7 +402,6 @@ public class Shell {
         return "Command is in position " + getCommandQueuePosition(cmd) + " currently executing command at position " + this.write + " and the number of commands is " + commands.size();
     }
 
-    @SuppressWarnings("unused")
     public static Shell getOpenShell() {
         if (Shell.customShell != null) {
             return Shell.customShell;
@@ -501,22 +500,18 @@ public class Shell {
         return suVersion[idx];
     }
 
-    @SuppressWarnings("unused")
     public static boolean isShellOpen() {
         return Shell.shell == null;
     }
 
-    @SuppressWarnings("unused")
     public static boolean isCustomShellOpen() {
         return Shell.customShell == null;
     }
 
-    @SuppressWarnings("unused")
     public static boolean isRootShellOpen() {
         return Shell.rootShell == null;
     }
 
-    @SuppressWarnings("unused")
     public static boolean isAnyShellOpen() {
         return Shell.shell != null || Shell.rootShell != null || Shell.customShell != null;
     }
@@ -857,12 +852,10 @@ public class Shell {
         }
     }
 
-    @SuppressWarnings("unused")
     public static Command runRootCommand(Command command) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell().add(command);
     }
 
-    @SuppressWarnings("unused")
     public static Command runCommand(Command command) throws IOException, TimeoutException {
         return Shell.startShell().add(command);
     }
@@ -871,7 +864,6 @@ public class Shell {
         return Shell.startRootShell(0, 3);
     }
 
-    @SuppressWarnings("unused")
     public static Shell startRootShell(int timeout) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell(timeout, 3);
     }
@@ -939,7 +931,6 @@ public class Shell {
         return Shell.rootShell;
     }
 
-    @SuppressWarnings("unused")
     public static Shell startCustomShell(String shellPath) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startCustomShell(shellPath, 0);
     }

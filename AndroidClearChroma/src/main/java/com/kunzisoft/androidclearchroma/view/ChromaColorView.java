@@ -35,7 +35,6 @@ import java.util.List;
  * Chroma color view to show a color view with channels
  * @author JJamet
  */
-@SuppressWarnings("unused")
 public class ChromaColorView extends RelativeLayout {
 
     private final Context context;
@@ -165,6 +164,7 @@ public class ChromaColorView extends RelativeLayout {
         });
 
         ChannelView.OnProgressChangedListener seekBarChangeListener = new ChannelView.OnProgressChangedListener() {
+            @SuppressWarnings("unused")
             @Override
             public void onProgressChanged() {
                 List<Channel> channels = new ArrayList<>();
@@ -201,6 +201,7 @@ public class ChromaColorView extends RelativeLayout {
         super.invalidate();
     }
 
+    @SuppressWarnings("unused")
     public void setOnColorChangedListener(OnColorChangedListener listener) {
         mOnColorChangedListener = listener;
     }
@@ -214,6 +215,7 @@ public class ChromaColorView extends RelativeLayout {
         invalidate();
     }
 
+    @SuppressWarnings("unused")
     public ColorMode getColorMode() {
         return colorMode;
     }
@@ -223,6 +225,7 @@ public class ChromaColorView extends RelativeLayout {
         invalidate();
     }
 
+    @SuppressWarnings("unused")
     public IndicatorMode getIndicatorMode() {
         return indicatorMode;
     }

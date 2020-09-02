@@ -7,10 +7,10 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.preference.DialogPreference;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.DialogPreference;
 
 public class WifiSSIDPreferenceX extends DialogPreference {
 
@@ -226,7 +226,6 @@ public class WifiSSIDPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<WifiSSIDPreferenceX.SavedState> CREATOR =
                 new Creator<WifiSSIDPreferenceX.SavedState>() {
                     public WifiSSIDPreferenceX.SavedState createFromParcel(Parcel in)

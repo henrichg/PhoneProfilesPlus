@@ -2,14 +2,13 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.Path.Direction;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.style.LeadingMarginSpan;
 
-@SuppressWarnings("unused")
 public final class ImprovedBulletSpan implements LeadingMarginSpan {
     private Path mBulletPath;
     private final int bulletRadius;
@@ -57,19 +56,22 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
 
     }
 
+    @SuppressWarnings("unused")
     public final int getBulletRadius() {
         return this.bulletRadius;
     }
 
+    @SuppressWarnings("unused")
     public final int getGapWidth() {
         return this.gapWidth;
     }
 
+    @SuppressWarnings("unused")
     public final int getColor() {
         return this.color;
     }
 
-    ImprovedBulletSpan(int bulletRadius, int gapWidth, int color) {
+    ImprovedBulletSpan(int bulletRadius, int gapWidth, @SuppressWarnings("SameParameterValue") int color) {
         this.bulletRadius = bulletRadius;
         this.gapWidth = gapWidth;
         this.color = color;

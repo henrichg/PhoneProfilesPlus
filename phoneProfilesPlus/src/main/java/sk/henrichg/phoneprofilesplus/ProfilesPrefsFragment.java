@@ -83,7 +83,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         nestedFragment = !(this instanceof ProfilesPrefsActivity.ProfilesPrefsRoot);
         //PPApplication.logE("ProfilesPrefsFragment.onCreate", "nestedFragment="+nestedFragment);
 
-        initPreferenceFragment(savedInstanceState);
+        initPreferenceFragment(/*savedInstanceState*/);
 
         updateAllSummary();
 
@@ -1053,7 +1053,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //outState.putBoolean("nestedFragment", nestedFragment);
     }
 
-    private void initPreferenceFragment(@SuppressWarnings("unused") Bundle savedInstanceState) {
+    private void initPreferenceFragment(/*Bundle savedInstanceState*/) {
         prefMng = getPreferenceManager();
 
         preferences = prefMng.getSharedPreferences();

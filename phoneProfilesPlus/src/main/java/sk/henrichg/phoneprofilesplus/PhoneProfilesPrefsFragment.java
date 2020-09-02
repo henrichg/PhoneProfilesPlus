@@ -101,7 +101,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         nestedFragment = !(this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
         //PPApplication.logE("PhoneProfilesPrefsFragment.onCreate", "nestedFragment="+nestedFragment);
 
-        initPreferenceFragment(savedInstanceState);
+        initPreferenceFragment(/*savedInstanceState*/);
         //prefMng = getPreferenceManager();
         //preferences = prefMng.getSharedPreferences();
 
@@ -1901,7 +1901,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
 
-    private void initPreferenceFragment(@SuppressWarnings("unused") Bundle savedInstanceState) {
+    private void initPreferenceFragment(/*Bundle savedInstanceState*/) {
         prefMng = getPreferenceManager();
 
         //prefMng.setSharedPreferencesName(PPApplication.APPLICATION_PREFS_NAME);
@@ -2402,6 +2402,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING) ||
                 key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL)) {
+            //noinspection IfStatementWithIdenticalBranches
             if (!preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, false)) {
                 //if (ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile)
                 //    preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);

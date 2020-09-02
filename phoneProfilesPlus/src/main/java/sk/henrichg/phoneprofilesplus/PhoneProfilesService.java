@@ -5194,7 +5194,7 @@ public class PhoneProfilesService extends Service
         }
         else {
             notificationBuilder = new Notification.Builder(appContext);
-            PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
+            //PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
             if (notificationShowInStatusBar) {
                 KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {
@@ -5213,7 +5213,7 @@ public class PhoneProfilesService extends Service
                     notificationBuilder.setPriority(Notification.PRIORITY_LOW);
             }
             else {
-                PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "set priority MIN");
+                //PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "set priority MIN");
                 notificationBuilder.setPriority(Notification.PRIORITY_MIN);
             }
         }
@@ -5747,7 +5747,7 @@ public class PhoneProfilesService extends Service
             //if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                 //if (startForegroundNotification || setForeground /*|| (!isInForeground)*/) {
                 if (!serviceInfo.foreground) {
-                    PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "startForeground()");
+                    //PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "startForeground()");
                     if (notificationNotificationStyle.equals("0"))
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                     else
@@ -5758,7 +5758,7 @@ public class PhoneProfilesService extends Service
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null) {
-                        PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "notify()");
+                        //PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "notify()");
                         if (notificationNotificationStyle.equals("0"))
                             notificationManager.notify(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                         else

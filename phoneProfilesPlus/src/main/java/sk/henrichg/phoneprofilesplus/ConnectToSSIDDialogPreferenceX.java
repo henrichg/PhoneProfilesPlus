@@ -151,7 +151,6 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<ConnectToSSIDDialogPreferenceX.SavedState> CREATOR =
                 new Creator<ConnectToSSIDDialogPreferenceX.SavedState>() {
                     public ConnectToSSIDDialogPreferenceX.SavedState createFromParcel(Parcel in)

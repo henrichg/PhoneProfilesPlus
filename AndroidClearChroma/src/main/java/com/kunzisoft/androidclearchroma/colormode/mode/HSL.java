@@ -1,6 +1,7 @@
 package com.kunzisoft.androidclearchroma.colormode.mode;
 
 import android.graphics.Color;
+
 import com.kunzisoft.androidclearchroma.R;
 import com.kunzisoft.androidclearchroma.colormode.Channel;
 
@@ -11,7 +12,6 @@ import java.util.List;
  * Class for managed Hue-Saturation-Lightness color mode
  * @author Pavel Sikun
  */
-@SuppressWarnings("unused")
 public class HSL implements AbstractColorMode {
 
 //    thx @xpansive!

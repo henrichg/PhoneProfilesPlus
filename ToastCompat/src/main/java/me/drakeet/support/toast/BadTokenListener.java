@@ -9,5 +9,7 @@ import androidx.annotation.NonNull;
  */
 public interface BadTokenListener {
 
+  @SuppressWarnings("unused")
   void onBadTokenCaught(@NonNull Toast toast);
+
 }

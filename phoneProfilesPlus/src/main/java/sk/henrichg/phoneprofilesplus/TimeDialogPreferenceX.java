@@ -161,7 +161,6 @@ public class TimeDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<TimeDialogPreferenceX.SavedState> CREATOR =
                 new Creator<TimeDialogPreferenceX.SavedState>() {
                     public TimeDialogPreferenceX.SavedState createFromParcel(Parcel in)

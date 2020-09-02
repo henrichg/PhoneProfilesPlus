@@ -80,6 +80,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (!PPApplication.notificationScannerRunning)
             return;
 
+        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+        if (isPowerSaveMode && ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
+            return;
+
         if (sbn == null)
             return;
 
@@ -96,7 +101,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
 
-        final Context appContext = getApplicationContext();
+        //final Context appContext = getApplicationContext();
 
 //        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 //        long time = sbn.getPostTime() + gmtOffset;
@@ -219,6 +224,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (!PPApplication.notificationScannerRunning)
             return;
 
+        //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+        if (isPowerSaveMode && ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
+            return;
+
+
         if (sbn == null)
             return;
 
@@ -235,7 +246,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "is not PPP");
 
-        final Context appContext = getApplicationContext();
+        //final Context appContext = getApplicationContext();
 
         //getNotifiedPackages(context);
         //removeNotifiedPackage(sbn.getPackageName());

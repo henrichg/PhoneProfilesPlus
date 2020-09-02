@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
  * @author kakajika
  * @since 2016/07/01
  */
-@SuppressWarnings({"WeakerAccess", "unused", "DanglingJavadoc"})
+@SuppressWarnings({"WeakerAccess", "DanglingJavadoc", "unused"})
 public class RelativePopupWindow extends PopupWindow {
 
     @IntDef({

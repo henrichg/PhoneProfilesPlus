@@ -466,7 +466,6 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<ApplicationsMultiSelectDialogPreferenceX.SavedState> CREATOR =
                 new Creator<ApplicationsMultiSelectDialogPreferenceX.SavedState>() {
                     public ApplicationsMultiSelectDialogPreferenceX.SavedState createFromParcel(Parcel in)

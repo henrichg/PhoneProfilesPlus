@@ -80,7 +80,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         nestedFragment = !(this instanceof EventsPrefsActivity.EventsPrefsRoot);
         //PPApplication.logE("EventsPrefsFragment.onCreate", "nestedFragment=" + nestedFragment);
 
-        initPreferenceFragment(savedInstanceState);
+        initPreferenceFragment(/*savedInstanceState*/);
 
         if (getActivity() != null) {
             event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
@@ -1416,7 +1416,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         //outState.putBoolean("nestedFragment", nestedFragment);
     }
 
-    private void initPreferenceFragment(@SuppressWarnings("unused") Bundle savedInstanceState) {
+    private void initPreferenceFragment(/*Bundle savedInstanceState*/) {
         prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();
 

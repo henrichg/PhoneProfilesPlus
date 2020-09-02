@@ -263,7 +263,6 @@ public class NFCTagPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<NFCTagPreferenceX.SavedState> CREATOR =
                 new Creator<NFCTagPreferenceX.SavedState>() {
                     public NFCTagPreferenceX.SavedState createFromParcel(Parcel in)

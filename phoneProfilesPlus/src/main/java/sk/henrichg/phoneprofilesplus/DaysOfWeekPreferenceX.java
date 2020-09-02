@@ -5,11 +5,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
+import androidx.preference.DialogPreference;
+
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.DialogPreference;
 
 public class DaysOfWeekPreferenceX extends DialogPreference {
 
@@ -272,7 +272,6 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<DaysOfWeekPreferenceX.SavedState> CREATOR =
                 new Creator<DaysOfWeekPreferenceX.SavedState>() {
                     public DaysOfWeekPreferenceX.SavedState createFromParcel(Parcel in)

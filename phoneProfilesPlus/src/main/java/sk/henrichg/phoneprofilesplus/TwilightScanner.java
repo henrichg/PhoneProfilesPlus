@@ -156,11 +156,11 @@ class TwilightScanner {
         }
     }
 
-    TwilightState getTwilightState(boolean log) {
+    TwilightState getTwilightState(/*boolean log*/) {
         //if (log)
         //    PPApplication.logE("TwilightScanner.getTwilightState", "xxx");
         synchronized (mLock) {
-            mLocationHandler.updateTwilightState(false, log);
+            mLocationHandler.updateTwilightState(false/*, log*/);
             //if (log)
             //    PPApplication.logE("TwilightScanner.getTwilightState", "END");
             return mTwilightState;
@@ -339,7 +339,7 @@ class TwilightScanner {
 
                 case MSG_DO_TWILIGHT_UPDATE:
                     //PPApplication.logE("TwilightScanner.handleMessage", "MSG_DO_TWILIGHT_UPDATE");
-                    updateTwilightState(true, true);
+                    updateTwilightState(true/*, true*/);
                     break;
             }
         }
@@ -391,10 +391,10 @@ class TwilightScanner {
         private void setLocation(Location location) {
             //PPApplication.logE("TwilightScanner.setLocation", "xxx");
             mLocation = location;
-            updateTwilightState(true, true);
+            updateTwilightState(true/*, true*/);
         }
 
-        void updateTwilightState(boolean setAlarm, @SuppressWarnings("unused") boolean log) {
+        void updateTwilightState(boolean setAlarm/*, boolean log*/) {
             if (mLocation == null) {
                 setTwilightState(null);
                 return;

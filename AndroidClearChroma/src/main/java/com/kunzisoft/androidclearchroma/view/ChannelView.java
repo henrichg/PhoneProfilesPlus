@@ -2,12 +2,13 @@ package com.kunzisoft.androidclearchroma.view;
 
 import android.content.Context;
 import android.os.Build;
-import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.R;
@@ -44,6 +45,7 @@ public class ChannelView extends RelativeLayout {
         init(context);
     }
 
+    @SuppressWarnings("unused")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ChannelView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -101,6 +103,7 @@ public class ChannelView extends RelativeLayout {
      * Set a new channel to the view, the IndicatorMode.DECIMAL is used
      * @param channel Channel to assign
      */
+    @SuppressWarnings("unused")
     public void setChannel(Channel channel) {
         setChannel(channel, IndicatorMode.DECIMAL);
     }
@@ -121,6 +124,7 @@ public class ChannelView extends RelativeLayout {
         return channel;
     }
 
+    @SuppressWarnings("unused")
     public IndicatorMode getIndicatorMode() {
         return indicatorMode;
     }

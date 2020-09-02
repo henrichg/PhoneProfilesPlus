@@ -148,7 +148,7 @@ class ActivateProfileHelper {
                 }
                 if (_setMobileData) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
-                    setMobileData(appContext, _isMobileData);
+                    setMobileData(/*appContext,*/ _isMobileData);
                     PPApplication.sleep(200);
                 }
             }
@@ -4013,7 +4013,7 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setMobileData(@SuppressWarnings("unused") Context context, boolean enable)
+    private static void setMobileData(/*Context context, */boolean enable)
     {
         //PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
 

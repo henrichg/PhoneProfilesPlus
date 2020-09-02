@@ -277,7 +277,6 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<ProfileMultiSelectPreferenceX.SavedState> CREATOR =
                 new Creator<ProfileMultiSelectPreferenceX.SavedState>() {
                     public ProfileMultiSelectPreferenceX.SavedState createFromParcel(Parcel in)

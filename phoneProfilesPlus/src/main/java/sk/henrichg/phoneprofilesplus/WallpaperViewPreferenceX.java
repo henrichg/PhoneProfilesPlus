@@ -217,7 +217,6 @@ public class WallpaperViewPreferenceX extends Preference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<SavedState> CREATOR =
                 new Creator<WallpaperViewPreferenceX.SavedState>() {
             public WallpaperViewPreferenceX.SavedState createFromParcel(Parcel in)

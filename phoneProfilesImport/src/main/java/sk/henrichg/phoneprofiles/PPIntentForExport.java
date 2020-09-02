@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofiles;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@SuppressWarnings("unused")
 public class PPIntentForExport implements Parcelable {
 
     public long KEY_IN_ID;
@@ -98,6 +97,7 @@ public class PPIntentForExport implements Parcelable {
         dest.writeInt(this.KEY_IN_INTENT_TYPE);
     }
 
+    @SuppressWarnings("unused")
     public PPIntentForExport() {
     }
 

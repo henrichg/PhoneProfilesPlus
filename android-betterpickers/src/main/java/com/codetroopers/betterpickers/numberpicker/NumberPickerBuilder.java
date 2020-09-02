@@ -183,7 +183,6 @@ public class NumberPickerBuilder {
      * @param handler an Object implementing the appropriate Picker Handler
      * @return the current Builder object
      */
-    @SuppressWarnings("unused")
     public NumberPickerBuilder addNumberPickerDialogHandler(NumberPickerDialogHandlerV2 handler) {
         this.mNumberPickerDialogHandlersV2.add(handler);
         return this;

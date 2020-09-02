@@ -44,7 +44,7 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING;
  *
  * @hide
  */
-@SuppressWarnings({"JavaDoc", "WeakerAccess", "unused"})
+@SuppressWarnings({"JavaDoc", "WeakerAccess"})
 @RestrictTo(LIBRARY_GROUP)
 public final class TabLayoutMediator {
     private final @NonNull TabLayout mTabLayout;
@@ -147,6 +147,7 @@ public final class TabLayoutMediator {
     /**
      * Unlink the TabLayout and the ViewPager
      */
+    @SuppressWarnings("unused")
     public void detach() {
         mAdapter.unregisterAdapterDataObserver(mPagerAdapterObserver);
         mTabLayout.removeOnTabSelectedListener(mOnTabSelectedListener);

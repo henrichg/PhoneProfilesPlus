@@ -445,7 +445,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (!(isRunnable(context) && _enabled && _eventFound))
             return;
 
-        setAlarm(true, computeAlarm(true), context);
+        setAlarm(/*true,*/ computeAlarm(true), context);
     }
 
     @Override
@@ -464,7 +464,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (!(isRunnable(context) && _enabled && _eventFound))
             return;
 
-        setAlarm(false, computeAlarm(false), context);
+        setAlarm(/*false,*/ computeAlarm(false), context);
     }
 
     @Override
@@ -505,7 +505,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    private void setAlarm(@SuppressWarnings("unused") boolean startEvent, long alarmTime, Context context)
+    private void setAlarm(/*boolean startEvent,*/ long alarmTime, Context context)
     {
         /*if (PPApplication.logEnabled()) {
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");

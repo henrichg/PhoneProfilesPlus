@@ -303,7 +303,6 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<SavedState> CREATOR =
                 new Creator<VolumeDialogPreferenceX.SavedState>() {
                     public VolumeDialogPreferenceX.SavedState createFromParcel(Parcel in)

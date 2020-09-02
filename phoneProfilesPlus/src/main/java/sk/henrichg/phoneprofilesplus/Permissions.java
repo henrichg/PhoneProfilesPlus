@@ -1388,8 +1388,7 @@ class Permissions {
         }*/
     }
 
-    @SuppressWarnings("unused")
-    static boolean checkCamera(Context context) {
+    static boolean checkCamera(@SuppressWarnings("unused") Context context) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23) {
                 return true;
@@ -1400,8 +1399,7 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("unused")
-    static boolean checkMicrophone(Context context) {
+    static boolean checkMicrophone(@SuppressWarnings("unused") Context context) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23) {
                 return true;
@@ -1412,8 +1410,7 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("unused")
-    static boolean checkSensors(Context context) {
+    static boolean checkSensors(@SuppressWarnings("unused") Context context) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23) {
                 return true;

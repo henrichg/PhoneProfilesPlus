@@ -170,7 +170,6 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<MobileCellsRegistrationDialogPreferenceX.SavedState> CREATOR =
                 new Creator<MobileCellsRegistrationDialogPreferenceX.SavedState>() {
                     public MobileCellsRegistrationDialogPreferenceX.SavedState createFromParcel(Parcel in)

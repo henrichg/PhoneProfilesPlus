@@ -385,7 +385,6 @@ public class ProfileIconPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<ProfileIconPreferenceX.SavedState> CREATOR =
                 new Creator<ProfileIconPreferenceX.SavedState>() {
                     public ProfileIconPreferenceX.SavedState createFromParcel(Parcel in)

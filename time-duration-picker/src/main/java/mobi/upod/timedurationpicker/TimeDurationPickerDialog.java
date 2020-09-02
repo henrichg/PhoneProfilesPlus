@@ -4,10 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * A simple dialog containing a {@link TimeDurationPicker}.
@@ -74,7 +75,6 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
      * Gets the current entered duration.
      * @return the current duration in milliseconds.
      */
-    @SuppressWarnings("unused")
     public TimeDurationPicker getDurationInput() {
         return durationInputView;
     }

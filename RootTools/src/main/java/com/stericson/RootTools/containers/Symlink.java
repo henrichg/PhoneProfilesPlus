@@ -24,6 +24,7 @@ package com.stericson.RootTools.containers;
 
 import java.io.File;
 
+@SuppressWarnings("unused")
 public class Symlink
 {
     @SuppressWarnings("WeakerAccess")
@@ -37,13 +38,11 @@ public class Symlink
         symlinkPath = path;
     }
 
-    @SuppressWarnings("unused")
     public File getFile()
     {
         return this.file;
     }
 
-    @SuppressWarnings("unused")
     public File getSymlinkPath()
     {
         return symlinkPath;

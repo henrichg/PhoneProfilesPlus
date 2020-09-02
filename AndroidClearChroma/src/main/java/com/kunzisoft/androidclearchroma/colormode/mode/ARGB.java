@@ -12,7 +12,6 @@ import java.util.List;
  * Class for managed Alpha-Red-Green-Blue color mode
  * @author Pavel Sikun
  */
-@SuppressWarnings("unused")
 public class ARGB implements AbstractColorMode {
 
     @Override

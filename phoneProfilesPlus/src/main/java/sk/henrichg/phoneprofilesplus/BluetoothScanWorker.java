@@ -637,8 +637,14 @@ public class BluetoothScanWorker extends Worker {
                 if (bluetooth != null) {
                     if (Permissions.checkLocation(context)) {
                         try {
-                            if (BluetoothScanner.bluetoothLEScanner == null)
+                            if (BluetoothScanner.bluetoothLEScanner == null) {
+                                //PPApplication.logE("%%%%BLE BluetoothScanWorker.startLEScan", "le scanner is null");
                                 BluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
+                            }
+                            if (BluetoothScanner.bluetoothLEScanCallback21 == null) {
+                                //PPApplication.logE("%%%%BLE BluetoothScanWorker.startLEScan", "le scanner callback is null");
+                                BluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
+                            }
 
                             ScanSettings.Builder builder = new ScanSettings.Builder();
 
@@ -657,7 +663,7 @@ public class BluetoothScanWorker extends Worker {
                             List<ScanFilter> filters = new ArrayList<>();
 
                             if (bluetooth.isEnabled()) {
-                                BluetoothScanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(context));
+                                BluetoothScanner.bluetoothLEScanner.startScan(filters, settings, BluetoothScanner.bluetoothLEScanCallback21);
                                 setWaitForLEResults(context, true);
                             }
 
@@ -674,7 +680,7 @@ public class BluetoothScanWorker extends Worker {
 
     @SuppressLint("NewApi")
     static void stopLEScan(final Context context) {
-        //PPApplication.logE("BluetoothScanWorker.stopLEScan", "xxx");
+        //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "xxx");
         if (BluetoothScanner.bluetoothLESupported(context)) {
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
@@ -682,16 +688,18 @@ public class BluetoothScanWorker extends Worker {
             if (bluetooth != null) {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                     try {
-                        //if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                        //PPApplication.logE("BluetoothScanWorker.stopLEScan", "WifiBluetoothScanner.bluetoothLEScanner="+WifiBluetoothScanner.bluetoothLEScanner);
-                        if (BluetoothScanner.bluetoothLEScanner == null)
+                        if (BluetoothScanner.bluetoothLEScanner == null) {
+                            //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "le scanner is null");
                             BluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
+                        }
+                        if (BluetoothScanner.bluetoothLEScanCallback21 == null) {
+                            //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "le scanner callback is null");
+                            BluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
+                        }
 
-                        //PPApplication.logE("BluetoothScanWorker.stopLEScan", "WifiBluetoothScanner.bluetoothLEScanner="+WifiBluetoothScanner.bluetoothLEScanner);
+                        BluetoothScanner.bluetoothLEScanner.stopScan(BluetoothScanner.bluetoothLEScanCallback21);
 
-                        BluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
-
-                        //PPApplication.logE("BluetoothScanWorker.stopLEScan", "stopped");
+                        //PPApplication.logE("%%%%BLE BluetoothScanWorker.stopLEScan", "stopped");
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }

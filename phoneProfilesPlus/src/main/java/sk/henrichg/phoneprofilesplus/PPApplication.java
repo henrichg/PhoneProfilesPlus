@@ -140,6 +140,11 @@ public class PPApplication extends Application
 
                                                 //+"|[***] EventsHandler.doHandleEvents"
                                                 //+"|[***] Event.startEvent"
+                                                //+"|%%%% BluetoothScanner.doScan"
+                                                //+"|%%%%BLE BluetoothScanner.doScan"
+                                                //+"|%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd"
+                                                //+"|%%%%BLE BluetoothScanWorker.startLEScan"
+                                                //+"|%%%%BLE BluetoothScanWorker.stopLEScan"
 
                                                 //+"|EditorProfilesActivity.copyToBackupDirectory"
                                                 //+"|EditorProfilesActivity.copyFromBackupDirectory"
@@ -185,7 +190,6 @@ public class PPApplication extends Application
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
-                                                //+"|---- BitmapManipulator.resampleBitmapUri"
                                                 ;
 
     // activity log types
@@ -1331,7 +1335,6 @@ public class PPApplication extends Application
         }
     }
 
-    @SuppressWarnings("unused")
     static public void logE(String tag, String text)
     {
         if (!logEnabled())

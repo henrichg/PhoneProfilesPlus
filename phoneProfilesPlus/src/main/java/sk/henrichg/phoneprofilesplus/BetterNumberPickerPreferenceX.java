@@ -133,7 +133,6 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<BetterNumberPickerPreferenceX.SavedState> CREATOR =
                 new Creator<BetterNumberPickerPreferenceX.SavedState>() {
                     public BetterNumberPickerPreferenceX.SavedState createFromParcel(Parcel in)

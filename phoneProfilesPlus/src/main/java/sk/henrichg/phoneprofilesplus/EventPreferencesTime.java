@@ -278,7 +278,7 @@ class EventPreferencesTime extends EventPreferences {
                     if (PhoneProfilesService.getInstance() != null) {
                         TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
                         if (twilightScanner != null) {
-                            TwilightState twilightState = twilightScanner.getTwilightState(true);
+                            TwilightState twilightState = twilightScanner.getTwilightState(/*true*/);
                             if (twilightState != null) {
                                 long startTime = computeAlarm(true, context);
                                 long endTime = computeAlarm(false, context);
@@ -737,7 +737,7 @@ class EventPreferencesTime extends EventPreferences {
                 if (twilightScanner != null) {
                     //if (testEvent)
                     //    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightScanner started");
-                    TwilightState twilightState = twilightScanner.getTwilightState(false/*testEvent*/);
+                    TwilightState twilightState = twilightScanner.getTwilightState(/*false*//*testEvent*/);
                     if (twilightState != null) {
                         //if (testEvent)
                         //    PPApplication.logE("EventPreferencesTime.computeAlarm", "TwilightState set");

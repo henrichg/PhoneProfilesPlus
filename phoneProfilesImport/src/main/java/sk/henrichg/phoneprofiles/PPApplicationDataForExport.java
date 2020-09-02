@@ -3,7 +3,7 @@ package sk.henrichg.phoneprofiles;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("CanBeFinal")
 public class PPApplicationDataForExport implements Parcelable {
 
     public boolean applicationStartOnBoot;
@@ -171,6 +171,7 @@ public class PPApplicationDataForExport implements Parcelable {
         dest.writeString(this.notificationBackgroundColor);
     }
 
+    @SuppressWarnings("unused")
     public PPApplicationDataForExport() {
     }
 

@@ -7,10 +7,10 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.preference.DialogPreference;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.preference.DialogPreference;
 
 public class BluetoothNamePreferenceX extends DialogPreference {
 
@@ -219,7 +219,6 @@ public class BluetoothNamePreferenceX extends DialogPreference {
             super(superState);
         }
 
-        @SuppressWarnings("unused")
         public static final Creator<BluetoothNamePreferenceX.SavedState> CREATOR =
                 new Creator<BluetoothNamePreferenceX.SavedState>() {
                     public BluetoothNamePreferenceX.SavedState createFromParcel(Parcel in)
