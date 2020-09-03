@@ -763,6 +763,7 @@ class PhoneStateScanner extends PhoneStateListener {
             List<NotUsedMobileCells> pausedEventList = new ArrayList<>();
             if (notUsedMobileCellsNotificationEnabled) {
                 // get running events with enabled Mobile cells sensor
+
                 db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
                 for (NotUsedMobileCells runningEvent : runningEventList) {
                     if (!lastRunningEventsNotOutside.isEmpty())
