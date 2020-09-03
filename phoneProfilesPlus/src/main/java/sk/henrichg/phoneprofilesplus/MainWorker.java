@@ -33,7 +33,8 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG = "handleEventsTwilightScannerWork";
     static final String HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG = "handleEventsMobileCellsScannerWork";
     static final String HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG = "handleEventsOrientationScannerWork";
-    static final String HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG = "handleEventsNotificationScannerWork";
+    static final String HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG = "handleEventsNotificationPostedScannerWork";
+    static final String HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG = "handleEventsNotificationRemovedScannerWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
@@ -81,7 +82,8 @@ public class MainWorker extends Worker {
                     case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG:
-                    case HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
                         String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
                         if (Event.getGlobalEventsRunning() && (sensorType != null)) {
                             //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");

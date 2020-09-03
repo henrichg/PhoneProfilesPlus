@@ -184,7 +184,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG)
+                            .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG)
                             .setInputData(workData)
                             .setInitialDelay(5, TimeUnit.SECONDS)
                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
@@ -205,7 +205,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //                        //}
 
                         //workManager.enqueue(worker);
-                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
             } catch (Exception e) {
@@ -297,7 +297,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(MainWorker.class)
-                        .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG)
+                        .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG)
                         .setInputData(workData)
                         .setInitialDelay(5, TimeUnit.SECONDS)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
@@ -318,7 +318,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //                        //}
 
                     //workManager.enqueue(worker);
-                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
