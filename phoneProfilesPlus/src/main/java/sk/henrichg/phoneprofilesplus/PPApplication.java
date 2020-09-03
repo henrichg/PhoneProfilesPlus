@@ -76,6 +76,14 @@ public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
 {
+    //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
+    //static final int VERSION_CODE_EXTENDER_2_0 = 100;
+    static final int VERSION_CODE_EXTENDER_3_0 = 200;
+    static final int VERSION_CODE_EXTENDER_4_0 = 400;
+    //static final int VERSION_CODE_EXTENDER_5_1_2 = 465;
+    static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
+    static final int VERSION_CODE_EXTENDER_5_1_3_5 = 580;
+    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_3_5;
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
@@ -316,14 +324,6 @@ public class PPApplication extends Application
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
     static final String PACKAGE_NAME_PP = "sk.henrichg.phoneprofiles";
-
-    //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
-    //static final int VERSION_CODE_EXTENDER_2_0 = 100;
-    static final int VERSION_CODE_EXTENDER_3_0 = 200;
-    static final int VERSION_CODE_EXTENDER_4_0 = 400;
-    //static final int VERSION_CODE_EXTENDER_5_1_2 = 465;
-    static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
-    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_3_1;
 
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
     static final String LOG_FILENAME = "log.txt";
@@ -1128,7 +1128,8 @@ public class PPApplication extends Application
         cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
         cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG);
         cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG);
+        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG);
         cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG);
