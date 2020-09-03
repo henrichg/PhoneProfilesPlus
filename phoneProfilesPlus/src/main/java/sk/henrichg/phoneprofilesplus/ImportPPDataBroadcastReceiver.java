@@ -8,10 +8,10 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-import sk.henrichg.phoneprofiles.PPApplicationDataForExport;
-import sk.henrichg.phoneprofiles.PPIntentForExport;
-import sk.henrichg.phoneprofiles.PPProfileForExport;
-import sk.henrichg.phoneprofiles.PPShortcutForExport;
+import sk.henrichg.phoneprofilesimport.PPApplicationDataForExport;
+import sk.henrichg.phoneprofilesimport.PPIntentForExport;
+import sk.henrichg.phoneprofilesimport.PPProfileForExport;
+import sk.henrichg.phoneprofilesimport.PPShortcutForExport;
 
 public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
 

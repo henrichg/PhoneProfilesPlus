@@ -1,4 +1,4 @@
-package sk.henrichg.phoneprofiles;
+package sk.henrichg.phoneprofilesimport;
 
 import android.os.Parcel;
 import android.os.Parcelable;

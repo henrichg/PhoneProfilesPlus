@@ -74,9 +74,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import sk.henrichg.phoneprofiles.PPIntentForExport;
-import sk.henrichg.phoneprofiles.PPProfileForExport;
-import sk.henrichg.phoneprofiles.PPShortcutForExport;
+import sk.henrichg.phoneprofilesimport.PPIntentForExport;
+import sk.henrichg.phoneprofilesimport.PPProfileForExport;
+import sk.henrichg.phoneprofilesimport.PPShortcutForExport;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
