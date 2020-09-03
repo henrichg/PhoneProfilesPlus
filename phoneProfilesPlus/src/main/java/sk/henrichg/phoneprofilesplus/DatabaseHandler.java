@@ -9336,7 +9336,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void loadMobileCellsSensorRunningPausedEvents(List<Long> eventList, boolean outsideParameter) {
+    void loadMobileCellsSensorRunningPausedEvents(List<NotUsedMobileCells> eventList, boolean outsideParameter) {
         importExportLock.lock();
         try {
             try {
@@ -9357,7 +9357,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
                 }
 
-                countQuery = "SELECT " + KEY_E_ID + " FROM " + TABLE_EVENTS + " WHERE " + eventTypeChecked;
+                countQuery = "SELECT " + KEY_E_ID + "," + KEY_E_MOBILE_CELLS_CELLS +
+                        " FROM " + TABLE_EVENTS + " WHERE " + eventTypeChecked;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -9367,8 +9368,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 if (cursor != null) {
                     if (cursor.moveToFirst()) {
                         do {
-                            long eventId = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
-                            eventList.add(eventId);
+                            NotUsedMobileCells notUsedMobileCells = new NotUsedMobileCells();
+                            notUsedMobileCells.eventId = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
+                            notUsedMobileCells.cells = cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_CELLS));
+                            eventList.add(notUsedMobileCells);
                         } while (cursor.moveToNext());
                     }
                     cursor.close();

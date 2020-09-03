@@ -104,11 +104,13 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
+                            // rename cell with _cellName
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
                                     true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents, false));
                             db.saveMobileCellsList(localCellsList, true, true);
 
+                            // add cell to running events
                             String[] eventIds = _lastRunningEvents.split("\\|");
                             for (String eventId : eventIds) {
                                 if (!eventId.isEmpty()) {
@@ -132,6 +134,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                     }
                                 }
                             }
+                            // add cell to paused events
                             eventIds = _lastPausedEvents.split("\\|");
                             for (String eventId : eventIds) {
                                 if (!eventId.isEmpty()) {
