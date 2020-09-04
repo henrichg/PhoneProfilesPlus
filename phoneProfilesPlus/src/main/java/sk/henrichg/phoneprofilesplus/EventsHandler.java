@@ -218,7 +218,7 @@ class EventsHandler {
                                 // last activated profile is not 0
                                 PPApplication.setLastActivatedProfile(context, 0);
                                 //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents (1)");
-                                PPApplication.updateGUI(false); //context, true, true);
+                                PPApplication.updateGUI(1); //context, true, true);
                             }
                         }
                     }
@@ -869,7 +869,7 @@ class EventsHandler {
             // refresh all GUI - must be for restart scanners
             //if (PPApplication.isScreenOn) {
             if (profileChanged || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
-                PPApplication.updateGUI(false); //context, true, true);
+                PPApplication.updateGUI(1); //context, true, true);
             }
 
 

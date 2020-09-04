@@ -1202,7 +1202,7 @@ public class PPApplication extends Application
 
         //if (started)
         //PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
-        updateGUI(true/*appContext, true, true*/);
+        updateGUI(0/*appContext, true, true*/);
 
         //if (/*started && *//*showToast &&*/
         //    //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
@@ -1531,7 +1531,7 @@ public class PPApplication extends Application
         }
     }
 
-    static void updateGUI(boolean immediate/*Context context, boolean alsoEditor, boolean refresh*/)
+    static void updateGUI(int delay/*Context context, boolean alsoEditor, boolean refresh*/)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("PPApplication.updateGUI", "lockRefresh=" + lockRefresh);
@@ -1555,7 +1555,7 @@ public class PPApplication extends Application
         */
 
         OneTimeWorkRequest worker;
-        if (immediate) {
+        if (delay == 0) {
             worker =
                     new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
                             .addTag(UpdateGUIWorker.WORK_TAG)
@@ -1565,7 +1565,7 @@ public class PPApplication extends Application
             worker =
                     new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
                             .addTag(UpdateGUIWorker.WORK_TAG)
-                            .setInitialDelay(1, TimeUnit.SECONDS)
+                            .setInitialDelay(delay, TimeUnit.SECONDS)
                             .build();
         }
         try {

@@ -63,7 +63,7 @@ public class LauncherActivity extends AppCompatActivity {
                 //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from LauncherActivity.onStart");
                 //PPApplication.logE("###### PPApplication.updateGUI", "from=LauncherActivity.onStart");
-                PPApplication.updateGUI(true/*getApplicationContext(), true, true*/);
+                PPApplication.updateGUI(0/*getApplicationContext(), true, true*/);
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }
 

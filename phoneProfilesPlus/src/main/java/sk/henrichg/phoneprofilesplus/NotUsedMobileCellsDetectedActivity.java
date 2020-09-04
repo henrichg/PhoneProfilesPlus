@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,9 +127,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                         intent.setPackage(PPApplication.PACKAGE_NAME);
                                         appContext.sendBroadcast(intent);
 
-                                        Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-                                        refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
-                                        LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
+                                        //Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+                                        //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
+                                        //LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                     }
                                 }
                             }
@@ -152,15 +151,17 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                         intent.setPackage(PPApplication.PACKAGE_NAME);
                                         appContext.sendBroadcast(intent);
 
-                                        Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-                                        refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
-                                        LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
+                                        //Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+                                        //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
+                                        //LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                     }
                                 }
                             }
 
                             //PPApplication.logE("[TEST BATTERY] NotUsedMobileCellsDetectedActivity.onStart()", "xxx");
                             PhoneStateScanner.handleEvents(/*appContext*/);
+                            // must be higher then delay in handleEvents
+                            PPApplication.updateGUI(10);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsDetectedActivity.onClick");
                         } finally {

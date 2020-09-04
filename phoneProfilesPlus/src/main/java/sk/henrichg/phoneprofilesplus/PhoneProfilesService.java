@@ -4823,7 +4823,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         //PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesService.onConfigurationChanged");
-        PPApplication.updateGUI(false/*getApplicationContext(), true, true*/);
+        PPApplication.updateGUI(1/*getApplicationContext(), true, true*/);
     }
 
     //------------------------
