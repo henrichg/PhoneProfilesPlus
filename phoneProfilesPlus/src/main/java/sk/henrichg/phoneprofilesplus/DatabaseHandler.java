@@ -861,7 +861,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ALARM_CLOCK_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ALARM_CLOCK_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__DEVICE_BOOT_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_DEVICE_BOOT_ENABLED + ")");
 
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
+        //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_GEOFENCES + " (" + KEY_G_NAME + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_NAME ON " + TABLE_MOBILE_CELLS + " (" + KEY_MC_NAME + ")");
@@ -9351,15 +9351,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 if (outsideParameter) {
                     eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
-                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=1";
+                    //eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=1";
                 }
                 else {
                     eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + " AND ";  //  only running events
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
-                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
+                    //eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
                 }
 
-                countQuery = "SELECT " + KEY_E_ID + "," + KEY_E_MOBILE_CELLS_CELLS +
+                countQuery = "SELECT " + KEY_E_ID + "," + KEY_E_MOBILE_CELLS_CELLS + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +
                         " FROM " + TABLE_EVENTS + " WHERE " + eventTypeChecked;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -9373,6 +9373,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             NotUsedMobileCells notUsedMobileCells = new NotUsedMobileCells();
                             notUsedMobileCells.eventId = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
                             notUsedMobileCells.cells = cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_CELLS));
+                            notUsedMobileCells.whenOutside = cursor.getInt(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
                             eventList.add(notUsedMobileCells);
                         } while (cursor.moveToNext());
                     }

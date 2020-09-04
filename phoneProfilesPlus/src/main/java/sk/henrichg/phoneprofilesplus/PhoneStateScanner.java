@@ -759,11 +759,27 @@ class PhoneStateScanner extends PhoneStateListener {
 
             lastRunningEventsNotOutside = "";
             lastPausedEventsOutside = "";
-            List<NotUsedMobileCells> runningEventList = new ArrayList<>();
-            List<NotUsedMobileCells> pausedEventList = new ArrayList<>();
+            //List<NotUsedMobileCells> runningEventList = new ArrayList<>();
+            //List<NotUsedMobileCells> pausedEventList = new ArrayList<>();
+            List<NotUsedMobileCells> mobileCellsEventList = new ArrayList<>();
             if (notUsedMobileCellsNotificationEnabled) {
                 // get running events with enabled Mobile cells sensor
 
+                db.loadMobileCellsSensorRunningPausedEvents(mobileCellsEventList, false);
+                for (NotUsedMobileCells _event : mobileCellsEventList) {
+                    if (_event.whenOutside) {
+                        if (!lastPausedEventsOutside.isEmpty())
+                            lastPausedEventsOutside = lastPausedEventsOutside + "|";
+                        lastPausedEventsOutside = lastPausedEventsOutside + _event.eventId;
+                    }
+                    else {
+                        if (!lastRunningEventsNotOutside.isEmpty())
+                            lastRunningEventsNotOutside = lastRunningEventsNotOutside + "|";
+                        lastRunningEventsNotOutside = lastRunningEventsNotOutside + _event.eventId;
+                    }
+                }
+
+                /*
                 db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
                 for (NotUsedMobileCells runningEvent : runningEventList) {
                     if (!lastRunningEventsNotOutside.isEmpty())
@@ -778,6 +794,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         lastPausedEventsOutside = lastPausedEventsOutside + "|";
                     lastPausedEventsOutside = lastPausedEventsOutside + pausedEvent.eventId;
                 }
+                */
                 //PPApplication.logE("PhoneStateScanner.doAutoRegistration", "lastPausedEventsOutside=" + lastPausedEventsOutside);
             }
 
@@ -825,9 +842,81 @@ class PhoneStateScanner extends PhoneStateListener {
             if (notUsedMobileCellsNotificationEnabled) {
                 //PPApplication.logE("PhoneStateScanner.doAutoRegistration", "not used mobile cell detection");
 
-                boolean showRunningNotification = false;
-                boolean showPausedNotification = false;
+                //boolean showRunningNotification = false;
+                //boolean showPausedNotification = false;
+                boolean showNotification = false;
 
+                if ((!lastRunningEventsNotOutside.isEmpty()) || (!lastPausedEventsOutside.isEmpty())) {
+                    if (isValidCellId(_registeredCell)) {
+
+                        if (!db.isMobileCellSaved(_registeredCell)) {
+                            //PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT saved, save it");
+
+                            // add new cell
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            localCellsList.add(new MobileCellsData(_registeredCell, "", true, false,
+                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside, false));
+                            db.saveMobileCellsList(localCellsList, true, false);
+                            showNotification = true;
+                        }
+
+                        if (!showNotification) {
+                            /*if (PPApplication.logEnabled()) {
+                                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
+                                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "eventList=" + eventList);
+                            }*/
+
+                            // it is not new cell
+                            // test if registered cell is configured in running events
+
+                            List<MobileCellsData> _cellsList = new ArrayList<>();
+                            db.addMobileCellsToList(_cellsList, _registeredCell);
+                            //if (!_cellsList.isEmpty())
+                            //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "_cellsList.get(0).doNotDetect="+_cellsList.get(0).doNotDetect);
+
+                            if ((!_cellsList.isEmpty()) && (!_cellsList.get(0).doNotDetect)) {
+                                boolean found = false;
+                                for (NotUsedMobileCells notUsedMobileCells : mobileCellsEventList) {
+                                    //String configuredCells = db.getEventMobileCellsCells(eventId);
+                                    String configuredCells = notUsedMobileCells.cells;
+                                    if (!configuredCells.isEmpty()) {
+                                        /*if (PPApplication.logEnabled()) {
+                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
+                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "_registeredCell=" + _registeredCell);
+                                        }*/
+                                        if (configuredCells.contains("|" + _registeredCell + "|")) {
+                                            // cell is between others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.startsWith(_registeredCell + "|")) {
+                                            // cell is at start of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.endsWith("|" + _registeredCell)) {
+                                            // cell is at end of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (configuredCells.equals(String.valueOf(_registeredCell))) {
+                                            // only this cell is configured
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                        found = true;
+                                }
+                                // found == false = cell is not in running events
+                                showNotification = !found;
+                            }
+                        }
+
+                    }
+                }
+
+                /*
                 if (!lastRunningEventsNotOutside.isEmpty()) {
                     //PPApplication.logE("PhoneStateScanner.doAutoRegistration", "any event with mobile cells sensor is running");
 
@@ -846,10 +935,10 @@ class PhoneStateScanner extends PhoneStateListener {
                         }
 
                         if (!showRunningNotification) {
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
-                                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "runningEventList=" + runningEventList);
-                            }*/
+                            //if (PPApplication.logEnabled()) {
+                            //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
+                            //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "runningEventList=" + runningEventList);
+                            //}
 
                             // it is not new cell
                             // test if registered cell is configured in running events
@@ -865,10 +954,10 @@ class PhoneStateScanner extends PhoneStateListener {
                                     //String configuredCells = db.getEventMobileCellsCells(eventId);
                                     String configuredCells = notUsedMobileCells.cells;
                                     if (!configuredCells.isEmpty()) {
-                                        /*if (PPApplication.logEnabled()) {
-                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
-                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "_registeredCell=" + _registeredCell);
-                                        }*/
+                                        //if (PPApplication.logEnabled()) {
+                                        //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
+                                        //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "_registeredCell=" + _registeredCell);
+                                        //}
                                         if (configuredCells.contains("|" + _registeredCell + "|")) {
                                             // cell is between others
                                             found = true;
@@ -918,10 +1007,10 @@ class PhoneStateScanner extends PhoneStateListener {
                         }
 
                         if (!showPausedNotification) {
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
-                                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "pausedEventList=" + pausedEventList);
-                            }*/
+                            //if (PPApplication.logEnabled()) {
+                            //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
+                            //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "pausedEventList=" + pausedEventList);
+                            //}
 
                             // it is not new cell
                             // test if registered cell is configured in running events
@@ -937,10 +1026,10 @@ class PhoneStateScanner extends PhoneStateListener {
                                     //String configuredCells = db.getEventMobileCellsCells(eventId);
                                     String configuredCells = notUsedMobileCells.cells;
                                     if (!configuredCells.isEmpty()) {
-                                        /*if (PPApplication.logEnabled()) {
-                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
-                                            PPApplication.logE("PhoneStateScanner.doAutoRegistration", "_registeredCell=" + _registeredCell);
-                                        }*/
+                                        //if (PPApplication.logEnabled()) {
+                                        //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "configuredCells=" + configuredCells);
+                                        //    PPApplication.logE("PhoneStateScanner.doAutoRegistration", "_registeredCell=" + _registeredCell);
+                                        //}
                                         if (configuredCells.contains("|" + _registeredCell + "|")) {
                                             // cell is between others
                                             found = true;
@@ -971,8 +1060,10 @@ class PhoneStateScanner extends PhoneStateListener {
                         }
                     }
                 }
+                */
 
-                if (showRunningNotification || showPausedNotification) {
+                //if (showRunningNotification || showPausedNotification) {
+                if (showNotification) {
 
                     // show notification about new cell non-configured in events
 
