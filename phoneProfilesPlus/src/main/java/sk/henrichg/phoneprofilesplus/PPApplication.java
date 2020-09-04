@@ -146,6 +146,8 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
+                                                +"|%%%%% PhoneStateScanner.doAutoRegistration"
+
                                                 //+"|[***] EventsHandler.doHandleEvents"
                                                 //+"|[***] Event.startEvent"
                                                 //+"|%%%% BluetoothScanner.doScan"

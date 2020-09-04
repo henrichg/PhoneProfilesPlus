@@ -9338,7 +9338,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void loadMobileCellsSensorRunningPausedEvents(List<NotUsedMobileCells> eventList, boolean outsideParameter) {
+    void loadMobileCellsSensorRunningPausedEvents(List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
         importExportLock.lock();
         try {
             try {
@@ -9348,7 +9348,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 final String countQuery;
                 String eventTypeChecked;
-                if (outsideParameter) {
+                eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
+                eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
+                /*if (outsideParameter) {
                     eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
                     //eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=1";
@@ -9357,7 +9359,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + " AND ";  //  only running events
                     eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
                     //eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
-                }
+                }*/
 
                 countQuery = "SELECT " + KEY_E_ID + "," + KEY_E_MOBILE_CELLS_CELLS + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +
                         " FROM " + TABLE_EVENTS + " WHERE " + eventTypeChecked;
