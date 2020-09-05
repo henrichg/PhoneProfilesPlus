@@ -50,7 +50,7 @@ class ContactGroupsCache {
 
         try {
             if (Permissions.checkContacts(context)) {
-                contactsCache.clearGroups(_contactList);
+                clearGroups(_contactList);
                 //contactsCache.clearGroups(_contactListWithoutNumber);
 
                 String[] projection = new String[]{
@@ -94,7 +94,7 @@ class ContactGroupsCache {
                                     Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
                                     Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
                                 }*/
-                                contactsCache.addGroup(contactId, contactGroupId, _contactList);
+                                addGroup(contactId, contactGroupId, _contactList);
                                 //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }
                             mCursorGroup.close();
@@ -113,7 +113,7 @@ class ContactGroupsCache {
             //PPApplication.recordException(e);
 
             _contactGroupList.clear();
-            contactsCache.clearGroups(_contactList);
+            clearGroups(_contactList);
             //contactsCache.clearGroups(_contactListWithoutNumber);
 
             cached = false;
@@ -122,7 +122,7 @@ class ContactGroupsCache {
             PPApplication.recordException(e);
 
             _contactGroupList.clear();
-            contactsCache.clearGroups(_contactList);
+            clearGroups(_contactList);
             //contactsCache.clearGroups(_contactListWithoutNumber);
 
             cached = false;
@@ -169,6 +169,71 @@ class ContactGroupsCache {
             }
         else
             return null;
+    }
+
+    // called only from ContactGroupsCache
+    void clearGroups(List<Contact> _contactList) {
+        if (_contactList == null)
+            return;
+
+        for (Contact contact : _contactList) {
+            if (contact.groups != null) {
+                //synchronized (PPApplication.contactsCacheMutex) {
+                    contact.groups.clear();
+                    contact.groups = null;
+                //}
+            }
+        }
+    }
+
+    // called only from ContactGroupsCache
+    void addGroup(long contactId, long contactGroupId, List<Contact> _contactList) {
+        if (_contactList == null)
+            return;
+
+        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+            Log.e("ContactsCache.addGroup", "contactGroupId=" + contactGroupId);
+            Log.e("ContactsCache.addGroup", "contactId=" + contactId);
+        }*/
+        for (Contact contact : _contactList) {
+            boolean contactFound = false;
+
+            if (contact.contactId == contactId) {
+                contactFound = true;
+                /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                    Log.e("ContactsCache.addGroup", "contact found");
+                    Log.e("ContactsCache.addGroup", "contact.phoneNumber="+contact.phoneNumber);
+                }*/
+
+                //synchronized (PPApplication.contactsCacheMutex) {
+                    if (contact.groups == null)
+                        contact.groups = new ArrayList<>();
+
+                    // search group in contact
+                    boolean groupFound = false;
+                    for (long groupId : contact.groups) {
+                        if (groupId == contactGroupId) {
+                            groupFound = true;
+                            /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                                Log.e("ContactsCache.addGroup", "group found");
+                            }*/
+                            break;
+                        }
+                    }
+                    if (!groupFound) {
+                        // group not found, add it
+                        contact.groups.add(contactGroupId);
+                        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
+                            Log.e("ContactsCache.addGroup", "group added");
+                            Log.e("ContactsCache.addGroup", "contact.groups.size()="+contact.groups.size());
+                        }*/
+                    }
+                //}
+            }
+
+            if (contactFound)
+                break;
+        }
     }
 
     void clearCache()

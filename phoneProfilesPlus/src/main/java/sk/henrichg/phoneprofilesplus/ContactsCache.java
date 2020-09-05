@@ -157,61 +157,6 @@ class ContactsCache {
             return null;
     }
 
-    // called only from ContactGroupsCache
-    void clearGroups(List<Contact> _contactList) {
-        for (Contact contact : _contactList) {
-            if (contact.groups != null) {
-                contact.groups.clear();
-                contact.groups = null;
-            }
-        }
-    }
-
-    // called only from ContactGroupsCache
-    void addGroup(long contactId, long contactGroupId, List<Contact> _contactList) {
-        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-            Log.e("ContactsCache.addGroup", "contactGroupId=" + contactGroupId);
-            Log.e("ContactsCache.addGroup", "contactId=" + contactId);
-        }*/
-        for (Contact contact : _contactList) {
-            boolean contactFound = false;
-
-            if (contact.contactId == contactId) {
-                contactFound = true;
-                /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                    Log.e("ContactsCache.addGroup", "contact found");
-                    Log.e("ContactsCache.addGroup", "contact.phoneNumber="+contact.phoneNumber);
-                }*/
-
-                if (contact.groups == null)
-                    contact.groups = new ArrayList<>();
-
-                // search group in contact
-                boolean groupFound = false;
-                for (long groupId : contact.groups) {
-                    if (groupId == contactGroupId) {
-                        groupFound = true;
-                        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                            Log.e("ContactsCache.addGroup", "group found");
-                        }*/
-                        break;
-                    }
-                }
-                if (!groupFound) {
-                    // group not found, add it
-                    contact.groups.add(contactGroupId);
-                    /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                        Log.e("ContactsCache.addGroup", "group added");
-                        Log.e("ContactsCache.addGroup", "contact.groups.size()="+contact.groups.size());
-                    }*/
-                }
-            }
-
-            if (contactFound)
-                break;
-        }
-    }
-
     void clearCache()
     {
         synchronized (PPApplication.contactsCacheMutex) {
