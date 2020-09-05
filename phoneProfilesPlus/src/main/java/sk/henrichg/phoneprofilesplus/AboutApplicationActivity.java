@@ -24,6 +24,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+//import com.google.android.play.core.review.ReviewInfo;
+//import com.google.android.play.core.review.ReviewManager;
+//import com.google.android.play.core.review.ReviewManagerFactory;
+//import com.google.android.play.core.review.testing.FakeReviewManager;
+//import com.google.android.play.core.tasks.OnCompleteListener;
+//import com.google.android.play.core.tasks.OnFailureListener;
+//import com.google.android.play.core.tasks.Task;
+
 public class AboutApplicationActivity extends AppCompatActivity {
 
     //static final int EMAIL_BODY_SUPPORT = 1;
@@ -320,47 +328,108 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setMovementMethod(LinkMovementMethod.getInstance());
         */
 
-        text = findViewById(R.id.about_application_rate_application);
-        str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
-        sbt = new SpannableString(str1);
-        clickableSpan = new ClickableSpan() {
-            @Override
-            public void updateDrawState(@NonNull TextPaint ds) {
-                ds.setColor(ds.linkColor);    // you can use custom color
-                ds.setUnderlineText(false);    // this remove the underline
-            }
+        //if (DebugVersion.enabled) {
+            text = findViewById(R.id.about_application_rate_application);
+            str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
+            sbt = new SpannableString(str1);
+            clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(@NonNull TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
 
-            @Override
-            public void onClick(@NonNull View textView) {
-                Uri uri = Uri.parse("market://details?id=" + PPApplication.PACKAGE_NAME);
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market back stack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
-                //if (android.os.Build.VERSION.SDK_INT >= 21)
+                @Override
+                public void onClick(@NonNull View textView) {
+                    Uri uri = Uri.parse("market://details?id=" + PPApplication.PACKAGE_NAME);
+                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                    // To count with Play market back stack, After pressing back button,
+                    // to taken back to our application, we need to add following flags to intent.
+                    //if (android.os.Build.VERSION.SDK_INT >= 21)
                     goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                /*else
-                    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                            Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);*/
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
+                            Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                    /*else
+                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);*/
                     try {
-                        Intent i = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://play.google.com/store/apps/details?id=" + PPApplication.PACKAGE_NAME));
-                        startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
-                    } catch (Exception ee) {
-                        PPApplication.recordException(e);
+                        startActivity(goToMarket);
+                    } catch (ActivityNotFoundException e) {
+                        try {
+                            Intent i = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://play.google.com/store/apps/details?id=" + PPApplication.PACKAGE_NAME));
+                            startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
+                        } catch (Exception ee) {
+                            PPApplication.recordException(e);
+                        }
                     }
                 }
-            }
-        };
-        sbt.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //sbt.setSpan(new UnderlineSpan(), 0, str1.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
+            };
+            sbt.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), 0, str1.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+        /*}
+        else {
+            final TextView reviewText = findViewById(R.id.about_application_rate_application);
+            text.setVisibility(View.GONE);
+
+            final ReviewManager manager = ReviewManagerFactory.create(this);
+            //final FakeReviewManager manager = new FakeReviewManager(this);
+            final Activity activity = this;
+            manager.requestReviewFlow().addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
+                ReviewInfo reviewInfo;
+
+                @Override
+                public void onComplete(@NonNull Task<ReviewInfo> task) {
+                    if (task.isSuccessful()) {
+                        Log.e("AboutApplicationActivity.ReviewManager.onComplete", "xxx (1)");
+                        reviewInfo = task.getResult();
+                        CharSequence str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
+                        SpannableString sbt = new SpannableString(str1);
+                        ClickableSpan clickableSpan = new ClickableSpan() {
+                            @Override
+                            public void updateDrawState(@NonNull TextPaint ds) {
+                                ds.setColor(ds.linkColor);    // you can use custom color
+                                ds.setUnderlineText(false);    // this remove the underline
+                            }
+
+                            @Override
+                            public void onClick(@NonNull View textView) {
+                                Log.e("AboutApplicationActivity.ReviewManager.onClick", "xxx");
+                                Task<Void> flow = manager.launchReviewFlow(activity, reviewInfo);
+                                flow.addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Log.e("AboutApplicationActivity.ReviewManager.onComplete", "xxx (2)");
+                                    }
+                                });
+                                flow.addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(Exception e) {
+                                        Log.e("AboutApplicationActivity.ReviewManager.onFailure", "xxx (2)");
+                                    }
+                                });
+                            }
+                        };
+                        sbt.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        //sbt.setSpan(new UnderlineSpan(), 0, str1.length(), 0);
+                        reviewText.setText(sbt);
+                        reviewText.setMovementMethod(LinkMovementMethod.getInstance());
+                        reviewText.setVisibility(View.VISIBLE);
+                    } else {
+                        reviewText.setVisibility(View.GONE);
+                    }
+                }
+            });
+            manager.requestReviewFlow().addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                    reviewText.setVisibility(View.GONE);
+                }
+            });
+        }*/
 
         Button donateButton = findViewById(R.id.about_application_donate_button);
         donateButton.setOnClickListener(new View.OnClickListener() {
