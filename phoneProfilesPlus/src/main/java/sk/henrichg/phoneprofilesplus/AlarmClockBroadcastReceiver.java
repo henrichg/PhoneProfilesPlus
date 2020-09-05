@@ -14,7 +14,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] AlarmClockBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] AlarmClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "AlarmClockBroadcastReceiver.onReceive", "AlarmClockBroadcastReceiver_onReceive");
 
@@ -45,9 +45,9 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
 
-                        PPApplication.logE("[EVENTS_HANDLER] AlarmClockBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_ALARM_CLOCK");
+//                        PPApplication.logE("[EVENTS_HANDLER] AlarmClockBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_ALARM_CLOCK");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventAlarmClockParameters(_time, alarmPackageName);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);

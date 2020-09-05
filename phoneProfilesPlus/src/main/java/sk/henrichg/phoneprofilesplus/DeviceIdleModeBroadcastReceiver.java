@@ -13,7 +13,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] DeviceIdleModeBroadcastReceiver.onReceive","xxx");
+//        PPApplication.logE("[BROADCAST CALL] DeviceIdleModeBroadcastReceiver.onReceive","xxx");
 
         //CallsCounter.logCounter(context, "DeviceIdleModeBroadcastReceiver.onReceive", "DeviceIdleModeBroadcastReceiver_onReceive");
 
@@ -41,10 +41,10 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
+//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                             // start events handler
-                            PPApplication.logE("[EVENTS_HANDLER] DeviceIdleModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_IDLE_MODE");
+//                            PPApplication.logE("[EVENTS_HANDLER] DeviceIdleModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_IDLE_MODE");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
 

@@ -17,7 +17,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onRestoreFinished() {
-        PPApplication.logE("[LISTENER CALL] PhoneProfilesBackupAgent.onRestoreFinished", "xxx");
+//        PPApplication.logE("[LISTENER CALL] PhoneProfilesBackupAgent.onRestoreFinished", "xxx");
 
         PPApplication.restoreFinished = false;
 
@@ -70,7 +70,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
 
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());

@@ -20,14 +20,14 @@ public class IconWidgetProvider extends AppWidgetProvider {
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
-        PPApplication.logE("[LISTENER CALL] IconWidgetProvider.onUpdate", "xxx");
+//        PPApplication.logE("[LISTENER CALL] IconWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
                     _onUpdate(context, appWidgetManager, appWidgetIds);
                 }
             });
@@ -401,7 +401,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
-        PPApplication.logE("[BROADCAST CALL] IconWidgetProvider.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] IconWidgetProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
@@ -416,7 +416,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
+//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
                             _onUpdate(context, manager, ids);
                         }
                     });

@@ -95,7 +95,7 @@ public class ProfilePreferenceX extends DialogPreference {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ProfilePreferenceX.onBindViewHolder");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ProfilePreferenceX.onBindViewHolder");
                     setSummary(Long.parseLong(profileId));
                 }
             }, 200);

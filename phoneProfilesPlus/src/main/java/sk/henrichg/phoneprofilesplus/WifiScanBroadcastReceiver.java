@@ -16,7 +16,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive","xxx");
+//        PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
         //CallsCounter.logCounter(context, "WifiScanBroadcastReceiver.onReceive", "WifiScanBroadcastReceiver_onReceive");
 
@@ -41,10 +41,10 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                 boolean resultsUpdated; // = false;
                 if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED)) {
-                    PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
+//                    PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
                     resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
                     WifiScanWorker.fillScanResults(appContext);
-                    PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive","fillScanResults - end");
+//                    PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive","fillScanResults - end");
 
                     /*List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(appContext);
                     if (PPApplication.logEnabled()) {
@@ -58,7 +58,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                     }*/
                 }
                 else {
-                    PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
+//                    PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
                     resultsUpdated = true;
                 }
 
@@ -74,7 +74,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                     if (ApplicationPreferences.prefEventWifiWaitForResult) {
 
-                        PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "start Worker");
+//                        PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "start Worker");
 
                         WifiScanWorker.setWaitForResults(appContext, false);
                         WifiScanner.setForceOneWifiScan(appContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
@@ -119,7 +119,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                         }
 
-                        PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "end start Worker");
+//                        PPApplication.logE("[BROADCAST CALL] WifiScanBroadcastReceiver.onReceive", "end start Worker");
 
 /*
                         PPApplication.startHandlerThreadBroadcast();

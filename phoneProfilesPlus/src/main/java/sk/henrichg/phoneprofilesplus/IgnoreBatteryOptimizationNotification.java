@@ -38,7 +38,7 @@ class IgnoreBatteryOptimizationNotification {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
+//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
                             //boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
                             //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);

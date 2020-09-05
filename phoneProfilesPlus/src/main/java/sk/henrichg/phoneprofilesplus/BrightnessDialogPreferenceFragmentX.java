@@ -308,7 +308,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
+//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {

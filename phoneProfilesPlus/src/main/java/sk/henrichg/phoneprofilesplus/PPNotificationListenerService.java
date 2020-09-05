@@ -75,7 +75,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onNotificationPosted(sbn);
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
+//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         if (!PPApplication.notificationScannerRunning)
             return;
@@ -97,7 +97,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //if (packageName.equals("com.android.systemui"))
         //    return;
 
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
+//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
 
@@ -217,7 +217,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
         super.onNotificationRemoved(sbn);
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
+//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
 
@@ -242,7 +242,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //if (packageName.equals("com.android.systemui"))
         //    return;
 
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
+//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "is not PPP");
 
@@ -330,7 +330,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onListenerConnected", "xxx");
+//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onListenerConnected", "xxx");
 
         synchronized (PPApplication.ppNotificationListenerService) {
             //PPApplication.logE("PPNotificationListenerService.onListenerConnected","xxx");
@@ -341,7 +341,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onListenerDisconnected() {
         super.onListenerDisconnected();
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onListenerDisconnected", "xxx");
+//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onListenerDisconnected", "xxx");
 
         synchronized (PPApplication.ppNotificationListenerService) {
             //PPApplication.logE("PPNotificationListenerService.onListenerDisconnected","xxx");
@@ -360,7 +360,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onInterruptionFilterChanged(int interruptionFilter) {
         super.onInterruptionFilterChanged(interruptionFilter);
 
-        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onInterruptionFilterChanged", "xxx");
+//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onInterruptionFilterChanged", "xxx");
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onInterruptionFilterChanged", "PPNotificationListenerService_onInterruptionFilterChanged");
 
@@ -575,7 +575,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         @SuppressLint("InlinedApi")
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("[BROADCAST CALL] PPNotificationListenerService.NLServiceReceiver.onReceive", "xxx");
+//            PPApplication.logE("[BROADCAST CALL] PPNotificationListenerService.NLServiceReceiver.onReceive", "xxx");
 
             //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.NLServiceReceiver.onReceive", "PPNotificationListenerService_NLServiceReceiver_onReceive");
 

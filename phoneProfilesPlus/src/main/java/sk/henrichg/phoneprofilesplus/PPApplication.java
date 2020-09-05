@@ -100,7 +100,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -146,7 +146,7 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
-                                                +"|%%%%% PhoneStateScanner.doAutoRegistration"
+                                                //+"|%%%%% PhoneStateScanner.doAutoRegistration"
 
                                                 //+"|[***] EventsHandler.doHandleEvents"
                                                 //+"|[***] Event.startEvent"
@@ -185,12 +185,12 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                +"|[WORKER CALL]"
-                                                +"|[HANDLER CALL]"
-                                                +"|[BROADCAST CALL]"
-                                                +"|[OBSERVER CALL]"
-                                                +"|[LISTENER CALL]"
-                                                +"|[EVENTS_HANDLER]"
+                                                //+"|[WORKER CALL]"
+                                                //+"|[HANDLER CALL]"
+                                                //+"|[BROADCAST CALL]"
+                                                //+"|[OBSERVER CALL]"
+                                                //+"|[LISTENER CALL]"
+                                                //+"|[EVENTS_HANDLER]"
 
                                                 //+"|[TEST BATTERY]"
 
@@ -1648,7 +1648,7 @@ public class PPApplication extends Application
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
+//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
                 try {
                     Toast msg = ToastCompat.makeText(appContext, text, length);
                     //Toast msg = Toast.makeText(appContext, text, length);
@@ -3491,7 +3491,7 @@ public class PPApplication extends Application
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {
                     public void run() {
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
                         try {
                             if (activity != null)
                                 activity.finish();
@@ -3540,7 +3540,7 @@ public class PPApplication extends Application
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

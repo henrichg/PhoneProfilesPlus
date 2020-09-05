@@ -36,7 +36,7 @@ public class SearchCalendarEventsWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL]  SearchCalendarEventsWorker.doWork", "xxxx");
+//            PPApplication.logE("[WORKER CALL]  SearchCalendarEventsWorker.doWork", "xxxx");
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
 
@@ -52,7 +52,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 // start events handler
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SearchCalendarEventsWorker.doWork");
 
-                PPApplication.logE("[EVENTS_HANDLER] SearchCalendarEventsWorker.doWork", "sensorType=SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
+//                PPApplication.logE("[EVENTS_HANDLER] SearchCalendarEventsWorker.doWork", "sensorType=SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
 
@@ -114,7 +114,7 @@ public class SearchCalendarEventsWorker extends Worker {
     }
 
     public void onStopped () {
-        PPApplication.logE("[LISTENER CALL] SearchCalendarEventsWorker.onStopped", "xxx");
+//        PPApplication.logE("[LISTENER CALL] SearchCalendarEventsWorker.onStopped", "xxx");
 
         //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
     }
@@ -185,7 +185,7 @@ public class SearchCalendarEventsWorker extends Worker {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval="+shortInterval);
+//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval="+shortInterval);
                 _scheduleWork(shortInterval);
             }
         });
@@ -273,7 +273,7 @@ public class SearchCalendarEventsWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.cancelWork");
+//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.cancelWork");
                     _cancelWork();
                 }
             });

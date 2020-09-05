@@ -1224,7 +1224,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        PPApplication.logE("[LISTENER CALL] DatabaseHandler.onCreate", "xxx");
+//        PPApplication.logE("[LISTENER CALL] DatabaseHandler.onCreate", "xxx");
         //PPApplication.logE("DatabaseHandler.onCreate", "xxx");
         createTables(db);
         createIndexes(db);
@@ -1238,7 +1238,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade (SQLiteDatabase db, int oldVersion, int newVersion) {
-        PPApplication.logE("[LISTENER CALL] DatabaseHandler.onDowngrade", "xxx");
+//        PPApplication.logE("[LISTENER CALL] DatabaseHandler.onDowngrade", "xxx");
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
@@ -2930,7 +2930,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        PPApplication.logE("[LISTENER CALL] DatabaseHandler.onUpgrade", "xxx");
+//        PPApplication.logE("[LISTENER CALL] DatabaseHandler.onUpgrade", "xxx");
 
         if (PPApplication.logEnabled()) {
             PPApplication.logE("DatabaseHandler.onUpgrade", "--------- START");

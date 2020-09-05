@@ -26,7 +26,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[BROADCAST CALL] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RunApplicationWithDelayBroadcastReceiver.onReceive", "RunApplicationWithDelayBroadcastReceiver_onReceive");
 
         if (!PPApplication.getApplicationStarted(true))
@@ -53,7 +53,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
 
                         doWork(appContext, profileName, runApplicationData);
 

@@ -25,7 +25,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     protected void onInitialize(boolean isReconnect) {
         super.onInitialize(isReconnect);
 
-        PPApplication.logE("[LISTENER CALL] DashClockExtension.onInitialize", "xxx");
+//        PPApplication.logE("[LISTENER CALL] DashClockExtension.onInitialize", "xxx");
 
         instance = this;
 
@@ -42,7 +42,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     {
         super.onDestroy();
 
-        PPApplication.logE("[LISTENER CALL] DashClockExtension.onDestroy", "xxx");
+//        PPApplication.logE("[LISTENER CALL] DashClockExtension.onDestroy", "xxx");
 
         instance = null;
         /*if (dataWrapper != null)
@@ -52,7 +52,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     @Override
     protected void onUpdateData(int reason) {
-        PPApplication.logE("[LISTENER CALL] DashClockExtension.onUpdateData", "xxx");
+//        PPApplication.logE("[LISTENER CALL] DashClockExtension.onUpdateData", "xxx");
 
         if (instance == null)
             return;
@@ -65,7 +65,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
+//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
                 if (instance == null)
                     return;
@@ -73,7 +73,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 if (dataWrapper == null)
                     return;
 
-                PPApplication.logE("[HANDLER CALL] PhoneProfilesDashClockExtension.onUpdateData", "do it");
+//                PPApplication.logE("[HANDLER CALL] PhoneProfilesDashClockExtension.onUpdateData", "do it");
 
                 //profile = Profile.getMappedProfile(
                 //                            dataWrapper.getActivatedProfile(true, false), this);

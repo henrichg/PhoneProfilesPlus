@@ -142,7 +142,7 @@ class EventsHandler {
                 return;
 
             this.sensorType = sensorType;
-            PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+//            PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             //boolean interactive;
 
@@ -202,7 +202,7 @@ class EventsHandler {
                 if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType/*, false*/) == 0) {
                     // events not exists
 
-                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
+//                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
                     doEndHandler(null);
                     //dataWrapper.invalidateDataWrapper();

@@ -27,7 +27,7 @@ public class ImportPPDataBroadcastReceiver  extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[BROADCAST CALL] ImportPPDataBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//        PPApplication.logE("[BROADCAST CALL] ImportPPDataBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
 
         //final Context appContext = context.getApplicationContext();
 
