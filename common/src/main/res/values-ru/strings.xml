@@ -1467,6 +1467,16 @@
     <string name="restore_settings_error_on_backup">Ошибка при копировании файлов для восстановления</string>
     <string name="restore_settings_ok_backed_up">Файлы для восстановления скопированы</string>
     <string name="altype_dataExport">создание резервной копии настроек</string>
+    <string name="phone_profiles_pref_category_notification_scanning">Сканирование уведомлений</string>
+    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Включить сканирование уведомлений</string>
+    <string name="phone_profiles_pref_applicationEventNotification_info">Эти настройки - для Датчика уведомлений.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Сканирование уведомлений в режиме энергосбережения</string>
+    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Установите параметры сканирования уведомлений в настройках приложения.</string>
+    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Системные настройки доступа к уведомлениям</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Доступ к уведомлениям запрещён</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Доступ к уведомлениям разрешён</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Разрешите, пожалуйста, PhoneProfilesPlus доступ к уведомлениям в настройках системы. Без этого сканирование уведомлений работать не будет.</string>
+    <string name="profile_preferences_applicationDisableNotificationScanning">Отключить сканирование уведомлений</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Экспорт в PhoneProfilesPlus</string>
