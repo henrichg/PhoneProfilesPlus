@@ -21,33 +21,12 @@
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-
-    <!--
-    <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
-        app:key="applicationEventMobileCellsRegistration"
-        app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
-        app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
-        app:defaultValue="0"
-        app:dMin="0"
-        app:dMax="86400"
-        app:dependency="applicationEventMobileCellEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
-    -->
     <SwitchPreferenceCompat
         app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled"
         app:defaultValue="true"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <!--
-    <Preference
-        app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationSystemSettings"
-        app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotification"
-        app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
-        app:widgetLayout="@layout/start_activity_preference"
-        app:dependency="applicationEventMobileCellEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
-    -->
     <ListPreference
         app:key="applicationEventMobileCellScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
@@ -57,6 +36,13 @@
         app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationMobileCellPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationBatterySaver"
+        app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+        app:dependency="applicationEventMobileCellEnableScannig"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
     <SwitchPreferenceCompat
         app:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"

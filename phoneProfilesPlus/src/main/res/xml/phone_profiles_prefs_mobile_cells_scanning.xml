@@ -14,17 +14,6 @@
         app:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <!--
-    <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
-        app:key="applicationEventMobileCellsRegistration"
-        app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
-        app:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
-        app:defaultValue="0"
-        app:dMin="0"
-        app:dMax="86400"
-        app:dependency="applicationEventMobileCellEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
-    -->
     <SwitchPreferenceCompat
         app:key="applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled"
