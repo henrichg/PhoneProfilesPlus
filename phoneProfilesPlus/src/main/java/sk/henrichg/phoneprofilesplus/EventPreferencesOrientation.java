@@ -15,6 +15,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+import android.widget.Toast;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -570,6 +571,8 @@ class EventPreferencesOrientation extends EventPreferences {
         boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
         boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
+
+
         if (preference != null) {
             if (!hasAccelerometer)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
@@ -596,19 +599,86 @@ class EventPreferencesOrientation extends EventPreferences {
             boolean checkLight = switchPreference.isChecked();
             if (checkLight) {
                 enabled = hasLight;
-                preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
-                if (preference != null) {
+                Preference minLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
+                if (minLightPreference != null) {
                     if (!enabled)
-                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                        minLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
-                    preference.setEnabled(enabled);
+                    minLightPreference.setEnabled(enabled);
                 }
-                preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
-                if (preference != null) {
+                Preference maxLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
+                if (maxLightPreference != null) {
                     if (!enabled)
-                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                        maxLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
-                    preference.setEnabled(enabled);
+                    maxLightPreference.setEnabled(enabled);
+                }
+                if (enabled) {
+                    final PreferenceManager _prefMng = prefMng;
+                    final Context _context = context.getApplicationContext();
+
+                    if (minLightPreference != null) {
+                        minLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                String sNewValue = (String) newValue;
+                                int iNewValue;
+                                if (sNewValue.isEmpty())
+                                    iNewValue = 0;
+                                else
+                                    iNewValue = Integer.parseInt(sNewValue);
+
+                                String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "10000");
+                                int iHightLevelValue;
+                                if (sHightLevelValue.isEmpty())
+                                    iHightLevelValue = 10000;
+                                else
+                                    iHightLevelValue = Integer.parseInt(sHightLevelValue);
+
+                                boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
+
+                                if (!OK) {
+                                    PPApplication.showToast(_context.getApplicationContext(),
+                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_min) + ": " +
+                                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
+                                            Toast.LENGTH_SHORT);
+                                }
+
+                                return OK;
+                            }
+                        });
+                    }
+                    if (maxLightPreference != null) {
+                        maxLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                String sNewValue = (String) newValue;
+                                int iNewValue;
+                                if (sNewValue.isEmpty())
+                                    iNewValue = 10000;
+                                else
+                                    iNewValue = Integer.parseInt(sNewValue);
+
+                                String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
+                                int iLowLevelValue;
+                                if (sLowLevelValue.isEmpty())
+                                    iLowLevelValue = 0;
+                                else
+                                    iLowLevelValue = Integer.parseInt(sLowLevelValue);
+
+                                boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 10000));
+
+                                if (!OK) {
+                                    PPApplication.showToast(_context.getApplicationContext(),
+                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_max) + ": " +
+                                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
+                                            Toast.LENGTH_SHORT);
+                                }
+
+                                return OK;
+                            }
+                        });
+                    }
                 }
             }
         }

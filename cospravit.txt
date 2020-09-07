@@ -1643,3 +1643,14 @@ checkStorage()
 grantExportPermissions()
 grantImportPermissions()
 
+-----------------------
+
+Co je toto? Nastavenie tonu pri aktivacii profilu? Prehratie tonu na notifikacu?
+Zistujem, ktory ton je nastaveny (najdi kde), preco by som ho mal aj prehravat? Nemam to nastavene.
+2020-09-07 00:05:35.217 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
+2020-09-07 00:05:55.189 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
+2020-09-07 00:26:45.609 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
+2020-09-07 00:26:46.097 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
+2020-09-07 00:26:52.669 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
+2020-09-07 00:28:43.189 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
+2020-09-07 00:29:03.187 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other

@@ -1581,6 +1581,10 @@
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
     <string name="profile_preferences_applicationDisableNotificationScanning">Disable notification scanning</string>
 
+    <string name="event_preferences_orientation_light_level_min">Light - minimal value</string>
+    <string name="event_preferences_orientation_light_level_max">Light - maximal value</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 
