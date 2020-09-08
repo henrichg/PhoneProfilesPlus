@@ -118,7 +118,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.createProfileNotificationChannel"
                                                 +"|AvoidRescheduleReceiverWorker"
                                                 +"|PhoneProfilesService.onCreate"
-                                                //+"|PhoneProfilesService.onStartCommand"
+                                                +"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
                                                 +"|PhoneProfilesService.doForPackageReplaced"
                                                 //+"|PhoneProfilesService.isServiceRunning"

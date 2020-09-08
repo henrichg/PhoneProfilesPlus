@@ -429,7 +429,7 @@ public class PhoneProfilesService extends Service
             instance = null;
         }
 
-        //serviceHasFirstStart = false;
+        PPApplication.serviceHasFirstStart = false;
         //serviceRunning = false;
         //runningInForeground = false;
         PPApplication.applicationFullyStarted = false;
