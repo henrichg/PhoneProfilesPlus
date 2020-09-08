@@ -212,6 +212,8 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
+        PPApplication.serviceHasFirstStart = false;
+
         //startForegroundNotification = true;
         //isInForeground = false;
 
@@ -3592,7 +3594,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        final boolean oldServiceHasFirstStart = PPApplication.serviceHasFirstStart;
+        //final boolean oldServiceHasFirstStart = PPApplication.serviceHasFirstStart;
         PPApplication.serviceHasFirstStart = true;
         PPApplication.setApplicationStarted(getApplicationContext(), true);
 
@@ -3602,13 +3604,15 @@ public class PhoneProfilesService extends Service
         boolean deviceBoot = false;
         //boolean startOnPackageReplace = false;
 
-        if (intent != null) {
-            //applicationStart = intent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
+        final Intent serviceIntent = intent;
+
+        if (serviceIntent != null) {
+            //applicationStart = serviceIntent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
             applicationStart = true;
-            //deactivateProfile = intent.getBooleanExtra(EXTRA_DEACTIVATE_PROFILE, false);
-            activateProfiles = intent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
-            deviceBoot = intent.getBooleanExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-            //startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
+            //deactivateProfile = serviceIntent.getBooleanExtra(EXTRA_DEACTIVATE_PROFILE, false);
+            activateProfiles = serviceIntent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
+            deviceBoot = serviceIntent.getBooleanExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+            //startOnPackageReplace = serviceIntent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
         if (PPApplication.logEnabled()) {
@@ -3807,7 +3811,12 @@ public class PhoneProfilesService extends Service
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "7");
 
-                    if (!oldServiceHasFirstStart) {
+                    if (serviceIntent != null) {
+                        // it is not restart of service
+                        // From documentation: This may be null if the service is being restarted after its process has gone away
+
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "it is not restart of service");
+
                         dataWrapper.fillProfileList(false, false);
                         for (Profile profile : dataWrapper.profileList)
                             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
