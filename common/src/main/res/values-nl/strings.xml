@@ -1467,16 +1467,19 @@
     <string name="restore_settings_error_on_backup">Fout bij kopiëren van terug te zetten bestanden</string>
     <string name="restore_settings_ok_backed_up">Terug te zetten bestanden gekopieerd</string>
     <string name="altype_dataExport">back-up Instellingen</string>
-    <string name="phone_profiles_pref_category_notification_scanning">Notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Enable notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotification_info">These settings are for Notification event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Notification scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Setup Notififcation scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Notification access system settings</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Notification access disabled</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Notification access enabled</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Disable notification scanning</string>
+    <string name="phone_profiles_pref_category_notification_scanning">Meldingen scannen</string>
+    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Meldingen scannen aan</string>
+    <string name="phone_profiles_pref_applicationEventNotification_info">Deze instellingen zijn voor de notificatie event sensor.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Meldingscan in Energiebesparende modus</string>
+    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Stel Meldingscan parameters in bij programma-instellingen.</string>
+    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Meldingstoegang toegang tot systeeminstellingen</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Meldingstoegang uitgeschakeld</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Meldingstoegang ingeschakeld</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Activeer notificatie toegang voor PhoneProfilesPlus in systeem instellingen. Zonder dit zal notificatie scannen niet werken.</string>
+    <string name="profile_preferences_applicationDisableNotificationScanning">Meldingsscan uitschakelen</string>
+    <string name="event_preferences_orientation_light_level_min">Light - minimal value</string>
+    <string name="event_preferences_orientation_light_level_max">Light - maximal value</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>

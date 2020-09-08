@@ -1467,16 +1467,19 @@
     <string name="restore_settings_error_on_backup">Error al copiar archivos para restaurar</string>
     <string name="restore_settings_ok_backed_up">Archivos para restaurar copiados</string>
     <string name="altype_dataExport">ajustes de copia de seguridad</string>
-    <string name="phone_profiles_pref_category_notification_scanning">Notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Enable notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotification_info">These settings are for Notification event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Notification scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Setup Notififcation scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Notification access system settings</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Notification access disabled</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Notification access enabled</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Disable notification scanning</string>
+    <string name="phone_profiles_pref_category_notification_scanning">Escaneo de notificaciones</string>
+    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Habilitar el escaneo de notificaciones</string>
+    <string name="phone_profiles_pref_applicationEventNotification_info">Estos ajustes son para el sensor de eventos de Notificación.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Escaneo de notificaciones en modo de ahorro de energía</string>
+    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Configurar los parámetros de escaneo de Notificación en los ajustes de la aplicación.</string>
+    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Acceso a notificaciones en los ajustes del sistema</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Acceso a notificaciones deshabilitado</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Acceso a notificaciones habilitado</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Habilita por favor al acceso a notificaciones para PhoneProfilesPlus en los Ajustes del sistema. Sin esto, el escaneo de notificaciones no funcionará.</string>
+    <string name="profile_preferences_applicationDisableNotificationScanning">Deshabilitar el escaneo de notificaciones</string>
+    <string name="event_preferences_orientation_light_level_min">Luz - valor mínimo</string>
+    <string name="event_preferences_orientation_light_level_max">Luz - valor máximo</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Valor incorrecto</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exportar a PhoneProfilesPlus</string>

@@ -1477,6 +1477,9 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Prístup k notifikáciám zapnutý</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Prosím, povoľte Prístup k upozorneniam pre PhoneProfilesPlus v nastaveniach systému. Bez toho nebude skenovanie notifikácií fungovať.</string>
     <string name="profile_preferences_applicationDisableNotificationScanning">Zakázať skenovanie polohy</string>
+    <string name="event_preferences_orientation_light_level_min">Svetlo - minimálna hodnota</string>
+    <string name="event_preferences_orientation_light_level_max">Svetlo - maximálna hodnota</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Zlá hodnota</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

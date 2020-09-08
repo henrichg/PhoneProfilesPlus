@@ -1467,16 +1467,19 @@
     <string name="restore_settings_error_on_backup">Помилка копіювання файлів для відновлення</string>
     <string name="restore_settings_ok_backed_up">Файли для відновлення скопійовано</string>
     <string name="altype_dataExport">створити резервну копію налаштувань</string>
-    <string name="phone_profiles_pref_category_notification_scanning">Notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Enable notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotification_info">These settings are for Notification event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Notification scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Setup Notififcation scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Notification access system settings</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Notification access disabled</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Notification access enabled</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Disable notification scanning</string>
+    <string name="phone_profiles_pref_category_notification_scanning">Сканування сповіщень</string>
+    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Увімкнути сканування сповіщень</string>
+    <string name="phone_profiles_pref_applicationEventNotification_info">Налаштування для датчика сповіщень.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Сканування сповіщень в режимі енергозбереження</string>
+    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Налаштуйте параметри сканування сповіщень в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Доступ до сповіщень в системних налаштуваннях</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Доступ до сповіщень вимкнено</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Доступ до сповіщень увімкнено</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Увімкніть доступ до сповіщень для PhoneProfilesPlus в налаштуваннях системи. Без цього, сканування сповіщень не працюватиме.</string>
+    <string name="profile_preferences_applicationDisableNotificationScanning">Вимкнути сканування сповіщень</string>
+    <string name="event_preferences_orientation_light_level_min">Light - minimal value</string>
+    <string name="event_preferences_orientation_light_level_max">Light - maximal value</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Експортувати у PhoneProfilesPlus</string>

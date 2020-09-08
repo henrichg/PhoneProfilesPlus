@@ -1467,16 +1467,19 @@
     <string name="restore_settings_error_on_backup">Fehler beim Kopieren der Dateien zur Wiederherstellung</string>
     <string name="restore_settings_ok_backed_up">Dateien zum Wiederherstellen kopiert</string>
     <string name="altype_dataExport">Sicherungseinstellungen</string>
-    <string name="phone_profiles_pref_category_notification_scanning">Notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Enable notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotification_info">These settings are for Notification event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Notification scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Setup Notififcation scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Notification access system settings</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Notification access disabled</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Notification access enabled</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Disable notification scanning</string>
+    <string name="phone_profiles_pref_category_notification_scanning">Benachrichtigungen durchsuchen</string>
+    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Durchsuchen von Benachrichtigungen aktivieren</string>
+    <string name="phone_profiles_pref_applicationEventNotification_info">Diese Einstellungen gelten für den Sensor für Benachrichtigungsereignisse.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Benachrichtigungen im Energiesparmodus durchsuchen</string>
+    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Legen Sie die Parameter für das Durchsuchen von Benachrichtigungen in den Anwendungseinstellungen fest.</string>
+    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Einstellungen des Systems für den Zugriff auf Benachrichtigungen</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Benachrichtigungen deaktiviert</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Benachrichtigungen aktiviert</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Bitte aktivieren Sie in den Systemeinstellungen den Zugriff auf die Benachrichtigung für PhoneProfilesPlus. Ohne dies funktioniert das Einlesen von Benachrichtigungen nicht.</string>
+    <string name="profile_preferences_applicationDisableNotificationScanning">Durchsuchen von Benachrichtigungen deaktivieren</string>
+    <string name="event_preferences_orientation_light_level_min">Hell — Minimaler Wert</string>
+    <string name="event_preferences_orientation_light_level_max">Hell — Maximaler Wert</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Ungültiger Wert</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Nach PhoneProfilesPlus exportieren</string>

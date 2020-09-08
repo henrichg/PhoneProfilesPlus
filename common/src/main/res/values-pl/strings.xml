@@ -1468,16 +1468,19 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="restore_settings_error_on_backup">Błąd podczas kopiowania plików backup\'u</string>
     <string name="restore_settings_ok_backed_up">Pliki backup\'u skopiowane</string>
     <string name="altype_dataExport">kopia zapasowa ustawień</string>
-    <string name="phone_profiles_pref_category_notification_scanning">Notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Enable notification scanning</string>
-    <string name="phone_profiles_pref_applicationEventNotification_info">These settings are for Notification event sensor.</string>
-    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Notification scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Setup Notififcation scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Notification access system settings</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Notification access disabled</string>
-    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Notification access enabled</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Please enable Notification access for PhoneProfilesPlus in system Settings. Without this, Notification scanning will not work.</string>
-    <string name="profile_preferences_applicationDisableNotificationScanning">Disable notification scanning</string>
+    <string name="phone_profiles_pref_category_notification_scanning">Skanowanie powiadomień</string>
+    <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Włącz skanowanie powiadomień</string>
+    <string name="phone_profiles_pref_applicationEventNotification_info">Te ustawienia są dla czujnika powiadomień.</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Skanowanie powiadomień w trybie oszczędzania energii</string>
+    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Skonfiguruj parametry skanowania powiadomień w ustawieniach aplikacji.</string>
+    <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Ustawienia systemowe dostępu do powiadomień</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Dostęp do powiadomień wyłączony</string>
+    <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Dostęp do powiadomień włączony</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Proszę włączyć dostęp do powiadomień dla PhoneProfilesPlus w ustawieniach systemowych. Bez tego skanowanie powiadomień nie będzie działać.</string>
+    <string name="profile_preferences_applicationDisableNotificationScanning">Wyłącz skanowanie powiadomień</string>
+    <string name="event_preferences_orientation_light_level_min">Light - minimal value</string>
+    <string name="event_preferences_orientation_light_level_max">Light - maximal value</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Eksportuj do PhoneProfilesPlus</string>
