@@ -1046,30 +1046,37 @@ public class PPApplication extends Application
             return null;
     }
 
-    static void cancelWork(String name) {
+    static void cancelWork(final String name) {
         // cancel only enqueued works
-        WorkManager workManager = PPApplication.getWorkManagerInstance();
-        if (workManager != null) {
-            ListenableFuture<List<WorkInfo>> statuses;
-            statuses = workManager.getWorkInfosForUniqueWork(name);
-            //noinspection TryWithIdenticalCatches
-            try {
-                List<WorkInfo> workInfoList = statuses.get();
-                //PPApplication.logE("[TEST BATTERY] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
-                // cancel only enqueued works
-                for (WorkInfo workInfo : workInfoList) {
-                    WorkInfo.State state = workInfo.getState();
-                    if (state == WorkInfo.State.ENQUEUED) {
-                        // any work is enqueued, cancel it
-                        workManager.cancelWorkById(workInfo.getId());
+        PPApplication.startHandlerThread(/*"PhoneProfilesBackupAgent.onRestoreFinished"*/);
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+                    ListenableFuture<List<WorkInfo>> statuses;
+                    statuses = workManager.getWorkInfosForUniqueWork(name);
+                    //noinspection TryWithIdenticalCatches
+                    try {
+                        List<WorkInfo> workInfoList = statuses.get();
+                        //PPApplication.logE("[TEST BATTERY] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
+                        // cancel only enqueued works
+                        for (WorkInfo workInfo : workInfoList) {
+                            WorkInfo.State state = workInfo.getState();
+                            if (state == WorkInfo.State.ENQUEUED) {
+                                // any work is enqueued, cancel it
+                                workManager.cancelWorkById(workInfo.getId());
+                            }
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-        }
+        });
     }
 
     static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
