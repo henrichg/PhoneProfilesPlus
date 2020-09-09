@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -142,10 +143,31 @@ public class MobileCellsPreferenceX extends DialogPreference {
             //Log.d("MobileCellsPreference.onPositive", "1");
             if (callChangeListener(value)) {
                 //Log.d("MobileCellsPreference.onPositive", "2");
-                DatabaseHandler db = DatabaseHandler.getInstance(context);
-                db.saveMobileCellsList(cellsList, false, false);
-                persistString(value);
-                setSummary();
+                new AsyncTask<Void, Integer, Void>() {
+                    List<MobileCellsData> _cellsList;
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        _cellsList = new ArrayList<>();
+                        _cellsList.addAll(cellsList);
+                    }
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        DatabaseHandler db = DatabaseHandler.getInstance(context);
+                        db.saveMobileCellsList(_cellsList, false, false);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        super.onPostExecute(result);
+                        persistString(value);
+                        setSummary();
+                    }
+                };
+
             }
         }
     }
