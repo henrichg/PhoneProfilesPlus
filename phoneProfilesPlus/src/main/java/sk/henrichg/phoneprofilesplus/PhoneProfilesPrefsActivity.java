@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -398,7 +399,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     private void doPreferenceChanges() {
         //Log.e("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxx");
-        Context appContext = getApplicationContext();
+        final Context appContext = getApplicationContext();
 
         PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null) {
@@ -547,15 +548,40 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
-            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
-            /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
-                x
-            else*/
-                // unblockEventsRun must be true to reset alarms
-                //PPApplication.restartEvents(appContext, true, true);
+            //final Context appContext = getApplicationContext();
+            PPApplication.startHandlerThreadPPCommand();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-            // change of this parameter is as change of local time
-            TimeChangedReceiver.doWork(appContext, true);
+                        //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
+                        /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
+                            x
+                        else*/
+                            // unblockEventsRun must be true to reset alarms
+                            //PPApplication.restartEvents(appContext, true, true);
+
+                        // change of this parameter is as change of local time
+                        TimeChangedReceiver.doWork(appContext, true);
+
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         /*
