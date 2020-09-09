@@ -1077,7 +1077,7 @@ Android 10
 - ...
 
 3. wifiManager.setWifiEnabled()
-- ...
+- Do Extendera
 
 4. Wifi AP
 - CmdWifiAP - testni, ci ho netreba volat s Extendera
@@ -1086,9 +1086,8 @@ Android 10
 
 5. Environment.getExternalStorageDirectory()
 - pouzivane len pre import/export
+- uz spravene, uzivatel urci cez intent kam to ulozit
 - testni pre target 29
-- pozri, ci nejde toto spravit inac, napriklad presunut do Documents.
-- ...
 
 -------------
 
