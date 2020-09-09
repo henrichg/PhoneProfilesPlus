@@ -4921,6 +4921,11 @@ public class PhoneProfilesService extends Service
 
         // intent to LauncherActivity, for click on notification
         Intent launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+        //Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
+        // clear all opened activities
+        //launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+        // setup startupSource
+        //launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
 
         int requestCode = 0;
         if (profile != null)
@@ -5192,6 +5197,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.setNotificationProfileName(appContext, pName);
 
         PendingIntent pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // ----- create notificationBuilders
         if (Build.VERSION.SDK_INT >= 26) {

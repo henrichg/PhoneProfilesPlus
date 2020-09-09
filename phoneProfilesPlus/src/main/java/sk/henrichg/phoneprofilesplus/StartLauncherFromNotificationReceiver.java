@@ -22,7 +22,9 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
                 if (action.equals(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
                     final Context appContext = context.getApplicationContext();
-                    Handler _handler = new Handler(appContext.getMainLooper());
+                    //Handler _handler = new Handler(appContext.getMainLooper());
+                    PPApplication.startHandlerThreadBroadcast(/*"WifiAPStateChangeBroadcastReceiver.onReceive"*/);
+                    final Handler _handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     Runnable r = new Runnable() {
                         public void run() {
 //                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
