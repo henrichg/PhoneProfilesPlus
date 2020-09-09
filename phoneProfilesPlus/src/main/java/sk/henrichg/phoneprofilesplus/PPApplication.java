@@ -87,7 +87,6 @@ public class PPApplication extends Application
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
-    static boolean serviceHasFirstStart = false;
 
     static boolean applicationFullyStarted = false;
 
@@ -1878,7 +1877,7 @@ public class PPApplication extends Application
             if (testService) {
                 try {
                     return applicationStarted &&
-                            (PhoneProfilesService.getInstance() != null) && PPApplication.serviceHasFirstStart;
+                            (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart();
                 } catch (Exception e) {
                     return false;
                 }

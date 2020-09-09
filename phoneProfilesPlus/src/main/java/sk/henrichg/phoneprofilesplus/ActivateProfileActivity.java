@@ -390,7 +390,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             PPApplication.startPPService(this, serviceIntent/*, true*/);
             return true;
         } else {
-            if ((PhoneProfilesService.getInstance() == null) || (!PPApplication.serviceHasFirstStart)) {
+            if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
                     PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
