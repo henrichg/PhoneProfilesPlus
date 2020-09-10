@@ -6,7 +6,6 @@ import android.net.wifi.IWifiManager;
 import android.net.wifi.WifiManager;
 import android.os.ResultReceiver;
 import android.os.ServiceManager;
-import android.util.Log;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdWifiAP {
@@ -56,7 +55,7 @@ public class CmdWifiAP {
         } catch (Throwable e) {
             //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+            //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             ActivateProfileHelper.showError(context, profileName, Profile.PARAMETER_TYPE_WIFIAP);
             return false;
         }

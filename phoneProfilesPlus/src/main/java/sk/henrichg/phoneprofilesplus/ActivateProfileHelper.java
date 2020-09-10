@@ -315,7 +315,7 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);;
+                                    //PPApplication.recordException(e);;
                                     showError(context, profile._name, Profile.PARAMETER_TYPE_WIFI);
                                 }
                                 PPApplication.sleep(200);

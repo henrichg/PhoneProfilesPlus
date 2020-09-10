@@ -117,13 +117,13 @@ public class MainWorker extends Worker {
                                 startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                                 appContext.startActivity(startMain);
-                            } catch (SecurityException e) {
+                            /*} catch (SecurityException e) {
                                 //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                                 String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
-                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
                             } catch (Exception e) {
                                 //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
+                                //PPApplication.recordException(e);
                                 String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
                                 ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
                             }
