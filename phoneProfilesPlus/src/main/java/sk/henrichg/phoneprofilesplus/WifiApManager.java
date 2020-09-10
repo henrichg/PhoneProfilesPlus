@@ -76,7 +76,7 @@ final class WifiApManager {
             wifiControlMethod.invoke(mWifiManager, config, enabled);
         } catch (Exception e) {
             //Log.e(TAG, "", e);
-            //Log.e("$$$ WifiAP", "WifiApManager.setWifiApState-exception="+e);
+            //PPApplication.logE("WifiApManager.setWifiApState", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }
@@ -96,7 +96,7 @@ final class WifiApManager {
         }
         catch (Exception e)
         {
-            //Log.e("$$$ WifiAP", "WifiApManager.getWifiApConfiguration-exception="+e);
+            //PPApplication.logE("WifiApManager.getWifiApConfiguration", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             return null;
         }
