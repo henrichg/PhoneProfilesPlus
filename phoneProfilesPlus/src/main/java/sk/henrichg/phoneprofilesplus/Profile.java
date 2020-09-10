@@ -733,6 +733,8 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data_notify_color);
     }
 
+    static final int PARAMETER_TYPE_WIFIAP = 1;
+
     // Empty constructor
     Profile(){
         //this._useCustomColor = true;

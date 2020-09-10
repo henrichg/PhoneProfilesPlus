@@ -247,7 +247,7 @@ class ActivateProfileHelper {
                     }
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
-                        CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi);
+                        CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
                         PPApplication.sleep(1000);
                     }
                 }
@@ -5070,6 +5070,65 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.prefActivatedProfileScreenTimeout = timeout;
         }
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    static void showError(Context context, String profileName, int parameterType) {
+        Context appContext = context.getApplicationContext();
+
+        String title = appContext.getString(R.string.profile_activation_activation_error_title) + " " + profileName;
+        String text;
+        int notificationId;
+        String notificationTag;
+        //noinspection SwitchStatementWithTooFewBranches
+        switch (parameterType) {
+            case Profile.PARAMETER_TYPE_WIFIAP:
+                text = appContext.getString(R.string.profile_activation_activation_error_change_wifi_ap);
+                notificationId = PPApplication.PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_ID;
+                notificationTag = PPApplication.PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_TAG;
+                break;
+            default:
+                text = appContext.getString(R.string.profile_activation_activation_error);
+                notificationId = PPApplication.PROFILE_ACTIVATION_ERROR_NOTIFICATION_ID;
+                notificationTag = PPApplication.PROFILE_ACTIVATION_ERROR_NOTIFICATION_TAG;
+                break;
+        }
+
+        String nTitle = title;
+        String nText = text;
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            nTitle = appContext.getString(R.string.ppp_app_name);
+            nText = title+": "+text;
+        }
+        PPApplication.createInformationNotificationChannel(appContext);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+        //PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+
+        Notification notification = mBuilder.build();
+        notification.vibrate = null;
+        notification.defaults &= ~DEFAULT_VIBRATE;
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        try {
+            mNotificationManager.notify(notificationTag, notificationId, notification);
+        } catch (Exception e) {
+            //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+        }
+
     }
 
 }

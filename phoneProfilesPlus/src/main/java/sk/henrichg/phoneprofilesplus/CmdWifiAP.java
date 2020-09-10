@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.net.IConnectivityManager;
 import android.net.wifi.IWifiManager;
 import android.net.wifi.WifiManager;
 import android.os.ResultReceiver;
 import android.os.ServiceManager;
+import android.util.Log;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdWifiAP {
@@ -16,10 +18,10 @@ public class CmdWifiAP {
     }
 
     private static boolean run(boolean enable, boolean doNotChangeWifi) {
-        return setWifiAP(enable, doNotChangeWifi);
+        return setWifiAP(enable, doNotChangeWifi, null, null);
     }
 
-    static boolean setWifiAP(boolean enable, boolean doNotChangeWifi) {
+    static boolean setWifiAP(boolean enable, boolean doNotChangeWifi, Context context, String profileName) {
         //PPApplication.logE("CmdWifiAP.setWifiAP", "START enable="+enable);
         //PPApplication.logE("CmdWifiAP.setWifiAP", "START doNotChangeWifi="+doNotChangeWifi);
         final String packageName = PPApplication.PACKAGE_NAME;
@@ -45,21 +47,24 @@ public class CmdWifiAP {
 
             //PPApplication.logE("CmdWifiAP.setWifiAP", "END=");
             return true;
-        } catch (java.lang.SecurityException ee) {
+        /*} catch (java.lang.SecurityException ee) {
             //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
             //PPApplication.logToCrashlytics("E/CmdWifiAP.setWifiAP: " + Log.getStackTraceString(ee));
-            //PPApplication.recordException(e);
-            //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
-            return false;
+            PPApplication.recordException(ee);
+            PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
+            return false;*/
         } catch (Throwable e) {
             //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-            //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+            PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+            if ((context != null) && (profileName != null))
+                ActivateProfileHelper.showError(context, profileName, Profile.PARAMETER_TYPE_WIFIAP);
             return false;
         }
     }
 
     static boolean isEnabled() {
+        //PPApplication.logE("CmdWifiAP.isEnabled", "xxx");
         try {
             boolean enabled;
             IWifiManager adapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
@@ -70,6 +75,7 @@ public class CmdWifiAP {
         } catch (Throwable e) {
             //Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
+            //PPApplication.logE("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
             return false;
         }
     }

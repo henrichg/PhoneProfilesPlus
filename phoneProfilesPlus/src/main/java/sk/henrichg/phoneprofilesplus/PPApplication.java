@@ -146,6 +146,8 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
                                                 //+"|%%%%% PhoneStateScanner.doAutoRegistration"
+                                                //+"|CmdWifiAP.isEnabled"
+                                                +"|CmdWifiAP.setWifiAP"
 
                                                 //+"|[***] EventsHandler.doHandleEvents"
                                                 //+"|[***] Event.startEvent"
@@ -406,6 +408,11 @@ public class PPApplication extends Application
     static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG = PACKAGE_NAME+"_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION";
     static final int DRAW_OVER_APPS_NOTIFICATION_ID = 121;
     static final String DRAW_OVER_APPS_NOTIFICATION_TAG = PACKAGE_NAME+"_DRAW_OVER_APPS_NOTIFICATION";
+
+    static final int PROFILE_ACTIVATION_ERROR_NOTIFICATION_ID = 130;
+    static final String PROFILE_ACTIVATION_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_ERROR_NOTIFICATION";
+    static final int PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_ID = 131;
+    static final String PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;

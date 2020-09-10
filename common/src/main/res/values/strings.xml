@@ -1585,6 +1585,10 @@
     <string name="event_preferences_orientation_light_level_max">Light - maximal value</string>
     <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
 
+    <string name="profile_activation_activation_error_title">Activated profile:</string>
+    <string name="profile_activation_activation_error">Error during profile activation</string>
+    <string name="profile_activation_activation_error_change_wifi_ap">Error during profile activation. Change of Wi-Fi hotspot state failed.</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 
