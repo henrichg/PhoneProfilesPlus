@@ -47,6 +47,7 @@ import android.view.WindowManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -90,6 +91,8 @@ class ActivateProfileHelper {
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
+
+    static final String EXTRA_PROFILE_NAME = "profile_name";
 
     private static void doExecuteForRadios(Context context, Profile profile)
     {
@@ -312,7 +315,8 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);;
+                                    PPApplication.recordException(e);;
+                                    showError(context, profile._name, Profile.PARAMETER_TYPE_WIFI);
                                 }
                                 PPApplication.sleep(200);
                             }
@@ -3360,9 +3364,15 @@ class ActivateProfileHelper {
             if (!PPApplication.blockProfileEventActions) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start work for close all applications");
                 // work for first start events or activate profile on boot
+
+                Data workData = new Data.Builder()
+                        .putString(EXTRA_PROFILE_NAME, profile._name)
+                        .build();
+
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG)
+                                .setInputData(workData)
                                 .setInitialDelay(200, TimeUnit.MILLISECONDS)
                                 .build();
                 try {
@@ -5074,6 +5084,9 @@ class ActivateProfileHelper {
 
     @SuppressWarnings("SameParameterValue")
     static void showError(Context context, String profileName, int parameterType) {
+        if ((context == null) || (profileName == null))
+            return;
+
         Context appContext = context.getApplicationContext();
 
         String title = appContext.getString(R.string.profile_activation_activation_error_title) + " " + profileName;
@@ -5082,10 +5095,20 @@ class ActivateProfileHelper {
         String notificationTag;
         //noinspection SwitchStatementWithTooFewBranches
         switch (parameterType) {
+            case Profile.PARAMETER_TYPE_WIFI:
+                text = appContext.getString(R.string.profile_activation_activation_error_change_wifi);
+                notificationId = PPApplication.PROFILE_ACTIVATION_WIFI_ERROR_NOTIFICATION_ID;
+                notificationTag = PPApplication.PROFILE_ACTIVATION_WIFI_ERROR_NOTIFICATION_TAG;
+                break;
             case Profile.PARAMETER_TYPE_WIFIAP:
                 text = appContext.getString(R.string.profile_activation_activation_error_change_wifi_ap);
                 notificationId = PPApplication.PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_ID;
                 notificationTag = PPApplication.PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_TAG;
+                break;
+            case Profile.PARAMETER_CLOSE_ALL_APPLICATION:
+                text = appContext.getString(R.string.profile_activation_activation_error_close_all_applications);
+                notificationId = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_ID;
+                notificationTag = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG;
                 break;
             default:
                 text = appContext.getString(R.string.profile_activation_activation_error);

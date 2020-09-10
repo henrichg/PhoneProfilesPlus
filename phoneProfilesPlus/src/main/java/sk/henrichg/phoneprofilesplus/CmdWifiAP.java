@@ -57,8 +57,7 @@ public class CmdWifiAP {
             //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
-            if ((context != null) && (profileName != null))
-                ActivateProfileHelper.showError(context, profileName, Profile.PARAMETER_TYPE_WIFIAP);
+            ActivateProfileHelper.showError(context, profileName, Profile.PARAMETER_TYPE_WIFIAP);
             return false;
         }
     }

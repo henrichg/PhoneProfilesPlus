@@ -733,7 +733,9 @@ public class Profile {
         profileIconNotifyColorId.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data_notify_color);
     }
 
-    static final int PARAMETER_TYPE_WIFIAP = 1;
+    static final int PARAMETER_TYPE_WIFI = 1;
+    static final int PARAMETER_TYPE_WIFIAP = 2;
+    static final int PARAMETER_CLOSE_ALL_APPLICATION = 3;
 
     // Empty constructor
     Profile(){

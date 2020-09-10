@@ -119,9 +119,13 @@ public class MainWorker extends Worker {
                                 appContext.startActivity(startMain);
                             } catch (SecurityException e) {
                                 //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                                String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
+                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
                             } catch (Exception e) {
                                 //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
                                 PPApplication.recordException(e);
+                                String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
+                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
                             }
                         }
                         break;
