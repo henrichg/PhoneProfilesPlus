@@ -762,8 +762,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference = findPreference("prf_pref_deviceWiFiAPInfo");
                 if (preference != null) {
                     preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
-                            "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary)/* +
-                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary)*/);
+                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
+                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary));
                 }
             }
             preference = findPreference("prf_pref_deviceCloseAllApplicationsInfo");
