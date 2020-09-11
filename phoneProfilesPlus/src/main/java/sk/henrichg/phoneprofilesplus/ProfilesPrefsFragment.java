@@ -758,11 +758,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 29) {
-            preference = findPreference("prf_pref_deviceWiFiAPInfo");
-            if (preference != null) {
-                preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
-                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary)/* +
+            if (Build.VERSION.SDK_INT < 30) {
+                preference = findPreference("prf_pref_deviceWiFiAPInfo");
+                if (preference != null) {
+                    preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
+                            "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary)/* +
                         "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary)*/);
+                }
             }
             preference = findPreference("prf_pref_deviceCloseAllApplicationsInfo");
             if (preference != null) {
@@ -1703,17 +1705,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 else
                     summary = summary + title;
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP, R.string.profile_preferences_deviceWiFiAP, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
+            if (Build.VERSION.SDK_INT < 30) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP, R.string.profile_preferences_deviceWiFiAP, false, context);
+                if (!title.isEmpty()) {
+                    _bold = true;
+                    if (!summary.isEmpty()) summary = summary + " • ";
 
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI_AP)),
-                        R.array.wifiAPValues, R.array.wifiAPArray, context);
+                    String value = GlobalGUIRoutines.getListPreferenceString(
+                            preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP,
+                                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI_AP)),
+                            R.array.wifiAPValues, R.array.wifiAPArray, context);
 
-                summary = summary + title + ": <b>" + value + "</b>";
+                    summary = summary + title + ": <b>" + value + "</b>";
+                }
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, R.string.profile_preferences_deviceWiFiAPPrefs, false, context);
             if (!title.isEmpty()) {
@@ -3132,15 +3136,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
-        {
-            if (Profile.isProfilePreferenceAllowed(key, null, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                boolean enabled = !sValue.equals(ON);
-                ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
-                if (preference != null) {
-                    if (!enabled)
-                        preference.setValue(Profile.NO_CHANGE_VALUE_STR);
-                    preference.setEnabled(enabled);
+        if (Build.VERSION.SDK_INT < 30) {
+            if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+                if (Profile.isProfilePreferenceAllowed(key, null, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    boolean enabled = !sValue.equals(ON);
+                    ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
+                    if (preference != null) {
+                        if (!enabled)
+                            preference.setValue(Profile.NO_CHANGE_VALUE_STR);
+                        preference.setEnabled(enabled);
+                    }
                 }
             }
         }

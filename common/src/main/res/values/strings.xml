@@ -1590,6 +1590,7 @@
     <string name="profile_activation_activation_error_change_wifi_ap">Error during profile activation. Change of Wi-Fi hotspot state failed.</string>
     <string name="profile_activation_activation_error_change_wifi">Error during profile activation. Change of Wi-Fi state failed.</string>
     <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
+    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->

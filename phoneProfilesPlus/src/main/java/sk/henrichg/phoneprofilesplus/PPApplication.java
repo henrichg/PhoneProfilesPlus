@@ -2128,6 +2128,7 @@ public class PPApplication extends Application
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 channel.setSound(null, null);
                 channel.setShowBadge(false);
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
                 NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
@@ -2170,6 +2171,7 @@ public class PPApplication extends Application
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 channel.setSound(null, null);
                 channel.setShowBadge(false);
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2205,6 +2207,7 @@ public class PPApplication extends Application
                 //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2240,6 +2243,7 @@ public class PPApplication extends Application
                 //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2275,6 +2279,7 @@ public class PPApplication extends Application
                 //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2311,6 +2316,7 @@ public class PPApplication extends Application
                 channel.enableVibration(false);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 channel.setSound(null, null);
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2346,6 +2352,7 @@ public class PPApplication extends Application
                 //channel.setLightColor(Color.RED);
                 channel.enableVibration(true);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
@@ -2381,6 +2388,7 @@ public class PPApplication extends Application
                 //channel.setLightColor(Color.RED);
                 channel.enableVibration(false);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                //channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {

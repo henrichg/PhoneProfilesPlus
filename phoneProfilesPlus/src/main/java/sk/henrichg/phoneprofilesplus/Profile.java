@@ -3714,65 +3714,62 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI)) {
-                // device has Wifi
-                if (android.os.Build.VERSION.SDK_INT < 26) {
-                    if (WifiApManager.canExploitWifiAP(appContext))
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                }
-                else
-                if (Build.VERSION.SDK_INT < 28) {
-                    if (WifiApManager.canExploitWifiTethering(appContext))
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    else
-                    if (PPApplication.isRooted(fromUIThread)) {
-                        // device is rooted
-
-                        if (profile != null) {
-                            // test if grant root is disabled
-                            if (profile._deviceWiFiAP != 0) {
-                                if (applicationNeverAskForGrantRoot) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                    // not needed to test all parameters
-                                    return preferenceAllowed;
-                                }
-                            }
-                        }
-                        else
-                        if (sharedPreferences != null) {
-                            if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                                if (applicationNeverAskForGrantRoot) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                    // not needed to test all parameters
-                                    return preferenceAllowed;
-                                }
-                            }
-                        }
-
-                        if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
-                            if (PPApplication.serviceBinaryExists(fromUIThread))
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-                        } else {
+            if (Build.VERSION.SDK_INT < 30) {
+                if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI)) {
+                    // device has Wifi
+                    if (android.os.Build.VERSION.SDK_INT < 26) {
+                        if (WifiApManager.canExploitWifiAP(appContext))
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else {
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                         }
-                    }
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                }
-                else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    } else if (Build.VERSION.SDK_INT < 28) {
+                        if (WifiApManager.canExploitWifiTethering(appContext))
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else if (PPApplication.isRooted(fromUIThread)) {
+                            // device is rooted
+
+                            if (profile != null) {
+                                // test if grant root is disabled
+                                if (profile._deviceWiFiAP != 0) {
+                                    if (applicationNeverAskForGrantRoot) {
+                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        // not needed to test all parameters
+                                        return preferenceAllowed;
+                                    }
+                                }
+                            } else if (sharedPreferences != null) {
+                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                    if (applicationNeverAskForGrantRoot) {
+                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        // not needed to test all parameters
+                                        return preferenceAllowed;
+                                    }
+                                }
+                            }
+
+                            if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+                                if (PPApplication.serviceBinaryExists(fromUIThread))
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                            } else {
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                            }
+                        } else
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    } else
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                } else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
             else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);

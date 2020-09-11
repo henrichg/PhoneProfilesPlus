@@ -261,16 +261,18 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // wifi AP
-            if (profile._deviceWiFiAP != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
-                    if (profile._deviceWiFiAP == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
+            if (Build.VERSION.SDK_INT < 30) {
+                // wifi AP
+                if (profile._deviceWiFiAP != 0) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5))
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
+                        if (profile._deviceWiFiAP == 2) {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
+                        }
                     }
                 }
             }
@@ -798,12 +800,14 @@ class ProfilePreferencesIndicator {
                 }
             }
             // wifi AP
-            if (profile._deviceWiFiAP != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5))
-                        indicator1 = addIntoIndicator(indicator1, "wap:1", maxLineLength);
-                    if (profile._deviceWiFiAP == 2)
-                        indicator1 = addIntoIndicator(indicator1, "wap:0", maxLineLength);
+            if (Build.VERSION.SDK_INT < 30) {
+                if (profile._deviceWiFiAP != 0) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5))
+                            indicator1 = addIntoIndicator(indicator1, "wap:1", maxLineLength);
+                        if (profile._deviceWiFiAP == 2)
+                            indicator1 = addIntoIndicator(indicator1, "wap:0", maxLineLength);
+                    }
                 }
             }
             // wifi AP preferences

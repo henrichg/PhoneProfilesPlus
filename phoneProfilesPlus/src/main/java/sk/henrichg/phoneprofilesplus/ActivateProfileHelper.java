@@ -213,7 +213,8 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                else {
+                else if (Build.VERSION.SDK_INT < 30) {
+                    // not working in Android 11+
                     boolean setWifiAPState = false;
                     boolean doNotChangeWifi = false;
                     boolean isWifiAPEnabled = CmdWifiAP.isEnabled();
@@ -5141,8 +5142,6 @@ class ActivateProfileHelper {
         //}
 
         Notification notification = mBuilder.build();
-        notification.vibrate = null;
-        notification.defaults &= ~DEFAULT_VIBRATE;
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {
