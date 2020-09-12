@@ -97,7 +97,8 @@ public class PPApplication extends Application
     static final int WORK_PRUNE_DELAY_DAYS = 1;
     static final int WORK_PRUNE_DELAY_MINUTES = 60;
 
-    static final boolean gitHubRelease = true;
+    //static final boolean gitHubRelease = true;
+    static boolean googlePlayInstaller = false;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
@@ -871,7 +872,7 @@ public class PPApplication extends Application
             // The package name of the app that has installed your app
             final String installer = getPackageManager().getInstallerPackageName(PPApplication.PACKAGE_NAME);
             // true if your app has been downloaded from Play Store
-            boolean googlePlayInstaller = installer != null && validInstallers.contains(installer);
+            googlePlayInstaller = installer != null && validInstallers.contains(installer);
             PPApplication.setCustomKey("FROM_GOOGLE_PLAY", googlePlayInstaller);
         } catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
@@ -2081,7 +2082,7 @@ public class PPApplication extends Application
     static boolean prefShowEndOfGooglePlaySupport;
     static void getShowEndOfGooglePlaySupport(Context context)
     {
-        if (gitHubRelease) {
+        if (googlePlayInstaller) {
             prefShowEndOfGooglePlaySupport = false;
             return;
         }
@@ -2093,7 +2094,7 @@ public class PPApplication extends Application
     }
     static void disableShowEndOfGooglePlaySupport(Context context)
     {
-        if (gitHubRelease) {
+        if (googlePlayInstaller) {
             prefShowEndOfGooglePlaySupport = false;
             return;
         }

@@ -93,6 +93,10 @@
         android:title="@string/menu_about_application"
         android:orderInCategory="250"
         app:showAsAction="never" />
+    <item android:id="@+id/menu_check_github_releases"
+        android:title="@string/menu_check_github_releases"
+        android:orderInCategory="250"
+        app:showAsAction="never" />
 
     <item android:id="@+id/menu_debug"
         android:title="Debug"

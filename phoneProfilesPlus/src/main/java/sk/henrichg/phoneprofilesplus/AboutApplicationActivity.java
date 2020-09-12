@@ -98,12 +98,18 @@ public class AboutApplicationActivity extends AppCompatActivity {
         */
 
         TextView text = findViewById(R.id.about_application_application_version);
+        String message;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            text.setText(getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")");
+            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")\n";
         } catch (Exception e) {
-            text.setText("");
+            message = "";
         }
+        if (PPApplication.googlePlayInstaller)
+            message = message + getString(R.string.about_application_package_type_google_play);
+        else
+            message = message + getString(R.string.about_application_package_type_github);
+        text.setText(message);
 
         text = findViewById(R.id.about_application_author);
         CharSequence str1 = getString(R.string.about_application_author);
@@ -439,10 +445,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent;
-                if (PPApplication.gitHubRelease)
-                    intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
-                else
+                if (PPApplication.googlePlayInstaller)
                     intent = new Intent(getBaseContext(), DonationGPlayActivity.class);
+                else
+                    intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
                 startActivity(intent);
             }
         });
