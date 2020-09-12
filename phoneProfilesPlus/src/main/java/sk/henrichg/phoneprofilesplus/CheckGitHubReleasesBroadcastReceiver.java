@@ -35,9 +35,9 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "xxx");
 
         Calendar now = Calendar.getInstance();
-        if (DebugVersion.enabled) {
-            now.add(Calendar.MINUTE, 1);
-        } else {
+        //if (DebugVersion.enabled) {
+        //    now.add(Calendar.MINUTE, 1);
+        //} else {
             // each month at 13:30
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, 30);
@@ -51,7 +51,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
                 String result = sdf.format(now.getTimeInMillis());
                 PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
             }*/
-        }
+        //}
 
         long alarmTime = now.getTimeInMillis();
 
