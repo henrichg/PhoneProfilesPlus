@@ -97,6 +97,8 @@ public class PPApplication extends Application
     static final int WORK_PRUNE_DELAY_DAYS = 1;
     static final int WORK_PRUNE_DELAY_MINUTES = 60;
 
+    static final boolean gitHubRelease = false;
+
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     static final boolean logIntoFile = false;
@@ -447,6 +449,7 @@ public class PPApplication extends Application
     //public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
 
     // global internal preferences
+    private static final String PREF_SHOW_END_OF_GOOGLE_PLAY_SUPPORT = "endOfGooglePlaySupport";
     private static final String PREF_APPLICATION_STARTED = "applicationStarted";
     private static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
     private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
@@ -1650,6 +1653,7 @@ public class PPApplication extends Application
             globalEventsRunStop = ApplicationPreferences.
                     getSharedPreferences(context).getBoolean(Event.PREF_GLOBAL_EVENTS_RUN_STOP, true);
         }
+
         IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
         getActivityLogEnabled(context);
         //getNotificationProfileName(context);
@@ -2072,6 +2076,33 @@ public class PPApplication extends Application
         Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(PREF_DONATION_DONATED, true);
         editor.apply();
+    }
+
+    static boolean prefShowEndOfGooglePlaySupport;
+    static void getShowEndOfGooglePlaySupport(Context context)
+    {
+        if (gitHubRelease) {
+            prefShowEndOfGooglePlaySupport = false;
+            return;
+        }
+        synchronized (applicationGlobalPreferencesMutex) {
+            prefShowEndOfGooglePlaySupport = ApplicationPreferences.
+                    getSharedPreferences(context).getBoolean(PREF_SHOW_END_OF_GOOGLE_PLAY_SUPPORT, true);
+            //return prefShowEndOfGooglePlaySupport;
+        }
+    }
+    static void disableShowEndOfGooglePlaySupport(Context context)
+    {
+        if (gitHubRelease) {
+            prefShowEndOfGooglePlaySupport = false;
+            return;
+        }
+        synchronized (applicationGlobalPreferencesMutex) {
+            Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putBoolean(PREF_SHOW_END_OF_GOOGLE_PLAY_SUPPORT, false);
+            editor.apply();
+            prefShowEndOfGooglePlaySupport = false;
+        }
     }
 
     // --------------------------------
