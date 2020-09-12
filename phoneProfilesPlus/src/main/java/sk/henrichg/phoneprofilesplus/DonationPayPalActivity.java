@@ -10,12 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import sk.henrichg.phoneprofilesplus.billing.BillingManager;
-import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
-
-public class DonationActivity extends AppCompatActivity implements BillingProvider {
-
-    private BillingManager mBillingManager;
+public class DonationPayPalActivity extends AppCompatActivity {
 
     @SuppressLint("InlinedApi")
     @Override
@@ -25,7 +20,7 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_donation);
+        setContentView(R.layout.activity_paypal_donation);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         /*
@@ -60,16 +55,6 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
-        // Create and initialize BillingManager which talks to BillingLibrary
-        mBillingManager = new BillingManager(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            mBillingManager.destroy();
-        } catch (Exception ignored) {}
     }
 
     /**
@@ -81,7 +66,7 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
         super.onActivityResult(requestCode, resultCode, data);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag("donationFragment");
+        Fragment fragment = fragmentManager.findFragmentByTag("donationPayPalFragment");
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
@@ -99,11 +84,6 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
                 return super.onOptionsItemSelected(item);
         }
 
-    }
-
-    @Override
-    public BillingManager getBillingManager() {
-        return mBillingManager;
     }
 
 }

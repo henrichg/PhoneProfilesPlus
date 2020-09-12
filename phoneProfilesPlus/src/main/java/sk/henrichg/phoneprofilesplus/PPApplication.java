@@ -97,7 +97,7 @@ public class PPApplication extends Application
     static final int WORK_PRUNE_DELAY_DAYS = 1;
     static final int WORK_PRUNE_DELAY_MINUTES = 60;
 
-    static final boolean gitHubRelease = false;
+    static final boolean gitHubRelease = true;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;

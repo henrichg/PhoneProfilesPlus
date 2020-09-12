@@ -328,8 +328,11 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setMovementMethod(LinkMovementMethod.getInstance());
         */
 
-        //if (DebugVersion.enabled) {
-            text = findViewById(R.id.about_application_rate_application);
+        text = findViewById(R.id.about_application_rate_application);
+        if (PPApplication.gitHubRelease) {
+            text.setVisibility(View.GONE);
+        }
+        else {
             str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
             sbt = new SpannableString(str1);
             clickableSpan = new ClickableSpan() {
@@ -370,8 +373,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
             //sbt.setSpan(new UnderlineSpan(), 0, str1.length(), 0);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
-        /*}
-        else {
+        }
+        /*else {
             final TextView reviewText = findViewById(R.id.about_application_rate_application);
             text.setVisibility(View.GONE);
 
@@ -435,10 +438,15 @@ public class AboutApplicationActivity extends AppCompatActivity {
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), DonationActivity.class);
+                Intent intent;
+                if (PPApplication.gitHubRelease)
+                    intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
+                else
+                    intent = new Intent(getBaseContext(), DonationGPlayActivity.class);
                 startActivity(intent);
             }
         });
+
     }
 
     @Override

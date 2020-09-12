@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import sk.henrichg.phoneprofilesplus.DonationFragment;
+import sk.henrichg.phoneprofilesplus.DonationGPlayFragment;
 
 public class BillingManager implements PurchasesUpdatedListener {
 
@@ -61,9 +61,9 @@ public class BillingManager implements PurchasesUpdatedListener {
         startServiceConnectionIfNeeded(null);
     }
 
-    private DonationFragment getFragment() {
+    private DonationGPlayFragment getFragment() {
         FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-        return (DonationFragment) fragmentManager.findFragmentByTag("donationFragment");
+        return (DonationGPlayFragment) fragmentManager.findFragmentByTag("donationGPlayFragment");
     }
 
     private void startServiceConnectionIfNeeded(final Runnable executeOnSuccess) {
@@ -73,7 +73,7 @@ public class BillingManager implements PurchasesUpdatedListener {
                 executeOnSuccess.run();
             }
         } else {
-            DonationFragment fragment = getFragment();
+            DonationGPlayFragment fragment = getFragment();
             if (fragment != null)
                 fragment.setWaitScreen(true);
 

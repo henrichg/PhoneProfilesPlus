@@ -27,7 +27,7 @@ import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
 
 //import me.drakeet.support.toast.ToastCompat;
 
-public class DonationFragment extends Fragment {
+public class DonationGPlayFragment extends Fragment {
 
     private List<SkuDetails> SKU_DETAILS = null;
 
@@ -40,7 +40,7 @@ public class DonationFragment extends Fragment {
     private BillingProvider mBillingProvider;
 
     // Debug tag, for logging
-    //private static final String TAG = "DonationFragment";
+    //private static final String TAG = "DonationGPlayFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,9 @@ public class DonationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //PPApplication.logE(TAG, "onCreateView");
-        View root = inflater.inflate(R.layout.donation_fragment, container, false);
+        View root = inflater.inflate(R.layout.donation_gplay_fragment, container, false);
 
-        mLoadingView = root.findViewById(R.id.donation_google_android_market_loading);
+        mLoadingView = root.findViewById(R.id.donation_gplay_loading);
 
         /*
         if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) && (getActivity() != null)) {
@@ -74,10 +74,10 @@ public class DonationFragment extends Fragment {
         }
         */
 
-        mErrorTextView = root.findViewById(R.id.donation_google_android_market_error_textview);
+        mErrorTextView = root.findViewById(R.id.donation_gplay_error_textview);
 
         // choose donation amount
-        mGoogleGridView = root.findViewById(R.id.donation_google_android_market_grid);
+        mGoogleGridView = root.findViewById(R.id.donation_gplay_grid);
 
 
 //        mGoogleSpinner = root.findViewById(R.id.donation_google_android_market_spinner);
@@ -132,7 +132,7 @@ public class DonationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button closeButton = view.findViewById(R.id.donation_activity_close);
+        Button closeButton = view.findViewById(R.id.donation_gplay_activity_close);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,7 +195,7 @@ public class DonationFragment extends Fragment {
                                 displayAnErrorIfNeeded(BillingClient.BillingResponseCode.OK);
 
                                 if (getActivity() != null) {
-                                    mGoogleGridView.setAdapter(new DonationGooglePlayAdapter(DonationFragment.this, prices));
+                                    mGoogleGridView.setAdapter(new DonationGooglePlayAdapter(DonationGPlayFragment.this, prices));
                                     mGoogleGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

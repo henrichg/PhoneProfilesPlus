@@ -236,7 +236,11 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.createDonationNotificationChannel(appContext);
 
                 NotificationCompat.Builder mBuilder;
-                Intent _intent = new Intent(appContext, DonationActivity.class);
+                Intent _intent;
+                if (PPApplication.gitHubRelease)
+                    _intent = new Intent(appContext, DonationPayPalActivity.class);
+                else
+                    _intent = new Intent(appContext, DonationGPlayActivity.class);
 
                 String nTitle = appContext.getString(R.string.about_application_donate_button);
                 String nText = appContext.getString(R.string.donation_description);

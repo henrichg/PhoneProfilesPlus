@@ -6,13 +6,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-class DonationGooglePlayAdapter extends BaseAdapter
+class DonationPayPalAdapter extends BaseAdapter
 {
-    private final DonationGPlayFragment fragment;
+    private final DonationPayPalFragment fragment;
 
     private final String[] prices;
 
-    DonationGooglePlayAdapter(DonationGPlayFragment fragment, String[] prices)
+    DonationPayPalAdapter(DonationPayPalFragment fragment, String[] prices)
     {
         this.fragment = fragment;
         this.prices = prices;
@@ -83,8 +83,8 @@ class DonationGooglePlayAdapter extends BaseAdapter
         {
             holder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
-            vi = inflater.inflate(R.layout.donation_gplay_grid_item, parent, false);
-            holder.price = vi.findViewById(R.id.donation_gplay_grid_item_price);
+            vi = inflater.inflate(R.layout.donation_paypal_grid_item, parent, false);
+            holder.price = vi.findViewById(R.id.donation_paypal_grid_item_price);
             vi.setTag(holder);
         }
         else

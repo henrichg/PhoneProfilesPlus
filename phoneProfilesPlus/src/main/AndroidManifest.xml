@@ -361,7 +361,11 @@
                        android:resource="@xml/filter_nfc" />-->
         </activity>
         <activity
-            android:name=".DonationActivity"
+            android:name=".DonationGPlayActivity"
+            android:label="@string/donation_activity_title">
+        </activity>
+        <activity
+            android:name=".DonationPayPalActivity"
             android:label="@string/donation_activity_title">
         </activity>
         <activity
