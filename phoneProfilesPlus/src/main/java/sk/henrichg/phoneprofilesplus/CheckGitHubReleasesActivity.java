@@ -59,7 +59,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
         dialogBuilder.setMessage(message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setCancelable(false);
+        dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 String url = "https://github.com/henrichg/PhoneProfilesPlus/releases";
@@ -75,6 +75,13 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (!fromEditor)
+                    activity.finish();
+            }
+        });
         if (!fromEditor)
             dialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
