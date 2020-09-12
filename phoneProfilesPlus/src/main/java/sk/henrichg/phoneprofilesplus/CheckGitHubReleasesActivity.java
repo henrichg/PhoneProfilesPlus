@@ -29,7 +29,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        showDialog(this);
+        showDialog(this, false);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    static void showDialog(final Activity activity) {
+    static void showDialog(final Activity activity, final boolean fromEditor) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -70,10 +70,13 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-                activity.finish();
+                if (!fromEditor)
+                    activity.finish();
             }
         });
-        dialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        if (!fromEditor)
+            dialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 activity.finish();

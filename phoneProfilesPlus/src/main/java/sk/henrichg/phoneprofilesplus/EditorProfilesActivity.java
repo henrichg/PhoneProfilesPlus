@@ -1278,7 +1278,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 return true;
             case R.id.menu_check_github_releases:
-                CheckGitHubReleasesActivity.showDialog(this);
+                CheckGitHubReleasesActivity.showDialog(this, true);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
