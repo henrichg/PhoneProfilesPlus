@@ -364,10 +364,6 @@
             android:name=".DonationGPlayActivity"
             android:label="@string/donation_activity_title">
         </activity>
-<!--        <activity-->
-<!--            android:name=".DonationPayPalActivity"-->
-<!--            android:label="@string/donation_activity_title">-->
-<!--        </activity>-->
         <activity
             android:name=".ActivatorTargetHelpsActivity"
             android:label="@string/empty_string"
