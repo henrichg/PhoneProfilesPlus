@@ -1,21 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.android.billingclient.api.Purchase;
-
-import java.util.List;
 
 //import me.drakeet.support.toast.ToastCompat;
 
@@ -145,12 +141,21 @@ public class DonationPayPalFragment extends Fragment {
      * Donate button executes donations based on selection in spinner
      */
     private void donatePayPalOnClick(int position) {
-        Log.e("DonationPayPalFragment.donatePayPalOnClick", "xxx");
-
         //final int index = mGoogleSpinner.getSelectedItemPosition();
 
         //mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(position));
         //mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(index).getSku(), BillingClient.SkuType.INAPP);
+
+        String[] prices = new String[]{"1", "2", "3", "5", "8", "13", "20"};
+
+        String url = "https://www.paypal.me/HenrichGron/" + prices[position] + "EUR";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        try {
+            startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
     public void updateGUIAfterBillingConnected() {
@@ -172,6 +177,7 @@ public class DonationPayPalFragment extends Fragment {
         }
     }
 
+    /*
     public void purchaseSuccessful(@SuppressWarnings("unused") List<Purchase> purchases) {
         if (getActivity() != null) {
             PPApplication.setDonationDonated(getActivity().getApplicationContext());
@@ -179,7 +185,6 @@ public class DonationPayPalFragment extends Fragment {
         }
     }
 
-    /*
     @SuppressWarnings("EmptyMethod")
     public void purchaseUnsuccessful(@SuppressWarnings("unused") List<Purchase> purchases) {
     }

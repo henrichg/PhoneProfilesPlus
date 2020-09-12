@@ -329,10 +329,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
         */
 
         text = findViewById(R.id.about_application_rate_application);
-        if (PPApplication.gitHubRelease) {
-            text.setVisibility(View.GONE);
-        }
-        else {
+        //if (PPApplication.gitHubRelease) {
+        //    text.setVisibility(View.GONE);
+        //}
+        //else {
             str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
             sbt = new SpannableString(str1);
             clickableSpan = new ClickableSpan() {
@@ -373,7 +373,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             //sbt.setSpan(new UnderlineSpan(), 0, str1.length(), 0);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
-        }
+        //}
         /*else {
             final TextView reviewText = findViewById(R.id.about_application_rate_application);
             text.setVisibility(View.GONE);

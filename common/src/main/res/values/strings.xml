@@ -1594,6 +1594,8 @@
 
     <string name="google_play_not_more_supported_title">End og Google Play support</string>
     <string name="google_play_not_more_supported_info">Dear user, after 2. november 2020, PhoneProfilesPlus will never be deployed into Google Play.\n\nBut support continues. New versions will be deployed in PhoneProfilesPlus GitHub site, in Releases section, similar to PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus will, each month, generate notification an when you click it, it opens internet browser with Releases site and you can download new version.</string>
+    <string name="donation_google_play">Please donate using Google Play:</string>
+    <string name="donation_paypal">Please donate using PayPal:</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->

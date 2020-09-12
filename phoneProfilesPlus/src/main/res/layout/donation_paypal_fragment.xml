@@ -47,15 +47,15 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold"/>
 
-        <!--
         <TextView
             android:id="@+id/donation_paypal_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:text="@string/donation_google_android_market"
+            android:text="@string/donation_paypal"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <!--
         <TextView
             android:id="@+id/donation_paypal_fragment_textView1"
             android:layout_width="match_parent"
