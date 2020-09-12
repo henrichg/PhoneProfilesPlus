@@ -44,6 +44,12 @@ public class EndOfGooglePlaySupportActivity extends AppCompatActivity {
                 WorkManagerNotWorkingActivity.this.finish();
             }
         });*/
+        dialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                EndOfGooglePlaySupportActivity.this.finish();
+            }
+        });
         AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {

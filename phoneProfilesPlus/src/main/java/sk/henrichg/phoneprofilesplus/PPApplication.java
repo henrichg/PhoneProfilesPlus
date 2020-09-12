@@ -412,6 +412,8 @@ public class PPApplication extends Application
     static final String IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG = PACKAGE_NAME+"_IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION";
     static final int DRAW_OVER_APPS_NOTIFICATION_ID = 121;
     static final String DRAW_OVER_APPS_NOTIFICATION_TAG = PACKAGE_NAME+"_DRAW_OVER_APPS_NOTIFICATION";
+    static final int CHECK_GITHUB_RELEASES_NOTIFICATION_ID = 122;
+    static final String CHECK_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_GITHUB_RELEASES_NOTIFICATION_TAG";
 
     static final int PROFILE_ACTIVATION_ERROR_NOTIFICATION_ID = 130;
     static final String PROFILE_ACTIVATION_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_ERROR_NOTIFICATION";
@@ -515,6 +517,7 @@ public class PPApplication extends Application
     //static final String ACTION_SHOW_PROFILE_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION";
     //static final String ACTION_UPDATE_GUI = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_UPDATE_GUI";
     static final String ACTION_DONATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_DONATION";
+    static final String ACTION_CHECK_GITHUB_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_GITHUB_RELEASES";
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
@@ -597,6 +600,7 @@ public class PPApplication extends Application
     static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
+    static CheckGitHubReleasesBroadcastReceiver checkGitHubReleasesBroadcastReceiver = null;
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;

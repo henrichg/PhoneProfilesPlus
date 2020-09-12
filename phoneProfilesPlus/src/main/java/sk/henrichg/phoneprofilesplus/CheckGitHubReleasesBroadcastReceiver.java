@@ -1,0 +1,202 @@
+package sk.henrichg.phoneprofilesplus;
+
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.PowerManager;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+
+import java.util.Calendar;
+
+import static android.app.Notification.DEFAULT_VIBRATE;
+
+public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
+
+    public void onReceive(Context context, Intent intent) {
+//        PPApplication.logE("[BROADCAST CALL] DonationBroadcastReceiver.onReceive", "xxx");
+        //CallsCounter.logCounter(context, "DonationBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
+
+        if (intent != null) {
+            doWork(/*true,*/ context);
+        }
+    }
+
+    static public void setAlarm(Context context)
+    {
+        removeAlarm(context);
+
+        //PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "xxx");
+
+        Calendar now = Calendar.getInstance();
+        if (DebugVersion.enabled) {
+            now.add(Calendar.MINUTE, 1);
+        } else {
+            // each month at 13:30
+            now.set(Calendar.HOUR_OF_DAY, 13);
+            now.set(Calendar.MINUTE, 30);
+            now.add(Calendar.DAY_OF_MONTH, 30);
+            now.set(Calendar.SECOND, 0);
+            now.set(Calendar.MILLISECOND, 0);
+
+            /*if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(now.getTimeInMillis());
+                PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
+            }*/
+        }
+
+        long alarmTime = now.getTimeInMillis();
+
+        //Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+        //intent.setClass(context, DonationBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            }
+            else {
+                //if (android.os.Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                //else
+                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            }
+        }
+    }
+
+    static private void removeAlarm(Context context)
+    {
+        try {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+                //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+        //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
+    }
+
+    private void doWork(/*boolean useHandler,*/ Context context) {
+        final Context appContext = context.getApplicationContext();
+
+        if (!PPApplication.getApplicationStarted(true))
+            // application is not started
+            return;
+
+        //PPApplication.logE("[DONATION] DonationBroadcastReceiver.doWork", "xxx");
+
+        //if (useHandler) {
+            PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DonationBroadcastReceiver.doWork");
+
+                        try {
+                            _doWork(appContext);
+                        } catch (Exception ignored) {}
+
+                        setAlarm(appContext);
+
+
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                }
+            });
+        /*}
+        else {
+            _doWork(appContext);
+            setAlarm(appContext);
+        }*/
+    }
+
+    private static void _doWork(Context appContext) {
+        // show notification for check new release
+        PPApplication.createDonationNotificationChannel(appContext);
+
+        NotificationCompat.Builder mBuilder;
+        Intent _intent;
+        _intent = new Intent(appContext, CheckGitHubReleasesActivity.class);
+
+        String nTitle = appContext.getString(R.string.menu_check_github_releases);
+        String nText = appContext.getString(R.string.check_github_releases_notification);
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            nTitle = appContext.getString(R.string.ppp_app_name);
+            nText = appContext.getString(R.string.menu_check_github_releases) + ": " +
+                    appContext.getString(R.string.check_github_releases_notification);
+        }
+        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_CHANNEL)
+                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                .setAutoCancel(true); // clear notification after click
+
+        PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        //if (android.os.Build.VERSION.SDK_INT >= 21) {
+        mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+
+        Notification notification = mBuilder.build();
+        notification.vibrate = null;
+        notification.defaults &= ~DEFAULT_VIBRATE;
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        try {
+            mNotificationManager.notify(
+                    PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
+                    PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+        } catch (Exception e) {
+            //Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+        }
+    }
+
+}

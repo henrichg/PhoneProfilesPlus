@@ -929,6 +929,15 @@ public class PhoneProfilesService extends Service
                 appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
             }
 
+            if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER checkGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER checkGitHubReleasesBroadcastReceiver");
+                PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+                appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
+            }
+
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER lockDeviceAfterScreenOffBroadcastReceiver");
@@ -3894,6 +3903,7 @@ public class PhoneProfilesService extends Service
 
                     //PPApplication.logE("[DONATION] PhoneProfilesService.doForFirstStart - handler", "start donation alarm");
                     DonationBroadcastReceiver.setAlarm(appContext);
+                    CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
@@ -4104,6 +4114,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.setDaysAfterFirstStart(appContext, 0);
                     PPApplication.setDonationNotificationCount(appContext, 0);
                     DonationBroadcastReceiver.setAlarm(appContext);
+                    CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
                 }
 
                 //if (actualVersionCode <= 2500) {

@@ -1278,54 +1278,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 return true;
             case R.id.menu_check_github_releases:
-                dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.menu_check_github_releases);
-                String message;
-                try {
-                    PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                    message = getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")\n";
-                } catch (Exception e) {
-                    message = "";
-                }
-                if (PPApplication.googlePlayInstaller)
-                    message = message + getString(R.string.about_application_package_type_google_play);
-                else
-                    message = message + getString(R.string.about_application_package_type_github);
-                message = message + "\n\n";
-                message = message + getString(R.string.check_github_releases_install_info_1) + "\n";
-                message = message + getString(R.string.check_github_releases_install_info_2) + " ";
-                message = message + getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
-                dialogBuilder.setMessage(message);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder.setCancelable(false);
-                dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String url = "https://github.com/henrichg/PhoneProfilesPlus/releases";
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        try {
-                            startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                    }
-                });
-                dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-                dialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-                if (!isFinishing())
-                    dialog.show();
-
+                CheckGitHubReleasesActivity.showDialog(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

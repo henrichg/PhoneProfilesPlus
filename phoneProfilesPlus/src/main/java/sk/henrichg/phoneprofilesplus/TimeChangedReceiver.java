@@ -126,6 +126,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         GeofencesScannerSwitchGPSBroadcastReceiver.doWork(appContext);
 
         DonationBroadcastReceiver.setAlarm(appContext);
+        CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
         TwilightScanner.doWork();
 
         SearchCalendarEventsWorker.scheduleWork(true);
