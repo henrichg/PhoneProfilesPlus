@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootShell Project: https://github.com/Stericson/RootShell
+ * This file is part of the rootshell Project: https://github.com/Stericson/RootShell
  *
  * Copyright (c) 2014 Stephen Erickson, Chris Ravenscroft
  *
@@ -20,7 +20,7 @@
  * limitations under that License.
  */
 
-package com.stericson.RootShell.exceptions;
+package com.stericson.rootshell.exceptions;
 
 public class RootDeniedException extends Exception {
 

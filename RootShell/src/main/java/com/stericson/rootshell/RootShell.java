@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootShell Project: http://code.google.com/p/RootShell/
+ * This file is part of the rootshell Project: http://code.google.com/p/RootShell/
  *
  * Copyright (c) 2014 Stephen Erickson, Chris Ravenscroft
  *
@@ -19,14 +19,14 @@
  * See each License for the specific language governing permissions and
  * limitations under that License.
  */
-package com.stericson.RootShell;
+package com.stericson.rootshell;
 
 
 import android.util.Log;
 
-import com.stericson.RootShell.exceptions.RootDeniedException;
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
+import com.stericson.rootshell.exceptions.RootDeniedException;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class RootShell {
     public static boolean debugMode = false;
 
     @SuppressWarnings("WeakerAccess")
-    public static final String version = "RootShell v1.6";
+    public static final String version = "rootshell v1.6";
 
     /**
      * Setting this to false will disable the handler that is used
@@ -297,12 +297,12 @@ public class RootShell {
      * @param shellPath a <code>String</code> to Indicate the path to the shell that you want to open.
      * @param timeout   an <code>int</code> to Indicate the length of time before giving up on opening a shell.
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     public static Shell getCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException
     {
-        //return RootShell.getCustomShell(shellPath, timeout);
+        //return rootshell.getCustomShell(shellPath, timeout);
         return Shell.startCustomShell(shellPath, timeout);
     }
 
@@ -472,7 +472,7 @@ public class RootShell {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootShell.debugMode is on. So you can use this and not have to worry about handling it
+     * not rootshell.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param msg The message to output.
@@ -488,7 +488,7 @@ public class RootShell {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootShell.debugMode is on. So you can use this and not have to worry about handling it
+     * not rootshell.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param TAG Optional parameter to define the tag that the Log will use.
@@ -505,7 +505,7 @@ public class RootShell {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootShell.debugMode is on. So you can use this and not have to worry about handling it
+     * not rootshell.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param msg  The message to output.
@@ -546,7 +546,7 @@ public class RootShell {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootShell.debugMode is on. So you can use this and not have to worry about handling it
+     * not rootshell.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param TAG  Optional parameter to define the tag that the Log will use.

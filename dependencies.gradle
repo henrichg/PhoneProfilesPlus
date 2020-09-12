@@ -28,7 +28,8 @@
 // 6200 = enable notification scanning when any non-stopped event has Notification sensor
 
 // !!!!! DOLEZITE: vsetko okolo PayPal som vygodil, lebo je mozne, ze mi Google nedovoli update.
-//       Ich bot, podla vsetkeho vyhladava retazce v kode. Musis pozriet aj stringy !!!!
+//       Ich bot, podla vsetkeho vyhladava retazce v kode.
+//       Musis pozriet aj stringy !!!!
 //       Po 2. novembri znova vrat. Mas to v GitHub.
 
 ext.ppVersions = [

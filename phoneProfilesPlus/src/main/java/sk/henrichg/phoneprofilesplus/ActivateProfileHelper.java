@@ -52,9 +52,9 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.RootTools;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -1183,7 +1183,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (3)");
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
                         } catch (Exception ee) {
-                            // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //PPApplication.recordException(e);;
                             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (3) - Exception");
                         }
@@ -1357,7 +1357,7 @@ class ActivateProfileHelper {
                                         PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
                                         //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
                                     } catch (Exception e) {
-                                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
                                         //PPApplication.recordException(e);
                                     }
@@ -1767,7 +1767,7 @@ class ActivateProfileHelper {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command, "ActivateProfileHelper.setNotificationLed");
                                     } catch (Exception e) {
-                                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
                                         //PPApplication.recordException(e);;
                                     }
@@ -1820,7 +1820,7 @@ class ActivateProfileHelper {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                             PPApplication.commandWait(command, "ActivateProfileHelper.setHeadsUpNotifications");
                                         } catch (Exception e) {
-                                            // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));
                                             //PPApplication.recordException(e);
                                         }
@@ -1876,7 +1876,7 @@ class ActivateProfileHelper {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command, "ActivateProfileHelper.setAlwaysOnDisplay");
                                 } catch (Exception e) {
-                                    // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);
                                 }
@@ -2656,12 +2656,12 @@ class ActivateProfileHelper {
 
                 try {
                     PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "force stop application with root");
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     PPApplication.commandWait(command);
                     PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "processPID="+processPID);
                     //if (processPID != -1) {
-                        PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "call RootTools.killProcess");
-                        boolean killed = RootTools.killProcess(PPApplication.PACKAGE_NAME);
+                        PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "call roottools.killProcess");
+                        boolean killed = roottools.killProcess(PPApplication.PACKAGE_NAME);
                         PPApplication.logE("ActivateProfileHelper.executeForForceStopApplications", "killed="+killed);
                     //}
                 } catch (Exception ee) {
@@ -2719,7 +2719,7 @@ class ActivateProfileHelper {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
                             } catch (Exception e) {
-                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.executeRootForAdaptiveBrightness", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
@@ -3858,7 +3858,7 @@ class ActivateProfileHelper {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     PPApplication.commandWait(command, "ActivateProfileHelper.setAirplaneMode");
                 } catch (Exception e) {
-                    // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                     //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
                     //PPApplication.recordException(e);
                 }
@@ -4160,10 +4160,10 @@ class ActivateProfileHelper {
                                         if (command1 != null) {
                                             Command command = new Command(0, false, command1);
                                             try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 PPApplication.commandWait(command);
                                             } catch (Exception e) {
-                                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                                                 //PPApplication.recordException(e);
                                             }
@@ -4186,10 +4186,10 @@ class ActivateProfileHelper {
 //                        if (command1 != null) {
 //                            Command command = new Command(0, false, command1);
 //                            try {
-//                                RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+//                                roottools.getShell(true, Shell.ShellContext.SHELL).add(command);
 //                                PPApplication.commandWait(command);
 //                            } catch (Exception e) {
-//                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+//                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
 //                                //og.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
 //                                //PPApplication.recordException(e);
 //                            }
@@ -4236,7 +4236,7 @@ class ActivateProfileHelper {
                         }
                     };
                     try {
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
@@ -4318,7 +4318,7 @@ class ActivateProfileHelper {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     PPApplication.commandWait(command, "ActivateProfileHelper.setPreferredNetworkType");
                                                 } catch (Exception e) {
-                                                    // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                     //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                                                     //PPApplication.recordException(e);
                                                 }
@@ -4334,10 +4334,10 @@ class ActivateProfileHelper {
                             if (command1 != null) {
                                 Command command = new Command(0, false, command1);
                                 try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
                                 } catch (Exception e) {
-                                    // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);
                                 }
@@ -4428,7 +4428,7 @@ class ActivateProfileHelper {
                                     PPApplication.commandWait(command, "ActivateProfileHelper.setWifiAP");
                                     //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
                                 } catch (Exception e) {
-                                    // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);
                                     //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
@@ -4474,7 +4474,7 @@ class ActivateProfileHelper {
                         RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                         PPApplication.commandWait(command, "ActivateProfileHelper.setNFC");
                     } catch (Exception e) {
-                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                         //Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
                         //PPApplication.recordException(e);
                     }
@@ -4566,7 +4566,7 @@ class ActivateProfileHelper {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (1)");
                     } catch (Exception e) {
-                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                         //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                         //PPApplication.recordException(e);
                     }
@@ -4615,7 +4615,7 @@ class ActivateProfileHelper {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         PPApplication.commandWait(command, "ActivateProfileHelper.setGPS (2)");
                     } catch (Exception e) {
-                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                         //Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                         //PPApplication.recordException(e);
                     }
@@ -4658,10 +4658,10 @@ class ActivateProfileHelper {
                 command1 = "settings put secure location_mode " + mode;
                 Command command = new Command(0, false, command1);
                 try {
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     PPApplication.commandWait(command, "ActivateProfileHelper.setLocationMode");
                 } catch (Exception e) {
-                    // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                     //Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 }
@@ -4726,7 +4726,7 @@ class ActivateProfileHelper {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 PPApplication.commandWait(command, "ActivateProfileHelper.setPowerSaveMode");
                                             } catch (Exception e) {
-                                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
                                                 //PPApplication.recordException(e);
                                             }
@@ -4799,7 +4799,7 @@ class ActivateProfileHelper {
                                     /*String command1 = "input keyevent 26";
                                     Command command = new Command(0, false, command1);
                                     try {
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         commandWait(command);
                                     } catch (RootDeniedException e) {
                                         PPApplication.rootMutex.rootGranted = false;
@@ -4814,7 +4814,7 @@ class ActivateProfileHelper {
                                             RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                                             PPApplication.commandWait(command, "ActivateProfileHelper.lockDevice");
                                         } catch (Exception e) {
-                                            // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                                             //CPPApplication.recordException(e);
                                         }
@@ -4830,7 +4830,7 @@ class ActivateProfileHelper {
                                         String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
                                         Command command = new Command(0, false, command1);
                                         try {
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                             commandWait(command);
                                         } catch (RootDeniedException e) {
                                             PPApplication.rootMutex.rootGranted = false;
@@ -4898,7 +4898,7 @@ class ActivateProfileHelper {
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenDarkMode");
                             } catch (Exception ee) {
-                                // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenDarkMode", Log.getStackTraceString(ee));
                                 //PPApplication.recordException(e);
                             }

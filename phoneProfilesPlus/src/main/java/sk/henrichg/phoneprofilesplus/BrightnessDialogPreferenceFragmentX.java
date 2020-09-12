@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.RootTools;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
 
 @SuppressWarnings("WeakerAccess")
 public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
@@ -321,7 +321,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command, "BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                                     } catch (Exception e) {
-                                        // com.stericson.RootShell.exceptions.RootDeniedException: Root Access Denied
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
                                         //PPApplication.recordException(e);
                                     }

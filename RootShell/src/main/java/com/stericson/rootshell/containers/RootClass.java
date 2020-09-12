@@ -1,4 +1,4 @@
-package com.stericson.RootShell.containers;
+package com.stericson.rootshell.containers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/* #ANNOTATIONS @SupportedAnnotationTypes("com.stericson.RootShell.containers.RootClass.Candidate") */
+/* #ANNOTATIONS @SupportedAnnotationTypes("com.stericson.rootshell.containers.RootClass.Candidate") */
 /* #ANNOTATIONS @SupportedSourceVersion(SourceVersion.RELEASE_6) */
 public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
@@ -77,7 +77,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     @SuppressWarnings("WeakerAccess")
     static public class AnnotationsFinder {
 
-        private final String AVOIDDIRPATH = "stericson" + File.separator + "RootShell" + File.separator;
+        private final String AVOIDDIRPATH = "stericson" + File.separator + "rootshell" + File.separator;
 
         @SuppressWarnings("FieldCanBeLocal")
         private final List<File> classFiles;
@@ -93,27 +93,27 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                 // Android! Y U no have com.google.common.base.Joiner class?
                 String rc1 = "com" + File.separator
                         + "stericson" + File.separator
-                        + "RootShell" + File.separator
+                        + "rootshell" + File.separator
                         + "containers" + File.separator
                         + "RootClass.class";
                 String rc2 = "com" + File.separator
                         + "stericson" + File.separator
-                        + "RootShell" + File.separator
+                        + "rootshell" + File.separator
                         + "containers" + File.separator
                         + "RootClass$RootArgs.class";
                 String rc3 = "com" + File.separator
                         + "stericson" + File.separator
-                        + "RootShell" + File.separator
+                        + "rootshell" + File.separator
                         + "containers" + File.separator
                         + "RootClass$AnnotationsFinder.class";
                 String rc4 = "com" + File.separator
                         + "stericson" + File.separator
-                        + "RootShell" + File.separator
+                        + "rootshell" + File.separator
                         + "containers" + File.separator
                         + "RootClass$AnnotationsFinder$1.class";
                 String rc5 = "com" + File.separator
                         + "stericson" + File.separator
-                        + "RootShell" + File.separator
+                        + "rootshell" + File.separator
                         + "containers" + File.separator
                         + "RootClass$AnnotationsFinder$2.class";
                 String[] cmd;

@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootShell Project: http://code.google.com/p/RootShell/
+ * This file is part of the rootshell Project: http://code.google.com/p/RootShell/
  *
  * Copyright (c) 2014 Stephen Erickson, Chris Ravenscroft
  *
@@ -19,13 +19,13 @@
  * See each License for the specific language governing permissions and
  * limitations under that License.
  */
-package com.stericson.RootShell.execution;
+package com.stericson.rootshell.execution;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-import com.stericson.RootShell.RootShell;
-import com.stericson.RootShell.exceptions.RootDeniedException;
+import com.stericson.rootshell.RootShell;
+import com.stericson.rootshell.exceptions.RootDeniedException;
 
 import java.io.BufferedReader;
 import java.io.EOFException;

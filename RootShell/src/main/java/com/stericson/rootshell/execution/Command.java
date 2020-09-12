@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootShell Project: http://code.google.com/p/RootShell/
+ * This file is part of the rootshell Project: http://code.google.com/p/RootShell/
  *
  * Copyright (c) 2014 Stephen Erickson, Chris Ravenscroft
  *
@@ -20,7 +20,7 @@
  * limitations under that License.
  */
 
-package com.stericson.RootShell.execution;
+package com.stericson.rootshell.execution;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -29,7 +29,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.stericson.RootShell.RootShell;
+import com.stericson.rootshell.RootShell;
 
 import java.io.IOException;
 
@@ -210,7 +210,7 @@ public class Command {
                     sb.append(
                             "dalvikvm -cp " + filePath + "/anbuild.dex"
                                     + " com.android.internal.util.WithFramework"
-                                    + " com.stericson.RootTools.containers.RootClass "
+                                    + " com.stericson.roottools.containers.RootClass "
                                     + aCommand);
                 }*/
 

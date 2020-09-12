@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootTools Project: http://code.google.com/p/RootTools/
+ * This file is part of the roottools Project: http://code.google.com/p/RootTools/
  *
  * Copyright (c) 2012 Stephen Erickson, Chris Ravenscroft, Dominik Schuermann, Adam Shanks
  *
@@ -20,7 +20,7 @@
  * limitations under that License.
  */
 
-package com.stericson.RootTools.containers;
+package com.stericson.roottools.containers;
 
 public class Permissions
 {

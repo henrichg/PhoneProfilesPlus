@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootTools Project: http://code.google.com/p/RootTools/
+ * This file is part of the roottools Project: http://code.google.com/p/RootTools/
  *
  * Copyright (c) 2012 Stephen Erickson, Chris Ravenscroft, Dominik Schuermann, Adam Shanks
  *
@@ -20,7 +20,7 @@
  * limitations under that License.
  */
 
-package com.stericson.RootTools.internal;
+package com.stericson.roottools.internal;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,14 +30,14 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.stericson.RootShell.RootShell;
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.Constants;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.containers.Mount;
-import com.stericson.RootTools.containers.Permissions;
-import com.stericson.RootTools.containers.Symlink;
+import com.stericson.rootshell.RootShell;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.Constants;
+import com.stericson.roottools.RootTools;
+import com.stericson.roottools.containers.Mount;
+import com.stericson.roottools.containers.Permissions;
+import com.stericson.roottools.containers.Symlink;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +59,7 @@ public final class RootToolsInternalMethods {
     }
 
     public static void getInstance() {
-        //this will allow RootTools to be the only one to get an instance of this class.
+        //this will allow roottools to be the only one to get an instance of this class.
         RootTools.setRim(new RootToolsInternalMethods());
     }
 
@@ -378,7 +378,7 @@ public final class RootToolsInternalMethods {
      * @param util     Name of the utility to fix.
      * @param utilPath path to the toolbox that provides ln, rm, and chmod. This can be a blank string, a
      *                 path to a binary that will provide these, or you can use
-     *                 RootTools.getWorkingToolbox()
+     *                 roottools.getWorkingToolbox()
      */
     public void fixUtil(String util, String utilPath) {
         try {

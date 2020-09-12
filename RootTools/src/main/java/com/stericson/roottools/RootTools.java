@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootTools Project: http://code.google.com/p/RootTools/
+ * This file is part of the roottools Project: http://code.google.com/p/RootTools/
  *
  * Copyright (c) 2012 Stephen Erickson, Chris Ravenscroft, Dominik Schuermann, Adam Shanks
  *
@@ -20,23 +20,23 @@
  * limitations under that License.
  */
 
-package com.stericson.RootTools;
+package com.stericson.roottools;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.stericson.RootShell.RootShell;
-import com.stericson.RootShell.exceptions.RootDeniedException;
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.containers.Mount;
-import com.stericson.RootTools.containers.Permissions;
-import com.stericson.RootTools.containers.Symlink;
-import com.stericson.RootTools.internal.Remounter;
-import com.stericson.RootTools.internal.RootToolsInternalMethods;
-import com.stericson.RootTools.internal.Runner;
+import com.stericson.rootshell.RootShell;
+import com.stericson.rootshell.exceptions.RootDeniedException;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.containers.Mount;
+import com.stericson.roottools.containers.Permissions;
+import com.stericson.roottools.containers.Symlink;
+import com.stericson.roottools.internal.Remounter;
+import com.stericson.roottools.internal.RootToolsInternalMethods;
+import com.stericson.roottools.internal.Runner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ import java.util.concurrent.TimeoutException;
 public final class RootTools {
 
     /**
-     * This class is the gateway to every functionality within the RootTools library.The developer
+     * This class is the gateway to every functionality within the roottools library.The developer
      * should only have access to this class and this class only.This means that this class should
      * be the only one to be public.The rest of the classes within this library must not have the
      * public modifier.
@@ -208,7 +208,7 @@ public final class RootTools {
      * @param util     Name of the utility to fix.
      * @param utilPath path to the toolbox that provides ln, rm, and chmod. This can be a blank string, a
      *                 path to a binary that will provide these, or you can use
-     *                 RootTools.getWorkingToolbox()
+     *                 roottools.getWorkingToolbox()
      */
     public static void fixUtil(String util, String utilPath) {
         getInternals().fixUtil(util, utilPath);
@@ -282,7 +282,7 @@ public final class RootTools {
      * @param shellPath a <code>String</code> to Indicate the path to the shell that you want to open.
      * @param timeout   an <code>int</code> to Indicate the length of time before giving up on opening a shell.
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     @SuppressWarnings("WeakerAccess")
@@ -296,7 +296,7 @@ public final class RootTools {
      *
      * @param shellPath a <code>String</code> to Indicate the path to the shell that you want to open.
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     public static Shell getCustomShell(String shellPath) throws IOException, TimeoutException, RootDeniedException {
@@ -368,7 +368,7 @@ public final class RootTools {
      * @param shellContext the context to execute the shell with
      * @param retry        a <code>int</code> to indicate how many times the ROOT shell should try to open with root priviliges...
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     @SuppressWarnings("WeakerAccess")
@@ -384,7 +384,7 @@ public final class RootTools {
      * @param timeout      an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      * @param shellContext the context to execute the shell with
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     public static Shell getShell(boolean root, int timeout, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
@@ -398,7 +398,7 @@ public final class RootTools {
      * @param root         a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param shellContext the context to execute the shell with
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     public static Shell getShell(boolean root, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
@@ -412,7 +412,7 @@ public final class RootTools {
      * @param root    a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param timeout an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     @SuppressWarnings("WeakerAccess")
@@ -426,7 +426,7 @@ public final class RootTools {
      *
      * @param root a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @throws TimeoutException
-     * @throws com.stericson.RootShell.exceptions.RootDeniedException
+     * @throws com.stericson.rootshell.exceptions.RootDeniedException
      * @throws IOException
      */
     public static Shell getShell(boolean root) throws IOException, TimeoutException, RootDeniedException {
@@ -746,7 +746,7 @@ public final class RootTools {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
+     * not roottools.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param msg The message to output.
@@ -762,7 +762,7 @@ public final class RootTools {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
+     * not roottools.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param TAG Optional parameter to define the tag that the Log will use.
@@ -779,7 +779,7 @@ public final class RootTools {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
+     * not roottools.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param msg  The message to output.
@@ -819,7 +819,7 @@ public final class RootTools {
      * with detailed logging.
      * <p/>
      * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
+     * not roottools.debugMode is on. So you can use this and not have to worry about handling it
      * yourself.
      *
      * @param TAG  Optional parameter to define the tag that the Log will use.

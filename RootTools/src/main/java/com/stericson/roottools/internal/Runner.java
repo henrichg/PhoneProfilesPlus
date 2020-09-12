@@ -1,5 +1,5 @@
 /*
- * This file is part of the RootTools Project: http://code.google.com/p/RootTools/
+ * This file is part of the roottools Project: http://code.google.com/p/RootTools/
  *
  * Copyright (c) 2012 Stephen Erickson, Chris Ravenscroft, Dominik Schuermann, Adam Shanks
  *
@@ -20,12 +20,12 @@
  * limitations under that License.
  */
 
-package com.stericson.RootTools.internal;
+package com.stericson.roottools.internal;
 
 import android.content.Context;
 
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
 
 import java.io.IOException;
 
@@ -57,7 +57,7 @@ public class Runner extends Thread
         }
         catch (IOException e)
         {
-            /*if (RootTools.debugMode)
+            /*if (roottools.debugMode)
             {
                 //Log.e(LOG_TAG, "Problem occurred while trying to locate private files directory!");
             }*/

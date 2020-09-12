@@ -40,10 +40,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
-import com.stericson.RootShell.RootShell;
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.RootTools;
+import com.stericson.rootshell.RootShell;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -2509,7 +2509,7 @@ public class PPApplication extends Application
 
         try {
             //PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
-            //if (RootTools.isRootAvailable()) {
+            //if (roottools.isRootAvailable()) {
             //noinspection RedundantIfStatement
             if (RootToolsSmall.isRooted()) {
                 // device is rooted
@@ -2655,7 +2655,7 @@ public class PPApplication extends Application
      */
     /*public static boolean isSELinuxEnforcing()
     {
-        RootShell.debugMode = rootToolsDebug;
+        rootshell.debugMode = rootToolsDebug;
 
         synchronized (PPApplication.rootMutex) {
             if (!isSELinuxEnforcingChecked)
@@ -2715,7 +2715,7 @@ public class PPApplication extends Application
             }
             ;
             try {
-                RootTools.getShell(false).add(command);
+                roottools.getShell(false).add(command);
                 commandWait(command);
                 suVersionChecked = true;
             } catch (Exception e) {
@@ -2787,7 +2787,7 @@ public class PPApplication extends Application
                 };
 
                 try {
-                    //RootTools.getShell(false).add(command);
+                    //roottools.getShell(false).add(command);
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     commandWait(command, "PPApplication.getServicesList");
                 } catch (Exception e) {

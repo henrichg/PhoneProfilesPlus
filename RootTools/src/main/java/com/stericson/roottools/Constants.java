@@ -1,4 +1,4 @@
-package com.stericson.RootTools;
+package com.stericson.roottools;
 
 public class Constants
 {
