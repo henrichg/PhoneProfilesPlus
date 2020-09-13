@@ -1599,7 +1599,7 @@
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Download latest version of PhoneProfilesPlus.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
-    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released never version.</string>
+    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
     <string name="donation_google_play">Please donate using Google Play:</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
     <string name="about_application_package_type_google_play">Installed from Google Play.</string>
