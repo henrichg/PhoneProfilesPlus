@@ -12,6 +12,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
 
     private DataWrapper dataWrapper;
 
+    private String profileName;
     private long profile_id = 0;
 
     static final String EXTRA_PROFILE_NAME = "profile_name";
@@ -24,7 +25,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
-        String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
+        profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
@@ -60,6 +61,14 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+            if (profile_id != 0) {
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION,
+                        ActionForExternalApplicationActivity.ACTION_ACTIVATE_PROFILE);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE,
+                        PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, profileName);
+            }
             PPApplication.startPPService(this, serviceIntent/*, true*/);
             finish();
             return;

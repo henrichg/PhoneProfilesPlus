@@ -17,17 +17,19 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
     private String action;
 
+    private String profileName = "";
+    private String eventName = "";
     private long profile_id = 0;
     private long event_id = 0;
 
     // !!! do change this actions, these are for Tasker !!!!
-    private static final String ACTION_ACTIVATE_PROFILE = PPApplication.PACKAGE_NAME + ".ACTION_ACTIVATE_PROFILE";
+    static final String ACTION_ACTIVATE_PROFILE = PPApplication.PACKAGE_NAME + ".ACTION_ACTIVATE_PROFILE";
     private static final String ACTION_RESTART_EVENTS = PPApplication.PACKAGE_NAME + ".ACTION_RESTART_EVENTS";
     private static final String ACTION_ENABLE_RUN_FOR_EVENT = PPApplication.PACKAGE_NAME + ".ACTION_ENABLE_RUN_FOR_EVENT";
     private static final String ACTION_PAUSE_EVENT = PPApplication.PACKAGE_NAME + ".ACTION_PAUSE_EVENT";
     private static final String ACTION_STOP_EVENT = PPApplication.PACKAGE_NAME + ".ACTION_STOP_EVENT";
 
-    private static final String EXTRA_EVENT_NAME = "event_name";
+    static final String EXTRA_EVENT_NAME = "event_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
         if (action != null) {
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {
-                String profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
+                profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
                 if (profileName != null) {
                     profileName = profileName.trim();
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
@@ -63,7 +65,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     }
                 }
             } else if (!action.equals(ACTION_RESTART_EVENTS)) {
-                String eventName = intent.getStringExtra(EXTRA_EVENT_NAME);
+                eventName = intent.getStringExtra(ActionForExternalApplicationActivity.EXTRA_EVENT_NAME);
                 if (eventName != null) {
                     eventName = eventName.trim();
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
@@ -98,6 +100,26 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                boolean extraDataOk;
+                if (action.equals(ACTION_ACTIVATE_PROFILE)) {
+                    extraDataOk = profile_id != 0;
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE,
+                            PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, profileName);
+                }
+                else
+                if (!action.equals(ACTION_RESTART_EVENTS)) {
+                    extraDataOk = event_id != 0;
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE,
+                            PhoneProfilesService.START_FOR_EXTERNAL_APP_EVENT);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, eventName);
+                }
+                else
+                    extraDataOk = true;
+                if (extraDataOk) {
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, action);
+                }
                 PPApplication.startPPService(this, serviceIntent/*, true*/);
                 finish();
                 return;

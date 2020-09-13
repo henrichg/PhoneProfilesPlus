@@ -134,7 +134,12 @@ public class MainWorker extends Worker {
                         PPApplication.blockProfileEventActions = false;
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
-                        doAfterFirstStart(appContext, getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true));
+                        doAfterFirstStart(appContext,
+                                getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true),
+                                getInputData().getBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, false),
+                                getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION),
+                                getInputData().getInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, 0),
+                                getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE));
                         break;
                     /*case PPApplication.PACKAGE_REPLACED_WORK_TAG:
                         PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "START");
@@ -646,7 +651,12 @@ public class MainWorker extends Worker {
     }
     */
 
-    private static void doAfterFirstStart(Context appContext, boolean activateProfiles) {
+    private static void doAfterFirstStart(Context appContext,
+                                          boolean activateProfiles,
+                                          boolean startForExternalApplication,
+                                          String startForExternalAppAction,
+                                          int startForExternalAppDataType,
+                                          String startForExternalAppDataValue) {
         PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
 
         //BootUpReceiver.bootUpCompleted = true;
@@ -724,6 +734,17 @@ public class MainWorker extends Worker {
         //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=DelayedWorksWorker.doWork");
         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
         //}
+
+        if (startForExternalApplication) {
+            Intent intent = new Intent(startForExternalAppAction);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE)
+                intent.putExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME, startForExternalAppDataValue);
+            if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_EVENT)
+                intent.putExtra(ActionForExternalApplicationActivity.EXTRA_EVENT_NAME, startForExternalAppDataValue);
+            appContext.startActivity(intent);
+        }
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "END");
     }

@@ -138,6 +138,13 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_SENSOR_TYPE = "sensor_type";
     //static final String EXTRA_ELAPSED_ALARMS_WORK = "elapsed_alarms_work";
     //static final String EXTRA_FROM_DO_FIRST_START = "from_do_first_start";
+    static final String EXTRA_START_FOR_EXTERNAL_APPLICATION = "start_for_external_application";
+    static final String EXTRA_START_FOR_EXTERNAL_APP_ACTION = "start_for_external_app_action";
+    static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE = "start_for_external_app_data_type";
+    static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE = "start_for_external_app_data_value";
+
+    static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
+    static final int START_FOR_EXTERNAL_APP_EVENT = 2;
 
     //------------------------
 
@@ -3610,6 +3617,10 @@ public class PhoneProfilesService extends Service
         boolean activateProfiles = false;
         boolean deviceBoot = false;
         //boolean startOnPackageReplace = false;
+        boolean startFromExternalApplication = false;
+        String startForExternalAppAction = "";
+        int startForExternalAppDataType = 0;
+        String startForExternalAppDataValue = "";
 
         final Intent serviceIntent = intent;
 
@@ -3620,6 +3631,10 @@ public class PhoneProfilesService extends Service
             activateProfiles = serviceIntent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
             deviceBoot = serviceIntent.getBooleanExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             //startOnPackageReplace = serviceIntent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
+            startFromExternalApplication = serviceIntent.getBooleanExtra(EXTRA_START_FOR_EXTERNAL_APPLICATION, false);
+            startForExternalAppAction = serviceIntent.getStringExtra(EXTRA_START_FOR_EXTERNAL_APP_ACTION);
+            startForExternalAppDataType = serviceIntent.getIntExtra(EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, 0);
+            startForExternalAppDataValue = serviceIntent.getStringExtra(EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE);
         }
 
         if (PPApplication.logEnabled()) {
@@ -3633,6 +3648,12 @@ public class PhoneProfilesService extends Service
             //    PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
             if (activateProfiles)
                 PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
+            if (startFromExternalApplication) {
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APPLICATION");
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APP_ACTION="+startForExternalAppAction);
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE="+startForExternalAppDataType);
+                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE="+startForExternalAppDataValue);
+            }
         }
 
         final boolean _applicationStart = applicationStart;
@@ -3640,6 +3661,11 @@ public class PhoneProfilesService extends Service
         //final boolean _startOnPackageReplace = startOnPackageReplace;
         final boolean _activateProfiles = activateProfiles;
         //final boolean _deactivateProfile = deactivateProfile;
+        final boolean _startFromExternalApplication = startFromExternalApplication;
+        final String _startForExternalAppAction = startForExternalAppAction;
+        final int _startForExternalAppDataType = startForExternalAppDataType;
+        final String _startForExternalAppDataValue = startForExternalAppDataValue;
+
         PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.post(new Runnable() {
@@ -4019,6 +4045,10 @@ public class PhoneProfilesService extends Service
 
                             Data workData = new Data.Builder()
                                     .putBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, __activateProfiles)
+                                    .putBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, _startFromExternalApplication)
+                                    .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, _startForExternalAppAction)
+                                    .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, _startForExternalAppDataType)
+                                    .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
                                     .build();
 
                             OneTimeWorkRequest worker =
@@ -4026,7 +4056,7 @@ public class PhoneProfilesService extends Service
                                             .addTag(PPApplication.AFTER_FIRST_START_WORK_TAG)
                                             .setInputData(workData)
                                             //.setInitialDelay(5, TimeUnit.SECONDS)
-                                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                             .build();
                             try {
                                 if (PPApplication.getApplicationStarted(true)) {
@@ -4045,7 +4075,8 @@ public class PhoneProfilesService extends Service
 //                                        //}
 
                                         //workManager.enqueue(worker);
-                                        workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                                        // !!! MUST BE APPEND_OR_REPLACE FOR EXTRA_START_FOR_EXTERNAL_APPLICATION !!!
+                                        workManager.enqueueUniqueWork(PPApplication.AFTER_FIRST_START_WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                                     }
                                 }
                             } catch (Exception e) {
