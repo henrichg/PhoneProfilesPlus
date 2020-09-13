@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -23,7 +22,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
+        //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
         profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
@@ -32,7 +31,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
 
         if (profileName != null) {
             profileName = profileName.trim();
-            Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
+            //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 
             if (!profileName.isEmpty()) {
                 profile_id = dataWrapper.getProfileIdByName(profileName, true);
@@ -43,7 +42,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
                         break;
                     }
                 }*/
-                Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profile_id="+profile_id);
+                //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profile_id="+profile_id);
             }
         }
     }
@@ -54,7 +53,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         super.onStart();
 
         if (!PPApplication.getApplicationStarted(true)) {
-            Log.e("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
+            //Log.e("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
 
             PPApplication.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -77,12 +76,12 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             return;
         }
 
-        Log.e("ActivateProfileFromExternalApplicationActivity.onStart", "application started");
+        //Log.e("ActivateProfileFromExternalApplicationActivity.onStart", "application started");
 
         if (profile_id != 0) {
             Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
             if (profile != null) {
-                Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profile=" + profile._name);
+                //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profile=" + profile._name);
                 //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                 //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
                 if (!EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, getApplicationContext())) {

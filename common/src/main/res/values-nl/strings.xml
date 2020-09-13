@@ -1134,10 +1134,10 @@
     <string name="application_editor_intent_extras">Parameters:</string>
     <string name="application_editor_intent_categories">Categorieën:</string>
     <string name="application_editor_intent_categories_dlg_title">Categorieën</string>
-    <string name="application_editor_intent_flags">Markering:</string>
+    <string name="application_editor_intent_flags">Opties:</string>
     <string name="application_editor_intent_flags_dlg_title">Markeringen</string>
     <string name="application_editor_intent_test_button">Test</string>
-    <string name="application_editor_intent_extra_key">Toets naam</string>
+    <string name="application_editor_intent_extra_key">Sleutelnaam</string>
     <string name="application_editor_intent_extra_value">Toets waarde</string>
     <string name="application_editor_intent_extra_type">Toets type:</string>
     <string name="application_editor_intent_extra_select_categories">Selecteer categorieën</string>
@@ -1477,9 +1477,27 @@
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Meldingstoegang ingeschakeld</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Activeer notificatie toegang voor PhoneProfilesPlus in systeem instellingen. Zonder dit zal notificatie scannen niet werken.</string>
     <string name="profile_preferences_applicationDisableNotificationScanning">Meldingsscan uitschakelen</string>
-    <string name="event_preferences_orientation_light_level_min">Light - minimal value</string>
-    <string name="event_preferences_orientation_light_level_max">Light - maximal value</string>
-    <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
+    <string name="event_preferences_orientation_light_level_min">Licht - minimale waarde</string>
+    <string name="event_preferences_orientation_light_level_max">Licht - maximale waarde</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Verkeerde waarde</string>
+    <string name="profile_activation_activation_error_title">Actief profiel:</string>
+    <string name="profile_activation_activation_error">Fout tijdens activering profiel</string>
+    <string name="profile_activation_activation_error_change_wifi_ap">Fout bij het activeren van het profiel. Wijzigen van Wi-Fi hotspot status is mislukt.</string>
+    <string name="profile_activation_activation_error_change_wifi">Fout tijdens het activeren van het profiel. Wijzigen van de Wi-Fi status is mislukt.</string>
+    <string name="profile_activation_activation_error_close_all_applications">Fout bij het activeren van profiel. Sluiten alle applicaties mislukt.</string>
+    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Niet ondersteund in Android 11+</string>
+    <string name="google_play_not_more_supported_title">Einde van Google Play ondersteuning</string>
+    <string name="google_play_not_more_supported_info">Beste gebruiker, na 2. november 2020, zal PhoneProfilesPlus niet meer beschikbaar zijn in Google Play.\n\nDe ondersteuning gaat door. Nieuwe versies komen beschikbaar op de PhoneProfilesPlus GitHub site, in Releases sectie. Vergelijkbaar met PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus zal, elke maand, een notificatie genereren en wanneer je er op klikt, het opent de internet browser met de GitHub Releases website en je kunt dan de nieuwe versie downloaden.</string>
+    <string name="menu_check_github_releases">Controleer de app releases</string>
+    <string name="check_github_releases_actual_version">Huidige versie:</string>
+    <string name="check_github_releases_go_to_github">Ga naar GitHub versie</string>
+    <string name="check_github_releases_install_info_1">Download de nieuwste versie van PhoneProfilesPlus.apk vanaf GitHub. Klik vervolgens op de notificatie van de gedownloade apk en installeer deze.</string>
+    <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bevindt zich in</string>
+    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
+    <string name="donation_google_play">Doneer alsjeblieft via Google Play:</string>
+    <string name="donation_paypal">Doneer alsjeblieft via PayPal:</string>
+    <string name="about_application_package_type_google_play">Geïnstalleerd vanaf Google Play.</string>
+    <string name="about_application_package_type_github">Geïnstalleerd vanaf GitHub of een andere bron.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>

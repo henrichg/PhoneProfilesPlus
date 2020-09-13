@@ -80,7 +80,7 @@ public final class RootTools {
     // # Public Variables #
     // --------------------
 
-    public static boolean debugMode = false;
+    public static final boolean debugMode = false;
     public static String utilPath;
 
     /**
@@ -808,6 +808,7 @@ public final class RootTools {
      *
      * @return true if logging is enabled
      */
+    @SuppressWarnings("SameReturnValue")
     public static boolean islog() {
         return debugMode;
     }
@@ -828,7 +829,7 @@ public final class RootTools {
      * @param e    The exception that was thrown (Needed for errors)
      */
     @SuppressWarnings("WeakerAccess")
-    public static void log(String TAG, String msg, int type, Exception e) {
+    public static void log(@SuppressWarnings("ParameterCanBeLocal") String TAG, String msg, int type, Exception e) {
         if (msg != null && !msg.equals("")) {
             if (debugMode) {
                 if (TAG == null) {

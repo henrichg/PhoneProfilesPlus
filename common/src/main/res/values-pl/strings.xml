@@ -1478,9 +1478,27 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Dostęp do powiadomień włączony</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary">Proszę włączyć dostęp do powiadomień dla PhoneProfilesPlus w ustawieniach systemowych. Bez tego skanowanie powiadomień nie będzie działać.</string>
     <string name="profile_preferences_applicationDisableNotificationScanning">Wyłącz skanowanie powiadomień</string>
-    <string name="event_preferences_orientation_light_level_min">Light - minimal value</string>
-    <string name="event_preferences_orientation_light_level_max">Light - maximal value</string>
-    <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
+    <string name="event_preferences_orientation_light_level_min">Oświetlenie - wartość minimalna</string>
+    <string name="event_preferences_orientation_light_level_max">Oświetlenie - wartość maksymalna</string>
+    <string name="event_preferences_orientation_light_level_bad_value">Błędna wartość</string>
+    <string name="profile_activation_activation_error_title">Aktywacja profilu:</string>
+    <string name="profile_activation_activation_error">Wystąpił błąd podczas aktywacji profilu</string>
+    <string name="profile_activation_activation_error_change_wifi_ap">Błąd podczas aktywacji profilu. Zmiana stanu hotspot Wi-Fi nie powiodła się.</string>
+    <string name="profile_activation_activation_error_change_wifi">Error during profile activation. Change of Wi-Fi state failed.</string>
+    <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
+    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Nie obsługiwane dla Androida 11+</string>
+    <string name="google_play_not_more_supported_title">Zakończenie wsparcia Google Play</string>
+    <string name="google_play_not_more_supported_info">Drogi Użytkowniku, po 2 listopada 2020, PhoneProfilesPlus nie będzie aktualizowany za pośrednictwem Google Play.\n\nAle wsparcie jest kontynuowane. Nowe wersje będą dostępne w witrynie PhoneProfilesPlus GitHub, w sekcji \"Wydania\", podobnie jak PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus będzie co miesiąc generował powiadomienia, a po kliknięciu na nie, zostanie otwarta przeglądarka internetowa z witryną GitHub, gdzie będzie można pobrać nową wersję.</string>
+    <string name="menu_check_github_releases">Check app. releases</string>
+    <string name="check_github_releases_actual_version">Aktualna wersja:</string>
+    <string name="check_github_releases_go_to_github">Przejdź do wersji na GitHub</string>
+    <string name="check_github_releases_install_info_1">Pobierz najnowszą wersję PhoneProfilesPlus.apk z GitHub\'a. Kliknij na powiadomienie o pobraniu apk i zainstaluj ją.</string>
+    <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk znajduje się w</string>
+    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
+    <string name="donation_google_play">Proszę o dotację za pomocą Google Play:</string>
+    <string name="donation_paypal">Please donate using PayPal:</string>
+    <string name="about_application_package_type_google_play">Installed from Google Play.</string>
+    <string name="about_application_package_type_github">Zainstalowano z GitHub lub innego źródła.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Eksportuj do PhoneProfilesPlus</string>

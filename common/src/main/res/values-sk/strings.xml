@@ -1480,6 +1480,24 @@
     <string name="event_preferences_orientation_light_level_min">Svetlo - minimálna hodnota</string>
     <string name="event_preferences_orientation_light_level_max">Svetlo - maximálna hodnota</string>
     <string name="event_preferences_orientation_light_level_bad_value">Zlá hodnota</string>
+    <string name="profile_activation_activation_error_title">Aktivovaný profil:</string>
+    <string name="profile_activation_activation_error">Chyba počas aktivácie profilu</string>
+    <string name="profile_activation_activation_error_change_wifi_ap">Chyba počas aktivácie profilu. Zmena stavu Wi-Fi prístupového bodu zlyhala.</string>
+    <string name="profile_activation_activation_error_change_wifi">Chyba počas aktivácie profilu. Zmena stavu Wi-Fi zlyhala.</string>
+    <string name="profile_activation_activation_error_close_all_applications">Chyba počas aktivácie profilu. Zatvorenie všetkých aplikácií zlyhalo.</string>
+    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Nie je podporované pre Android 11+</string>
+    <string name="google_play_not_more_supported_title">Koniec podpory Obchodu Play</string>
+    <string name="google_play_not_more_supported_info">Vážený používateľ, po 2. novembri 2020 nebude PhoneProfilesPlus nikdy nasadený do služby Obchod Play.\n\nAle podpora pokračuje. Nové verzie budú nasadené na webe PhoneProfilesPlus GitHub v sekcii Releases, podobne ako PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus bude každý mesiac generovať notifikáciu a po kliknutí na ňu, otvorí internetový prehliadač so stránkou GitHub Releases a môžete si stiahnuť novú verziu.</string>
+    <string name="menu_check_github_releases">Skontrolovať vydania aplikácie</string>
+    <string name="check_github_releases_actual_version">Aktuálna verzia:</string>
+    <string name="check_github_releases_go_to_github">Ísť do GitHub Releases</string>
+    <string name="check_github_releases_install_info_1">Stiahnite si najnovšiu verziu PhoneProfilesPlus.apk z jeho GitHub. Kliknite na notifikáciu o stiahnutom apk a nainštalujte ho.</string>
+    <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk sa nachádza v</string>
+    <string name="check_github_releases_notification">Kliknite na túto notifikáciu na skontrolovanie vydaní PhoneProfilesPlus v GitHub. Možno bola vydaná novšia verzia.</string>
+    <string name="donation_google_play">Prosím prispejte cez Obchod Play:</string>
+    <string name="donation_paypal">Prosím prispejte cez PayPal:</string>
+    <string name="about_application_package_type_google_play">Nainštalované z Obchodu Play.</string>
+    <string name="about_application_package_type_github">Nainštalované z GitHub alebo iného zdroja.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

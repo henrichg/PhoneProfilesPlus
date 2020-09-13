@@ -129,12 +129,12 @@ public class Command {
         totalOutputProcessed++;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "EmptyMethod"})
     public void commandTerminated(int id, String reason) {
         //pass
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "EmptyMethod"})
     public void commandCompleted(int id, int exitCode) {
         //pass
     }

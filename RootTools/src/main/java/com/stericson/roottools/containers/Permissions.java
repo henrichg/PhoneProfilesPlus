@@ -37,6 +37,7 @@ public class Permissions
     @SuppressWarnings("WeakerAccess")
     int permissions;
 
+    @SuppressWarnings("unused")
     public String getSymlink()
     {
         return this.symlink;
