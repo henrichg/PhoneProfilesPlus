@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/donation_gplay_fragment_root"
+    android:id="@+id/donation_paypal_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp" >
 
     <LinearLayout
-        android:id="@+id/donation_gplay_fragment_liLa1"
+        android:id="@+id/donation_paypal_fragment_liLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!--
         <ProgressBar
-            android:id="@+id/donation_gplay_loading"
+            android:id="@+id/donation_paypal_loading"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,16 +22,16 @@
             android:indeterminate="true" />
 
         <TextView
-            android:id="@+id/donation_gplay_error_textview"
+            android:id="@+id/donation_paypal_error_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingBottom="5dp"
             android:visibility="gone"
             android:textColor="#FFFF0000"/>
-
+        -->
         <TextView
-            android:id="@+id/donation_gplay_donation_description"
+            android:id="@+id/donation_paypal_donation_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
@@ -38,7 +39,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/donation_gplay_donation_description_2"
+            android:id="@+id/donation_paypal_donation_description_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
@@ -47,15 +48,15 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/donation_gplay_title"
+            android:id="@+id/donation_paypal_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:text="@string/donation_google_play" />
+            android:text="@string/donation_paypal" />
 
         <!--
         <TextView
-            android:id="@+id/donation_gplay_fragment_textView1"
+            android:id="@+id/donation_paypal_fragment_textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
@@ -65,7 +66,7 @@
         -->
 
         <GridView
-            android:id="@+id/donation_gplay_grid"
+            android:id="@+id/donation_paypal_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnWidth="100dp"
@@ -82,14 +83,14 @@
 
         <!--
         <LinearLayout
-            android:id="@+id/donation_gplay_fragment_liLa2"
+            android:id="@+id/donation_paypal_fragment_liLa2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="15dp" >
 
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/donation_gplay_spinner"
+                android:id="@+id/donation_paypal_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -100,7 +101,7 @@
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <Button
-                android:id="@+id/donation_gplay_donate_button"
+                android:id="@+id/donation_paypal_donate_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -114,7 +115,7 @@
 
         <!--
         <TextView
-            android:id="@+id/donation_gplay_fragment_textView2"
+            android:id="@+id/donation_paypal_fragment_textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
@@ -122,20 +123,20 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <LinearLayout
-            android:id="@+id/donation_gplay_fragment_liLa3"
+            android:id="@+id/donation_paypal_fragment_liLa3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:paddingTop="5dp" >
 
             <View
-                android:id="@+id/donation_gplay_fragment_view1"
+                android:id="@+id/donation_paypal_fragment_view1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/donation_gplay_donate_button"
+                android:id="@+id/donation_paypal_donate_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,21 +150,21 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/donation_gplay_fragment_liLa2"
+        android:id="@+id/donation_paypal_fragment_liLa2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
 
         <View
-            android:id="@+id/donation_gplay_activity_divider"
+            android:id="@+id/donation_paypal_activity_divider"
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:layout_marginTop="20dp"
             android:background="?attr/dialogDivider"/>
 
         <Button
-            android:id="@+id/donation_gplay_activity_close"
+            android:id="@+id/donation_paypal_activity_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
