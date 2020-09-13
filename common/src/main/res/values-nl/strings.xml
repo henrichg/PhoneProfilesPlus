@@ -1493,11 +1493,16 @@
     <string name="check_github_releases_go_to_github">Ga naar GitHub versie</string>
     <string name="check_github_releases_install_info_1">Download de nieuwste versie van PhoneProfilesPlus.apk vanaf GitHub. Klik vervolgens op de notificatie van de gedownloade apk en installeer deze.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bevindt zich in</string>
-    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
+    <string name="check_github_releases_notification">Klik op deze notificatie voor het controleren van PhoneProfilesPlus releases op GitHub. Misschien is er een nieuwere versie beschikbaar.</string>
     <string name="donation_google_play">Doneer alsjeblieft via Google Play:</string>
     <string name="donation_paypal">Doneer alsjeblieft via PayPal:</string>
     <string name="about_application_package_type_google_play">Geïnstalleerd vanaf Google Play.</string>
     <string name="about_application_package_type_github">Geïnstalleerd vanaf GitHub of een andere bron.</string>
+    <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
+    <string name="altype_actionFromExternalApp_restartEvents">action from external app. - restart events</string>
+    <string name="altype_actionFromExternalApp_enableRunForEvent">action from external app. - enable event run</string>
+    <string name="altype_actionFromExternalApp_pauseEvent">action from external app. - pause event</string>
+    <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>

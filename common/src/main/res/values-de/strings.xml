@@ -1498,6 +1498,11 @@
     <string name="donation_paypal">Bitte spenden Sie mit PayPal:</string>
     <string name="about_application_package_type_google_play">Aus dem Google Play Store installiert.</string>
     <string name="about_application_package_type_github">Installiert von GitHub oder einer anderen Quelle.</string>
+    <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
+    <string name="altype_actionFromExternalApp_restartEvents">action from external app. - restart events</string>
+    <string name="altype_actionFromExternalApp_enableRunForEvent">action from external app. - enable event run</string>
+    <string name="altype_actionFromExternalApp_pauseEvent">action from external app. - pause event</string>
+    <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Nach PhoneProfilesPlus exportieren</string>

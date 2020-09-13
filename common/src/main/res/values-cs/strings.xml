@@ -1488,7 +1488,7 @@
     <string name="profile_preferences_deviceWiFiAPInfo30_summary">Není podporováno pro Android 11+</string>
     <string name="google_play_not_more_supported_title">Konec podpory Obchodu Play</string>
     <string name="google_play_not_more_supported_info">Vážený uživateli, po 2. listopadu 2020 nebude PhoneProfilesPlus nikdy nasazen do služby Obchod Play.\n\nAle podpora pokračuje. Nové verze budou nasazeny na webu PhoneProfilesPlus GitHub v sekci Releases, podobně jako PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus bude každý měsíc generovat notifikaci a po kliknutí na ni, otevře internetový prohlížeč se stránkou GitHub Releases a můžete si stáhnout novou verzi.</string>
-    <string name="menu_check_github_releases">Zkontrolovat vydání aplikace</string>
+    <string name="menu_check_github_releases">Zkontrolovat vydání apl.</string>
     <string name="check_github_releases_actual_version">Aktuální verze:</string>
     <string name="check_github_releases_go_to_github">Jít do GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Stáhněte si nejnovější verzi PhoneProfilesPlus.apk z jeho GitHub. Klikněte na notifikaci o staženém apk a nainstalujte ho.</string>
@@ -1498,6 +1498,11 @@
     <string name="donation_paypal">Prosím přispějte přes PayPal:</string>
     <string name="about_application_package_type_google_play">Nainstalované z Obchodu Play.</string>
     <string name="about_application_package_type_github">Nainstalované z GitHub nebo jiného zdroje.</string>
+    <string name="altype_actionFromExternalApp_profileActivation">akce pro externí apl. - aktivace profilu</string>
+    <string name="altype_actionFromExternalApp_restartEvents">akce pro externí apl. - restart událostí</string>
+    <string name="altype_actionFromExternalApp_enableRunForEvent">akce pro externí apl. - povolení běhu události</string>
+    <string name="altype_actionFromExternalApp_pauseEvent">akce pro externí apl. - pozastavení události</string>
+    <string name="altype_actionFromExternalApp_stopEvent">akce pro externí apl. - zastavení události</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>
