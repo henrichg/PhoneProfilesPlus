@@ -1207,14 +1207,22 @@ public class PPApplication extends Application
 
     //--------------------------------------------------------------
 
-    static void addActivityLog(Context context, int logType, String eventName, String profileName, String profileIcon,
-                               int durationDelay, String profilesEventsCount) {
+    static void addActivityLog(final Context context, final int logType, final String eventName,
+                               final String profileName, final String profileIcon,
+                               final int durationDelay, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
-            //if (ApplicationPreferences.preferences == null)
-            //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-            DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-                    logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
+            PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                             @Override
+                             public void run() {
+                //if (ApplicationPreferences.preferences == null)
+                //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
+                DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
+                        logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
+                             }
+            });
         }
     }
 
