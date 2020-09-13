@@ -130,6 +130,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
             switch (action) {
                 case ACTION_ACTIVATE_PROFILE:
+                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION,
+                            null, profileName, null, 0, "");
+
                     if (profile_id != 0) {
                         Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
                         if (profile != null) {
@@ -152,12 +155,18 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     }
                     break;
                 case ACTION_RESTART_EVENTS:
+                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS,
+                            null, null, null, 0, "");
+
                     //Log.e("ActionForExternalApplicationActivity.onStart", "restart events");
                     //PPApplication.logE("*********** restartEvents", "from ActionForExternalApplicationActivity.onStart() - ACTION_RESTART_EVENTS");
                     dataWrapper.restartEventsWithRescan(true, true, true, false, true, true);
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 case ACTION_ENABLE_RUN_FOR_EVENT:
+                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT,
+                            eventName, null, null, 0, "");
+
                     if (event_id != 0) {
                         final Event event = dataWrapper.getEventById(event_id);
                         if (event != null) {
@@ -208,6 +217,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 case ACTION_PAUSE_EVENT:
+                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT,
+                            eventName, null, null, 0, "");
+
                     if (event_id != 0) {
                         Event event = dataWrapper.getEventById(event_id);
                         if (event != null) {
@@ -227,6 +239,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     break;
                 case ACTION_STOP_EVENT:
+                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT,
+                            eventName, null, null, 0, "");
+
                     if (event_id != 0) {
                         final Event event = dataWrapper.getEventById(event_id);
                         if (event != null) {

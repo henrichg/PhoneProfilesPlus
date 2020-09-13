@@ -85,6 +85,11 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.string.altype_profileError_setWallpaper);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, R.string.altype_dataImport_fromPP);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_EXPORT, R.string.altype_dataExport);
+        activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, R.string.altype_actionFromExternalApp_profileActivation);
+        activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS, R.string.altype_actionFromExternalApp_restartEvents);
+        activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT, R.string.altype_actionFromExternalApp_enableRunForEvent);
+        activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, R.string.altype_actionFromExternalApp_pauseEvent);
+        activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, R.string.altype_actionFromExternalApp_stopEvent);
 
         int otherColor = R.color.altype_other;
         /*//noinspection SwitchStatementWithTooFewBranches
@@ -136,6 +141,11 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_DATA_EXPORT, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, otherColor);
 
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, R.color.altype_error);
