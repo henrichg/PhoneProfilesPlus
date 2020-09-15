@@ -1495,14 +1495,14 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bevindt zich in</string>
     <string name="check_github_releases_notification">Klik op deze notificatie voor het controleren van PhoneProfilesPlus releases op GitHub. Misschien is er een nieuwere versie beschikbaar.</string>
     <string name="donation_google_play">Doneer alsjeblieft via Google Play:</string>
-    <string name="donation_paypal">Doneer alsjeblieft via PayPal:</string>
+<!--    <string name="donation_paypal">Doneer alsjeblieft via PayPal:</string>-->
     <string name="about_application_package_type_google_play">Geïnstalleerd vanaf Google Play.</string>
     <string name="about_application_package_type_github">Geïnstalleerd vanaf GitHub of een andere bron.</string>
-    <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
-    <string name="altype_actionFromExternalApp_restartEvents">action from external app. - restart events</string>
-    <string name="altype_actionFromExternalApp_enableRunForEvent">action from external app. - enable event run</string>
-    <string name="altype_actionFromExternalApp_pauseEvent">action from external app. - pause event</string>
-    <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
+    <string name="altype_actionFromExternalApp_profileActivation">actie vanui externe app - profiel activatie</string>
+    <string name="altype_actionFromExternalApp_restartEvents">actie vanuit externe app. - events herstarten</string>
+    <string name="altype_actionFromExternalApp_enableRunForEvent">actie vanuit externe app. - inschakelen event uitvoeren</string>
+    <string name="altype_actionFromExternalApp_pauseEvent">actie vanuit externe app - pauzeren event</string>
+    <string name="altype_actionFromExternalApp_stopEvent">actie vanuit externe app. - stop event</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>

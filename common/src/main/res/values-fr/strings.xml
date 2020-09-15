@@ -1366,7 +1366,7 @@
     <string name="application_is_not_started">non démarré</string>
     <string name="application_is_starting_toast">démarrage…</string>
     <string name="application_is_started_toast">est démarré</string>
-    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
+    <string name="popupmenu_title_click_below_toast">Cliquez ci-dessous pour modifier ce paramètre</string>
     <string name="duration_end_acronym">de</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Barre d\'état</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Panneau des notifications</string>
@@ -1466,7 +1466,7 @@
     <string name="restore_settings_alert_title">Restaurer les paramètres</string>
     <string name="restore_settings_error_on_backup">Erreur lors de la copie des fichiers à restaurer</string>
     <string name="restore_settings_ok_backed_up">Fichiers à restaurer copiés</string>
-    <string name="altype_dataExport">backup settings</string>
+    <string name="altype_dataExport">paramètres de sauvegarde</string>
     <string name="phone_profiles_pref_category_notification_scanning">Analyse des notifications</string>
     <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Activer l\'analyse des notifications</string>
     <string name="phone_profiles_pref_applicationEventNotification_info">Ces paramètres sont pour le capteur de notification.</string>
@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk se trouve dans</string>
     <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
     <string name="donation_google_play">Veuillez faire un don en utilisant Google Play :</string>
-    <string name="donation_paypal">Please donate using PayPal:</string>
+<!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Mettre à jour depuis le Play Store.</string>
     <string name="about_application_package_type_github">Installé à partir de GitHub ou d\'une autre source.</string>
     <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>

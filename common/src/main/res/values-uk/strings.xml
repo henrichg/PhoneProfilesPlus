@@ -1493,16 +1493,16 @@
     <string name="check_github_releases_go_to_github">Перейти до GitHub</string>
     <string name="check_github_releases_install_info_1">Завантажте останню версію PhoneProfilesPlus.apk з GitHub. Після цього натисніть на сповіщення про завантажений apk і встановіть його.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk розташований в</string>
-    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
-    <string name="donation_google_play">Підтримка проекту через PayPal:</string>
-    <string name="donation_paypal">Підтримка проекту через PayPal:</string>
+    <string name="check_github_releases_notification">Натисніть на це повідомлення, щоб перевірити версії PhoneProfilesPlus в GitHub. Можливо є нова версія.</string>
+    <string name="donation_google_play">Підтримка проекту через Google Play:</string>
+<!--    <string name="donation_paypal">Підтримка проекту через PayPal:</string>-->
     <string name="about_application_package_type_google_play">Встановлено з Google Play.</string>
     <string name="about_application_package_type_github">Встановлено з GitHub або іншого джерела.</string>
-    <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
-    <string name="altype_actionFromExternalApp_restartEvents">action from external app. - restart events</string>
-    <string name="altype_actionFromExternalApp_enableRunForEvent">action from external app. - enable event run</string>
-    <string name="altype_actionFromExternalApp_pauseEvent">action from external app. - pause event</string>
-    <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
+    <string name="altype_actionFromExternalApp_profileActivation">дія із зовнішнього додатку - активація профілю</string>
+    <string name="altype_actionFromExternalApp_restartEvents">дія із зовнішнього додатку - перезапустити події</string>
+    <string name="altype_actionFromExternalApp_enableRunForEvent">дія із зовнішнього додатку - дозволити запуск по події</string>
+    <string name="altype_actionFromExternalApp_pauseEvent">дія із зовнішнього додатку - призупинити подію</string>
+    <string name="altype_actionFromExternalApp_stopEvent">дія із зовнішнього додатку - зупинити подію</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Експортувати у PhoneProfilesPlus</string>

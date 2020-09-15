@@ -359,7 +359,7 @@ public class PhoneProfilesService extends Service
         } catch (Exception ignored) {}*/
 
 
-        stopSimulatingRingingCall(/*true*/);
+        stopSimulatingRingingCall(/*true*/true);
         //stopSimulatingNotificationTone(true);
 
         reenableKeyguard();
@@ -6553,7 +6553,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void startSimulatingRingingCall(int stream, String ringtone) {
-        stopSimulatingRingingCall(/*true*/);
+        stopSimulatingRingingCall(/*true*/true);
         if (!ringingCallIsSimulating) {
             //PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
             if (audioManager == null )
@@ -6676,7 +6676,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void stopSimulatingRingingCall(/*boolean abandonFocus*/) {
+    public void stopSimulatingRingingCall(/*boolean abandonFocus*/boolean disableInternalChange) {
         //if (ringingCallIsSimulating) {
             //PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "xxx");
             if (audioManager == null )
@@ -6702,6 +6702,7 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+
                 //PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
             /*if (abandonFocus) {
@@ -6711,19 +6712,21 @@ public class PhoneProfilesService extends Service
         //}
         ringingCallIsSimulating = false;
 
-        DisableInternalChangeWorker.enqueueWork();
+        if (disableInternalChange) {
+            DisableInternalChangeWorker.enqueueWork();
 
-        /*PPApplication.startHandlerThreadInternalChangeToFalse();
-        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "disable ringer mode change internal change");
-                RingerModeChangeReceiver.internalChange = false;
-            }
-        }, 3000);*/
-        //PostDelayedBroadcastReceiver.setAlarm(
-        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+            /*PPApplication.startHandlerThreadInternalChangeToFalse();
+            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "disable ringer mode change internal change");
+                    RingerModeChangeReceiver.internalChange = false;
+                }
+            }, 3000);*/
+                //PostDelayedBroadcastReceiver.setAlarm(
+                //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+        }
     }
 
     /*private void doSimulatingNotificationTone(Intent intent) {

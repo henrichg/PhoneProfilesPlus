@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk sa nachádza v</string>
     <string name="check_github_releases_notification">Kliknite na túto notifikáciu na skontrolovanie vydaní PhoneProfilesPlus v GitHub. Možno bola vydaná novšia verzia.</string>
     <string name="donation_google_play">Prosím prispejte cez Obchod Play:</string>
-    <string name="donation_paypal">Prosím prispejte cez PayPal:</string>
+<!--    <string name="donation_paypal">Prosím prispejte cez PayPal:</string>-->
     <string name="about_application_package_type_google_play">Nainštalované z Obchodu Play.</string>
     <string name="about_application_package_type_github">Nainštalované z GitHub alebo iného zdroja.</string>
     <string name="altype_actionFromExternalApp_profileActivation">akcia pre externú apl. - aktivácia profilu</string>

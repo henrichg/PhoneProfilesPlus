@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk befindet sich in</string>
     <string name="check_github_releases_notification">Klicken Sie auf diese Benachrichtigung, um die Veröffentlichungen von PhoneProfilesPlus im GitHub zu überprüfen. Vielleicht wurde eine neuere Version veröffentlicht.</string>
     <string name="donation_google_play">Bitte spenden Sie über Google Play:</string>
-    <string name="donation_paypal">Bitte spenden Sie mit PayPal:</string>
+<!--    <string name="donation_paypal">Bitte spenden Sie mit PayPal:</string>-->
     <string name="about_application_package_type_google_play">Aus dem Google Play Store installiert.</string>
     <string name="about_application_package_type_github">Installiert von GitHub oder einer anderen Quelle.</string>
     <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>

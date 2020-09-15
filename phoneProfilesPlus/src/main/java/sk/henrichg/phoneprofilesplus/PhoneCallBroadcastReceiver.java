@@ -104,7 +104,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         });
     }
 
-    private static void setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
+    @SuppressWarnings("UnusedReturnValue")
+    private static boolean setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
         //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes="+RingerModeChangeReceiver.notUnlinkVolumes);
         if (!RingerModeChangeReceiver.notUnlinkVolumes) {
             boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
@@ -120,12 +121,38 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                     if (profile != null) {
                         //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name="+profile._name);
                         ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
+                        return true;
+                    }
+                    //dataWrapper.invalidateDataWrapper();
+                }
+            }
+        }
+        return false;
+    }
+
+    /*
+    private static void setVolumesByProfile(Context context) {
+        if (!RingerModeChangeReceiver.notUnlinkVolumes) {
+            boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
+            //PPApplication.logE("PhoneCallBroadcastReceiver.setVolumesByProfile", "unlinkEnabled="+unlinkEnabled);
+            if (!unlinkEnabled) {
+                int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
+                boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode);
+                //PPApplication.logE("PhoneCallBroadcastReceiver.setVolumesByProfile", "audibleSystemRingerMode="+audibleSystemRingerMode);
+                if (audibleSystemRingerMode) {
+                    //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+                    final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
+                    //PPApplication.logE("PhoneCallBroadcastReceiver.setVolumesByProfile", "profile="+profile);
+                    if (profile != null) {
+                        //PPApplication.logE("PhoneCallBroadcastReceiver.setVolumesByProfile", "profile._name="+profile._name);
+                        ActivateProfileHelper.executeForVolumes(profile, LINKMODE_NONE, false, context);
                     }
                     //dataWrapper.invalidateDataWrapper();
                 }
             }
         }
     }
+    */
 
     private static void callStarted(boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
     {
@@ -150,7 +177,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "incoming="+incoming);
 
         if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().stopSimulatingRingingCall();
+            PhoneProfilesService.getInstance().stopSimulatingRingingCall(true);
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -205,7 +232,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         }*/
 
         if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().stopSimulatingRingingCall();
+            PhoneProfilesService.getInstance().stopSimulatingRingingCall(false);
 
         // audio mode is set to MODE_IN_CALL by system
 
@@ -230,8 +257,28 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         // audio mode is set to MODE_NORMAL by system
 
-        if (incoming)
-            setLinkUnlinkNotificationVolume(LINKMODE_LINK, context);
+        if (incoming) {
+            /*boolean linkUnlink =*/ setLinkUnlinkNotificationVolume(LINKMODE_LINK, context);
+
+            //if (!linkUnlink) {
+            //    setVolumesByProfile(context);
+            //}
+        }
+
+        DisableInternalChangeWorker.enqueueWork();
+
+        /*PPApplication.startHandlerThreadInternalChangeToFalse();
+        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "disable ringer mode change internal change");
+                RingerModeChangeReceiver.internalChange = false;
+            }
+        }, 3000);*/
+        //PostDelayedBroadcastReceiver.setAlarm(
+        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+
     }
 
 }
