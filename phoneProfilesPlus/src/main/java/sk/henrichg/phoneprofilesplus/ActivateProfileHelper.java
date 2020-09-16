@@ -1915,18 +1915,20 @@ class ActivateProfileHelper {
         if (profile.getVolumeRingtoneChange()) {
             if (profile.getVolumeRingtoneValue() == 0) {
                 profile.setVolumeRingtoneValue(1);
-                //profile._ringerModeForZenMode = AudioManager.RINGER_MODE_SILENT;
+                if (!profile._volumeMuteSound) {
+                    //profile._ringerModeForZenMode = AudioManager.RINGER_MODE_SILENT;
 
-                // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
-                if (!isVibrateRingerMode(profile._volumeRingerMode/*, profile._volumeZenMode*/)) {
-                    if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode/*, false*/)) {
-                        // change ringer mode to Silent
-                        //PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
-                        profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
+                    // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
+                    if (!isVibrateRingerMode(profile._volumeRingerMode/*, profile._volumeZenMode*/)) {
+                        if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode/*, false*/)) {
+                            // change ringer mode to Silent
+                            //PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
+                            profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
+                        }// else
+                        //    PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "not audible ringer mode in profile");
                     }// else
-                    //    PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "not audible ringer mode in profile");
-                }// else
-                 //   PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "vibrate ringer mode in profile");
+                    //   PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "vibrate ringer mode in profile");
+                }
             } else {
                 if (profile._volumeRingerMode == 0) {
                     // ringer mode is not changed by profile, use system ringer and zen mode
