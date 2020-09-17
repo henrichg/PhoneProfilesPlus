@@ -584,15 +584,19 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (mLastLocation != null) {
                 LatLng lastLocationGeofence = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                 if (lastLocationRadius == null) {
+                    float radius = mLastLocation.getAccuracy();
+                    if (radius < 0) radius = 0;
                     lastLocationRadius = mMap.addCircle(new CircleOptions()
                             .center(lastLocationGeofence)
-                            .radius(mLastLocation.getAccuracy())
+                            .radius(radius)
                             .strokeColor(ContextCompat.getColor(this, R.color.map_last_location_marker_stroke))
                             .fillColor(ContextCompat.getColor(this, R.color.map_last_location_marker_fill))
                             .strokeWidth(5)
                             .zIndex(1));
                 } else {
-                    lastLocationRadius.setRadius(mLastLocation.getAccuracy());
+                    float radius = mLastLocation.getAccuracy();
+                    if (radius < 0) radius = 0;
+                    lastLocationRadius.setRadius(radius);
                     lastLocationRadius.setCenter(lastLocationGeofence);
                 }
             }
