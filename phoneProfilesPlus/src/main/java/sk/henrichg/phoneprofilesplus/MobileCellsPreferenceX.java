@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.preference.DialogPreference;
@@ -139,22 +140,25 @@ public class MobileCellsPreferenceX extends DialogPreference {
     }
 
     void persistValue() {
+        Log.e("MobileCellsPreference.onPositive", "xxx");
         if (shouldPersist()) {
-            //Log.d("MobileCellsPreference.onPositive", "1");
+            Log.e("MobileCellsPreference.onPositive", "shouldPersist");
             if (callChangeListener(value)) {
-                //Log.d("MobileCellsPreference.onPositive", "2");
+                Log.e("MobileCellsPreference.onPositive", "callChangeListener=true");
                 new AsyncTask<Void, Integer, Void>() {
                     List<MobileCellsData> _cellsList;
 
                     @Override
                     protected void onPreExecute() {
                         super.onPreExecute();
+                        Log.e("MobileCellsPreference.onPositive", "onPreExecute cellList.size()="+cellsList.size());
                         _cellsList = new ArrayList<>();
                         _cellsList.addAll(cellsList);
                     }
 
                     @Override
                     protected Void doInBackground(Void... voids) {
+                        Log.e("MobileCellsPreference.onPositive", "doInBackground");
                         DatabaseHandler db = DatabaseHandler.getInstance(context);
                         db.saveMobileCellsList(_cellsList, false, false);
                         return null;
@@ -163,11 +167,11 @@ public class MobileCellsPreferenceX extends DialogPreference {
                     @Override
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
+                        Log.e("MobileCellsPreference.onPositive", "onPostExecute value="+value);
                         persistString(value);
                         setSummary();
                     }
-                };
-
+                }.execute();
             }
         }
     }
