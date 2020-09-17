@@ -76,7 +76,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         newEventMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
         predefinedEventIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
-        if (getIntent().getBooleanExtra(EditorProfilesActivity.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
+        if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
             if (dataWrapper.getEventById(event_id) == null) {

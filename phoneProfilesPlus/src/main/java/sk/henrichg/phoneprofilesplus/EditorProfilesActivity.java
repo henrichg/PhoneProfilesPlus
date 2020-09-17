@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -46,8 +45,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
@@ -125,13 +122,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final int DSI_EVENTS_PAUSED = 4;
     private static final int DSI_EVENTS_STOPPED = 5;
 
-    static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
-    static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
-    static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
-    static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
-    //static final String EXTRA_SELECTED_FILTER = "selected_filter";
-    static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
-
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
     // request code for startActivityForResult with intent ProfilesPrefsActivity
@@ -153,6 +143,12 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
     public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
     public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
+
+    static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
+    static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
+    static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
+    static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
+    //static final String EXTRA_SELECTED_FILTER = "selected_filter";
 
     private static final int IMPORTEXPORT_IMPORT = 1;
     private static final int IMPORTEXPORT_EXPORT = 2;
@@ -1637,7 +1633,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
                         //Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         //        /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                        EditorProfilesActivity.displayPreferencesErrorNotification(profile, null, getApplicationContext());
+                        PhoneProfilesService.displayPreferencesErrorNotification(profile, null, getApplicationContext());
                     }
                 }
 
@@ -1677,7 +1673,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     redrawEventListFragment(event, newEventMode);
 
                     //Permissions.grantEventPermissions(getApplicationContext(), event, true, false);
-                    EditorProfilesActivity.displayPreferencesErrorNotification(null, event, getApplicationContext());
+                    PhoneProfilesService.displayPreferencesErrorNotification(null, event, getApplicationContext());
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -4416,136 +4412,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }, 500);
             }
         }
-    }
-
-    static boolean displayPreferencesErrorNotification(Profile profile, Event event, Context context) {
-        if ((profile == null) && (event == null))
-            return false;
-
-        if (!PPApplication.getApplicationStarted(true))
-            return false;
-
-        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context))) {
-            // clear notification
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            try {
-                notificationManager.cancel(
-                        PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
-                        PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-
-            return false;
-        }
-        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context))) {
-            // clear notification
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            try {
-                notificationManager.cancel(
-                        PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
-                        PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-
-            return false;
-        }
-
-        int notificationID = 0;
-        String notificationTag = null;
-
-        String nTitle = "";
-        String nText = "";
-
-        Intent intent = null;
-
-        if (profile != null) {
-            intent = new Intent(context, ProfilesPrefsActivity.class);
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-        }
-        if (event != null) {
-            intent = new Intent(context, EventsPrefsActivity.class);
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
-            intent.putExtra(EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
-        }
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        if (profile != null) {
-            nTitle = context.getString(R.string.profile_preferences_red_texts_title);
-            nText = context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                    "\"" + profile._name + "\" " +
-                    context.getString(R.string.preferences_red_texts_text_2) + " " +
-                    context.getString(R.string.preferences_red_texts_text_click);
-            if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = context.getString(R.string.ppp_app_name);
-                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
-                        context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                        "\"" + profile._name + "\" " +
-                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-                        context.getString(R.string.preferences_red_texts_text_click);
-            }
-
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
-            notificationTag = PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id;
-        }
-
-        if (event != null) {
-            nTitle = context.getString(R.string.event_preferences_red_texts_title);
-            nText = context.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                    "\"" + event._name + "\" " +
-                    context.getString(R.string.preferences_red_texts_text_2) + " " +
-                    context.getString(R.string.preferences_red_texts_text_click);
-            if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = context.getString(R.string.ppp_app_name);
-                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
-                        context.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                        "\"" + event._name + "\" " +
-                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-                        context.getString(R.string.preferences_red_texts_text_click);
-            }
-
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
-            notificationTag = PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id;
-        }
-
-        intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
-
-        PPApplication.createGrantPermissionNotificationChannel(context);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText) // message for notification
-                .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-
-        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-
-        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        mBuilder.setOnlyAlertOnce(true);
-
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
-        try {
-            // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
-            // mNotificationManager.cancel(notificationID);
-            mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
-        } catch (Exception e) {
-            //Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
-        }
-
-        return true;
     }
 
     static void showDialogAboutRedText(Profile profile, Event event, boolean forShowInActivator, boolean forRunStopEvent, Activity activity) {

@@ -54,6 +54,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
@@ -7161,6 +7162,141 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
+    }
+
+
+    //---------------------------
+
+    static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
+
+    static boolean displayPreferencesErrorNotification(Profile profile, Event event, Context context) {
+        if ((profile == null) && (event == null))
+            return false;
+
+        if (!PPApplication.getApplicationStarted(true))
+            return false;
+
+        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, context))) {
+            // clear notification
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            try {
+                notificationManager.cancel(
+                        PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
+                        PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
+            return false;
+        }
+        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, context))) {
+            // clear notification
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            try {
+                notificationManager.cancel(
+                        PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
+                        PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
+            return false;
+        }
+
+        int notificationID = 0;
+        String notificationTag = null;
+
+        String nTitle = "";
+        String nText = "";
+
+        Intent intent = null;
+
+        if (profile != null) {
+            intent = new Intent(context, ProfilesPrefsActivity.class);
+            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+            intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+        }
+        if (event != null) {
+            intent = new Intent(context, EventsPrefsActivity.class);
+            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+            intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
+            intent.putExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
+            intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        if (profile != null) {
+            nTitle = context.getString(R.string.profile_preferences_red_texts_title);
+            nText = context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                    "\"" + profile._name + "\" " +
+                    context.getString(R.string.preferences_red_texts_text_2) + " " +
+                    context.getString(R.string.preferences_red_texts_text_click);
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = context.getString(R.string.ppp_app_name);
+                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
+                        context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                        "\"" + profile._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
+            }
+
+            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
+            notificationTag = PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id;
+        }
+
+        if (event != null) {
+            nTitle = context.getString(R.string.event_preferences_red_texts_title);
+            nText = context.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                    "\"" + event._name + "\" " +
+                    context.getString(R.string.preferences_red_texts_text_2) + " " +
+                    context.getString(R.string.preferences_red_texts_text_click);
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = context.getString(R.string.ppp_app_name);
+                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
+                        context.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                        "\"" + event._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
+            }
+
+            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+            notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
+            notificationTag = PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id;
+        }
+
+        intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
+
+        PPApplication.createGrantPermissionNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        mBuilder.setOnlyAlertOnce(true);
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+        try {
+            // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
+            // mNotificationManager.cancel(notificationID);
+            mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
+        } catch (Exception e) {
+            //Log.e("EditorProfilesActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+        }
+
+        return true;
     }
 
     //---------------------------
