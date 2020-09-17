@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categoryPermissions"
+    app:title="@string/phone_profiles_pref_category_permissions">
+
+    <Preference
+        app:key="permissionsGrantRootPermission"
+        app:title="@string/phone_profiles_pref_grantRootPermission"
+        app:summary="@string/phone_profiles_pref_grantRootPermission_summary"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <Preference
+        app:key="permissionsWriteSystemSettingsPermissions"
+        app:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
+        app:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
+<!--    <Preference-->
+<!--        app:key="permissionsAccessNotificationPolicyPermissions"-->
+<!--        app:title="@string/phone_profiles_pref_accessNotificationPolicyPermissions"-->
+<!--        app:summary="@string/phone_profiles_pref_accessNotificationPolicyPermissions_summary"-->
+<!--        app:widgetLayout="@layout/start_activity_preference"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+
+<!--    This permission is required for start of activities from background -->
+<!--    <Preference-->
+<!--        app:key="permissionsDrawOverlaysPermissions"-->
+<!--        app:title="@string/phone_profiles_pref_drawOverlaysPermissions"-->
+<!--        app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"-->
+<!--        app:widgetLayout="@layout/widget_start_activity_preference"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+
+    <Preference
+        app:key="permissionsGrantG1Permission"
+        app:title="@string/profile_preferences_types_G1_permission"
+        app:summary="@string/important_info_profile_grant"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <Preference
+        app:key="permissionsApplicationPermissions"
+        app:title="@string/phone_profiles_pref_applicationPermissions"
+        app:summary="@string/phone_profiles_pref_applicationPermissions_summary"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"/>
+
+</androidx.preference.PreferenceScreen>
