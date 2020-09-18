@@ -2198,12 +2198,22 @@ class ActivateProfileHelper {
 
                     //setZenMode(appContext, ZENMODE_SILENT, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
 
-                    RingerModeChangeReceiver.notUnlinkVolumes = false;
-                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    setVibrateSettings(false, audioManager);
-                    PPApplication.sleep(500);
-                    PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
-                    InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
+                    if (PPApplication.deviceIsSamsung) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
+                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
+                        PPApplication.sleep(500);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        setVibrateSettings(true, audioManager);
+                    }
+                    else {
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        setVibrateSettings(false, audioManager);
+                        PPApplication.sleep(500);
+                        PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
+                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
+                    }
 
                     setVibrateWhenRinging(appContext, profile, -1);
                     break;

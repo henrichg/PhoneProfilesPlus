@@ -8,14 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+import android.os.SystemClock;
 
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
@@ -53,7 +48,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Profile.setActivatedProfileEndDurationTime(context, alarmTime);
 
-            if (ApplicationPreferences.applicationUseAlarmClock) {
+/*            if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
@@ -81,9 +76,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
                         .build();
 
-                /*int keepResultsDelay = (profile._duration * 5) / 60; // conversion to minutes
-                if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
+                //int keepResultsDelay = (profile._duration * 5) / 60; // conversion to minutes
+                //if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                //    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int)profile._id)
@@ -95,12 +90,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     if (PPApplication.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
-                            /*if (PPApplication.logEnabled()) {
-                                PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
-                                PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
-                                PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
-                                PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
-                            }*/
+                            //if (PPApplication.logEnabled()) {
+                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
+                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
+                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
+                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
+                            //}
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -121,8 +116,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.recordException(e);
                 }
             }
-
-            /*//Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
+*/
+            //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
             //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
@@ -135,7 +130,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock) {
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -145,16 +140,16 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 else {
                     alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000;
 
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                    //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
                     //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
                 //this._isInDelay = true;
             }
-             */
+
         }
         //else
         //	this._isInDelay = false;

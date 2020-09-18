@@ -396,7 +396,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else*/ {
                 entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                if (PPApplication.deviceIsSamsung)
+                    entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                else
+                    entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
             }
             ringerModePreference.setEntries(entries);
             setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
@@ -1251,8 +1254,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     } else*/ {
                         if (zenModeOffValue)
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                        else if (ringerMode.equals("4"))
-                            value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                        else if (ringerMode.equals("4")) {
+                            if (PPApplication.deviceIsSamsung)
+                                value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                            else
+                                value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+                        }
                     }
                 }
 
