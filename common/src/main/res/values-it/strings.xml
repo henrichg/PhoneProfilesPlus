@@ -1505,7 +1505,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="altype_actionFromExternalApp_pauseEvent">azione dall\'app esterna. - evento in pausa</string>
     <string name="altype_actionFromExternalApp_stopEvent">azione dall\'app esterna. - interrompe l\'evento</string>
     <string name="profile_preferences_volumeMuteSound_summary">Questo non disattiva il suono della sveglia</string>
-    <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
+    <string name="profile_preferences_volumeMuteSound_summary_2">Anche la modalità suono, configurata in questo profilo è ignorata.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Esporta in PhoneProfilesPlus</string>

@@ -2110,7 +2110,7 @@ public class DataWrapper {
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
-        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "xxx");
+//        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "xxx");
 
         if (logRestart) {
             if (manualRestart)
@@ -2121,7 +2121,7 @@ public class DataWrapper {
 
         if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (1)");
-            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(1)");
+//            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(1)");
 
 //            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
             EventsHandler eventsHandler = new EventsHandler(context);
@@ -2138,7 +2138,7 @@ public class DataWrapper {
 
         if (unblockEventsRun)
         {
-            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(2)");
+//            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(2)");
             synchronized (profileList) {
                 // remove alarm for profile duration
                 if (!profileListFilled)
@@ -2171,17 +2171,17 @@ public class DataWrapper {
 
         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (2)");
 
-        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(3)");
+//        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(3)");
 
         EventsHandler eventsHandler = new EventsHandler(context);
         if (manualRestart) {
 //            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
-           PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(4)");
+//           PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(4)");
            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
         }
         else {
 //            PPApplication.logE("[EVENTS_HANDLER] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
-            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(5)");
+//            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(5)");
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
         }
 
@@ -2192,7 +2192,7 @@ public class DataWrapper {
                        /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart
                        /*, final boolean useHandler*/)
     {
-        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEvents","xxx");
+//        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEvents","xxx");
 
         /*if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
@@ -2243,7 +2243,7 @@ public class DataWrapper {
     }
 
     private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
-        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEventsWithRescan","xxx");
+//        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEventsWithRescan","xxx");
 
         if (alsoRescan) {
             // remove all event delay alarms
@@ -2282,7 +2282,7 @@ public class DataWrapper {
             final boolean unblockEventsRun, boolean useHandler,
             final boolean manualRestart, final boolean logRestart, boolean showToast)
     {
-        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEventsWithRescan","xxx");
+//        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEventsWithRescan","xxx");
 
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
@@ -2457,7 +2457,7 @@ public class DataWrapper {
     void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
                                 /*boolean clearOld,*/ final int logType)
     {
-        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
+//        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
         Data workData = new Data.Builder()
                     .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
                     .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)

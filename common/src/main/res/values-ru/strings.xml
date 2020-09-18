@@ -1503,8 +1503,8 @@
     <string name="altype_actionFromExternalApp_enableRunForEvent">действие из внешнего приложения - разрешение запуска события</string>
     <string name="altype_actionFromExternalApp_pauseEvent">действие из внешнего приложения - приостановка события</string>
     <string name="altype_actionFromExternalApp_stopEvent">действие из внешнего приложения - остановка события</string>
-    <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
-    <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
+    <string name="profile_preferences_volumeMuteSound_summary">Эта настройка не приглушает будильник</string>
+    <string name="profile_preferences_volumeMuteSound_summary_2">Также не будет учитываться настроенный в этом профиле Звуковой режим.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Экспорт в PhoneProfilesPlus</string>
