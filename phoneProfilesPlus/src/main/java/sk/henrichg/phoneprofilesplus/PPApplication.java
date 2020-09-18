@@ -102,7 +102,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -205,6 +205,7 @@ public class PPApplication extends Application
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
+                                                +"|[MAREK_TEST]"
                                                 ;
 
     // activity log types
@@ -2121,6 +2122,20 @@ public class PPApplication extends Application
             editor.apply();
             prefShowEndOfGooglePlaySupport = false;
         }
+    }
+
+    static boolean isIgnoreBatteryOptimizationEnabled(Context appContext) {
+        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+        try {
+            if (pm != null) {
+                //PPApplication.logE("PPApplication.isIgnoreBatteryOptimizationEnabled", "pm="+pm);
+
+                return pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME);
+            }
+        } catch (Exception ignore) {
+            return false;
+        }
+        return false;
     }
 
     // --------------------------------

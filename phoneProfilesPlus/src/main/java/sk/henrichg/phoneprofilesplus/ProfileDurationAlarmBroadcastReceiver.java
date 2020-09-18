@@ -10,7 +10,13 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
@@ -48,7 +54,77 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Profile.setActivatedProfileEndDurationTime(context, alarmTime);
 
-/*            if (ApplicationPreferences.applicationUseAlarmClock) {
+            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+
+                if (ApplicationPreferences.applicationUseAlarmClock) {
+                    //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
+                    //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
+
+                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                    intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
+                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                    if (alarmManager != null) {
+                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    }
+                } else {
+                    Data workData = new Data.Builder()
+                            .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
+                            .putBoolean(EXTRA_FOR_RESTART_EVENTS, forRestartEvents)
+                            .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
+                            .build();
+
+                    //int keepResultsDelay = (profile._duration * 5) / 60; // conversion to minutes
+                    //if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
+                    //    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id)
+                                    .setInputData(workData)
+                                    .setInitialDelay(profile._duration, TimeUnit.SECONDS)
+                                    .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
+                                    .build();
+                    try {
+                        if (PPApplication.getApplicationStarted(true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null) {
+                                //if (PPApplication.logEnabled()) {
+                                //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
+                                //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
+                                //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
+                                //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
+                                //}
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] ProfileDurationAlarmBroadcastReceiver.setAlarm", "for=" + MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+                                //workManager.enqueue(worker);
+                                workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
+                                PPApplication.elapsedAlarmsProfileDurationWork.add(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id);
+                            }
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            }
+            else {
                 //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
@@ -62,94 +138,25 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                }
-            }
-            else {
-                Data workData = new Data.Builder()
-                        .putLong(PPApplication.EXTRA_PROFILE_ID, profile._id)
-                        .putBoolean(EXTRA_FOR_RESTART_EVENTS, forRestartEvents)
-                        .putInt(PPApplication.EXTRA_STARTUP_SOURCE, startupSource)
-                        .build();
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    } else {
+                        alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000;
 
-                //int keepResultsDelay = (profile._duration * 5) / 60; // conversion to minutes
-                //if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
-                //    keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;
-                OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int)profile._id)
-                                .setInputData(workData)
-                                .setInitialDelay(profile._duration, TimeUnit.SECONDS)
-                                .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
-                                .build();
-                try {
-                    if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                        if (workManager != null) {
-                            //if (PPApplication.logEnabled()) {
-                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._duration=" + profile._duration);
-                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - profile._id=" + profile._id);
-                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - forRestartEvents=" + forRestartEvents);
-                            //    PPApplication.logE("[HANDLER] ProfileDurationAlarmBroadcastReceiver.setAlarm", "enqueueUniqueWork - startupSource=" + startupSource);
-                            //}
-
-//                            //if (PPApplication.logEnabled()) {
-//                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id);
-//                            try {
-//                                List<WorkInfo> workInfoList = statuses.get();
-//                                PPApplication.logE("[TEST BATTERY] ProfileDurationAlarmBroadcastReceiver.setAlarm", "for=" + MainWorker.PROFILE_DURATION_TAG_WORK +"_"+(int)profile._id + " workInfoList.size()=" + workInfoList.size());
-//                            } catch (Exception ignored) {
-//                            }
-//                            //}
-
-                            //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int)profile._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
-                            PPApplication.elapsedAlarmsProfileDurationWork.add(MainWorker.PROFILE_DURATION_WORK_TAG +"_" + (int) profile._id);
-                        }
-                    }
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            }
-*/
-            //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
-            //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
-
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
-            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (ApplicationPreferences.applicationUseAlarmClock) {
-                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                }
-                else {
-                    alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000;
-
-                    //if (android.os.Build.VERSION.SDK_INT >= 23)
+                        //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    }
+                    //this._isInDelay = true;
                 }
-                //this._isInDelay = true;
             }
-
         }
         //else
         //	this._isInDelay = false;
