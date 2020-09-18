@@ -14,6 +14,7 @@
     <SwitchPreferenceCompat
         app:key="prf_pref_volumeMuteSound"
         app:title="@string/profile_preferences_volumeMuteSound"
+        app:summary="@string/profile_preferences_volumeMuteSound_summary"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
 

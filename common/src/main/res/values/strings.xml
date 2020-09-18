@@ -1611,6 +1611,8 @@
     <string name="altype_actionFromExternalApp_pauseEvent">action from external app. - pause event</string>
     <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
 
+    <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 
