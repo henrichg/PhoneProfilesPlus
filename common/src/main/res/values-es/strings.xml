@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlusExtender.apk se encuentra en</string>
     <string name="check_github_releases_notification">Haz clic en esta notificación para comprobar las versiones de PhoneProfilesPlus en GitHub. Tal vez haya una nueva versión.</string>
     <string name="donation_google_play">Por favor, dona usando Google Play:</string>
-<!--    <string name="donation_paypal">Por favor, dona usando PayPal:</string>-->
+    <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Instalada desde Google Play.</string>
     <string name="about_application_package_type_github">Instalada desde GitHub u otra fuente.</string>
     <string name="altype_actionFromExternalApp_profileActivation">acción desde aplicación externa. - Activación de perfil</string>
@@ -1503,6 +1503,8 @@
     <string name="altype_actionFromExternalApp_enableRunForEvent">acción desde aplicación externa. - habilitar la ejecución de eventos</string>
     <string name="altype_actionFromExternalApp_pauseEvent">acción desde aplicación externa. - pausar evento</string>
     <string name="altype_actionFromExternalApp_stopEvent">acción desde aplicación externa. - detener evento</string>
+    <string name="profile_preferences_volumeMuteSound_summary">Esto no silencia el sonido de la alarma</string>
+    <string name="profile_preferences_volumeMuteSound_summary_2">El modo de sonido configurado en este perfil también es ignorado.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exportar a PhoneProfilesPlus</string>

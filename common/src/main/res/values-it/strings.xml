@@ -1496,7 +1496,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="check_github_releases_notification">Fare clic su questa notifica per controllare le versioni di PhoneProfilesPlus in GitHub. Forse è stata rilasciata una versione più recente.</string>
     <string name="donation_google_play">Please donate using Google Play:</string>
-<!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
+    <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Installed from Google Play.</string>
     <string name="about_application_package_type_github">Installed from GitHub or another source.</string>
     <string name="altype_actionFromExternalApp_profileActivation">azione da app esterne. - attivazione del profilo</string>
@@ -1504,6 +1504,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="altype_actionFromExternalApp_enableRunForEvent">azione dall\'app esterna. - abilita l\'esecuzione dell\'evento</string>
     <string name="altype_actionFromExternalApp_pauseEvent">azione dall\'app esterna. - evento in pausa</string>
     <string name="altype_actionFromExternalApp_stopEvent">azione dall\'app esterna. - interrompe l\'evento</string>
+    <string name="profile_preferences_volumeMuteSound_summary">Questo non disattiva il suono della sveglia</string>
+    <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Esporta in PhoneProfilesPlus</string>

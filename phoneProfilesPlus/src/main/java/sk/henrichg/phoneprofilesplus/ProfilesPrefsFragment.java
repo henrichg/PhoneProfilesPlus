@@ -775,6 +775,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        preference = findPreference(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND);
+        if (preference != null) {
+            preference.setSummary(getString(R.string.profile_preferences_volumeMuteSound_summary)+". "+
+                    getString(R.string.profile_preferences_volumeMuteSound_summary_2)+".");
+        }
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 

@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
     <string name="donation_google_play">Please donate using Google Play:</string>
-<!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
+    <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Installed from Google Play.</string>
     <string name="about_application_package_type_github">Installed from GitHub or another source.</string>
     <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
@@ -1503,6 +1503,8 @@
     <string name="altype_actionFromExternalApp_enableRunForEvent">action from external app. - enable event run</string>
     <string name="altype_actionFromExternalApp_pauseEvent">action from external app. - pause event</string>
     <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
+    <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
+    <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>

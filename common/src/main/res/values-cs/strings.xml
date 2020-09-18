@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk se nachází v</string>
     <string name="check_github_releases_notification">Klikněte na tuto notifikaci na zkontrolování vydání PhoneProfilesPlus v GitHub. Možná byla vydána novější verze.</string>
     <string name="donation_google_play">Prosím přispějte přes Obchod Play:</string>
-<!--    <string name="donation_paypal">Prosím přispějte přes PayPal:</string>-->
+    <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Nainstalované z Obchodu Play.</string>
     <string name="about_application_package_type_github">Nainstalované z GitHub nebo jiného zdroje.</string>
     <string name="altype_actionFromExternalApp_profileActivation">akce pro externí apl. - aktivace profilu</string>
@@ -1503,6 +1503,8 @@
     <string name="altype_actionFromExternalApp_enableRunForEvent">akce pro externí apl. - povolení běhu události</string>
     <string name="altype_actionFromExternalApp_pauseEvent">akce pro externí apl. - pozastavení události</string>
     <string name="altype_actionFromExternalApp_stopEvent">akce pro externí apl. - zastavení události</string>
+    <string name="profile_preferences_volumeMuteSound_summary">Tímto se nevypne zvuk budíku</string>
+    <string name="profile_preferences_volumeMuteSound_summary_2">Také je ignorován režim zvuku nastaven v tomto profilu.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>
