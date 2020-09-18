@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.SystemClock;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -2074,58 +2075,57 @@ class Event {
             // delay for start is > 0
             // set alarm
 
-            if (ApplicationPreferences.applicationUseAlarmClock) {
-                //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
-                Intent intent = new Intent();
-                intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
-                //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
+            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(_context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock) {
+                    //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
+                    //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
 
-                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
+                    //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
-                if (alarmManager != null) {
-                    Calendar now = Calendar.getInstance();
-                    now.add(Calendar.SECOND, this._delayStart);
-                    long alarmTime = now.getTimeInMillis();
+                    AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+                    if (alarmManager != null) {
+                        Calendar now = Calendar.getInstance();
+                        now.add(Calendar.SECOND, this._delayStart);
+                        long alarmTime = now.getTimeInMillis();
 
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
-                    }*/
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String result = sdf.format(alarmTime);
+                            PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
+                        }*/
 
-                    Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
 
-                    now = Calendar.getInstance();
-                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                    this._startStatusTime = now.getTimeInMillis() - gmtOffset;
-                    this._isInDelayStart = true;
-                }
-                else {
-                    this._startStatusTime = 0;
-                    this._isInDelayStart = false;
-                }
-            }
-            else {
+                        now = Calendar.getInstance();
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        this._startStatusTime = now.getTimeInMillis() - gmtOffset;
+                        this._isInDelayStart = true;
+                    } else {
+                        this._startStatusTime = 0;
+                        this._isInDelayStart = false;
+                    }
+                } else {
                 /*int keepResultsDelay = (this._delayStart * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-                OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id)
-                                .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
-                                .build();
-                try {
-                    if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                        if (workManager != null) {
-                            //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id)
+                                    .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        if (PPApplication.getApplicationStarted(true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null) {
+                                //PPApplication.logE("[HANDLER] Event.setDelayStartAlarm", "enqueueUniqueWork - this._delayStart="+this._delayStart);
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -2137,80 +2137,77 @@ class Event {
 //                            }
 //                            //}
 
-                            workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id,
-                                                                ExistingWorkPolicy.REPLACE, worker);
-                            PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK +"_" + (int) this._id);
+                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id,
+                                        ExistingWorkPolicy.REPLACE, worker);
+                                PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id);
 
-                            Calendar now = Calendar.getInstance();
-                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                            this._startStatusTime = now.getTimeInMillis() - gmtOffset;
-                            this._isInDelayStart = true;
-                        }
-                        else {
+                                Calendar now = Calendar.getInstance();
+                                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                this._startStatusTime = now.getTimeInMillis() - gmtOffset;
+                                this._isInDelayStart = true;
+                            } else {
+                                this._startStatusTime = 0;
+                                this._isInDelayStart = false;
+                            }
+                        } else {
                             this._startStatusTime = 0;
                             this._isInDelayStart = false;
                         }
-                    }
-                    else {
+                    } catch (Exception e) {
                         this._startStatusTime = 0;
                         this._isInDelayStart = false;
                     }
-                } catch (Exception e) {
+                }
+            }
+            else {
+                //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
+                //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
+
+                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+
+                        Calendar now = Calendar.getInstance();
+                        now.add(Calendar.SECOND, this._delayStart);
+                        long alarmTime = now.getTimeInMillis();
+
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String result = sdf.format(alarmTime);
+                            PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
+                        }*/
+
+                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    } else {
+                        long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000;
+
+                        //if (android.os.Build.VERSION.SDK_INT >= 23)
+                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    }
+
+                    Calendar now = Calendar.getInstance();
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    this._startStatusTime = now.getTimeInMillis() - gmtOffset;
+                    this._isInDelayStart = true;
+                } else {
                     this._startStatusTime = 0;
                     this._isInDelayStart = false;
                 }
             }
-
-            /*//Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
-            //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
-
-            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (ApplicationPreferences.applicationUseAlarmClock(_context)) {
-
-                    Calendar now = Calendar.getInstance();
-                    now.add(Calendar.SECOND, this._delayStart);
-                    long alarmTime = now.getTimeInMillis();
-
-                    if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
-                    }
-
-                    Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                }
-                else {
-                    long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000;
-
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    else
-                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                }
-
-                Calendar now = Calendar.getInstance();
-                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                this._startStatusTime = now.getTimeInMillis() - gmtOffset;
-
-                this._isInDelayStart = true;
-            }
-            else {
-                this._startStatusTime = 0;
-                this._isInDelayStart = false;
-            }*/
         }
         else {
             this._startStatusTime = 0;
@@ -2320,58 +2317,57 @@ class Event {
             // delay for end is > 0
             // set alarm
 
-            if (ApplicationPreferences.applicationUseAlarmClock) {
-                //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
-                Intent intent = new Intent();
-                intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
-                //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
+            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(_context)) {
+                if (ApplicationPreferences.applicationUseAlarmClock) {
+                    //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
+                    //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
 
-                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
+                    //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
-                if (alarmManager != null) {
-                    Calendar now = Calendar.getInstance();
-                    now.add(Calendar.SECOND, this._delayEnd);
-                    long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
+                    AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+                    if (alarmManager != null) {
+                        Calendar now = Calendar.getInstance();
+                        now.add(Calendar.SECOND, this._delayEnd);
+                        long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
 
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
-                    }*/
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String result = sdf.format(alarmTime);
+                            PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
+                        }*/
 
-                    Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
 
-                    now = Calendar.getInstance();
-                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                    this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
-                    this._isInDelayEnd = true;
-                }
-                else {
-                    this._pauseStatusTime = 0;
-                    this._isInDelayEnd = false;
-                }
-            }
-            else {
+                        now = Calendar.getInstance();
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
+                        this._isInDelayEnd = true;
+                    } else {
+                        this._pauseStatusTime = 0;
+                        this._isInDelayEnd = false;
+                    }
+                } else {
                 /*int keepResultsDelay = (this._delayEnd * 5) / 60; // conversion to minutes
                 if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-                OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id)
-                                .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
-                                .build();
-                try {
-                    if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                        if (workManager != null) {
-                            //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id)
+                                    .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
+                                    .build();
+                    try {
+                        if (PPApplication.getApplicationStarted(true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null) {
+                                //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -2383,81 +2379,79 @@ class Event {
 //                            }
 //                            //}
 
-                            workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id,
-                                                            ExistingWorkPolicy.REPLACE, worker);
-                            PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK +"_" + (int) this._id);
+                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id,
+                                        ExistingWorkPolicy.REPLACE, worker);
+                                PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id);
 
-                            Calendar now = Calendar.getInstance();
-                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                            this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
-                            this._isInDelayEnd = true;
-                        }
-                        else {
+                                Calendar now = Calendar.getInstance();
+                                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
+                                this._isInDelayEnd = true;
+                            } else {
+                                this._pauseStatusTime = 0;
+                                this._isInDelayEnd = false;
+                            }
+                        } else {
                             this._pauseStatusTime = 0;
                             this._isInDelayEnd = false;
                         }
-                    }
-                    else {
+                    } catch (Exception e) {
                         this._pauseStatusTime = 0;
                         this._isInDelayEnd = false;
                     }
-                } catch (Exception e) {
+                }
+            }
+            else {
+
+                //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
+                //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
+
+                //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+
+                if (alarmManager != null) {
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+
+                        Calendar now = Calendar.getInstance();
+                        now.add(Calendar.SECOND, this._delayEnd);
+                        long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
+
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String result = sdf.format(alarmTime);
+                            PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
+                        }*/
+
+                        Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    } else {
+                        long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000;
+
+                        //if (android.os.Build.VERSION.SDK_INT >= 23)
+                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    }
+
+                    Calendar now = Calendar.getInstance();
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
+                    this._isInDelayEnd = true;
+                } else {
                     this._pauseStatusTime = 0;
                     this._isInDelayEnd = false;
                 }
             }
-
-            /*//Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
-            //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
-
-            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
-
-            if (alarmManager != null) {
-                if (ApplicationPreferences.applicationUseAlarmClock(_context)) {
-
-                    Calendar now = Calendar.getInstance();
-                    now.add(Calendar.SECOND, this._delayEnd);
-                    long alarmTime = now.getTimeInMillis();
-
-                    if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String result = sdf.format(alarmTime);
-                        PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
-                    }
-
-                    Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
-                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                }
-                else {
-                    long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000;
-
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    else
-                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    //else
-                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                }
-
-                Calendar now = Calendar.getInstance();
-                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
-
-                this._isInDelayEnd = true;
-            }
-            else {
-                this._pauseStatusTime = 0;
-                this._isInDelayEnd = false;
-            }*/
         }
         else {
             this._pauseStatusTime = 0;

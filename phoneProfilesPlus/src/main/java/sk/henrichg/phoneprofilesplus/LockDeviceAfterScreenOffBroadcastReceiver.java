@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -41,44 +42,44 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     {
         final Context appContext = context.getApplicationContext();
 
-        if (ApplicationPreferences.applicationUseAlarmClock) {
-            //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
-            //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+        if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
+                //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
+                //intent.setClass(context, PostDelayedBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                Calendar now = Calendar.getInstance();
-                now.add(Calendar.MILLISECOND, lockDelay);
-                long alarmTime = now.getTimeInMillis();
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.MILLISECOND, lockDelay);
+                    long alarmTime = now.getTimeInMillis();
 
-                /*if (PPApplication.logEnabled()) {
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String result = sdf.format(alarmTime);
-                    PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                }*/
+                    /*if (PPApplication.logEnabled()) {
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    }*/
 
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-        }
-        else {
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
-                            .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
-                            .build();
-            try {
-                if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+            } else {
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK)
+                                .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
+                                .build();
+                try {
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
@@ -90,57 +91,56 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 //                        }
 //                        //}
 
-                        //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
-                        workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                            //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "enqueueUniqueWork - lockDelay=" + lockDelay);
+                            workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        }
                     }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
                 }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
             }
         }
+        else {
+            //final Context appContext = context.getApplicationContext();
 
-        /*final Context appContext = context.getApplicationContext();
+            //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
+            //intent.setClass(context, PostDelayedBroadcastReceiver.class);
 
-        //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
-        Intent intent = new Intent();
-        intent.setAction(ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
-        //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                if (ApplicationPreferences.applicationUseAlarmClock) {
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.MILLISECOND, lockDelay);
+                    long alarmTime = now.getTimeInMillis();
 
-        AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    /*if (PPApplication.logEnabled()) {
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    }*/
 
-                Calendar now = Calendar.getInstance();
-                now.add(Calendar.MILLISECOND, lockDelay);
-                long alarmTime = now.getTimeInMillis();
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                } else {
+                    long alarmTime = SystemClock.elapsedRealtime() + lockDelay;
 
-                if (PPApplication.logEnabled()) {
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String result = sdf.format(alarmTime);
-                    PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    //if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
                 }
-
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-            else {
-                long alarmTime = SystemClock.elapsedRealtime() + lockDelay;
-
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
             }
         }
-        */
     }
 
     static void doWork(boolean useHandler, Context context) {

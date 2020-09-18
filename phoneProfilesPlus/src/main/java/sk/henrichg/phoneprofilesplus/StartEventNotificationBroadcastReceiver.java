@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -61,6 +62,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     {
         //if (!_permanentRun) {
 
+        if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -89,8 +91,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
-            }
-            else {
+            } else {
                 Data workData = new Data.Builder()
                         .putLong(PPApplication.EXTRA_EVENT_ID, event._id)
                         .build();
@@ -100,7 +101,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id)
+                                .addTag(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id)
                                 .setInputData(workData)
                                 .setInitialDelay(event._repeatNotificationIntervalStart, TimeUnit.SECONDS)
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
@@ -125,16 +126,18 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 //                            //}
 
                             //workManager.enqueue(worker);
-                            workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
-                            PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_" + (int) event._id);
+                            workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
+                            PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id);
                         }
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             }
+        }
+        else {
 
-            /*//Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);
+            //Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
             //intent.setClass(context, StartEventNotificationBroadcastReceiver.class);
@@ -145,35 +148,34 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                if (ApplicationPreferences.applicationUseAlarmClock(context)) {
-
+                if (ApplicationPreferences.applicationUseAlarmClock) {
                     Calendar now = Calendar.getInstance();
                     now.add(Calendar.SECOND, event._repeatNotificationIntervalStart);
                     long alarmTime = now.getTimeInMillis();
 
-                    if (PPApplication.logEnabled()) {
+                    /*if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String result = sdf.format(alarmTime);
                         PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                    }
+                    }*/
 
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
-                }
-                else {
+                } else {
                     long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationIntervalStart * 1000;
 
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                    //if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
                     //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
-            }*/
+            }
+        }
         //}
     }
 

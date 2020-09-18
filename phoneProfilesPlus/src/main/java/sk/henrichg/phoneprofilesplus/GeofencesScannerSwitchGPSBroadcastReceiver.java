@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -66,47 +67,47 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
         if (!GeofencesScanner.useGPS)
             delay = 30 * 60;  // 30 minutes with GPS OFF
 
-        if (ApplicationPreferences.applicationUseAlarmClock) {
-            //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
-            //intent.setClass(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+        if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+            if (ApplicationPreferences.applicationUseAlarmClock) {
+                //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
+                //intent.setClass(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                Calendar now = Calendar.getInstance();
-                now.add(Calendar.SECOND, delay);
-                long alarmTime = now.getTimeInMillis();
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.SECOND, delay);
+                    long alarmTime = now.getTimeInMillis();
 
-                /*if (PPApplication.logEnabled()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String result = sdf.format(alarmTime);
-                    PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
-                }*/
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    }*/
 
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-        }
-        else {
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+            } else {
             /*int keepResultsDelay = delay * 5;
             if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
-                            .setInitialDelay(delay, TimeUnit.SECONDS)
-                            .build();
-            try {
-                if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
-                        //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK)
+                                .setInitialDelay(delay, TimeUnit.SECONDS)
+                                .build();
+                try {
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
+                            //PPApplication.logE("[HANDLER] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "enqueueUniqueWork - delay="+delay);
 
 //                        //if (PPApplication.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
@@ -118,54 +119,53 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 //                        }
 //                        //}
 
-                        workManager.enqueueUniqueWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                            workManager.enqueueUniqueWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                        }
                     }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
                 }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
             }
         }
+        else {
 
-        /*
-        //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
-        Intent intent = new Intent();
-        intent.setAction(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
-        //intent.setClass(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+            //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
+            //intent.setClass(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            if (ApplicationPreferences.applicationUseAlarmClock(context)) {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                if (ApplicationPreferences.applicationUseAlarmClock) {
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.SECOND, delay);
+                    long alarmTime = now.getTimeInMillis();
 
-                Calendar now = Calendar.getInstance();
-                now.add(Calendar.MINUTE, delay);
-                long alarmTime = now.getTimeInMillis();
+                    /*if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    }*/
 
-                if (PPApplication.logEnabled()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String result = sdf.format(alarmTime);
-                    PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                } else {
+                    long alarmTime = SystemClock.elapsedRealtime() + delay * 1000;
+
+                    //if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
-
-                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
-                alarmManager.setAlarmClock(clockInfo, pendingIntent);
-            }
-            else {
-                long alarmTime = SystemClock.elapsedRealtime() + delay * 60 * 1000;
-
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
             }
         }
-        */
     }
 
     static void doWork(final Context appContext) {
