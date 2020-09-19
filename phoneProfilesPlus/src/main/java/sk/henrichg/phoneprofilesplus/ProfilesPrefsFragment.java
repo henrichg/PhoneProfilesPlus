@@ -396,7 +396,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else*/ {
                 entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
-                if (PPApplication.deviceIsSamsung)
+                if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI)
                     entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 else
                     entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
@@ -1261,7 +1261,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (zenModeOffValue)
                             value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                         else if (ringerMode.equals("4")) {
-                            if (PPApplication.deviceIsSamsung)
+                            if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI)
                                 value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                             else
                                 value = value + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";

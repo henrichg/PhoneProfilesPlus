@@ -2198,7 +2198,7 @@ class ActivateProfileHelper {
 
                     //setZenMode(appContext, ZENMODE_SILENT, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
 
-                    if (PPApplication.deviceIsSamsung) {
+                    if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI) {
                         RingerModeChangeReceiver.notUnlinkVolumes = false;
                         PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);

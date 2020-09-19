@@ -9,7 +9,7 @@ import android.os.Build;
 
 class ProfilePreferencesIndicator {
 
-    private static Bitmap createIndicatorBitmap(Context context, int countDrawables)
+    private static Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
     {
         // bitmap to get size
         //Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_pref_volume_on);
@@ -591,7 +591,7 @@ class ProfilePreferencesIndicator {
             if (countDrawables > 0)
             {
                 try {
-                    indicatorBitmap = createIndicatorBitmap(appContext, countDrawables);
+                    indicatorBitmap = createIndicatorBitmap(/*appContext,*/ countDrawables);
                     Canvas canvas = new Canvas(indicatorBitmap);
                     for (int i = 0; i < countDrawables; i++)
                         addIndicator(drawables[i], i, appContext, canvas);
@@ -600,7 +600,7 @@ class ProfilePreferencesIndicator {
                 }
             }
             else
-                indicatorBitmap = createIndicatorBitmap(appContext, 1);
+                indicatorBitmap = createIndicatorBitmap(/*appContext,*/ 1);
         }
         else
             indicatorBitmap = null;

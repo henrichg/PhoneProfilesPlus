@@ -4919,7 +4919,7 @@ public class PhoneProfilesService extends Service
     // profile notification -------------------
 
     @SuppressLint("NewApi")
-    void _showProfileNotification(Profile profile, final DataWrapper dataWrapper,
+    void _showProfileNotification(/*Profile profile,*/ final DataWrapper dataWrapper,
                                           boolean forFirstStart/*, boolean setForeground*/)
     {
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
@@ -4972,9 +4972,7 @@ public class PhoneProfilesService extends Service
         // setup startupSource
         //launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
 
-        int requestCode = 0;
-        if (profile != null)
-            requestCode = (int)profile._id;
+        Profile profile = null;
 
         String notificationNotificationStyle;
         boolean notificationShowProfileIcon;
@@ -5010,6 +5008,8 @@ public class PhoneProfilesService extends Service
             notificationLayoutType = "2"; // only small layout
         }
         else {
+            profile = dataWrapper.getActivatedProfileFromDB(false, false);
+
             synchronized (PPApplication.applicationPreferencesMutex) {
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
                 notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon || (Build.VERSION.SDK_INT < 24);
@@ -5029,6 +5029,10 @@ public class PhoneProfilesService extends Service
                 notificationLayoutType = ApplicationPreferences.notificationLayoutType;
             }
         }
+
+        int requestCode = 0;
+        if (profile != null)
+            requestCode = (int)profile._id;
 
         Notification.Builder notificationBuilder;
 
@@ -5500,6 +5504,7 @@ public class PhoneProfilesService extends Service
             if (notificationNotificationStyle.equals("0")) {
                 if (notificationPrefIndicator) {
                     if (preferencesIndicator != null) {
+                        //noinspection ConstantConditions
                         if (preferencesIndicatorExistsLarge) {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
                             contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
@@ -5851,7 +5856,7 @@ public class PhoneProfilesService extends Service
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 //PPApplication.logE("[APP START] PhoneProfilesService.showProfileNotification", "forServiceStart="+forServiceStart);
-                _showProfileNotification(null, dataWrapper, true/*, true*/);
+                _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
                 //dataWrapper.invalidateDataWrapper();
                 //return; // do not return, dusplay activated profile immediatelly
             }
