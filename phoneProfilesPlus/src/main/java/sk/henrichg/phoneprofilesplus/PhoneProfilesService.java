@@ -1491,7 +1491,7 @@ public class PhoneProfilesService extends Service
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor", "xxx");
         if (!register) {
-            if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
+            if (PPApplication.HAS_FEATURE_NFC) {
                 if (PPApplication.nfcStateChangedBroadcastReceiver != null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
                     try {
@@ -1517,7 +1517,7 @@ public class PhoneProfilesService extends Service
             if (allowed) {
                 if (PPApplication.nfcStateChangedBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchNFCSensor->REGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchNFCSensor");
-                    if (PPApplication.hasSystemFeature(this, PackageManager.FEATURE_NFC)) {
+                    if (PPApplication.HAS_FEATURE_NFC) {
                         PPApplication.nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
                         IntentFilter intentFilter21 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
                         appContext.registerReceiver(PPApplication.nfcStateChangedBroadcastReceiver, intentFilter21);

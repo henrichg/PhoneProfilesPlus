@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Handler;
@@ -37,7 +36,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
 
-        if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
+        if (PPApplication.HAS_FEATURE_TELEPHONY) {
             boolean actualState = ActivateProfileHelper.isMobileData(context);
             if (previousState != actualState) {
 

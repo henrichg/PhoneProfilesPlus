@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
@@ -365,7 +364,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 boolean tested = false;
 
                 if ((_wifi == 1 || _wifi == 2)
-                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_WIFI)) {
+                        && PPApplication.HAS_FEATURE_WIFI) {
 
                     if (!(ApplicationPreferences.prefEventWifiScanRequest ||
                             ApplicationPreferences.prefEventWifiWaitForResult ||
@@ -390,7 +389,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 if ((_bluetooth == 1 || _bluetooth == 2)
-                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_BLUETOOTH)) {
+                        && PPApplication.HAS_FEATURE_BLUETOOTH) {
 
                     if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                             ApplicationPreferences.prefEventBluetoothLEScanRequest ||
@@ -415,7 +414,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 if ((_mobileData == 1 || _mobileData == 2)
-                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_TELEPHONY)) {
+                        && PPApplication.HAS_FEATURE_TELEPHONY) {
 
                     boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context);
                     //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataState=" + enabled);
@@ -427,7 +426,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 if ((_gps == 1 || _gps == 2)
-                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_LOCATION_GPS)) {
+                        && PPApplication.HAS_FEATURE_LOCATION_GPS) {
 
                     boolean enabled;
                     /*if (android.os.Build.VERSION.SDK_INT < 19)
@@ -449,7 +448,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 if ((_nfc == 1 || _nfc == 2)
-                        && PPApplication.hasSystemFeature(eventsHandler.context, PackageManager.FEATURE_NFC)) {
+                        && PPApplication.HAS_FEATURE_NFC) {
 
                     NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(eventsHandler.context);
                     if (nfcAdapter != null) {

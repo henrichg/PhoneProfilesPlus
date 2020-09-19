@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
@@ -297,7 +296,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         });
 
         rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
-        if (PPApplication.hasSystemFeature(prefContext, PackageManager.FEATURE_TELEPHONY)) {
+        if (PPApplication.HAS_FEATURE_TELEPHONY) {
             TelephonyManager telephonyManager = (TelephonyManager) prefContext.getSystemService(Context.TELEPHONY_SERVICE);
             boolean simIsReady = false;
             if (telephonyManager != null) {

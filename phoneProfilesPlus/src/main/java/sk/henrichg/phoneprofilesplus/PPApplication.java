@@ -206,6 +206,8 @@ public class PPApplication extends Application
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
                                                 //+"|[MAREK_TEST]"
+
+                                                //+"|ActivateProfileHelper.setVibrateWhenRinging"
                                                 ;
 
     // activity log types
@@ -333,6 +335,14 @@ public class PPApplication extends Application
     static final boolean deviceIsRealme = isRealme();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
+
+    static boolean HAS_FEATURE_BLUETOOTH_LE = false;
+    static boolean HAS_FEATURE_WIFI = false;
+    static boolean HAS_FEATURE_BLUETOOTH = false;
+    static boolean HAS_FEATURE_TELEPHONY = false;
+    static boolean HAS_FEATURE_NFC = false;
+    static boolean HAS_FEATURE_LOCATION = false;
+    static boolean HAS_FEATURE_LOCATION_GPS = false;
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
@@ -769,6 +779,17 @@ public class PPApplication extends Application
         }
 
         PPApplication.logE("##### PPApplication.onCreate", "continue onCreate()");
+
+        PackageManager packageManager = getPackageManager();
+        HAS_FEATURE_BLUETOOTH_LE = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH_LE);
+        HAS_FEATURE_WIFI = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_WIFI);
+        HAS_FEATURE_BLUETOOTH = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_BLUETOOTH);
+        HAS_FEATURE_TELEPHONY = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_TELEPHONY);
+        HAS_FEATURE_NFC = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_NFC);
+        HAS_FEATURE_LOCATION = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
+        HAS_FEATURE_LOCATION_GPS = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
+
+        PPApplication.logE("##### PPApplication.onCreate", "enn of get features");
 
         loadGlobalApplicationData(getApplicationContext());
         loadApplicationPreferences(getApplicationContext());
@@ -3450,9 +3471,8 @@ public class PPApplication extends Application
         return line;
     }
 
-    static boolean hasSystemFeature(Context context, String feature) {
+    static boolean hasSystemFeature(PackageManager packageManager, String feature) {
         try {
-            PackageManager packageManager = context.getPackageManager();
             return packageManager.hasSystemFeature(feature);
         } catch (Exception e) {
             return false;

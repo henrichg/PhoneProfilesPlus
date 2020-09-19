@@ -499,7 +499,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP, value);
             }
         }*/
-        if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+        if (PPApplication.HAS_FEATURE_TELEPHONY)
         {
             ListPreference networkTypePreference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
             if (networkTypePreference != null) {

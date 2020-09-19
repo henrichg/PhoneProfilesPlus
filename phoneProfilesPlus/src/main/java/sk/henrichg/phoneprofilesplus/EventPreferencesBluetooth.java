@@ -283,7 +283,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 listPreference.setSummary(summary);
             }
 
-            boolean btLESupported = BluetoothScanner.bluetoothLESupported(context);
+            boolean btLESupported = BluetoothScanner.bluetoothLESupported(/*context*/);
             listPreference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
             if (listPreference != null) {
                 if ((!btLESupported) || value.equals("0") || value.equals("2"))
@@ -296,7 +296,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
-                boolean btLESupported = BluetoothScanner.bluetoothLESupported(context);
+                boolean btLESupported = BluetoothScanner.bluetoothLESupported(/*context*/);
 
                 if (!btLESupported) {
                     listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+

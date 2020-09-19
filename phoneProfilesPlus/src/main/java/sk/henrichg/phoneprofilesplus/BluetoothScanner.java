@@ -6,7 +6,6 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -99,7 +98,7 @@ class BluetoothScanner {
                     //int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
                     //int forceScanLE = ApplicationPreferences.prefForceOneBluetoothLEScan;
                     boolean classicDevicesScan = true; //DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
-                    boolean leDevicesScan = bluetoothLESupported(context);
+                    boolean leDevicesScan = bluetoothLESupported(/*context*/);
                     /*if (bluetoothLESupported(context))
                         leDevicesScan = DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                     else
@@ -426,7 +425,7 @@ class BluetoothScanner {
 
     private static void waitForLEBluetoothScanEnd(Context context)
     {
-        if (bluetoothLESupported(context)) {
+        if (bluetoothLESupported(/*context*/)) {
             int applicationEventBluetoothLEScanDuration = ApplicationPreferences.applicationEventBluetoothLEScanDuration;
             long start = SystemClock.uptimeMillis();
             do {
@@ -454,9 +453,9 @@ class BluetoothScanner {
     }
 
     @SuppressLint("InlinedApi")
-    static boolean bluetoothLESupported(Context context) {
+    static boolean bluetoothLESupported(/*Context context*/) {
         return (/*(android.os.Build.VERSION.SDK_INT >= 18) &&*/
-                PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH_LE));
+                PPApplication.HAS_FEATURE_BLUETOOTH_LE);
     }
 
     private static boolean isLocationEnabled(Context context/*, String scanType*/) {

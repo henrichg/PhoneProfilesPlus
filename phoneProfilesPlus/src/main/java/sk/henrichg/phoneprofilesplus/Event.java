@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.SystemClock;
 import android.telephony.SubscriptionInfo;
@@ -2573,7 +2572,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_WIFI))
+            if (PPApplication.HAS_FEATURE_WIFI)
                 // device has Wifi
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -2585,7 +2584,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_BLUETOOTH)) {
+            if (PPApplication.HAS_FEATURE_BLUETOOTH) {
                 // device has bluetooth
                 if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH) &&
                     (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH_ADMIN)))
@@ -2652,7 +2651,7 @@ class Event {
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED) ||
                 preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY)) {
+            if (PPApplication.HAS_FEATURE_TELEPHONY) {
                 // device has telephony
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -2714,7 +2713,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_NFC))
+            if (PPApplication.HAS_FEATURE_NFC)
                 // device has nfc
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -2727,7 +2726,7 @@ class Event {
         if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED) ||
                 preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY)) {
+            if (PPApplication.HAS_FEATURE_TELEPHONY) {
                 // device has telephony
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -2790,7 +2789,7 @@ class Event {
         if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED) ||
                 preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_TELEPHONY)) {
+            if (PPApplication.HAS_FEATURE_TELEPHONY) {
                 // device has telephony
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -2852,7 +2851,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(appContext, PackageManager.FEATURE_LOCATION))
+            if (PPApplication.HAS_FEATURE_LOCATION)
                 // device has location
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else

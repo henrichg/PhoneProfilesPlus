@@ -1337,34 +1337,42 @@ class ActivateProfileHelper {
                         //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API < 23)");
                     }
                     else {*/
-                        try {
-                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
-                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
-                        } catch (Exception ee) {
-                            // java.lang.IllegalArgumentException: You cannot change private secure settings.
-                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
-                            //PPApplication.recordException(ee);
+                        /*if (PPApplication.romIsMIUI) {
+                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
+                                    "vibrate_in_normal="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_normal",-1));
+                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
+                                    "vibrate_in_silent="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_silent",-1));
+                        }
+                        else*/ {
+                            try {
+                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
+                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
+                            } catch (Exception ee) {
+                                // java.lang.IllegalArgumentException: You cannot change private secure settings.
+                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
+                                //PPApplication.recordException(ee);
 
-                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
-                                synchronized (PPApplication.rootMutex) {
-                                    String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                    //if (PPApplication.isSELinuxEnforcing())
-                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                    Command command = new Command(0, false, command1); //, command2);
-                                    try {
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
-                                    } catch (Exception e) {
-                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                        //PPApplication.recordException(e);
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                        //if (PPApplication.isSELinuxEnforcing())
+                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        Command command = new Command(0, false, command1); //, command2);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
                                     }
                                 }
-                            }
-                            //else
+                                //else
                                 //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not rooted");
+                            }
                         }
                     //}
                 }

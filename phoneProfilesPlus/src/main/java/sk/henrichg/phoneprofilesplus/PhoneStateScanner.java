@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -116,7 +115,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }*/
 
         if ((telephonyManager != null) &&
-                PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) &&
+                PPApplication.HAS_FEATURE_TELEPHONY &&
                 Permissions.checkLocation(context.getApplicationContext())) {
             boolean simIsReady = false;
             if (Build.VERSION.SDK_INT < 26) {
@@ -173,7 +172,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     void disconnect() {
         //PPApplication.logE("PhoneStateScanner.disconnect", "xxx");
-        if ((telephonyManager != null) && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+        if ((telephonyManager != null) && PPApplication.HAS_FEATURE_TELEPHONY)
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
         stopAutoRegistration(context, false);
     }
