@@ -27,7 +27,7 @@ class ContactsCache {
     {
         if (cached || caching) return;
 
-        //PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
+//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
 
         caching = true;
         //cancelled = false;

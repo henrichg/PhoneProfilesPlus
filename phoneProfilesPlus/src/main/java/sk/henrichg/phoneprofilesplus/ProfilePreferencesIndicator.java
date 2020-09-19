@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Build;
 
@@ -12,18 +13,31 @@ class ProfilePreferencesIndicator {
     {
         // bitmap to get size
         //Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_pref_volume_on);
-        Bitmap bmp = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_pref_volume_on, false, context);
 
-        int width  = bmp.getWidth() * countDrawables;
-        int height  = bmp.getHeight();
+        //Bitmap bmp = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_pref_volume_on, false, context);
+
+        //int width  = bmp.getWidth() * countDrawables;
+        //int height  = bmp.getHeight();
+
+        //final BitmapFactory.Options opt = new BitmapFactory.Options();
+        //opt.inJustDecodeBounds = true;
+        //BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_pref_volume_on, opt);
+
+        //int width = opt.outWidth * countDrawables;
+        //int height = opt.outHeight;
+
+        int iconSize = GlobalGUIRoutines.dpToPx(24);
+        int width = iconSize * countDrawables;
+        //noinspection UnnecessaryLocalVariable
+        int height = iconSize;
 
         return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
     }
 
     private static void addIndicator(int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
     {
-        //Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
-        Bitmap preferenceBitmap = BitmapManipulator.getBitmapFromResource(preferenceBitmapResourceID, false, context);
+        Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
+        //Bitmap preferenceBitmap = BitmapManipulator.getBitmapFromResource(preferenceBitmapResourceID, false, context);
 
         if (preferenceBitmap != null)
             canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);

@@ -5212,10 +5212,14 @@ public class PhoneProfilesService extends Service
             if (!forFirstStart) {
                 //if (notificationStatusBarStyle.equals("0"))
                 profile.generateIconBitmap(appContext, false, 0, false);
-                if (notificationPrefIndicator && (notificationNotificationStyle.equals("0")))
+                if (notificationPrefIndicator && (notificationNotificationStyle.equals("0")) && preferencesIndicatorExistsLarge) {
+//                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService._showProfileNotification", "generate indicators");
                     profile.generatePreferencesIndicator(appContext, false, 0);
+                    preferencesIndicator = profile._preferencesIndicator;
+                }
+                else
+                    preferencesIndicator = null;
                 iconBitmap = profile._iconBitmap;
-                preferencesIndicator = profile._preferencesIndicator;
             }
             else {
                 iconBitmap = null;

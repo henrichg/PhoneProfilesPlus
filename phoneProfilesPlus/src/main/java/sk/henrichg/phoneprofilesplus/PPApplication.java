@@ -1040,6 +1040,8 @@ public class PPApplication extends Application
         handler.post(new Runnable() {
             @Override
             public void run() {
+                //PPApplication.logE("[HANDLER CALL] PPApplication.cancelWork", "name="+name);
+
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
@@ -1047,7 +1049,7 @@ public class PPApplication extends Application
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-                        //PPApplication.logE("[HANDLER CALL] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
+//                        PPApplication.logE("[HANDLER CALL] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
                         // cancel only enqueued works
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -1067,7 +1069,7 @@ public class PPApplication extends Application
     }
 
     static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
-        //Log.e("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
+        //PPApplication.logE("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
         if (atStart) {
             cancelWork(ShowProfileNotificationWorker.WORK_TAG);
             cancelWork(UpdateGUIWorker.WORK_TAG);

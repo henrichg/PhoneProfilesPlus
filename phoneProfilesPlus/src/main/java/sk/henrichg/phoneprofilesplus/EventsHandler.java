@@ -125,7 +125,7 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
-            //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- start --------------------------------");
+//            PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- start --------------------------------");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started

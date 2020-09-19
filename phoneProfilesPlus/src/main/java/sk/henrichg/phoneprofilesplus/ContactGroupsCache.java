@@ -24,7 +24,7 @@ class ContactGroupsCache {
     void getContactGroupList(Context context) {
         if (cached || caching) return;
 
-        //PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- START");
+//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- START");
 
         caching = true;
         //cancelled = false;
