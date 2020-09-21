@@ -205,7 +205,7 @@ class ContactGroupsCache {
                     Log.e("ContactsCache.addGroup", "contact.phoneNumber="+contact.phoneNumber);
                 }*/
 
-                //synchronized (PPApplication.contactsCacheMutex) {
+                synchronized (PPApplication.contactsCacheMutex) {
                     if (contact.groups == null)
                         contact.groups = new ArrayList<>();
 
@@ -228,7 +228,7 @@ class ContactGroupsCache {
                             Log.e("ContactsCache.addGroup", "contact.groups.size()="+contact.groups.size());
                         }*/
                     }
-                //}
+                }
             }
 
             if (contactFound)
