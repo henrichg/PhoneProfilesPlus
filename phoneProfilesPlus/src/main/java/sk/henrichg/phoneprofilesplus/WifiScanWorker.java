@@ -102,7 +102,7 @@ public class WifiScanWorker extends Worker {
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG)
-                            .setInitialDelay(1500, TimeUnit.MILLISECONDS)
+                            .setInitialDelay(5000, TimeUnit.MILLISECONDS)
                             .build();
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();

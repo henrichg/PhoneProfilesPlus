@@ -64,7 +64,7 @@ public class SearchCalendarEventsWorker extends Worker {
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG)
-                            .setInitialDelay(1500, TimeUnit.MILLISECONDS)
+                            .setInitialDelay(5000, TimeUnit.MILLISECONDS)
                             .build();
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
