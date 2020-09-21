@@ -97,7 +97,7 @@ public class BluetoothScanWorker extends Worker {
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG)
-                            //.setInitialDelay(200, TimeUnit.MILLISECONDS)
+                            .setInitialDelay(1500, TimeUnit.MILLISECONDS)
                             .build();
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
@@ -118,16 +118,16 @@ public class BluetoothScanWorker extends Worker {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
-
-            /*PPApplication.startHandlerThreadPPScanners();
+            /*
+            PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("BluetoothScanWorker.doWork - handler", "schedule work");
-                    scheduleWork(context, false, null, false);
+                    scheduleWork(context, false);
                 }
-            }, 500);*/
+            }, 1500);
+            */
 
             //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- END");
 
@@ -239,15 +239,19 @@ public class BluetoothScanWorker extends Worker {
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            PPApplication.startHandlerThreadPPScanners();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            if (shortInterval) {
+                PPApplication.startHandlerThreadPPScanners();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
 //                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval="+shortInterval);
-                    _scheduleWork(context, shortInterval);
-                }
-            });
+                        _scheduleWork(context, true);
+                    }
+                });
+            }
+            else
+                _scheduleWork(context, false);
         }
         //else
         //    PPApplication.logE("BluetoothScanWorker.scheduleJob","BluetoothHardware=false");

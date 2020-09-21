@@ -65,7 +65,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG)
-                                //.setInitialDelay(200, TimeUnit.MILLISECONDS)
+                                .setInitialDelay(1500, TimeUnit.MILLISECONDS)
                                 .build();
                 try {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
@@ -86,7 +86,16 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-
+                /*
+                PPApplication.startHandlerThreadPPScanners();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PeriodicEventsHandlerWorker.enqueueWork(context);
+                    }
+                }, 1500);
+                */
             }
 
             return Result.success();

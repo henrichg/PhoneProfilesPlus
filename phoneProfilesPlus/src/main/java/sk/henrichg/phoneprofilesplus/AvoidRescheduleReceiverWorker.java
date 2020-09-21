@@ -31,7 +31,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG)
-                            //.setInitialDelay(200, TimeUnit.MILLISECONDS)
+                            //.setInitialDelay(1500, TimeUnit.MILLISECONDS)
                             .build();
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();

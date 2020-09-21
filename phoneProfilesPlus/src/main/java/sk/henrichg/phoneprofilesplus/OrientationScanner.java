@@ -17,7 +17,7 @@ class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
-        //PPApplication.logE("[LISTENER CALL] OrientationScanner.onSensorChanged", "xxx");
+//        PPApplication.logE("[LISTENER CALL] OrientationScanner.onSensorChanged", "xxx");
 
         //PPApplication.logE("OrientationScanner.onSensorChanged", "current thread="+Thread.currentThread());
 

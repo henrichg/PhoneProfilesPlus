@@ -3394,7 +3394,7 @@ class ActivateProfileHelper {
                         new OneTimeWorkRequest.Builder(MainWorker.class)
                                 .addTag(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG)
                                 .setInputData(workData)
-                                .setInitialDelay(200, TimeUnit.MILLISECONDS)
+                                .setInitialDelay(1500, TimeUnit.MILLISECONDS)
                                 .build();
                 try {
                     if (PPApplication.getApplicationStarted(true)) {

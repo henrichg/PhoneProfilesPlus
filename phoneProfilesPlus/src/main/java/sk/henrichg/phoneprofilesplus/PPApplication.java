@@ -102,7 +102,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -190,7 +190,7 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                //+"|[WORKER CALL]"
+                                                +"|[WORKER CALL]"
                                                 //+"|[HANDLER CALL]"
                                                 //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
@@ -200,12 +200,12 @@ public class PPApplication extends Application
                                                 //+"|[TEST BATTERY]"
 
                                                 //+"|[APP START]"
-                                                //+"|[SHEDULE_WORK]"
+                                                +"|[SHEDULE_WORK]"
 
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
-                                                //+"|[MAREK_TEST]"
+                                                +"|[MAREK_TEST]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
                                                 ;

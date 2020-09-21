@@ -125,13 +125,18 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
-//            PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- start --------------------------------");
+            boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
+
+            if (isRestart)
+                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- start --------------------------------");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return;
 
-            //PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
+            if (isRestart)
+                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- application started --------------------------------");
 
             PhoneProfilesService ppService;
 
@@ -142,7 +147,10 @@ class EventsHandler {
                 return;
 
             this.sensorType = sensorType;
+
 //            PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+            if (isRestart)
+                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             //boolean interactive;
 
@@ -188,13 +196,13 @@ class EventsHandler {
                 doEndHandler(null);
                 //dataWrapper.invalidateDataWrapper();
 
-                //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
+                if (isRestart)
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
 
                 return;
             }
 
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
-            //PPApplication.logE("$$$ EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
             if (!alwaysEnabledSensors(sensorType)) {
@@ -203,6 +211,8 @@ class EventsHandler {
                     // events not exists
 
 //                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
+                    if (isRestart)
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "------ events not exists ------");
 
                     doEndHandler(null);
                     //dataWrapper.invalidateDataWrapper();
@@ -232,7 +242,8 @@ class EventsHandler {
                     //    PPApplication.updateGUI(/*context, true, false*/);
                     //}
 
-                    //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
+                    if (isRestart)
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
                     return;
                 }
@@ -244,9 +255,6 @@ class EventsHandler {
             dataWrapper.fillEventList();
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);
-
-            boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
-            boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
             //interactive = (!isRestart) || _interactive;
 
@@ -437,6 +445,7 @@ class EventsHandler {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
                 }*/
+                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "restart events");
 
                 //reactivateProfile = true;
 
@@ -444,11 +453,11 @@ class EventsHandler {
 
                 // 1. pause events
                 for (Event _event : dataWrapper.eventList) {
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
-                        PPApplication.logE("EventsHandler.handleEvents", "event._name=" + _event._name);
-                        PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
-                    }*/
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "state PAUSE");
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event._name=" + _event._name);
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
@@ -485,11 +494,11 @@ class EventsHandler {
                 //dataWrapper.sortEventsByStartOrderAsc();
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
-                        PPApplication.logE("EventsHandler.handleEvents", "event.name=" + _event._name);
-                        PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
-                    }*/
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "state RUNNING");
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event.name=" + _event._name);
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
@@ -623,10 +632,12 @@ class EventsHandler {
 
             PPApplication.lockRefresh = false;
 
-            /*if (mergedProfile._id == 0)
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "no profile for activation");
-            else
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "profileName=" + mergedProfile._name);*/
+            if (isRestart) {
+                if (mergedProfile._id == 0)
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "no profile for activation");
+                else
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "profileName=" + mergedProfile._name);
+            }
 
             //if ((!restartAtEndOfEvent) || isRestart) {
             //    // No any paused events has "Restart events" at end of event
@@ -639,10 +650,12 @@ class EventsHandler {
             int runningEventCountE = eventTimelineList.size();
 
             Profile activatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
-            /*if (activatedProfile != null)
-                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfile._name="+activatedProfile._name);
-            else
-                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "not profile activated");*/
+            if (isRestart) {
+                if (activatedProfile != null)
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activatedProfile._name=" + activatedProfile._name);
+                else
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "not profile activated");
+            }
             long defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyDefaultProfile = false;
 
@@ -651,25 +664,26 @@ class EventsHandler {
             //    fullyStarted = ppService.getApplicationFullyStarted();
 
             if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
-                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
-                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
-                    if (ppService != null)
-                        PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "ppService.willBeDoRestartEvents=" + ppService.willBeDoRestartEvents);
-                }*/
+                if (PPApplication.logEnabled()) {
+                    if (isRestart) {
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "active profile is NOT activated manually");
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
+                    }
+                }
                 // no manual profile activation
                 if (runningEventCountE == 0) {
                     //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
                     // activate default profile, only when will not be do restart events from paused events
 
-                    //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
+                    if (isRestart)
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "no events running");
                     // no events running
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                        //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
+                        if (isRestart)
+                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "default profile is set");
                         long activatedProfileId = 0;
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
@@ -718,7 +732,8 @@ class EventsHandler {
                             notifyDefaultProfile = true;
                             mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
                             mergedProfilesCount++;
-                            //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
+                            if (isRestart)
+                                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
                         }
                     }
                     //}
@@ -727,7 +742,8 @@ class EventsHandler {
                     //    ppService.willBeDoRestartEvents = false;
                 }
             } else {
-                //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
+                if (isRestart)
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
 
                 //noinspection ConstantConditions
@@ -736,7 +752,8 @@ class EventsHandler {
                     defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     mergedProfile.mergeProfiles(oldActivatedProfile._id, dataWrapper/*, false*/);
                     mergedProfilesCount++;
-                    //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated old profile");
+                    if (isRestart)
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated old profile");
                 }
                 else {
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
@@ -748,7 +765,8 @@ class EventsHandler {
                             notifyDefaultProfile = true;
                             mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
                             mergedProfilesCount++;
-                            //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
+                            if (isRestart)
+                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
                         }
                     }
                 }
@@ -766,34 +784,43 @@ class EventsHandler {
                 defaultProfileNotificationVibrate = ApplicationPreferences.applicationDefaultProfileNotificationVibrate;
             }
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
-            }*/
+            if (PPApplication.logEnabled()) {
+                if (isRestart) {
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
+
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
+                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+                }
+            }
 
             boolean doSleep = false;
 
-            //PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
+            if (isRestart)
+                PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
 
             if (mergedProfile._id != 0) {
                 // activate merged profile
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileName=" + oldActivatedProfile._name);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileId=" + oldActivatedProfile._id);
+                if (PPApplication.logEnabled()) {
+                    if (isRestart) {
+                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "#### oldActivatedProfile-profileName=" + oldActivatedProfile._name);
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileId=" + oldActivatedProfile._id);
 
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-profileName=" + mergedProfile._name);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-profileId=" + mergedProfile._id);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingerMode=" + mergedProfile._volumeRingerMode);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeZenMode=" + mergedProfile._volumeZenMode);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingtone=" + mergedProfile._volumeRingtone);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeNotification=" + mergedProfile._volumeNotification);
-                }*/
+                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "#### mergedProfile-profileName=" + mergedProfile._name);
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-profileId=" + mergedProfile._id);
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingerMode=" + mergedProfile._volumeRingerMode);
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeZenMode=" + mergedProfile._volumeZenMode);
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingtone=" + mergedProfile._volumeRingtone);
+                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeNotification=" + mergedProfile._volumeNotification);
+                    }
+                }
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
 
                 //if (mergedProfile._id != oldActivatedProfileId)
                 if (!mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
-                //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
+                if (isRestart)
+                    PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### isRestart=" + isRestart);
 
                 if (profileChanged || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
@@ -804,7 +831,8 @@ class EventsHandler {
                             DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
 
-                    //PPApplication.logE("&&&&&&& EventsHandler.handleEvents", "called is DataWrapper.activateProfileFromEvent");
+                    if (isRestart)
+                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "called is DataWrapper.activateProfileFromEvent");
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
                     doSleep = true;
@@ -812,8 +840,10 @@ class EventsHandler {
             } else {
                 if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
                     // not manual profile activation
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
-                    //PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCountE="+runningEventCountE);
+                    if (isRestart) {
+                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile=" + PPApplication.prefLastActivatedProfile);
+                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
+                    }
                     if (runningEventCountE == 0) {
                         // not any event is running
                         if (PPApplication.prefLastActivatedProfile != 0) {
@@ -851,7 +881,8 @@ class EventsHandler {
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
                     if (ppService != null) {
                         ppService.playNotificationSound(defaultProfileNotificationSound, defaultProfileNotificationVibrate);
-                        //PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "default profile notified");
+                        if (isRestart)
+                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "default profile notified");
                         notified = true;
                     }
                 }
@@ -875,7 +906,8 @@ class EventsHandler {
 
             //dataWrapper.invalidateDataWrapper();
 
-            //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "-- end --------------------------------");
+            if (isRestart)
+                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- end --------------------------------");
         }
     }
 

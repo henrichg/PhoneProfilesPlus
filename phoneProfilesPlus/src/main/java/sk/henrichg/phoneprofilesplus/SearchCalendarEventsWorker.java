@@ -64,7 +64,7 @@ public class SearchCalendarEventsWorker extends Worker {
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
                             .addTag(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG)
-                            //.setInitialDelay(200, TimeUnit.MILLISECONDS)
+                            .setInitialDelay(1500, TimeUnit.MILLISECONDS)
                             .build();
             try {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
@@ -85,16 +85,17 @@ public class SearchCalendarEventsWorker extends Worker {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
-
-            /*PPApplication.startHandlerThreadPPScanners();
+            /*
+            PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     PPApplication.logE("SearchCalendarEventsWorker.doWork - handler", "schedule work");
-                    scheduleWork(context, false, null, false);
+                    scheduleWork(false);
                 }
-            }, 500);*/
+            }, 1500);
+            */
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- END");
 
@@ -180,15 +181,19 @@ public class SearchCalendarEventsWorker extends Worker {
     static void scheduleWork(final boolean shortInterval) {
         //PPApplication.logE("SearchCalendarEventsWorker.scheduleWork", "shortInterval="+shortInterval);
 
-        PPApplication.startHandlerThreadPPScanners();
-        final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        if (shortInterval) {
+            PPApplication.startHandlerThreadPPScanners();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
 //                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval="+shortInterval);
-                _scheduleWork(shortInterval);
-            }
-        });
+                    _scheduleWork(true);
+                }
+            });
+        }
+        else
+            _scheduleWork(false);
     }
 
     private static void _cancelWork() {

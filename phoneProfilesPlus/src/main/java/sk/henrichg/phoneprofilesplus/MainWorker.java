@@ -551,6 +551,7 @@ public class MainWorker extends Worker {
                         SearchCalendarEventsWorker.scheduleWork(false);
                         break;
                     case SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG:
+                        PPApplication.logE("[WORKER CALL]  MainWorker.doWork", "SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
                         WifiScanWorker.scheduleWork(appContext, false);
                         break;
                     default:

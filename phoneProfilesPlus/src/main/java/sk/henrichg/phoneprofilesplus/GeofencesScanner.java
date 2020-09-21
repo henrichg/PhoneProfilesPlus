@@ -330,14 +330,14 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void updateGeofencesInDB() {
         synchronized (PPApplication.geofenceScannerMutex) {
-//            PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateGeofencesInDB", "xxx");
+//            PPApplication.logE("#####   GeofenceScanner.updateGeofencesInDB", "xxx");
             /*if (PPApplication.logEnabled()) {
                 if (PhoneProfilesService.getInstance() != null)
                     PPApplication.logE("[***] GeofenceScanner.updateGeofencesInDB", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
             }*/
 
             List<Geofence> geofences = DatabaseHandler.getInstance(context).getAllGeofences();
-            //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateGeofencesInDB", "geofences.size="+geofences.size());
+            //PPApplication.logE("#####   GeofenceScanner.updateGeofencesInDB", "geofences.size="+geofences.size());
 
             //boolean change = false;
 
@@ -376,31 +376,31 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
                 //int savedTransition = DatabaseHandler.getInstance(context).getGeofenceTransition(geofence._id);
 
-                //PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
+                //PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
 
                 if (geofence._transition != transitionType) {
 
                     /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "transition changed");
+                        PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transition changed");
 
                         if (transitionType == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
-                            PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "transitionType=GEOFENCE_TRANSITION_ENTER");
+                            PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transitionType=GEOFENCE_TRANSITION_ENTER");
                         else
-                            PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "transitionType=GEOFENCE_TRANSITION_EXIT");
+                            PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transitionType=GEOFENCE_TRANSITION_EXIT");
 
                         if (geofence._transition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
-                            PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "geofence._transition=GEOFENCE_TRANSITION_ENTER");
+                            PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._transition=GEOFENCE_TRANSITION_ENTER");
                         else if (geofence._transition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT)
-                            PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "geofence._transition=GEOFENCE_TRANSITION_EXIT");
+                            PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._transition=GEOFENCE_TRANSITION_EXIT");
                         else
-                            PPApplication.logE("[LISTENER CALL]  GeofenceScanner.updateGeofencesInDB", "geofence._transition=0");
+                            PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._transition=0");
                     }*/
 
                     DatabaseHandler.getInstance(context).updateGeofenceTransition(geofence._id, transitionType);
                     //change = true;
                 }
                 //else
-                //    PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateGeofencesInDB", "geofence._transition == transitionType");
+                //    PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._transition == transitionType");
             }
 
             mTransitionsUpdated = true;
