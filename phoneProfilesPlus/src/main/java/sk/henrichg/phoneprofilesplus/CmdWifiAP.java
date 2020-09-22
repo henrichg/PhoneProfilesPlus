@@ -54,7 +54,7 @@ public class CmdWifiAP {
             return false;*/
         } catch (Throwable e) {
             //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            //PPApplication.recordException(e);
             //PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             ActivateProfileHelper.showError(context, profileName, Profile.PARAMETER_TYPE_WIFIAP);
             return false;
