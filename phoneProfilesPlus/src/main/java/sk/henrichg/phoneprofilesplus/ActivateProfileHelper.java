@@ -2761,6 +2761,10 @@ class ActivateProfileHelper {
         if (profile == null)
             return;
 
+        if (PPApplication.blockProfileEventActions)
+            // not start applications after boot
+            return;
+
         Context appContext = context.getApplicationContext();
 
         if (profile._deviceRunApplicationChange == 1)
