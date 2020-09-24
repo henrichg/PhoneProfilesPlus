@@ -246,6 +246,8 @@ public class BluetoothScanWorker extends Worker {
                     @Override
                     public void run() {
 //                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval="+shortInterval);
+                        _cancelWork(context);
+                        PPApplication.sleep(5000);
                         _scheduleWork(context, true);
                     }
                 });
@@ -310,7 +312,7 @@ public class BluetoothScanWorker extends Worker {
                             //PPApplication.logE("[TEST BATTERY] BluetoothScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
-                                if (!state.isFinished()) {
+                                if (state == WorkInfo.State.RUNNING) {
                                     allFinished = false;
                                     break;
                                 }

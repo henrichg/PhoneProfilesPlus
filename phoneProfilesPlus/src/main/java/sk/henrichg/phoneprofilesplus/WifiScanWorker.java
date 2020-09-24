@@ -249,6 +249,8 @@ public class WifiScanWorker extends Worker {
                     @Override
                     public void run() {
 //                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork" + " shortInterval="+shortInterval);
+                        _cancelWork(context);
+                        PPApplication.sleep(5000);
                         _scheduleWork(context, true);
                     }
                 });
@@ -273,7 +275,7 @@ public class WifiScanWorker extends Worker {
                 PPApplication.cancelWork(WORK_TAG);
                 PPApplication.cancelWork(WORK_TAG_SHORT);
 
-                //PPApplication.logE("WifiScanWorker._cancelWork", "CANCELED");
+                PPApplication.logE("[MAREK_TEST] WifiScanWorker._cancelWork", "CANCELED");
 
             } catch (Exception e) {
                 //Log.e("WifiScanWorker._cancelWork", Log.getStackTraceString(e));
@@ -307,7 +309,7 @@ public class WifiScanWorker extends Worker {
                             //PPApplication.logE("[TEST BATTERY] WifiScanWorker.waitForFinish", "workInfoList.size()="+workInfoList.size());
                             for (WorkInfo workInfo : workInfoList) {
                                 WorkInfo.State state = workInfo.getState();
-                                if (!state.isFinished()) {
+                                if (state == WorkInfo.State.RUNNING) {
                                     allFinished = false;
                                     break;
                                 }
@@ -334,7 +336,7 @@ public class WifiScanWorker extends Worker {
     }
 
     static void cancelWork(final Context context, final boolean useHandler/*, final Handler _handler*/) {
-        //PPApplication.logE("WifiScanWorker.cancelWork", "xxx");
+        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.cancelWork", "xxx");
 
         if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();

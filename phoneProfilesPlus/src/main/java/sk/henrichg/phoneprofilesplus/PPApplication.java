@@ -191,7 +191,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.updateGUI"
 
                                                 +"|[WORKER CALL]"
-                                                //+"|[HANDLER CALL]"
+                                                +"|[HANDLER CALL]"
                                                 //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
                                                 //+"|[LISTENER CALL]"
