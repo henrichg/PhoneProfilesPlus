@@ -1551,15 +1551,21 @@ class EventsHandler {
 
                     boolean continueHandle = true;
                     if (newEventStatus == Event.ESTATUS_PAUSE) {
+                        // is paused, for this do not start it
                         continueHandle = false;
                     }
 
                     boolean isInDelayEnd = false;
                     if (continueHandle) {
                         if (event._isInDelayEnd) {
+                            // is in dealy end, for this is already running
                             if (forRestartEvents)
                                 PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "_isInDelayEnd");
+
+                            // remove delay end because is already running
                             event.removeDelayEndAlarm(dataWrapper);
+
+                            // do not start, because is already running
                             isInDelayEnd = true;
                         }
                     }
@@ -1587,20 +1593,15 @@ class EventsHandler {
 //                            if (event._name.equals("Event"))
                             if (forRestartEvents)
                                 PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "start event (3)");
-                            // called not for delay alarm
-                            /*if (forRestartEvents) {
-                                event._isInDelayStart = false;
-                            } else*/ {
-                                if (!event._isInDelayStart) {
-                                    // if not delay alarm is set, set it
-                                    // this also set event._isInDelayStart
-                                    event.setDelayStartAlarm(dataWrapper); // for start delay
-                                }
-                                if (event._isInDelayStart) {
-                                    // if delay expires, start event
-                                    // this also set event._isInDelayStart
-                                    event.checkDelayStart(/*this*/);
-                                }
+                            if (!event._isInDelayStart) {
+                                // if not delay alarm is set, set it
+                                // this also set event._isInDelayStart
+                                event.setDelayStartAlarm(dataWrapper); // for start delay
+                            }
+                            if (event._isInDelayStart) {
+                                // if delay expires, start event
+                                // this also set event._isInDelayStart
+                                event.checkDelayStart(/*this*/);
                             }
 //                            if (event._name.equals("Event"))
                             if (forRestartEvents)
@@ -1648,10 +1649,16 @@ class EventsHandler {
 
                     boolean isInDelayStart = false;
                     if (event._isInDelayStart) {
+                        // is in delay start, for this is already paused
+
                         //if (event._name.equals("Event"))
                         if (forRestartEvents)
                             PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "isInDelayStart");
+
+                        // remove delay start because is already paused
                         event.removeDelayStartAlarm(dataWrapper);
+
+                        // do not pause, because is already paused
                         isInDelayStart = true;
                     }
 
@@ -1671,20 +1678,15 @@ class EventsHandler {
                                 PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "end event (3)");
                             //if (event._name.equals("Event"))
                             //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "!forDelayEndAlarm");
-                            // called not for delay alarm
-                            /*if (forRestartEvents) {
-                                event._isInDelayEnd = false;
-                            } else*/ {
-                                if (!event._isInDelayEnd) {
-                                    // if not delay alarm is set, set it
-                                    // this also set event._isInDelayEnd
-                                    event.setDelayEndAlarm(dataWrapper); // for end delay
-                                }
-                                if (event._isInDelayEnd) {
-                                    // if delay expires, pause event
-                                    // this also set event._isInDelayEnd
-                                    event.checkDelayEnd(/*this*/);
-                                }
+                            if (!event._isInDelayEnd) {
+                                // if not delay alarm is set, set it
+                                // this also set event._isInDelayEnd
+                                event.setDelayEndAlarm(dataWrapper); // for end delay
+                            }
+                            if (event._isInDelayEnd) {
+                                // if delay expires, pause event
+                                // this also set event._isInDelayEnd
+                                event.checkDelayEnd(/*this*/);
                             }
                             if (forRestartEvents)
                                 PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._isInDelayEnd=" + event._isInDelayEnd);
@@ -1697,7 +1699,7 @@ class EventsHandler {
                                 event.pauseEvent(dataWrapper, true, false,
                                         false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
                                 endProfileMerged = oldMergedProfile != mergedProfile._id;
-//                            if (event._name.equals("Event")) {
+//                                if (event._name.equals("Event")) {
                                 if (forRestartEvents) {
 //                                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "oldMergedProfile="+oldMergedProfile);
                                     PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
