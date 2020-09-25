@@ -4657,6 +4657,44 @@ public class PhoneProfilesService extends Service
                             if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
                                 scheduleBackgroundScanningWorker();
                             }
+
+                            if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
+                                if (PPApplication.notificationScannerRunning) {
+                                    Data workData = new Data.Builder()
+                                            .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
+                                            .build();
+
+                                    OneTimeWorkRequest worker =
+                                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                                    .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG)
+                                                    .setInputData(workData)
+                                                    .setInitialDelay(5, TimeUnit.SECONDS)
+                                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                                    .build();
+                                    try {
+                                        if (PPApplication.getApplicationStarted(true)) {
+                                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                                            if (workManager != null) {
+
+//                                                //if (PPApplication.logEnabled()) {
+//                                                ListenableFuture<List<WorkInfo>> statuses;
+//                                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
+//                                                try {
+//                                                    List<WorkInfo> workInfoList = statuses.get();
+//                                                    PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                                                } catch (Exception ignored) {
+//                                                }
+//                                                //}
+
+                                                //workManager.enqueue(worker);
+                                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                }
+                            }
                         }
                         //else
                         //if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
