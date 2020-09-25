@@ -101,7 +101,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockBroadcastReceiver";
     static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockEventEndBroadcastReceiver";
     static final String ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationEventEndBroadcastReceiver";
-    private static final String ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".OrientationEventBroadcastReceiver";
+    //private static final String ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".OrientationEventBroadcastReceiver";
     static final String ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DeviceBootEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
@@ -4644,9 +4644,15 @@ public class PhoneProfilesService extends Service
                                     PPApplication.phoneStateScanner.rescanMobileCells();
                             }
                             if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                                if (PPApplication.orientationScanner != null) {
+                                    PPApplication.startHandlerThreadOrientationScanner();
+                                    if (PPApplication.handlerThreadOrientationScanner != null)
+                                        PPApplication.orientationScanner.runEventsHandlerForOrientationChange(PPApplication.handlerThreadOrientationScanner);
+                                }
+
                                 //setOrientationSensorAlarm(getApplicationContext());
-                                Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
-                                sendBroadcast(intent);
+                                //Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+                                //sendBroadcast(intent);
                             }
                             if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
                                 scheduleBackgroundScanningWorker();
@@ -6276,9 +6282,15 @@ public class PhoneProfilesService extends Service
         if (!PPApplication.mStartedOrientationSensors)
             startListeningOrientationSensors();
         else {
+            if (PPApplication.orientationScanner != null) {
+                PPApplication.startHandlerThreadOrientationScanner();
+                if (PPApplication.handlerThreadOrientationScanner != null)
+                    PPApplication.orientationScanner.runEventsHandlerForOrientationChange(PPApplication.handlerThreadOrientationScanner);
+            }
+
             //setOrientationSensorAlarm(getApplicationContext());
-            Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
-            sendBroadcast(intent);
+            //Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+            //sendBroadcast(intent);
         }
     }
 
@@ -6368,9 +6380,15 @@ public class PhoneProfilesService extends Service
             PPApplication.handlerThreadOrientationScanner.resultDeviceDistance = OrientationScannerHandlerThread.DEVICE_ORIENTATION_UNKNOWN;
             PPApplication.handlerThreadOrientationScanner.resultLight = 0;
 
+            if (PPApplication.orientationScanner != null) {
+                PPApplication.startHandlerThreadOrientationScanner();
+                if (PPApplication.handlerThreadOrientationScanner != null)
+                    PPApplication.orientationScanner.runEventsHandlerForOrientationChange(PPApplication.handlerThreadOrientationScanner);
+            }
+
             //setOrientationSensorAlarm(getApplicationContext());
-            Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
-            sendBroadcast(intent);
+            //Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+            //sendBroadcast(intent);
         }
     }
 
