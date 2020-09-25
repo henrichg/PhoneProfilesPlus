@@ -143,6 +143,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_FOR_EXTERNAL_APP_ACTION = "start_for_external_app_action";
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE = "start_for_external_app_data_type";
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE = "start_for_external_app_data_value";
+    static final String EXTRA_RESCAN_SCANNERS = "rescan_scanners";
 
     static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
     static final int START_FOR_EXTERNAL_APP_EVENT = 2;
@@ -3353,7 +3354,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void registerReceiversAndWorkers(boolean fromCommand) {
-        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.registerReceiversAndWorkers", "xxx");
+//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.registerReceiversAndWorkers", "xxx");
 
         // --- receivers and content observers for events -- register it only if any event exists
 
@@ -3499,7 +3500,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void unregisterReceiversAndWorkers() {
-         PPApplication.logE("[MAREK_TEST] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
+//         PPApplication.logE("[MAREK_TEST] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
         registerAllTheTimeRequiredReceivers(false);
         registerContentObservers(false);
         registerCallbacks(false);
@@ -3553,7 +3554,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void reregisterReceiversAndWorkers() {
-        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.reregisterReceiversAndWorkers", "xxx");
+//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.reregisterReceiversAndWorkers", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
@@ -4615,6 +4616,39 @@ public class PhoneProfilesService extends Service
                         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
 //                            PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "EXTRA_SIMULATE_RINGING_CALL");
                             doSimulatingRingingCall(intent);
+                        }
+                        else
+                        if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
+                            PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
+                            if (ApplicationPreferences.applicationEventLocationEnableScanning) {
+                                PPApplication.geofencesScanner.updateTransitionsByLastKnownLocation();
+                            }
+
+                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                            boolean eventsFilled = false;
+                            if (ApplicationPreferences.applicationEventWifiEnableScanning) {
+                                dataWrapper.fillEventList();
+                                eventsFilled = true;
+                                scheduleWifiWorker(dataWrapper);
+                            }
+                            if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+                                if (!eventsFilled) {
+                                    dataWrapper.fillEventList();
+                                }
+                                scheduleBluetoothWorker(dataWrapper);
+                            }
+
+                            if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+                                PPApplication.phoneStateScanner.rescanMobileCells();
+                            }
+                            if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+                                //setOrientationSensorAlarm(getApplicationContext());
+                                Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+                                sendBroadcast(intent);
+                            }
+                            if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+                                scheduleBackgroundScanningWorker();
+                            }
                         }
                         //else
                         //if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
@@ -6158,19 +6192,24 @@ public class PhoneProfilesService extends Service
 
     private void startGeofenceScanner(boolean resetUseGPS) {
         //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "xxx");
-        if (PPApplication.geofencesScanner != null) {
+        /*if (PPApplication.geofencesScanner != null) {
             PPApplication.geofencesScanner.disconnect();
             PPApplication.geofencesScanner = null;
-        }
-
-        PPApplication.geofencesScanner = new GeofencesScanner(getApplicationContext());
-        //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "geofencesScanner="+geofencesScanner);
-        /*if (instance != null) {
-            PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "instance==this? " + (instance == this));
-            PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
-            PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.getGeofencesScanner()=" + PhoneProfilesService.getInstance().getGeofencesScanner());
         }*/
-        PPApplication.geofencesScanner.connect(resetUseGPS);
+
+        if (PPApplication.geofencesScanner == null) {
+            PPApplication.geofencesScanner = new GeofencesScanner(getApplicationContext());
+            //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "geofencesScanner="+geofencesScanner);
+            /*if (instance != null) {
+                PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "instance==this? " + (instance == this));
+                PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+                PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.getGeofencesScanner()=" + PhoneProfilesService.getInstance().getGeofencesScanner());
+            }*/
+            PPApplication.geofencesScanner.connect(resetUseGPS);
+        }
+        else {
+            PPApplication.geofencesScanner.updateTransitionsByLastKnownLocation();
+        }
     }
 
     private void stopGeofenceScanner() {
@@ -6194,13 +6233,18 @@ public class PhoneProfilesService extends Service
     // Phone state ----------------------------------------------------------------
 
     private void startPhoneStateScanner() {
-        if (PPApplication.phoneStateScanner != null) {
+        /*if (PPApplication.phoneStateScanner != null) {
             PPApplication.phoneStateScanner.disconnect();
             PPApplication.phoneStateScanner = null;
-        }
+        }*/
 
-        PPApplication.phoneStateScanner = new PhoneStateScanner(getApplicationContext());
-        PPApplication.phoneStateScanner.connect();
+        if (PPApplication.phoneStateScanner == null) {
+            PPApplication.phoneStateScanner = new PhoneStateScanner(getApplicationContext());
+            PPApplication.phoneStateScanner.connect();
+        }
+        else {
+            PPApplication.phoneStateScanner.rescanMobileCells();
+        }
     }
 
     private void stopPhoneStateScanner() {
@@ -6224,10 +6268,16 @@ public class PhoneProfilesService extends Service
     // Device orientation ----------------------------------------------------------------
 
     private void startOrientationScanner() {
-        if (PPApplication.mStartedOrientationSensors)
-            stopListeningOrientationSensors();
+        //if (PPApplication.mStartedOrientationSensors)
+        //    stopListeningOrientationSensors();
 
-        startListeningOrientationSensors();
+        if (!PPApplication.mStartedOrientationSensors)
+            startListeningOrientationSensors();
+        else {
+            //setOrientationSensorAlarm(getApplicationContext());
+            Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
+            sendBroadcast(intent);
+        }
     }
 
     private void stopOrientationScanner() {
@@ -6431,13 +6481,18 @@ public class PhoneProfilesService extends Service
     // Twilight scanner ----------------------------------------------------------------
 
     private void startTwilightScanner() {
-        if (PPApplication.twilightScanner != null) {
+        /*if (PPApplication.twilightScanner != null) {
             PPApplication.twilightScanner.stop();
             PPApplication.twilightScanner = null;
-        }
+        }*/
 
-        PPApplication.twilightScanner = new TwilightScanner(getApplicationContext());
-        PPApplication.twilightScanner.start();
+        if (PPApplication.twilightScanner == null) {
+            PPApplication.twilightScanner = new TwilightScanner(getApplicationContext());
+            PPApplication.twilightScanner.start();
+        }
+        else {
+            PPApplication.twilightScanner.getTwilightState(/*true*/);
+        }
     }
 
     private void stopTwilightScanner() {

@@ -53,21 +53,21 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             // rescan
                             if (PhoneProfilesService.getInstance() != null) {
                                 //PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule workers");
-                                boolean restart = false;
+                                boolean rescan = false;
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning)
-                                    restart = true;
+                                    rescan = true;
                                 else if (ApplicationPreferences.applicationEventWifiEnableScanning)
-                                    restart = true;
+                                    rescan = true;
                                 else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
-                                    restart = true;
+                                    rescan = true;
                                 else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
-                                    restart = true;
+                                    rescan = true;
                                 else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
-                                    restart = true;
+                                    rescan = true;
                                 else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
-                                    restart = true;
-                                if (restart) {
-                                    PPApplication.restartAllScanners(appContext, false);
+                                    rescan = true;
+                                if (rescan) {
+                                    PPApplication.rescanAllScanners(appContext);
                                 }
                             }
                             /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {

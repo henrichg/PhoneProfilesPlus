@@ -1635,8 +1635,8 @@ class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart && !forRestartEvents) {
                 // test of forRestartEvents is required!!!
                 // Do not restart events when is event paused during restart events !!!
-                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
-                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","    event._name"+_name);
+//                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
+//                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","    event._name="+_name);
                 // do not reactivate profile to avoid infinite loop
                 dataWrapper.restartEventsWithDelay(5, false, true, /*true,*/ PPApplication.ALTYPE_UNDEFINED);
                 profileActivated = true;
