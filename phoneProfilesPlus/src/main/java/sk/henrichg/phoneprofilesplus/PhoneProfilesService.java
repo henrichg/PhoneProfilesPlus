@@ -4621,7 +4621,8 @@ public class PhoneProfilesService extends Service
                         if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
                             PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-                                PPApplication.geofencesScanner.updateTransitionsByLastKnownLocation();
+                                if (PPApplication.geofencesScanner != null)
+                                    PPApplication.geofencesScanner.updateTransitionsByLastKnownLocation();
                             }
 
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
@@ -4639,7 +4640,8 @@ public class PhoneProfilesService extends Service
                             }
 
                             if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                                PPApplication.phoneStateScanner.rescanMobileCells();
+                                if (PPApplication.phoneStateScanner != null)
+                                    PPApplication.phoneStateScanner.rescanMobileCells();
                             }
                             if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                                 //setOrientationSensorAlarm(getApplicationContext());
