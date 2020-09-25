@@ -117,8 +117,6 @@ class GeofencesScanner
         try {
             synchronized (PPApplication.geofenceScannerMutex) {
                 //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
-                if (resetUseGPS)
-                    useGPS = true;
 
                 try {
                     int version = GoogleApiAvailability.getInstance().getApkVersion(this.context);
@@ -134,7 +132,8 @@ class GeofencesScanner
                 try {
                     //PPApplication.logE("##### GeofenceScanner.onConnected", "xxx2");
                     mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
-                    useGPS = true;
+                    if (resetUseGPS)
+                        useGPS = true;
 
                     PPApplication.startHandlerThreadPPScanners(/*"GeofenceScanner.onConnected"*/);
                     final Handler handler6 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
