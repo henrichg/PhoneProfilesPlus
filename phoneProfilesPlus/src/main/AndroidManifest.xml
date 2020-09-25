@@ -304,13 +304,13 @@
             android:name=".LocationGeofenceEditorActivity"
             android:label="@string/location_editor_title">
         </activity>
-        <activity
-            android:name=".GeofenceScannerErrorActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".GeofenceScannerErrorActivity"-->
+<!--            android:excludeFromRecents="true"-->
+<!--            android:label="@string/empty_string"-->
+<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
+<!--            android:theme="@style/EmptyAppCompatActivity">-->
+<!--        </activity>-->
         <activity
             android:name=".LaunchShortcutActivity"
             android:excludeFromRecents="true"

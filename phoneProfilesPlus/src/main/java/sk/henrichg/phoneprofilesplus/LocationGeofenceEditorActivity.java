@@ -3,10 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,14 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -32,9 +28,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -55,28 +49,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.math.BigDecimal;
 
-@SuppressWarnings("deprecation")
 public class LocationGeofenceEditorActivity extends AppCompatActivity
-                                     implements GoogleApiClient.ConnectionCallbacks,
-                                                GoogleApiClient.OnConnectionFailedListener,
-                                                OnMapReadyCallback
+                                            implements OnMapReadyCallback
 {
-    private GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     private GoogleMap mMap;
     private Marker editedMarker;
     private Circle editedRadius;
     private Circle lastLocationRadius;
-
-    // Request code to use when launching the resolution activity
-    private static final int REQUEST_RESOLVE_ERROR = 1001;
-    // Unique tag for the error dialog fragment
-    private static final String DIALOG_ERROR = "dialog_error";
-    // Bool to track whether the app is already resolving an error
-    private boolean mResolvingError = false;
-
-    private static final String STATE_RESOLVING_ERROR = "resolving_error";
 
     static final int SUCCESS_RESULT = 0;
     static final int FAILURE_RESULT = 1;
@@ -133,31 +114,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         setContentView(R.layout.activity_location_geofence_editor);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
-        /*
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-            // create our manager instance after the content view is set
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            // enable status bar tint
-            tintManager.setStatusBarTintEnabled(true);
-            // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext(), true)) {
-                case "color":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
-                    break;
-                case "white":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
-                    break;
-                default:
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
-                    break;
-            }
-        }
-        */
-
         if (getSupportActionBar() != null) {
             //getSupportActionBar().setHomeButtonEnabled(true);
             //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -166,14 +122,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
 
         //mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
-
-        // Create a GoogleApiClient instance
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -198,9 +146,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         };
 
         createLocationRequest();
-
-        mResolvingError = savedInstanceState != null
-                && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
         Intent intent = getIntent();
         geofenceId = intent.getLongExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, 0);
@@ -409,78 +354,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         GlobalGUIRoutines.lockScreenOrientation(this, true);
-        if (!mResolvingError) {
-            mGoogleApiClient.connect();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-        GlobalGUIRoutines.unlockScreenOrientation(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Within {@code onPause()}, we pause location updates, but leave the
-        // connection to GoogleApiClient intact.  Here, we resume receiving
-        // location updates if the user has requested them.
-        try {
-            if (mGoogleApiClient.isConnected()) {
-                startLocationUpdates();
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
-        try {
-            if (mGoogleApiClient.isConnected()) {
-                stopLocationUpdates();
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_RESOLVE_ERROR) {
-            mResolvingError = false;
-            if (resultCode == RESULT_OK) {
-                // Make sure the app is not already connected or attempting to connect
-                try {
-                    if (!mGoogleApiClient.isConnecting() &&
-                            !mGoogleApiClient.isConnected()) {
-                        mGoogleApiClient.connect();
-                    }
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            }
-        }
-        else
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            getLastLocation();
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(STATE_RESOLVING_ERROR, mResolvingError);
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
         try {
             int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
             PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
@@ -493,44 +366,37 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     @Override
-    public void onConnectionSuspended(int cause) {
-        // The connection has been interrupted.
-        // Disable any UI components that depend on Google APIs
-        // until onConnected() is called.
-        //Log.i("LocationGeofenceEditorActivity", "Connection suspended");
-        try {
-            int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
-            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception e) {
-            //PPApplication.recordException(e);
-        }
-        //mGoogleApiClient.connect();
+    protected void onStop() {
+        super.onStop();
+        GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult result) {
+    public void onResume() {
+        super.onResume();
         try {
-            int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
-            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
+            startLocationUpdates();
         } catch (Exception e) {
-            //PPApplication.recordException(e);
+            PPApplication.recordException(e);
         }
-        //noinspection StatementWithEmptyBody
-        if (mResolvingError) {
-            // Already attempting to resolve an error.
-            //return;
-        } else if (result.hasResolution()) {
-            try {
-                mResolvingError = true;
-                result.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
-            } catch (IntentSender.SendIntentException e) {
-                // There was an error with the resolution intent. Try again.
-                mGoogleApiClient.connect();
-            }
-        } else {
-            // Show dialog using GoogleApiAvailability.getErrorDialog()
-            showErrorDialog(result.getErrorCode());
-            mResolvingError = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            stopLocationUpdates();
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
+            getLastLocation();
         }
     }
 
@@ -745,16 +611,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private  void getGeofenceAddress(/*boolean updateName*/) {
         try {
-            // Only start the service to fetch the address if GoogleApiClient is
-            // connected.
-            if (mGoogleApiClient.isConnected() && mLocation != null) {
+            if (mLocation != null) {
                 startIntentService(true);
             }
-            // If GoogleApiClient isn't connected, process the user's request by
-            // setting mAddressRequested to true. Later, when GoogleApiClient connects,
-            // launch the service to fetch the address. As far as the user is
-            // concerned, pressing the Fetch Address button
-            // immediately kicks off the process of getting the address.
             //mAddressRequested = true;
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -848,47 +707,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
 
     //------------------------------------------
-
-    /* Creates a dialog for an error message */
-    private void showErrorDialog(int errorCode) {
-        if (!isFinishing()) {
-            // Create a fragment for the error dialog
-            ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
-            // Pass the error that should be displayed
-            Bundle args = new Bundle();
-            args.putInt(DIALOG_ERROR, errorCode);
-            dialogFragment.setArguments(args);
-            dialogFragment.show(getSupportFragmentManager(), "errorDialog");
-        }
-    }
-
-    /* Called from ErrorDialogFragment when the dialog is dismissed. */
-    private void dialogDismiss() {
-        mResolvingError = false;
-    }
-
-    /* A fragment to display an error dialog */
-    @SuppressWarnings("WeakerAccess")
-    public static class ErrorDialogFragment extends DialogFragment {
-        public ErrorDialogFragment() { }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Get the error code and retrieve the appropriate dialog
-            int errorCode = -999;
-            if (this.getArguments() != null)
-                errorCode = this.getArguments().getInt(DIALOG_ERROR);
-            return GoogleApiAvailability.getInstance().getErrorDialog(
-                    this.getActivity(), errorCode, REQUEST_RESOLVE_ERROR);
-        }
-
-        @Override
-        public void onDismiss(@NonNull DialogInterface dialog) {
-            if (getActivity() != null)
-                ((LocationGeofenceEditorActivity) getActivity()).dialogDismiss();
-        }
-    }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
