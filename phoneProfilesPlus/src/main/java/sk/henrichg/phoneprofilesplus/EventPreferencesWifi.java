@@ -371,6 +371,7 @@ class EventPreferencesWifi extends EventPreferences {
                 WifiManager wifiManager = (WifiManager) eventsHandler.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 if (wifiManager == null) {
                     eventsHandler.notAllowedWifi = true;
+//                    PPApplication.logE("[MAREK_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (1)");
                 }
                 else {
 
@@ -535,9 +536,11 @@ class EventPreferencesWifi extends EventPreferences {
                                 if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) {
                                     if (forRestartEvents)
                                         eventsHandler.wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
-                                    else
+                                    else {
                                         // not allowed for screen Off
                                         eventsHandler.notAllowedWifi = true;
+//                                        PPApplication.logE("[MAREK_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (2)");
+                                    }
                                 } else {
 
                                     List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(eventsHandler.context);
@@ -646,8 +649,9 @@ class EventPreferencesWifi extends EventPreferences {
 
                                     }
                                     else {
-                                        // not allowed for screen Off
+                                        // not allowed, no scan results
                                         eventsHandler.notAllowedWifi = true;
+                                        //PPApplication.logE("[MAREK_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (3)");
                                         //if (event._name.equals("Doma"))
                                         //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults == null");*/
                                     }
@@ -670,8 +674,10 @@ class EventPreferencesWifi extends EventPreferences {
                     else
                         setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                 }
-            } else
+            } else {
                 eventsHandler.notAllowedWifi = true;
+//                PPApplication.logE("[MAREK_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (4)");
+            }
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             //PPApplication.logE("[TEST BATTERY] EventPreferencesWifi.doHandleEvent", "wifi - event._name="+event._name);
             //PPApplication.logE("[TEST BATTERY] EventPreferencesWifi.doHandleEvent", "wifi - old pass="+oldSensorPassed);

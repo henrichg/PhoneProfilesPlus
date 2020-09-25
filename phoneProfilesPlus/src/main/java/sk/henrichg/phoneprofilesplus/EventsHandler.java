@@ -445,7 +445,7 @@ class EventsHandler {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
                 }*/
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "restart events");
+                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "restart events");
 
                 //reactivateProfile = true;
 
@@ -1299,10 +1299,10 @@ class EventsHandler {
 
         if (PPApplication.logEnabled()) {
             if (forRestartEvents) {
-                PPApplication.logE("%%%%%%% EventsHandler.doHandleEvents", "--- start --------------------------");
-                PPApplication.logE("%%%%%%% EventsHandler.doHandleEvents", "------- event._id=" + event._id);
-                PPApplication.logE("%%%%%%% EventsHandler.doHandleEvents", "------- event._name=" + event._name);
-                PPApplication.logE("%%%%%%% EventsHandler.doHandleEvents", "------- sensorType=" + sensorType);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "--- start --------------------------");
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "------- event._id=" + event._id);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "------- event._name=" + event._name);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "------- sensorType=" + sensorType);
             }
         }
 
@@ -1461,51 +1461,52 @@ class EventsHandler {
             someNotAllowed = false;
         }
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("EventsHandler.doHandleEvents", "timePassed=" + timePassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "batteryPassed=" + batteryPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "callPassed=" + callPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "peripheralPassed=" + peripheralPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "calendarPassed=" + calendarPassed);
-            if (event._name.equals("Doma"))
-                PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "wifiPassed=" + wifiPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "screenPassed=" + screenPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "smsPassed=" + smsPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notificationPassed=" + notificationPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "applicationPassed=" + applicationPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "locationPassed=" + locationPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "orientationPassed=" + orientationPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "mobileCellPassed=" + mobileCellPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "nfcPassed=" + nfcPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "radioSwitchPassed=" + radioSwitchPassed);
-            PPApplication.logE("EventsHandler.doHandleEvents", "alarmClockPassed=" + alarmClockPassed);
+        if (PPApplication.logEnabled()) {
+            if (forRestartEvents && someNotAllowed) {
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "timePassed=" + timePassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "batteryPassed=" + batteryPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "callPassed=" + callPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "peripheralPassed=" + peripheralPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "calendarPassed=" + calendarPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "wifiPassed=" + wifiPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "screenPassed=" + screenPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "smsPassed=" + smsPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notificationPassed=" + notificationPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "applicationPassed=" + applicationPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "locationPassed=" + locationPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "orientationPassed=" + orientationPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "mobileCellPassed=" + mobileCellPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "nfcPassed=" + nfcPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "radioSwitchPassed=" + radioSwitchPassed);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "alarmClockPassed=" + alarmClockPassed);
 
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedTime=" + notAllowedTime);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedCall=" + notAllowedCall);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedPeripheral=" + notAllowedPeripheral);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedCalendar=" + notAllowedCalendar);
-            if (event._name.equals("Doma"))
-                PPApplication.logE("[WiFi] EventsHandler.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedScreen=" + notAllowedScreen);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedBluetooth=" + notAllowedBluetooth);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedSms=" + notAllowedSms);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedNotification=" + notAllowedNotification);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedApplication=" + notAllowedApplication);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedLocation=" + notAllowedLocation);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedOrientation=" + notAllowedOrientation);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedMobileCell=" + notAllowedMobileCell);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedNfc=" + notAllowedNfc);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
-            PPApplication.logE("EventsHandler.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
-        */
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedTime=" + notAllowedTime);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedCall=" + notAllowedCall);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedPeripheral=" + notAllowedPeripheral);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedCalendar=" + notAllowedCalendar);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedScreen=" + notAllowedScreen);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedBluetooth=" + notAllowedBluetooth);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedSms=" + notAllowedSms);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedNotification=" + notAllowedNotification);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedApplication=" + notAllowedApplication);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedLocation=" + notAllowedLocation);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedOrientation=" + notAllowedOrientation);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedMobileCell=" + notAllowedMobileCell);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedNfc=" + notAllowedNfc);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
+                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "-----------------------------------");
+            }
+        }
 
 //            if (event._name.equals("Event")) {
-            if (forRestartEvents) {
-                PPApplication.logE("[***] EventsHandler.doHandleEvents", "allPassed=" + allPassed);
-                PPApplication.logE("[***] EventsHandler.doHandleEvents", "someNotAllowed=" + someNotAllowed);
-            }
+        if (forRestartEvents) {
+            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "allPassed=" + allPassed);
+            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "someNotAllowed=" + someNotAllowed);
+        }
 //
 //            if (event._name.equals("Event")) {
 //                //PPApplication.logE("EventsHandler.doHandleEvents","eventStart="+eventStart);
@@ -1577,6 +1578,8 @@ class EventsHandler {
 //                        PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "start - continueHandle="+continueHandle);
 
                     if (!continueHandle) {
+                        if (forRestartEvents)
+                            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
                         return;
                     }
 
@@ -1734,7 +1737,8 @@ class EventsHandler {
             }
         }
 
-        //PPApplication.logE("%%% EventsHandler.doHandleEvents","--- end --------------------------");
+        if (forRestartEvents)
+            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
     }
 
 //--------
