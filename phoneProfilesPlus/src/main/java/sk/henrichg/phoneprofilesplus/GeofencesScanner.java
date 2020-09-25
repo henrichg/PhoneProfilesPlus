@@ -25,6 +25,7 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                          GoogleApiClient.OnConnectionFailedListener
 {

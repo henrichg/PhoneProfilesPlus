@@ -1503,8 +1503,8 @@
     <string name="altype_actionFromExternalApp_enableRunForEvent">radnja iz vanjske aplikacije - omogući pokretanje događaja</string>
     <string name="altype_actionFromExternalApp_pauseEvent">radnja iz vanjske aplikacije - pauziraj događaj</string>
     <string name="altype_actionFromExternalApp_stopEvent">radnja iz vanjske aplikacije - zaustavi događaj</string>
-    <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
-    <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
+    <string name="profile_preferences_volumeMuteSound_summary">Ovim nećete isključiti zvuk budilice</string>
+    <string name="profile_preferences_volumeMuteSound_summary_2">Također se zanemaruje i način zvuka, konfiguriran u ovom profilu.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Izvoz u PhoneProfilesPlus</string>

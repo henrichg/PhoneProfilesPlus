@@ -55,6 +55,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.math.BigDecimal;
 
+@SuppressWarnings("deprecation")
 public class LocationGeofenceEditorActivity extends AppCompatActivity
                                      implements GoogleApiClient.ConnectionCallbacks,
                                                 GoogleApiClient.OnConnectionFailedListener,

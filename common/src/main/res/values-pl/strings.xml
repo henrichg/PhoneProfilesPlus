@@ -1504,7 +1504,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="altype_actionFromExternalApp_enableRunForEvent">działanie z zewnętrznej aplikacji. - włącz uruchamianie zdarzenia</string>
     <string name="altype_actionFromExternalApp_pauseEvent">działanie z zewnętrznej aplikacji. - wstrzymanie zdarzenia</string>
     <string name="altype_actionFromExternalApp_stopEvent">działanie z zewnętrznej aplikacji. - zatrzymaj zdarzenie</string>
-    <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
+    <string name="profile_preferences_volumeMuteSound_summary">To ustawienie nie wycisza dźwięku alarmu</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->

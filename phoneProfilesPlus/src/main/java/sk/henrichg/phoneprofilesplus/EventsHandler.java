@@ -1578,6 +1578,7 @@ class EventsHandler {
 //                        PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "start - continueHandle="+continueHandle);
 
                     if (!continueHandle) {
+                        //noinspection ConstantConditions
                         if (forRestartEvents)
                             PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
                         return;
