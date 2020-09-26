@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
 
-    //private static final int HIDE_THRESHOLD = 20;
+    //private static final int THRESHOLD = 200;
     //private int scrolledDistance = 0;
     //private boolean controlsVisible = true;
+    //private int distanceShow = 0;
+    //private int distanceHide = 0;
 
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -41,10 +43,24 @@ abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollLis
             onShow();
         }
         else {*/
-            if (dy < 0)
-                onShow();
-            if (dy > 0)
-                onHide();
+            if (dy < 0) {
+                //distanceHide = 0;
+                //if (distanceShow > THRESHOLD)
+                //    distanceShow -= dy;
+                //else {
+                //    distanceShow = 0;
+                    onShow();
+                //}
+            }
+            if (dy > 0) {
+                //distanceShow = 0;
+                //if (distanceHide < THRESHOLD)
+                //    distanceHide += dy;
+                //else {
+                //    distanceHide = 0;
+                    onHide();
+                //}
+            }
         //}
     }
 
