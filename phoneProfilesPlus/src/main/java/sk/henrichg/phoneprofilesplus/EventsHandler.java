@@ -748,9 +748,10 @@ class EventsHandler {
 //                                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
                         }
                         if ((activatedProfileId == defaultProfileId) || (isRestart && (!manualRestart))) {
-                            // block interactive parameters
-                            // activate profile is not default profile
-                            // it is not manual restart of events
+                            // block interactive parameters when
+                            // - activated profile is default profile
+                            // - it is not manual restart of events
+                            PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "true");
                             PPApplication.setBlockProfileEventActions(true);
                         }
                     }

@@ -12,11 +12,11 @@ import androidx.work.WorkerParameters;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
-public class DisableInternalChangeWorker extends Worker {
+public class DisableBlockProfileEventActionWorker extends Worker {
 
-    static final String WORK_TAG = "disableInternalChangeWork";
+    static final String WORK_TAG = "setBlockProfileEventsActionWork";
 
-    public DisableInternalChangeWorker(
+    public DisableBlockProfileEventActionWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
@@ -26,9 +26,7 @@ public class DisableInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL]  DisableInternalChangeWorker.doWork", "xxxx");
-
-            RingerModeChangeReceiver.internalChange = false;
+            PPApplication.blockProfileEventActions = false;
 
             return Result.success();
         } catch (Exception e) {
@@ -47,10 +45,10 @@ public class DisableInternalChangeWorker extends Worker {
 
     static void enqueueWork() {
         //PPApplication.logE("DisableInternalChangeWorker.enqueueWork", "xxx");
-        OneTimeWorkRequest disableInternalChangeWorker =
-                new OneTimeWorkRequest.Builder(DisableInternalChangeWorker.class)
-                        .addTag(DisableInternalChangeWorker.WORK_TAG)
-                        .setInitialDelay(5, TimeUnit.SECONDS)
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(DisableBlockProfileEventActionWorker.class)
+                        .addTag(DisableBlockProfileEventActionWorker.WORK_TAG)
+                        .setInitialDelay(30, TimeUnit.SECONDS)
                         .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
@@ -67,11 +65,12 @@ public class DisableInternalChangeWorker extends Worker {
 //                    }
 //                    //}
 
-                    workManager.enqueueUniqueWork(DisableInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
+                    workManager.enqueueUniqueWork(DisableBlockProfileEventActionWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
     }
+
 }

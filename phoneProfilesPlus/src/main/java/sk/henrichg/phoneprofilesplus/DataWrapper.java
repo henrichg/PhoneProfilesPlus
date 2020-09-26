@@ -1817,6 +1817,7 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
                                             Activity activity)
     {
+        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.activateProfileWithAlert", "false");
         PPApplication.setBlockProfileEventActions(false);
 
         if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert ||
@@ -2341,6 +2342,7 @@ public class DataWrapper {
 
         //PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
 
+        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.restartEventsWithAlert", "false");
         PPApplication.setBlockProfileEventActions(false);
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorProfilesActivity))

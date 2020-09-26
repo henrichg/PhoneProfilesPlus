@@ -4439,7 +4439,7 @@ public class PhoneProfilesService extends Service
 
         if (oldVersionCode < actualVersionCode) {
             // block any profile and event actions for package replaced
-            //PPApplication.logE("[TEST_BLOCK_PROFILE_EVENTS_ACTIONS] PhoneProfilesService.doForPackageReplaced", "block");
+            PPApplication.logE("[BLOCK_ACTIONS] PhoneProfilesService.doForPackageReplaced", "true");
             PPApplication.setBlockProfileEventActions(true);
 
             PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);

@@ -206,6 +206,7 @@ public class PPApplication extends Application
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
                                                 +"|[MAREK_TEST]"
+                                                +"|[BLOCK_ACTIONS]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
                                                 ;
@@ -485,7 +486,6 @@ public class PPApplication extends Application
     static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
     static final String PACKAGE_REPLACED_WORK_TAG = "packageReplacedWork";
     static final String AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "avoidRescheduleReceiverWorker";
-    static final String SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG = "setBlockProfileEventsActionWork";
 
     // scanner start/stop types
     //static final int SCANNER_START_GEOFENCE_SCANNER = 1;
@@ -1134,7 +1134,7 @@ public class PPApplication extends Application
         if (atStart) {
             cancelWork(PACKAGE_REPLACED_WORK_TAG);
             cancelWork(AFTER_FIRST_START_WORK_TAG);
-            cancelWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
+            cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG);
         }
         cancelWork(SearchCalendarEventsWorker.WORK_TAG);
         cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
@@ -3789,46 +3789,10 @@ public class PPApplication extends Application
         // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
         PPApplication.blockProfileEventActions = enable;
         if (enable) {
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG)
-                            .setInitialDelay(30, TimeUnit.SECONDS)
-                            .build();
-            try {
-                if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
-
-//                        //if (PPApplication.logEnabled()) {
-//                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosForUniqueWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG);
-//                        try {
-//                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] PPApplication.setBlockProfileEventActions", "for=" + PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                        } catch (Exception ignored) {
-//                        }
-//                        //}
-
-                        workManager.enqueueUniqueWork(PPApplication.SET_BLOCK_PROFILE_EVENTS_ACTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-
-            /*PPApplication.startHandlerThread("PPApplication.setBlockProfileEventActions");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPApplication.setBlockProfileEventActions");
-
-                    PPApplication.logE("PPApplication.setBlockProfileEventActions", "delayed boot up");
-                    PPApplication.blockProfileEventActions = false;
-
-                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.setBlockProfileEventActions");
-                }
-            }, 30000);*/
+            DisableBlockProfileEventActionWorker.enqueueWork();
+        }
+        else {
+            PPApplication.cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG);
         }
     }
 

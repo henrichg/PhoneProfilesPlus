@@ -632,7 +632,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
 
                 // restart Events
-                //PPApplication.logE("$$$ restartEvents","from ProfilesPrefsActivity.savePreferences");
+                PPApplication.logE("[BLOCK_ACTIONS] ProfilesPrefsActivity.savePreferences", "true");
                 PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning()) {
                     if (!DataWrapper.getIsManualProfileActivation(false/*, getApplicationContext()*/)) {
