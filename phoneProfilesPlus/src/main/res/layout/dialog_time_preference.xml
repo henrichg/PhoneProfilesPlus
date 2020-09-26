@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/time_pref_dlg_root"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -44,8 +43,7 @@
             android:layout_height="30dp"
             android:max="23"
             android:rotation="180"
-            android:splitTrack="false"
-            tools:ignore="UnusedAttribute"/>
+            android:splitTrack="false"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/time_pref_dlg_liLa2"
@@ -64,8 +62,7 @@
             android:layout_height="30dp"
             android:max="59"
             android:rotation="180"
-            android:splitTrack="false"
-            tools:ignore="UnusedAttribute"/>
+            android:splitTrack="false"/>
     </LinearLayout>
 
 </LinearLayout>

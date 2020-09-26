@@ -60,8 +60,7 @@
                 android:layout_height="30dp"
                 android:max="24"
                 android:rotation="180"
-                android:splitTrack="false"
-                tools:ignore="UnusedAttribute"/>
+                android:splitTrack="false"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/duration_pref_dlg_liLa3"
@@ -80,8 +79,7 @@
                 android:layout_height="30dp"
                 android:max="59"
                 android:rotation="180"
-                android:splitTrack="false"
-                tools:ignore="UnusedAttribute"/>
+                android:splitTrack="false"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/duration_pref_dlg_liLa4"
@@ -101,8 +99,7 @@
                 android:layout_height="30dp"
                 android:max="59"
                 android:rotation="180"
-                android:splitTrack="false"
-                tools:ignore="UnusedAttribute"/>
+                android:splitTrack="false"/>
         </LinearLayout>
 
     </LinearLayout>

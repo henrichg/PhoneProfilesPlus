@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_important_info_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,8 +15,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
-        app:popupTheme="?attr/toolbarPopupMenu"
-        tools:ignore="UnusedAttribute"/>
+        app:popupTheme="?attr/toolbarPopupMenu"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_important_info_tab_layout"
@@ -29,8 +27,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:tabTextAppearance="@style/ImportantInfoTextAppearanceTab"
-        app:tabMode="scrollable"
-        tools:ignore="UnusedAttribute"/>
+        app:tabMode="scrollable"/>
 
     <FrameLayout
         android:id="@+id/activity_important_info_frLa1"

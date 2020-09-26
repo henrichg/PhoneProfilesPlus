@@ -8,4 +8,4 @@
           android:textSize="14dp"
           android:ellipsize="marquee"
           android:singleLine="true"
-          tools:ignore="Overdraw,SpUsage"/>
+          tools:ignore="SpUsage"/>

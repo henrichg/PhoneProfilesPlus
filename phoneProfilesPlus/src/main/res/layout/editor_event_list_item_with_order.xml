@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  Single List Item Design -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/event_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -117,8 +116,7 @@
                 android:paddingStart="11dp"
                 android:paddingEnd="11dp"
                 android:textSize="12sp"
-                android:scrollHorizontally="true"
-                tools:ignore="SmallSp"/>
+                android:scrollHorizontally="true"/>
 
             <RelativeLayout
                 android:id="@+id/event_list_item_profile_start_icon_root"

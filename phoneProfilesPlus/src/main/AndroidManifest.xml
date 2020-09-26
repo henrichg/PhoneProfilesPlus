@@ -111,7 +111,7 @@
         android:resizeableActivity="true"
         android:largeHeap="true"
         android:allowBackup="false"
-        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        tools:ignore="UnusedAttribute">
 
         <!-- Do not use this. this may shutdown PPP
 

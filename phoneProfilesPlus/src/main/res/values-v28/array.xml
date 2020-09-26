@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string-array name="lockDeviceArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_lockDevice_screenOff</item>

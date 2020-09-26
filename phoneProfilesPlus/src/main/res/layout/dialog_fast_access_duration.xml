@@ -120,8 +120,7 @@
                     android:layout_height="30dp"
                     android:max="24"
                     android:rotation="180"
-                    android:splitTrack="false"
-                    tools:ignore="UnusedAttribute"/>
+                    android:splitTrack="false"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/dialog_fast_access_duration_liLa5"
@@ -141,8 +140,7 @@
                     android:layout_height="30dp"
                     android:max="59"
                     android:rotation="180"
-                    android:splitTrack="false"
-                    tools:ignore="UnusedAttribute"/>
+                    android:splitTrack="false"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/dialog_fast_access_duration_liLa6"
@@ -163,8 +161,7 @@
                     android:layout_height="30dp"
                     android:max="59"
                     android:rotation="180"
-                    android:splitTrack="false"
-                    tools:ignore="UnusedAttribute"/>
+                    android:splitTrack="false"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_cell_names_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,8 +50,7 @@
                 android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
                 android:selectAllOnFocus="true"
                 android:inputType="textNoSuggestions"
-                android:importantForAutofill="no"
-                tools:ignore="UnusedAttribute"/>
+                android:importantForAutofill="no"/>
 
         </LinearLayout>
 

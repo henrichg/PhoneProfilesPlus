@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/preferences_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,8 +18,7 @@
         app:contentInsetEnd="0dp"
         app:contentInsetStart="72dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        android:elevation="1dp"
-        tools:ignore="UnusedAttribute" />
+        android:elevation="1dp" />
 
     <FrameLayout
         android:id="@+id/activity_preferences_settings"

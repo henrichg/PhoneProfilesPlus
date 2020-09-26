@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profileicon_pref_dlg_root"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -69,8 +68,7 @@
                     android:textColor="@color/action_button_text_color"
                     android:background="?attr/buttonBackground"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    style="?android:attr/borderlessButtonStyle"
-                    tools:ignore="RelativeOverlap"/>
+                    style="?android:attr/borderlessButtonStyle"/>
 
             </LinearLayout>
 

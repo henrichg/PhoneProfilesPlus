@@ -14,8 +14,7 @@
         android:paddingBottom="3dp"
         android:orientation="vertical"
         android:background="?attr/colorPrimary"
-        android:elevation="0dp"
-        tools:ignore="UnusedAttribute">
+        android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/act_prof_toolbar"

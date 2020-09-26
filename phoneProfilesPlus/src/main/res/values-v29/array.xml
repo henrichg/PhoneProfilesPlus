@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string-array name="notificationBackgroundColorArray" tools:ignore="InconsistentArrays">
+<resources>
+    <string-array name="notificationBackgroundColorArray">
         <item>@string/phone_profiles_pref_notificationBackgroundColor_android</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_dark</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_black</item>-
 <!--        <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>-->
         <item>@string/phone_profiles_pref_notificationBackgroundColor_custom</item>
     </string-array>
-    <string-array name="notificationBackgroundColorValues" tools:ignore="InconsistentArrays">
+    <string-array name="notificationBackgroundColorValues">
         <item>0</item>
         <item>1</item>
         <item>3</item>
@@ -15,12 +15,12 @@
         <item>5</item>
     </string-array>
 
-    <string-array name="screenDarkModeArray" tools:ignore="InconsistentArrays">
+    <string-array name="screenDarkModeArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
-    <string-array name="screenDarkModeValues" tools:ignore="InconsistentArrays">
+    <string-array name="screenDarkModeValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>

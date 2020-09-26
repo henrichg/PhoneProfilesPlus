@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
     <string-array name="emptyArray"></string-array>
-    <string-array name="soundModeArray" tools:ignore="InconsistentArrays">
+    <string-array name="soundModeArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_soundModeArray_sound</item>
         <item>@string/array_pref_soundModeArray_vibration</item>
         <item>@string/array_pref_soundModeArray_silentM</item>
         <item>@string/array_pref_soundModeArray_ZenModeM</item>
     </string-array>
-    <string-array name="soundModeValues" tools:ignore="InconsistentArrays">
+    <string-array name="soundModeValues">
         <item>0</item>
         <item>1</item>
         <item>3</item>
@@ -455,7 +455,7 @@
         <item>1</item>
         <item>3</item>
     </string-array>-->
-    <string-array name="zenModeArray" tools:ignore="InconsistentArrays">
+    <string-array name="zenModeArray">
         <item>@string/array_pref_zenModeArray_off</item>
         <item>@string/array_pref_zenModeArray_offButVibration</item>
         <item>@string/array_pref_zenModeArray_priority</item>
@@ -463,7 +463,7 @@
         <item>@string/array_pref_zenModeArray_alarms</item>
         <item>@string/array_pref_zenModeArray_totalSilence</item>
     </string-array>
-    <string-array name="zenModeValues" tools:ignore="InconsistentArrays">
+    <string-array name="zenModeValues">
         <item>1</item>
         <item>4</item>
         <item>2</item>
@@ -471,7 +471,7 @@
         <item>6</item>
         <item>3</item>
     </string-array>
-    <string-array name="zenModeSummaryArray" tools:ignore="InconsistentArrays">
+    <string-array name="zenModeSummaryArray">
         <item>@string/profile_preferences_zenMode_off_summary</item>
         <item>@string/profile_preferences_zenMode_priority_summary</item>
         <item>@string/profile_preferences_zenMode_totalSilence_summary</item>
@@ -553,13 +553,13 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <!--    <string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">-->
+    <!--    <string-array name="powerSaveModeArray">-->
     <!--        <item>@string/array_pref_powerSaveMode_off</item>-->
     <!--        <item>@string/array_pref_powerSaveMode_5</item>-->
     <!--        <item>@string/array_pref_powerSaveMode_15</item>-->
     <!--        <item>@string/array_pref_powerSaveMode_useSystem</item>-->
     <!--    </string-array>-->
-    <!--    <string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">-->
+    <!--    <string-array name="powerSaveModeValues">-->
     <!--        <item>0</item>-->
     <!--        <item>1</item>-->
     <!--        <item>2</item>-->
@@ -927,7 +927,7 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="notificationBackgroundColorArray" tools:ignore="InconsistentArrays">
+    <string-array name="notificationBackgroundColorArray">
         <item>@string/phone_profiles_pref_notificationBackgroundColor_android</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_dark</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_black</item>-
@@ -935,7 +935,7 @@
         <!--        <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>-->
         <item>@string/phone_profiles_pref_notificationBackgroundColor_custom</item>
     </string-array>
-    <string-array name="notificationBackgroundColorValues" tools:ignore="InconsistentArrays">
+    <string-array name="notificationBackgroundColorValues">
         <item>0</item>
         <item>1</item>
         <item>3</item>
@@ -1172,14 +1172,14 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-    <string-array name="locationModeArray" tools:ignore="InconsistentArrays">
+    <string-array name="locationModeArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_locationModeArray_off</item>
         <item>@string/array_pref_locationModeArray_sensorsOnly</item>
         <item>@string/array_pref_locationModeArray_batterySaving</item>
         <item>@string/array_pref_locationModeArray_highAccuracy</item>
     </string-array>
-    <string-array name="locationModeValues" tools:ignore="InconsistentArrays">
+    <string-array name="locationModeValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>

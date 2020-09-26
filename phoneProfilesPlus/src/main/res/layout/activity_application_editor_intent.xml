@@ -102,8 +102,7 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_intent_name_hint"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"
-                    tools:ignore="UnusedAttribute"/>
+                    android:importantForAutofill="no"/>
 
                 <View
                     android:id="@+id/application_editor_intent_divider1"
@@ -160,8 +159,7 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_package_name_hint"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"
-                    tools:ignore="UnusedAttribute"/>
+                    android:importantForAutofill="no"/>
 
                 <TextView
                     android:id="@+id/application_editor_intent_textView4"
@@ -179,8 +177,7 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_class_name_hint"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"
-                    tools:ignore="UnusedAttribute"/>
+                    android:importantForAutofill="no"/>
 
                 <View
                     android:id="@+id/application_editor_intent_divider3"
@@ -218,8 +215,7 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_action_hint"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"
-                    tools:ignore="UnusedAttribute"/>
+                    android:importantForAutofill="no"/>
 
                 <View
                     android:id="@+id/application_editor_intent_divider4"
@@ -247,8 +243,7 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_data_hint"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"
-                    tools:ignore="UnusedAttribute"/>
+                    android:importantForAutofill="no"/>
 
                 <TextView
                     android:id="@+id/application_editor_intent_textView7"
@@ -267,8 +262,7 @@
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_mime_type_hint"
                     android:inputType="textNoSuggestions"
-                    android:importantForAutofill="no"
-                    tools:ignore="UnusedAttribute"/>
+                    android:importantForAutofill="no"/>
 
                 <View
                     android:id="@+id/application_editor_intent_divider5"
@@ -394,8 +388,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_key"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <EditText
                         android:id="@+id/application_editor_intent_extra_value_1"
                         android:layout_width="match_parent"
@@ -404,8 +397,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_value"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <LinearLayout
                         android:id="@+id/application_editor_intent_extra_1_liLa1"
                         android:layout_width="match_parent"
@@ -443,8 +435,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_key"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <EditText
                         android:id="@+id/application_editor_intent_extra_value_2"
                         android:layout_width="match_parent"
@@ -453,8 +444,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_value"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <LinearLayout
                         android:id="@+id/application_editor_intent_extra_2_liLa1"
                         android:layout_width="match_parent"
@@ -492,8 +482,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_key"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <EditText
                         android:id="@+id/application_editor_intent_extra_value_3"
                         android:layout_width="match_parent"
@@ -502,8 +491,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_value"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <LinearLayout
                         android:id="@+id/application_editor_intent_extra_3_liLa1"
                         android:layout_width="match_parent"
@@ -541,8 +529,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_key"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <EditText
                         android:id="@+id/application_editor_intent_extra_value_4"
                         android:layout_width="match_parent"
@@ -551,8 +538,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_value"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <LinearLayout
                         android:id="@+id/application_editor_intent_extra_4_liLa1"
                         android:layout_width="match_parent"
@@ -590,8 +576,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_key"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <EditText
                         android:id="@+id/application_editor_intent_extra_value_5"
                         android:layout_width="match_parent"
@@ -600,8 +585,7 @@
                         android:layout_marginEnd="15dp"
                         android:hint="@string/application_editor_intent_extra_value"
                         android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no"
-                        tools:ignore="UnusedAttribute"/>
+                        android:importantForAutofill="no"/>
                     <LinearLayout
                         android:id="@+id/application_editor_intent_extra_5_liLa1"
                         android:layout_width="match_parent"

@@ -26,7 +26,7 @@
         android:maxLength="6"
         android:inputType="textCapCharacters|textNoSuggestions"
         android:importantForAutofill="no"
-        tools:ignore="LabelFor,UnusedAttribute"/>
+        tools:ignore="LabelFor"/>
 
     <LinearLayout
         android:id="@+id/acch_channel_container"
