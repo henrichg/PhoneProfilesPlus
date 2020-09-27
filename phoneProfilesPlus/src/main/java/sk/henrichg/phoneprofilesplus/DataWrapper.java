@@ -1562,9 +1562,9 @@ public class DataWrapper {
             //final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
             //profile = filterProfileWithBatteryEvents(profile);
 
-        /*if (_profile != null)
-            PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+_profile._name);
-        else
+            /*if (_profile != null)
+                PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+_profile._name);
+            else
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");*/
 
             if (_profile != null)
@@ -1575,10 +1575,10 @@ public class DataWrapper {
             //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
             boolean fullyStarted = PPApplication.applicationFullyStarted;
             //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "fullyStarted=" + fullyStarted);
-            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "applicationPackageReplaced=" + applicationPackageReplaced);
-        }*/
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "fullyStarted=" + fullyStarted);
+                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "applicationPackageReplaced=" + applicationPackageReplaced);
+            }*/
             if ((!fullyStarted) /*|| applicationPackageReplaced*/) {
                 // do not activate profile during application start
                 //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
@@ -1589,28 +1589,28 @@ public class DataWrapper {
             }
             //PPApplication.logE("DataWrapper._activateProfile", "activate");
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("$$$ DataWrapper._activateProfile", "startupSource=" + startupSource);
-            PPApplication.logE("$$$ DataWrapper._activateProfile", "merged=" + merged);
-        }*/
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("$$$ DataWrapper._activateProfile", "startupSource=" + startupSource);
+                PPApplication.logE("$$$ DataWrapper._activateProfile", "merged=" + merged);
+            }*/
 
-//        if (PPApplication.logEnabled()) {
-//            if (PhoneProfilesService.getInstance() != null) {
-//                PPApplication.logE("### DataWrapper._activateProfile", "serviceHasFirstStart=" + PPApplication.serviceHasFirstStart);
-//                PPApplication.logE("### DataWrapper._activateProfile", "serviceRunning=" + PhoneProfilesService.getInstance().getServiceRunning());
-//            }
-//        }
+    //        if (PPApplication.logEnabled()) {
+    //            if (PhoneProfilesService.getInstance() != null) {
+    //                PPApplication.logE("### DataWrapper._activateProfile", "serviceHasFirstStart=" + PPApplication.serviceHasFirstStart);
+    //                PPApplication.logE("### DataWrapper._activateProfile", "serviceRunning=" + PhoneProfilesService.getInstance().getServiceRunning());
+    //            }
+    //        }
 
             //boolean interactive = _interactive;
             //final Activity activity = _activity;
 
             // get currently activated profile
             Profile activatedProfile = getActivatedProfile(false, false);
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile=" + activatedProfile);
-            if (activatedProfile != null)
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile._name=" + activatedProfile._name);
-        }*/
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile=" + activatedProfile);
+                if (activatedProfile != null)
+                    PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile._name=" + activatedProfile._name);
+            }*/
 
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) //&&
                 //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
@@ -1641,10 +1641,10 @@ public class DataWrapper {
             if (_profile != null) {
                 profileIcon = _profile._icon;
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
-                PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
-            }*/
+                /*if (PPApplication.logEnabled()) {
+                    PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
+                    PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
+                }*/
                 if ((_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                         (_profile._duration > 0)) {
                     profileDuration = _profile._duration;
@@ -1658,23 +1658,23 @@ public class DataWrapper {
                         //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
                 ) ||
                         (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
-                /*if (mappedProfile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)
-                    // manual profile activation
-                    PPApplication.logE("$$$ DataWrapper._activateProfile","activation of specific profile");
-                else
-                    // manual profile activation
-                    PPApplication.logE("$$$ DataWrapper._activateProfile","manual profile activation");*/
+                    /*if (mappedProfile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)
+                        // manual profile activation
+                        PPApplication.logE("$$$ DataWrapper._activateProfile","activation of specific profile");
+                    else
+                        // manual profile activation
+                        PPApplication.logE("$$$ DataWrapper._activateProfile","manual profile activation");*/
 
                     //// set profile duration alarm
 
                     // save before activated profile
                     if (activatedProfile != null) {
                         long profileId = activatedProfile._id;
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
-                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
-                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
-                    }*/
+                        /*if (PPApplication.logEnabled()) {
+                            PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
+                            PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
+                            PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
+                        }*/
                         Profile.setActivatedProfileForDuration(context, profileId);
                     } else
                         Profile.setActivatedProfileForDuration(context, 0);
