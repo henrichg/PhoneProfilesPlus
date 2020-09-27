@@ -221,12 +221,39 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                             eventName, null, null, 0, "");
 
                     if (event_id != 0) {
-                        Event event = dataWrapper.getEventById(event_id);
+                        final Event event = dataWrapper.getEventById(event_id);
                         if (event != null) {
                             //Log.e("ActionForExternalApplicationActivity.onStart", "event=" + event._name);
                             if (event.getStatus() == Event.ESTATUS_RUNNING) {
-                                event.pauseEvent(dataWrapper, true, false,
-                                        false, true, null, true, false, true);
+                                final DataWrapper _dataWrapper = dataWrapper;
+                                PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.11"*/);
+                                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                                        PowerManager.WakeLock wakeLock = null;
+                                        try {
+                                            if (powerManager != null) {
+                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_ENABLE_RUN_FOR_EVENT");
+                                                wakeLock.acquire(10 * 60 * 1000);
+                                            }
+
+//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.11");
+
+                                            event.pauseEvent(_dataWrapper, true, false,
+                                                    false, true, null, true, false, true);
+
+                                        } finally {
+                                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                                try {
+                                                    wakeLock.release();
+                                                } catch (Exception ignored) {
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
                             }
                         }
                         else

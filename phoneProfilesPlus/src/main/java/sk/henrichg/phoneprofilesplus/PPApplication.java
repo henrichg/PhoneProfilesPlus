@@ -323,6 +323,7 @@ public class PPApplication extends Application
     static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
+    static final RestartEventsMutex restartEventsMutex = new RestartEventsMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -668,9 +669,37 @@ public class EditorEventListFragment extends Fragment
                 if (!EventsPrefsFragment.isRedTextNotificationRequired(event, activityDataWrapper.context)) {
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
-                    // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
-                    event.pauseEvent(activityDataWrapper, false, false,
-                            false, true, null, false, false, true);
+
+                    final DataWrapper _dataWrapper = activityDataWrapper;
+                    PPApplication.startHandlerThread();
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_ENABLE_RUN_FOR_EVENT");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
+
+                                event.pauseEvent(_dataWrapper, false, false,
+                                        false, true, null, false, false, true);
+
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    });
+
                 }
                 else {
                     EditorProfilesActivity.showDialogAboutRedText(null, event, false, true, getActivity());
@@ -678,9 +707,37 @@ public class EditorEventListFragment extends Fragment
                 }
             } else {
                 // stop event
-                // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
-                event.stopEvent(activityDataWrapper, false, false,
-                        true, true, true); // activate return profile
+
+                final DataWrapper _dataWrapper = activityDataWrapper;
+                PPApplication.startHandlerThread();
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_ENABLE_RUN_FOR_EVENT");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+
+                            event.stopEvent(_dataWrapper, false, false,
+                                    true, true, true); // activate return profile
+
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    }
+                });
+
             }
 
             // redraw event list

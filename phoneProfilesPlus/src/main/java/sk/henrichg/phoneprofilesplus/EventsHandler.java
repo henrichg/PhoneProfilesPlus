@@ -747,7 +747,8 @@ class EventsHandler {
 //                            if (isRestart)
 //                                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
                         }
-                        if ((activatedProfileId == defaultProfileId) || (isRestart && (!manualRestart))) {
+                        if (((activatedProfileId == defaultProfileId) && (mergedProfilesCount > 0)) ||
+                                (isRestart && (!manualRestart))) {
                             // block interactive parameters when
                             // - activated profile is default profile
                             // - it is not manual restart of events
