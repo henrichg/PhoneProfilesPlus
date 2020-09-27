@@ -1539,7 +1539,7 @@ public class DataWrapper {
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
         PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "before synchronized");
-        synchronized (PPApplication.restartEventsMutex) {
+//        synchronized (PPApplication.restartEventsMutex) {
             PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "after synchronized");
 
             /*if (PPApplication.logEnabled()) {
@@ -1724,7 +1724,7 @@ public class DataWrapper {
                 //    showToastAfterActivation(profile);
             }
             //}
-        }
+//        }
     }
 
     void activateProfileFromMainThread(final Profile profile, final boolean merged, final int startupSource,
@@ -2111,7 +2111,7 @@ public class DataWrapper {
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
         PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "before synchronized");
-        synchronized (PPApplication.restartEventsMutex) {
+//        synchronized (PPApplication.restartEventsMutex) {
             PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "after synchronized");
 
 //        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "xxx");
@@ -2167,10 +2167,10 @@ public class DataWrapper {
                 Event.setForceRunEventRunning(context, false);
             }
 
-        /*if (!notClearActivatedProfile) {
-            DatabaseHandler.getInstance(context).deactivateProfile();
-            setProfileActive(null);
-        }*/
+            /*if (!notClearActivatedProfile) {
+                DatabaseHandler.getInstance(context).deactivateProfile();
+                setProfileActive(null);
+            }*/
 
             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (2)");
 
@@ -2188,7 +2188,7 @@ public class DataWrapper {
             }
 
             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DataWrapper._restartEvents (2)");
-        }
+//        }
     }
 
     private void restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
