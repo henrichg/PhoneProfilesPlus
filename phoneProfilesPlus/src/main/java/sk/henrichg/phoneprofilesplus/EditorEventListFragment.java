@@ -1124,13 +1124,13 @@ public class EditorEventListFragment extends Fragment
 
                  if ((getActivity() != null) && (!getActivity().isFinishing())) {
                     try {
-                        if (activatedProfileHeader.isVisibleToUser()) {
+                        //if (activatedProfileHeader.isVisibleToUser()) {
                             TextView redText = activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
                             if (redTextVisible)
                                 redText.setVisibility(View.VISIBLE);
                             else
                                 redText.setVisibility(GONE);
-                        }
+                        //}
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
