@@ -776,7 +776,6 @@ class EventsHandler {
  //                if (isRestart)
 //                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "active profile is activated manually");
 
-                //noinspection ConstantConditions
                 if (oldActivatedProfile._id > 0) {
                     // any profile activated, set back old
 

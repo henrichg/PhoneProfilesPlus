@@ -932,11 +932,13 @@ public class EditorProfileListFragment extends Fragment
                 super.onPostExecute(result);
                 if ((getActivity() != null) && (!getActivity().isFinishing())) {
                     try {
-                        TextView redText = activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
-                        if (redTextVisible)
-                            redText.setVisibility(View.VISIBLE);
-                        else
-                            redText.setVisibility(GONE);
+                        if (activatedProfileHeader.isVisibleToUser()) {
+                            TextView redText = activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
+                            if (redTextVisible)
+                                redText.setVisibility(View.VISIBLE);
+                            else
+                                redText.setVisibility(GONE);
+                        }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
