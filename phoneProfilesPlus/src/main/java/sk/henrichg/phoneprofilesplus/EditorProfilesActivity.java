@@ -3911,7 +3911,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
         if (Event.getGlobalEventsRunning())
         {
-            if (ApplicationPreferences.prefEventsBlocked) {
+            //if (ApplicationPreferences.prefEventsBlocked) {
+            if (Event.getEventsBlocked(getApplicationContext())) {
                 //if (whiteTheme)
                 //    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
                 //else

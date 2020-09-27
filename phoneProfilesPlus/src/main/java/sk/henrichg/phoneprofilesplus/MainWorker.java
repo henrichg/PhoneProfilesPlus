@@ -681,7 +681,7 @@ public class MainWorker extends Worker {
             PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is enabled, first start events");
 
             if (activateProfiles) {
-                if (!DataWrapper.getIsManualProfileActivation(false/*, appContext*/)) {
+                if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                     ////// unblock all events for first start
                     //     that may be blocked in previous application run
                     dataWrapper.pauseAllEvents(false, false);

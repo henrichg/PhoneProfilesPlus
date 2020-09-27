@@ -218,7 +218,7 @@ class EventsHandler {
                     //dataWrapper.invalidateDataWrapper();
 
 
-                    if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
+                    if (!DataWrapper.getIsManualProfileActivation(false, context)) {
                         // not manual profile activation
                         //PPApplication.logE("$$$ EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile="+PPApplication.prefLastActivatedProfile);
                         if (DatabaseHandler.getInstance(context).getCountEventsInTimeline() == 0) {
@@ -676,7 +676,7 @@ class EventsHandler {
             //if (ppService != null)
             //    fullyStarted = ppService.getApplicationFullyStarted();
 
-            if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
+            if (!DataWrapper.getIsManualProfileActivation(false, context)) {
 //                if (PPApplication.logEnabled()) {
 //                    if (isRestart) {
 //                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "active profile is NOT activated manually");
@@ -870,7 +870,7 @@ class EventsHandler {
                     doSleep = true;
                 }
             } else {
-                if (!DataWrapper.getIsManualProfileActivation(false/*, context.getApplicationContext()*/)) {
+                if (!DataWrapper.getIsManualProfileActivation(false, context)) {
                     // not manual profile activation
 //                    if (isRestart) {
 //                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile=" + PPApplication.prefLastActivatedProfile);

@@ -1363,7 +1363,8 @@ class Event {
             return;
         }
 
-        if (ApplicationPreferences.prefEventsBlocked)
+        //if (ApplicationPreferences.prefEventsBlocked)
+        if (getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
 //            if (PPApplication.logEnabled()) {
@@ -2044,7 +2045,8 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-        if (ApplicationPreferences.prefEventsBlocked)
+        //if (ApplicationPreferences.prefEventsBlocked)
+        if (getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
             //PPApplication.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
@@ -2286,7 +2288,8 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-        if (ApplicationPreferences.prefEventsBlocked)
+        //if (ApplicationPreferences.prefEventsBlocked)
+        if (getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
             //PPApplication.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
@@ -2896,12 +2899,13 @@ class Event {
         }
     }
 
-    static void getEventsBlocked(Context context)
+    static boolean getEventsBlocked(Context context)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            ApplicationPreferences.prefEventsBlocked = ApplicationPreferences.
-                    getSharedPreferences(context).getBoolean(PREF_EVENTS_BLOCKED, false);
+            //ApplicationPreferences.prefEventsBlocked = ApplicationPreferences.
+            //        getSharedPreferences(context).getBoolean(PREF_EVENTS_BLOCKED, false);
             //return prefEventsBlocked;
+            return ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_EVENTS_BLOCKED, false);
         }
     }
     static void setEventsBlocked(Context context, boolean eventsBlocked)
@@ -2910,7 +2914,7 @@ class Event {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
             editor.apply();
-            ApplicationPreferences.prefEventsBlocked = eventsBlocked;
+            //ApplicationPreferences.prefEventsBlocked = eventsBlocked;
         }
     }
 

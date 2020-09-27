@@ -1015,6 +1015,9 @@ public class DataWrapper {
     // pauses all events
     void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
     {
+        // blockEvents == true -> manual profile activation is set
+        Event.setEventsBlocked(context, blockEvents);
+
         getEventTimelineList(true);
 
         synchronized (eventList) {
@@ -1052,9 +1055,6 @@ public class DataWrapper {
                 }
             }
         }
-
-        // blockEvents == true -> manual profile activation is set
-        Event.setEventsBlocked(context, blockEvents);
     }
 
     private void pauseAllEventsForGlobalStopEvents() {
@@ -1257,7 +1257,7 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        if (!getIsManualProfileActivation(false/*, context*/)) {
+        if (!getIsManualProfileActivation(false, context)) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
         }
         else
@@ -2123,7 +2123,8 @@ public class DataWrapper {
                     PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0, "");
             }
 
-            if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
+            //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
+            if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (1)");
 //            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(1)");
 
@@ -2535,16 +2536,18 @@ public class DataWrapper {
     // returns true if:
     // 1. events are blocked = any profile is activated manually
     // 2. no any forceRun event is running
-    static boolean getIsManualProfileActivation(boolean afterDuration/*, Context context*/)
+    static boolean getIsManualProfileActivation(boolean afterDuration, Context context)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("DataWrapper.getIsManualProfileActivation", "ApplicationPreferences.prefEventsBlocked=" + ApplicationPreferences.prefEventsBlocked);
             PPApplication.logE("DataWrapper.getIsManualProfileActivation", "ApplicationPreferences.prefForceRunEventRunning=" + ApplicationPreferences.prefForceRunEventRunning);
         }*/
         if (afterDuration)
-            return ApplicationPreferences.prefEventsBlocked;
+            //return ApplicationPreferences.prefEventsBlocked;
+            return Event.getEventsBlocked(context);
         else {
-            if (!ApplicationPreferences.prefEventsBlocked)
+            //if (!ApplicationPreferences.prefEventsBlocked)
+            if (!Event.getEventsBlocked(context))
                 return false;
             else
                 return !ApplicationPreferences.prefForceRunEventRunning;
@@ -2562,7 +2565,8 @@ public class DataWrapper {
         String manualIndicators = "";
         if (addEventName)
         {
-            if (ApplicationPreferences.prefEventsBlocked) {
+            //if (ApplicationPreferences.prefEventsBlocked) {
+            if (Event.getEventsBlocked(dataWrapper.context)) {
                 if (ApplicationPreferences.prefForceRunEventRunning)
                     manualIndicators = "[»]";
                 else
@@ -2652,7 +2656,8 @@ public class DataWrapper {
                     Event event = dataWrapper.getEventById(event_id);
                     if (event != null)
                     {
-                        if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+                        //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+                        if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._forceRun))
                         {
                             //Profile profile;
                             //profile = dataWrapper.getActivatedProfile(false, false);
@@ -2671,7 +2676,8 @@ public class DataWrapper {
                 else
                 {
                     long profileId = ApplicationPreferences.applicationDefaultProfile;
-                    if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
                             (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                             (profileId == forProfile._id))
                     {
@@ -2719,7 +2725,8 @@ public class DataWrapper {
                 else
                 {
                     long profileId = ApplicationPreferences.applicationDefaultProfile;
-                    if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
                         (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                         (profileId == forProfile._id))
                     {

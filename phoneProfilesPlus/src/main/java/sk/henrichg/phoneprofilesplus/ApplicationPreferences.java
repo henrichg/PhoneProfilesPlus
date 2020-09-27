@@ -19,7 +19,7 @@ class ApplicationPreferences {
     static long prefActivatedProfileForDuration;
     static long prefActivatedProfileEndDurationTime;
     static boolean prefShowIgnoreBatteryOptimizationNotificationOnStart;
-    static boolean prefEventsBlocked;
+    //static boolean prefEventsBlocked;
     static boolean prefForceRunEventRunning;
     static String prefApplicationInForeground;
     static int prefEventCallEventType;

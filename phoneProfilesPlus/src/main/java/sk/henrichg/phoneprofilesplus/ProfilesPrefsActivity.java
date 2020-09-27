@@ -635,7 +635,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 PPApplication.logE("[BLOCK_ACTIONS] ProfilesPrefsActivity.savePreferences", "true");
                 PPApplication.setBlockProfileEventActions(true);
                 if (Event.getGlobalEventsRunning()) {
-                    if (!DataWrapper.getIsManualProfileActivation(false/*, getApplicationContext()*/)) {
+                    if (!DataWrapper.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
                         //PPApplication.logE("*********** restartEvents", "from ProfilePrefsActivity.savePreferences()");
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);

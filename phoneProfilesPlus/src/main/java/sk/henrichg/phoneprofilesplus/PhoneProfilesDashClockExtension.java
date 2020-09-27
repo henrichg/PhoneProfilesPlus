@@ -106,18 +106,20 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
 
                     String status = "";
-                    if (ApplicationPreferences.prefEventsBlocked)
+                    //if (ApplicationPreferences.prefEventsBlocked) {
+                    if (Event.getEventsBlocked(_dataWrapper.context)) {
                         if (ApplicationPreferences.prefForceRunEventRunning) {
-                        /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                            status = "\u23E9";
-                        else*/
+                            /*if (android.os.Build.VERSION.SDK_INT >= 16)
+                                status = "\u23E9";
+                            else*/
                             status = "[»]";
                         } else {
-                        /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                            status = "\uD83D\uDC46";
-                        else */
+                            /*if (android.os.Build.VERSION.SDK_INT >= 16)
+                                status = "\uD83D\uDC46";
+                            else */
                             status = "[M]";
                         }
+                    }
 
                     // Publish the extension data update.
                     publishUpdate(new ExtensionData()

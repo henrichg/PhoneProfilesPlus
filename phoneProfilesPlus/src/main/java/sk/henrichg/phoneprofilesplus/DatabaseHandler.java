@@ -7892,7 +7892,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             if (cursor2.moveToFirst()) {
                                 String _eventName = cursor2.getString(0);
                                 boolean _forceRun = cursor2.getInt(1) == 1;
-                                if ((!ApplicationPreferences.prefEventsBlocked) || _forceRun)
+                                //if ((!ApplicationPreferences.prefEventsBlocked) || _forceRun)
+                                //    eventName = _eventName;
+                                if ((!Event.getEventsBlocked(context)) || _forceRun)
                                     eventName = _eventName;
                             }
                         }
