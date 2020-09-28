@@ -2550,7 +2550,7 @@ public class DataWrapper {
             if (!Event.getEventsBlocked(context))
                 return false;
             else
-                return !ApplicationPreferences.prefForceRunEventRunning;
+                return !Event.getForceRunEventRunning(context);
         }
     }
 
@@ -2567,7 +2567,7 @@ public class DataWrapper {
         {
             //if (ApplicationPreferences.prefEventsBlocked) {
             if (Event.getEventsBlocked(dataWrapper.context)) {
-                if (ApplicationPreferences.prefForceRunEventRunning)
+                if (Event.getForceRunEventRunning(dataWrapper.context))
                     manualIndicators = "[»]";
                 else
                     manualIndicators = "[M]";

@@ -2918,12 +2918,13 @@ class Event {
         }
     }
 
-    static void getForceRunEventRunning(Context context)
+    static boolean getForceRunEventRunning(Context context)
     {
         synchronized (PPApplication.eventsRunMutex) {
-            ApplicationPreferences.prefForceRunEventRunning = ApplicationPreferences.
-                    getSharedPreferences(context).getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
+            //ApplicationPreferences.prefForceRunEventRunning = ApplicationPreferences.
+            //        getSharedPreferences(context).getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
             //return prefForceRunEventRunning;
+            return ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
         }
     }
     static void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
@@ -2932,7 +2933,7 @@ class Event {
             Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
             editor.apply();
-            ApplicationPreferences.prefForceRunEventRunning = forceRunEventRunning;
+            //ApplicationPreferences.prefForceRunEventRunning = forceRunEventRunning;
         }
     }
 
