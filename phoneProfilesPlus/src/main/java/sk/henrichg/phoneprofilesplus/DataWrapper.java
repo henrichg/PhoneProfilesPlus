@@ -1544,9 +1544,9 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
-        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "before synchronized");
+//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "before synchronized");
 //        synchronized (PPApplication.restartEventsMutex) {
-            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "after synchronized");
+//            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "after synchronized");
 
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile=" + _profile);
@@ -1826,7 +1826,7 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
                                             Activity activity)
     {
-        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.activateProfileWithAlert", "false");
+//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.activateProfileWithAlert", "false");
         PPApplication.setBlockProfileEventActions(false);
 
         if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert ||
@@ -2124,9 +2124,9 @@ public class DataWrapper {
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
-        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "before synchronized");
+//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "before synchronized");
 //        synchronized (PPApplication.restartEventsMutex) {
-            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "after synchronized");
+//            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "after synchronized");
 
 //        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "xxx");
 
@@ -2261,7 +2261,7 @@ public class DataWrapper {
     }
 
     private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
-        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEventsWithRescan","xxx");
+//        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEventsWithRescan","xxx");
 
         if (alsoRescan) {
             // remove all event delay alarms
@@ -2383,7 +2383,7 @@ public class DataWrapper {
 
         //PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
 
-        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.restartEventsWithAlert", "false");
+//        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper.restartEventsWithAlert", "false");
         PPApplication.setBlockProfileEventActions(false);
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorProfilesActivity))

@@ -525,7 +525,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
             // restart Events
             //PPApplication.logE("$$$ restartEvents","from EventsPrefsActivity.savePreferences");
-            PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.savePreferences", "true");
+//            PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.savePreferences", "true");
             PPApplication.setBlockProfileEventActions(true);
             //dataWrapper.restartEvents(false, true, true, true, true);
             //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.savePreferences()");
@@ -575,7 +575,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                                 }
 
                                 //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
+//                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
                                 PPApplication.setBlockProfileEventActions(true);
                             }
                             // restart Events
@@ -620,7 +620,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                         // restart Events
                         //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-                        PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (2)", "true");
+//                        PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (2)", "true");
                         PPApplication.setBlockProfileEventActions(true);
                         //dataWrapper.restartEvents(false, true, true, true, false);
                         //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 2");

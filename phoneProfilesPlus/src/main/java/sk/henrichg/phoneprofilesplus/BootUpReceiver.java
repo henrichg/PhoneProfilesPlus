@@ -38,7 +38,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-            PPApplication.logE("[BLOCK_ACTIONS] BootUpReceiver.onReceive", "true");
+//            PPApplication.logE("[BLOCK_ACTIONS] BootUpReceiver.onReceive", "true");
             PPApplication.setBlockProfileEventActions(true);
 
             if (PPApplication.logEnabled()) {

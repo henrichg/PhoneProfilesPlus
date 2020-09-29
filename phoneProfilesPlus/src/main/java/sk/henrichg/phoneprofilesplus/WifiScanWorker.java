@@ -52,12 +52,12 @@ public class WifiScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[WORKER CALL] WifiScanWorker.doWork", "xxxx");
+//            PPApplication.logE("[WORKER CALL] WifiScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("[WORKER CALL] WifiScanWorker.doWork", "---------------------------------------- START");
             Set<String> tags = getTags();
             for (String tag : tags)
-                PPApplication.logE("[WORKER CALL] WifiScanWorker.doWork", "tag=" + tag);
+//                PPApplication.logE("[WORKER CALL] WifiScanWorker.doWork", "tag=" + tag);
 
             //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
 
@@ -238,7 +238,7 @@ public class WifiScanWorker extends Worker {
     }
 
     static void scheduleWork(final Context context, final boolean shortInterval) {
-        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
+//        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.scheduleWork", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -275,7 +275,7 @@ public class WifiScanWorker extends Worker {
                 PPApplication.cancelWork(WORK_TAG);
                 PPApplication.cancelWork(WORK_TAG_SHORT);
 
-                PPApplication.logE("[MAREK_TEST] WifiScanWorker._cancelWork", "CANCELED");
+//                PPApplication.logE("[MAREK_TEST] WifiScanWorker._cancelWork", "CANCELED");
 
             } catch (Exception e) {
                 //Log.e("WifiScanWorker._cancelWork", Log.getStackTraceString(e));
@@ -336,7 +336,7 @@ public class WifiScanWorker extends Worker {
     }
 
     static void cancelWork(final Context context, final boolean useHandler/*, final Handler _handler*/) {
-        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.cancelWork", "xxx");
+//        PPApplication.logE("[SHEDULE_WORK] WifiScanWorker.cancelWork", "xxx");
 
         if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();

@@ -102,7 +102,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -190,23 +190,23 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                +"|[WORKER CALL]"
-                                                +"|[HANDLER CALL]"
-                                                +"|[BROADCAST CALL]"
+                                                //+"|[WORKER CALL]"
+                                                //+"|[HANDLER CALL]"
+                                                //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
-                                                +"|[LISTENER CALL]"
+                                                //+"|[LISTENER CALL]"
                                                 //+"|[EVENTS_HANDLER]"
 
                                                 //+"|[TEST BATTERY]"
 
                                                 //+"|[APP START]"
-                                                +"|[SHEDULE_WORK]"
+                                                //+"|[SHEDULE_WORK]"
 
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
-                                                +"|[MAREK_TEST]"
-                                                +"|[BLOCK_ACTIONS]"
+                                                //+"|[MAREK_TEST]"
+                                                //+"|[BLOCK_ACTIONS]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
                                                 ;

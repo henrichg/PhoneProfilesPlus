@@ -2929,11 +2929,11 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelWifiWorker(final Context context, boolean forSchedule) {
-        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.cancelWifiWorker", "forSchedule="+forSchedule);
+//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.cancelWifiWorker", "forSchedule="+forSchedule);
         if ((!forSchedule) ||
                 (WifiScanWorker.isWorkScheduled(false) || WifiScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiWorker->CANCEL", "PhoneProfilesService_cancelWifiWorker");
-            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.cancelWifiWorker", "CANCEL");
+//            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.cancelWifiWorker", "CANCEL");
             WifiScanWorker.cancelWork(context, true/*, null*/);
         }
         //else
@@ -2955,7 +2955,7 @@ public class PhoneProfilesService extends Service
             return;
 
         //if (schedule) {
-        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE");
+//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE");
         if (ApplicationPreferences.applicationEventWifiEnableScanning) {
             boolean eventAllowed = false;
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
@@ -2974,15 +2974,15 @@ public class PhoneProfilesService extends Service
                 //} else {
                 //    if (rescan) {
                         WifiScanWorker.scheduleWork(appContext, true);
-                        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 2");
+//                        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 2");
                 //    }
                 //}
             } else {
-                PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (1)");
+//                PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (1)");
                 cancelWifiWorker(appContext, true);
             }
         } else {
-            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (2)");
+//            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (2)");
             cancelWifiWorker(appContext, true);
         }
         //}
@@ -4439,7 +4439,7 @@ public class PhoneProfilesService extends Service
 
         if (oldVersionCode < actualVersionCode) {
             // block any profile and event actions for package replaced
-            PPApplication.logE("[BLOCK_ACTIONS] PhoneProfilesService.doForPackageReplaced", "true");
+//            PPApplication.logE("[BLOCK_ACTIONS] PhoneProfilesService.doForPackageReplaced", "true");
             PPApplication.setBlockProfileEventActions(true);
 
             PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
@@ -4619,7 +4619,7 @@ public class PhoneProfilesService extends Service
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
-                            PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
+//                            PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                                 if (PPApplication.geofencesScanner != null)
                                     PPApplication.geofencesScanner.updateTransitionsByLastKnownLocation();
@@ -4773,7 +4773,7 @@ public class PhoneProfilesService extends Service
                                     AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
-                                    PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
+//                                    PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
                                     //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                     //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);
@@ -4824,7 +4824,7 @@ public class PhoneProfilesService extends Service
                                     AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
-                                    PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
+//                                    PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
 
                                     final boolean fromBatteryChange = intent.getBooleanExtra(EXTRA_FROM_BATTERY_CHANGE, false);
                                     //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "fromBatteryChange="+fromBatteryChange);
@@ -4844,11 +4844,11 @@ public class PhoneProfilesService extends Service
                                     // wifi
                                     if (ApplicationPreferences.applicationEventWifiEnableScanning) {
                                         boolean canRestart = (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
-                                        PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn);
-                                        PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
-                                        PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "wifi - canRestart="+canRestart);
+//                                        PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn);
+//                                        PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
+//                                        PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "wifi - canRestart="+canRestart);
                                         if ((!fromBatteryChange) || canRestart) {
-                                            PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "wifi - restart");
+//                                            PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "wifi - restart");
                                             //registerWifiConnectionBroadcastReceiver(true, dataWrapper, false);
                                             //registerWifiStateChangedBroadcastReceiver(true, true, false);
                                             registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, false);

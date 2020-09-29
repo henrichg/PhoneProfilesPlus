@@ -2908,7 +2908,8 @@ public class Profile {
 
         profile._porder = 0;
         profile._duration = 0;
-        profile._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
+        //profile._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
+        profile._afterDurationDo = preferences.getInt(PREF_PROFILE_AFTER_DURATION_DO, AFTER_DURATION_DO_RESTART_EVENTS);
         profile._afterDurationProfile = PROFILE_NO_ACTIVATE;
         profile._durationNotificationSound = "";
         profile._durationNotificationVibrate = false;
@@ -2988,6 +2989,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_NAME, profile._name);
         editor.putString(PREF_PROFILE_ICON, profile._icon);
         editor.putBoolean(PREF_PROFILE_CHECKED, profile._checked);
+        editor.putInt(PREF_PROFILE_AFTER_DURATION_DO, profile._afterDurationDo);
         editor.putString(PREF_PROFILE_VOLUME_RINGER_MODE, String.valueOf(profile._volumeRingerMode));
         editor.putString(PREF_PROFILE_VOLUME_ZEN_MODE, String.valueOf(profile._volumeZenMode));
         editor.putString(PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
