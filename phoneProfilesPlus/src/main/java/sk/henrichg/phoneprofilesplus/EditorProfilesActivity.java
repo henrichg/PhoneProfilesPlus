@@ -913,20 +913,15 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(DebugVersion.enabled);
         }
 
-        /*
+        boolean activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT_TREE, getApplicationContext());
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
-            //File sd = Environment.getExternalStorageDirectory();
-            File sd = getExternalFilesDir(null);
-            //File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
-            File exportedDB = new File(sd, DatabaseHandler.EXPORT_DBFILENAME);
-            boolean dbExists = exportedDB.exists();
-            //File exportedAppPreferences = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-            File exportedAppPreferences = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-            boolean appPreferencesExists = exportedAppPreferences.exists();
-            menuItem.setEnabled(dbExists && appPreferencesExists);
+            menuItem.setVisible(activityExists);
         }
-        */
+        menuItem = menu.findItem(R.id.menu_export);
+        if (menuItem != null) {
+            menuItem.setVisible(activityExists);
+        }
 
         menuItem = menu.findItem(R.id.menu_import_from_pp);
         if (menuItem != null) {

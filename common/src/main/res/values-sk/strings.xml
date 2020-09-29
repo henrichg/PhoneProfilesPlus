@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Usporiadať zoznam</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Podľa názvu bunky</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Podľa času pripojenia</string>
-    <string name="menu_export_and_email">Exportovať a poslať nastavenia e-mailom</string>
-    <string name="menu_export_and_email_to_author">Exportovať a poslať nastavenia e-mailom autorovi</string>
+    <string name="menu_export_and_email">Poslať nastavenia e-mailom</string>
+    <string name="menu_export_and_email_to_author">Poslať nastavenia e-mailom autorovi</string>
     <string name="menu_email_debug_logs_to_author">Poslať e-mailom ladiace súbory autorovi</string>
     <string name="menu_support">Podpora</string>
     <string name="email_debug_log_files_subject">Ladiace súbory</string>

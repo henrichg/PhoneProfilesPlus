@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Sortuj listę</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Wg nazwy stacji</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Wg czasu połączenia</string>
-    <string name="menu_export_and_email">Eksportuj ustawienia i wyślij e-mailem</string>
-    <string name="menu_export_and_email_to_author">Eksportuj ustawienia i wyślij e-mailem do autora</string>
+    <string name="menu_export_and_email">E-mail settings</string>
+    <string name="menu_export_and_email_to_author">E-mail settings to author</string>
     <string name="menu_email_debug_logs_to_author">Wyślij pliki debugowania do autora</string>
     <string name="menu_support">Wsparcie</string>
     <string name="email_debug_log_files_subject">Pliki z logami</string>
