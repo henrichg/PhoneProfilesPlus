@@ -892,13 +892,16 @@ public class EditorProfilesActivity extends AppCompatActivity
             String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
             if (!appTheme.equals("night_mode")) {
                 menuItem.setVisible(true);
+                menuItem.setEnabled(true);
                 if (appTheme.equals("dark"))
                     menuItem.setTitle(R.string.menu_dark_theme_off);
                 else
                     menuItem.setTitle(R.string.menu_dark_theme_on);
             }
-            else
+            else {
                 menuItem.setVisible(false);
+                menuItem.setEnabled(false);
+            }
         }
 
         menuItem = menu.findItem(R.id.menu_email_debug_logs_to_author);
@@ -906,21 +909,26 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             //noinspection ConstantConditions
             menuItem.setVisible(PPApplication.logIntoFile || PPApplication.crashIntoFile);
+            //noinspection ConstantConditions
+            menuItem.setEnabled(PPApplication.logIntoFile || PPApplication.crashIntoFile);
         }
 
         menuItem = menu.findItem(R.id.menu_debug);
         if (menuItem != null) {
             menuItem.setVisible(DebugVersion.enabled);
+            menuItem.setEnabled(DebugVersion.enabled);
         }
 
         boolean activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT_TREE, getApplicationContext());
         menuItem = menu.findItem(R.id.menu_import);
         if (menuItem != null) {
             menuItem.setVisible(activityExists);
+            menuItem.setEnabled(activityExists);
         }
         menuItem = menu.findItem(R.id.menu_export);
         if (menuItem != null) {
             menuItem.setVisible(activityExists);
+            menuItem.setEnabled(activityExists);
         }
 
         menuItem = menu.findItem(R.id.menu_import_from_pp);
@@ -941,8 +949,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                 }*/
                 menuItem.setVisible((packageVersionCode >= 3601) /*&& isRunnning*/);
+                menuItem.setEnabled((packageVersionCode >= 3601) /*&& isRunnning*/);
             } catch (Exception e) {
                 menuItem.setVisible(false);
+                menuItem.setEnabled(false);
             }
         }
 
