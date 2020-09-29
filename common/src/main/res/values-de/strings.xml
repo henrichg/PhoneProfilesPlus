@@ -1236,8 +1236,8 @@
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Nach Zellenname</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Nach Verbindungszeit</string>
     <string name="menu_export_and_email">Export- und E-Mail-Einstellungen</string>
-    <string name="menu_export_and_email_to_author">Export- und E-Mail-Einstellungen an Autor senden</string>
-    <string name="menu_email_debug_logs_to_author">Debug Log-Dateien an Autor per E-Mail senden</string>
+    <string name="menu_export_and_email_to_author">Einstellungen exportieren und per E-Mail an Autor senden</string>
+    <string name="menu_email_debug_logs_to_author">Debug Log-Dateien per E-Mail an Autor senden</string>
     <string name="menu_support">Support</string>
     <string name="email_debug_log_files_subject">Debug Log-Dateien</string>
     <string name="toast_debug_log_files_not_exists">Es existieren keine Debug Log-Dateien</string>
@@ -1457,11 +1457,11 @@
     <string name="export_pp_data_dialog_application_preferences_chb">Anwendungseinstellungen importieren</string>
     <string name="export_pp_data_dialog_start_pp">Wenn PhoneProfiles nicht ausgeführt wird, starten Sie es bitte.</string>
     <string name="export_data_email_subject">Exportierte Einstellungen</string>
-    <string name="backup_settings_alert_title">Datensicherungs-Einstellungen</string>
+    <string name="backup_settings_alert_title">Einstellungen sichern</string>
     <string name="dialog_backup_settings_alert_text">Einstellungen in Ordner kopieren?</string>
     <string name="dialog_backup_settings_alert_checkBox">Unterordner „PhoneProfilesPlus” erstellen</string>
     <string name="dialog_backup_settings_rewrite_files_info">Warnhinweis: Vorhandene Sicherungsdateien werden überschrieben.</string>
-    <string name="backup_settings_ok_backed_up">Einstellungen werden gesichert</string>
+    <string name="backup_settings_ok_backed_up">Einstellungen gesichert</string>
     <string name="backup_settings_error_on_backup">Fehler beim Sichern der Einstellungen</string>
     <string name="restore_settings_alert_title">Einstellungen wiederherstellen</string>
     <string name="restore_settings_error_on_backup">Fehler beim Kopieren der Dateien zur Wiederherstellung</string>
@@ -1487,7 +1487,7 @@
     <string name="profile_activation_activation_error_close_all_applications">Fehler bei der Aktivierung des Profils. Schließen aller Anwendungen fehlgeschlagen.</string>
     <string name="profile_preferences_deviceWiFiAPInfo30_summary">Nicht unterstützt für Android 11+</string>
     <string name="google_play_not_more_supported_title">Google Play-Unterstützung beendet</string>
-    <string name="google_play_not_more_supported_info">Dear user, after 2. november 2020, PhoneProfilesPlus will never be deployed into Google Play.\n\nBut support continues. New versions will be deployed in PhoneProfilesPlus GitHub site, in Releases section, similar to PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus will, each month, generate notification and when you click it, it opens internet browser with GitHub Releases site and you can download new version.</string>
+    <string name="google_play_not_more_supported_info">Lieber Benutzer, nach dem 2. November 2020 werden neue Versionen von PhoneProfilesPlus nicht mehr in Google Play bereitgestellt.\n\nDie Anwendung wird jedoch weiterentwickelt. Neue Versionen werden auf der PhoneProfilesPlus GitHub-Seite im Abschnitt Releases bereitgestellt, ähnlich wie PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus wird jeden Monat eine Benachrichtigung zeigen, die, wenn man sie klickt, die GitHub Releases Seite im Internet Browser anzeigt, wo Sie eine neue Version herunterladen können.</string>
     <string name="menu_check_github_releases">App-Veröffentlichungen prüfen</string>
     <string name="check_github_releases_actual_version">Aktuelle Version:</string>
     <string name="check_github_releases_go_to_github">Zu den GitHub-Veröffentlichungen</string>
@@ -1498,11 +1498,11 @@
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Aus dem Google Play Store installiert.</string>
     <string name="about_application_package_type_github">Installiert von GitHub oder einer anderen Quelle.</string>
-    <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
-    <string name="altype_actionFromExternalApp_restartEvents">action from external app. - restart events</string>
-    <string name="altype_actionFromExternalApp_enableRunForEvent">action from external app. - enable event run</string>
-    <string name="altype_actionFromExternalApp_pauseEvent">action from external app. - pause event</string>
-    <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
+    <string name="altype_actionFromExternalApp_profileActivation">Aktion von externer App - Profilaktivierung</string>
+    <string name="altype_actionFromExternalApp_restartEvents">Aktion von externer App - Ereignisse neu starten</string>
+    <string name="altype_actionFromExternalApp_enableRunForEvent">Aktion von externer App - Ereignis-Ausführung aktivieren</string>
+    <string name="altype_actionFromExternalApp_pauseEvent">Aktion von externer App - Ereignis pausieren</string>
+    <string name="altype_actionFromExternalApp_stopEvent">Aktion von externer App - Ereignis stoppen</string>
     <string name="profile_preferences_volumeMuteSound_summary">Dadurch wird der akustische Weckalarm nicht deaktiviert</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Auch der in diesem Profil konfiguriert Audiomodus wird ignoriert.</string>
     <!-- **************************************************************************************** -->
