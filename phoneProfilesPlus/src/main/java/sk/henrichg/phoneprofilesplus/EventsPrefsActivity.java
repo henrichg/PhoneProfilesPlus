@@ -563,17 +563,22 @@ public class EventsPrefsActivity extends AppCompatActivity {
 //                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
                         if (old_event_status != Event.ESTATUS_STOP) {
-                            // pause event - must be called, because status is ESTATUS_STOP
-                            event.pauseEvent(dataWrapper, true, false,
-                                    false, false, null, false, false, true);
-                            // stop event
-                            event.stopEvent(dataWrapper, true, false,
-                                    true, true, true);
+                            synchronized (PPApplication.eventsHandlerMutex) {
 
+                                synchronized (PPApplication.eventsHandlerMutex) {
+                                    // pause event - must be called, because status is ESTATUS_STOP
+                                    event.pauseEvent(dataWrapper, true, false,
+                                            false, false, null, false, false, true);
+                                    // stop event
+                                    event.stopEvent(dataWrapper, true, false,
+                                            true, true, true);
+                                }
+
+                                //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
+                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
+                                PPApplication.setBlockProfileEventActions(true);
+                            }
                             // restart Events
-                            //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-                            PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
-                            PPApplication.setBlockProfileEventActions(true);
                             //dataWrapper.restartEvents(false, true, true, true, false);
                             //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 1");
                             dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);

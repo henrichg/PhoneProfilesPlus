@@ -686,8 +686,10 @@ public class EditorEventListFragment extends Fragment
 
 //                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
-                                event.pauseEvent(_dataWrapper, false, false,
-                                        false, true, null, false, false, true);
+                                synchronized (PPApplication.eventsHandlerMutex) {
+                                    event.pauseEvent(_dataWrapper, false, false,
+                                            false, true, null, false, false, true);
+                                }
 
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -724,8 +726,10 @@ public class EditorEventListFragment extends Fragment
 
 //                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
-                            event.stopEvent(_dataWrapper, false, false,
-                                    true, true, true); // activate return profile
+                            synchronized (PPApplication.eventsHandlerMutex) {
+                                event.stopEvent(_dataWrapper, false, false,
+                                        true, true, true); // activate return profile
+                            }
 
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {

@@ -955,22 +955,24 @@ public class DataWrapper {
     // stops all events associated with profile
     private void stopEventsForProfile(Profile profile, boolean alsoUnlink/*, boolean saveEventStatus*/)
     {
-        getEventTimelineList(true);
+        synchronized (PPApplication.eventsHandlerMutex) {
+            getEventTimelineList(true);
 
-        synchronized (eventList) {
-            fillEventList();
-            //noinspection ForLoopReplaceableByForEach
-            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
-                Event event = it.next();
-                //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
-                //	(event._fkProfileStart == profile._id))
-                if (event._fkProfileStart == profile._id)
-                    event.stopEvent(this, false, true, true/*saveEventStatus*/, false, true);
+            synchronized (eventList) {
+                fillEventList();
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    //if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
+                    //	(event._fkProfileStart == profile._id))
+                    if (event._fkProfileStart == profile._id)
+                        event.stopEvent(this, false, true, true/*saveEventStatus*/, false, true);
+                }
+                if (alsoUnlink) {
+                    unlinkEventsFromProfile(profile);
+                    DatabaseHandler.getInstance(context).unlinkEventsFromProfile(profile);
+                }
             }
-        }
-        if (alsoUnlink) {
-            unlinkEventsFromProfile(profile);
-            DatabaseHandler.getInstance(context).unlinkEventsFromProfile(profile);
         }
         //PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         //restartEvents(false, true, true, true, true);
@@ -1076,7 +1078,9 @@ public class DataWrapper {
 
 //                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
 
-                    dataWrapper.pauseAllEvents(true, false);
+                    synchronized (PPApplication.eventsHandlerMutex) {
+                        dataWrapper.pauseAllEvents(true, false);
+                    }
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.pauseAllEventsForGlobalStopEvents");
                 } finally {
@@ -1093,20 +1097,22 @@ public class DataWrapper {
     // stops all events
     void stopAllEvents(boolean saveEventStatus, boolean alsoDelete, boolean log, boolean updateGUI)
     {
-        getEventTimelineList(true);
-        synchronized (eventList) {
-            fillEventList();
-            //noinspection ForLoopReplaceableByForEach
-            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
-                Event event = it.next();
-                //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-                event.stopEvent(this, false/*activateReturnProfile*/,
-                        true, saveEventStatus, log, updateGUI);
+        synchronized (PPApplication.eventsHandlerMutex) {
+            getEventTimelineList(true);
+            synchronized (eventList) {
+                fillEventList();
+                //noinspection ForLoopReplaceableByForEach
+                for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
+                    event.stopEvent(this, false/*activateReturnProfile*/,
+                            true, saveEventStatus, log, updateGUI);
+                }
             }
-        }
-        if (alsoDelete) {
-            unlinkAllEvents();
-            DatabaseHandler.getInstance(context).deleteAllEvents();
+            if (alsoDelete) {
+                unlinkAllEvents();
+                DatabaseHandler.getInstance(context).deleteAllEvents();
+            }
         }
     }
 
@@ -1748,16 +1754,20 @@ public class DataWrapper {
 
 //                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
-                    boolean granted = true;
-                    if (testGrant)
-                        granted = !PhoneProfilesService.displayPreferencesErrorNotification(profile, null, context);
-                    if (granted) {
-                        //PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromMainThread", "called is DataWrapper._activateProfile()");
-                        dataWrapper._activateProfile(profile, merged, startupSource, false);
-                        if (interactive) {
-                            DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
-                            dataWrapper.setDynamicLauncherShortcuts();
+                    synchronized (PPApplication.eventsHandlerMutex) {
+
+                        boolean granted = true;
+                        if (testGrant)
+                            granted = !PhoneProfilesService.displayPreferencesErrorNotification(profile, null, context);
+                        if (granted) {
+                            //PPApplication.logE("&&&&&&& DataWrapper.activateProfileFromMainThread", "called is DataWrapper._activateProfile()");
+                            dataWrapper._activateProfile(profile, merged, startupSource, false);
+                            if (interactive) {
+                                DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
+                                dataWrapper.setDynamicLauncherShortcuts();
+                            }
                         }
+
                     }
 
                     //PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "END run - from=DataWrapper.activateProfileFromMainThread");
@@ -2085,25 +2095,29 @@ public class DataWrapper {
 
     void activateProfileAfterDuration(long profile_id, int startupSource)
     {
-        Profile profile = getProfileById(profile_id, false, false, false);
-        //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "profile="+profile);
-        if (profile == null) {
-            //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
-            Profile.setActivatedProfileForDuration(context, 0);
-            //PPApplication.showProfileNotification(/*context*/false, false);
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
-            PPApplication.updateGUI(1/*context, true, false*/);
-            return;
-        }
-        //if (Permissions.grantProfilePermissions(context, profile, false, true,
-        //        /*false, monochrome, monochromeValue,*/
-        //        startupSource, true,true, false)) {
-        if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, context)) {
-            // activateProfileAfterDuration is already called from handlerThread
-            //PPApplication.logE("&&&&&&& DataWrapper.activateProfileAfterDuration", "called is DataWrapper._activateProfile()");
-            _activateProfile(profile, false, startupSource, false);
+        synchronized (PPApplication.eventsHandlerMutex) {
+
+            Profile profile = getProfileById(profile_id, false, false, false);
+            //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "profile="+profile);
+            if (profile == null) {
+                //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
+                ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
+                Profile.setActivatedProfileForDuration(context, 0);
+                //PPApplication.showProfileNotification(/*context*/false, false);
+                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
+                //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
+                PPApplication.updateGUI(1/*context, true, false*/);
+                return;
+            }
+            //if (Permissions.grantProfilePermissions(context, profile, false, true,
+            //        /*false, monochrome, monochromeValue,*/
+            //        startupSource, true,true, false)) {
+            if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, context)) {
+                // activateProfileAfterDuration is already called from handlerThread
+                //PPApplication.logE("&&&&&&& DataWrapper.activateProfileAfterDuration", "called is DataWrapper._activateProfile()");
+                _activateProfile(profile, false, startupSource, false);
+            }
+
         }
     }
 

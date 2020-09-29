@@ -684,7 +684,9 @@ public class MainWorker extends Worker {
                 if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
                     ////// unblock all events for first start
                     //     that may be blocked in previous application run
-                    dataWrapper.pauseAllEvents(false, false);
+                    synchronized (PPApplication.eventsHandlerMutex) {
+                        dataWrapper.pauseAllEvents(false, false);
+                    }
                 }
             }
 
@@ -722,7 +724,9 @@ public class MainWorker extends Worker {
             if (activateProfiles) {
                 ////// unblock all events for first start
                 //     that may be blocked in previous application run
-                dataWrapper.pauseAllEvents(true, false);
+                synchronized (PPApplication.eventsHandlerMutex) {
+                    dataWrapper.pauseAllEvents(true, false);
+                }
             }
 
             dataWrapper.activateProfileOnBoot();
