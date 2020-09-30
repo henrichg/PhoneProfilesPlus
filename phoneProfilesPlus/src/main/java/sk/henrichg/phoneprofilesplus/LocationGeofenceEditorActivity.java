@@ -811,6 +811,32 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         public void onReceive(Context context, Intent intent)
         {
             Log.e("CheckOnlineStatusBroadcatReceiver.onReceive", "xxx");
+
+            if (!isOnline()) {
+                if (!LocationGeofenceEditorActivity.this.isFinishing()) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivity.this);
+                    dialogBuilder.setTitle(R.string.location_editor_title);
+                    dialogBuilder.setMessage(R.string.location_editor_connection_is_offline);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    //            @Override
+                    //            public void onShow(DialogInterface dialog) {
+                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    //                if (positive != null) positive.setAllCaps(false);
+                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    //                if (negative != null) negative.setAllCaps(false);
+                    //            }
+                    //        });
+
+                    if (!LocationGeofenceEditorActivity.this.isFinishing())
+                        dialog.show();
+                }
+            }
+
             refreshActivity(isOnline());
         }
     }
