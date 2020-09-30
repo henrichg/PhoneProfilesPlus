@@ -131,7 +131,8 @@ class GeofencesScanner
                 }*/
                 try {
                     //PPApplication.logE("##### GeofenceScanner.onConnected", "xxx2");
-                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                    if (mFusedLocationClient == null)
+                        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                     if (resetUseGPS)
                         useGPS = true;
 
