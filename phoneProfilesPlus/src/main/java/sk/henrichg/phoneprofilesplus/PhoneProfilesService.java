@@ -5348,7 +5348,7 @@ public class PhoneProfilesService extends Service
                 //if (notificationStatusBarStyle.equals("0"))
                 profile.generateIconBitmap(appContext, false, 0, false);
                 if (notificationPrefIndicator && (notificationNotificationStyle.equals("0")) && preferencesIndicatorExists) {
-                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService._showProfileNotification", "generate indicators");
+                    //PPApplication.logE("[TEST BATTERY] PhoneProfilesService._showProfileNotification", "generate indicators");
                     profile.generatePreferencesIndicator(appContext, false, 0);
                     preferencesIndicatorBitmap = profile._preferencesIndicator;
                 }

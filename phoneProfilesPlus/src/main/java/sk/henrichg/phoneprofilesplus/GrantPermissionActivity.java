@@ -318,13 +318,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
                     whyPermissionType[8][permissionType.type] = true;
                 }
-                if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                    showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-                    whyPermissionType[12][permissionType.type] = true;
-                }
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
                     whyPermissionType[13][permissionType.type] = true;
+                }
+                if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[12][permissionType.type] = true;
                 }
                 if (Build.VERSION.SDK_INT >= 29) {
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
@@ -1330,10 +1330,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
-                        if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
-                        if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
                         if (Build.VERSION.SDK_INT >= 29) {
@@ -1659,8 +1659,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.removeEventNotification(context);
             if (permissions != null) {
                 for (Permissions.PermissionType permissionType : permissions) {
-                    if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
-                        permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION) ||
+
+                    if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION) ||
+                        permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                         ((Build.VERSION.SDK_INT >= 29) && permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION))
                     ) {
                         //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart all scanners");

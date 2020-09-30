@@ -3,12 +3,18 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -50,8 +56,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.math.BigDecimal;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
-                                            implements OnMapReadyCallback
-{
+                                            implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     private GoogleMap mMap;
@@ -77,6 +82,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
      * than this value.
      */
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+
+    CheckOnlineStatusBroadcatReceiver checkOnlineStatusBroadcatReceiver = null;
 
     private Location mLastLocation;
     private Location mLocation;
@@ -138,8 +145,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     if (mLocation == null) {
                         mLocation = new Location(mLastLocation);
                         refreshActivity(true);
-                    }
-                    else
+                    } else
                         updateEditedMarker(false);
                 }
             }
@@ -159,7 +165,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         if (geofence == null) {
             geofenceId = 0;
             geofence = new Geofence();
-            int _count = DatabaseHandler.getInstance(getApplicationContext()).getGeofenceCount()+1;
+            int _count = DatabaseHandler.getInstance(getApplicationContext()).getGeofenceCount() + 1;
             geofence._name = getString(R.string.event_preferences_location_new_location_name) + "_" + _count;
             geofence._radius = 100;
         }
@@ -333,6 +339,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getLastLocation();
                 if (mLastLocation != null)
                     mLocation = new Location(mLastLocation);
                 refreshActivity(true);
@@ -360,14 +367,35 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         } catch (Exception e) {
             //PPApplication.recordException(e);
         }
+
+        if (checkOnlineStatusBroadcatReceiver == null) {
+            checkOnlineStatusBroadcatReceiver = new CheckOnlineStatusBroadcatReceiver();
+
+            IntentFilter intentFilter1 = new IntentFilter();
+            intentFilter1.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(checkOnlineStatusBroadcatReceiver, intentFilter1);
+        }
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //Log.e("LocationGeofenceEditorActivity.onStart", "getLastLocation");
         getLastLocation();
+        //Log.e("LocationGeofenceEditorActivity.onStart", "startLocationUpdates");
         startLocationUpdates();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
+        if (checkOnlineStatusBroadcatReceiver != null) {
+            try {
+                unregisterReceiver(checkOnlineStatusBroadcatReceiver);
+                checkOnlineStatusBroadcatReceiver = null;
+            } catch (Exception e) {
+                checkOnlineStatusBroadcatReceiver = null;
+            }
+        }
+
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
@@ -375,6 +403,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     public void onResume() {
         super.onResume();
         try {
+            //Log.e("LocationGeofenceEditorActivity.onResume", "xxx");
             startLocationUpdates();
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -396,6 +425,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
+            //Log.e("LocationGeofenceEditorActivity.onActivityResult", "xxx");
             getLastLocation();
         }
     }
@@ -496,7 +526,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     if (editedRadius != null) {
                         try {
                             float zoom = getCircleZoomValue(mLocation.getLatitude(), mLocation.getLongitude(), geofence._radius,
-                                                                mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
+                                    mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
                             //PPApplication.logE("LocationGeofenceEditorActivity.updateEditedMarker", "zoom=" + zoom);
                             if (zoom > 16)
                                 zoom = 16;
@@ -504,8 +534,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         } catch (StackOverflowError e) {
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
                         }
-                    }
-                    else {
+                    } else {
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
                     }
                 }
@@ -519,25 +548,31 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     //----------------------------------------------------
 
     private void refreshActivity(boolean setMapCamera) {
-        boolean enableAddressButton = false;
-        if (mLocation != null) {
-            // Determine whether a geo-coder is available.
-            if (Geocoder.isPresent()) {
-                startIntentService(false);
-                enableAddressButton = true;
+        if (isOnline()) {
+            boolean enableAddressButton = false;
+            if (mLocation != null) {
+                // Determine whether a geo-coder is available.
+                if (Geocoder.isPresent()) {
+                    startIntentService(false);
+                    enableAddressButton = true;
+                }
             }
+            if (addressButton.isEnabled())
+                GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
+            String name = geofenceNameEditText.getText().toString();
+
+            updateEditedMarker(setMapCamera);
+
+            okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
         }
-        if (addressButton.isEnabled())
-            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
-        String name = geofenceNameEditText.getText().toString();
-
-        updateEditedMarker(setMapCamera);
-
-        okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
+        else {
+            okButton.setEnabled(false);
+        }
     }
 
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
+        //Log.e("LocationGeofenceEditorActivity.getLastLocation", "xxx");
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
                 mFusedLocationClient.getLastLocation()
@@ -549,9 +584,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                                 if (location != null) {
                                     mLastLocation = location;
                                 }
-                                if (mLastLocation == null)
+                                if (mLastLocation == null) {
+                                    //Log.e("LocationGeofenceEditorActivity.getLastLocation", "startLocationUpdates");
                                     startLocationUpdates();
-                                else if (mLocation == null)
+                                } else if (mLocation == null)
                                     mLocation = new Location(mLastLocation);
                                 refreshActivity(true);
                             }
@@ -587,7 +623,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
      */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
-        if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
+        //Log.e("LocationGeofenceEditorActivity.startLocationUpdates", "xxx");
+        if (Permissions.checkLocation(getApplicationContext())) {
             try {
                 if (mFusedLocationClient != null)
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
@@ -609,7 +646,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
-    private  void getGeofenceAddress(/*boolean updateName*/) {
+    private void getGeofenceAddress(/*boolean updateName*/) {
         try {
             if (mLocation != null) {
                 startIntentService(true);
@@ -721,8 +758,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
                 //Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception ", e);
                 //PPApplication.recordException(e);
-            }
-            else {
+            } else {
                 PPApplication.recordException(e);
                 throw e;
             }
@@ -738,7 +774,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     private float getCircleZoomValue(double latitude, double longitude, double radius,
-                                   float minZoom, float maxZoom) {
+                                     float minZoom, float maxZoom) {
         LatLng position = new LatLng(latitude, longitude);
         float currZoom = (minZoom + maxZoom) / 2;
         CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(position, currZoom);
@@ -747,18 +783,35 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         LatLng topLeft = mMap.getProjection().getVisibleRegion().farLeft;
         LatLng topRight = mMap.getProjection().getVisibleRegion().farRight;
         Location.distanceBetween(topLeft.latitude, topLeft.longitude, topRight.latitude,
-                                    topRight.longitude, results);
+                topRight.longitude, results);
         // Difference between visible width in meters and 2.5 * radius.
         double delta = results[0] - 2.5 * radius;
         double accuracy = 10; // 10 meters.
         if (delta < -accuracy)
             return getCircleZoomValue(latitude, longitude, radius, minZoom, currZoom);
-        else
-        if (delta > accuracy)
+        else if (delta > accuracy)
             return getCircleZoomValue(latitude, longitude, radius, currZoom, maxZoom);
         else
             return currZoom;
     }
 
-}
+    private boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connMgr != null) {
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            return (networkInfo != null && networkInfo.isConnected());
+        }
+        else
+            return false;
+    }
 
+    public class CheckOnlineStatusBroadcatReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            Log.e("CheckOnlineStatusBroadcatReceiver.onReceive", "xxx");
+            refreshActivity(isOnline());
+        }
+    }
+}
