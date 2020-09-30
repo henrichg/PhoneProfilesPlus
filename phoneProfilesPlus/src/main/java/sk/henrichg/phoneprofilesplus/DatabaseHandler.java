@@ -4619,7 +4619,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, event._repeatNotificationIntervalStart); // repeat notification sound interval
                 values.put(KEY_E_NOTIFICATION_SOUND_END, event._notificationSoundEnd); // notification sound
                 values.put(KEY_E_NOTIFICATION_VIBRATE_END, event._notificationVibrateEnd); // notification vibrate
-                values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0); // force run when manual profile activation
+                values.put(KEY_E_FORCE_RUN, event._ignoreManualActivation ? 1 : 0); // force run when manual profile activation
                 values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
                 values.put(KEY_E_PRIORITY, event._priority); // priority
                 values.put(KEY_E_DELAY_START, event._delayStart); // delay for start
@@ -4806,7 +4806,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event._repeatNotificationIntervalStart = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START));
                         event._notificationSoundEnd = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_END));
                         event._notificationVibrateEnd = cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE_END)) == 1;
-                        event._forceRun = cursor.getInt(cursor.getColumnIndex(KEY_E_FORCE_RUN)) == 1;
+                        event._ignoreManualActivation = cursor.getInt(cursor.getColumnIndex(KEY_E_FORCE_RUN)) == 1;
                         event._blocked = cursor.getInt(cursor.getColumnIndex(KEY_E_BLOCKED)) == 1;
                         event._priority = cursor.getInt(cursor.getColumnIndex(KEY_E_PRIORITY));
                         event._delayStart = cursor.getInt(cursor.getColumnIndex(KEY_E_DELAY_START));
@@ -4861,7 +4861,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START, event._repeatNotificationIntervalStart);
                 values.put(KEY_E_NOTIFICATION_SOUND_END, event._notificationSoundEnd);
                 values.put(KEY_E_NOTIFICATION_VIBRATE_END, event._notificationVibrateEnd ? 1 : 0);
-                values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0);
+                values.put(KEY_E_FORCE_RUN, event._ignoreManualActivation ? 1 : 0);
                 values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
                 //values.put(KEY_E_UNDONE_PROFILE, 0);
                 values.put(KEY_E_PRIORITY, event._priority);
@@ -7586,7 +7586,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 db.beginTransaction();
                 try {
                     ContentValues values = new ContentValues();
-                    values.put(KEY_E_FORCE_RUN, event._forceRun);
+                    values.put(KEY_E_FORCE_RUN, event._ignoreManualActivation);
 
                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});

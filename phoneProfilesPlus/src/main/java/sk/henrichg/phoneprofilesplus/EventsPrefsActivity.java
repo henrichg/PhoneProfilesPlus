@@ -347,7 +347,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         origEvent._fkProfileEnd,
                         origEvent.getStatus(),
                         origEvent._notificationSoundStart,
-                        origEvent._forceRun,
+                        origEvent._ignoreManualActivation,
                         origEvent._blocked,
                         //origEvent._undoneProfile,
                         origEvent._priority,

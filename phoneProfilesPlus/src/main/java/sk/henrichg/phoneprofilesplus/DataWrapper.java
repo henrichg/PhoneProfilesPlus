@@ -1038,19 +1038,19 @@ public class DataWrapper {
                     }*/
 
                     if (status == Event.ESTATUS_RUNNING) {
-                        if (!(event._forceRun && event._noPauseByManualActivation)) {
+                        if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
                             event.pauseEvent(this, false, true, noSetSystemEvent, true, null, false, false, true);
                         }
                     }
 
                     setEventBlocked(event, false);
-                    if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun) {
+                    if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._ignoreManualActivation) {
                         // block only running forceRun events
-                        if (!event._noPauseByManualActivation)
+                        if (!event._noPauseByManualActivation) // do not pause event, even when is running
                             setEventBlocked(event, true);
                     }
 
-                    if (!(event._forceRun && event._noPauseByManualActivation)) {
+                    if (!(event._ignoreManualActivation && event._noPauseByManualActivation)) {
                         // for "push" events, set startTime to 0
                         clearSensorsStartTime(event, true);
                     }
@@ -1410,7 +1410,7 @@ public class DataWrapper {
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
                 event._priority = Event.EPRIORITY_HIGHEST;
-                event._forceRun = true;
+                event._ignoreManualActivation = true;
                 event._noPauseByManualActivation = false;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
@@ -1439,7 +1439,7 @@ public class DataWrapper {
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._priority = Event.EPRIORITY_HIGHEST;
-                event._forceRun = true;
+                event._ignoreManualActivation = true;
                 event._noPauseByManualActivation = false;
                 event._eventPreferencesBattery._enabled = true;
                 //if (Build.VERSION.SDK_INT >= 21) {
@@ -2671,7 +2671,7 @@ public class DataWrapper {
                     if (event != null)
                     {
                         //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
-                        if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._forceRun))
+                        if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._ignoreManualActivation))
                         {
                             //Profile profile;
                             //profile = dataWrapper.getActivatedProfile(false, false);

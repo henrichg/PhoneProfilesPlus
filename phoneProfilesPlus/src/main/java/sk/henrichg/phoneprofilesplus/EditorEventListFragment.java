@@ -1852,14 +1852,14 @@ public class EditorEventListFragment extends Fragment
                                     Toast.LENGTH_SHORT);
                             break;
                         case R.id.event_list_item_not_ignore_manual_activation:
-                            event._forceRun = false;
+                            event._ignoreManualActivation = false;
                             DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                             //eventListAdapter.notifyDataSetChanged();
                             EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
                             ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
                             return true;
                         case R.id.event_list_item_ignore_manual_activation:
-                            event._forceRun = true;
+                            event._ignoreManualActivation = true;
                             DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                             //eventListAdapter.notifyDataSetChanged();
                             EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());

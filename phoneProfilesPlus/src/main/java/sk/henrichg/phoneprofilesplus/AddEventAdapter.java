@@ -134,13 +134,13 @@ class AddEventAdapter extends BaseAdapter {
             if (ApplicationPreferences.applicationEventUsePriority) {
                 String eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
 
-                if (event._forceRun)
+                if (event._ignoreManualActivation)
                     eventName = eventName + "\n" + eventPriority + "[»]";
                 else
                     eventName = eventName + "\n" + eventPriority;
             }
             else {
-                if (event._forceRun)
+                if (event._ignoreManualActivation)
                     eventName = eventName + "\n" + "[»]";
             }
 

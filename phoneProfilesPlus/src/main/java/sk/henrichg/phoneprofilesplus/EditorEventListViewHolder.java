@@ -101,7 +101,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             statusRes = R.drawable.ic_event_status_running;
                         break;
                     case Event.ESTATUS_PAUSE:
-                        if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._forceRun))
+                        if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._ignoreManualActivation))
                             statusRes = R.drawable.ic_event_status_pause_manual_activation;
                         else if (event._isInDelayStart)
                             statusRes = R.drawable.ic_event_status_pause_delay;
@@ -131,7 +131,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(Color.RED);
             }
             else
-            if (!Event.getGlobalEventsRunning() || (manualProfileActivation && !event._forceRun)) {
+            if (!Event.getGlobalEventsRunning() || (manualProfileActivation && !event._ignoreManualActivation)) {
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
@@ -186,7 +186,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             boolean addedLF = false;
             if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {
-                if (event._forceRun) {
+                if (event._ignoreManualActivation) {
                     addedLF = true;
                     _eventName = event._name + "\n" + "[»]";
                 } else
@@ -194,7 +194,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else {
                 addedLF = true;
-                if (event._forceRun) {
+                if (event._ignoreManualActivation) {
                     _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[»]";
                 } else
                     _eventName = event._name + "\n" + eventStartOrder + eventPriority;
@@ -427,7 +427,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             });
 
-            if (event._forceRun)
+            if (event._ignoreManualActivation)
                 ignoreManualActivationButton.setImageResource(R.drawable.ic_ignore_manual_activation);
             else
                 ignoreManualActivationButton.setImageResource(R.drawable.ic_not_show_in_activator);
