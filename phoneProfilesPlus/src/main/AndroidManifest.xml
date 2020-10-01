@@ -142,9 +142,11 @@
             android:value="@string/google_maps_key"/>
 
         <!-- Google Backup key -->
+        <!--
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIP7KUKJY6Yrqkov5SWxTVUdqPJvIT8OHO5MeQKw"/>
+        -->
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
@@ -430,6 +432,12 @@
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".GitHubAssetsScreenshotActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/github_assets_screenshot_label"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty">
         </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->

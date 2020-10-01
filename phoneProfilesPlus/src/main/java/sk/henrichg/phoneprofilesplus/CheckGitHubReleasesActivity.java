@@ -1,11 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,7 +62,25 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
         message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
-        dialogBuilder.setMessage(message);
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        @SuppressLint("InflateParams")
+        View layout = inflater.inflate(R.layout.dialog_install_extender, null);
+        dialogBuilder.setView(layout);
+
+        TextView text = layout.findViewById(R.id.install_extender_dialog_info_text);
+        text.setText(message);
+
+        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
+                intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplus_assets_screenshot);
+                activity.startActivity(intent);
+            }
+        });
+
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, new DialogInterface.OnClickListener() {

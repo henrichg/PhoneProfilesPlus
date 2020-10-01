@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,7 +18,10 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -1723,8 +1727,24 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
-        dialogBuilder.setMessage(dialogText);
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        @SuppressLint("InflateParams")
+        View layout = inflater.inflate(R.layout.dialog_install_extender, null);
+        dialogBuilder.setView(layout);
+
+        TextView text = layout.findViewById(R.id.install_extender_dialog_info_text);
+        text.setText(dialogText);
+
+        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), GitHubAssetsScreenshotActivity.class);
+                intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplusextender_assets_screenshot);
+                startActivity(intent);
+            }
+        });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, new DialogInterface.OnClickListener() {
 
