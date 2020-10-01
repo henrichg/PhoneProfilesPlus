@@ -1235,8 +1235,8 @@
     <string name="mobile_cells_pref_dlg_cell_sort_title">Liste sortieren</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Nach Zellenname</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Nach Verbindungszeit</string>
-    <string name="menu_export_and_email">E-mail settings</string>
-    <string name="menu_export_and_email_to_author">E-mail settings to author</string>
+    <string name="menu_export_and_email">E-Mail-Einstellungen</string>
+    <string name="menu_export_and_email_to_author">Einstellungen als E-Mail an den Autor senden</string>
     <string name="menu_email_debug_logs_to_author">Debug Log-Dateien per E-Mail an Autor senden</string>
     <string name="menu_support">Support</string>
     <string name="email_debug_log_files_subject">Debug Log-Dateien</string>
@@ -1505,6 +1505,9 @@
     <string name="altype_actionFromExternalApp_stopEvent">Aktion von externer App - Ereignis stoppen</string>
     <string name="profile_preferences_volumeMuteSound_summary">Dadurch wird der akustische Weckalarm nicht deaktiviert</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Auch der in diesem Profil konfiguriert Audiomodus wird ignoriert.</string>
+    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
+    <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
+    <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Nach PhoneProfilesPlus exportieren</string>

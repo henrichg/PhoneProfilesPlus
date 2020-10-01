@@ -1236,8 +1236,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="mobile_cells_pref_dlg_cell_sort_title">Ordina elenco</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">Per nome della cella</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">Per orario di connessione</string>
-    <string name="menu_export_and_email">E-mail settings</string>
-    <string name="menu_export_and_email_to_author">E-mail settings to author</string>
+    <string name="menu_export_and_email">Impostazioni e-mail</string>
+    <string name="menu_export_and_email_to_author">Impostazioni e-mail per l\'autore</string>
     <string name="menu_email_debug_logs_to_author">File del registro di debug dell\'e-mail per l\'autore</string>
     <string name="menu_support">Assistenza</string>
     <string name="email_debug_log_files_subject">File del registro di debug</string>
@@ -1506,6 +1506,9 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="altype_actionFromExternalApp_stopEvent">azione dall\'app esterna. - interrompe l\'evento</string>
     <string name="profile_preferences_volumeMuteSound_summary">Questo non disattiva il suono della sveglia</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Anche la modalità suono, configurata in questo profilo è ignorata.</string>
+    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
+    <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
+    <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Esporta in PhoneProfilesPlus</string>

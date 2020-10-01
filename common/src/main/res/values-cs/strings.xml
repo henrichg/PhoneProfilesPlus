@@ -1505,6 +1505,9 @@
     <string name="altype_actionFromExternalApp_stopEvent">akce pro externí apl. - zastavení události</string>
     <string name="profile_preferences_volumeMuteSound_summary">Tímto se nevypne zvuk budíku</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Také je ignorován režim zvuku nastaven v tomto profilu.</string>
+    <string name="location_editor_connection_is_offline">Síťové připojení je odpojeno. Z tohoto důvodu nelze zobrazit mapu.</string>
+    <string name="install_extender_where_is_assets_button">Kde je \"Assets\"?</string>
+    <string name="github_assets_screenshot_label">GitHub \"Assets\" snímek obrazovky</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>
