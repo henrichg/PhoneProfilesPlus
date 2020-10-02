@@ -318,29 +318,30 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                 for (String split : splits) {
                     String[] packageNameActivity = split.split("/"); // package name/activity
                     if (split.length() > 2) {
-                        if (packageNameActivity[0].length() > 2) {
-                            String shortcutIntent = packageNameActivity[0].substring(0, 3);
-                            Application _application = new Application();
+                        String shortcutIntent = "";
+                        if (packageNameActivity[0].length() > 2)
+                            shortcutIntent = packageNameActivity[0].substring(0, 3);
 
-                            switch (shortcutIntent) {
-                                case "(i)":
-                                    _application.type = Application.TYPE_INTENT;
-                                    break;
-                                case "(s)":
-                                    // shortcut
-                                    _application.type = Application.TYPE_SHORTCUT;
-                                    break;
-                                default:
-                                    // application
-                                    _application.type = Application.TYPE_APPLICATION;
-                                    break;
-                            }
-                            _application.intentId = 0;
-                            _application.startApplicationDelay = 0;
-                            _application.checked = true;
+                        Application _application = new Application();
 
-                            applicationsList.add(_application);
+                        switch (shortcutIntent) {
+                            case "(i)":
+                                _application.type = Application.TYPE_INTENT;
+                                break;
+                            case "(s)":
+                                // shortcut
+                                _application.type = Application.TYPE_SHORTCUT;
+                                break;
+                            default:
+                                // application
+                                _application.type = Application.TYPE_APPLICATION;
+                                break;
                         }
+                        _application.intentId = 0;
+                        _application.startApplicationDelay = 0;
+                        _application.checked = true;
+
+                        applicationsList.add(_application);
                     }
                 }
                 //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "added not passed intent");
