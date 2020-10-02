@@ -1616,8 +1616,8 @@
 
     <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to display map.</string>
 
-    <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
+    <string name="install_extender_where_is_assets_button">Where is</string>
+    <string name="github_assets_screenshot_label">screenshot</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->

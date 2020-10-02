@@ -44,6 +44,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    @SuppressLint("SetTextI18n")
     static void showDialog(final Activity activity, final boolean fromEditor) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
@@ -72,6 +73,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         text.setText(message);
 
         Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+        button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

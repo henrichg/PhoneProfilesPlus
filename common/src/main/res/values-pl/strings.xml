@@ -1507,8 +1507,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="profile_preferences_volumeMuteSound_summary">To ustawienie nie wycisza dźwięku alarmu</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Także tryb dźwięku, skonfigurowany w tym profilu, jest ignorowany.</string>
     <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to display map.</string>
-    <string name="install_extender_where_is_assets_button">Gdzie znajduje się \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">Zrzut ekranu \"Assets\" na GitHub\'ie</string>
+    <string name="install_extender_where_is_assets_button">Gdzie znajduje się</string>
+    <string name="github_assets_screenshot_label">zrzut ekranu</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Eksportuj do PhoneProfilesPlus</string>

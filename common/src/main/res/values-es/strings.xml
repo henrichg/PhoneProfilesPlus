@@ -1506,8 +1506,8 @@
     <string name="profile_preferences_volumeMuteSound_summary">Esto no silencia el sonido de la alarma</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">El modo de sonido configurado en este perfil también es ignorado.</string>
     <string name="location_editor_connection_is_offline">No hay conexión de red. Por esta razón no es posible mostrar el mapa.</string>
-    <string name="install_extender_where_is_assets_button">¿Dónde está \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">Captura de pantalla de \"Assets\" en GitHub</string>
+    <string name="install_extender_where_is_assets_button">¿Dónde está</string>
+    <string name="github_assets_screenshot_label">captura de pantalla</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exportar a PhoneProfilesPlus</string>

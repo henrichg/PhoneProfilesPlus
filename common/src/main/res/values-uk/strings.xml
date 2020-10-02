@@ -1506,8 +1506,8 @@
     <string name="profile_preferences_volumeMuteSound_summary">Це не вимкне звук будильника</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Також режим звуку налаштований у цьому профілі не буде враховуватись.</string>
     <string name="location_editor_connection_is_offline">Мережа відсутня, тому неможливо показати карту.</string>
-    <string name="install_extender_where_is_assets_button">Де \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">Знимок екрану \"Assets\" на GitHub</string>
+    <string name="install_extender_where_is_assets_button">Де</string>
+    <string name="github_assets_screenshot_label">знімок екрану</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Експортувати у PhoneProfilesPlus</string>

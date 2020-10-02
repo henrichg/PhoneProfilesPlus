@@ -1506,8 +1506,8 @@
     <string name="profile_preferences_volumeMuteSound_summary">Ovim nećete isključiti zvuk budilice</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Također se zanemaruje i način zvuka, konfiguriran u ovom profilu.</string>
     <string name="location_editor_connection_is_offline">Mreža za povezivanje nije dostupna. Zbog ovoga je nemoguće prikazati mapu.</string>
-    <string name="install_extender_where_is_assets_button">Gde se nalaze \"Dodaci\"?</string>
-    <string name="github_assets_screenshot_label">GitHub \"Dodaci\" slika zaslona</string>
+    <string name="install_extender_where_is_assets_button">Gde se nalaze</string>
+    <string name="github_assets_screenshot_label">snimke zaslona</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Izvoz u PhoneProfilesPlus</string>

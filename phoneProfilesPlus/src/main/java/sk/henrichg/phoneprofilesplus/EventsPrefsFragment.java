@@ -1737,6 +1737,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         text.setText(dialogText);
 
         Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+        button.setText(getActivity().getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

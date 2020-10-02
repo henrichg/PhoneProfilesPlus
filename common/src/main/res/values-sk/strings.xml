@@ -1506,8 +1506,8 @@
     <string name="profile_preferences_volumeMuteSound_summary">Týmto sa nevypne zvuk budíka</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Tiež je ignorovaný režim zvuku nakonfigurovaný v tomto profile.</string>
     <string name="location_editor_connection_is_offline">Sieťové pripojenie je odpojené. Z tohoto dôvodu nie je možné zobraziť mapu.</string>
-    <string name="install_extender_where_is_assets_button">Kde je \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">GitHub \"Assets\" snímka obrazovky</string>
+    <string name="install_extender_where_is_assets_button">Kde je</string>
+    <string name="github_assets_screenshot_label">snímka obrazovky</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

@@ -20,8 +20,10 @@ public class GitHubAssetsScreenshotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_github_assets_screenshot);
+        setTitle("GitHub \"Assets\" " + getString(R.string.github_assets_screenshot_label));
 
         ImageView imageView = findViewById(R.id.github_assets_screenshot_activity_image);
+        imageView.setContentDescription("GitHub \"Assets\" " + getString(R.string.github_assets_screenshot_label));
         int image = getIntent().getIntExtra(EXTRA_IMAGE, R.drawable.ic_empty);
         imageView.setImageResource(image);
 

@@ -1506,8 +1506,8 @@
     <string name="profile_preferences_volumeMuteSound_summary">Dit dempt het wekkergeluid niet</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Ook de geluidsmodus geconfigureerd in dit profiel is genegeerd.</string>
     <string name="location_editor_connection_is_offline">Geen Netwerkverbinding. Om deze reden is het niet mogelijk om de kaart weer te geven.</string>
-    <string name="install_extender_where_is_assets_button">Waar is \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
+    <string name="install_extender_where_is_assets_button">Waar is</string>
+    <string name="github_assets_screenshot_label">screenshot</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>

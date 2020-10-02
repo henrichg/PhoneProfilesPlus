@@ -1506,8 +1506,8 @@
     <string name="profile_preferences_volumeMuteSound_summary">Эта настройка не приглушает будильник</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Также не будет учитываться настроенный в этом профиле Звуковой режим.</string>
     <string name="location_editor_connection_is_offline">Невозможно отобразить карту, т.к. отсутствует подключение к сети.</string>
-    <string name="install_extender_where_is_assets_button">Где находится Assets?</string>
-    <string name="github_assets_screenshot_label">Скриншот Assets на GitHub</string>
+    <string name="install_extender_where_is_assets_button">Где находится</string>
+    <string name="github_assets_screenshot_label">скриншот</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Экспорт в PhoneProfilesPlus</string>
