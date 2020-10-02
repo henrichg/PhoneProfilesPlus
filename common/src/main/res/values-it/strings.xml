@@ -1518,7 +1518,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_export_pp_data_stop">Interrompi</string>
     <string name="export_pp_data_permission">Esportazione dei dati di PhoneProfiles</string>
     <string name="not_more_maintained_notification_title">Non più in manutenzione</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles non è più in manutenzione. Solo le risoluzioni critiche dei bug saranno effettuate. Se vuoi, installa PhoneProfilesPlus e nel menu Editor usa la funzione \"Backup/restore\"/\"Importa dati da PhoneProfiles\".\"</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles non è più in manutenzione. Solo le risoluzioni critiche dei bug saranno effettuate. Se vuoi, installa PhoneProfilesPlus e nel menu Editor usa la funzione \"Backup/restore\"/\"Importa dati da PhoneProfiles\".</string>
     <string name="not_more_maintained_notification_disable_button">Non mostrare più</string>
     <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles non è più in manutenzione. Sei sicuro di non voler mostrare questa notifica in futuro?</string>
     <!-- **************************************************************************************** -->
