@@ -1505,9 +1505,9 @@
     <string name="altype_actionFromExternalApp_stopEvent">harici uygulamadan faaliyet - olayın durdurulması</string>
     <string name="profile_preferences_volumeMuteSound_summary">Bu alarm saati sesini susturmaz</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Bu profilde ayarlanan Ses modu da ihmal edilir.</string>
-    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
-    <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
+    <string name="location_editor_connection_is_offline">Ağ bağlantısı kapalı. Bu sebeple haritayı göstermek mümkün değil.</string>
+    <string name="install_extender_where_is_assets_button">\"Assets\" klasörü nerede?</string>
+    <string name="github_assets_screenshot_label">GitHub \"Assets\" ekran görüntüsü</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">PhoneProfilesPlus\'a veri aktar</string>

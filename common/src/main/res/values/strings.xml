@@ -1630,7 +1630,7 @@
     <string name="export_pp_data_permission">PhoneProfiles export data</string>
 
     <string name="not_more_maintained_notification_title">No more maintained</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\"."</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>
     <string name="not_more_maintained_notification_disable_button">Do not show again</string>
     <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>
 

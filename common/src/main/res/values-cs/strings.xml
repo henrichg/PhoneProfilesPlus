@@ -1517,7 +1517,7 @@
     <string name="phone_profiles_export_pp_data_stop">Zastavit</string>
     <string name="export_pp_data_permission">Export PhoneProfiles dat</string>
     <string name="not_more_maintained_notification_title">Již se více neudržuje</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles se už více neudržuje. Pouze kritické chyby budou opravovány. Pokud chcete, nainstalujte PhoneProfilesPlus a v menu Editoru použijte funkci \"Záloha/Obnova\"/\"Import dat z PhoneProfiles\"</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles se už více neudržuje. Pouze kritické chyby budou opravovány. Pokud chcete, nainstalujte PhoneProfilesPlus a v menu Editoru použijte funkci \"Záloha/Obnova\"/\"Import dat z PhoneProfiles\".</string>
     <string name="not_more_maintained_notification_disable_button">Příště nezobrazovat</string>
     <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles již není udržován. Už nezobrazovat tuto notifikaci?</string>
     <!-- **************************************************************************************** -->

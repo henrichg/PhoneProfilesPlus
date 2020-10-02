@@ -3,7 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
-    <string name="menu_edit_profiles">Editeur</string>
+    <string name="menu_edit_profiles">Éditeur</string>
     <string name="menu_settings">Paramètres</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
     <string name="title_activity_profile_preferences">Préférences du profil</string>
@@ -38,8 +38,8 @@
     <string name="phone_profiles_pref_applicationActivate">Activer le profil au démarrage</string>
     <string name="phone_profiles_pref_applicationClose">Fermer après l\'activation du profil</string>
     <string name="phone_profiles_pref_applicationPrefIndicator">Indicateur de préférences</string>
-    <string name="phone_profiles_pref_applicationHeader">Afficher le profil activé</string>
-    <string name="phone_profiles_pref_applicationAlert">Alerte à l\'activation du profil</string>
+    <string name="phone_profiles_pref_applicationHeader">Afficher le profil actif</string>
+    <string name="phone_profiles_pref_applicationAlert">Confirmer l\'activation du profil</string>
     <string name="phone_profiles_pref_notificationsToast">Voir la boite de notification</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">Style d\'icône de notification</string>
     <string name="profile_preferences_category_profileIdentification">Identification du profil</string>
@@ -1505,7 +1505,7 @@
     <string name="altype_actionFromExternalApp_stopEvent">action d\'une application externe - activation du profil</string>
     <string name="profile_preferences_volumeMuteSound_summary">N\'a pas d\'effet sur les alarmes</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Le mode son, également configuré dans ce profil est ignoré.</string>
-    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
+    <string name="location_editor_connection_is_offline">Hors connexion. Affichage de la carte impossible.</string>
     <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
     <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
     <!-- **************************************************************************************** -->
@@ -1517,7 +1517,7 @@
     <string name="phone_profiles_export_pp_data_stop">Stop</string>
     <string name="export_pp_data_permission">Données d\'exportation de PhoneProfiles</string>
     <string name="not_more_maintained_notification_title">N\'est plus maintenu</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles n\'est pas plus maintenu. Seules les corrections de bugs critiques seront faites. Si vous le souhaitez, installez PhoneProfilesPlus et dans le menu de l\'éditeur, utilisez la fonction \"Sauvegarde/restauration\"/\"Importer des données depuis PhoneProfiles\".\"</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles n\'est pas plus maintenu. Seules les corrections de bugs critiques seront faites. Si vous le souhaitez, installez PhoneProfilesPlus et dans le menu de l\'éditeur, utilisez la fonction \"Sauvegarde/restauration\"/\"Importer des données depuis PhoneProfiles\".</string>
     <string name="not_more_maintained_notification_disable_button">Ne plus afficher</string>
     <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles n\'est pas plus maintenu. Êtes-vous sûr de ne pas afficher cette notification à l\'avenir ?</string>
     <!-- **************************************************************************************** -->

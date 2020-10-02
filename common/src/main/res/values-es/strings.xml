@@ -1505,9 +1505,9 @@
     <string name="altype_actionFromExternalApp_stopEvent">acción desde aplicación externa. - detener evento</string>
     <string name="profile_preferences_volumeMuteSound_summary">Esto no silencia el sonido de la alarma</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">El modo de sonido configurado en este perfil también es ignorado.</string>
-    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
-    <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
+    <string name="location_editor_connection_is_offline">No hay conexión de red. Por esta razón no es posible mostrar el mapa.</string>
+    <string name="install_extender_where_is_assets_button">¿Dónde está \"Assets\"?</string>
+    <string name="github_assets_screenshot_label">Captura de pantalla de \"Assets\" en GitHub</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exportar a PhoneProfilesPlus</string>
@@ -1517,7 +1517,7 @@
     <string name="phone_profiles_export_pp_data_stop">Parar</string>
     <string name="export_pp_data_permission">Exportar datos de PhoneProfiles</string>
     <string name="not_more_maintained_notification_title">Ya no soportado</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles ya no está en desarrollo. Sólo se realizarán correcciones críticas de errores. Si lo deseas, instala PhoneProfilesPlus y en el menú del Editor utilice la función \"Copia de seguridad/restauración\"/\"Importar datos desde PhoneProfiles\".\"</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles ya no está en desarrollo. Sólo se realizarán correcciones críticas de errores. Si lo deseas, instala PhoneProfilesPlus y en el menú del Editor utilice la función \"Copia de seguridad/restauración\"/\"Importar datos desde PhoneProfiles\".</string>
     <string name="not_more_maintained_notification_disable_button">No mostrar de nuevo</string>
     <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles ya no se desarroola. ¿Estás seguro de no querer ver más esta notificación en el futuro?</string>
     <!-- **************************************************************************************** -->

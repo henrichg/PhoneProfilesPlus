@@ -1506,7 +1506,7 @@
     <string name="altype_actionFromExternalApp_stopEvent">action from external app. - stop event</string>
     <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
-    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
+    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to display map.</string>
     <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
     <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
     <!-- **************************************************************************************** -->
@@ -1518,7 +1518,7 @@
     <string name="phone_profiles_export_pp_data_stop">Stop</string>
     <string name="export_pp_data_permission">PhoneProfiles export data</string>
     <string name="not_more_maintained_notification_title">No more maintained</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".\"</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>
     <string name="not_more_maintained_notification_disable_button">Do not show again</string>
     <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>
     <!-- **************************************************************************************** -->

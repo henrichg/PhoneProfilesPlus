@@ -1506,9 +1506,9 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="altype_actionFromExternalApp_stopEvent">działanie z zewnętrznej aplikacji. - zatrzymaj zdarzenie</string>
     <string name="profile_preferences_volumeMuteSound_summary">To ustawienie nie wycisza dźwięku alarmu</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Także tryb dźwięku, skonfigurowany w tym profilu, jest ignorowany.</string>
-    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
-    <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
-    <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
+    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to display map.</string>
+    <string name="install_extender_where_is_assets_button">Gdzie znajduje się \"Assets\"?</string>
+    <string name="github_assets_screenshot_label">Zrzut ekranu \"Assets\" na GitHub\'ie</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Eksportuj do PhoneProfilesPlus</string>
@@ -1518,7 +1518,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="phone_profiles_export_pp_data_stop">Zatrzymaj</string>
     <string name="export_pp_data_permission">Eksport danych PhoneProfiles</string>
     <string name="not_more_maintained_notification_title">Obsługa została wstrzymana</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles nie jest dłużej wspierany. Tylko krytyczne poprawki błędów zostaną wprowadzone. Jeśli chcesz, zainstaluj PhoneProfilesPlus i w menu Edytora użyj funkcji \"kopia zapasowa/przywracanie\"/\"Import danych z PhoneProfiles\".\"</string>
+    <string name="not_more_maintained_notification_text">PhoneProfiles nie jest dłużej wspierany. Tylko krytyczne poprawki błędów zostaną wprowadzone. Jeśli chcesz, zainstaluj PhoneProfilesPlus i w menu Edytora użyj funkcji \"kopia zapasowa/przywracanie\"/\"Import danych z PhoneProfiles\".</string>
     <string name="not_more_maintained_notification_disable_button">Nie pokazuj ponownie</string>
     <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles nie jest dłużej wspierany. Czy na pewno nie pokazywać tego powiadomienia w przyszłości?</string>
     <!-- **************************************************************************************** -->

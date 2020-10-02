@@ -1506,8 +1506,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="altype_actionFromExternalApp_stopEvent">azione dall\'app esterna. - interrompe l\'evento</string>
     <string name="profile_preferences_volumeMuteSound_summary">Questo non disattiva il suono della sveglia</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Anche la modalità suono, configurata in questo profilo è ignorata.</string>
-    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to dislay map.</string>
-    <string name="install_extender_where_is_assets_button">Where is \"Assets\"?</string>
+    <string name="location_editor_connection_is_offline">La connessione di rete è offline. Per questo motivo non è possibile visualizzare la mappa.</string>
+    <string name="install_extender_where_is_assets_button">Dove si trova \"Asset\"?</string>
     <string name="github_assets_screenshot_label">GitHub \"Assets\" screenshot</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
