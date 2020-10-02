@@ -242,17 +242,21 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                     String shortcutIntent;
                     String[] intentIdDelay = split.split("#");
                     if (split.length() > 2) {
-                        shortcutIntent = intentIdDelay[0].substring(0, 3);
+                        try {
+                            shortcutIntent = intentIdDelay[0].substring(0, 3);
 
-                        if ("(i)".equals(shortcutIntent)) {// intent
-                            if (intentIdDelay.length >= 2) {
-                                intentId = intentIdDelay[0].substring(3);
-                                startApplicationDelay = intentIdDelay[1];
-                            } else {
-                                intentId = split.substring(3);
+                            if ("(i)".equals(shortcutIntent)) {// intent
+                                if (intentIdDelay.length >= 2) {
+                                    intentId = intentIdDelay[0].substring(3);
+                                    startApplicationDelay = intentIdDelay[1];
+                                } else {
+                                    intentId = split.substring(3);
+                                }
+
+                                intentPassed = intentId.equals(String.valueOf(ppIntent._id));
                             }
-
-                            intentPassed = intentId.equals(String.valueOf(ppIntent._id));
+                        } catch (IndexOutOfBoundsException e) {
+                            intentPassed = false;
                         }
 
                         if (intentPassed) {
