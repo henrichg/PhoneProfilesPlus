@@ -122,12 +122,13 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
                         String packageName;
                         String activityName = "";
-                        String shortcutIntent;
+                        String shortcutIntent = "";
                         String shortcutId = "";
                         String startApplicationDelay = "0";
                         String[] packageNameActivity = split.split("/"); // package name/activity
                         if (split.length() > 2) {
-                            shortcutIntent = packageNameActivity[0].substring(0, 3);
+                            if (packageNameActivity[0].length() > 2)
+                                shortcutIntent = packageNameActivity[0].substring(0, 3);
 
                             switch (shortcutIntent) {
                                 case "(i)":
@@ -135,32 +136,36 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                                     continue;
                                 case "(s)":
                                     // shortcut
-                                    packageName = packageNameActivity[0].substring(3);
-                                    if (packageNameActivity.length == 2) {
-                                        // activity exists
-                                        String[] shortcutIdDelay = packageNameActivity[1].split("#");
-                                        activityName = shortcutIdDelay[0];
-                                        if (shortcutIdDelay.length == 3) {
-                                            shortcutId = shortcutIdDelay[1];
-                                            startApplicationDelay = shortcutIdDelay[2];
-                                        } else if (shortcutIdDelay.length == 2)
-                                            startApplicationDelay = shortcutIdDelay[1];
-                                    } else {
-                                        // activity not exists
-                                        String[] packageNameShortcutIdDelay = split.split("#");
-                                        if (packageNameShortcutIdDelay.length == 3) {
-                                            shortcutId = packageNameShortcutIdDelay[1];
-                                            startApplicationDelay = packageNameShortcutIdDelay[2];
-                                        } else if (packageNameShortcutIdDelay.length == 2) {
-                                            startApplicationDelay = packageNameShortcutIdDelay[1];
+                                    if (packageNameActivity[0].length() > 3) {
+                                        packageName = packageNameActivity[0].substring(3);
+                                        if (packageNameActivity.length == 2) {
+                                            // activity exists
+                                            String[] shortcutIdDelay = packageNameActivity[1].split("#");
+                                            activityName = shortcutIdDelay[0];
+                                            if (shortcutIdDelay.length == 3) {
+                                                shortcutId = shortcutIdDelay[1];
+                                                startApplicationDelay = shortcutIdDelay[2];
+                                            } else if (shortcutIdDelay.length == 2)
+                                                startApplicationDelay = shortcutIdDelay[1];
+                                        } else {
+                                            // activity not exists
+                                            String[] packageNameShortcutIdDelay = split.split("#");
+                                            if (packageNameShortcutIdDelay.length == 3) {
+                                                shortcutId = packageNameShortcutIdDelay[1];
+                                                startApplicationDelay = packageNameShortcutIdDelay[2];
+                                            } else if (packageNameShortcutIdDelay.length == 2) {
+                                                startApplicationDelay = packageNameShortcutIdDelay[1];
+                                            }
                                         }
+
+                                        boolean typePassed = application.type == Application.TYPE_SHORTCUT;
+                                        boolean packagePassed = packageName.equals(application.packageName);
+                                        boolean activityPassed = activityName.equals(application.activityName);
+
+                                        applicationPassed = typePassed && packagePassed && activityPassed;
                                     }
-
-                                    boolean typePassed = application.type == Application.TYPE_SHORTCUT;
-                                    boolean packagePassed = packageName.equals(application.packageName);
-                                    boolean activityPassed = activityName.equals(application.activityName);
-
-                                    applicationPassed = typePassed && packagePassed && activityPassed;
+                                    else
+                                        applicationPassed = false;
                                     break;
                                 default:
                                     // application
@@ -182,9 +187,9 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                                         }
                                     }
 
-                                    typePassed = application.type == Application.TYPE_APPLICATION;
-                                    packagePassed = packageName.equals(application.packageName);
-                                    activityPassed = activityName.isEmpty() || activityName.equals(application.activityName);
+                                    boolean typePassed = application.type == Application.TYPE_APPLICATION;
+                                    boolean packagePassed = packageName.equals(application.packageName);
+                                    boolean activityPassed = activityName.isEmpty() || activityName.equals(application.activityName);
 
                                     applicationPassed = typePassed && packagePassed && activityPassed;
                                     break;
@@ -239,18 +244,20 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                 for (PPIntent ppIntent : intentDBList) {
                     String intentId = "";
                     String startApplicationDelay = "0";
-                    String shortcutIntent;
+                    String shortcutIntent = "";
                     String[] intentIdDelay = split.split("#");
                     if (split.length() > 2) {
                         try {
-                            shortcutIntent = intentIdDelay[0].substring(0, 3);
+                            if (intentIdDelay[0].length() > 2)
+                                shortcutIntent = intentIdDelay[0].substring(0, 3);
 
                             if ("(i)".equals(shortcutIntent)) {// intent
-                                if (intentIdDelay.length >= 2) {
+                                if (intentIdDelay.length > 3) {
                                     intentId = intentIdDelay[0].substring(3);
                                     startApplicationDelay = intentIdDelay[1];
                                 } else {
-                                    intentId = split.substring(3);
+                                    if (split.length() > 3)
+                                        intentId = split.substring(3);
                                 }
 
                                 intentPassed = intentId.equals(String.valueOf(ppIntent._id));
@@ -311,27 +318,29 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                 for (String split : splits) {
                     String[] packageNameActivity = split.split("/"); // package name/activity
                     if (split.length() > 2) {
-                        String shortcutIntent = packageNameActivity[0].substring(0, 3);
-                        Application _application = new Application();
+                        if (packageNameActivity[0].length() > 2) {
+                            String shortcutIntent = packageNameActivity[0].substring(0, 3);
+                            Application _application = new Application();
 
-                        switch (shortcutIntent) {
-                            case "(i)":
-                                _application.type = Application.TYPE_INTENT;
-                                break;
-                            case "(s)":
-                                // shortcut
-                                _application.type = Application.TYPE_SHORTCUT;
-                                break;
-                            default:
-                                // application
-                                _application.type = Application.TYPE_APPLICATION;
-                                break;
+                            switch (shortcutIntent) {
+                                case "(i)":
+                                    _application.type = Application.TYPE_INTENT;
+                                    break;
+                                case "(s)":
+                                    // shortcut
+                                    _application.type = Application.TYPE_SHORTCUT;
+                                    break;
+                                default:
+                                    // application
+                                    _application.type = Application.TYPE_APPLICATION;
+                                    break;
+                            }
+                            _application.intentId = 0;
+                            _application.startApplicationDelay = 0;
+                            _application.checked = true;
+
+                            applicationsList.add(_application);
                         }
-                        _application.intentId = 0;
-                        _application.startApplicationDelay = 0;
-                        _application.checked = true;
-
-                        applicationsList.add(_application);
                     }
                 }
                 //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "added not passed intent");
