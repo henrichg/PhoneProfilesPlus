@@ -11,8 +11,6 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +26,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -83,8 +82,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
      */
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
-    CheckOnlineStatusBroadcatReceiver checkOnlineStatusBroadcatReceiver = null;
-
     private Location mLastLocation;
     private Location mLocation;
     private LocationRequest mLocationRequest;
@@ -104,6 +101,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private PPNumberPicker numberPicker;
 
     private AlertDialog valueDialog;
+
+    private LocationGeofenceEditorOnlineStatusBroadcastReceiver checkOnlineStatusBroadcatReceiver = null;
 
     private static final int MIN_RADIUS = 20;
     private static final int MAX_RADIUS = 500 * 1000;
@@ -369,11 +368,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
 
         if (checkOnlineStatusBroadcatReceiver == null) {
-            checkOnlineStatusBroadcatReceiver = new CheckOnlineStatusBroadcatReceiver();
-
-            IntentFilter intentFilter1 = new IntentFilter();
-            intentFilter1.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            registerReceiver(checkOnlineStatusBroadcatReceiver, intentFilter1);
+            checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver();
+            LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(checkOnlineStatusBroadcatReceiver,
+                    new IntentFilter(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver"));
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -389,7 +386,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         if (checkOnlineStatusBroadcatReceiver != null) {
             try {
-                unregisterReceiver(checkOnlineStatusBroadcatReceiver);
+                LocalBroadcastManager.getInstance(this).unregisterReceiver(checkOnlineStatusBroadcatReceiver);
                 checkOnlineStatusBroadcatReceiver = null;
             } catch (Exception e) {
                 checkOnlineStatusBroadcatReceiver = null;
@@ -548,7 +545,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     //----------------------------------------------------
 
     private void refreshActivity(boolean setMapCamera) {
-        if (isOnline()) {
+        if (CheckOnlineStatusBroadcastReceiver.isOnline(getApplicationContext())) {
             boolean enableAddressButton = false;
             if (mLocation != null) {
                 // Determine whether a geo-coder is available.
@@ -795,24 +792,14 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             return currZoom;
     }
 
-    private boolean isOnline() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connMgr != null) {
-            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-            return (networkInfo != null && networkInfo.isConnected());
-        }
-        else
-            return false;
-    }
-
-    public class CheckOnlineStatusBroadcatReceiver extends BroadcastReceiver
+    public class LocationGeofenceEditorOnlineStatusBroadcastReceiver extends BroadcastReceiver
     {
         @Override
         public void onReceive(Context context, Intent intent)
         {
             Log.e("CheckOnlineStatusBroadcatReceiver.onReceive", "xxx");
 
-            if (!isOnline()) {
+            if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
                 if (!LocationGeofenceEditorActivity.this.isFinishing()) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivity.this);
                     dialogBuilder.setTitle(R.string.location_editor_title);
@@ -837,7 +824,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 }
             }
 
-            refreshActivity(isOnline());
+            if (!LocationGeofenceEditorActivity.this.isFinishing())
+                refreshActivity(CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
         }
     }
 }

@@ -618,6 +618,7 @@ public class PPApplication extends Application
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
     static CheckGitHubReleasesBroadcastReceiver checkGitHubReleasesBroadcastReceiver = null;
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
+    static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;

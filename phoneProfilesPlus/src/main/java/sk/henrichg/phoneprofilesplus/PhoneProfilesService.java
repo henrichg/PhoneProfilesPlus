@@ -726,6 +726,16 @@ public class PhoneProfilesService extends Service
                     PPApplication.powerSaveModeReceiver = null;
                 }
             }
+            if (PPApplication.checkOnlineStatusBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER checkOnlineStatusBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(PPApplication.checkOnlineStatusBroadcastReceiver);
+                    PPApplication.checkOnlineStatusBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.checkOnlineStatusBroadcastReceiver = null;
+                }
+            }
         }
         if (register) {
             if (PPApplication.timeChangedReceiver == null) {
@@ -963,7 +973,6 @@ public class PhoneProfilesService extends Service
                 intentFilter8.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
                 appContext.registerReceiver(PPApplication.wifiStateChangedBroadcastReceiver, intentFilter8);
             }
-
             if (PPApplication.powerSaveModeReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER powerSaveModeReceiver");
@@ -973,7 +982,15 @@ public class PhoneProfilesService extends Service
                 appContext.registerReceiver(PPApplication.powerSaveModeReceiver, intentFilter10);
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER powerSaveModeReceiver");
             }
-
+            if (PPApplication.checkOnlineStatusBroadcastReceiver == null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER checkOnlineStatusBroadcastReceiver");
+                PPApplication.checkOnlineStatusBroadcastReceiver = new CheckOnlineStatusBroadcastReceiver();
+                IntentFilter intentFilter10 = new IntentFilter();
+                intentFilter10.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                appContext.registerReceiver(PPApplication.checkOnlineStatusBroadcastReceiver, intentFilter10);
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER checkOnlineStatusBroadcastReceiver");
+            }
         }
     }
 
