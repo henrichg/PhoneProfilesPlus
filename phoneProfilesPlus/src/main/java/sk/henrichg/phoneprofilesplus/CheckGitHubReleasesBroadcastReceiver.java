@@ -42,6 +42,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, 30);
             now.add(Calendar.DAY_OF_MONTH, 30);
+            //now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
             now.set(Calendar.MILLISECOND, 0);
 
@@ -155,7 +156,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
     private static void _doWork(Context appContext) {
         // show notification for check new release
-        PPApplication.createDonationNotificationChannel(appContext);
+        PPApplication.createNewReleaseNotificationChannel(appContext);
 
         NotificationCompat.Builder mBuilder;
         Intent _intent;
@@ -168,7 +169,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
             nText = appContext.getString(R.string.menu_check_github_releases) + ": " +
                     appContext.getString(R.string.check_github_releases_notification);
         }
-        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_CHANNEL)
+        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
                 .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
