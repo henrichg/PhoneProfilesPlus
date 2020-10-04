@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -17,8 +16,6 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[BROADCAST CALL] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
-
-        Log.e("CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
 
         //deviceIsOnline = isOnline(context.getApplicationContext());
 

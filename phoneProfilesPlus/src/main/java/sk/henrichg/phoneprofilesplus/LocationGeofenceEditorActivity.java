@@ -12,7 +12,6 @@ import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -797,8 +796,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            Log.e("CheckOnlineStatusBroadcatReceiver.onReceive", "xxx");
-
             if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
                 if (!LocationGeofenceEditorActivity.this.isFinishing()) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivity.this);

@@ -1174,11 +1174,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean _permissionGranted = true;
         String summary = "";
 
-        /*if (key.equals(Profile.PREF_PROFILE_DURATION) ||
-                key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
-                key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
-                key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND) ||
-                key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {*/
         if (key.equals("prf_pref_activationDurationCategoryRoot")) {
             String title;
             String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForDuration, false, context);
@@ -1243,9 +1238,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE) ||
-                key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {*/
         if (key.equals("prf_pref_soundProfileCategoryRoot")) {
             String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGER_MODE));
@@ -1329,20 +1321,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Profile profile = new Profile();
             profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                Permissions.checkProfileVibrateWhenRinging(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
-            }
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileVibrateWhenRinging(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_ALARM) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_VOICE) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE)) {*/
         if (key.equals("prf_pref_volumeCategoryRoot")) {
 
             AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -1518,19 +1501,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Profile profile = new Profile();
             profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                Permissions.checkProfilePhoneState(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
-            }
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfilePhoneState(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
-                //key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
-                //key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE)) {
-            //key.equals(Profile.PREF_PROFILE_SOUND_ALARM)) {*/
         if (key.equals("prf_pref_soundsCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, R.string.profile_preferences_soundRingtoneChange, false, context);
             if (!title.isEmpty()) {
@@ -1566,13 +1541,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
                 profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
                 profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                    Permissions.checkProfileRingtones(context, profile, permissions);
-                    _permissionGranted = permissions.size() == 0;
-                }
+                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                Permissions.checkProfileRingtones(context, profile, permissions);
+                _permissionGranted = permissions.size() == 0;
 
                 //noinspection ConstantConditions
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
@@ -1583,18 +1554,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
-            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                Permissions.checkProfileRingtones(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
-            }
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileRingtones(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
-                key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH)) {*/
         if (key.equals("prf_pref_touchEffectsCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_ON_TOUCH, R.string.profile_preferences_soundOnTouch, false, context);
             if (!title.isEmpty()) {
@@ -1635,34 +1599,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
 
             Profile profile = new Profile();
-            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
             profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, "0"));
             profile._vibrationOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
             profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
-            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                Permissions.checkProfileSoundOnTouch(context, profile, permissions);
-                Permissions.checkProfileVibrationOnTouch(context, profile, permissions);
-                Permissions.checkProfileDtmfToneWhenDialing(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
-            }
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileSoundOnTouch(context, profile, permissions);
+            Permissions.checkProfileVibrationOnTouch(context, profile, permissions);
+            Permissions.checkProfileDtmfToneWhenDialing(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_AUTOSYNC) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_GPS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_NFC) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {*/
         if (key.equals("prf_pref_radiosCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, R.string.profile_preferences_deviceAirplaneMode, false, context);
             if (!title.isEmpty()) {
@@ -1874,26 +1820,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
             profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
             profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
-            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                Permissions.checkProfileRadioPreferences(context, profile, permissions);
-                Permissions.checkProfilePhoneState(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
-            }
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+            Permissions.checkProfilePhoneState(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_AUTOROTATE) ||
-                key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED) ||
-                key.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS) ||
-                key.equals(Profile.PREF_PROFILE_SCREEN_DARK_MODE)) {*/
         if (key.equals("prf_pref_screenCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, R.string.profile_preferences_deviceScreenTimeout, false, context);
             if (!title.isEmpty()) {
@@ -2066,31 +1998,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
             profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, "0"));
             profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
-            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                Permissions.checkProfileScreenTimeout(context, profile, permissions);
-                Permissions.checkProfileScreenOnPermanent(context, profile, permissions);
-                Permissions.checkProfileScreenBrightness(context, profile, permissions);
-                Permissions.checkProfileAutoRotation(context, profile, permissions);
-                Permissions.checkProfileWallpaper(context, profile, permissions);
-                Permissions.checkProfileNotificationLed(context, profile, permissions);
-                Permissions.checkProfileAlwaysOnDisplay(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
-            }
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileScreenTimeout(context, profile, permissions);
+            Permissions.checkProfileScreenOnPermanent(context, profile, permissions);
+            Permissions.checkProfileScreenBrightness(context, profile, permissions);
+            Permissions.checkProfileAutoRotation(context, profile, permissions);
+            Permissions.checkProfileWallpaper(context, profile, permissions);
+            Permissions.checkProfileNotificationLed(context, profile, permissions);
+            Permissions.checkProfileAlwaysOnDisplay(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-                key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {*/
         if (key.equals("prf_pref_othersCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, R.string.profile_preferences_devicePowerSaveMode, false, context);
             if (!title.isEmpty()) {
@@ -2294,18 +2212,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Profile profile = new Profile();
             profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, profile, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                Permissions.checkProfileLockDevice(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
-            }
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileLockDevice(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
-        /*if (key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING) ||
-                key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING)) {*/
         if (key.equals("prf_pref_applicationCategoryRoot")) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, R.string.profile_preferences_applicationDisableWifiScanning, false, context);
             if (!title.isEmpty()) {
@@ -2643,7 +2554,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Profile profile = new Profile();
                     ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                     profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
-                    Permissions.checkProfilePhoneState(context, profile, permissions);
+                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
 
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, !_permissionGranted, false);
@@ -3505,8 +3416,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             accessibilityNotRequired = false;
         boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext()) == 1);
 
-        return (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                ((!grantedAllPermissions) || (!grantedRoot) || (!grantedG1Permission) || (!enabledNotificationAccess) || (!accessibilityEnabled));
+        return (!grantedAllPermissions) || (!grantedRoot) || (!grantedG1Permission) || (!enabledNotificationAccess) || (!accessibilityEnabled);
     }
 
     void setRedTextToPreferences() {
