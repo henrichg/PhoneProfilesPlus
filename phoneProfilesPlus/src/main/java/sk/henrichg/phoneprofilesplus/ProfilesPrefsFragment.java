@@ -2500,11 +2500,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
 
-                boolean _permissionGranted = true;
                 Profile profile = new Profile();
+                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                 profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
                 profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
                 profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
+                Permissions.checkProfileRingtones(context, profile, permissions);
+                boolean _permissionGranted = permissions.size() == 0;
 
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, !_permissionGranted, false);
             }
