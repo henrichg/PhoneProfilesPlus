@@ -88,6 +88,8 @@
     </issue>
     <issue id="IconLocation">
         <ignore path="src/main/res/drawable/ic_empty.png" />
+        <ignore path="src/main/res/drawable/phoneprofilesplus_assets_screenshot.png" />
+        <ignore path="src/main/res/drawable/phoneprofilesplusextender_assets_screenshot.png" />
         <ignore path="src/main/res/drawable/samsung_edge_panel.png" />
     </issue>
     <issue id="ProtectedPermissions" severity="warning" />

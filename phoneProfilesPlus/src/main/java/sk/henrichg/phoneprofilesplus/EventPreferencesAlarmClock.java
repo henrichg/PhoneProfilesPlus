@@ -233,7 +233,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_CATEGORY);
             if (preference != null) {
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                boolean permissionGranted = true;
+                if (enabled)
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences).size() == 0;
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
