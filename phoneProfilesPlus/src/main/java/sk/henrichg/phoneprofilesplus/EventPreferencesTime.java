@@ -39,7 +39,7 @@ class EventPreferencesTime extends EventPreferences {
     private static final String PREF_EVENT_TIME_DAYS = "eventTimeDays";
     private static final String PREF_EVENT_TIME_START_TIME = "eventTimeStartTime";
     private static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
-    private static final String PREF_EVENT_TIME_TYPE = "eventTimeType";
+    static final String PREF_EVENT_TIME_TYPE = "eventTimeType";
     //private static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
     static final String PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS = "eventTimeLocationSystemSettings";
     static final String PREF_EVENT_TIME_APP_SETTINGS = "eventTimeBackgroundScanningAppSettings";
@@ -489,7 +489,7 @@ class EventPreferencesTime extends EventPreferences {
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }

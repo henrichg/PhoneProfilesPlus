@@ -1451,7 +1451,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     static boolean isRedTextNotificationRequired(Event event, Context context) {
         Context appContext = context.getApplicationContext();
         boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
-        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null).size() == 0;
+        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
@@ -1459,7 +1459,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
         boolean eventIsRunnable = event.isRunnable(appContext, false);
 
-        return (!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable);
+        return (enabledSomeSensor) && ((!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }
 
     private void setRedTextToPreferences() {
@@ -1518,7 +1518,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
 
             // not some permissions
-            if (Permissions.checkEventPermissions(context, event, null).size() == 0) {
+            if (Permissions.checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0) {
                 Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = findPreference("rootScreen");

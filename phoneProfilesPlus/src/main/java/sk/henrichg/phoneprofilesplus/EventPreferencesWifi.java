@@ -40,7 +40,7 @@ class EventPreferencesWifi extends EventPreferences {
 
     static final String PREF_EVENT_WIFI_ENABLED = "eventWiFiEnabled";
     static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
-    private static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
+    static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
     static final String PREF_EVENT_WIFI_APP_SETTINGS = "eventEnableWiFiScanningAppSettings";
     static final String PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS = "eventWiFiLocationSystemSettings";
     static final String PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS = "eventWiFiKeepOnSystemSettings";
@@ -302,7 +302,7 @@ class EventPreferencesWifi extends EventPreferences {
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_WIFI_SCANNER).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }

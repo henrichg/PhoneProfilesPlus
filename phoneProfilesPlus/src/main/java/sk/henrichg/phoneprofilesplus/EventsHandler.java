@@ -116,6 +116,8 @@ class EventsHandler {
     static final String SENSOR_TYPE_DEVICE_BOOT = "deviceBoot";
     static final String SENSOR_TYPE_DEVICE_BOOT_EVENT_END = "deviceBootEventEnd";
     static final String SENSOR_TYPE_PERIODIC_EVENTS_HANDLER = "periodicEventsHandler";
+    static final String SENSOR_TYPE_PERIHERALS = "peripherals";
+    static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
         this.context = context.getApplicationContext();
