@@ -1498,6 +1498,8 @@
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Nainštalované z Obchodu Play.</string>
     <string name="about_application_package_type_github">Nainštalované z GitHub alebo iného zdroja.</string>
+    <string name="notification_channel_new_release">Nová verzia PhoneProfilesPlus</string>
+    <string name="notification_channel_new_release_description">Zobrazuje notifikáciu o novej verzii PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">akcia pre externú apl. - aktivácia profilu</string>
     <string name="altype_actionFromExternalApp_restartEvents">akcia pre externú apl. - reštart udalostí</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">akcia pre externú apl. - povolenie behu udalosti</string>

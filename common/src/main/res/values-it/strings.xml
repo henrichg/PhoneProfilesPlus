@@ -1499,6 +1499,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Installed from Google Play.</string>
     <string name="about_application_package_type_github">Installed from GitHub or another source.</string>
+    <string name="notification_channel_new_release">Nuova versione di PhoneProfilesPlus</string>
+    <string name="notification_channel_new_release_description">Mostra la notifica sulla nuova release di PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">azione da app esterne. - attivazione del profilo</string>
     <string name="altype_actionFromExternalApp_restartEvents">azione dall\'app esterna. - riavvia gli eventi</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">azione dall\'app esterna. - abilita l\'esecuzione dell\'evento</string>

@@ -1498,6 +1498,8 @@
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Instalirano sa Google Play-a.</string>
     <string name="about_application_package_type_github">Instalirano sa GitHUb-a ili nekog drugog izvora.</string>
+    <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
+    <string name="notification_channel_new_release_description">Shows notification about new PhoneProfilesPlus release.</string>
     <string name="altype_actionFromExternalApp_profileActivation">radnja iz spoljne aplikacije - aktivacija profila</string>
     <string name="altype_actionFromExternalApp_restartEvents">radnja iz spoljne aplikacije - restart događaja</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">radnja iz spoljne aplikacije - omogući pokretanje događaja</string>

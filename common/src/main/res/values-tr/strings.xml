@@ -1498,6 +1498,8 @@
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Google Play Store\'dan yüklendi.</string>
     <string name="about_application_package_type_github">GitHub veya başka bir kaynaktan yüklendi.</string>
+    <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
+    <string name="notification_channel_new_release_description">Shows notification about new PhoneProfilesPlus release.</string>
     <string name="altype_actionFromExternalApp_profileActivation">harici uygulamadan faaliyet - tercihi faaliyete geçirme</string>
     <string name="altype_actionFromExternalApp_restartEvents">harici uygulamadan faaliyet - olayların yeniden başlatılması</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">harici uygulamadan faaliyet - olayın başlatılmasına izin verilmesi</string>

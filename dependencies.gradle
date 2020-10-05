@@ -33,8 +33,8 @@
 //       Po 2. novembri znova vrat. Mas to v GitHub.
 
 ext.ppVersions = [
-    publishVersion: '4.2.0.2b',
-    publishVersionCode: 6236,
+    publishVersion: '4.2.0.2',
+    publishVersionCode: 6240,
 
     minSdk: 23,
     targetSdk: 28,

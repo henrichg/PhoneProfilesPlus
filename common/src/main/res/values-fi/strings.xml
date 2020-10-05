@@ -1499,6 +1499,8 @@
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Installed from Google Play.</string>
     <string name="about_application_package_type_github">Installed from GitHub or another source.</string>
+    <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
+    <string name="notification_channel_new_release_description">Shows notification about new PhoneProfilesPlus release.</string>
     <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
     <string name="altype_actionFromExternalApp_restartEvents">action from external app. - restart events</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">action from external app. - enable event run</string>

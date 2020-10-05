@@ -1499,6 +1499,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Zainstalowano z Google Play.</string>
     <string name="about_application_package_type_github">Zainstalowano z GitHub lub innego źródła.</string>
+    <string name="notification_channel_new_release">Nowa wersja PhoneProfilesPlus</string>
+    <string name="notification_channel_new_release_description">Pokazuje powiadomienie o nowej wersji PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">działanie z zewnętrznej aplikacji. - aktywacja profilu</string>
     <string name="altype_actionFromExternalApp_restartEvents">działanie z zewnętrznej aplikacji. - zrestartuj zdarzenia</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">działanie z zewnętrznej aplikacji. - włącz uruchamianie zdarzenia</string>
@@ -1506,7 +1508,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="altype_actionFromExternalApp_stopEvent">działanie z zewnętrznej aplikacji. - zatrzymaj zdarzenie</string>
     <string name="profile_preferences_volumeMuteSound_summary">To ustawienie nie wycisza dźwięku alarmu</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Także tryb dźwięku, skonfigurowany w tym profilu, jest ignorowany.</string>
-    <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to display map.</string>
+    <string name="location_editor_connection_is_offline">Połączenie sieciowe jest offline. Z tego powodu nie jest możliwe wyświetlenie mapy.</string>
     <string name="install_extender_where_is_assets_button">Gdzie znajduje się</string>
     <string name="github_assets_screenshot_label">zrzut ekranu</string>
     <!-- **************************************************************************************** -->

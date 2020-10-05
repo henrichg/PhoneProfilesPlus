@@ -1498,6 +1498,8 @@
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Встановлено з Google Play.</string>
     <string name="about_application_package_type_github">Встановлено з GitHub або іншого джерела.</string>
+    <string name="notification_channel_new_release">Нова версія PhoneProfilesPlus</string>
+    <string name="notification_channel_new_release_description">Показує сповіщення про нову версію PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">дія із зовнішнього додатку - активація профілю</string>
     <string name="altype_actionFromExternalApp_restartEvents">дія із зовнішнього додатку - перезапустити події</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">дія із зовнішнього додатку - дозволити запуск по події</string>

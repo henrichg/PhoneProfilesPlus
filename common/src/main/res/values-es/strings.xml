@@ -1498,6 +1498,8 @@
     <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
     <string name="about_application_package_type_google_play">Instalada desde Google Play.</string>
     <string name="about_application_package_type_github">Instalada desde GitHub u otra fuente.</string>
+    <string name="notification_channel_new_release">Nueva versión de PhoneProfilesPlus</string>
+    <string name="notification_channel_new_release_description">Muestra notificación sobre una nueva versión de PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">acción desde aplicación externa. - Activación de perfil</string>
     <string name="altype_actionFromExternalApp_restartEvents">acción desde aplicación externa. - Reiniciar eventos</string>
     <string name="altype_actionFromExternalApp_enableRunForEvent">acción desde aplicación externa. - habilitar la ejecución de eventos</string>
