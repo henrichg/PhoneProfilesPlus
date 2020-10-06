@@ -124,7 +124,7 @@ class Event {
     private static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
     private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
-    private static final String PREF_EVENT_AT_END_HOW_UNDO = "event_preferences_atEndHowUndo";
+    private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -803,6 +803,16 @@ class Event {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
             }
         }
+        if (key.equals(PREF_EVENT_AT_END_HOW_UNDO))
+        {
+            ListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+            }
+        }
         if (key.equals(PREF_EVENT_DELAY_START))
         {
             Preference preference = prefMng.findPreference(key);
@@ -1008,6 +1018,7 @@ class Event {
             key.equals(PREF_EVENT_DELAY_START) ||
             key.equals(PREF_EVENT_DELAY_END) ||
             key.equals(PREF_EVENT_AT_END_DO) ||
+            key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
             key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         if (key.equals(PREF_EVENT_ENABLED) ||
@@ -1027,17 +1038,40 @@ class Event {
         if (key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
                 key.equals(PREF_EVENT_PROFILE_END) ||
                 key.equals(PREF_EVENT_AT_END_DO) ||
+                key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
                 key.equals(PREF_EVENT_END_OTHERS)) {
             boolean value = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-            Preference preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
-            if (preference != null)
-                preference.setEnabled(!value);
-            preference = prefMng.findPreference(PREF_EVENT_AT_END_DO);
-            if (preference != null)
-                preference.setEnabled(!value);
-            preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
-            if (preference != null)
-                preference.setEnabled(!value);
+            if (value) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
+                if (preference != null)
+                    preference.setEnabled(false);
+                preference = prefMng.findPreference(PREF_EVENT_AT_END_DO);
+                if (preference != null)
+                    preference.setEnabled(false);
+                preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
+                if (preference != null)
+                    preference.setEnabled(false);
+                preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
+                if (preference != null)
+                    preference.setEnabled(false);
+            }
+            else {
+                Preference preference = prefMng.findPreference(PREF_EVENT_AT_END_DO);
+                if (preference != null)
+                    preference.setEnabled(true);
+
+                preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
+                if (preference != null)
+                    preference.setEnabled(true);
+                String value2 = preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0");
+                preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
+                if (preference != null)
+                    preference.setEnabled(value2.equals("0"));
+
+                preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
+                if (preference != null)
+                    preference.setEnabled(true);
+            }
         }
 
         setCategorySummary(prefMng, key, preferences, context);
@@ -1104,6 +1138,7 @@ class Event {
         setSummary(prefMng, PREF_EVENT_IGNORE_MANUAL_ACTIVATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
         setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
