@@ -272,12 +272,22 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
+                //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
-                    String profileName = profile._name;
-                    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_undone);
-                    else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    String profileName = "";
+                    if (event._atEndHowUndo == 0) {
+                        profileName = profile._name;
+                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+                            profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_undone);
+                        else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                            profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    }
+                    else {
+                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+                            profileName = vi.getResources().getString(R.string.event_preference_profile_undone);
+                        else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                            profileName =  vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    }
                     holder.profileEndName.setText(profileName);
                     holder.profileEndName.setTextColor(defaultColor);
                     if (profile.getIsIconResourceID()) {
@@ -310,10 +320,14 @@ class AddEventAdapter extends BaseAdapter {
                         }
                     }
                 } else {
-                    String profileName = profileEndNamesArray[position];
-                    if ((position > 0) && (!profileName.isEmpty())) {
-                        profileName = "(*) " + profileName;
-                        holder.profileEndName.setTextColor(Color.RED);
+                    String profileName = "";
+                    if (event._atEndHowUndo == 0) {
+                        profileName = profileEndNamesArray[position];
+                        if ((position > 0) && (!profileName.isEmpty())) {
+                            profileName = "(*) " + profileName;
+                            holder.profileEndName.setTextColor(Color.RED);
+                        } else
+                            holder.profileEndName.setTextColor(defaultColor);
                     }
                     else
                         holder.profileEndName.setTextColor(defaultColor);
@@ -323,10 +337,12 @@ class AddEventAdapter extends BaseAdapter {
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                             profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                         else {
-                            if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
-                                profileName = vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
-                            else
-                                profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
+                            if (event._atEndHowUndo == 0) {
+                                if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
+                                    profileName = vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                                else
+                                    profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
+                            }
                         }
                     }
                     else {

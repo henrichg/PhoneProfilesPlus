@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2437;
+    private static final int DATABASE_VERSION = 2438;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -334,6 +334,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_DEVICE_BOOT_SENSOR_PASSED = "deviceBootSensorPassed";
     private static final String KEY_E_ALARM_CLOCK_APPLICATIONS = "alarmClockApplications";
     private static final String KEY_E_ALARM_CLOCK_PACKAGE_NAME = "alarmClockPackageName";
+    private static final String KEY_E_AT_END_HOW_UNDO = "atEndHowUndo";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -715,7 +716,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_DEVICE_BOOT_START_TIME + " " + INTEGER_TYPE + ","
                 + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_ALARM_CLOCK_APPLICATIONS + " " + TEXT_TYPE + ","
-                + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " " + TEXT_TYPE
+                + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " " + TEXT_TYPE + ","
+                + KEY_E_AT_END_HOW_UNDO + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1120,6 +1122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_DEVICE_BOOT_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_APPLICATIONS, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PACKAGE_NAME, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_AT_END_HOW_UNDO, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -4633,6 +4636,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime); // time for change status from RUNNING to PAUSE
                 values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
                 values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
+                values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
 
                 db.beginTransaction();
 
@@ -4694,7 +4698,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_E_IS_IN_DELAY_END,
                                 KEY_E_START_STATUS_TIME,
                                 KEY_E_PAUSE_STATUS_TIME,
-                                KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION
+                                KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION,
+                                KEY_E_AT_END_HOW_UNDO
                         },
                         KEY_E_ID + "=?",
                         new String[]{String.valueOf(event_id)}, null, null, null, null);
@@ -4728,7 +4733,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_START)) == 1,
                                 cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START)),
                                 cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_END)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE_END)) == 1
+                                cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE_END)) == 1,
+                                cursor.getInt(cursor.getColumnIndex(KEY_E_AT_END_HOW_UNDO))
                         );
                     }
 
@@ -4782,7 +4788,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_START_STATUS_TIME + "," +
                         KEY_E_PAUSE_STATUS_TIME + "," +
                         KEY_E_START_ORDER + "," +
-                        KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION +
+                        KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + "," +
+                        KEY_E_AT_END_HOW_UNDO +
                         " FROM " + TABLE_EVENTS +
                         " ORDER BY " + KEY_E_ID;
 
@@ -4820,6 +4827,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event._pauseStatusTime = cursor.getLong(cursor.getColumnIndex(KEY_E_PAUSE_STATUS_TIME));
                         event._startOrder = cursor.getInt(cursor.getColumnIndex(KEY_E_START_ORDER));
                         event._noPauseByManualActivation = cursor.getInt(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION)) == 1;
+                        event._atEndHowUndo = cursor.getInt(cursor.getColumnIndex(KEY_E_AT_END_HOW_UNDO));
                         event.createEventPreferences();
                         getEventPreferences(event, db);
                         // Adding contact to list
@@ -4875,6 +4883,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
                 values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
                 values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0);
+                values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
 
                 db.beginTransaction();
 

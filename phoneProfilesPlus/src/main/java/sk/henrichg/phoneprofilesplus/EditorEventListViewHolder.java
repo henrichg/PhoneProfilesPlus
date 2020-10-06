@@ -309,14 +309,27 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
                         applicationEditorPrefIndicator, false);
+                //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
-                    String profileName = profile._name;
-                    if (event._delayEnd > 0)
-                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
-                    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_undone);
-                    else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    String profileName = "";
+                    //noinspection IfStatementWithIdenticalBranches
+                    if (event._atEndHowUndo == 0) {
+                        profileName = profile._name;
+                        if (event._delayEnd > 0)
+                            profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
+                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+                            profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_undone);
+                        else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                            profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    }
+                    else {
+                        if (event._delayEnd > 0)
+                            profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "]";
+                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+                            profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_undone);
+                        else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                            profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    }
                     profileEndName.setText(profileName);
                     if (profile.getIsIconResourceID()) {
                         if (profile._iconBitmap != null)
@@ -352,10 +365,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + context.getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {
-                        if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
-                            profileName = profileName + context.getResources().getString(R.string.profile_preference_profile_end_no_activate);
-                        else
-                            profileName = profileName + context.getResources().getString(R.string.profile_preference_profile_not_set);
+                        if (event._atEndHowUndo == 0) {
+                            if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
+                                profileName = profileName + context.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                            else
+                                profileName = profileName + context.getResources().getString(R.string.profile_preference_profile_not_set);
+                        }
                     }
                     profileEndName.setText(profileName);
                     profileEndIcon.setImageResource(R.drawable.ic_empty);

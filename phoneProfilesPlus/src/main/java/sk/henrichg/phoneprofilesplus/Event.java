@@ -60,6 +60,7 @@ class Event {
     boolean _noPauseByManualActivation;
     String _notificationSoundEnd;
     boolean _notificationVibrateEnd;
+    int _atEndHowUndo;
 
     EventPreferencesTime _eventPreferencesTime;
     EventPreferencesBattery _eventPreferencesBattery;
@@ -123,6 +124,7 @@ class Event {
     private static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
     private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
+    private static final String PREF_EVENT_AT_END_HOW_UNDO = "event_preferences_atEndHowUndo";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -163,7 +165,8 @@ class Event {
                  boolean repeatNotificationStart,
                  int repeatNotificationIntervalStart,
                  String notificationSoundEnd,
-                 boolean notificationVibrateEnd)
+                 boolean notificationVibrateEnd,
+                 int atEndHowUndo)
     {
         this._id = id;
         this._name = name;
@@ -191,6 +194,7 @@ class Event {
         this._startStatusTime = startStatusTime;
         this._pauseStatusTime = pauseStatusTime;
         this._noPauseByManualActivation = noPauseByManualActivation;
+        this._atEndHowUndo = atEndHowUndo;
 
         createEventPreferences();
     }
@@ -220,7 +224,8 @@ class Event {
                  boolean repeatNotificationStart,
                  int repeatNotificationIntervalStart,
                  String notificationSoundEnd,
-                 boolean notificationVibrateEnd)
+                 boolean notificationVibrateEnd,
+                 int atEndHowUndo)
     {
         this._name = name;
         this._startOrder = startOrder;
@@ -247,6 +252,7 @@ class Event {
         this._startStatusTime = startStatusTime;
         this._pauseStatusTime = pauseStatusTime;
         this._noPauseByManualActivation = noPauseByManualActivation;
+        this._atEndHowUndo = atEndHowUndo;
 
         createEventPreferences();
     }
@@ -279,6 +285,7 @@ class Event {
         this._startStatusTime = event._startStatusTime;
         this._pauseStatusTime = event._pauseStatusTime;
         this._noPauseByManualActivation = event._noPauseByManualActivation;
+        this._atEndHowUndo = event._atEndHowUndo;
 
         copyEventPreferences(event);
     }
@@ -632,6 +639,7 @@ class Event {
         editor.putString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, this._startWhenActivatedProfile);
         editor.putString(PREF_EVENT_DELAY_END, Integer.toString(this._delayEnd));
         editor.putBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, this._noPauseByManualActivation);
+        editor.putString(PREF_EVENT_AT_END_HOW_UNDO, Integer.toString(this._atEndHowUndo));
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);
@@ -672,6 +680,7 @@ class Event {
         this._manualProfileActivation = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
         this._startWhenActivatedProfile = preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, "");
         this._noPauseByManualActivation = preferences.getBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, false);
+        this._atEndHowUndo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0"));
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -1800,7 +1809,7 @@ class Event {
 
     void doLogForPauseEvent(Context context, boolean allowRestart) {
         int alType = PPApplication.ALTYPE_EVENT_END_NONE;
-        if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
+        if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_atEndHowUndo == 0) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
             alType = PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE;
         if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)) {
             if (allowRestart)

@@ -1622,6 +1622,10 @@
     <string name="install_extender_where_is_assets_button">Where is</string>
     <string name="github_assets_screenshot_label">screenshot</string>
 
+    <string name="event_preferences_atEndHowUndo">How to undo profile</string>
+    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>
+    <string name="array_pref_atEndDo_undoByProfileActivation">By profile activation order</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 

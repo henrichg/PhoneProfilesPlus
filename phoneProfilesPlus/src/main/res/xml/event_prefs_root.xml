@@ -77,6 +77,16 @@
             app:title="@string/event_preferences_eventProfileEnd"
             app:addNoActivateItem="1"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <ListPreference
+            app:title="@string/event_preferences_atEndHowUndo"
+            app:summary="@string/array_pref_atEndDo_undoByEventsStart"
+            app:key="eventAtEndHowUndo"
+            app:defaultValue="0"
+            app:entries="@array/eventAtEndHowUndoArray"
+            app:entryValues="@array/eventAtEndHowUndoValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <ListPreference
             app:title="@string/event_preferences_atEndDo"
             app:summary="@string/array_pref_atEndDo_restartEvents"
