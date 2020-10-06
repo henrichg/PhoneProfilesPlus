@@ -209,6 +209,8 @@ public class PPApplication extends Application
                                                 //+"|[BLOCK_ACTIONS]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
+
+                                                //+"|EventPreferencesBattery"
                                                 ;
 
     // activity log types

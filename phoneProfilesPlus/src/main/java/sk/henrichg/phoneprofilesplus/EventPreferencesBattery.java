@@ -437,7 +437,7 @@ class EventPreferencesBattery extends EventPreferences {
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(eventsHandler.context);
-                //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "isPowerSaveMode=" + isPowerSaveMode);
+//                PPApplication.logE("EventPreferencesBattery.doHandleEvent", "isPowerSaveMode=" + isPowerSaveMode);
 
                 boolean isCharging;
                 int batteryPct;
@@ -456,22 +456,22 @@ class EventPreferencesBattery extends EventPreferences {
                     eventsHandler.batteryPassed = false;
 
                     int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                    //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "status=" + status);
+//                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "status=" + status);
                     isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                             status == BatteryManager.BATTERY_STATUS_FULL;
-                    //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "isCharging=" + isCharging);
+//                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "isCharging=" + isCharging);
                     plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-                    //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "plugged=" + plugged);
+//                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "plugged=" + plugged);
 
                     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                     int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EventPreferencesBattery.doHandleEvent", "level=" + level);
-                        PPApplication.logE("EventPreferencesBattery.doHandleEvent", "scale=" + scale);
-                    }*/
+//                    if (PPApplication.logEnabled()) {
+//                        PPApplication.logE("EventPreferencesBattery.doHandleEvent", "level=" + level);
+//                        PPApplication.logE("EventPreferencesBattery.doHandleEvent", "scale=" + scale);
+//                    }
 
                     batteryPct = Math.round(level / (float) scale * 100);
-                    //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "batteryPct=" + batteryPct);
+//                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "batteryPct=" + batteryPct);
 
                     if ((batteryPct >= _levelLow) &&
                             (batteryPct <= _levelHight))
@@ -485,17 +485,17 @@ class EventPreferencesBattery extends EventPreferences {
                         else
                         if (_charging == 2)
                             eventsHandler.batteryPassed = eventsHandler.batteryPassed && (!isCharging);
-                        //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "event._eventPreferencesBattery._plugged=" + event._eventPreferencesBattery._plugged);
+//                        PPApplication.logE("EventPreferencesBattery.doHandleEvent", "event._eventPreferencesBattery._plugged=" + _plugged);
                         if ((_plugged != null) &&
                                 (!_plugged.isEmpty())) {
                             String[] splits = _plugged.split("\\|");
-                            //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "splits.length=" + splits.length);
+//                            PPApplication.logE("EventPreferencesBattery.doHandleEvent", "splits.length=" + splits.length);
                             if (splits.length > 0) {
                                 boolean passed = false;
                                 for (String split : splits) {
                                     try {
                                         int plug = Integer.parseInt(split);
-                                        //PPApplication.logE("EventPreferencesBattery.doHandleEvent", "plug=" + plug);
+//                                        PPApplication.logE("EventPreferencesBattery.doHandleEvent", "plug=" + plug);
                                         if ((plug == 1) && (plugged == BatteryManager.BATTERY_PLUGGED_AC)) {
                                             passed = true;
                                             break;
@@ -520,10 +520,10 @@ class EventPreferencesBattery extends EventPreferences {
                 } else
                     eventsHandler.notAllowedBattery = true;
 
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "notAllowedBattery=" + notAllowedBattery);
-                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "batteryPassed=" + batteryPassed);
-                }*/
+//                if (PPApplication.logEnabled()) {
+//                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "notAllowedBattery=" + eventsHandler.notAllowedBattery);
+//                    PPApplication.logE("EventPreferencesBattery.doHandleEvent", "batteryPassed=" + eventsHandler.batteryPassed);
+//                }
 
                 if (!eventsHandler.notAllowedBattery) {
                     if (eventsHandler.batteryPassed)
@@ -535,7 +535,7 @@ class EventPreferencesBattery extends EventPreferences {
                 eventsHandler.notAllowedBattery = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesBattery.doHandleEvent", "battery - sensor pass changed");
+//                PPApplication.logE("EventPreferencesBattery.doHandleEvent", "battery - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_BATTERY);
             }
