@@ -1402,8 +1402,8 @@ class Event {
 
         if (!this.isRunnable(dataWrapper.context, true)) {
             // event is not runnable, no start it
-            if (_name.equals("Event"))
-                PPApplication.logE("Event.startEvent","event is not runnable, no start it");
+//            if (_name.equals("Event"))
+//                PPApplication.logE("Event.startEvent","event is not runnable, no start it");
             return;
         }
 
