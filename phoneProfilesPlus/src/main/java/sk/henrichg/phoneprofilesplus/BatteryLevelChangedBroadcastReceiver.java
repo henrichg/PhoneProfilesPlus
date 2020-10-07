@@ -201,7 +201,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                             // start events handler
 //                            PPApplication.logE("[EVENTS_HANDLER] BatteryLevelChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL);
 
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
                         } finally {

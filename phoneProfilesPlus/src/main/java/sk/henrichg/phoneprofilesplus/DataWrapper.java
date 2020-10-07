@@ -3030,6 +3030,14 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_BATTERY:
                             sensorEnabled = _event._eventPreferencesBattery._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
+                            sensorEnabled = _event._eventPreferencesBattery._enabled;
+                            if (sensorEnabled) {
+                                sensorEnabled =
+                                        (_event._eventPreferencesBattery._levelLow > 0) ||
+                                                (_event._eventPreferencesBattery._levelHight < 100);
+                            }
+                            break;
                         case DatabaseHandler.ETYPE_CALL:
                             sensorEnabled = _event._eventPreferencesCall._enabled;
                             break;
@@ -3127,14 +3135,6 @@ public class DataWrapper {
                             sensorEnabled = _event._eventPreferencesTime._enabled;
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT);
-                            break;
-                        case DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL:
-                            sensorEnabled = _event._eventPreferencesBattery._enabled;
-                            if (sensorEnabled) {
-                                sensorEnabled =
-                                        (_event._eventPreferencesBattery._levelLow > 0) ||
-                                        (_event._eventPreferencesBattery._levelHight < 100);
-                            }
                             break;
                         case DatabaseHandler.ETYPE_ALL_SCANNER_SENSORS:
                             sensorEnabled = _event._eventPreferencesWifi._enabled &&

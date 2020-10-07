@@ -191,8 +191,8 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.updateGUI"
 
                                                 //+"|[WORKER CALL]"
-                                                //+"|[HANDLER CALL]"
-                                                //+"|[BROADCAST CALL]"
+                                                +"|[HANDLER CALL]"
+                                                +"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
                                                 //+"|[LISTENER CALL]"
                                                 //+"|[EVENTS_HANDLER]"
@@ -210,7 +210,7 @@ public class PPApplication extends Application
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
-                                                //+"|EventPreferencesBattery"
+                                                +"|EventPreferencesBattery"
                                                 ;
 
     // activity log types

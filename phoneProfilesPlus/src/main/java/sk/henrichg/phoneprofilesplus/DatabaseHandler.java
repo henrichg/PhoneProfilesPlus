@@ -6369,6 +6369,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             sensorPassedField = KEY_E_TIME_SENSOR_PASSED;
                             break;
                         case ETYPE_BATTERY:
+                        case ETYPE_BATTERY_WITH_LEVEL:
                             sensorPassedField = KEY_E_BATTERY_SENSOR_PASSED;
                             break;
                         case ETYPE_CALL:
@@ -6474,6 +6475,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sensorPassedField = KEY_E_TIME_SENSOR_PASSED;
                         break;
                     case ETYPE_BATTERY:
+                    case ETYPE_BATTERY_WITH_LEVEL:
                         sensorPassed = event._eventPreferencesBattery.getSensorPassed();
                         sensorPassedField = KEY_E_BATTERY_SENSOR_PASSED;
                         break;

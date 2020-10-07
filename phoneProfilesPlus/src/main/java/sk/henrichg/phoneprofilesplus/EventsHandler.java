@@ -89,6 +89,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_EVENT_DELAY_START = "eventDelayStart";
     static final String SENSOR_TYPE_EVENT_DELAY_END = "eventDelayEnd";
     static final String SENSOR_TYPE_BATTERY = "battery";
+    static final String SENSOR_TYPE_BATTERY_WITH_LEVEL = "batteryWithLevel";
     static final String SENSOR_TYPE_BLUETOOTH_CONNECTION = "bluetoothConnection";
     static final String SENSOR_TYPE_BLUETOOTH_STATE = "bluetoothState";
     static final String SENSOR_TYPE_DOCK_CONNECTION = "dockConnection";
@@ -440,6 +441,7 @@ class EventsHandler {
             */
 
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+            int runningEventCount0 = eventTimelineList.size();
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
             if (isRestart) {
@@ -472,7 +474,7 @@ class EventsHandler {
                         }*/
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, sensorType, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -519,7 +521,7 @@ class EventsHandler {
 
                         // start all events
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, sensorType, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -570,7 +572,7 @@ class EventsHandler {
                         }*/
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, sensorType, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -626,7 +628,7 @@ class EventsHandler {
                         }*/
 
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, sensorType, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -854,6 +856,9 @@ class EventsHandler {
                 // check if profile has changed
                 if (!mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
+                else if (runningEventCountE != runningEventCount0)
+                    profileChanged = true;
+
 //                if (isRestart)
 //                    PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
 //                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### isRestart=" + isRestart);
@@ -968,6 +973,8 @@ class EventsHandler {
             case SENSOR_TYPE_BATTERY:
             case SENSOR_TYPE_POWER_SAVE_MODE:
                 return DatabaseHandler.ETYPE_BATTERY;
+            case SENSOR_TYPE_BATTERY_WITH_LEVEL:
+                return DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL;
             case SENSOR_TYPE_BLUETOOTH_CONNECTION:
             case SENSOR_TYPE_BLUETOOTH_STATE:
                 return DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED;
@@ -1261,7 +1268,7 @@ class EventsHandler {
 //--------
 
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
-    private void doHandleEvent(Event event, boolean statePause,
+    private void doHandleEvent(Event event, boolean statePause, String sensorType,
                                boolean forRestartEvents, /*boolean manualRestart,*/
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                Profile mergedProfile, DataWrapper dataWrapper)
@@ -1324,7 +1331,7 @@ class EventsHandler {
 //        }
 
         event._eventPreferencesTime.doHandleEvent(this/*, forRestartEvents*/);
-        event._eventPreferencesBattery.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesBattery.doHandleEvent(this, sensorType, forRestartEvents);
         event._eventPreferencesCall.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesPeripherals.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesCalendar.doHandleEvent(this/*, forRestartEvents*/);
