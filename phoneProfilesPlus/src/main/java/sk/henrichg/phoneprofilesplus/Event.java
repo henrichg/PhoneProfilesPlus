@@ -1619,23 +1619,34 @@ class Event {
                 // second activate when undone profile is set
                 if (_atEndDo == EATENDDO_UNDONE_PROFILE)
                 {
-                    // when in timeline list is event, get start profile from last event in timeline list
-                    // because last event in timeline list may be changed
-                    if (eventTimelineList.size() > 0) {
-                        // get latest running event
-                        EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
-                        if (_eventTimeline != null) {
-                            Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
-                            if (event != null)
-                                eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                    if (_atEndHowUndo == 0) {
+                        // when in timeline list is event, get start profile from last event in timeline list
+                        // because last event in timeline list may be changed
+                        if (eventTimelineList.size() > 0) {
+                            // get latest running event
+                            EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
+                            if (_eventTimeline != null) {
+                                Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                                if (event != null)
+                                    eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                            }
+                        } else {
+                            long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                            //if (!fullyStarted)
+                            //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                            if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                                eventTimeline._fkProfileEndActivated = defaultProfileId;
+                            }
                         }
-                    }
-                    else {
-                        long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                        //if (!fullyStarted)
-                        //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                        if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                            eventTimeline._fkProfileEndActivated = defaultProfileId;
+                    } else {
+                        eventTimeline._fkProfileEndActivated = ApplicationPreferences.prefActivatedProfileForEventUndo;
+                        if (eventTimeline._fkProfileEndActivated == 0) {
+                            long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                            //if (!fullyStarted)
+                            //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                            if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                                eventTimeline._fkProfileEndActivated = defaultProfileId;
+                            }
                         }
                     }
                     if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)

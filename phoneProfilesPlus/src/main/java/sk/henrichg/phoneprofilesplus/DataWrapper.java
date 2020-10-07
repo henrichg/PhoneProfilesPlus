@@ -1700,11 +1700,7 @@ public class DataWrapper {
                 // saved must be also manually activated proifle
                 if (activatedProfile != null) {
                     long profileId = activatedProfile._id;
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
-                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
-                        PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
-                    }*/
+//                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForEventUndo profileId=" + profileId);
                     Profile.setActivatedProfileForEventUndo(context, profileId);
                 } else
                     Profile.setActivatedProfileForEventUndo(context, 0);
