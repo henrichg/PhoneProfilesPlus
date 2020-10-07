@@ -441,7 +441,7 @@ class EventsHandler {
             */
 
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
-            int runningEventCount0 = eventTimelineList.size();
+            //int runningEventCount0 = eventTimelineList.size();
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
             if (isRestart) {
@@ -856,7 +856,8 @@ class EventsHandler {
                 // check if profile has changed
                 if (!mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
-                else if (runningEventCountE != runningEventCount0)
+                //else if (runningEventCountE != runningEventCount0)
+                else if (usedEventsCount > 0)
                     profileChanged = true;
 
 //                if (isRestart)
