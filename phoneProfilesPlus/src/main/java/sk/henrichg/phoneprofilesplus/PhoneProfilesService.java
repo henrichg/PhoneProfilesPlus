@@ -1096,7 +1096,7 @@ public class PhoneProfilesService extends Service
                 try {
                     appContext.unregisterReceiver(PPApplication.batteryLevelChangedReceiver);
                     PPApplication.batteryLevelChangedReceiver = null;
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerBatteryLevelChangedReceiver", "UNREGISTER");
+//                    PPApplication.logE("[BROADCAST CALL] ---- PhoneProfilesService.registerBatteryLevelChangedReceiver", "UNREGISTER");
                 } catch (Exception e) {
                     PPApplication.batteryLevelChangedReceiver = null;
                 }
@@ -1113,6 +1113,7 @@ public class PhoneProfilesService extends Service
             if (eventsExists)
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
+//            PPApplication.logE("[BROADCAST CALL] ---- PhoneProfilesService.registerBatteryLevelChangedReceiver", "allowed="+allowed);
             /*if (!allowed) {
                 String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
                 if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2")) {

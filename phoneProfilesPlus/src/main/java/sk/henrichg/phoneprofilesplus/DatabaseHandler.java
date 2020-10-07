@@ -6682,6 +6682,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         eventTypeChecked = eventTypeChecked + KEY_E_TIME_ENABLED + "=1";
                     else if (eventType == ETYPE_BATTERY)
                         eventTypeChecked = eventTypeChecked + KEY_E_BATTERY_ENABLED + "=1";
+                    else if (eventType == ETYPE_BATTERY_WITH_LEVEL)
+                        eventTypeChecked = eventTypeChecked + KEY_E_BATTERY_ENABLED + "=1" + " AND " +
+                                "((" + KEY_E_BATTERY_LEVEL_LOW + " > 0) OR (" + KEY_E_BATTERY_LEVEL_HIGHT + " < 100))";
                     else if (eventType == ETYPE_CALL)
                         eventTypeChecked = eventTypeChecked + KEY_E_CALL_ENABLED + "=1";
                     else if (eventType == ETYPE_PERIPHERAL)
