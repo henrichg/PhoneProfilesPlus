@@ -307,6 +307,7 @@ public class Profile {
 
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
+    private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
 
     static final int[] profileIconId = {
             R.drawable.ic_profile_default,
@@ -4533,6 +4534,24 @@ public class Profile {
             editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileEndDurationTime = time;
+        }
+    }
+
+    static void getActivatedProfileForEventUndo(Context context)
+    {
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.prefActivatedProfileForEventUndo = ApplicationPreferences.
+                    getSharedPreferences(context).getLong(PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO, 0);
+            //return prefActivatedProfileForDuration;
+        }
+    }
+    static void setActivatedProfileForEventUndo(Context context, long profileId)
+    {
+        synchronized (PPApplication.profileActivationMutex) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putLong(PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO, profileId);
+            editor.apply();
+            ApplicationPreferences.prefActivatedProfileForEventUndo = profileId;
         }
     }
 

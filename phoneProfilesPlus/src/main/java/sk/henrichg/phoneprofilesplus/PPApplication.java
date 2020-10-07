@@ -1897,6 +1897,7 @@ public class PPApplication extends Application
         ActivateProfileHelper.getMergedRingNotificationVolumes(context);
         Profile.getActivatedProfileForDuration(context);
         Profile.getActivatedProfileEndDurationTime(context);
+        Profile.getActivatedProfileForEventUndo(context);
     }
 
     //--------------------------------------------------------------
@@ -3597,6 +3598,7 @@ public class PPApplication extends Application
                 }
             }
             Profile.setActivatedProfileForDuration(context, 0);
+            Profile.setActivatedProfileForEventUndo(context, 0);
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 

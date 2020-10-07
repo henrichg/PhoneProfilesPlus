@@ -654,6 +654,7 @@ public class EditorProfileListFragment extends Fragment
             //noinspection ConstantConditions
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, getActivity().getApplicationContext());
             Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+            Profile.setActivatedProfileForEventUndo(getActivity().getApplicationContext(), 0);
         }
 
         //listView.getRecycledViewPool().clear();
@@ -788,6 +789,7 @@ public class EditorProfileListFragment extends Fragment
                         }
                     }
                     Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
+                    Profile.setActivatedProfileForEventUndo(activityDataWrapper.context, 0);
 
                     //listView.getRecycledViewPool().clear();
 

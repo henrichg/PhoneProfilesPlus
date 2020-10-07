@@ -3894,6 +3894,8 @@ public class PhoneProfilesService extends Service
                         }
                         DatabaseHandler.getInstance(appContext).unblockAllEvents();
                         Event.setForceRunEventRunning(appContext, false);
+
+                        Profile.setActivatedProfileForEventUndo(appContext, 0);
                     }
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "8");
