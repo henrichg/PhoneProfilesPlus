@@ -1063,10 +1063,11 @@ class Event {
                 preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
                 if (preference != null)
                     preference.setEnabled(true);
-                String value2 = preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0");
+                //String value2 = preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0");
                 preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
                 if (preference != null)
-                    preference.setEnabled(value2.equals("0"));
+                    //preference.setEnabled(value2.equals("0"));
+                    preference.setEnabled(true);
 
                 preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
                 if (preference != null)
@@ -1868,7 +1869,7 @@ class Event {
 
     void doLogForPauseEvent(Context context, boolean allowRestart) {
         int alType = PPApplication.ALTYPE_EVENT_END_NONE;
-        if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_atEndHowUndo == 0) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
+        if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && /*(_atEndHowUndo == 0) &&*/ (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
             alType = PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE;
         if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)) {
             if (allowRestart)
