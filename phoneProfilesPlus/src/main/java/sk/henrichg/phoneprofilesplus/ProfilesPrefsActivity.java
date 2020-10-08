@@ -618,7 +618,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 // set alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, getApplicationContext());
                 Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
-                //Profile.setActivatedProfileForEventUndo(getApplicationContext(), profile._id);
+                Profile.setActivatedProfileForEventUndo(getApplicationContext(), profile._id);
             }
 
             PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, profile._icon, 0, "");

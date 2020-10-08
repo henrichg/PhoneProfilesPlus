@@ -1684,8 +1684,11 @@ public class DataWrapper {
 //                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
 //                        }
                         Profile.setActivatedProfileForDuration(context, profileId);
-                    } else
+                        Profile.setActivatedProfileForEventUndo(context, profileId);
+                    } else {
                         Profile.setActivatedProfileForDuration(context, 0);
+                        Profile.setActivatedProfileForEventUndo(context, 0);
+                    }
 
                     ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
                     ///////////
