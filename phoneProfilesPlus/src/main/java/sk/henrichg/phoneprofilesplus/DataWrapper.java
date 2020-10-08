@@ -1565,7 +1565,6 @@ public class DataWrapper {
             // remove last configured profile duration alarm
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
             Profile.setActivatedProfileForDuration(context, 0);
-            Profile.setActivatedProfileForEventUndo(context, 0);
 
             //final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
             //profile = filterProfileWithBatteryEvents(profile);
@@ -1613,7 +1612,7 @@ public class DataWrapper {
             //final Activity activity = _activity;
 
             // get currently activated profile
-            Profile activatedProfile = getActivatedProfile(false, false);
+            Profile oldActivatedProfile = getActivatedProfile(false, false);
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile=" + activatedProfile);
                 if (activatedProfile != null)
@@ -1677,13 +1676,13 @@ public class DataWrapper {
                     //// set profile duration alarm
 
                     // save before activated profile
-                    if (activatedProfile != null) {
-                        long profileId = activatedProfile._id;
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
-                            PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
-                            PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
-                        }*/
+                    if (oldActivatedProfile != null) {
+                        long profileId = oldActivatedProfile._id;
+//                        if (PPApplication.logEnabled()) {
+//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
+//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
+//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
+//                        }
                         Profile.setActivatedProfileForDuration(context, profileId);
                     } else
                         Profile.setActivatedProfileForDuration(context, 0);
@@ -1691,19 +1690,10 @@ public class DataWrapper {
                     ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
                     ///////////
                 } else {
-                    //PPApplication.logE("$$$ DataWrapper._activateProfile","NO manual profile activation");
+//                    PPApplication.logE("----------- $$$ DataWrapper._activateProfile","setActivatedProfileForDuration NO manual profile activation");
                     profileDuration = 0;
 
                 }
-
-                // save activated profile for event Undo
-                // saved must be also manually activated proifle
-                if (activatedProfile != null) {
-                    long profileId = activatedProfile._id;
-//                    PPApplication.logE("$$$ DataWrapper._activateProfile", "setActivatedProfileForEventUndo profileId=" + profileId);
-                    Profile.setActivatedProfileForEventUndo(context, profileId);
-                } else
-                    Profile.setActivatedProfileForEventUndo(context, 0);
 
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
             }
@@ -2117,7 +2107,6 @@ public class DataWrapper {
                 //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
                 Profile.setActivatedProfileForDuration(context, 0);
-                Profile.setActivatedProfileForEventUndo(context, 0);
                 //PPApplication.showProfileNotification(/*context*/false, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
                 //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");

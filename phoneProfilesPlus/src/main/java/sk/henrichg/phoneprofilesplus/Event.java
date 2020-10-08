@@ -1575,11 +1575,11 @@ class Event {
                                         boolean forRestartEvents,
                                         boolean updateGUI)
     {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-activateReturnProfile=" + activateReturnProfile);
-            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-allowRestart=" + allowRestart);
-            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-forRestartEvents=" + forRestartEvents);
-        }*/
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "activateReturnProfile=" + activateReturnProfile);
+//            PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "allowRestart=" + allowRestart);
+//            PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "forRestartEvents=" + forRestartEvents);
+//        }
 
         if (!(eventPosition == (timeLineSize-1)))
         {
@@ -1619,6 +1619,8 @@ class Event {
                 // second activate when undone profile is set
                 if (_atEndDo == EATENDDO_UNDONE_PROFILE)
                 {
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "undone profile");
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_atEndHowUndo="+_atEndHowUndo);
                     if (_atEndHowUndo == 0) {
                         // when in timeline list is event, get start profile from last event in timeline list
                         // because last event in timeline list may be changed
@@ -1640,21 +1642,20 @@ class Event {
                         }
                     } else {
                         eventTimeline._fkProfileEndActivated = ApplicationPreferences.prefActivatedProfileForEventUndo;
+//                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         if (eventTimeline._fkProfileEndActivated == 0) {
                             long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
                             //if (!fullyStarted)
                             //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                             if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+//                                PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated=default profile");
                                 eventTimeline._fkProfileEndActivated = defaultProfileId;
                             }
                         }
                     }
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
                     if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)
                     {
-                        /*if (PPApplication.logEnabled()) {
-                            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-undone profile");
-                            PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
-                        }*/
                         if (eventTimeline._fkProfileEndActivated != 0)
                         {
                             //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(2) called is DataWrapper.activateProfileFromEvent");
@@ -1674,29 +1675,41 @@ class Event {
                 // second activate when undone profile is set
                 if (_atEndDo == EATENDDO_UNDONE_PROFILE)
                 {
-                    // when in timeline list is event, get start profile from last event in timeline list
-                    // because last event in timeline list may be changed
-                    if (eventTimelineList.size() > 0) {
-                        // get latest running evemt
-                        EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
-                        if (_eventTimeline != null) {
-                            Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
-                            if (event != null)
-                                eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "undone profile for merged profile");
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_atEndHowUndo="+_atEndHowUndo);
+                    if (_atEndHowUndo == 0) {
+                        // when in timeline list is event, get start profile from last event in timeline list
+                        // because last event in timeline list may be changed
+                        if (eventTimelineList.size() > 0) {
+                            // get latest running evemt
+                            EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
+                            if (_eventTimeline != null) {
+                                Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                                if (event != null)
+                                    eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                            }
+                        } else {
+                            long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                            //if (!fullyStarted)
+                            //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                            if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                                eventTimeline._fkProfileEndActivated = defaultProfileId;
+                            }
+                        }
+                    } else {
+                        eventTimeline._fkProfileEndActivated = ApplicationPreferences.prefActivatedProfileForEventUndo;
+//                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
+                        if (eventTimeline._fkProfileEndActivated == 0) {
+                            long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                            //if (!fullyStarted)
+                            //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                            if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+//                                PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated=default profile");
+                                eventTimeline._fkProfileEndActivated = defaultProfileId;
+                            }
                         }
                     }
-                    else {
-                        long defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                        //if (!fullyStarted)
-                        //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                        if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                            eventTimeline._fkProfileEndActivated = defaultProfileId;
-                        }
-                    }
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-undone profile");
-                        PPApplication.logE("@@@ Event.pauseEvent", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
-                    }*/
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
