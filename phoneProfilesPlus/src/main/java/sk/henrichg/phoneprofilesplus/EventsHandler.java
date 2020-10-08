@@ -769,11 +769,13 @@ class EventsHandler {
                                     //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                                 }
                             }*/
+                        boolean defaultProfileActivated = false;
                         if ((semiOldActivatedProfileId == 0) ||
                                 isRestart ||
                                 (semiOldActivatedProfileId != defaultProfileId)) {
                             notifyDefaultProfile = true;
                             mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                            defaultProfileActivated = true;
                             //mergedProfilesCount++;
 //                            if (isRestart)
 //                                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
@@ -785,7 +787,7 @@ class EventsHandler {
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "isRestart="+isRestart);
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "manualRestart="+manualRestart);
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "mergedProfile._id="+mergedProfile._id);
-                        if (((semiOldActivatedProfileId == defaultProfileId) && (mergedProfilesCount > 0)) ||
+                        if (((semiOldActivatedProfileId == defaultProfileId) && defaultProfileActivated) ||
                                 (isRestart && (!manualRestart))) {
                             // block interactive parameters when
                             // - activated profile is default profile
