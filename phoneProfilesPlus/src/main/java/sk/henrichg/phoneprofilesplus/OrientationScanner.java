@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -24,7 +26,7 @@ class OrientationScanner implements SensorEventListener {
         if (PhoneProfilesService.getInstance() == null)
             return;
 
-        //final Context appContext = PhoneProfilesService.getInstance().getApplicationContext();
+        final Context appContext = PhoneProfilesService.getInstance().getApplicationContext();
 
         final int sensorType = event.sensor.getType();
         //PPApplication.logE("OrientationScanner.onSensorChanged", "sensorType="+sensorType);
@@ -214,11 +216,20 @@ class OrientationScanner implements SensorEventListener {
             runEventsHandler = true;
         }
         if (sensorType == Sensor.TYPE_LIGHT) {
-            //PPApplication.logE("OrientationScanner.onSensorChanged", "light value="+event.values[0]);
-            //PPApplication.logE("OrientationScanner.onSensorChanged", "light mMaxLightDistance="+mMaxLightDistance);
+//            PPApplication.logE("------------ OrientationScanner.onSensorChanged", "light value="+event.values[0]);
+//            PPApplication.logE("------------ OrientationScanner.onSensorChanged", "light mMaxLightDistance="+orientationHandler.maxLightDistance);
 
             orientationHandler.resultLight = convertLightToSensor(event.values[0], orientationHandler.maxLightDistance);
-            //PPApplication.logE("OrientationScanner.onSensorChanged", "light mLight="+mLight);
+
+//            PPApplication.logE("------------ OrientationScanner.onSensorChanged", "resultLight="+orientationHandler.resultLight);
+
+            try {
+                // redraw light current value p[reference
+                //PPApplication.logE("[BROADCAST CALL] OrientationScanner.onSensorChanged", "xxx");
+                Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
+                LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
+            } catch (Exception ignored) {}
+
             runEventsHandler = true;
         }
         if (runEventsHandler)
@@ -322,7 +333,10 @@ class OrientationScanner implements SensorEventListener {
     }
 
     private static int convertLightToSensor(float light, float maxLight) {
-        return (int)Math.round(light / maxLight * 10000.0);
+        if (maxLight > 1.0f)
+            return (int)Math.round(light / maxLight * 10000.0);
+        else
+            return Math.round(light);
     }
 
     @Override

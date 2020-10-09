@@ -3257,11 +3257,13 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startOrientationScanner(boolean start, boolean stop, DataWrapper dataWrapper) {
+    private void startOrientationScanner(boolean start, boolean stop, DataWrapper dataWrapper, boolean forceStart) {
         synchronized (PPApplication.orientationScannerMutex) {
             Context appContext = getApplicationContext();
             //CallsCounter.logCounter(appContext, "PhoneProfilesService.startOrientationScanner", "PhoneProfilesService_startOrientationScanner");
             //PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "xxx");
+            if (!forceStart && EventsPrefsFragment.forceStart)
+                return;
             if (stop) {
                 if (isOrientationScannerStarted()) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->STOP", "PhoneProfilesService_startOrientationScanner");
@@ -3272,29 +3274,34 @@ public class PhoneProfilesService extends Service
                 //    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "not started");
             }
             if (start) {
-                //PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "START");
-                if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+//                PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
+                if (ApplicationPreferences.applicationEventOrientationEnableScanning||
+                        EventsPrefsFragment.forceStart) {
                     boolean eventAllowed = false;
-                    if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)) {
-                        // start only for screen On
-                        dataWrapper.fillEventList();
-                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
-                        if (eventsExists)
-                            eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED;
+                    if (EventsPrefsFragment.forceStart)
+                        eventAllowed = true;
+                    else {
+                        if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)) {
+                            // start only for screen On
+                            dataWrapper.fillEventList();
+                            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                            if (eventsExists)
+                                eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                        }
                     }
                     if (eventAllowed) {
                         if (!isOrientationScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startOrientationScanner->START", "PhoneProfilesService_startOrientationScanner");
                             startOrientationScanner();
-                            //PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "START");
+//                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                         }
-                        //else
-                        //    PPApplication.logE("[RJS] PhoneProfilesService.startOrientationScanner", "started");
+//                        else
+//                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "started");
                     } else
-                        startOrientationScanner(false, true, dataWrapper);
+                        startOrientationScanner(false, true, dataWrapper, forceStart);
                 } else
-                    startOrientationScanner(false, true, dataWrapper);
+                    startOrientationScanner(false, true, dataWrapper, forceStart);
             }
         }
     }
@@ -3504,7 +3511,7 @@ public class PhoneProfilesService extends Service
 
         startGeofenceScanner(true, true, dataWrapper, false);
         startPhoneStateScanner(true, true, dataWrapper, false, false);
-        startOrientationScanner(true, true, dataWrapper);
+        startOrientationScanner(true, true, dataWrapper, false);
         startTwilightScanner(true, true, dataWrapper);
         startNotificationScanner(true, true, dataWrapper);
 
@@ -3559,7 +3566,7 @@ public class PhoneProfilesService extends Service
 
         startGeofenceScanner(false, true, null, false);
         startPhoneStateScanner(false, true, null, false, false);
-        startOrientationScanner(false, true, null);
+        startOrientationScanner(false, true, null, false);
         startTwilightScanner(false, true, null);
         startNotificationScanner(false, true, null);
 
@@ -3618,7 +3625,7 @@ public class PhoneProfilesService extends Service
         //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
 
         startPhoneStateScanner(true, true, dataWrapper, false, false);
-        startOrientationScanner(true, true, dataWrapper);
+        startOrientationScanner(true, true, dataWrapper, false);
         startTwilightScanner(true, true, dataWrapper);
         startNotificationScanner(true, true, dataWrapper);
 
@@ -4830,7 +4837,13 @@ public class PhoneProfilesService extends Service
                                     break;
                                 case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
 //                                    PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
-                                    startOrientationScanner(true, false, dataWrapper);
+                                    startOrientationScanner(true, false, dataWrapper, false);
+                                    AvoidRescheduleReceiverWorker.enqueueWork();
+                                    break;
+                                case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
+//                                    PPApplication.logE("[HANDLER CALL] PhoneProfilesService.doCommand", "SCANNER_FORCE_START_ORIENTATION_SCANNER");
+                                    //PhoneStateScanner.forceStart = true;
+                                    startOrientationScanner(true, false, dataWrapper, true);
                                     AvoidRescheduleReceiverWorker.enqueueWork();
                                     break;
                                 case PPApplication.SCANNER_RESTART_TWILIGHT_SCANNER:
@@ -4915,7 +4928,7 @@ public class PhoneProfilesService extends Service
                                     if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                                         boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                         if ((!fromBatteryChange) || canRestart) {
-                                            startOrientationScanner(true, true, dataWrapper);
+                                            startOrientationScanner(true, true, dataWrapper, false);
                                         }
                                     }
 
@@ -6411,7 +6424,9 @@ public class PhoneProfilesService extends Service
             }
 
             if (PPApplication.lightSensor != null) {
-                if (DatabaseHandler.getInstance(getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0) {
+                boolean registerLight = EventsPrefsFragment.forceStart ||
+                        (DatabaseHandler.getInstance(getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0);
+                if (registerLight) {
                     PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, handler);
                     //if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)

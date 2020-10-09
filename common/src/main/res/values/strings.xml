@@ -1626,6 +1626,9 @@
     <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>
     <string name="array_pref_atEndDo_undoByProfileActivation">By profile activation order</string>
 
+    <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
+    <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 

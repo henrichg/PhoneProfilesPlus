@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +46,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private boolean nestedFragment = false;
 
     private Event event;
+
+    static boolean forceStart;
 
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PRF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
@@ -277,6 +281,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         EventsPrefsActivity activity = (EventsPrefsActivity) getActivity();
 
         final Context context = activity.getBaseContext();
+
+        PPApplication.forceStartOrientationScanner(context);
+        forceStart = true;
 
         // must be used handler for rewrite toolbar title/subtitle
         final EventsPrefsFragment fragment = this;
@@ -1150,6 +1157,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             editor.apply();
             */
 
+            forceStart = false;
+            if (getActivity() != null) {
+                final Context context = getActivity().getBaseContext();
+                PPApplication.restartOrientationScanner(context);
+            }
+
             //PPApplication.logE("EventsPrefsFragment.onDestroy", "xxx");
 
         } catch (Exception e) {
@@ -1812,6 +1825,30 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                 if (!getActivity().isFinishing())
                     dialog.show();
+            }
+        }
+    }
+
+    void changeCurentLightSensorValue() {
+//        PPApplication.logE("[BROADCAST CALL] EventsPrefsFragment.changeCurentLightSensorValue", "xxx");
+
+        if (getActivity() != null) {
+            Preference currentValuePreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
+            if (currentValuePreference != null) {
+                SensorManager sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+                if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null)) {
+                    PPApplication.startHandlerThreadOrientationScanner();
+                    OrientationScannerHandlerThread orientationHandler = PPApplication.handlerThreadOrientationScanner;
+                    if (orientationHandler == null) {
+                        currentValuePreference.setSummary("0");
+                    } else {
+                        currentValuePreference.setSummary(String.valueOf(orientationHandler.resultLight));
+                    }
+                    currentValuePreference.setEnabled(true);
+                } else {
+                    currentValuePreference.setSummary(R.string.event_preferences_orientation_light_currentValue_noHardware);
+                    currentValuePreference.setEnabled(false);
+                }
             }
         }
     }

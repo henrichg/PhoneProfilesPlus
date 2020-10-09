@@ -201,6 +201,7 @@ public class PPApplication extends Application
 
                                                 //+"|[APP START]"
                                                 //+"|[SHEDULE_WORK]"
+                                                //+"|[SHEDULE_SCANNER]"
 
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
@@ -213,6 +214,8 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesBattery"
                                                 //+"|$$$ EventsHandler.handleEvents"
                                                 //+"|@@@ Event.doActivateEndProfile"
+
+                                                //+"|OrientationScanner.onSensorChanged"
                                                 ;
 
     // activity log types
@@ -499,6 +502,7 @@ public class PPApplication extends Application
 
     //static final int SCANNER_START_ORIENTATION_SCANNER = 4;
     //static final int SCANNER_STOP_ORIENTATION_SCANNER = 5;
+    static final int SCANNER_FORCE_START_ORIENTATION_SCANNER = 5;
     static final int SCANNER_RESTART_ORIENTATION_SCANNER = 6;
 
     //static final int SCANNER_START_PHONE_STATE_SCANNER = 7;
@@ -3188,6 +3192,25 @@ public class PPApplication extends Application
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
+            PPApplication.runCommand(context, commandIntent);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+    }
+
+    public static void forceStartOrientationScanner(Context context/*, boolean forScreenOn*/) {
+        try {
+            //PPApplication.logE("[RJS] PhoneProfilesService.forceStartOrientationScanner", "xxx");
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_ORIENTATION_SCANNER);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_ORIENTATION_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);

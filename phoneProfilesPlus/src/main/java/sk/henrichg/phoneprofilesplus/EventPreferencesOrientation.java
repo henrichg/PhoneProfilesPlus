@@ -17,6 +17,7 @@ import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.widget.Toast;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -41,6 +42,7 @@ class EventPreferencesOrientation extends EventPreferences {
     private static final String PREF_EVENT_ORIENTATION_SIDES = "eventOrientationSides";
     private static final String PREF_EVENT_ORIENTATION_DISTANCE = "eventOrientationDistance";
     private static final String PREF_EVENT_ORIENTATION_CHECK_LIGHT = "eventOrientationCheckLight";
+    static final String PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE = "eventOrientationCurrentLightValue";
     private static final String PREF_EVENT_ORIENTATION_LIGHT_MIN = "eventOrientationLightMin";
     private static final String PREF_EVENT_ORIENTATION_LIGHT_MAX = "eventOrientationLightMax";
     static final String PREF_EVENT_ORIENTATION_INSTALL_EXTENDER = "eventOrientationInstallExtender";
@@ -333,31 +335,34 @@ class EventPreferencesOrientation extends EventPreferences {
         }
 
         if (key.equals(PREF_EVENT_ORIENTATION_CHECK_LIGHT) ||
+                key.equals(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE) ||
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MIN) ||
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX))
         {
+            Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             if (preferences.getBoolean(PREF_EVENT_ORIENTATION_CHECK_LIGHT, false)) {
-                BetterNumberPickerPreferenceX preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
-                if (preference != null) {
-                    preference.setSummary(preference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, true, false, false, false);
+                BetterNumberPickerPreferenceX minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
+                if (minMaxPreference != null) {
+                    minMaxPreference.setSummary(minMaxPreference.value);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
                 }
-                preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
-                if (preference != null) {
-                    preference.setSummary(preference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, true, false, false, false);
+                minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
+                if (minMaxPreference != null) {
+                    minMaxPreference.setSummary(minMaxPreference.value);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
                 }
             }
             else {
-                BetterNumberPickerPreferenceX preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
-                if (preference != null) {
-                    preference.setSummary(preference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, false);
+                BetterNumberPickerPreferenceX minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
+                if (minMaxPreference != null) {
+                    minMaxPreference.setSummary(minMaxPreference.value);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
                 }
-                preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
-                if (preference != null) {
-                    preference.setSummary(preference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, false, false);
+                minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
+                if (minMaxPreference != null) {
+                    minMaxPreference.setSummary(minMaxPreference.value);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
                 }
             }
         }
@@ -365,7 +370,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0)
                     preference.setSummary(R.string.event_preferences_orientation_PPPExtender_install_summary);
                 else
@@ -383,7 +388,7 @@ class EventPreferencesOrientation extends EventPreferences {
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesOrientation.saveSharedPreferences(prefMng.getSharedPreferences());
-        boolean isRunnable = event._eventPreferencesOrientation.isRunnable(context);
+        boolean isRunnable = event._eventPreferencesOrientation.isRunnable(context.getApplicationContext());
         boolean enabled = preferences.getBoolean(PREF_EVENT_ORIENTATION_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
@@ -481,7 +486,8 @@ class EventPreferencesOrientation extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
-        if (key.equals(PREF_EVENT_ORIENTATION_LIGHT_MIN) ||
+        if (key.equals(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE) ||
+                key.equals(PREF_EVENT_ORIENTATION_LIGHT_MIN) ||
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX) )
         {
             //int value = preferences.getInt(key, 0);
@@ -503,6 +509,7 @@ class EventPreferencesOrientation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ORIENTATION_SIDES, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_DISTANCE, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_CHECK_LIGHT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_LIGHT_MIN, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_LIGHT_MAX, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_INSTALL_EXTENDER, preferences, context);
@@ -602,6 +609,11 @@ class EventPreferencesOrientation extends EventPreferences {
             boolean checkLight = switchPreference.isChecked();
             if (checkLight) {
                 enabled = hasLight;
+                Preference currentValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
+                if (currentValuePreference != null) {
+                    currentValuePreference.setEnabled(enabled);
+                }
+                //enabled = hasLight;
                 Preference minLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (minLightPreference != null) {
                     if (!enabled)

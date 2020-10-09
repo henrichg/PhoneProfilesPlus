@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -47,6 +48,14 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
     private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
+    private BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+//            PPApplication.logE("[BROADCAST CALL] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
+
+            EventsPrefsActivity.this.changeCurentLightSensorValue();
+        }
+    };
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
 
@@ -124,6 +133,9 @@ public class EventsPrefsActivity extends AppCompatActivity {
             mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver();
             registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter);
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver"));
     }
 
     @Override
@@ -146,6 +158,12 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 //PPApplication.recordException(e);
             }
             mobileCellsRegistrationNewCellsBroadcastReceiver = null;
+        }
+
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        } catch (IllegalArgumentException e) {
+            //PPApplication.recordException(e);
         }
     }
 
@@ -938,6 +956,14 @@ public class EventsPrefsActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.event_prefs_device_boot_sensor, rootKey);
         }
+    }
+
+    void changeCurentLightSensorValue() {
+//        PPApplication.logE("[BROADCAST CALL] EventsPrefsActivity.changeCurentLightSensorValue", "xxx");
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null)
+            ((EventsPrefsFragment)fragment).changeCurentLightSensorValue();
     }
 
 }
