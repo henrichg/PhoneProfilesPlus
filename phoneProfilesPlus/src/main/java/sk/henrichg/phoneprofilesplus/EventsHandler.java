@@ -787,8 +787,9 @@ class EventsHandler {
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "isRestart="+isRestart);
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "manualRestart="+manualRestart);
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "mergedProfile._id="+mergedProfile._id);
-                        if (((semiOldActivatedProfileId == defaultProfileId) && defaultProfileActivated) ||
-                                (isRestart && (!manualRestart))) {
+                        if (((semiOldActivatedProfileId == defaultProfileId) &&
+                                ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
+                            (isRestart && (!manualRestart))) {
                             // block interactive parameters when
                             // - activated profile is default profile
                             // - it is not manual restart of events
