@@ -274,7 +274,7 @@ class AddEventAdapter extends BaseAdapter {
                 profile = dialog.eventListFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true, true, false);
                 //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
-                    String profileName = "";
+                    String profileName;
                     //if (event._atEndHowUndo == 0) {
                         profileName = profile._name;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
@@ -320,7 +320,7 @@ class AddEventAdapter extends BaseAdapter {
                         }
                     }
                 } else {
-                    String profileName = "";
+                    String profileName;
                     //if (event._atEndHowUndo == 0) {
                         profileName = profileEndNamesArray[position];
                         if ((position > 0) && (!profileName.isEmpty())) {

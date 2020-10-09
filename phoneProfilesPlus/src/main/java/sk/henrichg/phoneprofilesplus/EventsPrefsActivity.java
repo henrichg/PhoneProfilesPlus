@@ -48,7 +48,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
     private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
-    private BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
 //            PPApplication.logE("[BROADCAST CALL] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");

@@ -311,7 +311,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         applicationEditorPrefIndicator, false);
                 //noinspection IfStatementWithIdenticalBranches
                 if (profile != null) {
-                    String profileName = "";
+                    String profileName;
                     //noinspection IfStatementWithIdenticalBranches
                     //if (event._atEndHowUndo == 0) {
                         profileName = profile._name;

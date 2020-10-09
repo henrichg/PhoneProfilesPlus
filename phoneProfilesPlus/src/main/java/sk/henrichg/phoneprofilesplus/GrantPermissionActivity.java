@@ -64,7 +64,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean showRequestReadContacts = false;
     private boolean showRequestAccessCoarseLocation = false;
     private boolean showRequestAccessFineLocation = false;
-    private boolean showRequestAccessBackgroundLocation = false;
+    //private boolean showRequestAccessBackgroundLocation = false;
     private boolean[][] whyPermissionType = null;
     private boolean rationaleAlreadyShown = false;
 
@@ -343,7 +343,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadContacts ||
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
-                showRequestAccessBackgroundLocation ||
+                //showRequestAccessBackgroundLocation ||
                 //showRequestAccessNotificationPolicy ||
                 showRequestDrawOverlays);
     }
@@ -471,7 +471,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
-            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation || showRequestAccessBackgroundLocation) {
+            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation/* || showRequestAccessBackgroundLocation*/) {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_location) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
