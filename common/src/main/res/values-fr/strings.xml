@@ -1510,6 +1510,12 @@
     <string name="location_editor_connection_is_offline">La connexion réseau est hors ligne. Pour cette raison, il n\'est pas possible d\'afficher la carte.</string>
     <string name="install_extender_where_is_assets_button">Où est</string>
     <string name="github_assets_screenshot_label">capture d\'écran</string>
+    <string name="event_preferences_atEndHowUndo">How to undo profile</string>
+    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>
+    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>
+    <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
+    <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
+    <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporter vers PhoneProfilesPlus</string>

@@ -1510,6 +1510,12 @@
     <string name="location_editor_connection_is_offline">Sieťové pripojenie je odpojené. Z tohoto dôvodu nie je možné zobraziť mapu.</string>
     <string name="install_extender_where_is_assets_button">Kde je</string>
     <string name="github_assets_screenshot_label">snímka obrazovky</string>
+    <string name="event_preferences_atEndHowUndo">Ako vrátiť späť profil</string>
+    <string name="array_pref_atEndDo_undoByEventsStart">Podľa poradia štartu udalostí</string>
+    <string name="array_pref_atEndDo_undoByProfileActivation">Podľa poradia aktivácie profilov</string>
+    <string name="event_preferences_orientation_light_currentValue_title">Súčasná hodnota svetla</string>
+    <string name="event_preferences_orientation_light_currentValue_noHardware">Svetelný senzor nie je vo vašom zariadení</string>
+    <string name="directory_tree_activity_not_found_alert">Obrazovku stromu adresárov nie je možné zobraziť.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>
