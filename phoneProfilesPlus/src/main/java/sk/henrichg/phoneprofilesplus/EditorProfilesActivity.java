@@ -1774,8 +1774,34 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMPORT) {
             if ((resultCode == RESULT_OK) && (data != null)) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                boolean ok = false;
+                try {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                    ok = true;
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                if (!ok) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                    dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                    if (!isFinishing())
+                        dialog.show();
+                }
             }
         }
         else
@@ -2493,8 +2519,34 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                    boolean ok = false;
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                    if (!ok){
+                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
+                        _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog _dialog = _dialogBuilder.create();
+
+//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                        if (!isFinishing())
+                            _dialog.show();
+                    }
                 }
             }
         });
@@ -3534,12 +3586,38 @@ public class EditorProfilesActivity extends AppCompatActivity
                             });
                             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                                    //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
-                                    if (checkBox.isChecked())
-                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
-                                    else
-                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
+                                    boolean ok = false;
+                                    try {
+                                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                        //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
+                                        if (checkBox.isChecked())
+                                            startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
+                                        else
+                                            startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
+                                        ok = true;
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                    if (!ok){
+                                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
+                                        _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                        AlertDialog _dialog = _dialogBuilder.create();
+
+//                                        _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                            @Override
+//                                            public void onShow(DialogInterface dialog) {
+//                                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                                if (positive != null) positive.setAllCaps(false);
+//                                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                                if (negative != null) negative.setAllCaps(false);
+//                                            }
+//                                        });
+
+                                        if (!isFinishing())
+                                            _dialog.show();
+                                    }
                                 }
                             });
                             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
