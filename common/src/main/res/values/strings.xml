@@ -1629,7 +1629,7 @@
     <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
 
-    <string name="directory_tree_activity_not_found_alert">Directory tree screen not found.</string>
+    <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
 
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
