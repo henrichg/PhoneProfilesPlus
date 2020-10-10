@@ -1310,10 +1310,10 @@ class ActivateProfileHelper {
     */
 
     private static void setVibrateWhenRinging(Context context, Profile profile, int value) {
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
             PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "profile=" + profile);
             PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "value=" + value);
-        }*/
+        }
         int lValue = value;
         if (profile != null) {
             switch (profile._vibrateWhenRinging) {
@@ -1325,8 +1325,8 @@ class ActivateProfileHelper {
                     break;
             }
         }
+        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "lValue="+lValue);
 
-        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "lValue="+lValue);
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, appContext).allowed
@@ -1346,6 +1346,11 @@ class ActivateProfileHelper {
                         else*/ {
                             try {
                                 Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
+                                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "Xiaomi");
+                                    Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
+                                    Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
+                                }
                                 //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
                             } catch (Exception ee) {
                                 // java.lang.IllegalArgumentException: You cannot change private secure settings.
@@ -1355,10 +1360,19 @@ class ActivateProfileHelper {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                     synchronized (PPApplication.rootMutex) {
-                                        String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                        //if (PPApplication.isSELinuxEnforcing())
-                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                        Command command = new Command(0, false, command1); //, command2);
+                                        String command1;
+                                        Command command;
+                                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
+                                            String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
+                                            command = new Command(0, false, command1, command2, command3);
+                                        } else {
+                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            //if (PPApplication.isSELinuxEnforcing())
+                                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                            command = new Command(0, false, command1); //, command2);
+                                        }
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                             PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
