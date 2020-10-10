@@ -1310,10 +1310,10 @@ class ActivateProfileHelper {
     */
 
     private static void setVibrateWhenRinging(Context context, Profile profile, int value) {
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "profile=" + profile);
-            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "value=" + value);
-        }
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "profile=" + profile);
+//            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "value=" + value);
+//        }
         int lValue = value;
         if (profile != null) {
             switch (profile._vibrateWhenRinging) {
@@ -1325,7 +1325,7 @@ class ActivateProfileHelper {
                     break;
             }
         }
-        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "lValue="+lValue);
+//        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "lValue="+lValue);
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();

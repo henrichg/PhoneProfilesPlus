@@ -209,7 +209,7 @@ public class PPApplication extends Application
                                                 //+"|[MAREK_TEST]"
                                                 //+"|[BLOCK_ACTIONS]"
 
-                                                +"|ActivateProfileHelper.setVibrateWhenRinging"
+                                                //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                                 //+"|EventPreferencesBattery"
                                                 //+"|$$$ EventsHandler.handleEvents"
