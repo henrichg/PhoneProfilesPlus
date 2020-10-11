@@ -1634,6 +1634,8 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth connectivity\" set to \"Accept\".</string>
 
+    <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 

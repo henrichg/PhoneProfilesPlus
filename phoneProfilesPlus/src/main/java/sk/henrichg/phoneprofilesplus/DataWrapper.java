@@ -2359,6 +2359,11 @@ public class DataWrapper {
         if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
 
+            // show toast about hot working restart events, because global events run is disabled
+            PPApplication.showToast(context.getApplicationContext(),
+                    context.getResources().getString(R.string.toast_restart_events_global_events_run_is_disabled),
+                    Toast.LENGTH_SHORT);
+
             boolean finish;
             if (activity instanceof ActivateProfileActivity)
                 finish = ApplicationPreferences.applicationClose;

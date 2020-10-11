@@ -5728,8 +5728,8 @@ public class PhoneProfilesService extends Service
         }
 
         if (!forFirstStart) {
-            if (Event.getGlobalEventsRunning() &&
-                    PPApplication.getApplicationStarted(true)) {
+            //if (Event.getGlobalEventsRunning() &&
+            //        PPApplication.getApplicationStarted(true)) {
 
                 PendingIntent pIntentRE; //= null;
                 /*if (Event.getGlobalEventsRunning() &&
@@ -5797,7 +5797,18 @@ public class PhoneProfilesService extends Service
                             pIntentRE);*/
                     notificationBuilder.addAction(actionBuilder.build());
                 }
-            }
+            /*}
+            else {
+                try {
+                    //noinspection ConstantConditions
+                    if (contentViewLarge != null)
+                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                    if (contentView != null)
+                        contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }*/
         }
         else {
             if (notificationNotificationStyle.equals("0")) {

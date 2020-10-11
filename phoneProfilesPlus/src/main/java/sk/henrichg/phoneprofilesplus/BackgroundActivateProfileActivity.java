@@ -58,14 +58,14 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
             if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
                     (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
                 if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
-                    if (Event.getGlobalEventsRunning()) {
+                    //if (Event.getGlobalEventsRunning()) {
                         // set theme and language for dialog alert ;-)
                         GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
                         //GlobalGUIRoutines.setLanguage(this);
 
                         dataWrapper.restartEventsWithAlert(this);
-                    } else
-                        finish();
+                    //} else
+                    //    finish();
                 } else
                     dataWrapper.activateProfile(profile_id, startupSource, this, true);
             }
