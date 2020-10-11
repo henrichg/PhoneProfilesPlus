@@ -41,4 +41,17 @@
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"/>
 
+    <Preference
+        app:key="applicationColorOsWifiBluetoothDialogsInfo"
+        app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"
+        app:summary="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationMIUIWifiBluetoothDialogsInfo"
+        app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"
+        app:summary="@string/phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

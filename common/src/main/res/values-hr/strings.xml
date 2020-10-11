@@ -1340,7 +1340,7 @@
     <string name="preferences_red_texts_text_click">Klikni na ovu obavijest da je otvoriš.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi i Bluetooth potvrdni dijalozi</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Za \"ColorOs\" je moguće onemogućiti ove dijaloge. Klikni ovdje da vidiš na koji način.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">U postavkama sustava uređaja:\n1. Opcije za programere\\Opcije programere = omogućite\n2. Opcije za programere\\ispravljanje pogrešaka\\USB ispravljanje pogrešaka = omogući\n3. Opcije za programere\\Aplikacije\\Onemogućuje nadzor autorizacije = omogući.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">U postavkama sustava uređaja:\n1. Opcije za programere\/Opcije programere = omogućite\n2. Opcije za programere\/Ispravljanje pogrešaka\/USB ispravljanje pogrešaka = omogući\n3. Opcije za programere\/Aplikacije\/Onemogućuje nadzor autorizacije = omogući.</string>
     <string name="important_info_android_look_application_settings">Otvorite PhoneProfilesPlus postavke i podesite ih. Pogotovo parametre označene podebljanim tekstom.</string>
     <string name="profile_preferences_red_texts_text_2">Za ovo, ovu opciju nije moguće aktivirati.</string>
     <string name="event_preferences_red_texts_text_2">Za ovo nije moguće promeniti način rada.</string>
@@ -1516,6 +1516,8 @@
     <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
     <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Izvoz u PhoneProfilesPlus</string>

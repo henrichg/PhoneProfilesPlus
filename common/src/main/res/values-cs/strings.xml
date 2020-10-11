@@ -1340,7 +1340,7 @@
     <string name="preferences_red_texts_text_click">Klikněte na toto oznámení pro jeho otevření.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi a Bluetooth potvrzovací dialogy</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pro \"ColorOs\" je možné tyto dialogy zakázat. Klikněte zde pro zobrazení jak.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametrech zařízení:\n1. Vývojářské možnosti\vývojářské možnosti = povolit\n2. Vývojářské možnosti\Ladění\Ladění přes USB = povolit\n3. Vývojářské možnosti\Aplikace\Zabraň sledování povolení = povolit.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametrech zařízení:\n1. Vývojářské možnosti\/Vývojářské možnosti = povolit\n2. Vývojářské možnosti\/Ladění\/Ladění přes USB = povolit\n3. Vývojářské možnosti\/Aplikace\/Zabraň sledování povolení = povolit.</string>
     <string name="important_info_android_look_application_settings">Prosím otevřete Nastavení PhoneProfilesPlus a nakonfigurujte jejich. Speciální parametry označeny tučně.</string>
     <string name="profile_preferences_red_texts_text_2">Pro toto, není možné ho aktivovat.</string>
     <string name="event_preferences_red_texts_text_2">Pro toto, není možné změnit její běh.</string>
@@ -1516,6 +1516,8 @@
     <string name="event_preferences_orientation_light_currentValue_title">Současná hodnota světla</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Světelný senzor není ve vašem zařízení</string>
     <string name="directory_tree_activity_not_found_alert">Obrazovku stromu adresářů nelze zobrazit.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Pro \"MIUI\" je možné tyto dialogy zakázat. Klikněte zde pro zobrazení jak.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastavení zařízení\/Aplikace\/Správa aplikací\/PhoneProfilesPlus\/Ostatní povolení: \"Změnit Wi-Fi připojení\" a \"Změnit připojení Bluetooth\" nastavit na \"Povolit\".</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

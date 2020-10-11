@@ -1340,7 +1340,7 @@
     <string name="preferences_red_texts_text_click">Натисніть на це повідомлення, щоб відкрити його.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Діалоги підтвердження Wi-Fi та Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Для \"ColorOs\" є можливість вимкнути ці діалоги. Натисніть тут, щоб побачити як.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">У системних налаштуваннях:\n1. Для розробників\\Режим розробника = увімкнути\n2. Для розробників\\Налагодження\\Налагодження по USB = увімкнути\n3. Для розробників\\Додатки\\Вимкнення відслідковування дозволів= увімкнути.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">У системних налаштуваннях:\n1. Для розробників\/Режим розробника = увімкнути\n2. Для розробників\/Налагодження\/Налагодження по USB = увімкнути\n3. Для розробників\/Додатки\/Вимкнення відслідковування дозволів= увімкнути.</string>
     <string name="important_info_android_look_application_settings">Відкрийте налаштування PhoneProfilesPlus та налаштуйте його. Особливо параметри, позначені жирним текстом.</string>
     <string name="profile_preferences_red_texts_text_2">Це неможливо активувати.</string>
     <string name="event_preferences_red_texts_text_2">Неможливо змінити його запуск.</string>
@@ -1510,12 +1510,14 @@
     <string name="location_editor_connection_is_offline">Мережа відсутня, тому неможливо показати карту.</string>
     <string name="install_extender_where_is_assets_button">Де</string>
     <string name="github_assets_screenshot_label">знімок екрану</string>
-    <string name="event_preferences_atEndHowUndo">How to undo profile</string>
-    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>
-    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>
-    <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
-    <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
-    <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
+    <string name="event_preferences_atEndHowUndo">Як відновити профіль</string>
+    <string name="array_pref_atEndDo_undoByEventsStart">За початком подій</string>
+    <string name="array_pref_atEndDo_undoByProfileActivation">За порядком активації профілів</string>
+    <string name="event_preferences_orientation_light_currentValue_title">Поточне значення світла</string>
+    <string name="event_preferences_orientation_light_currentValue_noHardware">Ваш пристрій немає датчика світла</string>
+    <string name="directory_tree_activity_not_found_alert">Неможливо показати дерево каталогів.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Експортувати у PhoneProfilesPlus</string>

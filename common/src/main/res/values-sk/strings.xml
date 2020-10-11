@@ -1340,7 +1340,7 @@
     <string name="preferences_red_texts_text_click">Kliknite na túto notifikáciu pre ich otvorenie.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi a Bluetooth potvrdzovací dialóg</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pre \"ColorOs\" je možné zakázať tieto dialógy. Kliknite sem, pre zobrazenie, ako.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametroch zariadenia:\n1. Vývojárske možnosti\Vývojárske možnosti = povoliť\n2. Vývojárske možnosti\Ladenie\Ladenie cez USB = povoliť\n3. Vývojárske možnosti\Aplikácie\Zakáž sledovanie povolení = povoliť.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametroch zariadenia:\n1. Vývojárske možnosti\/Vývojárske možnosti = povoliť\n2. Vývojárske možnosti\/Ladenie\/Ladenie cez USB = povoliť\n3. Vývojárske možnosti\/Aplikácie\/Zakáž sledovanie povolení = povoliť.</string>
     <string name="important_info_android_look_application_settings">Prosím otvorte Nastavenia PhoneProfilesPlus a nakonfigurujte ich. Špeciálne parametre označené hrubým písmom.</string>
     <string name="profile_preferences_red_texts_text_2">Pre toto, nie je možné ho aktivovať.</string>
     <string name="event_preferences_red_texts_text_2">Pre toto, nie je možné zmeniť jej beh.</string>
@@ -1516,6 +1516,8 @@
     <string name="event_preferences_orientation_light_currentValue_title">Súčasná hodnota svetla</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Svetelný senzor nie je vo vašom zariadení</string>
     <string name="directory_tree_activity_not_found_alert">Obrazovku stromu adresárov nie je možné zobraziť.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Pre \"MIUI\" je možné zakázať tieto dialógy. Kliknite sem, pre zobrazenie, ako.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastaveniach zariadenia\/Aplikácie\/Spravovať aplikácie\/PhoneProfilesPlus\/Ostatné povolenia: \"Zmeniť Wi-Fi pripojenie\" a \"Zmeniť pripojenie Bluetooth\" nastaviť na \"Povoliť\".</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

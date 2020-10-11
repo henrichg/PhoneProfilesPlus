@@ -1510,12 +1510,14 @@
     <string name="location_editor_connection_is_offline">Die Netzwerkverbindung ist unterbrochen. Aus diesem Grund ist es nicht möglich, die Karte anzuzeigen.</string>
     <string name="install_extender_where_is_assets_button">Wo sind</string>
     <string name="github_assets_screenshot_label">screenshot</string>
-    <string name="event_preferences_atEndHowUndo">How to undo profile</string>
-    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>
-    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>
-    <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
-    <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
-    <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
+    <string name="event_preferences_atEndHowUndo">Wie Sie ein Profil widerrufen können</string>
+    <string name="array_pref_atEndDo_undoByEventsStart">Reihenfolge nach Ereignisbeginn</string>
+    <string name="array_pref_atEndDo_undoByProfileActivation">Reihenfolge nach Profilaktivierung</string>
+    <string name="event_preferences_orientation_light_currentValue_title">Aktueller Lichtwert</string>
+    <string name="event_preferences_orientation_light_currentValue_noHardware">Ihr Gerät verfügt nicht über einen Lichtsensor</string>
+    <string name="directory_tree_activity_not_found_alert">Der Verzeichnisbaum kann nicht angezeigt werden.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Für „MIUI” ist es möglich, diese Dialoge zu deaktivieren. Hier klicken, um dessen Vorgehensweise anzuzeigen.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In den Geräteeinstellungen ➜ Apps ➜ Apps verwalten ➜ PhoneProfilesPlus ➜ Weitere Berechtigungen: „WLAN-Konnektivität ändern” und „Bluetooth-Konnektivität ändern” auf „Akzeptieren” setzen.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Nach PhoneProfilesPlus exportieren</string>

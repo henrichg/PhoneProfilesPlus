@@ -1340,7 +1340,7 @@
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disable permission monitoring = enable.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\/Developer options = enable\n2. Developer options\/Debugging\/USB debugging = enable\n3. Developer options\/Apps\/Disable permission monitoring = enable.</string>
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
     <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
@@ -1516,6 +1516,8 @@
     <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
     <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>

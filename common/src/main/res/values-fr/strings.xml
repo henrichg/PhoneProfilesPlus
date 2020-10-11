@@ -1340,7 +1340,7 @@
     <string name="preferences_red_texts_text_click">Cliquez sur cette notification pour l\'ouvrir.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Dialogues de confirmation du Wi-Fi et du Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pour \"ColorOs\" est possible de désactiver ces boîtes de dialogue. Cliquez ceci, pour savoir comment.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Dans les paramètres du système :\n1. Options développeurs\\Options du développeur = activer\n2. Options développeur \\Debugging\\débogage USB = activer\n3. Options développeurs\\Apps\\Désactiver la surveillance des permissions = activer.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Dans les paramètres du système :\n1. Options développeurs\/Options du développeur = activer\n2. Options développeur \/Debugging\/Débogage USB = activer\n3. Options développeurs\/Apps\/Désactiver la surveillance des permissions = activer.</string>
     <string name="important_info_android_look_application_settings">Veuillez ouvrir les paramètres PhoneProfilesPlus et le configurer. Surtout les paramètres marqués avec du texte en gras.</string>
     <string name="profile_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de l\'activer.</string>
     <string name="event_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de changer son exécution.</string>
@@ -1510,12 +1510,14 @@
     <string name="location_editor_connection_is_offline">La connexion réseau est hors ligne. Pour cette raison, il n\'est pas possible d\'afficher la carte.</string>
     <string name="install_extender_where_is_assets_button">Où est</string>
     <string name="github_assets_screenshot_label">capture d\'écran</string>
-    <string name="event_preferences_atEndHowUndo">How to undo profile</string>
-    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>
-    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>
-    <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
-    <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
-    <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
+    <string name="event_preferences_atEndHowUndo">Comment annuler le profil</string>
+    <string name="array_pref_atEndDo_undoByEventsStart">Par ordre de démarrage des événements</string>
+    <string name="array_pref_atEndDo_undoByProfileActivation">Par ordre d\'activation des profils</string>
+    <string name="event_preferences_orientation_light_currentValue_title">Valeur de lumière actuelle</string>
+    <string name="event_preferences_orientation_light_currentValue_noHardware">Aucun capteur de luminosité</string>
+    <string name="directory_tree_activity_not_found_alert">L\'écran de l\'arborescence des répertoires ne peut pas être affiché.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporter vers PhoneProfilesPlus</string>

@@ -1340,7 +1340,7 @@
     <string name="preferences_red_texts_text_click">Klik op deze melding om te openen.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi- en Bluetooth bevestigingsscherm</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Voor \"ColorOs\" is het mogelijk om deze schermen uit te schakelen. Klik hier om te zien hoe.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In apparaat systeeminstellingen:\n1. Ontwikkelaarsopties\\Ontwikkelaarsopties = inschakelen\n2. Ontwikkelaarsopties\\\Debugging\\USB debugging = inschakelen\n3. Ontwikkelaarsopties\\Apps\\Uitschakelen autorisatie monitoring = inschakelen.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In apparaat systeeminstellingen:\n1. Ontwikkelaarsopties\/Ontwikkelaarsopties = inschakelen\n2. Ontwikkelaarsopties\/Debugging\/USB debugging = inschakelen\n3. Ontwikkelaarsopties\/Apps\/Uitschakelen autorisatie monitoring = inschakelen.</string>
     <string name="important_info_android_look_application_settings">Open PhoneProfilesPlus Instellingen en configureer. Speciale parameters zijn gemarkeerd met vetgedrukte tekst.</string>
     <string name="profile_preferences_red_texts_text_2">Voor dit is het niet mogelijk om het te activeren.</string>
     <string name="event_preferences_red_texts_text_2">Voor dit is het niet mogelijk om uitvoeren te activeren.</string>
@@ -1510,12 +1510,14 @@
     <string name="location_editor_connection_is_offline">Geen Netwerkverbinding. Om deze reden is het niet mogelijk om de kaart weer te geven.</string>
     <string name="install_extender_where_is_assets_button">Waar is</string>
     <string name="github_assets_screenshot_label">screenshot</string>
-    <string name="event_preferences_atEndHowUndo">How to undo profile</string>
-    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>
-    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>
-    <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
-    <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
-    <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
+    <string name="event_preferences_atEndHowUndo">Hoe een profiel ongedaan maken</string>
+    <string name="array_pref_atEndDo_undoByEventsStart">Op basis van event startvolgorde</string>
+    <string name="array_pref_atEndDo_undoByProfileActivation">Op basis van profiel activatievolgorde</string>
+    <string name="event_preferences_orientation_light_currentValue_title">Huidige lichtwaarde</string>
+    <string name="event_preferences_orientation_light_currentValue_noHardware">Er zit geen lichtsensor in je apparaat</string>
+    <string name="directory_tree_activity_not_found_alert">De mapstructuur kan niet worden weergegeven.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>
