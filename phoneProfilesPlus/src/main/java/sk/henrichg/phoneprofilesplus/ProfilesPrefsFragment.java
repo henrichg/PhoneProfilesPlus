@@ -477,7 +477,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-        if (android.os.Build.VERSION.SDK_INT == 23) {
+        if ((android.os.Build.VERSION.SDK_INT == 23) || (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
             ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
@@ -1143,7 +1143,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         default:
                             if (!value.equals(defaultValue)) {
                                 if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
-                                        (Build.VERSION.SDK_INT == 23))
+                                        ((Build.VERSION.SDK_INT == 23) || (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)))
                                     title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
                                 else if (key.equals(Profile.PREF_PROFILE_DURATION))
                                     title = context.getString(R.string.profile_preferences_duration);
