@@ -1347,7 +1347,7 @@ class ActivateProfileHelper {
                             try {
                                 Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "Xiaomi");
+                                    //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "Xiaomi");
                                     Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
                                     Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
                                 }
