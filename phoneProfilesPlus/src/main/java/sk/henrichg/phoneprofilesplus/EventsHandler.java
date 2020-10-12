@@ -453,8 +453,6 @@ class EventsHandler {
 
                 //reactivateProfile = true;
 
-                //oldActivatedProfile = null;
-
                 // 1. pause events
                 for (Event _event : dataWrapper.eventList) {
 //                    if (PPApplication.logEnabled()) {
@@ -548,10 +546,6 @@ class EventsHandler {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "NO restart events");
                 }*/
-
-                //oldActivatedProfile = dataWrapper.getActivatedProfile();
-
-                //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
                 //1. pause events
                 for (Event _event : dataWrapper.eventList) {
@@ -670,15 +664,12 @@ class EventsHandler {
             //if ((!restartAtEndOfEvent) || isRestart) {
             //    // No any paused events has "Restart events" at end of event
 
-            // save activated profile for event Undo
-            // saved must be also manually activated proifle
+            // save old activated profile for event Undo, this must be profile activated before start of handleEvents()
             if (oldActivatedProfile._id != 0) {
-                //if (oldActivatedProfile._id != ApplicationPreferences.prefActivatedProfileForEventUndo) {
                 // profile changed
                 long profileId = oldActivatedProfile._id;
 //                PPApplication.logE("----------- $$$ EventsHandler.handleEvents", "setActivatedProfileForEventUndo profileId=" + profileId);
                 Profile.setActivatedProfileForEventUndo(context, profileId);
-                //}
             } else {
 //                PPApplication.logE("----------- $$$ EventsHandler.handleEvents", "setActivatedProfileForEventUndo NO manual profile activation");
                 Profile.setActivatedProfileForEventUndo(context, 0);
@@ -715,8 +706,7 @@ class EventsHandler {
 //                }
                 // no manual profile activation
                 if (runningEventCountE == 0) {
-                    //if ((ppService != null) && (!ppService.willBeDoRestartEvents)) {
-                    // activate default profile, only when will not be do restart events from paused events
+                    // activate default profile
 
 //                    if (isRestart)
 //                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "no events running");
@@ -727,56 +717,20 @@ class EventsHandler {
                     if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
 //                        if (isRestart)
 //                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "default profile is set");
+
                         long semiOldActivatedProfileId = 0;
                         if (semiOldActivatedProfile != null)
                             semiOldActivatedProfileId = semiOldActivatedProfile._id;
 
-                            /*if (ApplicationPreferences.applicationDefaultProfileUsage) {
-                                // do not activate default profile when not any event is paused and no any profile is activated
-                                // for example for screen on/off broadcast, when no any event is running
-                                //if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
-                                //    activateProfileAtEnd = true;
-
-                                //if (PPApplication.logEnabled()) {
-                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
-                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
-                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
-                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
-                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
-                                //    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
-                                //}
-                                if ((activatedProfileId == 0) ||
-                                        isRestart ||
-                                        // activate default profile when is not activated profile at end of events
-                                        (
-                                        // (!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
-                                        (activatedProfileId != defaultProfileId))
-                                )
-                                {
-                                    notifyDefaultProfile = true;
-                                    mergedProfile.mergeProfiles(defaultProfileId, dataWrapper);
-                                    mergedProfilesCount++;
-
-                                    //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
-                                }
-                            } else {
-                                if ((activatedProfileId == 0) ||
-                                        isRestart ||
-                                        (activatedProfileId != defaultProfileId)) {
-                                    notifyDefaultProfile = true;
-                                    mergedProfile.mergeProfiles(defaultProfileId, dataWrapper);
-                                    mergedProfilesCount++;
-                                    //PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
-                                }
-                            }*/
                         boolean defaultProfileActivated = false;
                         if ((semiOldActivatedProfileId == 0) ||
                                 isRestart ||
                                 (semiOldActivatedProfileId != defaultProfileId)) {
-                            notifyDefaultProfile = true;
                             mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
+                            notifyDefaultProfile = true;
+
                             defaultProfileActivated = true;
-                            //mergedProfilesCount++;
+                            mergedProfilesCount++;
 //                            if (isRestart)
 //                                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
                         }
@@ -797,24 +751,25 @@ class EventsHandler {
                             PPApplication.setBlockProfileEventActions(true);
                         }
                     }
-                    //}
-                    //else
-                    //if (ppService != null)
-                    //    ppService.willBeDoRestartEvents = false;
                 }
             } else {
                 // manual profile activation
-                // set back oldActivatedProfile (it is from shared preferences)
 
  //                if (isRestart)
 //                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "active profile is activated manually");
 
-                if (semiOldActivatedProfile._id > 0) {
+                boolean defaultProfileActivated = false;
+
+                long semiOldActivatedProfileId = 0;
+                if (semiOldActivatedProfile != null)
+                    semiOldActivatedProfileId = semiOldActivatedProfile._id;
+
+                if (semiOldActivatedProfileId > 0) {
                     // any profile activated, set back semi-old, this uses profile activated by events
 
                     //noinspection ConstantConditions
                     defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                    mergedProfile.mergeProfiles(semiOldActivatedProfile._id, dataWrapper/*, false*/);
+                    mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
                     //mergedProfilesCount++;
 //                    if (isRestart)
 //                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated old profile");
@@ -829,9 +784,27 @@ class EventsHandler {
                         // if not any profile activated, activate default profile
                         notifyDefaultProfile = true;
                         mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
-                        //mergedProfilesCount++;
+
+                        defaultProfileActivated = true;
+                        mergedProfilesCount++;
 //                        if (isRestart)
 //                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
+                    }
+
+//                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "sensorType="+sensorType);
+//                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "defaultProfileId="+defaultProfileId);
+//                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "semiOldActivatedProfileId="+semiOldActivatedProfileId);
+//                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "isRestart="+isRestart);
+//                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "manualRestart="+manualRestart);
+//                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "mergedProfile._id="+mergedProfile._id);
+                    if (((semiOldActivatedProfileId == defaultProfileId) &&
+                            ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
+                            (isRestart && (!manualRestart))) {
+                        // block interactive parameters when
+                        // - activated profile is default profile
+                        // - it is not manual restart of events
+//                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "true");
+                        PPApplication.setBlockProfileEventActions(true);
                     }
                 }
             }
