@@ -828,7 +828,11 @@ public class PPApplication extends Application
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
         magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
         proximitySensor = getProximitySensor(getApplicationContext());
+        if (PPApplication.proximitySensor != null)
+            PPApplication.handlerThreadOrientationScanner.maxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
         lightSensor = getLightSensor(getApplicationContext());
+        if (PPApplication.lightSensor != null)
+            PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
 
         if (logEnabled()) {
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi=" + deviceIsXiaomi);

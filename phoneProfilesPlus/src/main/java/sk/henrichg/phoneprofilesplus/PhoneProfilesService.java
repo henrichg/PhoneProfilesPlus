@@ -243,7 +243,11 @@ public class PhoneProfilesService extends Service
             PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
             PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
             PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
+            if (PPApplication.proximitySensor != null)
+                PPApplication.handlerThreadOrientationScanner.maxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
             PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
+            if (PPApplication.lightSensor != null)
+                PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
         }
 
         //serviceRunning = false;
@@ -6429,7 +6433,6 @@ public class PhoneProfilesService extends Service
             }
 
             if (PPApplication.proximitySensor != null) {
-                PPApplication.handlerThreadOrientationScanner.maxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
                 PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, handler);
                 //if (PPApplication.proximitySensor.getFifoMaxEventCount() > 0)
                 //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.proximitySensor, 200000 * interval, 1000000 * interval, handler);
@@ -6441,7 +6444,6 @@ public class PhoneProfilesService extends Service
                 boolean registerLight = EventsPrefsFragment.forceStart ||
                         (DatabaseHandler.getInstance(getApplicationContext()).getOrientationWithLightSensorEventsCount() != 0);
                 if (registerLight) {
-                    PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
                     PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, handler);
                     //if (PPApplication.lightSensor.getFifoMaxEventCount() > 0)
                     //    PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.lightSensor, 200000 * interval, 1000000 * interval, handler);
