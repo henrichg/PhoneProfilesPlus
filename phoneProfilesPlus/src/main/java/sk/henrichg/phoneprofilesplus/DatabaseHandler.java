@@ -2931,8 +2931,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2439)
         {
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_UNDONE_PROFILE + "=0");
-
             final String selectQuery = "SELECT " + KEY_ID + "," +
                     KEY_E_ORIENTATION_LIGHT_MIN + "," +
                     KEY_E_ORIENTATION_LIGHT_MAX +
