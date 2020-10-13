@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -32,26 +31,26 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 //        PPApplication.logE("[BROADCAST CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "plugged="+PPApplication.plugged);
 
         boolean _isCharging = false;
-        int _plugged = -1;
+        //int _plugged = -1;
 
         if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
-            _plugged = BatteryManager.BATTERY_STATUS_CHARGING;
+            //_plugged = -BatteryManager.BATTERY_STATUS_CHARGING;
             _isCharging = true;
         }
-        else
+        /*else
         if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
-            _plugged = BatteryManager.BATTERY_STATUS_NOT_CHARGING;
+            //_plugged = -BatteryManager.BATTERY_STATUS_NOT_CHARGING;
             _isCharging = false;
-        }
+        }*/
 
-        if ((PPApplication.isCharging != _isCharging) ||
-            ((_plugged != -1) && (PPApplication.plugged != _plugged))) {
+        if ((PPApplication.isCharging != _isCharging) /*||
+            ((_plugged != -1) && (PPApplication.plugged != _plugged))*/) {
 //            PPApplication.logE("[BROADCAST CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "---- state changed");
 
             PPApplication.isCharging = _isCharging;
 
-            if (_plugged != -1)
-                PPApplication.plugged = _plugged;
+            //if (_plugged != -1)
+            //    PPApplication.plugged = _plugged;
 
             /*
             boolean oldIsPowerSaveMode = PPApplication.isPowerSaveMode;

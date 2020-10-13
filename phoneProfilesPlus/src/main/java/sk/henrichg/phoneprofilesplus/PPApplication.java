@@ -828,11 +828,7 @@ public class PPApplication extends Application
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());
         magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
         proximitySensor = getProximitySensor(getApplicationContext());
-        if (PPApplication.proximitySensor != null)
-            PPApplication.handlerThreadOrientationScanner.maxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
         lightSensor = getLightSensor(getApplicationContext());
-        if (PPApplication.lightSensor != null)
-            PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
 
         if (logEnabled()) {
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi=" + deviceIsXiaomi);
@@ -3799,6 +3795,10 @@ public class PPApplication extends Application
         if (handlerThreadOrientationScanner == null) {
             handlerThreadOrientationScanner = new OrientationScannerHandlerThread("PPHandlerThreadOrientationScanner", THREAD_PRIORITY_MORE_FAVORABLE); //);
             handlerThreadOrientationScanner.start();
+            if (PPApplication.proximitySensor != null)
+                PPApplication.handlerThreadOrientationScanner.maxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
+            if (PPApplication.lightSensor != null)
+                PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
         }
     }
 

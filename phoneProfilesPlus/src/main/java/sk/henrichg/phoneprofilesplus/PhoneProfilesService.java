@@ -243,11 +243,7 @@ public class PhoneProfilesService extends Service
             PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
             PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
             PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
-            if (PPApplication.proximitySensor != null)
-                PPApplication.handlerThreadOrientationScanner.maxProximityDistance = PPApplication.proximitySensor.getMaximumRange();
-            PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
-            if (PPApplication.lightSensor != null)
-                PPApplication.handlerThreadOrientationScanner.maxLightDistance = PPApplication.lightSensor.getMaximumRange();
+            PPApplication.startHandlerThreadOrientationScanner();
         }
 
         //serviceRunning = false;

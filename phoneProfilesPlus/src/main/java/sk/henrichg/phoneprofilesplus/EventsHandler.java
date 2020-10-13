@@ -1332,7 +1332,7 @@ class EventsHandler {
 //        }
 
         event._eventPreferencesTime.doHandleEvent(this/*, forRestartEvents*/);
-        event._eventPreferencesBattery.doHandleEvent(this, sensorType, forRestartEvents);
+        event._eventPreferencesBattery.doHandleEvent(this/*, sensorType, forRestartEvents*/);
         event._eventPreferencesCall.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesPeripherals.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesCalendar.doHandleEvent(this/*, forRestartEvents*/);
