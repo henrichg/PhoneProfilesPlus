@@ -216,6 +216,7 @@ public class PPApplication extends Application
                                                 //+"|@@@ Event.doActivateEndProfile"
 
                                                 //+"|OrientationScanner.onSensorChanged"
+                                                //+"|EventsPrefsFragment.onSharedPreferenceChanged"
                                                 ;
 
     // activity log types

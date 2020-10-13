@@ -341,26 +341,42 @@ class EventPreferencesOrientation extends EventPreferences {
         {
             Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+            boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
             if (preferences.getBoolean(PREF_EVENT_ORIENTATION_CHECK_LIGHT, false)) {
+                Preference currentLightValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
+                if (currentLightValuePreference != null) {
+                    currentLightValuePreference.setEnabled(hasLight);
+                    //GlobalGUIRoutines.setPreferenceTitleStyleX(currentLightValuePreference, true, false, false, false, false);
+                }
                 BetterNumberPickerPreferenceX minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (minMaxPreference != null) {
+                    minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
+                    minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
                 }
             }
             else {
+                Preference currentLightValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
+                if (currentLightValuePreference != null) {
+                    currentLightValuePreference.setEnabled(false);
+                    //GlobalGUIRoutines.setPreferenceTitleStyleX(currentLightValuePreference, true, false, false, false, false);
+                }
                 BetterNumberPickerPreferenceX minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (minMaxPreference != null) {
+                    minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
+                    minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
                 }
@@ -582,7 +598,6 @@ class EventPreferencesOrientation extends EventPreferences {
         boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
 
-
         if (preference != null) {
             if (!hasAccelerometer)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
@@ -604,99 +619,98 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabled);
         }
-        SwitchPreferenceCompat switchPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CHECK_LIGHT);
-        if (switchPreference != null) {
-            boolean checkLight = switchPreference.isChecked();
-            if (checkLight) {
-                enabled = hasLight;
-                Preference currentValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
-                if (currentValuePreference != null) {
-                    currentValuePreference.setEnabled(enabled);
-                }
-                //enabled = hasLight;
-                Preference minLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
-                if (minLightPreference != null) {
-                    if (!enabled)
-                        minLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
-                    minLightPreference.setEnabled(enabled);
-                }
-                Preference maxLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
-                if (maxLightPreference != null) {
-                    if (!enabled)
-                        maxLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
-                    maxLightPreference.setEnabled(enabled);
-                }
-                if (enabled) {
-                    final PreferenceManager _prefMng = prefMng;
-                    final Context _context = context.getApplicationContext();
 
-                    if (minLightPreference != null) {
-                        minLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                String sNewValue = (String) newValue;
-                                int iNewValue;
-                                if (sNewValue.isEmpty())
-                                    iNewValue = 0;
-                                else
-                                    iNewValue = Integer.parseInt(sNewValue);
+        enabled = hasLight;
+        Preference currentValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
+        if (currentValuePreference != null) {
+            if (!enabled)
+                currentValuePreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+            currentValuePreference.setEnabled(enabled);
+        }
+        Preference minLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
+        if (minLightPreference != null) {
+            if (!enabled)
+                minLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+            minLightPreference.setEnabled(enabled);
+        }
+        Preference maxLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
+        if (maxLightPreference != null) {
+            if (!enabled)
+                maxLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+            maxLightPreference.setEnabled(enabled);
+        }
+        if (enabled) {
+            final PreferenceManager _prefMng = prefMng;
+            final Context _context = context.getApplicationContext();
 
-                                String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "10000");
-                                int iHightLevelValue;
-                                if (sHightLevelValue.isEmpty())
-                                    iHightLevelValue = 10000;
-                                else
-                                    iHightLevelValue = Integer.parseInt(sHightLevelValue);
+            if (minLightPreference != null) {
+                minLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        String sNewValue = (String) newValue;
+                        int iNewValue;
+                        if (sNewValue.isEmpty())
+                            iNewValue = 0;
+                        else
+                            iNewValue = Integer.parseInt(sNewValue);
 
-                                boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
+                        String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "2147483647");
+                        int iHightLevelValue;
+                        if (sHightLevelValue.isEmpty())
+                            iHightLevelValue = 2147483647;
+                        else
+                            iHightLevelValue = Integer.parseInt(sHightLevelValue);
 
-                                if (!OK) {
-                                    PPApplication.showToast(_context.getApplicationContext(),
-                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_min) + ": " +
-                                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
-                                            Toast.LENGTH_SHORT);
-                                }
+                        boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
 
-                                return OK;
-                            }
-                        });
+                        if (!OK) {
+                            PPApplication.showToast(_context.getApplicationContext(),
+                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_min) + ": " +
+                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
+                                    Toast.LENGTH_SHORT);
+                        }
+
+                        return OK;
                     }
-                    if (maxLightPreference != null) {
-                        maxLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                String sNewValue = (String) newValue;
-                                int iNewValue;
-                                if (sNewValue.isEmpty())
-                                    iNewValue = 10000;
-                                else
-                                    iNewValue = Integer.parseInt(sNewValue);
+                });
+            }
+            if (maxLightPreference != null) {
+                maxLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        String sNewValue = (String) newValue;
+                        int iNewValue;
+                        if (sNewValue.isEmpty())
+                            iNewValue = 2147483647;
+                        else
+                            iNewValue = Integer.parseInt(sNewValue);
 
-                                String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
-                                int iLowLevelValue;
-                                if (sLowLevelValue.isEmpty())
-                                    iLowLevelValue = 0;
-                                else
-                                    iLowLevelValue = Integer.parseInt(sLowLevelValue);
+                        String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
+                        int iLowLevelValue;
+                        if (sLowLevelValue.isEmpty())
+                            iLowLevelValue = 0;
+                        else
+                            iLowLevelValue = Integer.parseInt(sLowLevelValue);
 
-                                boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 10000));
+                        //noinspection ConstantConditions
+                        boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 2147483647));
 
-                                if (!OK) {
-                                    PPApplication.showToast(_context.getApplicationContext(),
-                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_max) + ": " +
-                                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
-                                            Toast.LENGTH_SHORT);
-                                }
+                        if (!OK) {
+                            PPApplication.showToast(_context.getApplicationContext(),
+                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_max) + ": " +
+                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
+                                    Toast.LENGTH_SHORT);
+                        }
 
-                                return OK;
-                            }
-                        });
+                        return OK;
                     }
-                }
+                });
             }
         }
+
         enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
         ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {

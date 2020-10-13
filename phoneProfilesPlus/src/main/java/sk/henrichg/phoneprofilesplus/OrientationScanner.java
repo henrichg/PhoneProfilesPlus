@@ -219,7 +219,8 @@ class OrientationScanner implements SensorEventListener {
 //            PPApplication.logE("------------ OrientationScanner.onSensorChanged", "light value="+event.values[0]);
 //            PPApplication.logE("------------ OrientationScanner.onSensorChanged", "light mMaxLightDistance="+orientationHandler.maxLightDistance);
 
-            orientationHandler.resultLight = convertLightToSensor(event.values[0], orientationHandler.maxLightDistance);
+            //orientationHandler.resultLight = convertLightToSensor(event.values[0], orientationHandler.maxLightDistance);
+            orientationHandler.resultLight = Math.round(event.values[0]);
 
 //            PPApplication.logE("------------ OrientationScanner.onSensorChanged", "resultLight="+orientationHandler.resultLight);
 
@@ -332,12 +333,14 @@ class OrientationScanner implements SensorEventListener {
         return output;
     }
 
+    /*
     private static int convertLightToSensor(float light, float maxLight) {
         if (maxLight > 1.0f)
             return (int)Math.round(light / maxLight * 10000.0);
         else
             return Math.round(light);
     }
+    */
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

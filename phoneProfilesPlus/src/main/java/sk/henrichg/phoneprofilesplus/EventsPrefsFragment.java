@@ -1172,7 +1172,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        //PPApplication.logE("EventsPrefsFragment.onSharedPreferenceChanged", "key=" + key);
+//        PPApplication.logE("------------ EventsPrefsFragment.onSharedPreferenceChanged", "key=" + key);
 
         if (key.equals(Event.PREF_EVENT_NAME)) {
             String value = sharedPreferences.getString(key, "");
@@ -1844,10 +1844,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     } else {
                         currentValuePreference.setSummary(String.valueOf(orientationHandler.resultLight));
                     }
-                    currentValuePreference.setEnabled(true);
                 } else {
                     currentValuePreference.setSummary(R.string.event_preferences_orientation_light_currentValue_noHardware);
-                    currentValuePreference.setEnabled(false);
                 }
             }
         }
