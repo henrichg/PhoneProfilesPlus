@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2438;
+    private static final int DATABASE_VERSION = 2439;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2927,6 +2927,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "=0");
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "=0");
+        }
+
+        if (oldVersion < 2439)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_UNDONE_PROFILE + "=0");
+
+            final String selectQuery = "SELECT " + KEY_ID + "," +
+                    KEY_E_ORIENTATION_LIGHT_MIN + "," +
+                    KEY_E_ORIENTATION_LIGHT_MAX +
+                    " FROM " + TABLE_EVENTS;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
+                    int lightMin = cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_LIGHT_MIN));
+                    int lightMax = cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_LIGHT_MAX));
+
+                    PPApplication.startHandlerThreadOrientationScanner();
+                    if (PPApplication.handlerThreadOrientationScanner.maxLightDistance > 1.0f) {
+                        lightMin = (int) Math.round(lightMin / 10000.0 * PPApplication.handlerThreadOrientationScanner.maxLightDistance);
+                        lightMax = (int) Math.round(lightMax / 10000.0 * PPApplication.handlerThreadOrientationScanner.maxLightDistance);
+
+                        db.execSQL("UPDATE " + TABLE_EVENTS +
+                                " SET " + KEY_E_ORIENTATION_LIGHT_MIN + "=" + lightMin + "," +
+                                KEY_E_ORIENTATION_LIGHT_MAX + "=" + lightMax + " " +
+                                "WHERE " + KEY_ID + "=" + id);
+                    }
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
         }
 
     }
