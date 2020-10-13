@@ -1308,8 +1308,8 @@
     <string name="phone_profiles_pref_notificationNightMode">Usar modo nocturno</string>
     <string name="event_preferences_orientation_checkLight">Ver luz</string>
     <string name="event_preferences_orientation_light">Claro</string>
-    <string name="event_preferences_orientation_light_min">Luz - valor mínimo (0)</string>
-    <string name="event_preferences_orientation_light_max">Luz - valor máximo (10000)</string>
+    <string name="event_preferences_orientation_light_min">Luz - valor mínimo</string>
+    <string name="event_preferences_orientation_light_max">Luz - valor máximo</string>
     <string name="event_preferences_orientation_light_not_enabled">no habilitado</string>
     <string name="pref_event_screen_startWhenLocked">Iniciar cuando esté bloqueado</string>
     <string name="event_preferences_screen_start_when_locked">Iniciar cuando esté bloqueado</string>
@@ -1516,8 +1516,9 @@
     <string name="event_preferences_orientation_light_currentValue_title">Valor actual de luz</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Tu dispositivo no tiene sensor de luz</string>
     <string name="directory_tree_activity_not_found_alert">No se puede mostrar la pantalla con el árbol de directorios.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Para \"MIUI\" es posible desactivar estos diálogos. Haz clic aquí, para mostrar cómo.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">En ajustes del dispositivo\/Apps\/Administrar aplicaciones\/PhoneProfilesPlus\/Otros permisos: Selecciona \"Aceptar\" para \"Cambiar conectividad Wi-Fi\" y \"Cambiar conectividad Bluetooth\".</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Reiniciar eventos no está funcionando porque la ejecución de eventos está desactivada</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exportar a PhoneProfilesPlus</string>

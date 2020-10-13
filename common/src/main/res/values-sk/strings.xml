@@ -1308,8 +1308,8 @@
     <string name="phone_profiles_pref_notificationNightMode">Používať nočný mód</string>
     <string name="event_preferences_orientation_checkLight">Sledovať svetlo</string>
     <string name="event_preferences_orientation_light">Svetlo</string>
-    <string name="event_preferences_orientation_light_min">Svetlo - minimálna hodnota (0)</string>
-    <string name="event_preferences_orientation_light_max">Svetlo - maximálna hodnota (10000)</string>
+    <string name="event_preferences_orientation_light_min">Svetlo - minimálna hodnota</string>
+    <string name="event_preferences_orientation_light_max">Svetlo - maximálna hodnota</string>
     <string name="event_preferences_orientation_light_not_enabled">neaktívne</string>
     <string name="pref_event_screen_startWhenLocked">Štart, keď je zamknuté</string>
     <string name="event_preferences_screen_start_when_locked">Štart, keď je zamknuté</string>
@@ -1518,6 +1518,7 @@
     <string name="directory_tree_activity_not_found_alert">Obrazovku stromu adresárov nie je možné zobraziť.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Pre \"MIUI\" je možné zakázať tieto dialógy. Kliknite sem, pre zobrazenie, ako.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastaveniach zariadenia\/Aplikácie\/Spravovať aplikácie\/PhoneProfilesPlus\/Ostatné povolenia: \"Zmeniť Wi-Fi pripojenie\" a \"Zmeniť pripojenie Bluetooth\" nastaviť na \"Povoliť\".</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Reštart udalostí nefunguje, pretože beh udalostí je vypnutý</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

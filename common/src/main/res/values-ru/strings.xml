@@ -1308,8 +1308,8 @@
     <string name="phone_profiles_pref_notificationNightMode">Использовать ночной режим</string>
     <string name="event_preferences_orientation_checkLight">Проверить освещённость</string>
     <string name="event_preferences_orientation_light">Освещённость</string>
-    <string name="event_preferences_orientation_light_min">Освещённость - минимальное значение (0)</string>
-    <string name="event_preferences_orientation_light_max">Освещённость - максимальное значение (10000)</string>
+    <string name="event_preferences_orientation_light_min">Освещённость - минимальное значение</string>
+    <string name="event_preferences_orientation_light_max">Освещённость - максимальное значение</string>
     <string name="event_preferences_orientation_light_not_enabled">не включено</string>
     <string name="pref_event_screen_startWhenLocked">Запускать при блокировке</string>
     <string name="event_preferences_screen_start_when_locked">Запускать при блокировке</string>
@@ -1516,8 +1516,9 @@
     <string name="event_preferences_orientation_light_currentValue_title">Текущее значение освещённости</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">На вашем устройстве нет датчика освещённости</string>
     <string name="directory_tree_activity_not_found_alert">Невозможно отобразить дерево папок.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">В MIUI эти диалоги можно отключить. Чтобы узнать как, нажмите сюда.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">На устройстве зайдите в \"Настройки\"\/\"Приложения\"\/\"Управление приложениями\"\/PhoneProfilesPlus\/\"Другие разрешения\" и установите \"Изменение состояния Wi-Fi\" и \"Изменение состояния Bluetooth\" на \"Разрешить\".</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Экспорт в PhoneProfilesPlus</string>

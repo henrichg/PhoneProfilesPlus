@@ -1308,8 +1308,8 @@
     <string name="phone_profiles_pref_notificationNightMode">Nachtmodus verwenden</string>
     <string name="event_preferences_orientation_checkLight">Beleuchtung prüfen</string>
     <string name="event_preferences_orientation_light">Hell</string>
-    <string name="event_preferences_orientation_light_min">Hell - Minimaler Wert (0)</string>
-    <string name="event_preferences_orientation_light_max">Hell - Maximaler Wert (10.000)</string>
+    <string name="event_preferences_orientation_light_min">Hell - Minimaler Wert</string>
+    <string name="event_preferences_orientation_light_max">Hell - Maximaler Wert</string>
     <string name="event_preferences_orientation_light_not_enabled">Nicht aktiviert</string>
     <string name="pref_event_screen_startWhenLocked">Starten wenn gesperrt</string>
     <string name="event_preferences_screen_start_when_locked">Starten wenn gesperrt</string>
@@ -1516,8 +1516,9 @@
     <string name="event_preferences_orientation_light_currentValue_title">Aktueller Lichtwert</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Ihr Gerät verfügt nicht über einen Lichtsensor</string>
     <string name="directory_tree_activity_not_found_alert">Der Verzeichnisbaum kann nicht angezeigt werden.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Für „MIUI” ist es möglich, diese Dialoge zu deaktivieren. Hier klicken, um dessen Vorgehensweise anzuzeigen.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Für „MIUI” ist es möglich, diese Dialoge zu deaktivieren. Hier klicken, um eine Anleitung anzuzeigen.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In den Geräteeinstellungen ➜ Apps ➜ Apps verwalten ➜ PhoneProfilesPlus ➜ Weitere Berechtigungen: „WLAN-Konnektivität ändern” und „Bluetooth-Konnektivität ändern” auf „Akzeptieren” setzen.</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Nach PhoneProfilesPlus exportieren</string>

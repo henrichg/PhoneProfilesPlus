@@ -1308,8 +1308,8 @@
     <string name="phone_profiles_pref_notificationNightMode">Użyj trybu nocnego</string>
     <string name="event_preferences_orientation_checkLight">Czujnik światła</string>
     <string name="event_preferences_orientation_light">Oświetlenie</string>
-    <string name="event_preferences_orientation_light_min">Oświetlenie - wartość minimalna (0)</string>
-    <string name="event_preferences_orientation_light_max">Oświetlenie - wartość maksymalna (10000)</string>
+    <string name="event_preferences_orientation_light_min">Oświetlenie - wartość minimalna</string>
+    <string name="event_preferences_orientation_light_max">Oświetlenie - wartość maksymalna</string>
     <string name="event_preferences_orientation_light_not_enabled">nieaktywne</string>
     <string name="pref_event_screen_startWhenLocked">Rozpocznij po zablokowaniu</string>
     <string name="event_preferences_screen_start_when_locked">Rozpocznij po zablokowaniu</string>
@@ -1517,8 +1517,9 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="event_preferences_orientation_light_currentValue_title">Aktualna wartość oświetlenia</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Twoje urządzenie nie posiada czujnika oświetlenia</string>
     <string name="directory_tree_activity_not_found_alert">Nie można wyświetlić drzewa katalogu.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth conenctivity\" set to \"Accept\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Dla \"MIUI\" możliwe jest wyłączenie tych okien dialogowych. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">W Ustawieniach urządzenia\/Aplikacje\/Zarządzaj aplikacjami\/PhoneProfilesPlus\/Inne uprawnienia: \"Zarządzanie połączeniem Wi-Fi\" i \"Zarządzanie Bluetooth\'em\" ustawione na \"Akceptuj\".</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Eksportuj do PhoneProfilesPlus</string>
