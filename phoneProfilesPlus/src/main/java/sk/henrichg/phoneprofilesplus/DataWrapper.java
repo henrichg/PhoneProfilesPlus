@@ -1628,11 +1628,9 @@ public class DataWrapper {
                 PPApplication.lockRefresh = true;
 
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "before of pauseAllEvents");
-                synchronized (PPApplication.eventsHandlerMutex) {
-                    // pause all events
-                    // for forceRun events set system events and block all events
-                    pauseAllEvents(false, true/*, true*/);
-                }
+                // pause all events
+                // for forceRun events set system events and block all events
+                pauseAllEvents(false, true/*, true*/);
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "after of pauseAllEvents");
 
                 PPApplication.lockRefresh = false;
