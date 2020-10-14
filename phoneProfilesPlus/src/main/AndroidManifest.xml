@@ -435,9 +435,7 @@
         </activity>
         <activity
             android:name=".GitHubAssetsScreenshotActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/github_assets_screenshot_label"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty">
+            android:label="@string/github_assets_screenshot_label">
         </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
