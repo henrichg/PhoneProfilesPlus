@@ -60,7 +60,7 @@ class Event {
     boolean _noPauseByManualActivation;
     String _notificationSoundEnd;
     boolean _notificationVibrateEnd;
-    int _atEndHowUndo;
+    //int _atEndHowUndo;
 
     EventPreferencesTime _eventPreferencesTime;
     EventPreferencesBattery _eventPreferencesBattery;
@@ -124,7 +124,7 @@ class Event {
     private static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
     private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
-    private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
+    //private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -165,8 +165,8 @@ class Event {
                  boolean repeatNotificationStart,
                  int repeatNotificationIntervalStart,
                  String notificationSoundEnd,
-                 boolean notificationVibrateEnd,
-                 int atEndHowUndo)
+                 boolean notificationVibrateEnd/*,
+                 int atEndHowUndo*/)
     {
         this._id = id;
         this._name = name;
@@ -194,7 +194,7 @@ class Event {
         this._startStatusTime = startStatusTime;
         this._pauseStatusTime = pauseStatusTime;
         this._noPauseByManualActivation = noPauseByManualActivation;
-        this._atEndHowUndo = atEndHowUndo;
+        //this._atEndHowUndo = atEndHowUndo;
 
         createEventPreferences();
     }
@@ -224,8 +224,8 @@ class Event {
                  boolean repeatNotificationStart,
                  int repeatNotificationIntervalStart,
                  String notificationSoundEnd,
-                 boolean notificationVibrateEnd,
-                 int atEndHowUndo)
+                 boolean notificationVibrateEnd/*,
+                 int atEndHowUndo*/)
     {
         this._name = name;
         this._startOrder = startOrder;
@@ -252,7 +252,7 @@ class Event {
         this._startStatusTime = startStatusTime;
         this._pauseStatusTime = pauseStatusTime;
         this._noPauseByManualActivation = noPauseByManualActivation;
-        this._atEndHowUndo = atEndHowUndo;
+        //this._atEndHowUndo = atEndHowUndo;
 
         createEventPreferences();
     }
@@ -285,7 +285,7 @@ class Event {
         this._startStatusTime = event._startStatusTime;
         this._pauseStatusTime = event._pauseStatusTime;
         this._noPauseByManualActivation = event._noPauseByManualActivation;
-        this._atEndHowUndo = event._atEndHowUndo;
+        //this._atEndHowUndo = event._atEndHowUndo;
 
         copyEventPreferences(event);
     }
@@ -639,7 +639,7 @@ class Event {
         editor.putString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, this._startWhenActivatedProfile);
         editor.putString(PREF_EVENT_DELAY_END, Integer.toString(this._delayEnd));
         editor.putBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, this._noPauseByManualActivation);
-        editor.putString(PREF_EVENT_AT_END_HOW_UNDO, Integer.toString(this._atEndHowUndo));
+        //editor.putString(PREF_EVENT_AT_END_HOW_UNDO, Integer.toString(this._atEndHowUndo));
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);
@@ -680,7 +680,7 @@ class Event {
         this._manualProfileActivation = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
         this._startWhenActivatedProfile = preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, "");
         this._noPauseByManualActivation = preferences.getBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, false);
-        this._atEndHowUndo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0"));
+        //this._atEndHowUndo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0"));
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -803,7 +803,7 @@ class Event {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
             }
         }
-        if (key.equals(PREF_EVENT_AT_END_HOW_UNDO))
+        /*if (key.equals(PREF_EVENT_AT_END_HOW_UNDO))
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -812,7 +812,7 @@ class Event {
                 listPreference.setSummary(summary);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
             }
-        }
+        }*/
         if (key.equals(PREF_EVENT_DELAY_START))
         {
             Preference preference = prefMng.findPreference(key);
@@ -1018,7 +1018,7 @@ class Event {
             key.equals(PREF_EVENT_DELAY_START) ||
             key.equals(PREF_EVENT_DELAY_END) ||
             key.equals(PREF_EVENT_AT_END_DO) ||
-            key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
+            //key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
             key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         if (key.equals(PREF_EVENT_ENABLED) ||
@@ -1038,7 +1038,7 @@ class Event {
         if (key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
                 key.equals(PREF_EVENT_PROFILE_END) ||
                 key.equals(PREF_EVENT_AT_END_DO) ||
-                key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
+                //key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
                 key.equals(PREF_EVENT_END_OTHERS)) {
             boolean value = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
             if (value) {
@@ -1048,9 +1048,9 @@ class Event {
                 preference = prefMng.findPreference(PREF_EVENT_AT_END_DO);
                 if (preference != null)
                     preference.setEnabled(false);
-                preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
+                /*preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
                 if (preference != null)
-                    preference.setEnabled(false);
+                    preference.setEnabled(false);*/
                 preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
                 if (preference != null)
                     preference.setEnabled(false);
@@ -1060,9 +1060,9 @@ class Event {
                 if (preference != null)
                     preference.setEnabled(true);
 
-                preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
+                /*preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
                 if (preference != null)
-                    preference.setEnabled(true);
+                    preference.setEnabled(true);*/
                 //String value2 = preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0");
                 preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
                 if (preference != null)
@@ -1139,7 +1139,7 @@ class Event {
         setSummary(prefMng, PREF_EVENT_IGNORE_MANUAL_ACTIVATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
         setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
@@ -1566,9 +1566,9 @@ class Event {
     }
 
     private void doActivateEndProfile(DataWrapper dataWrapper,
-                                        int eventPosition,
-                                        int timeLineSize,
-                                        List<EventTimeline> eventTimelineList,
+                                        //int eventPosition,
+                                        //int timeLineSize,
+                                        //List<EventTimeline> eventTimelineList,
                                         EventTimeline eventTimeline,
                                         boolean activateReturnProfile,
                                         Profile mergedProfile,
@@ -1622,7 +1622,7 @@ class Event {
                 {
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "undone profile");
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_atEndHowUndo="+_atEndHowUndo);
-                    if (_atEndHowUndo == 0) {
+                    /*if (_atEndHowUndo == 0) {
                         if (!(eventPosition == (timeLineSize-1))) {
                             // when in timeline list is event, get start profile from last event in timeline list
                             // because last event in timeline list may be changed
@@ -1644,7 +1644,7 @@ class Event {
                             }
                         } else
                             eventTimeline._fkProfileEndActivated = 0;
-                    } else {
+                    } else*/ {
                         eventTimeline._fkProfileEndActivated = ApplicationPreferences.prefActivatedProfileForEventUndo;
 //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         if (eventTimeline._fkProfileEndActivated == 0) {
@@ -1681,7 +1681,7 @@ class Event {
                 {
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "undone profile for merged profile");
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_atEndHowUndo="+_atEndHowUndo);
-                    if (_atEndHowUndo == 0) {
+                    /*if (_atEndHowUndo == 0) {
                         if (!(eventPosition == (timeLineSize-1))) {
                             // when in timeline list is event, get start profile from last event in timeline list
                             // because last event in timeline list may be changed
@@ -1703,7 +1703,7 @@ class Event {
                             }
                         } else
                             eventTimeline._fkProfileEndActivated = 0;
-                    } else {
+                    } else*/ {
                         eventTimeline._fkProfileEndActivated = ApplicationPreferences.prefActivatedProfileForEventUndo;
 //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         if (eventTimeline._fkProfileEndActivated == 0) {
@@ -1863,8 +1863,8 @@ class Event {
 
         if (exists)
         {
-            doActivateEndProfile(dataWrapper, eventPosition, timeLineSize,
-                    eventTimelineList, eventTimeline,
+            doActivateEndProfile(dataWrapper, /*eventPosition, timeLineSize,
+                    eventTimelineList,*/ eventTimeline,
                     activateReturnProfile, mergedProfile, allowRestart,
                     forRestartEvents, updateGUI);
 
