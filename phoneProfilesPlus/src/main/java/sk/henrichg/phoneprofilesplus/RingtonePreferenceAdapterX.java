@@ -72,10 +72,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
         }
 
         holder.radioBtn.setTag(ringtone);
-        if ((preferenceFragment.preference.ringtoneUri != null) && preferenceFragment.preference.ringtoneUri.equals(ringtone))
-            holder.radioBtn.setChecked(true);
-        else
-            holder.radioBtn.setChecked(false);
+        holder.radioBtn.setChecked((preferenceFragment.preference.ringtoneUri != null) && preferenceFragment.preference.ringtoneUri.equals(ringtone));
         holder.radioBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 RadioButton rb = (RadioButton) v;

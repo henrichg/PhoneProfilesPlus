@@ -3183,11 +3183,8 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
                         if (!isGeofenceScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
-                            if (forScreenOn && PPApplication.isScreenOn &&
-                                    applicationEventLocationScanOnlyWhenScreenIsOn)
-                                startGeofenceScanner(true);
-                            else
-                                startGeofenceScanner(false);
+                            startGeofenceScanner(forScreenOn && PPApplication.isScreenOn &&
+                                    applicationEventLocationScanOnlyWhenScreenIsOn);
                             //PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
                         }
                     } else

@@ -285,25 +285,30 @@ public class EditorProfileListFragment extends Fragment
         bottomToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_add_profile:
-                        if (profileListAdapter != null) {
-                            if (!activity.isFinishing()) {
-                                ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
-                                ((EditorProfilesActivity) activity).addProfileDialog.show();
-                            }
+                int itemId = item.getItemId();
+                if (itemId == R.id.menu_add_profile) {
+                    if (profileListAdapter != null) {
+                        if (!activity.isFinishing()) {
+                            ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
+                            ((EditorProfilesActivity) activity).addProfileDialog.show();
                         }
-                        return true;
-                    case R.id.menu_delete_all_profiles:
-                        deleteAllProfiles();
-                        return true;
-                    case R.id.menu_default_profile:
-                        Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
-                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
-                        startActivity(intent);
-                        return true;
+                    }
+                    return true;
                 }
-                return false;
+                else
+                if (itemId == R.id.menu_delete_all_profiles) {
+                    deleteAllProfiles();
+                    return true;
+                }
+                else
+                if (itemId == R.id.menu_default_profile) {
+                    Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                    startActivity(intent);
+                    return true;
+                }
+                else
+                    return false;
             }
         });
 
@@ -711,21 +716,26 @@ public class EditorProfileListFragment extends Fragment
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                case R.id.profile_list_item_menu_activate:
+                int itemId = item.getItemId();
+                if (itemId == R.id.profile_list_item_menu_activate) {
                     activateProfile(profile/*, true*/);
                     return true;
-                case R.id.profile_list_item_menu_duplicate:
+                }
+                else
+                if (itemId == R.id.profile_list_item_menu_duplicate) {
                     duplicateProfile(profile);
                     return true;
-                case R.id.profile_list_item_menu_delete:
+                }
+                else
+                if (itemId == R.id.profile_list_item_menu_delete) {
                     deleteProfileWithAlert(profile);
                     return true;
-                default:
+                }
+                else {
                     return false;
                 }
             }
-            });
+        });
 
 
         if (!getActivity().isFinishing())
@@ -1289,26 +1299,31 @@ public class EditorProfileListFragment extends Fragment
 
                 public boolean onMenuItemClick(android.view.MenuItem item) {
                     if (getActivity() != null) {
-                        switch (item.getItemId()) {
-                            case R.id.profile_list_item_menu_show_in_activator_title:
-                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                        getResources().getString(R.string.popupmenu_title_click_below_toast),
-                                        Toast.LENGTH_SHORT);
-                                break;
-                            case R.id.profile_list_item_menu_not_show_in_activator:
-                                profile._showInActivator = false;
-                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                                //profileListAdapter.notifyDataSetChanged();
-                                ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
-                                return true;
-                            case R.id.profile_list_item_menu_show_in_activator:
-                                profile._showInActivator = true;
-                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                                //profileListAdapter.notifyDataSetChanged();
-                                ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
-                                return true;
-                            default:
-                                return false;
+                        int itemId = item.getItemId();
+                        if (itemId == R.id.profile_list_item_menu_show_in_activator_title) {
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                    getResources().getString(R.string.popupmenu_title_click_below_toast),
+                                    Toast.LENGTH_SHORT);
+                            return true;
+                        }
+                        else
+                        if (itemId == R.id.profile_list_item_menu_not_show_in_activator) {
+                            profile._showInActivator = false;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                            //profileListAdapter.notifyDataSetChanged();
+                            ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                            return true;
+                        }
+                        else
+                        if (itemId == R.id.profile_list_item_menu_show_in_activator) {
+                            profile._showInActivator = true;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                            //profileListAdapter.notifyDataSetChanged();
+                            ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                            return true;
+                        }
+                        else {
+                            return false;
                         }
                     }
                     return true;

@@ -359,25 +359,30 @@ public class EditorEventListFragment extends Fragment
         bottomToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_add_event:
-                        if (eventListAdapter != null) {
-                            if (!getActivity().isFinishing()) {
-                                ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
-                                ((EditorProfilesActivity) getActivity()).addEventDialog.show();
-                            }
+                int itemId = item.getItemId();
+                if (itemId == R.id.menu_add_event) {
+                    if (eventListAdapter != null) {
+                        if (!getActivity().isFinishing()) {
+                            ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
+                            ((EditorProfilesActivity) getActivity()).addEventDialog.show();
                         }
-                        return true;
-                    case R.id.menu_delete_all_events:
-                        deleteAllEvents();
-                        return true;
-                    case R.id.menu_default_profile:
-                        Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
-                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
-                        startActivity(intent);
-                        return true;
+                    }
+                    return true;
                 }
-                return false;
+                else
+                if (itemId == R.id.menu_delete_all_events) {
+                    deleteAllEvents();
+                    return true;
+                }
+                else
+                if (itemId == R.id.menu_default_profile) {
+                    Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                    startActivity(intent);
+                    return true;
+                }
+                else
+                    return false;
             }
         });
 
@@ -910,21 +915,25 @@ public class EditorEventListFragment extends Fragment
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                case R.id.event_list_item_menu_run_stop:
+                int itemId = item.getItemId();
+                if (itemId == R.id.event_list_item_menu_run_stop) {
                     runStopEvent(event);
                     return true;
-                case R.id.event_list_item_menu_duplicate:
+                }
+                else
+                if (itemId == R.id.event_list_item_menu_duplicate) {
                     duplicateEvent(event);
                     return true;
-                case R.id.event_list_item_menu_delete:
+                }
+                else
+                if (itemId == R.id.event_list_item_menu_delete) {
                     deleteEventWithAlert(event);
                     return true;
-                default:
-                    return false;
                 }
+                else
+                    return false;
             }
-            });
+        });
 
 
         if (!getActivity().isFinishing())
@@ -1845,28 +1854,33 @@ public class EditorEventListFragment extends Fragment
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 if (getActivity() != null) {
-                    switch (item.getItemId()) {
-                        case R.id.event_list_item_ignore_manual_activation_title:
-                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                    getResources().getString(R.string.popupmenu_title_click_below_toast),
-                                    Toast.LENGTH_SHORT);
-                            break;
-                        case R.id.event_list_item_not_ignore_manual_activation:
-                            event._ignoreManualActivation = false;
-                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                            //eventListAdapter.notifyDataSetChanged();
-                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                            ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
-                            return true;
-                        case R.id.event_list_item_ignore_manual_activation:
-                            event._ignoreManualActivation = true;
-                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                            //eventListAdapter.notifyDataSetChanged();
-                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                            ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
-                            return true;
-                        default:
-                            return false;
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.event_list_item_ignore_manual_activation_title) {
+                        PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                getResources().getString(R.string.popupmenu_title_click_below_toast),
+                                Toast.LENGTH_SHORT);
+                        return true;
+                    }
+                    else
+                    if (itemId == R.id.event_list_item_not_ignore_manual_activation) {
+                        event._ignoreManualActivation = false;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                        //eventListAdapter.notifyDataSetChanged();
+                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                        ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                        return true;
+                    }
+                    else
+                    if (itemId == R.id.event_list_item_ignore_manual_activation) {
+                        event._ignoreManualActivation = true;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                        //eventListAdapter.notifyDataSetChanged();
+                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                        ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                        return true;
+                    }
+                    else {
+                        return false;
                     }
                 }
                 return true;

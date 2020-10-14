@@ -814,16 +814,16 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                //noinspection SwitchStatementWithTooFewBranches
-                switch (item.getItemId()) {
-                    case R.id.mobile_cells_pref_item_menu_delete:
-                        DatabaseHandler db = DatabaseHandler.getInstance(_context);
-                        db.deleteMobileCell(cellId);
-                        preference.removeCellId(cellId);
-                        refreshListView(false, Integer.MAX_VALUE);
-                        return true;
-                    default:
-                        return false;
+                int itemId = item.getItemId();
+                if (itemId == R.id.mobile_cells_pref_item_menu_delete) {
+                    DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                    db.deleteMobileCell(cellId);
+                    preference.removeCellId(cellId);
+                    refreshListView(false, Integer.MAX_VALUE);
+                    return true;
+                }
+                else {
+                    return false;
                 }
             }
         });

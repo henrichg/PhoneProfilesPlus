@@ -529,51 +529,53 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 
             @SuppressWarnings("StringConcatenationInLoop")
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.bluetooth_name_pref_dlg_item_menu_change:
-                        if (!bluetoothName.getText().toString().isEmpty()) {
-                            String[] splits = preference.value.split("\\|");
-                            preference.value = "";
-                            boolean found = false;
-                            for (String _bluetoothName : splits) {
-                                if (!_bluetoothName.isEmpty()) {
-                                    if (!_bluetoothName.equals(btName)) {
-                                        if (!preference.value.isEmpty())
-                                            preference.value = preference.value + "|";
-                                        preference.value = preference.value + _bluetoothName;
-                                    } else
-                                        found = true;
-                                }
+                int itemId = item.getItemId();
+                if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_change) {
+                    if (!bluetoothName.getText().toString().isEmpty()) {
+                        String[] splits = preference.value.split("\\|");
+                        preference.value = "";
+                        boolean found = false;
+                        for (String _bluetoothName : splits) {
+                            if (!_bluetoothName.isEmpty()) {
+                                if (!_bluetoothName.equals(btName)) {
+                                    if (!preference.value.isEmpty())
+                                        preference.value = preference.value + "|";
+                                    preference.value = preference.value + _bluetoothName;
+                                } else
+                                    found = true;
                             }
-                            //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
-                            if (found) {
-                                if (!preference.value.isEmpty())
-                                    preference.value = preference.value + "|";
-                                preference.value = preference.value + bluetoothName.getText().toString();
-                            }
-                            //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
-                            for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
-                                if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
-                                    customBluetoothName.name = bluetoothName.getText().toString();
-                                    break;
-                                }
-                            }
-                            refreshListView(false, "");
                         }
-                        return true;
-                    case R.id.bluetooth_name_pref_dlg_item_menu_delete:
-                        preference.removeBluetoothName(btName);
-                        for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList)
-                        {
+                        //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
+                        if (found) {
+                            if (!preference.value.isEmpty())
+                                preference.value = preference.value + "|";
+                            preference.value = preference.value + bluetoothName.getText().toString();
+                        }
+                        //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
+                        for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
                             if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
-                                preference.customBluetoothList.remove(customBluetoothName);
+                                customBluetoothName.name = bluetoothName.getText().toString();
                                 break;
                             }
                         }
                         refreshListView(false, "");
-                        return true;
-                    default:
-                        return false;
+                    }
+                    return true;
+                }
+                else
+                if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_delete) {
+                    preference.removeBluetoothName(btName);
+                    for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
+                        if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
+                            preference.customBluetoothList.remove(customBluetoothName);
+                            break;
+                        }
+                    }
+                    refreshListView(false, "");
+                    return true;
+                }
+                else {
+                    return false;
                 }
             }
         });

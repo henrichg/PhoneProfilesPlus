@@ -274,22 +274,25 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (getSupportFragmentManager().getBackStackEntryCount() == 0)
-                    finishActivity();
-                else
-                    getSupportFragmentManager().popBackStack();
-                return true;
-            case R.id.event_preferences_save:
-                if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                    savePreferences(newEventMode, predefinedEventIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                }
-                return true;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0)
+                finishActivity();
+            else
+                getSupportFragmentManager().popBackStack();
+            return true;
         }
-        return super.onOptionsItemSelected(item);
+        else
+        if (itemId == R.id.event_preferences_save) {
+            if (checkPreferences(newEventMode, predefinedEventIndex)) {
+                savePreferences(newEventMode, predefinedEventIndex);
+                resultCode = RESULT_OK;
+                finish();
+            }
+            return true;
+        }
+        else
+            return super.onOptionsItemSelected(item);
     }
 
     @Override

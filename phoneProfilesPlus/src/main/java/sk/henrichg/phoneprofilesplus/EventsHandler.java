@@ -472,7 +472,7 @@ class EventsHandler {
                         }*/
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, sensorType, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, /*sensorType,*/ true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -519,7 +519,7 @@ class EventsHandler {
 
                         // start all events
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, sensorType, true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, /*sensorType,*/ true, /*manualRestart,*/ false, false, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -566,7 +566,7 @@ class EventsHandler {
                         }*/
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        doHandleEvent(_event, true, sensorType, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, true, /*sensorType,*/ false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -628,7 +628,7 @@ class EventsHandler {
                         }*/
 
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
-                        doHandleEvent(_event, false, sensorType, false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
+                        doHandleEvent(_event, false, /*sensorType,*/ false, /*false,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*//*reactivateProfile,*/ mergedProfile, dataWrapper);
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
@@ -1269,7 +1269,7 @@ class EventsHandler {
 //--------
 
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
-    private void doHandleEvent(Event event, boolean statePause, String sensorType,
+    private void doHandleEvent(Event event, boolean statePause, /*String sensorType,*/
                                boolean forRestartEvents, /*boolean manualRestart,*/
                                boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                Profile mergedProfile, DataWrapper dataWrapper)

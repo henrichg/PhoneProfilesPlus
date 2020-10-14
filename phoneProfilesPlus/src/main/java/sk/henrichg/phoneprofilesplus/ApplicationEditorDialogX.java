@@ -63,7 +63,7 @@ class ApplicationEditorDialogX
     int selectedPosition = -1;
     int selectedFilter = 0;
 
-    private FastScrollRecyclerView listView;
+    private final FastScrollRecyclerView listView;
 
     static final int RESULT_INTENT_EDITOR = 3100;
     static final String EXTRA_APPLICATION = "application";
@@ -451,19 +451,24 @@ class ApplicationEditorDialogX
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.applications_intent_editor_dlg_item_menu_edit:
-                        startEditor(application);
-                        return true;
-                    case R.id.applications_intent_editor_dlg_item_menu_duplicate:
-                        Application newApplication = duplicateIntent(application);
-                        startEditor(newApplication);
-                        return true;
-                    case R.id.applications_intent_editor_dlg_item_menu_delete:
-                        deleteIntent(application);
-                        return true;
-                    default:
-                        return false;
+                int itemId = item.getItemId();
+                if (itemId == R.id.applications_intent_editor_dlg_item_menu_edit) {
+                    startEditor(application);
+                    return true;
+                }
+                else
+                if (itemId == R.id.applications_intent_editor_dlg_item_menu_duplicate) {
+                    Application newApplication = duplicateIntent(application);
+                    startEditor(newApplication);
+                    return true;
+                }
+                else
+                if (itemId == R.id.applications_intent_editor_dlg_item_menu_delete) {
+                    deleteIntent(application);
+                    return true;
+                }
+                else {
+                    return false;
                 }
             }
         });

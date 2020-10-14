@@ -286,10 +286,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             boolean btLESupported = BluetoothScanner.bluetoothLESupported(/*context*/);
             listPreference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
             if (listPreference != null) {
-                if ((!btLESupported) || value.equals("0") || value.equals("2"))
-                    listPreference.setEnabled(false);
-                else
-                    listPreference.setEnabled(true);
+                listPreference.setEnabled((btLESupported) && !value.equals("0") && !value.equals("2"));
             }
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE))

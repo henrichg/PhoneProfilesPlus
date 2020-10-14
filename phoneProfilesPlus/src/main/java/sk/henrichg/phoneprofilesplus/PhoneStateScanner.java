@@ -1224,7 +1224,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     static boolean isEventAdded(long event_id) {
         synchronized (autoRegistrationEventList) {
-            return autoRegistrationEventList.indexOf(event_id) != -1;
+            return autoRegistrationEventList.contains(event_id);
         }
     }
 

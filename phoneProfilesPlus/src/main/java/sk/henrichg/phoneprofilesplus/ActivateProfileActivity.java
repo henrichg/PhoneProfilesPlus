@@ -478,8 +478,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.menu_edit_profiles:
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_edit_profiles) {
             Intent intent = new Intent(getApplicationContext(), EditorProfilesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
@@ -488,7 +488,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
             finish();
 
             return true;
-        case R.id.menu_restart_events:
+        }
+        else
+        if (itemId == R.id.menu_restart_events) {
             DataWrapper dataWrapper = getDataWrapper();
             if (dataWrapper != null) {
                 //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
@@ -499,7 +501,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 dataWrapper.restartEventsWithAlert(this);
             }
             return true;
-        default:
+        }
+        else {
             return super.onOptionsItemSelected(item);
         }
     }
@@ -638,6 +641,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
+                //noinspection IfStatementWithIdenticalBranches
                 if (Event.getGlobalEventsRunning()) {
                     int id = 1;
                     try {

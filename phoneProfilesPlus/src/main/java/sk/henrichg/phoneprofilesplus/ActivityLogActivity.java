@@ -111,27 +111,30 @@ public class ActivityLogActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.menu_activity_log_reload:
-                activityLogAdapter.reload(dataWrapper);
-                listView.setSelection(0);
-                return true;
-            case R.id.menu_activity_log_clear:
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.activity_log_clear_alert_title);
-                dialogBuilder.setMessage(R.string.activity_log_clear_alert_message);
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                        activityLogAdapter.reload(dataWrapper);
-                    }
-                });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                AlertDialog dialog = dialogBuilder.create();
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            finish();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_activity_log_reload) {
+            activityLogAdapter.reload(dataWrapper);
+            listView.setSelection(0);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_activity_log_clear) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.activity_log_clear_alert_title);
+            dialogBuilder.setMessage(R.string.activity_log_clear_alert_message);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
+                    activityLogAdapter.reload(dataWrapper);
+                }
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+            AlertDialog dialog = dialogBuilder.create();
 
 //                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                    @Override
@@ -143,24 +146,26 @@ public class ActivityLogActivity extends AppCompatActivity {
 //                    }
 //                });
 
-                if (!isFinishing())
-                    dialog.show();
-                return true;
-            case R.id.menu_activity_log_play_pause:
-                boolean enabled = PPApplication.prefActivityLogEnabled;
-                if (enabled)
-                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PAUSED_LOGGING, null, null, null, 0, "");
-                PPApplication.setActivityLogEnabled(getApplicationContext(), !enabled);
-                if (!enabled)
-                    PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, null, 0, "");
-                activityLogAdapter.reload(dataWrapper);
-                listView.setSelection(0);
-                invalidateOptionsMenu();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            if (!isFinishing())
+                dialog.show();
+            return true;
         }
-
+        else
+        if (itemId == R.id.menu_activity_log_play_pause) {
+            boolean enabled = PPApplication.prefActivityLogEnabled;
+            if (enabled)
+                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PAUSED_LOGGING, null, null, null, 0, "");
+            PPApplication.setActivityLogEnabled(getApplicationContext(), !enabled);
+            if (!enabled)
+                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_STARTED_LOGGING, null, null, null, 0, "");
+            activityLogAdapter.reload(dataWrapper);
+            listView.setSelection(0);
+            invalidateOptionsMenu();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

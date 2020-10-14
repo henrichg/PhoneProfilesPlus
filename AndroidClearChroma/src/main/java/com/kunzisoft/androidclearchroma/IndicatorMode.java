@@ -8,7 +8,7 @@ public enum IndicatorMode {
     DECIMAL(0), HEX(1);
 
     @SuppressWarnings("CanBeFinal")
-    private int i;
+    private final int i;
 
     /**
      * Unique id of IndicatorMode

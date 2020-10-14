@@ -44,9 +44,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private final AlertDialog mDialog;
     private final TextView mValue;
-    private SeekBar mSeekBarHours;
-    private SeekBar mSeekBarMinutes;
-    private SeekBar mSeekBarSeconds;
+    private final SeekBar mSeekBarHours;
+    private final SeekBar mSeekBarMinutes;
+    private final SeekBar mSeekBarSeconds;
     private final TextView mEnds;
     private final TimeDurationPickerDialog mValueDialog;
     private final TextView afterDurationLabel;

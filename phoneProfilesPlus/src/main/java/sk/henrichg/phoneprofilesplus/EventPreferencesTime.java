@@ -21,6 +21,7 @@ import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
+@SuppressWarnings("MagicConstant")
 class EventPreferencesTime extends EventPreferences {
 
     boolean _sunday;

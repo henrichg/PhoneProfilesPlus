@@ -260,28 +260,29 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.location_geofence_pref_item_menu_edit:
-                        startEditor(geofenceId);
-                        return true;
-                    case R.id.location_geofence_pref_item_menu_delete:
-                        if (geofenceId > 0) {
-                            if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
-                                DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
-                                preference.refreshListView();
-                                //updateGUIWithGeofence(0);
+                int itemId = item.getItemId();
+                if (itemId == R.id.location_geofence_pref_item_menu_edit) {
+                    startEditor(geofenceId);
+                    return true;
+                }
+                else
+                if (itemId == R.id.location_geofence_pref_item_menu_delete) {
+                    if (geofenceId > 0) {
+                        if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
+                            DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
+                            preference.refreshListView();
+                            //updateGUIWithGeofence(0);
                                 /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
                                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
                                         PhoneProfilesService.getGeofencesScanner().disconnect();
                                 }*/
-                            }
-                            else {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-                                dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
-                                dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
+                        } else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                            dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
+                            dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
 
 //                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                    @Override
@@ -293,14 +294,15 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 //                                    }
 //                                });
 
-                                if (getActivity() != null)
-                                    if (!getActivity().isFinishing())
-                                        dialog.show();
-                            }
+                            if (getActivity() != null)
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
                         }
-                        return true;
-                    default:
-                        return false;
+                    }
+                    return true;
+                }
+                else {
+                    return false;
                 }
             }
         });

@@ -353,6 +353,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     }
 
+    @SuppressWarnings("InstantiationOfUtilityClass")
     public static void main(String[] args) {
         try {
             if (args.length == 0) {

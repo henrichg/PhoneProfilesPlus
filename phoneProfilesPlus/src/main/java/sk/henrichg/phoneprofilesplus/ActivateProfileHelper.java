@@ -532,13 +532,9 @@ class ActivateProfileHelper {
                             break;
                         case 3:
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS 3");
-                            if (!isEnabled) {
-                                setGPS(appContext, true);
-                                //setLocationMode(appContext, true);
-                            } else {
-                                setGPS(appContext, false);
-                                //setLocationMode(appContext, false);
-                            }
+                            //setLocationMode(appContext, true);
+                            //setLocationMode(appContext, false);
+                            setGPS(appContext, !isEnabled);
                             break;
                     }
                 }
@@ -562,11 +558,7 @@ class ActivateProfileHelper {
                             break;
                         case 3:
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC 3");
-                            if (!nfcAdapter.isEnabled()) {
-                                setNFC(appContext, true);
-                            } else {
-                                setNFC(appContext, false);
-                            }
+                            setNFC(appContext, !nfcAdapter.isEnabled());
                             break;
                     }
                 }

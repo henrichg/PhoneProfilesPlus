@@ -459,54 +459,57 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_profiles_view:
-                                //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
-                                String[] filterItems = new String[] {
-                                        getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
-                                        getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                                        getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                                };
-                                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                                        EditorProfilesActivity.this,
-                                        R.layout.highlighted_filter_spinner,
-                                        filterItems);
-                                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                                filterSpinner.setAdapter(filterSpinnerAdapter);
-                                selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
-                                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                                if (fragment instanceof EditorProfileListFragment)
-                                    ((EditorProfileListFragment)fragment).showHeaderAndBottomToolbar();
-                                break;
-                            case R.id.menu_events_view:
-                                //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
-                                filterItems = new String[] {
-                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
-                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
-                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_not_stopped),
-                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_running),
-                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
-                                        getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
-                                };
-                                filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                                        EditorProfilesActivity.this,
-                                        R.layout.highlighted_filter_spinner,
-                                        filterItems);
-                                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                                filterSpinner.setAdapter(filterSpinnerAdapter);
-                                selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
-                                fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                                if (fragment instanceof EditorEventListFragment) {
-                                    ((EditorEventListFragment)fragment).showHeaderAndBottomToolbar();
-                                }
-                                break;
-                        }
-                        return true;
+        new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.menu_profiles_view) {
+                    //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
+                    String[] filterItems = new String[]{
+                            getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
+                            getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                            getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                    };
+                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                            EditorProfilesActivity.this,
+                            R.layout.highlighted_filter_spinner,
+                            filterItems);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinner.setAdapter(filterSpinnerAdapter);
+                    selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+                    return true;
+                }
+                else
+                if (itemId == R.id.menu_events_view) {
+                    //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
+                    String[] filterItems = new String[]{
+                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
+                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
+                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_not_stopped),
+                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_running),
+                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
+                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
+                    };
+                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                            EditorProfilesActivity.this,
+                            R.layout.highlighted_filter_spinner,
+                            filterItems);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinner.setAdapter(filterSpinnerAdapter);
+                    selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                    if (fragment instanceof EditorEventListFragment) {
+                        ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
                     }
-                });
+                    return true;
+                }
+                else
+                    return false;
+            }
+        });
         // set size of icons
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
@@ -973,77 +976,139 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         DataWrapper dataWrapper = getDataWrapper();
 
-        switch (item.getItemId()) {
-/*            case android.R.id.home:
+        int itemId = item.getItemId();
+/*        if (itemId == android.R.id.home) {
 //                if (drawerLayout.isDrawerOpen(drawerRoot)) {
 //                    drawerLayout.closeDrawer(drawerRoot);
 //                } else {
 //                    drawerLayout.openDrawer(drawerRoot);
 //                }
-                return super.onOptionsItemSelected(item);*/
-            case R.id.menu_restart_events:
-                //getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+                return super.onOptionsItemSelected(item);
+          }
+ */
+        if (itemId == R.id.menu_restart_events) {
+            //getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-                // ignore manual profile activation
-                // and unblock forceRun events
-                //PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
-                if (dataWrapper != null)
-                    dataWrapper.restartEventsWithAlert(this);
-                return true;
-            case R.id.menu_run_stop_events:
-                if (dataWrapper != null)
-                    dataWrapper.runStopEventsWithAlert(this, null, false);
-                return true;
-            case R.id.menu_activity_log:
-                intent = new Intent(getBaseContext(), ActivityLogActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.important_info:
-                intent = new Intent(getBaseContext(), ImportantInfoActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.menu_settings:
-                intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
-                return true;
-            case R.id.menu_dark_theme:
-                String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
-                if (!theme.equals("night_mode")) {
-                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                    Editor editor = preferences.edit();
-                    if (theme.equals("dark")) {
-                        //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "white");
-                        //theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white"/*theme*/);
-                        editor.apply();
-                        ApplicationPreferences.applicationTheme = "white";
-                    } else {
-                        //editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
-                        editor.apply();
-                        ApplicationPreferences.applicationTheme = "dark";
-                    }
-                    GlobalGUIRoutines.switchNightMode(getApplicationContext(), false);
-                    GlobalGUIRoutines.reloadActivity(this, true);
+            // ignore manual profile activation
+            // and unblock forceRun events
+            //PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
+            if (dataWrapper != null)
+                dataWrapper.restartEventsWithAlert(this);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_run_stop_events) {
+            if (dataWrapper != null)
+                dataWrapper.runStopEventsWithAlert(this, null, false);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_activity_log) {
+            intent = new Intent(getBaseContext(), ActivityLogActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+        if (itemId == R.id.important_info) {
+            intent = new Intent(getBaseContext(), ImportantInfoActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_settings) {
+            intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_dark_theme) {
+            String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
+            if (!theme.equals("night_mode")) {
+                SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                Editor editor = preferences.edit();
+                if (theme.equals("dark")) {
+                    //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "white");
+                    //theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white"/*theme*/);
+                    editor.apply();
+                    ApplicationPreferences.applicationTheme = "white";
+                } else {
+                    //editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
+                    editor.apply();
+                    ApplicationPreferences.applicationTheme = "dark";
                 }
-                return true;
-            case R.id.menu_export:
-                exportData(false, false);
+                GlobalGUIRoutines.switchNightMode(getApplicationContext(), false);
+                GlobalGUIRoutines.reloadActivity(this, true);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_export) {
+            exportData(false, false);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_export_and_email) {
+            exportData(true, false);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_import) {
+            importData();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_email_to_author) {
+            intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            String[] email = {"henrich.gron@gmail.com"};
+            intent.putExtra(Intent.EXTRA_EMAIL, email);
+            String packageVersion = "";
+            try {
+                PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
+            intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+            try {
+                startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
 
-                return true;
-            case R.id.menu_export_and_email:
-                exportData(true, false);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_export_and_email_to_author) {
+            exportData(true, true);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_email_debug_logs_to_author) {
+            ArrayList<Uri> uris = new ArrayList<>();
 
-                return true;
-            case R.id.menu_import:
-                importData();
+            File sd = getApplicationContext().getExternalFilesDir(null);
 
-                return true;
-            case R.id.menu_email_to_author:
-                intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-                String[] email = { "henrich.gron@gmail.com" };
-                intent.putExtra(Intent.EXTRA_EMAIL, email);
+            File logFile = new File(sd, PPApplication.LOG_FILENAME);
+            if (logFile.exists()) {
+                Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", logFile);
+                uris.add(fileUri);
+            }
+
+            File crashFile = new File(sd, TopExceptionHandler.CRASH_FILENAME);
+            if (crashFile.exists()) {
+                Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", crashFile);
+                uris.add(fileUri);
+            }
+
+            if (uris.size() != 0) {
+                String emailAddress = "henrich.gron@gmail.com";
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", emailAddress, null));
+
                 String packageVersion = "";
                 try {
                     PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
@@ -1051,110 +1116,71 @@ public class EditorProfilesActivity extends AppCompatActivity
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
-                intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
+                List<LabeledIntent> intents = new ArrayList<>();
+                for (ResolveInfo info : resolveInfo) {
+                    intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                    intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                    intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
+                }
                 try {
-                    startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
+                    Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), getString(R.string.email_chooser));
+                    //noinspection ToArrayCallWithZeroLengthArrayArgument
+                    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                    startActivity(chooser);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+            } else {
+                // toast notification
+                PPApplication.showToast(getApplicationContext(), getString(R.string.toast_debug_log_files_not_exists),
+                        Toast.LENGTH_SHORT);
+            }
 
-                return true;
-            case R.id.menu_export_and_email_to_author:
-                exportData(true, true);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_about) {
+            intent = new Intent(getBaseContext(), AboutApplicationActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_exit) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.exit_application_alert_title);
+            dialogBuilder.setMessage(R.string.exit_application_alert_message);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
 
-                return true;
-            case R.id.menu_email_debug_logs_to_author:
-                ArrayList<Uri> uris = new ArrayList<>();
+                    //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                    ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
+                    ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                File sd = getApplicationContext().getExternalFilesDir(null);
-
-                File logFile = new File(sd, PPApplication.LOG_FILENAME);
-                if (logFile.exists()) {
-                    Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", logFile);
-                    uris.add(fileUri);
+                    PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
+                            EditorProfilesActivity.this, false/*, true, true*/);
                 }
-
-                File crashFile = new File(sd, TopExceptionHandler.CRASH_FILENAME);
-                if (crashFile.exists()) {
-                    Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", crashFile);
-                    uris.add(fileUri);
-                }
-
-                if (uris.size() != 0) {
-                    String emailAddress = "henrich.gron@gmail.com";
-                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                            "mailto", emailAddress, null));
-
-                    packageVersion = "";
-                    try {
-                        PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                        packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                    emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
-                    emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                    List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
-                    List<LabeledIntent> intents = new ArrayList<>();
-                    for (ResolveInfo info : resolveInfo) {
-                        intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                        intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                        intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
-                        intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
-                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
-                        intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
-                    }
-                    try {
-                        Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), getString(R.string.email_chooser));
-                        //noinspection ToArrayCallWithZeroLengthArrayArgument
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
-                        startActivity(chooser);
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                }
-                else {
-                    // toast notification
-                    PPApplication.showToast(getApplicationContext(), getString(R.string.toast_debug_log_files_not_exists),
-                                                        Toast.LENGTH_SHORT);
-                }
-
-                return true;
-            case R.id.menu_about:
-                intent = new Intent(getBaseContext(), AboutApplicationActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.menu_exit:
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.exit_application_alert_title);
-                dialogBuilder.setMessage(R.string.exit_application_alert_message);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
-
-                        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                        editor.apply();
-                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                        ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
-                        ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
-
-                        PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
-                                EditorProfilesActivity.this, false/*, true, true*/);
-                    }
-                });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                AlertDialog dialog = dialogBuilder.create();
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+            AlertDialog dialog = dialogBuilder.create();
 
 //                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                    @Override
@@ -1166,41 +1192,47 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                    }
 //                });
 
-                if (!isFinishing())
-                    dialog.show();
-                return true;
-            case R.id.menu_test_crash:
-                throw new RuntimeException("Test Crash");
-                //return true;
-            case R.id.menu_test_nonFatal:
-                try {
-                    throw new RuntimeException("Test non-fatal exception");
-                } catch (Exception e) {
-                    // You must relaunch PPP to get this exception in Firebase console:
-                    //
-                    // Crashlytics processes exceptions on a dedicated background thread, so the performance
-                    // impact to your app is minimal. To reduce your users’ network traffic, Crashlytics batches
-                    // logged exceptions together and sends them the next time the app launches.
-                    //
-                    // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
-                    // throws more than 8 exceptions in a session, older exceptions are lost.
-                    PPApplication.recordException(e);
+            if (!isFinishing())
+                dialog.show();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_test_crash) {
+            throw new RuntimeException("Test Crash");
+            //return true;
+        }
+        else
+        if (itemId == R.id.menu_test_nonFatal) {
+            try {
+                throw new RuntimeException("Test non-fatal exception");
+            } catch (Exception e) {
+                // You must relaunch PPP to get this exception in Firebase console:
+                //
+                // Crashlytics processes exceptions on a dedicated background thread, so the performance
+                // impact to your app is minimal. To reduce your users’ network traffic, Crashlytics batches
+                // logged exceptions together and sends them the next time the app launches.
+                //
+                // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
+                // throws more than 8 exceptions in a session, older exceptions are lost.
+                PPApplication.recordException(e);
+            }
+            return true;
+        }
+        else
+        if (itemId == R.id.gui_items_help) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.gui_items_help_alert_title);
+            dialogBuilder.setMessage(R.string.gui_items_help_alert_message);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
+                    ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
+                    showTargetHelps();
                 }
-                return true;
-            case R.id.gui_items_help:
-                dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(R.string.gui_items_help_alert_title);
-                dialogBuilder.setMessage(R.string.gui_items_help_alert_message);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
-                        ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
-                        showTargetHelps();
-                    }
-                });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                dialog = dialogBuilder.create();
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+            AlertDialog dialog = dialogBuilder.create();
 
 //                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                    @Override
@@ -1212,57 +1244,61 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                    }
 //                });
 
-                if (!isFinishing())
-                    dialog.show();
-                return true;
-            case R.id.menu_import_from_pp:
-                importDataFromPP();
-                return true;
-            case R.id.menu_show_sound_mode:
-                dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle("Sound mode in system");
+            if (!isFinishing())
+                dialog.show();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_import_from_pp) {
+            importDataFromPP();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_show_sound_mode) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle("Sound mode in system");
 
-                String soundModeString = "Ringer mode=";
+            String soundModeString = "Ringer mode=";
 
-                final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-                if (audioManager != null) {
-                    switch (audioManager.getRingerMode()) {
-                        case AudioManager.RINGER_MODE_NORMAL:
-                            soundModeString = soundModeString + "RINGER_MODE_NORMAL";
-                            break;
-                        case AudioManager.RINGER_MODE_VIBRATE:
-                            soundModeString = soundModeString + "RINGER_MODE_VIBRATE";
-                            break;
-                        case AudioManager.RINGER_MODE_SILENT:
-                            soundModeString = soundModeString + "RINGER_MODE_SILENT";
-                            break;
-                    }
-                }
-
-                soundModeString = soundModeString + "\nZen mode=";
-                switch (ActivateProfileHelper.getSystemZenMode(getApplicationContext())) {
-                    case ActivateProfileHelper.ZENMODE_ALL:
-                        soundModeString = soundModeString + "ZENMODE_ALL";
+            final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
+                switch (audioManager.getRingerMode()) {
+                    case AudioManager.RINGER_MODE_NORMAL:
+                        soundModeString = soundModeString + "RINGER_MODE_NORMAL";
                         break;
-                    case ActivateProfileHelper.ZENMODE_PRIORITY:
-                        soundModeString = soundModeString + "ZENMODE_PRIORITY";
+                    case AudioManager.RINGER_MODE_VIBRATE:
+                        soundModeString = soundModeString + "RINGER_MODE_VIBRATE";
                         break;
-                    case ActivateProfileHelper.ZENMODE_ALARMS:
-                        soundModeString = soundModeString + "ZENMODE_ALARMS";
-                        break;
-                    case ActivateProfileHelper.ZENMODE_NONE:
-                        soundModeString = soundModeString + "ZENMODE_NONE";
-                        break;
-                    case ActivateProfileHelper.ZENMODE_SILENT:
-                        soundModeString = soundModeString + "ZENMODE_SILENT";
+                    case AudioManager.RINGER_MODE_SILENT:
+                        soundModeString = soundModeString + "RINGER_MODE_SILENT";
                         break;
                 }
+            }
 
-                dialogBuilder.setMessage(soundModeString);
+            soundModeString = soundModeString + "\nZen mode=";
+            switch (ActivateProfileHelper.getSystemZenMode(getApplicationContext())) {
+                case ActivateProfileHelper.ZENMODE_ALL:
+                    soundModeString = soundModeString + "ZENMODE_ALL";
+                    break;
+                case ActivateProfileHelper.ZENMODE_PRIORITY:
+                    soundModeString = soundModeString + "ZENMODE_PRIORITY";
+                    break;
+                case ActivateProfileHelper.ZENMODE_ALARMS:
+                    soundModeString = soundModeString + "ZENMODE_ALARMS";
+                    break;
+                case ActivateProfileHelper.ZENMODE_NONE:
+                    soundModeString = soundModeString + "ZENMODE_NONE";
+                    break;
+                case ActivateProfileHelper.ZENMODE_SILENT:
+                    soundModeString = soundModeString + "ZENMODE_SILENT";
+                    break;
+            }
 
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                dialog = dialogBuilder.create();
+            dialogBuilder.setMessage(soundModeString);
+
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = dialogBuilder.create();
 
 //                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                    @Override
@@ -1274,15 +1310,18 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                    }
 //                });
 
-                if (!isFinishing())
-                    dialog.show();
+            if (!isFinishing())
+                dialog.show();
 
-                return true;
-            case R.id.menu_check_github_releases:
-                CheckGitHubReleasesActivity.showDialog(this, true);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_check_github_releases) {
+            CheckGitHubReleasesActivity.showDialog(this, true);
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
         }
     }
 

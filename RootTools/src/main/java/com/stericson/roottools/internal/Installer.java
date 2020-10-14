@@ -54,7 +54,7 @@ class Installer
     private static final String BOGUS_FILE_NAME = "bogus";
 
     private final Context context;
-    private String filesPath;
+    private final String filesPath;
 
     @SuppressWarnings("WeakerAccess")
     public Installer(Context context)

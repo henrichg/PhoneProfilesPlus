@@ -362,10 +362,11 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nfc_tag_pref_dlg_item_menu_writeToNfcTag:
-                        preference.writeToNFCTag(tagInItem._id, tagInItem._name);
-                        return true;
+                int itemId = item.getItemId();
+                if (itemId == R.id.nfc_tag_pref_dlg_item_menu_writeToNfcTag) {
+                    preference.writeToNFCTag(tagInItem._id, tagInItem._name);
+                    return true;
+                }
                     /*case R.id.nfc_tag_pref_item_menu_readNfcUid:
                         Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._name="+tagInItem._name);
                         Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._id="+tagInItem._id);
@@ -374,46 +375,50 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                         nfcTagIntent.putExtra(NFCTagReadEditorActivity.EXTRA_TAG_DB_ID, tagInItem._id);
                         ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_READ_EDITOR);
                         return true;*/
-                    case R.id.nfc_tag_pref_dlg_item_menu_change:
-                        if (!nfcTagName.getText().toString().isEmpty()) {
-                            //PPApplication.logE("NFCTagPreference.showEditMenu.change", "tagInItem._name="+tagInItem._name);
-                            String[] splits = preference.value.split("\\|");
-                            preference.value = "";
-                            boolean found = false;
-                            // add all tags without item tag
-                            for (String tag : splits) {
-                                if (!tag.isEmpty()) {
-                                    if (!tag.equals(tagInItem._name)) {
-                                        if (!preference.value.isEmpty())
-                                            //noinspection StringConcatenationInLoop
-                                            preference.value = preference.value + "|";
+                else
+                if (itemId == R.id.nfc_tag_pref_dlg_item_menu_change) {
+                    if (!nfcTagName.getText().toString().isEmpty()) {
+                        //PPApplication.logE("NFCTagPreference.showEditMenu.change", "tagInItem._name="+tagInItem._name);
+                        String[] splits = preference.value.split("\\|");
+                        preference.value = "";
+                        boolean found = false;
+                        // add all tags without item tag
+                        for (String tag : splits) {
+                            if (!tag.isEmpty()) {
+                                if (!tag.equals(tagInItem._name)) {
+                                    if (!preference.value.isEmpty())
                                         //noinspection StringConcatenationInLoop
-                                        preference.value = preference.value + tag;
-                                        //PPApplication.logE("NFCTagPreference.showEditMenu.change", "value="+preference.value);
-                                    } else
-                                        found = true;
-                                }
+                                        preference.value = preference.value + "|";
+                                    //noinspection StringConcatenationInLoop
+                                    preference.value = preference.value + tag;
+                                    //PPApplication.logE("NFCTagPreference.showEditMenu.change", "value="+preference.value);
+                                } else
+                                    found = true;
                             }
-                            //PPApplication.logE("NFCTagPreference.showEditMenu.change", "found="+found);
-                            if (found) {
-                                // add item tag with new name
-                                if (!preference.value.isEmpty())
-                                    preference.value = preference.value + "|";
-                                preference.value = preference.value + nfcTagName.getText().toString();
-                            }
-                            //PPApplication.logE("NFCTagPreference.showEditMenu.change", "value=" + preference.value);
-                            tagInItem._name = nfcTagName.getText().toString();
-                            DatabaseHandler.getInstance(prefContext.getApplicationContext()).updateNFCTag(tagInItem);
-                            refreshListView("");
                         }
-                        return true;
-                    case R.id.nfc_tag_pref_dlg_item_menu_delete:
-                        preference.removeNfcTag(tagInItem._name);
-                        DatabaseHandler.getInstance(prefContext.getApplicationContext()).deleteNFCTag(tagInItem);
+                        //PPApplication.logE("NFCTagPreference.showEditMenu.change", "found="+found);
+                        if (found) {
+                            // add item tag with new name
+                            if (!preference.value.isEmpty())
+                                preference.value = preference.value + "|";
+                            preference.value = preference.value + nfcTagName.getText().toString();
+                        }
+                        //PPApplication.logE("NFCTagPreference.showEditMenu.change", "value=" + preference.value);
+                        tagInItem._name = nfcTagName.getText().toString();
+                        DatabaseHandler.getInstance(prefContext.getApplicationContext()).updateNFCTag(tagInItem);
                         refreshListView("");
-                        return true;
-                    default:
-                        return false;
+                    }
+                    return true;
+                }
+                else
+                if (itemId == R.id.nfc_tag_pref_dlg_item_menu_delete) {
+                    preference.removeNfcTag(tagInItem._name);
+                    DatabaseHandler.getInstance(prefContext.getApplicationContext()).deleteNFCTag(tagInItem);
+                    refreshListView("");
+                    return true;
+                }
+                else {
+                    return false;
                 }
             }
         });
