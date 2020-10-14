@@ -1653,3 +1653,18 @@ Zistujem, ktory ton je nastaveny (najdi kde), preco by som ho mal aj prehravat? 
 2020-09-07 00:26:52.669 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
 2020-09-07 00:28:43.189 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
 2020-09-07 00:29:03.187 31399-31557/sk.henrichg.phoneprofilesplus I/RingtoneManager: path and URI match to each other
+
+----------------------
+
+Event.doActivateEndProfile()
+- Nerobi sa nic, ak udalost nie je na konci timeline. Toto je uplna blbost.
+  Lebo sa musi robit vzdy vsetko.
+- Na restart udalosti mam work, volane je
+  DataWrapper.restartEventsWithDelay(5 sekund)
+- Ak je undo podla poradia udalosti a existuje v timeline nejaka udalost, zoberie sa start profil
+  predchadzajucej udalosti v timeline.
+- Ak je undo podla posledne aktivovaneho profilu, vezme sa ten co bol aktivovany pred spustenim spracovania
+  udalosti. Samostatne pause a stop v takomto pripade aktivuje profil nahodeny v shared preferences,
+  cize spracovanim udalosti, manualnou aktivaciou profilu.
+
+
