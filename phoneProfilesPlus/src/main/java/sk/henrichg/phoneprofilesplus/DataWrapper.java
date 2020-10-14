@@ -2174,7 +2174,6 @@ public class DataWrapper {
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
                 }
                 Profile.setActivatedProfileForDuration(context, 0);
-                Profile.setActivatedProfileForEventUndo(context, 0);
 
                 Event.setEventsBlocked(context, false);
                 synchronized (eventList) {
