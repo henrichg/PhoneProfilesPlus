@@ -209,7 +209,8 @@ public class PPApplication extends Application
                                                 //+"|[MAREK_TEST]"
                                                 //+"|[BLOCK_ACTIONS]"
 
-                                                +"|[ACTIVATOR]"
+                                                //+"|[ACTIVATOR]"
+                                                +"|[G1_TEST]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
 

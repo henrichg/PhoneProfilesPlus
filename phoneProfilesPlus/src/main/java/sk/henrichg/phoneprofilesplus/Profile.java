@@ -3588,6 +3588,10 @@ public class Profile {
                 }*/
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
+                    if (profile != null)
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceGPS="+profile._deviceGPS);
                     if ((profile != null) && (profile._deviceGPS != 0))
                         return preferenceAllowed;
                 }
@@ -3645,6 +3649,10 @@ public class Profile {
             }*/
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
+                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
+                if (profile != null)
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceLocationMode="+profile._deviceLocationMode);
                 if ((profile != null) && (profile._deviceLocationMode != 0))
                     return preferenceAllowed;
             }
@@ -3698,6 +3706,10 @@ public class Profile {
                 }
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
+                    if (profile != null)
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceNFC="+profile._deviceNFC);
                     if ((profile != null) && (profile._deviceNFC != 0))
                         return preferenceAllowed;
                 }
@@ -3939,6 +3951,10 @@ public class Profile {
                 }
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
+                    if (profile != null)
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._devicePowerSaveMode="+profile._devicePowerSaveMode);
                     if ((profile != null) && (profile._devicePowerSaveMode != 0))
                         return preferenceAllowed;
                 }
@@ -4263,6 +4279,10 @@ public class Profile {
                 }
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
+                    if (profile != null)
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._headsUpNotifications="+profile._headsUpNotifications);
                     if ((profile != null) && (profile._headsUpNotifications != 0))
                         return preferenceAllowed;
                 }
@@ -4445,6 +4465,10 @@ public class Profile {
                 }
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
+                    if (profile != null)
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._screenDarkMode="+profile._screenDarkMode);
                     if ((profile != null) && (profile._screenDarkMode != 0))
                         return preferenceAllowed;
                 }
