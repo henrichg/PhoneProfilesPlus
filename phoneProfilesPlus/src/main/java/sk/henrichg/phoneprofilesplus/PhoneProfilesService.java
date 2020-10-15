@@ -5247,7 +5247,7 @@ public class PhoneProfilesService extends Service
                         //noinspection ConstantConditions
                     }
                     else {
-                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_miui);
                         profileIconExists = false;
                     }
                 } else {
