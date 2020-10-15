@@ -8,14 +8,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.util.Collections;
 import java.util.Iterator;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHolder>
                                  implements ItemTouchHelperAdapter
@@ -343,7 +343,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             }
 
             DatabaseHandler.getInstance(activityDataWrapper.context).setEventStartOrder(activityDataWrapper.eventList);  // set events _startOrder and write it into db
-            activityDataWrapper.restartEventsWithDelay(15, true, false, /*true,*/ PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
+            activityDataWrapper.restartEventsWithDelay(15, true, false, false, PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED);
         }
         notifyItemMoved(fromPosition, toPosition);
         return true;

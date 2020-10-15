@@ -1511,15 +1511,12 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="location_editor_connection_is_offline">La connessione di rete è offline. Per questo motivo non è possibile visualizzare la mappa.</string>
     <string name="install_extender_where_is_assets_button">Dove si trova</string>
     <string name="github_assets_screenshot_label">screenshot</string>
-    <string name="event_preferences_atEndHowUndo">Come annullare il profilo</string>
-    <string name="array_pref_atEndDo_undoByEventsStart">In base all\'ordine di inizio eventi</string>
-    <string name="array_pref_atEndDo_undoByProfileActivation">In base all\'ordine di attivazione profili</string>
     <string name="event_preferences_orientation_light_currentValue_title">Valore luminoso attuale</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Il sensore di luce non è nel tuo dispositivo</string>
     <string name="directory_tree_activity_not_found_alert">Impossibile visualizzare la schermata dell\'albero delle cartelle.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Per \"MIUI\" è possibile disabilitare queste finestre di dialogo. Fare clic qui, per mostrare come.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Nelle impostazioni del dispositivo\/Applicazioni\/Gestione applicazioni\/PhoneProfilesPlus\/Altri permessi: \"Cambia connettività Wi-Fi\" e \"Cambia struttura Bluetooth\" impostata su \"Accetta\".</string>
-    <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Gli eventi di riavvio non funzionano, perché l\'esecuzione degli eventi è disabilitata</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Esporta in PhoneProfilesPlus</string>
@@ -1822,4 +1819,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
     <!--    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>-->
+    <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
+    <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
+    <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
 </resources>

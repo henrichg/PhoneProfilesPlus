@@ -1731,7 +1731,7 @@ class Event {
 //                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
 //                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","    event._name="+_name);
                 // do not reactivate profile to avoid infinite loop
-                dataWrapper.restartEventsWithDelay(5, false, true, /*true,*/ PPApplication.ALTYPE_UNDEFINED);
+                dataWrapper.restartEventsWithDelay(5, false, true, true, PPApplication.ALTYPE_UNDEFINED);
                 profileActivated = true;
             }
 

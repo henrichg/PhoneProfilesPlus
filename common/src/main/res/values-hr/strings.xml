@@ -1510,9 +1510,6 @@
     <string name="location_editor_connection_is_offline">Mreža za povezivanje nije dostupna. Zbog ovoga je nemoguće prikazati mapu.</string>
     <string name="install_extender_where_is_assets_button">Gde se nalaze</string>
     <string name="github_assets_screenshot_label">snimke zaslona</string>
-    <string name="event_preferences_atEndHowUndo">Kako povratiti profil</string>
-    <string name="array_pref_atEndDo_undoByEventsStart">Startni raspored prema događajima</string>
-    <string name="array_pref_atEndDo_undoByProfileActivation">Raspored aktivacija prema profilima</string>
     <string name="event_preferences_orientation_light_currentValue_title">Trenutna vrednost osvetljenosti</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Vaš uređaj ne poseduje senzor osvetljenosti</string>
     <string name="directory_tree_activity_not_found_alert">Nije moguće prikazati stablo direktorija.</string>
@@ -1821,4 +1818,7 @@
     <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
     <!--    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>-->
+    <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
+    <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
+    <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
 </resources>

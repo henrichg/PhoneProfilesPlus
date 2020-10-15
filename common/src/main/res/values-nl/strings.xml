@@ -1510,15 +1510,12 @@
     <string name="location_editor_connection_is_offline">Geen Netwerkverbinding. Om deze reden is het niet mogelijk om de kaart weer te geven.</string>
     <string name="install_extender_where_is_assets_button">Waar is</string>
     <string name="github_assets_screenshot_label">screenshot</string>
-    <string name="event_preferences_atEndHowUndo">Hoe een profiel ongedaan maken</string>
-    <string name="array_pref_atEndDo_undoByEventsStart">Op basis van event startvolgorde</string>
-    <string name="array_pref_atEndDo_undoByProfileActivation">Op basis van profiel activatievolgorde</string>
     <string name="event_preferences_orientation_light_currentValue_title">Huidige lichtwaarde</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Er zit geen lichtsensor in je apparaat</string>
     <string name="directory_tree_activity_not_found_alert">De mapstructuur kan niet worden weergegeven.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Voor MIUI\" is het mogelijk om deze dialogen uit te schakelen. Klik hier om te zien hoe.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In apparaatinstellingen\/Apps\/Beheer apps\/PhoneProfilesPlus\/Overige machtigingen: \"Wifi-verbinding wijzigen\" en \"Bluetooth conenctivity\" ingestellen op \"Accepteren\".</string>
-    <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Herstart van events werkt niet omdat events uitvoeren is uitgeschakeld</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>
@@ -1821,4 +1818,7 @@
     <!--    <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_1">To enable \"Interruptions type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
     <!--    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message">In device system settings:\n1. Developer options\\Developer options = enable\n2. Developer options\\Debugging\\USB debugging = enable\n3. Developer options\\Apps\\Disables authorization monitoring = enable.</string>-->
+    <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
+    <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
+    <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
 </resources>

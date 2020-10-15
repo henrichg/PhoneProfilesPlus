@@ -2512,7 +2512,7 @@ public class DataWrapper {
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
     void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
-                                /*boolean clearOld,*/ final int logType)
+                                boolean replace, /*boolean clearOld,*/ final int logType)
     {
 //        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
         Data workData = new Data.Builder()
@@ -2524,13 +2524,22 @@ public class DataWrapper {
         /*int keepResultsDelay = (delay * 5) / 60; // conversion to minutes
         if (keepResultsDelay < PPApplication.WORK_PRUNE_DELAY)
             keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
-        OneTimeWorkRequest restartEventsWithDelayWorker =
-                new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
-                        .addTag(RestartEventsWithDelayWorker.WORK_TAG)
-                        .setInputData(workData)
-                        .setInitialDelay(delay, TimeUnit.SECONDS)
-                        .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                        .build();
+        OneTimeWorkRequest restartEventsWithDelayWorker;
+        if (replace)
+            restartEventsWithDelayWorker =
+                    new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
+                            .addTag(RestartEventsWithDelayWorker.WORK_TAG)
+                            .setInputData(workData)
+                            .setInitialDelay(delay, TimeUnit.SECONDS)
+                            .build();
+        else
+            restartEventsWithDelayWorker =
+                    new OneTimeWorkRequest.Builder(RestartEventsWithDelayWorker.class)
+                            .addTag(RestartEventsWithDelayWorker.WORK_TAG_APPEND)
+                            .setInputData(workData)
+                            .setInitialDelay(delay, TimeUnit.SECONDS)
+                            .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                            .build();
         try {
             if (PPApplication.getApplicationStarted(true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
@@ -2547,7 +2556,10 @@ public class DataWrapper {
 //                    //}
 
                     //workManager.enqueue(restartEventsWithDelayWorker);
-                    workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
+                    if (replace)
+                        workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, restartEventsWithDelayWorker);
+                    else
+                        workManager.enqueueUniqueWork(RestartEventsWithDelayWorker.WORK_TAG_APPEND, ExistingWorkPolicy.APPEND_OR_REPLACE, restartEventsWithDelayWorker);
                 }
             }
         } catch (Exception e) {
