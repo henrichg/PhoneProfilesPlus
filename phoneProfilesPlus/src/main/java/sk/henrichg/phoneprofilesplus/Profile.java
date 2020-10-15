@@ -3296,11 +3296,16 @@ public class Profile {
                                                         SharedPreferences sharedPreferences,
                                                         boolean fromUIThread, Context context)
     {
+        if (profile != null)
+            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "profile != null");
+
         Context appContext = context.getApplicationContext();
 
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+        preferenceAllowed.notAllowedRoot = false;
+        preferenceAllowed.notAllowedG1 = false;
 
         //boolean checked = false;
 
@@ -3321,7 +3326,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3351,8 +3357,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3369,8 +3375,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3387,8 +3393,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3464,7 +3470,8 @@ public class Profile {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
-                                    return preferenceAllowed;
+                                    //return preferenceAllowed;
+                                    preferenceAllowed.notAllowedRoot = true;
                                 }
                             }
                         }
@@ -3514,8 +3521,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3533,8 +3540,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3560,7 +3567,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3589,11 +3597,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                     PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
-                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
                     if (profile != null)
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceGPS="+profile._deviceGPS);
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceGPS=" + profile._deviceGPS);
                     if ((profile != null) && (profile._deviceGPS != 0))
-                        return preferenceAllowed;
+                        //return preferenceAllowed;
+                        preferenceAllowed.notAllowedG1 = true;
                 }
             }
             else
@@ -3602,8 +3610,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3626,7 +3634,8 @@ public class Profile {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                             // not needed to test all parameters
-                            return preferenceAllowed;
+                            //return preferenceAllowed;
+                            preferenceAllowed.notAllowedRoot = true;
                         }
                     }
                 }
@@ -3650,18 +3659,18 @@ public class Profile {
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                 PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
-                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
                 if (profile != null)
-                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceLocationMode="+profile._deviceLocationMode);
+                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceLocationMode=" + profile._deviceLocationMode);
                 if ((profile != null) && (profile._deviceLocationMode != 0))
-                    return preferenceAllowed;
+                    //return preferenceAllowed;
+                    preferenceAllowed.notAllowedG1 = true;
             }
 
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3686,7 +3695,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3707,11 +3717,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                     PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
-                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
                     if (profile != null)
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceNFC="+profile._deviceNFC);
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceNFC=" + profile._deviceNFC);
                     if ((profile != null) && (profile._deviceNFC != 0))
-                        return preferenceAllowed;
+                        //return preferenceAllowed;
+                        preferenceAllowed.notAllowedG1 = true;
                 }
             }
             else
@@ -3723,8 +3733,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3754,7 +3764,8 @@ public class Profile {
                                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                         // not needed to test all parameters
-                                        return preferenceAllowed;
+                                        //return preferenceAllowed;
+                                        preferenceAllowed.notAllowedRoot = true;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -3795,8 +3806,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3814,7 +3825,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3844,8 +3856,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3870,7 +3882,8 @@ public class Profile {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
-                                    return preferenceAllowed;
+                                    //return preferenceAllowed;
+                                    preferenceAllowed.notAllowedRoot = true;
                                 }
                             }
                         }
@@ -3905,8 +3918,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3928,7 +3941,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3952,11 +3966,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                     PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
-                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
                     if (profile != null)
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._devicePowerSaveMode="+profile._devicePowerSaveMode);
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._devicePowerSaveMode=" + profile._devicePowerSaveMode);
                     if ((profile != null) && (profile._devicePowerSaveMode != 0))
-                        return preferenceAllowed;
+                        //return preferenceAllowed;
+                        preferenceAllowed.notAllowedG1 = true;
                 }
             /*}
             else {
@@ -3967,8 +3981,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -3991,7 +4005,8 @@ public class Profile {
                                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                         // not needed to test all parameters
-                                        return preferenceAllowed;
+                                        //return preferenceAllowed;
+                                        preferenceAllowed.notAllowedRoot = true;
                                     }
                                 }
                             }
@@ -4034,8 +4049,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4059,7 +4074,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4094,8 +4110,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4116,8 +4132,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4134,8 +4150,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4152,8 +4168,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4170,8 +4186,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4189,8 +4205,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4206,8 +4222,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4232,8 +4248,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4256,7 +4272,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4280,11 +4297,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                     PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
-                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
                     if (profile != null)
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._headsUpNotifications="+profile._headsUpNotifications);
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._headsUpNotifications=" + profile._headsUpNotifications);
                     if ((profile != null) && (profile._headsUpNotifications != 0))
-                        return preferenceAllowed;
+                        //return preferenceAllowed;
+                        preferenceAllowed.notAllowedG1 = true;
                 }
             }
             //else
@@ -4298,8 +4315,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4315,8 +4332,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4332,8 +4349,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4351,8 +4368,8 @@ public class Profile {
             if (profile == null)
                 return preferenceAllowed;
             //noinspection ConstantConditions
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4370,13 +4387,13 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY))
+        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY))
         {
             if (android.os.Build.VERSION.SDK_INT >= 26) {
                 if (PPApplication.isRooted(fromUIThread)) {
@@ -4388,7 +4405,8 @@ public class Profile {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4419,8 +4437,8 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
@@ -4442,7 +4460,8 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
-                                return preferenceAllowed;
+                                //return preferenceAllowed;
+                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4466,11 +4485,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
                     PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
-                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile="+profile);
                     if (profile != null)
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._screenDarkMode="+profile._screenDarkMode);
+                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._screenDarkMode=" + profile._screenDarkMode);
                     if ((profile != null) && (profile._screenDarkMode != 0))
-                        return preferenceAllowed;
+                        //return preferenceAllowed;
+                        preferenceAllowed.notAllowedG1 = true;
                 }
             }
             else {
@@ -4481,13 +4500,14 @@ public class Profile {
             //checked = true;
             if (profile == null)
                 return preferenceAllowed;
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
 
-        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+        if (profile == null)
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
         return preferenceAllowed;
     }
 

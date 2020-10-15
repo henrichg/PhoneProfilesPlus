@@ -6,6 +6,8 @@ class PreferenceAllowed {
     int allowed;
     int notAllowedReason;
     String notAllowedReasonDetail;
+    boolean notAllowedRoot;
+    boolean notAllowedG1;
 
     static final int PREFERENCE_NOT_ALLOWED = 0;
     static final int PREFERENCE_ALLOWED = 1;
