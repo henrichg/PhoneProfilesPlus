@@ -1728,8 +1728,12 @@ class EventsHandler {
                                 long oldMergedProfile = mergedProfile._id;
 //                                if (forRestartEvents)
 //                                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "call pauseEvent() (1)");
+
+                                // do not allow restart events in Event.doActivateEndProfile() when is already doing restart events
+                                // allowRestart parameter must be false for doing restart events (to avoid infinite loop)
                                 event.pauseEvent(dataWrapper, true, false,
                                         false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
+
                                 endProfileMerged = oldMergedProfile != mergedProfile._id;
 //                                if (event._name.equals("Event")) {
 //                                if (forRestartEvents) {
