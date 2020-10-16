@@ -5393,7 +5393,8 @@ public class PhoneProfilesService extends Service
             if (!forFirstStart)
                 pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
             else
-                pName = "";
+                pName = appContext.getResources().getString(R.string.ppp_app_name) + " " +
+                        appContext.getResources().getString(R.string.application_is_starting_toast);
             profileName = new SpannableString(pName);
             iconBitmap = null;
             preferencesIndicatorBitmap = null;
@@ -5615,7 +5616,12 @@ public class PhoneProfilesService extends Service
         }
         else {
             //PPApplication.logE("PhoneProfilesService._showProfileNotification", "create empty icon");
-            notificationBuilder.setSmallIcon(R.drawable.ic_empty);
+            int iconSmallResource;
+            if (notificationStatusBarStyle.equals("0"))
+                iconSmallResource = R.drawable.ic_profile_default;
+            else
+                iconSmallResource = R.drawable.ic_profile_default_notify;
+            notificationBuilder.setSmallIcon(iconSmallResource);
             if (notificationNotificationStyle.equals("0")) {
                 try {
                     contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
