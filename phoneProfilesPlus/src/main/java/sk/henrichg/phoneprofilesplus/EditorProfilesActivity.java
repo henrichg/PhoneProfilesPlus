@@ -1816,6 +1816,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 boolean ok = false;
                 try {
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                     startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                     ok = true;
                 } catch (Exception e) {
@@ -2561,6 +2563,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     boolean ok = false;
                     try {
                         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                         startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -3628,6 +3632,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     boolean ok = false;
                                     try {
                                         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                                         //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
                                         if (checkBox.isChecked())
                                             startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
