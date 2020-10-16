@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_profile_list_item"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="73dp"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/widget_profile_list_item_profile_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

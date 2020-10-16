@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_one_row_root"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="55dp"
     android:gravity="center"
     android:background="#40000000"
     tools:ignore="Overdraw" >
@@ -26,13 +26,13 @@
 
         <ImageView
             android:id="@+id/widget_one_row_header_restart_events"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_marginEnd="5dp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/menu_restart_events"
-            android:scaleType="center"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_widget_restart_events"
             android:clickable="true"
             android:focusable="true" />
@@ -47,8 +47,8 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_header_profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="3dp"
                 android:adjustViewBounds="true"
@@ -66,7 +66,7 @@
                 android:paddingEnd="12dp"
                 android:text="@string/profile_name_default"
                 android:textColor="#33b5e5"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:ellipsize="end"
                 android:maxLines="1"/>
 
