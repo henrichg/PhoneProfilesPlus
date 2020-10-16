@@ -1858,8 +1858,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
                     // persistent permissions
-                    final int takeFlags = data.getFlags()
-                            & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    final int takeFlags = //data.getFlags() &
+                            (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 
                     class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
@@ -2000,8 +2000,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
                     // persistent permissions
-                    final int takeFlags = data.getFlags()
-                            & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    final int takeFlags = //data.getFlags() &
+                            (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 
                     class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
