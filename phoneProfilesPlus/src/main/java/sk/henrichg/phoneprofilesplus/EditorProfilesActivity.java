@@ -1857,6 +1857,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // uri of folder
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
+                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     // persistent permissions
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -1999,6 +2001,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // uri of folder
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
+                    getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     // persistent permissions
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
