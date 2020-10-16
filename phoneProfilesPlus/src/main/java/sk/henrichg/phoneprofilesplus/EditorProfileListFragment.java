@@ -738,7 +738,7 @@ public class EditorProfileListFragment extends Fragment
         });
 
 
-        if (!getActivity().isFinishing())
+        if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
     }
 
@@ -771,7 +771,7 @@ public class EditorProfileListFragment extends Fragment
 //            }
 //        });
 
-        if (!getActivity().isFinishing())
+        if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
     }
 
@@ -845,7 +845,7 @@ public class EditorProfileListFragment extends Fragment
 //                }
 //            });
 
-            if (!getActivity().isFinishing())
+            if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();
         }
     }
@@ -1330,7 +1330,7 @@ public class EditorProfileListFragment extends Fragment
                 }
             });
 
-            if (!getActivity().isFinishing())
+            if ((getActivity() != null) && (!getActivity().isFinishing()))
                 popup.show();
         }
         else

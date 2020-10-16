@@ -936,7 +936,7 @@ public class EditorEventListFragment extends Fragment
         });
 
 
-        if (!getActivity().isFinishing())
+        if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
     }
 
@@ -967,7 +967,7 @@ public class EditorEventListFragment extends Fragment
 //            }
 //        });
 
-        if (!getActivity().isFinishing())
+        if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
     }
 
@@ -1035,7 +1035,7 @@ public class EditorEventListFragment extends Fragment
 //                }
 //            });
 
-            if (!getActivity().isFinishing())
+            if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();
         }
     }
@@ -1887,7 +1887,7 @@ public class EditorEventListFragment extends Fragment
             }
         });
 
-        if (!getActivity().isFinishing())
+        if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
     }
 

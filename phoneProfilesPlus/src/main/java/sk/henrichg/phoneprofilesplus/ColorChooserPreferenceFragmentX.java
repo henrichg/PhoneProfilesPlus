@@ -152,7 +152,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
                     dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
 
                     AlertDialog dialog = dialogBuilder.create();
-                    if (!getActivity().isFinishing())
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();
                 }
             }
