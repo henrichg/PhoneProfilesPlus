@@ -23,13 +23,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -53,7 +50,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
@@ -510,8 +506,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     return false;
             }
         });
-        // set size of icons
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+        // set size of icons of BottomNavigationView
+        /*BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(com.google.android.material.R.id.icon);
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
@@ -519,7 +515,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
             iconView.setLayoutParams(layoutParams);
-        }
+        }*/
 
         filterSpinner = findViewById(R.id.editor_filter_spinner);
         String[] filterItems = new String[] {

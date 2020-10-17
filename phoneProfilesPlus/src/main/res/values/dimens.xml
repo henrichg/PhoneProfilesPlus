@@ -26,6 +26,6 @@
 
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
-    <dimen name="design_bottom_navigation_height" tools:override="true">48dp</dimen>
+    <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>
 
 </resources>
