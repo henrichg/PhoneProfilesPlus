@@ -70,6 +70,7 @@
                 app:showAsAction="never" />
         </menu>
     </item>
+
     <item android:id="@+id/menu_support"
         android:title="@string/menu_support"
         android:orderInCategory="240"
@@ -89,13 +90,15 @@
                 app:showAsAction="never" />
         </menu>
     </item>
-    <item android:id="@+id/menu_about"
-        android:title="@string/menu_about_application"
-        android:orderInCategory="250"
-        app:showAsAction="never" />
+
     <item android:id="@+id/menu_check_github_releases"
         android:title="@string/menu_check_github_releases"
         android:orderInCategory="250"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/menu_about"
+        android:title="@string/menu_about_application"
+        android:orderInCategory="255"
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_debug"
