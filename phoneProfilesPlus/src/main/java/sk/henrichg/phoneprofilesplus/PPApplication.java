@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -211,6 +212,8 @@ public class PPApplication extends Application
 
                                                 //+"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
+
+                                                +"|[BACKGROUND_ACTIVITY]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
@@ -702,6 +705,9 @@ public class PPApplication extends Application
     public static boolean isScreenOn;
     //public static boolean isPowerSaveMode;
 
+    static Location lastLocation = null;
+
+
     public static HandlerThread handlerThread = null;
     public static HandlerThread handlerThreadCancelWork = null;
     public static HandlerThread handlerThreadBroadcast = null;
@@ -832,6 +838,11 @@ public class PPApplication extends Application
         magneticFieldSensor = getMagneticFieldSensor(getApplicationContext());
         proximitySensor = getProximitySensor(getApplicationContext());
         lightSensor = getLightSensor(getApplicationContext());
+
+        if (lastLocation == null) {
+            //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
+            lastLocation = new Location("GL");
+        }
 
         if (logEnabled()) {
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi=" + deviceIsXiaomi);

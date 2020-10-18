@@ -21,7 +21,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        //PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
+        PPApplication.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
 
         boolean canWriteSettings;// = true;
         //if (android.os.Build.VERSION.SDK_INT >= 23)

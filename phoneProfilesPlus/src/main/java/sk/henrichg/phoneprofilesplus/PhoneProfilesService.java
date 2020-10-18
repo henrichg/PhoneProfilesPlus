@@ -230,6 +230,17 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "before show profile notification");
 
+        // delete notification if is displayed
+        PPApplication.cancelWork(ShowProfileNotificationWorker.WORK_TAG);
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            try {
+                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+            } catch (Exception ignored) {}
+            try {
+                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+            } catch (Exception ignored) {}
+        }
         // show empty notification to avoid ANR in api level 26
         showProfileNotification(/*true,*/ true/*, false*/);
 
@@ -5206,12 +5217,10 @@ public class PhoneProfilesService extends Service
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     else {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
@@ -5233,12 +5242,10 @@ public class PhoneProfilesService extends Service
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator) {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = false;
                     }
                     else {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
@@ -5260,12 +5267,10 @@ public class PhoneProfilesService extends Service
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_decorator);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     else {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
@@ -5286,12 +5291,10 @@ public class PhoneProfilesService extends Service
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_samsung_no_decorator);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     else {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
@@ -5313,12 +5316,10 @@ public class PhoneProfilesService extends Service
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     else {
                         contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
-                        //noinspection UnusedAssignment
                         preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
@@ -6832,7 +6833,8 @@ public class PhoneProfilesService extends Service
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
 
-                        if (stream == AudioManager.STREAM_RING) {
+                    //noinspection IfStatementWithIdenticalBranches
+                    if (stream == AudioManager.STREAM_RING) {
                             AudioAttributes attrs = new AudioAttributes.Builder()
                                     .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
                                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)

@@ -24,8 +24,6 @@ class GeofencesScanner
     final Context context;
     //private final DataWrapper dataWrapper;
 
-    private static Location lastLocation = null;
-
     static boolean useGPS = true; // must be static
     static boolean mUpdatesStarted = false; // must be static
 
@@ -62,7 +60,7 @@ class GeofencesScanner
 
                 synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                     //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation update");
-                    lastLocation.set(location);
+                    PPApplication.lastLocation.set(location);
                     //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
                     //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
                     /*if (PPApplication.logEnabled()) {
@@ -93,10 +91,10 @@ class GeofencesScanner
             }
         };
 
-        if (lastLocation == null) {
-            //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
-            lastLocation = new Location("GL");
-        }
+//        if (lastLocation == null) {
+//            //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
+//            lastLocation = new Location("GL");
+//        }
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("##### GeofenceScanner", "lastLocation=" + lastLocation);
@@ -221,11 +219,11 @@ class GeofencesScanner
                 float radius;
                 synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                     Location _lastLocation = new Location("GL");
-                    _lastLocation.setLatitude(lastLocation.getLatitude());
-                    _lastLocation.setLongitude(lastLocation.getLongitude());
+                    _lastLocation.setLatitude(PPApplication.lastLocation.getLatitude());
+                    _lastLocation.setLongitude(PPApplication.lastLocation.getLongitude());
 
                     distance = Math.abs(_lastLocation.distanceTo(geofenceLocation));
-                    radius = lastLocation.getAccuracy() + geofence._radius;
+                    radius = PPApplication.lastLocation.getAccuracy() + geofence._radius;
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._name=" + geofence._name);
@@ -453,7 +451,7 @@ class GeofencesScanner
 
             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                 //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "lastLocation update");
-                lastLocation.set(location);
+                PPApplication.lastLocation.set(location);
                 //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
                 //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
                 /*if (PPApplication.logEnabled()) {

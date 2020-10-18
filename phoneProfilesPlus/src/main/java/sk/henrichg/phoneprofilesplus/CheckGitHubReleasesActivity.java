@@ -22,7 +22,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        //PPApplication.logE("ExitApplicationActivity.onCreate", "xxx");
+        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckGitHubReleasesActivity.onCreate", "xxx");
     }
 
     @Override

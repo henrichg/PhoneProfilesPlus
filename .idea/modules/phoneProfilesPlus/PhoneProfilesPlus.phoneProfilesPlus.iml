@@ -42,7 +42,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/sdk-v1.0.0.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/slook_v1.4.0.jar" level="project" />
