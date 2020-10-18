@@ -213,7 +213,7 @@ public class PPApplication extends Application
                                                 //+"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
 
-                                                +"|[BACKGROUND_ACTIVITY]"
+                                                //+"|[BACKGROUND_ACTIVITY]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
 

@@ -23,7 +23,7 @@ public class LaunchShortcutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("[BACKGROUND_ACTIVITY] LaunchShortcutActivity.onCreate", "xxx");
+//        PPApplication.logE("[BACKGROUND_ACTIVITY] LaunchShortcutActivity.onCreate", "xxx");
 
         packageName = getIntent().getStringExtra(EXTRA_PACKAGE_NAME);
         activityName = getIntent().getStringExtra(EXTRA_ACTIVITY_NAME);

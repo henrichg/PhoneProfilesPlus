@@ -550,7 +550,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 //            PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.savePreferences", "true");
             PPApplication.setBlockProfileEventActions(true);
             //dataWrapper.restartEvents(false, true, true, true, true);
-            //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.savePreferences()");
+//            PPApplication.logE("[APP START] EventsPrefsActivity.savePreferences", "xxx");
             dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
         }
         else
@@ -602,7 +602,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             }
                             // restart Events
                             //dataWrapper.restartEvents(false, true, true, true, false);
-                            //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 1");
+//                            PPApplication.logE("[APP START] EventsPrefsActivity.saveUpdateOfPreferences", "(1))");
                             dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
                         }
 
@@ -645,7 +645,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (2)", "true");
                         PPApplication.setBlockProfileEventActions(true);
                         //dataWrapper.restartEvents(false, true, true, true, false);
-                        //PPApplication.logE("*********** restartEvents", "from EventPrefsActivity.saveUpdateOfPreferences() - 2");
+//                        PPApplication.logE("[APP START] EventsPrefsActivity.saveUpdateOfPreferences", "(2)");
                         dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");

@@ -16,7 +16,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("[BACKGROUND_ACTIVITY] ExitApplicationActivity.onCreate", "xxx");
+//        PPApplication.logE("[BACKGROUND_ACTIVITY] ExitApplicationActivity.onCreate", "xxx");
     }
 
     @Override

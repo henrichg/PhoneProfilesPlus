@@ -128,6 +128,8 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
+//            PPApplication.logE("[APP START] EventsHandler.handleEvents", "sensorType="+sensorType);
+
             boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
@@ -977,9 +979,9 @@ class EventsHandler {
             case SENSOR_TYPE_BATTERY_WITH_LEVEL:
                 return DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL;
             case SENSOR_TYPE_BLUETOOTH_CONNECTION:
-            case SENSOR_TYPE_BLUETOOTH_STATE:
                 return DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED;
             case SENSOR_TYPE_BLUETOOTH_SCANNER:
+            case SENSOR_TYPE_BLUETOOTH_STATE:
                 return DatabaseHandler.ETYPE_BLUETOOTH_NEARBY;
             case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
             case SENSOR_TYPE_CALENDAR:
@@ -1003,9 +1005,9 @@ class EventsHandler {
             case SENSOR_TYPE_SMS_EVENT_END:
                 return DatabaseHandler.ETYPE_SMS;
             case SENSOR_TYPE_WIFI_CONNECTION:
-            case SENSOR_TYPE_WIFI_STATE:
                 return DatabaseHandler.ETYPE_WIFI_CONNECTED;
             case SENSOR_TYPE_WIFI_SCANNER:
+            case SENSOR_TYPE_WIFI_STATE:
                 return DatabaseHandler.ETYPE_WIFI_NEARBY;
             case SENSOR_TYPE_GEOFENCES_SCANNER:
             case SENSOR_TYPE_LOCATION_MODE:

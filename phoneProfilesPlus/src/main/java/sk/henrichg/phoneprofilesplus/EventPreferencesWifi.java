@@ -360,11 +360,13 @@ class EventPreferencesWifi extends EventPreferences {
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "START");
-                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "------- event._id=" + _event._id);
-                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "------- event._name=" + _event._name);
-                }*/
+//                if (PPApplication.logEnabled()) {
+//                    if (_event._name.equals("Doma")) {
+//                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "START");
+//                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "------- event._id=" + _event._id);
+//                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "------- event._name=" + _event._name);
+//                    }
+//                }
 
                 //if (_event._name.equals("Doma"))
                 //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "-------- eventSSID=" + _SSID);
@@ -682,16 +684,21 @@ class EventPreferencesWifi extends EventPreferences {
 //                PPApplication.logE("[MAREK_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (4)");
             }
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
-            //PPApplication.logE("[TEST BATTERY] EventPreferencesWifi.doHandleEvent", "wifi - event._name="+event._name);
-            //PPApplication.logE("[TEST BATTERY] EventPreferencesWifi.doHandleEvent", "wifi - old pass="+oldSensorPassed);
-            //PPApplication.logE("[TEST BATTERY] EventPreferencesWifi.doHandleEvent", "wifi - new pass="+newSensorPassed);
+//            if (PPApplication.logEnabled()) {
+//                if (_event._name.equals("Doma")) {
+//                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - event._name=" + _event._name);
+//                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - old pass=" + oldSensorPassed);
+//                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - new pass=" + newSensorPassed);
+//                }
+//            }
             if (oldSensorPassed != newSensorPassed) {
                 //PPApplication.logE("[TEST BATTERY] EventPreferencesWifi.doHandleEvent", "wifi - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_WIFI);
             }
 
-            //PPApplication.logE("EventPreferencesWifi.doHandleEvent", "END");
+//            if (_event._name.equals("Doma"))
+//                PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "END");
         }
     }
 

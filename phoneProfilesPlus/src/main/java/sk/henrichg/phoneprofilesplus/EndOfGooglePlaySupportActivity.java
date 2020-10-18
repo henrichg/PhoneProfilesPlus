@@ -13,7 +13,7 @@ public class EndOfGooglePlaySupportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("[BACKGROUND_ACTIVITY] EndOfGooglePlaySupportActivity.onCreate", "xxx");
+//        PPApplication.logE("[BACKGROUND_ACTIVITY] EndOfGooglePlaySupportActivity.onCreate", "xxx");
     }
 
     @Override

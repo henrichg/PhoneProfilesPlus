@@ -20,7 +20,7 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PPApplication.logE("[BACKGROUND_ACTIVITY] LauncherActivity.onCreate", "xxx");
+//        PPApplication.logE("[BACKGROUND_ACTIVITY] LauncherActivity.onCreate", "xxx");
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (showNotStartedToast()) {
