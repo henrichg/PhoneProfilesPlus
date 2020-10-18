@@ -58,7 +58,7 @@ android {
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
-    implementation 'com.google.firebase:firebase-analytics:17.6.0'
+    //implementation 'com.google.firebase:firebase-analytics:17.6.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
 
     implementation "androidx.work:work-runtime:$ppVersions.workXLib"

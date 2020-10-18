@@ -120,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:columnWidth="80dp"
+            android:columnWidth="70dp"
             android:gravity="center"
             android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
             android:verticalSpacing="1dp"

@@ -196,7 +196,7 @@ public class PPApplication extends Application
                                                 //+"|[BROADCAST CALL]"
                                                 //+"|[OBSERVER CALL]"
                                                 //+"|[LISTENER CALL]"
-                                                //+"|[EVENTS_HANDLER]"
+                                                +"|[EVENTS_HANDLER]"
 
                                                 //+"|[TEST BATTERY]"
 

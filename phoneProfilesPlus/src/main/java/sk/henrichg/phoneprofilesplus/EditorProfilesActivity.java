@@ -1193,28 +1193,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             return true;
         }
         else
-        if (itemId == R.id.menu_test_crash) {
-            throw new RuntimeException("Test Crash");
-            //return true;
-        }
-        else
-        if (itemId == R.id.menu_test_nonFatal) {
-            try {
-                throw new RuntimeException("Test non-fatal exception");
-            } catch (Exception e) {
-                // You must relaunch PPP to get this exception in Firebase console:
-                //
-                // Crashlytics processes exceptions on a dedicated background thread, so the performance
-                // impact to your app is minimal. To reduce your users’ network traffic, Crashlytics batches
-                // logged exceptions together and sends them the next time the app launches.
-                //
-                // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
-                // throws more than 8 exceptions in a session, older exceptions are lost.
-                PPApplication.recordException(e);
-            }
-            return true;
-        }
-        else
         if (itemId == R.id.gui_items_help) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.gui_items_help_alert_title);
@@ -1316,6 +1294,30 @@ public class EditorProfilesActivity extends AppCompatActivity
             CheckGitHubReleasesActivity.showDialog(this, true);
             return true;
         }
+
+        else
+        if (itemId == R.id.menu_test_crash) {
+            throw new RuntimeException("Test Crash");
+            //return true;
+        }
+        else
+        if (itemId == R.id.menu_test_nonFatal) {
+            try {
+                throw new RuntimeException("Test non-fatal exception");
+            } catch (Exception e) {
+                // You must relaunch PPP to get this exception in Firebase console:
+                //
+                // Crashlytics processes exceptions on a dedicated background thread, so the performance
+                // impact to your app is minimal. To reduce your users’ network traffic, Crashlytics batches
+                // logged exceptions together and sends them the next time the app launches.
+                //
+                // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
+                // throws more than 8 exceptions in a session, older exceptions are lost.
+                PPApplication.recordException(e);
+            }
+            return true;
+        }
+
         else {
             return super.onOptionsItemSelected(item);
         }

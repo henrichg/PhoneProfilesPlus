@@ -3,11 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -597,7 +595,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     private static boolean setLayoutParams(Context context, AppWidgetManager appWidgetManager,
             int appWidgetId, Bundle widgetIdOptions)
     {
-        String preferenceKey = "isLargeLayout_"+appWidgetId;
+        /*String preferenceKey = "isLargeLayout_"+appWidgetId;
 
         boolean isLargeLayout;
 
@@ -642,11 +640,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             editor.apply();
         }
 
-        return isLargeLayout;
+        return isLargeLayout;*/
+        return true;
     }
 
     private static boolean setLayoutParamsMotorola(Context context, @SuppressWarnings("unused") int spanX, int spanY, int appWidgetId)
     {
+        /*
         // for Motorola devices use spanY
 
         boolean isLargeLayout = spanY != 1;
@@ -658,6 +658,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         editor.apply();
 
         return isLargeLayout;
+        */
+        return true;
     }
 
     public void onAppWidgetOptionsChanged(final Context context, final AppWidgetManager appWidgetManager,
