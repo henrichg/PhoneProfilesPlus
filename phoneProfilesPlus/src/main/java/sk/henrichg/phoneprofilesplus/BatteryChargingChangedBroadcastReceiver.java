@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -122,6 +123,8 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
+
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -130,10 +133,8 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
-
-//                            PPApplication.logE("[IN_THREAD_HANDLER] BatteryChargingChangedBroadcastReceiver.onReceive", "isCharging="+PPApplication.isCharging);
-//                            PPApplication.logE("[IN_THREAD_HANDLER] BatteryChargingChangedBroadcastReceiver.onReceive", "plugged="+PPApplication.plugged);
+//                            PPApplication.logE("BatteryChargingChangedBroadcastReceiver.onReceive", "isCharging="+PPApplication.isCharging);
+//                            PPApplication.logE("BatteryChargingChangedBroadcastReceiver.onReceive", "plugged="+PPApplication.plugged);
 
                             // start events handler
                             PPApplication.logE("[EVENTS_HANDLER_CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
@@ -141,6 +142,8 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
+                        } catch (Exception e) {
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

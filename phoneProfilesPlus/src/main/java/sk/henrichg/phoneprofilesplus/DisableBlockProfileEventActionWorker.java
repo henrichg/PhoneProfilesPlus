@@ -25,6 +25,8 @@ public class DisableBlockProfileEventActionWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        PPApplication.logE("[IN_WORKER] DisableBlockProfileEventActionWorker.doWork", "xxxx");
+
         try {
             PPApplication.blockProfileEventActions = false;
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 public class EventTimeBroadcastReceiver extends BroadcastReceiver {
 
@@ -36,6 +37,8 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
+
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -44,13 +47,13 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
-
                         PPApplication.logE("[EVENTS_HANDLER_CALL] EventTimeBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_TIME");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
 
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventTimeBroadcastReceiver.doWork");
+                    } catch (Exception e) {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

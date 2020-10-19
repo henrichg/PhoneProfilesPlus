@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -188,6 +189,8 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
+
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -196,14 +199,14 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
-
                             // start events handler
                             PPApplication.logE("[EVENTS_HANDLER_CALL] BatteryLevelChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL);
 
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
+                        } catch (Exception e) {
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

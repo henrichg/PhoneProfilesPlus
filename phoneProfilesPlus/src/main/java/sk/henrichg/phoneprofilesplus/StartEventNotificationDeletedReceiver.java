@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
@@ -22,6 +23,8 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
+
                 if (event_id != 0) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -31,14 +34,14 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
-
                         DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                         Event event = databaseHandler.getEvent(event_id);
                         if (event != null)
                             StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
+                    } catch (Exception e) {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

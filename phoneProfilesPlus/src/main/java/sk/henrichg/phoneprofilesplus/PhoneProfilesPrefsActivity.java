@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -554,6 +555,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
+
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -572,6 +575,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         // change of this parameter is as change of local time
                         TimeChangedReceiver.doWork(appContext, true);
 
+                    } catch (Exception e) {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

@@ -13,6 +13,7 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -681,6 +682,8 @@ public class EditorEventListFragment extends Fragment
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
+
                             PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             try {
@@ -689,13 +692,13 @@ public class EditorEventListFragment extends Fragment
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
-
                                 synchronized (PPApplication.eventsHandlerMutex) {
                                     event.pauseEvent(_dataWrapper, false, false,
                                             false, true, null, false, false, true);
                                 }
 
+                            } catch (Exception e) {
+                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -721,6 +724,8 @@ public class EditorEventListFragment extends Fragment
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+
                         PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -729,13 +734,13 @@ public class EditorEventListFragment extends Fragment
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
-
                             synchronized (PPApplication.eventsHandlerMutex) {
                                 event.stopEvent(_dataWrapper, false, false,
                                         true, true, true); // activate return profile
                             }
 
+                        } catch (Exception e) {
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

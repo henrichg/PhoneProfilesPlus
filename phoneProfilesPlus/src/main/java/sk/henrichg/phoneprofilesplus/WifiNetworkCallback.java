@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 @SuppressWarnings("WeakerAccess")
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
@@ -63,6 +64,8 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
+
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -70,8 +73,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiConnectionBroadcastReceiver_onReceive");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
-
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
                     //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "isConnected=" + isConnected);
 
@@ -121,6 +122,8 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     }
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPWifiNetworkCallback.doConnection");
+                } catch (Exception e) {
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -45,6 +46,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -54,11 +56,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
-
                         doWork(appContext, profileName, runApplicationData);
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
+                    } catch (Exception e) {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

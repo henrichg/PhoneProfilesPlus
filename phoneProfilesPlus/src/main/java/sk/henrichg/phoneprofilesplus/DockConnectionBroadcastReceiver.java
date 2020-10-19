@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -33,6 +34,8 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
+
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -41,13 +44,13 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
-
                             PPApplication.logE("[EVENTS_HANDLER_CALL] DockConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DOCK_CONNECTION");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
 
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DockConnectionBroadcastReceiver.onReceive");
+                        } catch (Exception e) {
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

@@ -4544,6 +4544,8 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
+
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -4551,8 +4553,6 @@ public class PhoneProfilesService extends Service
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
-
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
 
                         //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- START");
 
@@ -4973,6 +4973,8 @@ public class PhoneProfilesService extends Service
 
                         //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- END");
 
+                    } catch (Exception e) {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

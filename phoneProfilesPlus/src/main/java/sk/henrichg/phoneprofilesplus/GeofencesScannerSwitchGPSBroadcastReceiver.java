@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -177,6 +178,8 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
         handler2.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
+
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -184,8 +187,6 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
-
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
 
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -203,6 +204,8 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                         }
                     }
 
+                } catch (Exception e) {
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

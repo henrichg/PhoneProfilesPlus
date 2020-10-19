@@ -107,7 +107,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -195,15 +195,15 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-//                                                +"|[IN_WORKER]"
-//                                                +"|[WORKER_CALL]"
-//                                                +"|[IN_THREAD_HANDLER]"
-//                                                +"|[IN_BROADCAST]"
-//                                                +"|[LOCAL_BROADCAST_CALL]"
-//                                                +"|[IN_OBSERVER]"
-//                                                +"|[IN_LISTENER]"
-//                                                +"|[IN_EVENTS_HANDLER]"
-//                                                +"|[EVENTS_HANDLER_CALL]"
+                                                +"|[IN_WORKER]"
+                                                +"|[WORKER_CALL]"
+                                                +"|[IN_THREAD_HANDLER]"
+                                                +"|[IN_BROADCAST]"
+                                                +"|[LOCAL_BROADCAST_CALL]"
+                                                +"|[IN_OBSERVER]"
+                                                +"|[IN_LISTENER]"
+                                                +"|[IN_EVENTS_HANDLER]"
+                                                +"|[EVENTS_HANDLER_CALL]"
 
                                                 //+"|[TEST BATTERY]"
 
@@ -1272,6 +1272,8 @@ public class PPApplication extends Application
             handler.post(new Runnable() {
                              @Override
                              public void run() {
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
+
                 //if (ApplicationPreferences.preferences == null)
                 //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                 //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
@@ -3718,6 +3720,8 @@ public class PPApplication extends Application
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+
                         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -3725,8 +3729,6 @@ public class PPApplication extends Application
                                 wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_exitApp");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
-
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -3736,6 +3738,8 @@ public class PPApplication extends Application
                             _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
+                        } catch (Exception e) {
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

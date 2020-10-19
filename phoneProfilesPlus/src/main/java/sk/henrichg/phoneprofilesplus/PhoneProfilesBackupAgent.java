@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 @SuppressWarnings("unused")
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
@@ -60,7 +61,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //PPApplication.logE("PhoneProfilesBackupAgent.onRestoreFinished", "in handler");
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -69,8 +70,6 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesBackupAgent_onRestoreFinished");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
-
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
 
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());
@@ -119,6 +118,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     PPApplication.setLastActivatedProfile(appContext, 0);
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesBackupAgent.onRestoreFinished");
+                } catch (Exception e) {
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

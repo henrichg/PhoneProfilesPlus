@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -84,6 +85,8 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
+
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -99,8 +102,6 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                             if (peripheralEventsExists)
                             {*/
                             // start events handler
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
-
                             PPApplication.logE("[EVENTS_HANDLER_CALL] HeadsetConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_HEADSET_CONNECTION");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
@@ -108,6 +109,8 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
                             //}
 
+                        } catch (Exception e) {
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
