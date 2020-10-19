@@ -106,7 +106,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
-                    android.os.Process.killProcess(android.os.Process.myPid());
+                    android.os.Process.killProcess(PPApplication.pid);
                 }
             };
             _handler.postDelayed(r, 1000);*/

@@ -12,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Process;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.widget.CompoundButton;
@@ -190,7 +189,7 @@ class Permissions {
     }
 
     static boolean hasPermission(Context context, String permission) {
-        return context.checkPermission(permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        return context.checkPermission(permission, PPApplication.pid, PPApplication.uid) == PackageManager.PERMISSION_GRANTED;
     }
 
     /*

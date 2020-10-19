@@ -3416,8 +3416,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
                 grantedG1Permission = false;
         }
-        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedRoot="+grantedRoot);
-        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedG1Permission="+grantedG1Permission);
+//        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedRoot="+grantedRoot);
+//        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedG1Permission="+grantedG1Permission);
 
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
         boolean accessibilityNotRequired = true;
@@ -3445,7 +3445,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         boolean hidePreferences = false;
         long profile_id = activity.profile_id;
-        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "------- profile_id="+profile_id);
+//        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "------- profile_id="+profile_id);
         if (profile_id != 0) {
             int order = 1;
 
@@ -3454,7 +3454,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             final Profile profile = ((ProfilesPrefsActivity) getActivity())
                     .getProfileFromPreferences(profile_id, newProfileMode, predefinedProfileIndex);
-            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "profile="+profile);
+//            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "profile="+profile);
             if (profile != null) {
                 // not some permissions
                 if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
@@ -3508,8 +3508,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, context);
-                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedG1="+preferenceAllowed.notAllowedG1);
-                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedRoot="+preferenceAllowed.notAllowedRoot);
+//                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedG1="+preferenceAllowed.notAllowedG1);
+//                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedRoot="+preferenceAllowed.notAllowedRoot);
 
                 // not enabled G1 preferences
                 //if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -3745,7 +3745,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         else
             hidePreferences = true;
 
-        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "------- hidePreferences="+hidePreferences);
+//        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "------- hidePreferences="+hidePreferences);
 
         if (hidePreferences) {
             Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);

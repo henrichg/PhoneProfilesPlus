@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
+import android.os.Process;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
@@ -85,6 +86,9 @@ public class PPApplication extends Application
     static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
     static final int VERSION_CODE_EXTENDER_5_1_3_5 = 580;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_3_5;
+
+    static int pid = Process.myPid();
+    static int uid = Process.myUid();
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
@@ -214,7 +218,7 @@ public class PPApplication extends Application
                                                 //+"|[BLOCK_ACTIONS]"
 
                                                 //+"|[ACTIVATOR]"
-                                                +"|[G1_TEST]"
+                                                //+"|[G1_TEST]"
 
                                                 //+"|[BACKGROUND_ACTIVITY]"
 
@@ -1196,7 +1200,7 @@ public class PPApplication extends Application
     private boolean checkAppReplacingState() {
         if (getResources() == null) {
             try {
-                android.os.Process.killProcess(android.os.Process.myPid());
+                android.os.Process.killProcess(pid);
                 PPApplication.logToCrashlytics("E/PPApplication.checkAppReplacingState: app is replacing...kill");
             } catch (Exception e) {
                 //Log.e("PPApplication.checkAppReplacingState", Log.getStackTraceString(e));
@@ -3550,7 +3554,7 @@ public class PPApplication extends Application
         BufferedReader input = null;
         try
         {
-            Process p = Runtime.getRuntime().exec("getprop " + propName);
+            java.lang.Process p = Runtime.getRuntime().exec("getprop " + propName);
             input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
             line = input.readLine();
             input.close();
@@ -3687,7 +3691,7 @@ public class PPApplication extends Application
                     Handler _handler = new Handler(context.getMainLooper());
                     Runnable r = new Runnable() {
                         public void run() {
-                            android.os.Process.killProcess(android.os.Process.myPid());
+                            android.os.Process.killProcess(PPApplication.pid);
                         }
                     };
                     _handler.postDelayed(r, 1000);

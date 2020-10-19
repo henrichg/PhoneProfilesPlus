@@ -3600,7 +3600,7 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceGPS=" + profile._deviceGPS);
                     if ((profile != null) && (profile._deviceGPS != 0)) {
                         //return preferenceAllowed;
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
+//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -3663,7 +3663,7 @@ public class Profile {
 //                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceLocationMode=" + profile._deviceLocationMode);
                 if ((profile != null) && (profile._deviceLocationMode != 0)) {
                     //return preferenceAllowed;
-                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
+//                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
                     preferenceAllowed.notAllowedG1 = true;
                 }
             }
@@ -3722,7 +3722,7 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceNFC=" + profile._deviceNFC);
                     if ((profile != null) && (profile._deviceNFC != 0)) {
                         //return preferenceAllowed;
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
+//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -3972,7 +3972,7 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._devicePowerSaveMode=" + profile._devicePowerSaveMode);
                     if ((profile != null) && (profile._devicePowerSaveMode != 0)) {
                         //return preferenceAllowed;
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
+//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -4304,7 +4304,7 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._headsUpNotifications=" + profile._headsUpNotifications);
                     if ((profile != null) && (profile._headsUpNotifications != 0)) {
                         //return preferenceAllowed;
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
+//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -4493,7 +4493,7 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._screenDarkMode=" + profile._screenDarkMode);
                     if ((profile != null) && (profile._screenDarkMode != 0)) {
                         //return preferenceAllowed;
-                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
+//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }

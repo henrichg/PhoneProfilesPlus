@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -55,8 +54,8 @@ public class WifiScanWorker extends Worker {
             PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "---------------------------------------- START");
-            Set<String> tags = getTags();
-            for (String tag : tags)
+//            Set<String> tags = getTags();
+//            for (String tag : tags)
 //                PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "tag=" + tag);
 
             //CallsCounter.logCounter(context, "WifiScanWorker.doWork", "WifiScanWorker_doWork");
@@ -145,7 +144,7 @@ public class WifiScanWorker extends Worker {
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
-                    android.os.Process.killProcess(android.os.Process.myPid());
+                    android.os.Process.killProcess(PPApplication.pid);
                 }
             };
             _handler.postDelayed(r, 1000);*/
