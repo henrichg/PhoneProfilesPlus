@@ -320,7 +320,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (1)");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (1)");
 
                             if (ActivatorTargetHelpsActivity.activity != null) {
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
@@ -348,7 +348,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (2)");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (2)");
 
                             if (ActivatorTargetHelpsActivity.activity != null) {
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
@@ -374,7 +374,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (3)");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (3)");
 
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");

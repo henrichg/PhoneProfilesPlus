@@ -43,7 +43,7 @@ class BluetoothConnectedDevices {
             if (profileListener == null) {
                 profileListener = new BluetoothProfile.ServiceListener() {
                     public void onServiceConnected(int profile, BluetoothProfile proxy) {
-//                        PPApplication.logE("[LISTENER CALL] BluetoothConnectedDevices.onServiceConnected", "xxx");
+                        PPApplication.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
 
                         if (profile == BluetoothProfile.HEADSET) {
                             //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEADSET service connected");
@@ -189,7 +189,7 @@ class BluetoothConnectedDevices {
                     }
 
                     public void onServiceDisconnected(int profile) {
-//                        PPApplication.logE("[LISTENER CALL] BluetoothConnectedDevices.onServiceDisconnected", "xxx");
+                        PPApplication.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceDisconnected", "xxx");
 
                         //PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "xxx");
                         if (profile == BluetoothProfile.HEADSET) {

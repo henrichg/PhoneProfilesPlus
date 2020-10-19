@@ -51,7 +51,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[BROADCAST CALL] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
+            PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
 
             EventsPrefsActivity.this.changeCurentLightSensorValue();
         }
@@ -415,7 +415,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
                     //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                     toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
                 }
@@ -582,7 +582,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
                         if (old_event_status != Event.ESTATUS_STOP) {
                             synchronized (PPApplication.eventsHandlerMutex) {
@@ -631,7 +631,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
                         // pause event
                         event.pauseEvent(dataWrapper, true, false,
@@ -748,7 +748,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
+            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
             if (fragment != null) {
                 long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
@@ -764,7 +764,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[BROADCAST CALL] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
+            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
             if (fragment != null)
                 ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
@@ -962,7 +962,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     }
 
     void changeCurentLightSensorValue() {
-//        PPApplication.logE("[BROADCAST CALL] EventsPrefsActivity.changeCurentLightSensorValue", "xxx");
+//        PPApplication.logE("EventsPrefsActivity.changeCurentLightSensorValue", "xxx");
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)

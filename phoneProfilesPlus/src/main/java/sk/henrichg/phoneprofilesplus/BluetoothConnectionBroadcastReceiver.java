@@ -21,7 +21,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothConnectionBroadcastReceiver.onReceive", "BluetoothConnectionBroadcastReceiver_onReceive");
 
@@ -82,7 +82,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
 
                         getConnectedDevices(appContext);
 
@@ -145,7 +145,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                     // start events handler
                                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
 
-//                                    PPApplication.logE("[EVENTS_HANDLER] BluetoothConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_CONNECTION");
+                                    PPApplication.logE("[EVENTS_HANDLER_CALL] BluetoothConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_CONNECTION");
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
 

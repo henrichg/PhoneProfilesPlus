@@ -24,7 +24,7 @@ public class ShowProfileNotificationWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL] ShowProfileNotificationWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "xxxx");
 
             Context appContext = context.getApplicationContext();
 
@@ -32,7 +32,7 @@ public class ShowProfileNotificationWorker extends Worker {
                     PhoneProfilesService.getInstance() != null) {
                 try {
                     if (PhoneProfilesService.getInstance() != null) {
-//                        PPApplication.logE("[WORKER CALL] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
+//                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
 
                         boolean clear = false;
                         if (Build.MANUFACTURER.equals("HMD Global"))

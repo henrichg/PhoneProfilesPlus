@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -119,6 +119,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 //                        }
 //                        //}
 
+                            PPApplication.logE("[WORKER_CALL] GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                         }
                     }
@@ -184,7 +185,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
 
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();

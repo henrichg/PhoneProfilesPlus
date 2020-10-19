@@ -186,7 +186,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
+                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
 
                                             synchronized (PPApplication.eventsHandlerMutex) {
                                                 event.pauseEvent(_dataWrapper, true, false,
@@ -241,7 +241,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.11");
+                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.11");
 
                                             synchronized (PPApplication.eventsHandlerMutex) {
                                                 event.pauseEvent(_dataWrapper, true, false,
@@ -292,7 +292,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
+                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
 
                                             synchronized (PPApplication.eventsHandlerMutex) {
                                                 event.stopEvent(_dataWrapper, true, false,

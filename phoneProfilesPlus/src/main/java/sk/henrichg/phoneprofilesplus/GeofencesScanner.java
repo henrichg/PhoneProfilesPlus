@@ -40,7 +40,7 @@ class GeofencesScanner
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-//                PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "xxx");
+                PPApplication.logE("[IN_LISTENER] GeofenceScanner.LocationCallback", "xxx");
                 //PPApplication.logE("##### GeofenceScanner.LocationCallback", "xxx");
                 //PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult);
                 if (locationResult == null)
@@ -54,14 +54,14 @@ class GeofencesScanner
                     return;
 
                 //CallsCounter.logCounter(GeofencesScanner.this.context, "GeofencesScanner.LocationCallback", "GeofencesScanner_onLocationResult");
-                //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "locationResult="+locationResult);
-                //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
+                //PPApplication.logE("[IN_LISTENER] GeofenceScanner.LocationCallback", "locationResult="+locationResult);
+                //PPApplication.logE("[IN_LISTENER] GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
                 //PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult.getLocations().size());
 
                 synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                     //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation update");
                     PPApplication.lastLocation.set(location);
-                    //PPApplication.logE("[LISTENER CALL] GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
+                    //PPApplication.logE("[IN_LISTENER] GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
                     //PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation=" + lastLocation);
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("##### GeofenceScanner.LocationCallback", "lastLocation.getLatitude()=" + lastLocation.getLatitude());
@@ -83,7 +83,7 @@ class GeofencesScanner
                     //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         //PPApplication.logE("##### GeofenceScanner.LocationCallback", "handleEvents");
-//                        PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
+                        PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                         EventsHandler eventsHandler = new EventsHandler(scanner.context);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                     }
@@ -147,7 +147,7 @@ class GeofencesScanner
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
+                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
 
                                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                     GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -430,7 +430,7 @@ class GeofencesScanner
     final LocationCallback updateTransitionsByLastKnownLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-//            PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
+            PPApplication.logE("[IN_LISTENER] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
 
@@ -445,14 +445,14 @@ class GeofencesScanner
                 return;
 
             //CallsCounter.logCounter(GeofencesScanner.this.context, "GeofencesScanner.updateTransitionsByLastKnownLocation.LocationCallback", "GeofencesScanner_updateTransitionsByLastKnownLocation_onLocationResult");
-            //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
-            //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult.getLocations().size());
+            //PPApplication.logE("[IN_LISTENER] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
+            //PPApplication.logE("[IN_LISTENER] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult.getLocations().size());
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult.getLocations().size());
 
             synchronized (PPApplication.geofenceScannerLastLocationMutex) {
                 //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "lastLocation update");
                 PPApplication.lastLocation.set(location);
-                //PPApplication.logE("[LISTENER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
+                //PPApplication.logE("[IN_LISTENER] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
                 //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation=" + lastLocation);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "lastLocation.getLatitude()=" + lastLocation.getLatitude());
@@ -470,7 +470,7 @@ class GeofencesScanner
                 //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "handleEvents");
-//                    PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
+                    PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                     EventsHandler eventsHandler = new EventsHandler(scanner.context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                 }
@@ -521,7 +521,7 @@ class GeofencesScanner
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
+//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
 
                                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                             GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
@@ -558,7 +558,7 @@ class GeofencesScanner
                                      wakeLock.acquire(10 * 60 * 1000);
                                  }
 
-//                                 PPApplication.logE("[HANDLER CALL] GeofenceScanner.updateTransitionsByLastKnownLocation", "START update");
+                                 PPApplication.logE("[IN_THREAD_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "START update");
 
                                  final LocationRequest locationRequest = LocationRequest.create();
 

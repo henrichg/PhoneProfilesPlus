@@ -485,7 +485,7 @@ public class EditorEventListFragment extends Fragment
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
                         //fragment.textViewNoData.setVisibility(GONE);
                         fragment.progressBar.setVisibility(VISIBLE);
                     }
@@ -689,7 +689,7 @@ public class EditorEventListFragment extends Fragment
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
+                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
                                 synchronized (PPApplication.eventsHandlerMutex) {
                                     event.pauseEvent(_dataWrapper, false, false,
@@ -729,7 +729,7 @@ public class EditorEventListFragment extends Fragment
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
                             synchronized (PPApplication.eventsHandlerMutex) {
                                 event.stopEvent(_dataWrapper, false, false,
@@ -1723,7 +1723,7 @@ public class EditorEventListFragment extends Fragment
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
                         showAdapterTargetHelps();
                     }
                 }, 500);

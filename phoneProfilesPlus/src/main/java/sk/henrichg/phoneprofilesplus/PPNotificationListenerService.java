@@ -75,7 +75,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         super.onNotificationPosted(sbn);
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
-//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
+        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         if (!PPApplication.notificationScannerRunning)
             return;
@@ -97,9 +97,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //if (packageName.equals("com.android.systemui"))
         //    return;
 
-//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
+        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
 
-        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
+//        PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "is not PPP");
 
         //final Context appContext = getApplicationContext();
 
@@ -159,9 +159,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
 
-                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
+                        PPApplication.logE("[EVENTS_HANDLER_CALL] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         //eventsHandler.setEventNotificationParameters("posted");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
@@ -204,6 +204,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //                        }
 //                        //}
 
+                        PPApplication.logE("[WORKER_CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
                         //workManager.enqueue(worker);
                         workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
@@ -217,7 +218,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
         super.onNotificationRemoved(sbn);
-//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
+        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
 
@@ -242,7 +243,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //if (packageName.equals("com.android.systemui"))
         //    return;
 
-//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
+        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
 
         //PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "is not PPP");
 
@@ -271,9 +272,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
 
-                        PPApplication.logE("[EVENTS_HANDLER] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
+                        PPApplication.logE("[EVENTS_HANDLER_CALL] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         //eventsHandler.setEventNotificationParameters("removed");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
@@ -317,6 +318,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 //                        }
 //                        //}
 
+                    PPApplication.logE("[WORKER_CALL] PPNotificationListenerService.onNotificationRemoved", "xxx");
                     //workManager.enqueue(worker);
                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
@@ -330,7 +332,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
-//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onListenerConnected", "xxx");
+        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onListenerConnected", "xxx");
 
         synchronized (PPApplication.ppNotificationListenerService) {
             //PPApplication.logE("PPNotificationListenerService.onListenerConnected","xxx");
@@ -341,7 +343,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onListenerDisconnected() {
         super.onListenerDisconnected();
-//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onListenerDisconnected", "xxx");
+        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onListenerDisconnected", "xxx");
 
         synchronized (PPApplication.ppNotificationListenerService) {
             //PPApplication.logE("PPNotificationListenerService.onListenerDisconnected","xxx");
@@ -360,7 +362,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onInterruptionFilterChanged(int interruptionFilter) {
         super.onInterruptionFilterChanged(interruptionFilter);
 
-//        PPApplication.logE("[LISTENER CALL] PPNotificationListenerService.onInterruptionFilterChanged", "xxx");
+        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onInterruptionFilterChanged", "xxx");
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onInterruptionFilterChanged", "PPNotificationListenerService_onInterruptionFilterChanged");
 
@@ -575,7 +577,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         @SuppressLint("InlinedApi")
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[BROADCAST CALL] PPNotificationListenerService.NLServiceReceiver.onReceive", "xxx");
+            PPApplication.logE("[IN_BROADCAST] PPNotificationListenerService.NLServiceReceiver.onReceive", "xxx");
 
             //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.NLServiceReceiver.onReceive", "PPNotificationListenerService_NLServiceReceiver_onReceive");
 

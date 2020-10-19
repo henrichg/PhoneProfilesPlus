@@ -99,7 +99,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick (1)");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick (1)");
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
@@ -201,7 +201,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick (2)");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onClick (2)");
 
                             DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 

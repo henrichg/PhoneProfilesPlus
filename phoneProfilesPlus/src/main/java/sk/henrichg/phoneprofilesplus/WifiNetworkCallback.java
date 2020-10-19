@@ -20,28 +20,28 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLost(Network network) {
         //record wi-fi disconnect event
-//        PPApplication.logE("[LISTENER CALL] ----------- WifiNetworkCallback.onLost", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-//        PPApplication.logE("[LISTENER CALL] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-//        PPApplication.logE("[LISTENER CALL] ----------- WifiNetworkCallback.onLosing", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
         //record wi-fi connect event
-//        PPApplication.logE("[LISTENER CALL] ----------- WifiNetworkCallback.onAvailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         connected = true;
         doConnection();
     }
@@ -71,7 +71,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
                     //PPApplication.logE("$$$ PPWifiNetworkCallback.doConnection", "isConnected=" + isConnected);
 
@@ -109,7 +109,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                                 // start events handler
                                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PPWifiNetworkCallback.doConnection");
 
-//                                PPApplication.logE("[EVENTS_HANDLER] WifiNetworkCallback.doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
+                                PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback.doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 

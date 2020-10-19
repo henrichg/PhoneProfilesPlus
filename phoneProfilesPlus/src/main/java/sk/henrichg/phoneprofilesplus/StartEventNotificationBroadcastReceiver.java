@@ -22,7 +22,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "StartEventNotificationBroadcastReceiver.onReceive", "StartEventNotificationBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -125,6 +125,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
+                            PPApplication.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "(1)");
                             //workManager.enqueue(worker);
                             workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id);
@@ -206,7 +207,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             Event event = databaseHandler.getEvent(event_id);

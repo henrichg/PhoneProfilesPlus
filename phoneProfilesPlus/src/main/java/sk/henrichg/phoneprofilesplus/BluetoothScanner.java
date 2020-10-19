@@ -134,7 +134,7 @@ class BluetoothScanner {
                                 bluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-//                                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
+                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
                                         if (Permissions.checkBluetoothForEMUI(context)) {
                                             try {
                                                 if (BluetoothScanWorker.bluetooth == null)
@@ -240,6 +240,7 @@ class BluetoothScanner {
 
                                         //PPApplication.logE("%%%%BLE BluetoothScanner.doScan", "LE scan ended");
 
+                                        PPApplication.logE("[LOCAL_BROADCAST_CALL] BluetoothScanner.doScan", "xxx");
                                         // send broadcast for start EventsHandler
                                         /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                                         sendBroadcast(btLEIntent);*/
@@ -260,7 +261,7 @@ class BluetoothScanner {
                             bluetoothChangeHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-//                                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
+                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
                                     if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
                                         //PPApplication.logE("$$$B BluetoothScanner.doScan", "disable bluetooth");
@@ -382,7 +383,7 @@ class BluetoothScanner {
                     bluetoothChangeHandler.post(new Runnable() {
                         @Override
                         public void run() {
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.enableBluetooth");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.enableBluetooth");
 
                             if (Permissions.checkBluetoothForEMUI(context)) {
                                 //lock(); // lock is required for enabling bluetooth

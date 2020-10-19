@@ -103,7 +103,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -191,12 +191,15 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                //+"|[WORKER CALL]"
-                                                //+"|[HANDLER CALL]"
-                                                //+"|[BROADCAST CALL]"
-                                                //+"|[OBSERVER CALL]"
-                                                //+"|[LISTENER CALL]"
-                                                +"|[EVENTS_HANDLER]"
+//                                                +"|[IN_WORKER]"
+//                                                +"|[WORKER_CALL]"
+//                                                +"|[IN_THREAD_HANDLER]"
+//                                                +"|[IN_BROADCAST]"
+//                                                +"|[LOCAL_BROADCAST_CALL]"
+//                                                +"|[IN_OBSERVER]"
+//                                                +"|[IN_LISTENER]"
+//                                                +"|[IN_EVENTS_HANDLER]"
+//                                                +"|[EVENTS_HANDLER_CALL]"
 
                                                 //+"|[TEST BATTERY]"
 
@@ -211,7 +214,7 @@ public class PPApplication extends Application
                                                 //+"|[BLOCK_ACTIONS]"
 
                                                 //+"|[ACTIVATOR]"
-                                                //+"|[G1_TEST]"
+                                                +"|[G1_TEST]"
 
                                                 //+"|[BACKGROUND_ACTIVITY]"
 
@@ -1086,7 +1089,7 @@ public class PPApplication extends Application
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //PPApplication.logE("[HANDLER CALL] PPApplication.cancelWork", "name="+name);
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
 
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
@@ -1095,7 +1098,7 @@ public class PPApplication extends Application
                     //noinspection TryWithIdenticalCatches
                     try {
                         List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
                         // cancel only enqueued works
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
@@ -1488,6 +1491,7 @@ public class PPApplication extends Application
 
     static void runCommand(Context context, Intent intent) {
         //PPApplication.logE("PPApplication.runCommand", "xxx");
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.runCommand", "xxx");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
@@ -1539,11 +1543,13 @@ public class PPApplication extends Application
         }
 
         // dash clock extension
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "(1)");
         Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
         //intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "(2)");
         Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
         //intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
@@ -1571,6 +1577,7 @@ public class PPApplication extends Application
 //                        }
 //                        //}
 
+                        PPApplication.logE("[WORKER_CALL] PPApplication.forceUpdateGUI", "xxx");
                         workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
@@ -1673,6 +1680,7 @@ public class PPApplication extends Application
 //                    }
 //                    //}
 
+                    PPApplication.logE("[WORKER_CALL] PPApplication.updateGUI", "xxx");
                     workManager.enqueueUniqueWork(UpdateGUIWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
@@ -1697,7 +1705,7 @@ public class PPApplication extends Application
         handler.post(new Runnable() {
             @Override
             public void run() {
-//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
                 try {
                     Toast msg = ToastCompat.makeText(appContext, text, length);
                     //Toast msg = Toast.makeText(appContext, text, length);
@@ -3665,7 +3673,7 @@ public class PPApplication extends Application
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
                         try {
                             if (activity != null)
                                 activity.finish();
@@ -3714,7 +3722,7 @@ public class PPApplication extends Application
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

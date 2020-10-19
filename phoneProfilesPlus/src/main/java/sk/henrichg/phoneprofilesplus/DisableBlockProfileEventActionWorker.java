@@ -65,6 +65,7 @@ public class DisableBlockProfileEventActionWorker extends Worker {
 //                    }
 //                    //}
 
+                    PPApplication.logE("[WORKER_CALL] DisableBlockProfileEventActionWorker.enqueueWork", "xxx");
                     workManager.enqueueUniqueWork(DisableBlockProfileEventActionWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }

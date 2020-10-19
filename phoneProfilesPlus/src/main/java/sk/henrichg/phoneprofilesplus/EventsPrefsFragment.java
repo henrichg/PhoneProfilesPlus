@@ -291,7 +291,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
                 if (getActivity() == null)
                     return;
 
@@ -1183,7 +1183,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
                         if (getActivity() == null)
                             return;
 
@@ -1832,7 +1832,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void changeCurentLightSensorValue() {
-//        PPApplication.logE("[BROADCAST CALL] EventsPrefsFragment.changeCurentLightSensorValue", "xxx");
+//        PPApplication.logE("EventsPrefsFragment.changeCurentLightSensorValue", "xxx");
 
         if (getActivity() != null) {
             Preference currentValuePreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);

@@ -25,19 +25,19 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     protected boolean onStartReceive()
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onStartReceive", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onStartReceive", "xxx");
 
         return PPApplication.getApplicationStarted(true);
     }
 
     protected void onEndReceive()
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onEndReceive", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onEndReceive", "xxx");
     }
 
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onIncomingCallStarted", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onIncomingCallStarted", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false/*, number, eventTime*/);
     }
 
@@ -48,31 +48,31 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     protected void onIncomingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onIncomingCallAnswered", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onIncomingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onOutgoingCallAnswered", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onOutgoingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false/*, number, eventTime*/);
     }
 
     protected void onIncomingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onIncomingCallEnded", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onIncomingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onOutgoingCallEnded", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onOutgoingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false/*, number, eventTime*/);
     }
 
     protected void onMissedCall(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[LISTENER CALL] PhoneCallBroadcastReceiver.onMissedCall", "xxx");
+        PPApplication.logE("[IN_LISTENER] PhoneCallBroadcastReceiver.onMissedCall", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
     }
 
@@ -85,7 +85,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
-//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
 
                 switch (phoneEvent) {
                     case SERVICE_PHONE_EVENT_START:

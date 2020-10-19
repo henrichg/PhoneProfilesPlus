@@ -153,7 +153,7 @@ class EventsHandler {
 
             this.sensorType = sensorType;
 
-            PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+            PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 //            if (isRestart)
 //                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
@@ -952,7 +952,7 @@ class EventsHandler {
 //            if (isRestart)
 //                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- end --------------------------------");
 
-                PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
+                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
 
         }
     }

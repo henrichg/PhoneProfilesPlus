@@ -26,7 +26,7 @@ public class DisableInternalChangeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL]  DisableInternalChangeWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  DisableInternalChangeWorker.doWork", "xxxx");
 
             RingerModeChangeReceiver.internalChange = false;
 
@@ -67,6 +67,7 @@ public class DisableInternalChangeWorker extends Worker {
 //                    }
 //                    //}
 
+                    PPApplication.logE("[WORKER_CALL] DisableInternalChangeWorker.enqueueWork", "xxx");
                     workManager.enqueueUniqueWork(DisableInternalChangeWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, disableInternalChangeWorker);
                 }
             }

@@ -13,7 +13,7 @@ public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] RefreshActivitiesBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] RefreshActivitiesBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RefreshActivitiesBroadcastReceiver.onReceive", "RefreshGUIBroadcastReceiver_onReceive");
 
         boolean refreshIcons = intent.getBooleanExtra(EXTRA_REFRESH_ICONS, false);
@@ -21,11 +21,14 @@ public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "refreshIcons="+refreshIcons);
         //PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "refreshAlsoEditor="+refreshAlsoEditor);
 
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] RefreshActivatorGUIBroadcastReceiver.onReceive", "(1)");
         Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver");
         refreshIntent.putExtra(EXTRA_REFRESH_ICONS, refreshIcons);
         LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
 
         if (refreshAlsoEditor) {
+            PPApplication.logE("[LOCAL_BROADCAST_CALL] RefreshActivatorGUIBroadcastReceiver.onReceive", "(2)");
+
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 

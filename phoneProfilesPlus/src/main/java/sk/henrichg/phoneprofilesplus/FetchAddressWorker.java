@@ -31,7 +31,7 @@ public class FetchAddressWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL]  FetchAddressWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  FetchAddressWorker.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started

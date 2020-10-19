@@ -392,7 +392,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
                     //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                     toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
                 }

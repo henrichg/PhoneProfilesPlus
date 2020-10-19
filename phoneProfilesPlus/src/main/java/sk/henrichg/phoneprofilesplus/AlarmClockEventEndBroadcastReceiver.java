@@ -10,7 +10,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] AlarmClockEventEndBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "AlarmClockEventEndBroadcastReceiver.onReceive", "AlarmClockEventEndBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,9 +44,9 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=AlarmClockEventEndBroadcastReceiver.doWork");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=AlarmClockEventEndBroadcastReceiver.doWork");
 
-//                        PPApplication.logE("[EVENTS_HANDLER] AlarmClockEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_ALARM_CLOCK_EVENT_END");
+                        PPApplication.logE("[EVENTS_HANDLER_CALL] AlarmClockEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_ALARM_CLOCK_EVENT_END");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END);
 

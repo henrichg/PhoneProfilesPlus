@@ -30,7 +30,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL]  PeriodicEventsHandlerWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  PeriodicEventsHandlerWorker.doWork", "xxxx");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
@@ -54,7 +54,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
 
-//                    PPApplication.logE("[EVENTS_HANDLER] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
+                    PPApplication.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
                     EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
 
@@ -81,6 +81,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
 //                            }
 //                            //}
 
+                        PPApplication.logE("[WORKER_CALL] PeriodicEventsHandlerWorker.doWork", "xxx");
                         workManager.enqueueUniqueWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 } catch (Exception e) {
@@ -142,6 +143,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
 //                                }
 //                                //}
 
+                PPApplication.logE("[WORKER_CALL] PeriodicEventsHandlerWorker.enqueueWork", "xxx");
                 workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
             }
         } catch (Exception e) {

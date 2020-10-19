@@ -337,7 +337,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                PPApplication.logE("[HANDLER CALL] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null) {
                     PPApplication.doNotShowProfileNotification = false;
                     // forServiceStart must be true because of call of clearProfileNotification()

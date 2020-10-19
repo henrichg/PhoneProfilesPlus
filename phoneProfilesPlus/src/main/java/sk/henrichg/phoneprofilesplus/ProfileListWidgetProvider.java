@@ -507,7 +507,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
-//        PPApplication.logE("[LISTENER CALL] ProfileListWidgetProvider.onUpdate", "xxx");
+        PPApplication.logE("[IN_LISTENER] ProfileListWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
 
             final Context _context = context;
@@ -519,7 +519,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
                     //createProfilesDataWrapper(_context);
 
                     for (int appWidgetId : _appWidgetIds) {
@@ -537,7 +537,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
-//        PPApplication.logE("[BROADCAST CALL] ProfileListWidgetProvider.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] ProfileListWidgetProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
@@ -554,7 +554,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
                             for (int appWidgetId : appWidgetIds) {
                                 boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                 RemoteViews layout;
@@ -581,7 +581,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
                             for (int appWidgetId : appWidgetIds) {
                                 doOnUpdate(context, appWidgetManager, appWidgetId, false);
                             }
@@ -665,14 +665,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     public void onAppWidgetOptionsChanged(final Context context, final AppWidgetManager appWidgetManager,
             final int appWidgetId, final Bundle newOptions)
     {
-//        PPApplication.logE("[LISTENER CALL] ProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
+        PPApplication.logE("[IN_LISTENER] ProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
                 //createProfilesDataWrapper(context);
 
                 String preferenceKey = "isLargeLayout_"+appWidgetId;

@@ -58,7 +58,7 @@ public class BluetoothScanWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL]  BluetoothScanWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "xxxx");
 
             //PPApplication.logE("BluetoothScanWorker.doWork", "---------------------------------------- START");
 
@@ -113,6 +113,7 @@ public class BluetoothScanWorker extends Worker {
 //                            }
 //                            //}
 
+                    PPApplication.logE("[WORKER_CALL] BluetoothScanWorker.doWork", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
@@ -147,7 +148,7 @@ public class BluetoothScanWorker extends Worker {
     }
 
     public void onStopped () {
-//        PPApplication.logE("[LISTENER CALL] BluetoothScanWorker.onStopped", "xxx");
+        PPApplication.logE("[IN_LISTENER] BluetoothScanWorker.onStopped", "xxx");
 
         //PPApplication.logE("BluetoothScanWorker.onStopped", "xxx");
 
@@ -202,6 +203,7 @@ public class BluetoothScanWorker extends Worker {
 //                            }
 //                            //}
 
+                            PPApplication.logE("[WORKER_CALL] BluetoothScanWorker._scheduleWork", "(1)");
                             workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                         }
                     } else {
@@ -222,6 +224,7 @@ public class BluetoothScanWorker extends Worker {
 //                            }
 //                            //}
 
+                            PPApplication.logE("[WORKER_CALL] BluetoothScanWorker._scheduleWork", "(2)");
                             workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                         }
                     }
@@ -245,7 +248,7 @@ public class BluetoothScanWorker extends Worker {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval="+shortInterval);
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval="+shortInterval);
                         _cancelWork(context);
                         PPApplication.sleep(5000);
                         _scheduleWork(context, true);
@@ -348,7 +351,7 @@ public class BluetoothScanWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.cancelWork");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.cancelWork");
                     _cancelWork(context);
                 }
             });
@@ -1099,6 +1102,7 @@ public class BluetoothScanWorker extends Worker {
 //                                }
 //                                //}
 
+                                PPApplication.logE("[WORKER_CALL] BluetoothScanWorker.finishCLScan", "xxx");
                                 //workManager.enqueue(worker);
                                 workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             }

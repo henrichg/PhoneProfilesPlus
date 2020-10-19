@@ -688,6 +688,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 //                    }
 //                    //}
 
+                    PPApplication.logE("[WORKER_CALL] LocationGeofenceEditorActivity.startIntentService", "xxx");
                     //workManager.enqueue(fetchAddressWorker);
                     workManager.enqueueUniqueWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, fetchAddressWorker);
 

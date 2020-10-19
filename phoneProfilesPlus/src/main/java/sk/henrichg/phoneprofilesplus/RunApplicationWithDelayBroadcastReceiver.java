@@ -27,7 +27,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "RunApplicationWithDelayBroadcastReceiver.onReceive", "RunApplicationWithDelayBroadcastReceiver_onReceive");
 
         if (!PPApplication.getApplicationStarted(true))
@@ -54,7 +54,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
 
                         doWork(appContext, profileName, runApplicationData);
 
@@ -155,6 +155,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 //                            }
 //                            //}
 
+                                PPApplication.logE("[WORKER_CALL] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "xxx");
                                 //workManager.enqueue(worker);
                                 workManager.enqueueUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG + "_" + requestCode, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                                 PPApplication.elapsedAlarmsRunApplicationWithDelayWork.add(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG + "_" + requestCode);

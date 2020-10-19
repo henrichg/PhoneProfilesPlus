@@ -32,7 +32,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-//        PPApplication.logE("[OBSERVER CALL] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
+        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
 
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
 
@@ -55,9 +55,9 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-//                                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=MobileDataStateChangedContentObserver.onChange");
+                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileDataStateChangedContentObserver.onChange");
 
-//                                PPApplication.logE("[EVENTS_HANDLER] MobileDataStateChangedContentObserver.onChange", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+                                PPApplication.logE("[EVENTS_HANDLER_CALL] MobileDataStateChangedContentObserver.onChange", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 

@@ -13,7 +13,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
         /*if (intent != null)
@@ -48,7 +48,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     //if (PPApplication.logEnabled()) {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
                         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
                     //}
 
@@ -147,7 +147,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-//                                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive (2)");
+                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive (2)");
                                     //if (PhoneProfilesService.getInstance() != null) {
                                         if (PPApplication.lockDeviceActivity != null) {
                                             try {
@@ -219,7 +219,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     if (Event.getGlobalEventsRunning()) {
                         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
-//                        PPApplication.logE("[EVENTS_HANDLER] ScreenOnOffBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SCREEN");
+                        PPApplication.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SCREEN");
                         //PPApplication.setBlockProfileEventActions(true);
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);

@@ -117,7 +117,7 @@ class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange, Uri uri) {
         //super.onChange(selfChange);
 
-//        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "uri="+uri);
+//        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
         /*if (uri != null)
             PPApplication.logE("[TEST MEDIA VOLUME] SettingsContentObserver.onChange", "uri="+uri.toString());
         else
@@ -167,7 +167,7 @@ class SettingsContentObserver  extends ContentObserver {
         if (!okSetting)
             return;
 
-//        PPApplication.logE("[OBSERVER CALL] SettingsContentObserver.onChange", "------ do onChange ------");
+        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "------ do onChange ------");
 
         ////// volume change
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

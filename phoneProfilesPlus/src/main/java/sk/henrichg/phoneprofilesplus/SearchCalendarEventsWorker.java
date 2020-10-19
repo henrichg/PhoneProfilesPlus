@@ -36,7 +36,7 @@ public class SearchCalendarEventsWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[WORKER CALL]  SearchCalendarEventsWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "xxxx");
 
             //PPApplication.logE("SearchCalendarEventsWorker.doWork", "---------------------------------------- START");
 
@@ -52,7 +52,7 @@ public class SearchCalendarEventsWorker extends Worker {
                 // start events handler
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SearchCalendarEventsWorker.doWork");
 
-//                PPApplication.logE("[EVENTS_HANDLER] SearchCalendarEventsWorker.doWork", "sensorType=SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
+                PPApplication.logE("[EVENTS_HANDLER_CALL] SearchCalendarEventsWorker.doWork", "sensorType=SENSOR_TYPE_SEARCH_CALENDAR_EVENTS");
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS);
 
@@ -80,6 +80,7 @@ public class SearchCalendarEventsWorker extends Worker {
 //                            }
 //                            //}
 
+                    PPApplication.logE("[WORKER_CALL] SearchCalendarEventsWorker.doWork", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
@@ -115,7 +116,7 @@ public class SearchCalendarEventsWorker extends Worker {
     }
 
     public void onStopped () {
-//        PPApplication.logE("[LISTENER CALL] SearchCalendarEventsWorker.onStopped", "xxx");
+        PPApplication.logE("[IN_LISTENER] SearchCalendarEventsWorker.onStopped", "xxx");
 
         //CallsCounter.logCounter(context, "SearchCalendarEventsWorker.onStopped", "SearchCalendarEventsWorker_onStopped");
     }
@@ -148,6 +149,7 @@ public class SearchCalendarEventsWorker extends Worker {
 //                        }
 //                        //}
 
+                        PPApplication.logE("[WORKER_CALL] SearchCalendarEventsWorker._scheduleWork", "(1)");
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     } else {
                         //PPApplication.logE("SearchCalendarEventsWorker._scheduleWork", "start now work");
@@ -166,6 +168,7 @@ public class SearchCalendarEventsWorker extends Worker {
 //                        }
 //                        //}
 
+                        PPApplication.logE("[WORKER_CALL] SearchCalendarEventsWorker._scheduleWork", "(2)");
                         workManager.enqueueUniqueWork(SearchCalendarEventsWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
                     }
 
@@ -187,7 +190,7 @@ public class SearchCalendarEventsWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-//                PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval="+shortInterval);
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval="+shortInterval);
                     _cancelWork();
                     PPApplication.sleep(5000);
                     _scheduleWork(true);
@@ -280,7 +283,7 @@ public class SearchCalendarEventsWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.cancelWork");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.cancelWork");
                     _cancelWork();
                 }
             });

@@ -23,7 +23,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     static final String EXTRA_FOR_RESTART_EVENTS = "for_restart_events";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "ProfileDurationAlarmBroadcastReceiver.onReceive", "ProfileDurationAlarmBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -114,6 +114,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
+                                PPApplication.logE("[WORKER_CALL] ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxx");
                                 //workManager.enqueue(worker);
                                 workManager.enqueueUniqueWork(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id, ExistingWorkPolicy.APPEND_OR_REPLACE, worker);
                                 PPApplication.elapsedAlarmsProfileDurationWork.add(MainWorker.PROFILE_DURATION_WORK_TAG + "_" + (int) profile._id);
@@ -217,7 +218,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver.doWork");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver.doWork");
 
                         _doWork(/*true,*/ appContext, profileId, forRestartEvents, startupSource);
 

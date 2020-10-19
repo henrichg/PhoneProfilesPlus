@@ -114,7 +114,7 @@ public class QuickGuideHelpFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=QuickGuideHelpFragment.onViewCreated");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=QuickGuideHelpFragment.onViewCreated");
                         scrollView.scrollTo(0, viewToScroll.getTop());
                     }
                 }, 200);

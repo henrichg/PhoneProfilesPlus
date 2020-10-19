@@ -10,7 +10,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] EventDelayStartBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] EventDelayStartBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "EventDelayStartBroadcastReceiver.onReceive", "EventDelayStartBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -44,9 +44,9 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork (1)");
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventDelayStartBroadcastReceiver.doWork (1)");
 
-//                            PPApplication.logE("[EVENTS_HANDLER] EventDelayStartBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_START (1)");
+                            PPApplication.logE("[EVENTS_HANDLER_CALL] EventDelayStartBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_START (1)");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
 
@@ -65,7 +65,7 @@ public class EventDelayStartBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("EventDelayStartBroadcastReceiver.doWork", "handle events");
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayStartBroadcastReceiver.doWork (2)");
 
-//                PPApplication.logE("[EVENTS_HANDLER] EventDelayStartBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_START (2)");
+                PPApplication.logE("[EVENTS_HANDLER_CALL] EventDelayStartBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_EVENT_DELAY_START (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_START);
 

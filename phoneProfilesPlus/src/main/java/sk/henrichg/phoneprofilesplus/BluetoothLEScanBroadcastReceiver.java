@@ -15,7 +15,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-//        PPApplication.logE("[BROADCAST CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothLEScanBroadcastReceiver.onReceive", "BluetoothLEScanBroadcastReceiver_onReceive");
 
@@ -67,6 +67,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 //                            //}
 
                             //workManager.enqueue(worker);
+                            PPApplication.logE("[WORKER_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                         }
                     }
@@ -90,7 +91,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[HANDLER CALL] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
 
                         //boolean scanStarted = (BluetoothScanWorker.getWaitForLEResults(appContext));
 
