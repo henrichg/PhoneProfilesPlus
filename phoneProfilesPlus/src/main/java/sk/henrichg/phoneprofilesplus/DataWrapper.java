@@ -1565,7 +1565,7 @@ public class DataWrapper {
             }*/
 
             // show notification when battery optimization is not enabled
-            //DrawOverAppsPermissionNotification.showNotification(context, false);
+            DrawOverAppsPermissionNotification.showNotification(context, false);
             IgnoreBatteryOptimizationNotification.showNotification(context, false);
 
             // remove last configured profile duration alarm
@@ -2309,7 +2309,7 @@ public class DataWrapper {
             }
         }
 
-        //DrawOverAppsPermissionNotification.showNotification(context, false);
+        DrawOverAppsPermissionNotification.showNotification(context, false);
         IgnoreBatteryOptimizationNotification.showNotification(context, false);
     }
 

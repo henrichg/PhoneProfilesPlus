@@ -123,7 +123,7 @@ public class PPApplication extends Application
                                                 +"|PPApplication.exitApp"
                                                 +"|PPApplication._exitApp"
                                                 //+"|PPApplication.createProfileNotificationChannel"
-                                                +"|AvoidRescheduleReceiverWorker"
+                                                //+"|AvoidRescheduleReceiverWorker"
                                                 +"|PhoneProfilesService.onCreate"
                                                 +"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
@@ -453,6 +453,8 @@ public class PPApplication extends Application
     static final String DRAW_OVER_APPS_NOTIFICATION_TAG = PACKAGE_NAME+"_DRAW_OVER_APPS_NOTIFICATION";
     static final int CHECK_GITHUB_RELEASES_NOTIFICATION_ID = 122;
     static final String CHECK_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_GITHUB_RELEASES_NOTIFICATION_TAG";
+    static final int END_OF_GOOGLE_PLAY_NOTIFICATION_ID = 123;
+    static final String END_OF_GOOGLE_PLAY_NOTIFICATION_TAG = PACKAGE_NAME+"_END_OF_GOOGLE_PLAY_NOTIFICATION";
 
     static final int PROFILE_ACTIVATION_ERROR_NOTIFICATION_ID = 130;
     static final String PROFILE_ACTIVATION_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_ERROR_NOTIFICATION";

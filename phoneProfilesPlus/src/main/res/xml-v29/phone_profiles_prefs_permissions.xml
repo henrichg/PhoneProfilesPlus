@@ -24,12 +24,12 @@
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
 
 <!--    This permission is required for start of activities from background -->
-    <Preference
-        app:key="permissionsDrawOverlaysPermissions"
-        app:title="@string/phone_profiles_pref_drawOverlaysPermissions"
-        app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="permissionsDrawOverlaysPermissions"-->
+<!--        app:title="@string/phone_profiles_pref_drawOverlaysPermissions"-->
+<!--        app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"-->
+<!--        app:widgetLayout="@layout/widget_start_activity_preference"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
 
     <Preference
         app:key="permissionsGrantG1Permission"

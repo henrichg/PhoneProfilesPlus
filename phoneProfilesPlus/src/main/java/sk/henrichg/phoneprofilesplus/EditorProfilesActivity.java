@@ -2530,7 +2530,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (!isFinishing())
                         GlobalGUIRoutines.reloadActivity(activity, true);
 
-                    //DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                    DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                     IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
 
                     PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
@@ -3206,7 +3206,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (!isFinishing())
                             GlobalGUIRoutines.reloadActivity(activity, true);
 
-                        //DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                        DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                         IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
 
                         PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, true);
