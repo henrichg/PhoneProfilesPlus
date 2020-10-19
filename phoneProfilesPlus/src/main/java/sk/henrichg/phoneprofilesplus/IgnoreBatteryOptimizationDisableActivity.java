@@ -20,7 +20,7 @@ public class IgnoreBatteryOptimizationDisableActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] IgnoreBatteryOptimizationDisableActivity.onCreate", "xxx");
+        PPApplication.logE("[BACKGROUND_ACTIVITY] IgnoreBatteryOptimizationDisableActivity.onCreate", "xxx");
 
         if (showNotStartedToast()) {
             finish();
@@ -94,7 +94,7 @@ public class IgnoreBatteryOptimizationDisableActivity extends AppCompatActivity
     }
 
     private boolean showNotStartedToast() {
-        //PPApplication.logE("[APP START] IgnoreBatteryOptimizationDisableActivity.showNotStartedToast", "xxx");
+//        PPApplication.logE("[APP START] IgnoreBatteryOptimizationDisableActivity.showNotStartedToast", "xxx");
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
         if (!applicationStarted) {

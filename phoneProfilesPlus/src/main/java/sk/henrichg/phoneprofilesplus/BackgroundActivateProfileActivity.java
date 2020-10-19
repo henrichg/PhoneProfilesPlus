@@ -23,7 +23,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] BackgroundActivateProfileActivity.onCreate", "xxx");
+        PPApplication.logE("[BACKGROUND_ACTIVITY] BackgroundActivateProfileActivity.onCreate", "xxx");
 
         if (showNotStartedToast()) {
             finish();
@@ -77,7 +77,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     }
 
     private boolean showNotStartedToast() {
-        //PPApplication.logE("[APP START] BackgroundActivateProfileActivity.showNotStartedToast", "xxx");
+//        PPApplication.logE("[APP START] BackgroundActivateProfileActivity.showNotStartedToast", "xxx");
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
         if (!applicationStarted) {

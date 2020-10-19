@@ -195,15 +195,15 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                +"|[IN_WORKER]"
-                                                +"|[WORKER_CALL]"
-                                                +"|[IN_THREAD_HANDLER]"
-                                                +"|[IN_BROADCAST]"
-                                                +"|[LOCAL_BROADCAST_CALL]"
-                                                +"|[IN_OBSERVER]"
-                                                +"|[IN_LISTENER]"
-                                                +"|[IN_EVENTS_HANDLER]"
-                                                +"|[EVENTS_HANDLER_CALL]"
+                                                +"|![IN_WORKER]"
+                                                +"|![WORKER_CALL]"
+                                                +"|![IN_THREAD_HANDLER]"
+                                                +"|![IN_BROADCAST]"
+                                                +"|![LOCAL_BROADCAST_CALL]"
+                                                +"|![IN_OBSERVER]"
+                                                +"|![IN_LISTENER]"
+                                                +"|![IN_EVENTS_HANDLER]"
+                                                +"|![EVENTS_HANDLER_CALL]"
 
                                                 //+"|[TEST BATTERY]"
 
@@ -220,7 +220,7 @@ public class PPApplication extends Application
                                                 //+"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
 
-                                                //+"|[BACKGROUND_ACTIVITY]"
+                                                +"|[BACKGROUND_ACTIVITY]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
@@ -1355,11 +1355,13 @@ public class PPApplication extends Application
     private static boolean logContainsFilterTag(String tag)
     {
         boolean contains = false;
-        String[] splits = logFilterTags.split("\\|");
-        for (String split : splits) {
-            if (tag.contains(split)) {
-                contains = true;
-                break;
+        String[] filterTags = logFilterTags.split("\\|");
+        for (String filterTag : filterTags) {
+            if (!filterTag.contains("!")) {
+                if (tag.contains(filterTag)) {
+                    contains = true;
+                    break;
+                }
             }
         }
         return contains;

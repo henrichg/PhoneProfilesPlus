@@ -49,7 +49,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] NotUsedMobileCellsDetectedActivity.onCreate", "xxx");
+        PPApplication.logE("[BACKGROUND_ACTIVITY] NotUsedMobileCellsDetectedActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
         if (intent != null) {
