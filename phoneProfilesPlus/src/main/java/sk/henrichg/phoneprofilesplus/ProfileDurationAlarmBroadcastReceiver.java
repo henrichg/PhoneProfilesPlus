@@ -17,6 +17,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
@@ -288,7 +289,20 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     profile._icon, 0, "");
                         }
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
-                            activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
+
+                            //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
+                            List<Long> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                            int size = activateProfilesFIFO.size();
+                            if (size > 0) {
+                                //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                activateProfileId = activateProfilesFIFO.get(size - 1);
+                                activateProfilesFIFO.remove(size - 1);
+                                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                            }
+                            else
+                                //eventTimeline._fkProfileEndActivated = 0;
+                                activateProfileId = 0;
+
                             if (activateProfileId == activatedProfile._id)
                                 activateProfileId = 0;
 

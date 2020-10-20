@@ -64,6 +64,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -3894,7 +3895,7 @@ public class PhoneProfilesService extends Service
                         dataWrapper.fillProfileList(false, false);
                         for (Profile profile : dataWrapper.profileList)
                             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
-                        Profile.setActivatedProfileForDuration(appContext, 0);
+                        //Profile.setActivatedProfileForDuration(appContext, 0);
                         Profile profile = DataWrapper.getNonInitializedProfile(
                                 getString(R.string.empty_string), Profile.PROFILE_ICON_DEFAULT, 0);
                         Profile.saveProfileToSharedPreferences(profile, appContext);
@@ -3911,7 +3912,8 @@ public class PhoneProfilesService extends Service
                         DatabaseHandler.getInstance(appContext).unblockAllEvents();
                         Event.setForceRunEventRunning(appContext, false);
 
-                        Profile.setActivatedProfileForEventUndo(appContext, 0);
+                        List<Long> activateProfilesFIFO = new ArrayList<>();
+                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
                     }
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "8");

@@ -488,6 +488,7 @@ public class PPApplication extends Application
     //static final String PERMISSIONS_PREFS_NAME = "permissions_list";
     static final String PERMISSIONS_STATUS_PREFS_NAME = "permissions_status";
     //static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
+    static final String ACTIVATED_PROFILES_FIFO_PREFS_NAME = "activated_profiles_fifo";
 
     //public static final String RESCAN_TYPE_SCREEN_ON = "1";
     //public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
@@ -1934,9 +1935,8 @@ public class PPApplication extends Application
         ActivateProfileHelper.getLockScreenDisabled(context);
         ActivateProfileHelper.getActivatedProfileScreenTimeout(context);
         ActivateProfileHelper.getMergedRingNotificationVolumes(context);
-        Profile.getActivatedProfileForDuration(context);
+        //Profile.getActivatedProfileForDuration(context);
         Profile.getActivatedProfileEndDurationTime(context);
-        Profile.getActivatedProfileForEventUndo(context);
     }
 
     //--------------------------------------------------------------
@@ -3655,8 +3655,11 @@ public class PPApplication extends Application
                         StartEventNotificationBroadcastReceiver.removeAlarm(event, context);
                 }
             }
-            Profile.setActivatedProfileForDuration(context, 0);
-            Profile.setActivatedProfileForEventUndo(context, 0);
+
+            //Profile.setActivatedProfileForDuration(context, 0);
+            List<Long> activateProfilesFIFO = new ArrayList<>();
+            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 

@@ -1667,4 +1667,20 @@ Event.doActivateEndProfile()
   udalosti. Samostatne pause a stop v takomto pripade aktivuje profil nahodeny v shared preferences,
   cize spracovanim udalosti, manualnou aktivaciou profilu.
 
+-----------------------
 
+1. Na Undo sprav FIFO. Proste ukladaj postupne profily, ako sa aktivuju.
+2. Ked je Undo v duration: pouzi profil, ktory je vo FIFO posledne aktivovany a zmensi FIFO o 1.
+3. Ked je Undo v udalosti: ak je activateReturnProfile=true, pouzi profil, ktory je vo FIFO posledne
+   aktivovany a zmensi FIFO o 1.
+4. Ak je FIFO prazdne, pouzi default profil (ak je zadefinovany) alebo nastav, ze nie je nic aktivovane
+   (ak default profil nie je zadefinovany).
+5. Restart udalosti. Tam mam tusim activateReturnProfile=false, ked pauzujem. Pozri. Ono by to aj tak
+   malo byt. Pri restarte sa nesmie nic aktivovat pri pause.
+
+-----------------------
+
+Kvoli comu dat este jednu verziu do GP:
+- Moved lastLocation variable to PPApplication.
+- Delete notification and worker of PPService notification in PPService.onCreate().
+- Removed change of layout to one row in list widget.

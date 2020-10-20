@@ -8,6 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -36,6 +37,7 @@ class EventsHandler {
 
     private boolean startProfileMerged;
     private boolean endProfileMerged;
+    private boolean undoCalled;
 
     boolean notAllowedTime;
     boolean notAllowedBattery;
@@ -549,6 +551,8 @@ class EventsHandler {
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "NO restart events");
                 }*/
 
+                undoCalled = false;
+
                 //1. pause events
                 for (Event _event : dataWrapper.eventList) {
                     /*if (PPApplication.logEnabled()) {
@@ -578,6 +582,9 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
+
+                            if (_event._undoCalled)
+                                undoCalled = true;
 
                             //anyEventPaused = true;
                             //notifyEventEnd = _event;
@@ -665,17 +672,6 @@ class EventsHandler {
 
             //if ((!restartAtEndOfEvent) || isRestart) {
             //    // No any paused events has "Restart events" at end of event
-
-            // save old activated profile for event Undo, this must be profile activated before start of handleEvents()
-            if (oldActivatedProfile._id != 0) {
-                // profile changed
-                long profileId = oldActivatedProfile._id;
-//                PPApplication.logE("----------- $$$ EventsHandler.handleEvents", "setActivatedProfileForEventUndo profileId=" + profileId);
-                Profile.setActivatedProfileForEventUndo(context, profileId);
-            } else {
-//                PPApplication.logE("----------- $$$ EventsHandler.handleEvents", "setActivatedProfileForEventUndo NO manual profile activation");
-                Profile.setActivatedProfileForEventUndo(context, 0);
-            }
 
             //////////////////
             //// when no events are running or manual activation,
@@ -869,6 +865,33 @@ class EventsHandler {
 
                 if (profileChanged || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 
+                    if (isRestart) {
+                        List<Long> activateProfilesFIFO = new ArrayList<>();
+                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    }
+                    else
+                    if (undoCalled)  {
+                        List<Long> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                        int size = activateProfilesFIFO.size();
+                        if (size > 0) {
+                            //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                            activateProfilesFIFO.remove(size - 1);
+                            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        }
+                    }
+
+                    // save old activated profile for event Undo, this must be profile activated before start of handleEvents()
+                    if (oldActivatedProfile._id != 0) {
+                        // profile changed
+                        long profileId = oldActivatedProfile._id;
+//                        PPApplication.logE("----------- $$$ EventsHandler.handleEvents", "setActivatedProfileForEventUndo profileId=" + profileId);
+                        List<Long> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                        if (activateProfilesFIFO == null)
+                            activateProfilesFIFO = new ArrayList<>();
+                        activateProfilesFIFO.add(profileId);
+                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    }
+
                     // log only when merged profile is not the same as last activated or for restart events
                     PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
                             DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
@@ -887,6 +910,12 @@ class EventsHandler {
 //                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile=" + PPApplication.prefLastActivatedProfile);
 //                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
 //                    }
+
+                    if (isRestart) {
+                        List<Long> activateProfilesFIFO = new ArrayList<>();
+                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    }
+
                     if (runningEventCountE == 0) {
                         // not any event is running
                         if (PPApplication.prefLastActivatedProfile != 0) {

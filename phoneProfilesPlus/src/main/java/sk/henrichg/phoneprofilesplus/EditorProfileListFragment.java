@@ -658,9 +658,19 @@ public class EditorProfileListFragment extends Fragment
             // remove alarm for profile duration
             //noinspection ConstantConditions
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, getActivity().getApplicationContext());
-            Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
-            Profile.setActivatedProfileForEventUndo(getActivity().getApplicationContext(), 0);
+            //Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
         }
+
+        // delete deleted profile from FIFO
+        List<Long> activateProfilesFIFO = activityDataWrapper.getActivatedProfilesFIFO();
+        if (activateProfilesFIFO == null)
+            activateProfilesFIFO = new ArrayList<>();
+        List<Long> newActivateProfilesFIFO = new ArrayList<>();
+        for (long profileId : activateProfilesFIFO) {
+            if (profileId != profile._id)
+             newActivateProfilesFIFO.add(profileId);
+        }
+        activityDataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
 
         //listView.getRecycledViewPool().clear();
 
@@ -798,8 +808,9 @@ public class EditorProfileListFragment extends Fragment
                                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, activityDataWrapper.context);
                         }
                     }
-                    Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
-                    Profile.setActivatedProfileForEventUndo(activityDataWrapper.context, 0);
+                    //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
+                    List<Long> activateProfilesFIFO = new ArrayList<>();
+                    activityDataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
 
                     //listView.getRecycledViewPool().clear();
 

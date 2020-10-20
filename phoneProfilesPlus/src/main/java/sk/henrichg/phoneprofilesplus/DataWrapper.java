@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
@@ -54,6 +55,9 @@ public class DataWrapper {
     private final List<EventTimeline> eventTimelines = Collections.synchronizedList(new ArrayList<EventTimeline>());
 
     //static final String EXTRA_INTERACTIVE = "interactive";
+
+    private static final String ACTIVATED_PROFILES_FIFO_COUNT_PREF = "activated_profiles_fifo_count";
+    private static final String ACTIVATED_PROFILES_FIFO_ID_PREF = "activated_profiles_fifo_id";
 
     DataWrapper(Context _context,
                         //boolean fgui,
@@ -518,6 +522,20 @@ public class DataWrapper {
 
     void activateProfileFromEvent(long profile_id, boolean manualActivation, boolean merged, boolean forRestartEvents)
     {
+        if (!merged) {
+            // save before activated profile inot FIFO
+            Profile oldActivatedProfile = getActivatedProfileFromDB(false, false);
+            if (oldActivatedProfile != null) {
+                long profileId = oldActivatedProfile._id;
+//            PPApplication.logE("----------- $$$ EventsHandler.handleEvents", "setActivatedProfileForEventUndo profileId=" + profileId);
+                List<Long> activateProfilesFIFO = getActivatedProfilesFIFO();
+                if (activateProfilesFIFO == null)
+                    activateProfilesFIFO = new ArrayList<>();
+                activateProfilesFIFO.add(profileId);
+                saveActivatedProfilesFIFO(activateProfilesFIFO);
+            }
+        }
+
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
         if (manualActivation)
             startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
@@ -1570,7 +1588,7 @@ public class DataWrapper {
 
             // remove last configured profile duration alarm
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
-            Profile.setActivatedProfileForDuration(context, 0);
+            //Profile.setActivatedProfileForDuration(context, 0);
 
             //final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
             //profile = filterProfileWithBatteryEvents(profile);
@@ -1691,11 +1709,13 @@ public class DataWrapper {
 //                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
 //                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
 //                        }
-                        Profile.setActivatedProfileForDuration(context, profileId);
-                        Profile.setActivatedProfileForEventUndo(context, profileId);
-                    } else {
-                        Profile.setActivatedProfileForDuration(context, 0);
-                        Profile.setActivatedProfileForEventUndo(context, 0);
+                        //Profile.setActivatedProfileForDuration(context, profileId);
+
+                        List<Long> activateProfilesFIFO = getActivatedProfilesFIFO();
+                        if (activateProfilesFIFO == null)
+                            activateProfilesFIFO = new ArrayList<>();
+                        activateProfilesFIFO.add(profileId);
+                        saveActivatedProfilesFIFO(activateProfilesFIFO);
                     }
 
                     ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
@@ -2028,8 +2048,10 @@ public class DataWrapper {
             // activation is invoked during device boot
 
             //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
-            Profile.setActivatedProfileForDuration(context, 0);
-            Profile.setActivatedProfileForEventUndo(context, 0);
+            //Profile.setActivatedProfileForDuration(context, 0);
+
+            List<Long> activateProfilesFIFO = new ArrayList<>();
+            saveActivatedProfilesFIFO(activateProfilesFIFO);
 
             if (ApplicationPreferences.applicationActivate)
             {
@@ -2119,7 +2141,8 @@ public class DataWrapper {
             if (profile == null) {
                 //PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
-                Profile.setActivatedProfileForDuration(context, 0);
+                //Profile.setActivatedProfileForDuration(context, 0);
+
                 //PPApplication.showProfileNotification(/*context*/false, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
                 //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
@@ -2181,7 +2204,7 @@ public class DataWrapper {
                     for (Profile profile : profileList)
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
                 }
-                Profile.setActivatedProfileForDuration(context, 0);
+                //Profile.setActivatedProfileForDuration(context, 0);
 
                 Event.setEventsBlocked(context, false);
                 synchronized (eventList) {
@@ -3227,4 +3250,45 @@ public class DataWrapper {
             return false;
         }
     }
+
+    List<Long> getActivatedProfilesFIFO() {
+        synchronized (PPApplication.profileActivationMutex) {
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
+            int count = preferences.getInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
+
+            if (count > -1) {
+                List<Long> activateProfilesFifo = new ArrayList<>();
+
+                for (int i = 0; i < count; i++) {
+                    long profileId = preferences.getLong(ACTIVATED_PROFILES_FIFO_ID_PREF + i, 0);
+                    activateProfilesFifo.add(profileId);
+                }
+                return activateProfilesFifo;
+            } else
+                return null;
+        }
+    }
+
+    void saveActivatedProfilesFIFO(List<Long> activateProfilesFifo)
+    {
+        synchronized (PPApplication.profileActivationMutex) {
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.clear();
+
+            if (activateProfilesFifo == null)
+                editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
+            else {
+                editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, activateProfilesFifo.size());
+
+                for (int i = 0; i < activateProfilesFifo.size(); i++) {
+                    editor.putLong(ACTIVATED_PROFILES_FIFO_ID_PREF + i, activateProfilesFifo.get(i));
+                }
+            }
+
+            editor.apply();
+        }
+    }
+
 }

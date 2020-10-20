@@ -4554,6 +4554,7 @@ public class Profile {
         return accessibilityEnabled;
     }
 
+    /*
     static void getActivatedProfileForDuration(Context context)
     {
         synchronized (PPApplication.profileActivationMutex) {
@@ -4571,6 +4572,7 @@ public class Profile {
             ApplicationPreferences.prefActivatedProfileForDuration = profileId;
         }
     }
+    */
 
     static void getActivatedProfileEndDurationTime(Context context)
     {
@@ -4588,24 +4590,6 @@ public class Profile {
             editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileEndDurationTime = time;
-        }
-    }
-
-    static void getActivatedProfileForEventUndo(Context context)
-    {
-        synchronized (PPApplication.profileActivationMutex) {
-            ApplicationPreferences.prefActivatedProfileForEventUndo = ApplicationPreferences.
-                    getSharedPreferences(context).getLong(PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO, 0);
-            //return prefActivatedProfileForDuration;
-        }
-    }
-    static void setActivatedProfileForEventUndo(Context context, long profileId)
-    {
-        synchronized (PPApplication.profileActivationMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putLong(PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO, profileId);
-            editor.apply();
-            ApplicationPreferences.prefActivatedProfileForEventUndo = profileId;
         }
     }
 

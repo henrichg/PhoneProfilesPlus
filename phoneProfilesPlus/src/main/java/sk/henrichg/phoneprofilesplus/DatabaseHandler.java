@@ -7706,7 +7706,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
                 values.put(KEY_ET_FK_EVENT, eventTimeline._fkEvent); // Event id
-                values.put(KEY_ET_FK_PROFILE_RETURN, eventTimeline._fkProfileEndActivated); // Profile id returned on pause/stop event
+                //values.put(KEY_ET_FK_PROFILE_RETURN, eventTimeline._fkProfileEndActivated); // Profile id returned on pause/stop event
                 values.put(KEY_ET_EORDER, getMaxEOrderET() + 1); // event running order
 
                 db.beginTransaction();
@@ -7792,7 +7792,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                         eventTimeline._id = cursor.getLong(cursor.getColumnIndex(KEY_ET_ID));
                         eventTimeline._fkEvent = cursor.getLong(cursor.getColumnIndex(KEY_ET_FK_EVENT));
-                        eventTimeline._fkProfileEndActivated = cursor.getLong(cursor.getColumnIndex(KEY_ET_FK_PROFILE_RETURN));
+                        //eventTimeline._fkProfileEndActivated = cursor.getLong(cursor.getColumnIndex(KEY_ET_FK_PROFILE_RETURN));
                         eventTimeline._eorder = cursor.getInt(cursor.getColumnIndex(KEY_ET_EORDER));
 
                         // Adding event timeline to list
