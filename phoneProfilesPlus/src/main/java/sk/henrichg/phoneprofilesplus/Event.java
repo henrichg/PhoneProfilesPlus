@@ -1676,33 +1676,33 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/ {
                         PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### remove last profile");
-                        List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
-                        List<String> newActivateProfilesFIFO = new ArrayList<>();
-                        int size = activateProfilesFIFO.size();
-                        if (size > 0) {
-                            //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                            // remove profiles from this event
-                            for (String fromFifo : activateProfilesFIFO) {
-                                String[] splits = fromFifo.split("\\|");
-                                if (!splits[1].equals(String.valueOf(_id))) {
-                                    // profile is not from this event
-                                    newActivateProfilesFIFO.add(fromFifo);
-                                }
-                            }
-                            dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
-                            // get latest profile for Undo
-                            size = newActivateProfilesFIFO.size();
+                        synchronized (PPApplication.profileActivationMutex) {
+                            List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                            List<String> newActivateProfilesFIFO = new ArrayList<>();
+                            int size = activateProfilesFIFO.size();
                             if (size > 0) {
-                                String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                String[] splits = fromFifo.split("\\|");
-                                activateProfile = Long.parseLong(splits[0]);
-                            }
-                            else
+                                //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                // remove profiles from this event
+                                for (String fromFifo : activateProfilesFIFO) {
+                                    String[] splits = fromFifo.split("\\|");
+                                    if (!splits[1].equals(String.valueOf(_id))) {
+                                        // profile is not from this event
+                                        newActivateProfilesFIFO.add(fromFifo);
+                                    }
+                                }
+                                dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                // get latest profile for Undo
+                                size = newActivateProfilesFIFO.size();
+                                if (size > 0) {
+                                    String fromFifo = newActivateProfilesFIFO.get(size - 1);
+                                    String[] splits = fromFifo.split("\\|");
+                                    activateProfile = Long.parseLong(splits[0]);
+                                } else
+                                    activateProfile = 0;
+                            } else
+                                //eventTimeline._fkProfileEndActivated = 0;
                                 activateProfile = 0;
                         }
-                        else
-                            //eventTimeline._fkProfileEndActivated = 0;
-                            activateProfile = 0;
 
                         //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         //if (eventTimeline._fkProfileEndActivated == 0) {
@@ -1787,33 +1787,33 @@ class Event {
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/ {
                         PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### merge profile for Undo");
-                        List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
-                        List<String> newActivateProfilesFIFO = new ArrayList<>();
-                        int size = activateProfilesFIFO.size();
-                        if (size > 0) {
-                            //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                            // remove profiles from this event
-                            for (String fromFifo : activateProfilesFIFO) {
-                                String[] splits = fromFifo.split("\\|");
-                                if (!splits[1].equals(String.valueOf(_id))) {
-                                    // profile is not from this event
-                                    newActivateProfilesFIFO.add(fromFifo);
-                                }
-                            }
-                            dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
-                            // get latest profile for Undo
-                            size = newActivateProfilesFIFO.size();
+                        synchronized (PPApplication.profileActivationMutex) {
+                            List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                            List<String> newActivateProfilesFIFO = new ArrayList<>();
+                            int size = activateProfilesFIFO.size();
                             if (size > 0) {
-                                String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                String[] splits = fromFifo.split("\\|");
-                                activateProfile = Long.parseLong(splits[0]);
-                            }
-                            else
+                                //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                // remove profiles from this event
+                                for (String fromFifo : activateProfilesFIFO) {
+                                    String[] splits = fromFifo.split("\\|");
+                                    if (!splits[1].equals(String.valueOf(_id))) {
+                                        // profile is not from this event
+                                        newActivateProfilesFIFO.add(fromFifo);
+                                    }
+                                }
+                                dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                // get latest profile for Undo
+                                size = newActivateProfilesFIFO.size();
+                                if (size > 0) {
+                                    String fromFifo = newActivateProfilesFIFO.get(size - 1);
+                                    String[] splits = fromFifo.split("\\|");
+                                    activateProfile = Long.parseLong(splits[0]);
+                                } else
+                                    activateProfile = 0;
+                            } else
+                                //eventTimeline._fkProfileEndActivated = 0;
                                 activateProfile = 0;
                         }
-                        else
-                            //eventTimeline._fkProfileEndActivated = 0;
-                            activateProfile = 0;
 
                         //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         //if (eventTimeline._fkProfileEndActivated == 0) {

@@ -292,27 +292,27 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                             //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
                             PPApplication.logE("[MAREK_TEST] ProfileDurationAlarmBroadcastReceiver._doWork", "#### remove last profile");
-                            List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
-                            int size = activateProfilesFIFO.size();
-                            if (size > 0) {
-                                //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                                activateProfilesFIFO.remove(size - 1);
-                                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
-                                size = activateProfilesFIFO.size();
+                            synchronized (PPApplication.profileActivationMutex) {
+                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                int size = activateProfilesFIFO.size();
                                 if (size > 0) {
-                                    String fromFifo = activateProfilesFIFO.get(size - 1);
-                                    String[] splits = fromFifo.split("\\|");
-                                    activateProfileId = Long.parseLong(splits[0]);
-                                }
-                                else
+                                    //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                    activateProfilesFIFO.remove(size - 1);
+                                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                                    size = activateProfilesFIFO.size();
+                                    if (size > 0) {
+                                        String fromFifo = activateProfilesFIFO.get(size - 1);
+                                        String[] splits = fromFifo.split("\\|");
+                                        activateProfileId = Long.parseLong(splits[0]);
+                                    } else
+                                        activateProfileId = 0;
+                                } else
+                                    //eventTimeline._fkProfileEndActivated = 0;
+                                    activateProfileId = 0;
+
+                                if (activateProfileId == activatedProfile._id)
                                     activateProfileId = 0;
                             }
-                            else
-                                //eventTimeline._fkProfileEndActivated = 0;
-                                activateProfileId = 0;
-
-                            if (activateProfileId == activatedProfile._id)
-                                activateProfileId = 0;
 
                             PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_AFTER_DURATION_UNDO_PROFILE, null,
                                     DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper),

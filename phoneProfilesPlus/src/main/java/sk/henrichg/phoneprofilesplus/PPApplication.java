@@ -3658,9 +3658,11 @@ public class PPApplication extends Application
             }
 
             //Profile.setActivatedProfileForDuration(context, 0);
-            List<String> activateProfilesFIFO = new ArrayList<>();
             PPApplication.logE("[MAREK_TEST] PPApplication._exitApp", "#### clear");
-            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+            synchronized (PPApplication.profileActivationMutex) {
+                List<String> activateProfilesFIFO = new ArrayList<>();
+                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+            }
 
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);

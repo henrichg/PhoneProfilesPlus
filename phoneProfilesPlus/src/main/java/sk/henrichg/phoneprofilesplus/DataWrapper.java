@@ -2070,9 +2070,11 @@ public class DataWrapper {
             //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             //Profile.setActivatedProfileForDuration(context, 0);
 
-            List<String> activateProfilesFIFO = new ArrayList<>();
             PPApplication.logE("[MAREK_TEST] DataWrapper.activateProfile", "#### clear");
-            saveActivatedProfilesFIFO(activateProfilesFIFO);
+            synchronized (PPApplication.profileActivationMutex) {
+                List<String> activateProfilesFIFO = new ArrayList<>();
+                saveActivatedProfilesFIFO(activateProfilesFIFO);
+            }
 
             if (ApplicationPreferences.applicationActivate)
             {
@@ -3273,7 +3275,7 @@ public class DataWrapper {
     }
 
     List<String> getActivatedProfilesFIFO() {
-        synchronized (PPApplication.profileActivationMutex) {
+        //synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
             int count = preferences.getInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
 
@@ -3288,12 +3290,12 @@ public class DataWrapper {
                 return activateProfilesFifo;
             } else
                 return null;
-        }
+        //}
     }
 
     void saveActivatedProfilesFIFO(List<String> activateProfilesFifo)
     {
-        synchronized (PPApplication.profileActivationMutex) {
+        //synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
@@ -3311,21 +3313,23 @@ public class DataWrapper {
             }
 
             editor.apply();
-        }
+        //}
     }
 
     void addProfileToFIFO(long profileId, long eventId) {
-        List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
-        if (activateProfilesFIFO == null)
-            activateProfilesFIFO = new ArrayList<>();
-        int size = activateProfilesFIFO.size();
-        if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
-            activateProfilesFIFO.remove(0);
-            size--;
+        synchronized (PPApplication.profileActivationMutex) {
+            List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
+            if (activateProfilesFIFO == null)
+                activateProfilesFIFO = new ArrayList<>();
+            int size = activateProfilesFIFO.size();
+            if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
+                activateProfilesFIFO.remove(0);
+                size--;
+            }
+            String toFifo = profileId + "|" + eventId;
+            if ((size == 0) || (!activateProfilesFIFO.get(size - 1).equals(toFifo)))
+                activateProfilesFIFO.add(toFifo);
+            saveActivatedProfilesFIFO(activateProfilesFIFO);
         }
-        String toFifo = profileId + "|" + eventId;
-        if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
-            activateProfilesFIFO.add(toFifo);
-        saveActivatedProfilesFIFO(activateProfilesFIFO);
     }
 }

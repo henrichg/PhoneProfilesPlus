@@ -510,9 +510,11 @@ class EventsHandler {
                     }
                 }
 
-                List<String> activateProfilesFIFO = new ArrayList<>();
                 PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### clear for pause - restart events");
-                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                synchronized (PPApplication.profileActivationMutex) {
+                    List<String> activateProfilesFIFO = new ArrayList<>();
+                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                }
 
 
                 //runningEventCountP = _etl.size();
@@ -1037,7 +1039,9 @@ class EventsHandler {
                 PPApplication.updateGUI(1); //context, true, true);
 
                 PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### in fifo is:");
-                dataWrapper.getActivatedProfilesFIFO();
+                synchronized (PPApplication.profileActivationMutex) {
+                    dataWrapper.getActivatedProfilesFIFO();
+                }
             }
 
 

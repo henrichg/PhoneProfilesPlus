@@ -3912,9 +3912,11 @@ public class PhoneProfilesService extends Service
                         DatabaseHandler.getInstance(appContext).unblockAllEvents();
                         Event.setForceRunEventRunning(appContext, false);
 
-                        List<String> activateProfilesFIFO = new ArrayList<>();
                         PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### clear");
-                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        synchronized (PPApplication.profileActivationMutex) {
+                            List<String> activateProfilesFIFO = new ArrayList<>();
+                            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        }
 
                         if (PPApplication.prefLastActivatedProfile != 0) {
                             PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
