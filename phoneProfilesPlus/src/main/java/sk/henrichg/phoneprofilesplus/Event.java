@@ -1837,7 +1837,7 @@ class Event {
 
                         PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### add profileId=" + activateProfile);
                         // do not save to fifo profile with event for Undo
-                        dataWrapper.addProfileToFIFO(activateProfile, 0);
+                        //dataWrapper.addProfileToFIFO(activateProfile, 0);
                         /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                         if (activateProfilesFIFO == null)
                             activateProfilesFIFO = new ArrayList<>();

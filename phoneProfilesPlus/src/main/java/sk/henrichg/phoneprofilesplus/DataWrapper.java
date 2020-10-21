@@ -525,8 +525,8 @@ public class DataWrapper {
 
     void activateProfileFromEvent(long event_id, long profile_id, boolean manualActivation, boolean merged, boolean forRestartEvents)
     {
-        if (!merged) {
-            // save before activated profile inot FIFO
+        if (event_id != 0) {
+            // save before activated profile into FIFO
             Profile activatedProfile = getActivatedProfileFromDB(false, false);
             if (activatedProfile != null) {
                 long profileId = activatedProfile._id;
