@@ -535,6 +535,10 @@ public class DataWrapper {
                 if (activateProfilesFIFO == null)
                     activateProfilesFIFO = new ArrayList<>();
                 int size = activateProfilesFIFO.size();
+                if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
+                    activateProfilesFIFO.remove(0);
+                    size--;
+                }
                 String toFifo = profileId + "|" + event_id;
                 if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                     activateProfilesFIFO.add(toFifo);
@@ -1723,6 +1727,10 @@ public class DataWrapper {
                     if (activateProfilesFIFO == null)
                         activateProfilesFIFO = new ArrayList<>();
                     int size = activateProfilesFIFO.size();
+                    if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
+                        activateProfilesFIFO.remove(0);
+                        size--;
+                    }
                     String toFifo = profileId + "|0";
                     if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                         activateProfilesFIFO.add(toFifo);

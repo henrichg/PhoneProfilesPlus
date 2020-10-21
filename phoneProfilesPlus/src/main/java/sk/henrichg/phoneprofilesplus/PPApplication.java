@@ -232,6 +232,8 @@ public class PPApplication extends Application
                                                 //+"|EventsPrefsFragment.onSharedPreferenceChanged"
                                                 ;
 
+    static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
+
     // activity log types
     static final int ALTYPE_UNDEFINED = 0;
 
@@ -716,7 +718,6 @@ public class PPApplication extends Application
     //public static boolean isPowerSaveMode;
 
     static Location lastLocation = null;
-
 
     public static HandlerThread handlerThread = null;
     public static HandlerThread handlerThreadCancelWork = null;
