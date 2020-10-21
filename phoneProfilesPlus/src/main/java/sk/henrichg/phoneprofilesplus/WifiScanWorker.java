@@ -250,7 +250,7 @@ public class WifiScanWorker extends Worker {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork" + " shortInterval="+shortInterval);
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork" + " shortInterval=true");
                         _cancelWork(context);
                         PPApplication.sleep(5000);
                         _scheduleWork(context, true);
@@ -277,7 +277,7 @@ public class WifiScanWorker extends Worker {
                 PPApplication.cancelWork(WORK_TAG);
                 PPApplication.cancelWork(WORK_TAG_SHORT);
 
-//                PPApplication.logE("[MAREK_TEST] WifiScanWorker._cancelWork", "CANCELED");
+//                PPApplication.logE("[FIFO_TEST] WifiScanWorker._cancelWork", "CANCELED");
 
             } catch (Exception e) {
                 //Log.e("WifiScanWorker._cancelWork", Log.getStackTraceString(e));

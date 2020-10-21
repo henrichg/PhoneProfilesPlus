@@ -2960,11 +2960,11 @@ public class PhoneProfilesService extends Service
     }
 
     private void cancelWifiWorker(final Context context, boolean forSchedule) {
-//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.cancelWifiWorker", "forSchedule="+forSchedule);
+//        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.cancelWifiWorker", "forSchedule="+forSchedule);
         if ((!forSchedule) ||
                 (WifiScanWorker.isWorkScheduled(false) || WifiScanWorker.isWorkScheduled(true))) {
             //CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiWorker->CANCEL", "PhoneProfilesService_cancelWifiWorker");
-//            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.cancelWifiWorker", "CANCEL");
+//            PPApplication.logE("[FIFO_TEST] PhoneProfilesService.cancelWifiWorker", "CANCEL");
             WifiScanWorker.cancelWork(context, true/*, null*/);
         }
         //else
@@ -2980,13 +2980,13 @@ public class PhoneProfilesService extends Service
                          /*final boolean forceStart, final boolean rescan*/) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleWifiWorker", "PhoneProfilesService_scheduleWifiWorker");
-        //PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "rescan="+rescan);
+        //PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "rescan="+rescan);
 
         if (/*!forceStart &&*/ WifiSSIDPreferenceX.forceRegister)
             return;
 
         //if (schedule) {
-//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE");
+//        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE");
         if (ApplicationPreferences.applicationEventWifiEnableScanning) {
             boolean eventAllowed = false;
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
@@ -3001,19 +3001,19 @@ public class PhoneProfilesService extends Service
                 //if (!(WifiScanWorker.isWorkScheduled(false) || WifiScanWorker.isWorkScheduled(true))) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.scheduleWifiWorker->SCHEDULE", "PhoneProfilesService_scheduleWifiWorker");
                 //    WifiScanWorker.scheduleWork(appContext, true);
-                //    PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 1");
+                //    PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 1");
                 //} else {
                 //    if (rescan) {
                         WifiScanWorker.scheduleWork(appContext, true);
-//                        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 2");
+//                        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "SCHEDULE 2");
                 //    }
                 //}
             } else {
-//                PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (1)");
+//                PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (1)");
                 cancelWifiWorker(appContext, true);
             }
         } else {
-//            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (2)");
+//            PPApplication.logE("[FIFO_TEST] PhoneProfilesService.scheduleWifiWorker", "cancelWifiWorker (2)");
             cancelWifiWorker(appContext, true);
         }
         //}
@@ -3389,7 +3389,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void registerReceiversAndWorkers(boolean fromCommand) {
-//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.registerReceiversAndWorkers", "xxx");
+//        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.registerReceiversAndWorkers", "xxx");
 
         // --- receivers and content observers for events -- register it only if any event exists
 
@@ -3535,7 +3535,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void unregisterReceiversAndWorkers() {
-//         PPApplication.logE("[MAREK_TEST] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
+//         PPApplication.logE("[FIFO_TEST] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
         registerAllTheTimeRequiredReceivers(false);
         registerContentObservers(false);
         registerCallbacks(false);
@@ -3589,7 +3589,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void reregisterReceiversAndWorkers() {
-//        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.reregisterReceiversAndWorkers", "xxx");
+//        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.reregisterReceiversAndWorkers", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
@@ -3912,14 +3912,14 @@ public class PhoneProfilesService extends Service
                         DatabaseHandler.getInstance(appContext).unblockAllEvents();
                         Event.setForceRunEventRunning(appContext, false);
 
-                        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### clear");
+//                        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.doFirstStart", "#### clear");
                         synchronized (PPApplication.profileActivationMutex) {
                             List<String> activateProfilesFIFO = new ArrayList<>();
                             dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
                         }
 
                         if (PPApplication.prefLastActivatedProfile != 0) {
-                            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
+//                            PPApplication.logE("[FIFO_TEST] PhoneProfilesService.doFirstStart", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
                             dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
                             /*activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                             if (activateProfilesFIFO == null)

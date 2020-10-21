@@ -87,8 +87,8 @@ public class PPApplication extends Application
     static final int VERSION_CODE_EXTENDER_5_1_3_5 = 580;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_3_5;
 
-    static int pid = Process.myPid();
-    static int uid = Process.myUid();
+    static final int pid = Process.myPid();
+    static final int uid = Process.myUid();
 
     private static PPApplication instance;
     private static WorkManager workManagerInstance;
@@ -195,15 +195,15 @@ public class PPApplication extends Application
                                                 //+"|$$$ DataWrapper.setProfileActive"
                                                 //+"|PPApplication.updateGUI"
 
-                                                +"|![IN_WORKER]"
-                                                +"|![WORKER_CALL]"
-                                                +"|![IN_THREAD_HANDLER]"
-                                                +"|![IN_BROADCAST]"
-                                                +"|![LOCAL_BROADCAST_CALL]"
-                                                +"|![IN_OBSERVER]"
-                                                +"|![IN_LISTENER]"
-                                                +"|![IN_EVENTS_HANDLER]"
-                                                +"|![EVENTS_HANDLER_CALL]"
+//                                                +"|[IN_WORKER]"
+//                                                +"|[WORKER_CALL]"
+//                                                +"|[IN_THREAD_HANDLER]"
+//                                                +"|[IN_BROADCAST]"
+//                                                +"|[LOCAL_BROADCAST_CALL]"
+//                                                +"|[IN_OBSERVER]"
+//                                                +"|[IN_LISTENER]"
+//                                                +"|[IN_EVENTS_HANDLER]"
+//                                                +"|[EVENTS_HANDLER_CALL]"
 
                                                 //+"|[TEST BATTERY]"
 
@@ -214,7 +214,7 @@ public class PPApplication extends Application
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
-                                                +"|[MAREK_TEST]"
+                                                //+"|[FIFO_TEST]"
                                                 //+"|[BLOCK_ACTIONS]"
 
                                                 //+"|[ACTIVATOR]"
@@ -480,7 +480,7 @@ public class PPApplication extends Application
     // shared preferences names !!! Configure also in res/xml/phoneprofiles_backup_scheme.xml !!!
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     //static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
-    static final String ACTIVATED_PROFILE_PREFS_NAME = "profile_preferences_activated_profile";
+    //static final String ACTIVATED_PROFILE_PREFS_NAME = "profile_preferences_activated_profile";
     static final String WIFI_CONFIGURATION_LIST_PREFS_NAME = "wifi_configuration_list";
     static final String WIFI_SCAN_RESULTS_PREFS_NAME = "wifi_scan_results";
     static final String BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME = "bluetooth_connected_devices";
@@ -3657,11 +3657,14 @@ public class PPApplication extends Application
                 }
             }
 
+
             //Profile.setActivatedProfileForDuration(context, 0);
-            PPApplication.logE("[MAREK_TEST] PPApplication._exitApp", "#### clear");
-            synchronized (PPApplication.profileActivationMutex) {
-                List<String> activateProfilesFIFO = new ArrayList<>();
-                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+//            PPApplication.logE("[FIFO_TEST] PPApplication._exitApp", "#### clear");
+            if (dataWrapper != null) {
+                synchronized (PPApplication.profileActivationMutex) {
+                    List<String> activateProfilesFIFO = new ArrayList<>();
+                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                }
             }
 
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);

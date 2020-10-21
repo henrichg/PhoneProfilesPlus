@@ -291,7 +291,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_UNDO_PROFILE) {
 
                             //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
-                            PPApplication.logE("[MAREK_TEST] ProfileDurationAlarmBroadcastReceiver._doWork", "#### remove last profile");
+//                            PPApplication.logE("[FIFO_TEST] ProfileDurationAlarmBroadcastReceiver._doWork", "#### remove last profile");
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                                 int size = activateProfilesFIFO.size();

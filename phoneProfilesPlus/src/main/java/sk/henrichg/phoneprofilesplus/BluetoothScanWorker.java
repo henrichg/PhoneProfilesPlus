@@ -248,7 +248,7 @@ public class BluetoothScanWorker extends Worker {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval="+shortInterval);
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval=true");
                         _cancelWork(context);
                         PPApplication.sleep(5000);
                         _scheduleWork(context, true);

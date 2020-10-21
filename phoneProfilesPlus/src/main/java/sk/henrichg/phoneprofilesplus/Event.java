@@ -1574,7 +1574,7 @@ class Event {
                 mergedProfile._id = 0;
             } else {
                 long profileId = _fkProfileStart;
-                PPApplication.logE("[MAREK_TEST] Event.startEvent", "#### add profileId=" + profileId);
+//                PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
                 dataWrapper.addProfileToFIFO(profileId, _id);
                 /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                 if (activateProfilesFIFO == null)
@@ -1675,7 +1675,7 @@ class Event {
                         } else
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/ {
-                        PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### remove last profile");
+//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### remove last profile");
                         synchronized (PPApplication.profileActivationMutex) {
                             List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                             List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -1742,7 +1742,7 @@ class Event {
                     mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper/*, false*/);
 
                     long profileId = _fkProfileEnd;
-                    PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
+//                    PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
                     dataWrapper.addProfileToFIFO(profileId, _id);
                     /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                     if (activateProfilesFIFO == null)
@@ -1786,7 +1786,7 @@ class Event {
                         } else
                             eventTimeline._fkProfileEndActivated = 0;
                     } else*/ {
-                        PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### merge profile for Undo");
+//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### merge profile for Undo");
                         synchronized (PPApplication.profileActivationMutex) {
                             List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                             List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -1835,7 +1835,7 @@ class Event {
                         //mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
                         mergedProfile.mergeProfiles(activateProfile, dataWrapper/*, false*/);
 
-                        PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### add profileId=" + activateProfile);
+//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + activateProfile);
                         // do not save to fifo profile with event for Undo
                         //dataWrapper.addProfileToFIFO(activateProfile, 0);
                         /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
@@ -1859,8 +1859,8 @@ class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart && !forRestartEvents) {
                 // test of forRestartEvents is required!!!
                 // Do not restart events when is event paused during restart events !!!
-//                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
-//                PPApplication.logE("[MAREK_TEST] Event.pauseEvent","    event._name="+_name);
+//                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
+//                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","    event._name="+_name);
                 // do not reactivate profile to avoid infinite loop
                 dataWrapper.restartEventsWithDelay(5, false, true, true, PPApplication.ALTYPE_UNDEFINED);
                 profileActivated = true;

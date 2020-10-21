@@ -28,7 +28,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     //private boolean isLargeLayout;
 
-    private static RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, boolean largeLayout, DataWrapper dataWrapper)
+    private static RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, /*boolean largeLayout,*/ DataWrapper dataWrapper)
     {
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListGridLayout;
@@ -246,8 +246,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         RemoteViews widget;
 
-        if (largeLayout)
-        {
+        //if (largeLayout)
+        //{
             if (applicationWidgetListHeader)
             {
                 if (!applicationWidgetListGridLayout)
@@ -272,14 +272,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 else
                     widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header);
             }
-        }
+        /*}
         else
         {
             if (applicationWidgetListPrefIndicator)
                 widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_small);
             else
                 widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_small_no_indicator);
-        }
+        }*/
 
         if (applicationWidgetListRoundedCorners) {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
@@ -315,7 +315,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         // header
-        if (applicationWidgetListHeader || (!largeLayout))
+        if (applicationWidgetListHeader/* || (!largeLayout)*/)
         {
             Profile profile;
 
@@ -392,10 +392,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     widget.setViewVisibility(R.id.widget_profile_list_header_profile_pref_indicator, GONE);
                     //widget.setImageViewResource(R.id.widget_profile_list_header_profile_pref_indicator, R.drawable.ic_empty);
             }
-            if (largeLayout)
-            {
+            //if (largeLayout)
+            //{
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, separatorLightness, separatorLightness, separatorLightness));
-            }
+            //}
 
             //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
@@ -407,8 +407,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         ////////////////////////////////////////////////
 
         // clicks
-        if (largeLayout)
-        {
+        //if (largeLayout)
+        //{
             Intent intent = new Intent(context, EditorProfilesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
@@ -447,7 +447,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setPendingIntentTemplate(R.id.widget_profile_list, clickPI);
             else
                 widget.setPendingIntentTemplate(R.id.widget_profile_grid, clickPI);
-        }
+        /*}
         else
         {
             Intent intent = new Intent(context, LauncherActivity.class);
@@ -466,7 +466,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //}
             //else
             //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
-        }
+        }*/
 
         return widget;
     }
@@ -483,11 +483,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private static void doOnUpdate(Context context, AppWidgetManager appWidgetManager, int appWidgetId, boolean fromOnUpdate)
     {
-        Bundle widgetIdOptions;
-        widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
-        boolean isLargeLayout = setLayoutParams(context, appWidgetManager, appWidgetId, widgetIdOptions);
+        //Bundle widgetIdOptions;
+        //widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
+        //boolean isLargeLayout = setLayoutParams(context, appWidgetManager, appWidgetId, widgetIdOptions);
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-        RemoteViews widget = buildLayout(context, appWidgetId, isLargeLayout, dataWrapper);
+        RemoteViews widget = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
         } catch (Exception e) {
@@ -495,12 +495,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         if (!fromOnUpdate) {
-            if (isLargeLayout) {
+            //if (isLargeLayout) {
                 if (!ApplicationPreferences.applicationWidgetListGridLayout)
                     appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
                 else
                     appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
-            }
+            //}
         }
     }
 
@@ -543,8 +543,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         if (action != null) {
             if (action.equalsIgnoreCase("com.motorola.blur.home.ACTION_SET_WIDGET_SIZE")) {
-                final int spanX = intent.getIntExtra("spanX", 1);
-                final int spanY = intent.getIntExtra("spanY", 1);
+                //final int spanX = intent.getIntExtra("spanX", 1);
+                //final int spanY = intent.getIntExtra("spanY", 1);
                 final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
 
@@ -556,10 +556,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         public void run() {
                             PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
                             for (int appWidgetId : appWidgetIds) {
-                                boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
+                                //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                 RemoteViews layout;
                                 DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-                                layout = buildLayout(context, appWidgetId, isLargeLayout, dataWrapper);
+                                layout = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
                                 try {
                                     appWidgetManager.updateAppWidget(appWidgetId, layout);
                                 } catch (Exception e) {
@@ -592,10 +592,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
     }
 
+    /*
     private static boolean setLayoutParams(Context context, AppWidgetManager appWidgetManager,
             int appWidgetId, Bundle widgetIdOptions)
     {
-        /*String preferenceKey = "isLargeLayout_"+appWidgetId;
+        String preferenceKey = "isLargeLayout_"+appWidgetId;
 
         boolean isLargeLayout;
 
@@ -640,13 +641,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             editor.apply();
         }
 
-        return isLargeLayout;*/
-        return true;
+        return isLargeLayout;
+        //return true;
     }
-
+    */
+    /*
     private static boolean setLayoutParamsMotorola(Context context, @SuppressWarnings("unused") int spanX, int spanY, int appWidgetId)
     {
-        /*
         // for Motorola devices use spanY
 
         boolean isLargeLayout = spanY != 1;
@@ -658,9 +659,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         editor.apply();
 
         return isLargeLayout;
-        */
-        return true;
+        //return true;
     }
+    */
 
     public void onAppWidgetOptionsChanged(final Context context, final AppWidgetManager appWidgetManager,
             final int appWidgetId, final Bundle newOptions)

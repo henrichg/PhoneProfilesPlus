@@ -510,12 +510,12 @@ public class DataWrapper {
             if (profile != null) {
                 profile._checked = true;
                 //PPApplication.logE("DataWrapper.setProfileActive", "profile._name="+profile._name);
-                PPApplication.logE("[MAREK_TEST] DataWrapper.setProfileActive", "profile._id="+profile._id);
+//                PPApplication.logE("[FIFO_TEST] DataWrapper.setProfileActive", "profile._id="+profile._id);
                 PPApplication.setLastActivatedProfile(context, profile._id);
             }
             else {
                 //PPApplication.logE("DataWrapper.setProfileActive", "profile=null");
-                PPApplication.logE("[MAREK_TEST] DataWrapper.setProfileActive", "profile._id=0");
+//                PPApplication.logE("[FIFO_TEST] DataWrapper.setProfileActive", "profile._id=0");
                 PPApplication.setLastActivatedProfile(context, 0);
             }
 
@@ -530,7 +530,7 @@ public class DataWrapper {
             Profile activatedProfile = getActivatedProfileFromDB(false, false);
             if (activatedProfile != null) {
                 long profileId = activatedProfile._id;
-                PPApplication.logE("[MAREK_TEST] DataWrapper.activateProfileFromEvent", "#### add profileId=" + profileId);
+//                PPApplication.logE("[FIFO_TEST] DataWrapper.activateProfileFromEvent", "#### add profileId=" + profileId);
                 addProfileToFIFO(profileId, event_id);
                 /*List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
                 if (activateProfilesFIFO == null)
@@ -1723,7 +1723,7 @@ public class DataWrapper {
                     //}
 
                     long profileId = _profile._id;
-                    PPApplication.logE("[MAREK_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
+//                    PPApplication.logE("[FIFO_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
                     addProfileToFIFO(profileId, 0);
                     /*List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
                     if (activateProfilesFIFO == null)
@@ -2070,7 +2070,7 @@ public class DataWrapper {
             //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             //Profile.setActivatedProfileForDuration(context, 0);
 
-            PPApplication.logE("[MAREK_TEST] DataWrapper.activateProfile", "#### clear");
+//            PPApplication.logE("[FIFO_TEST] DataWrapper.activateProfile", "#### clear");
             synchronized (PPApplication.profileActivationMutex) {
                 List<String> activateProfilesFIFO = new ArrayList<>();
                 saveActivatedProfilesFIFO(activateProfilesFIFO);
@@ -2191,7 +2191,7 @@ public class DataWrapper {
 //        synchronized (PPApplication.restartEventsMutex) {
 //            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "after synchronized");
 
-//        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "xxx");
+//        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "xxx");
 
             if (logRestart) {
                 if (manualRestart)
@@ -2203,7 +2203,7 @@ public class DataWrapper {
             //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
             if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (1)");
-//            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(1)");
+//            PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(1)");
 
                 PPApplication.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
                 EventsHandler eventsHandler = new EventsHandler(context);
@@ -2219,7 +2219,7 @@ public class DataWrapper {
             //Profile activatedProfile = getActivatedProfile();
 
             if (unblockEventsRun) {
-//            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(2)");
+//            PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(2)");
                 synchronized (profileList) {
                     // remove alarm for profile duration
                     if (!profileListFilled)
@@ -2252,16 +2252,16 @@ public class DataWrapper {
 
             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (2)");
 
-//        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(3)");
+//        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(3)");
 
             EventsHandler eventsHandler = new EventsHandler(context);
             if (manualRestart) {
                 PPApplication.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_MANUAL_RESTART_EVENTS");
-//           PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(4)");
+//           PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(4)");
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             } else {
                 PPApplication.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS");
-//            PPApplication.logE("[MAREK_TEST] DataWrapper._restartEvents", "(5)");
+//            PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(5)");
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
             }
 
@@ -2273,7 +2273,7 @@ public class DataWrapper {
                        /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart
                        /*, final boolean useHandler*/)
     {
-//        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEvents","xxx");
+//        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEvents","xxx");
 
         /*if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
@@ -2324,7 +2324,7 @@ public class DataWrapper {
     }
 
     private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
-//        PPApplication.logE("[MAREK_TEST] DataWrapper._restartEventsWithRescan","xxx");
+//        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEventsWithRescan","xxx");
 
         if (alsoRescan) {
             // remove all event delay alarms
@@ -2363,7 +2363,7 @@ public class DataWrapper {
             final boolean unblockEventsRun, boolean useHandler,
             final boolean manualRestart, final boolean logRestart, boolean showToast)
     {
-//        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEventsWithRescan","xxx");
+//        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEventsWithRescan","xxx");
 
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
@@ -2570,7 +2570,7 @@ public class DataWrapper {
     void restartEventsWithDelay(int delay, boolean alsoRescan, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
                                 boolean replace, /*boolean clearOld,*/ final int logType)
     {
-//        PPApplication.logE("[MAREK_TEST] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
+//        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEventsWithDelay","xxx"); //"clearOld="+clearOld);
         Data workData = new Data.Builder()
                     .putBoolean(PhoneProfilesService.EXTRA_ALSO_RESCAN, alsoRescan)
                     .putBoolean(PhoneProfilesService.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun)
@@ -3284,7 +3284,7 @@ public class DataWrapper {
 
                 for (int i = 0; i < count; i++) {
                     String profileId = preferences.getString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, "0|0");
-                    PPApplication.logE("[MAREK_TEST] DataWrapper.getActivatedProfilesFIFO", "#### profileId=" + profileId);
+//                    PPApplication.logE("[FIFO_TEST] DataWrapper.getActivatedProfilesFIFO", "#### profileId=" + profileId);
                     activateProfilesFifo.add(profileId);
                 }
                 return activateProfilesFifo;
@@ -3307,7 +3307,7 @@ public class DataWrapper {
                 editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, activateProfilesFifo.size());
 
                 for (int i = 0; i < activateProfilesFifo.size(); i++) {
-                    PPApplication.logE("[MAREK_TEST] DataWrapper.saveActivatedProfilesFIFO", "#### profileId=" + activateProfilesFifo.get(i));
+//                    PPApplication.logE("[FIFO_TEST] DataWrapper.saveActivatedProfilesFIFO", "#### profileId=" + activateProfilesFifo.get(i));
                     editor.putString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, activateProfilesFifo.get(i));
                 }
             }

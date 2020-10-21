@@ -2525,7 +2525,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             Cursor cursor = db.rawQuery(selectQuery, null);
 
-            Profile sharedProfile = Profile.getProfileFromSharedPreferences(context, "profile_preferences_default_profile");
+            Profile sharedProfile = Profile.getProfileFromSharedPreferences(context/*, "profile_preferences_default_profile"*/);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -7875,6 +7875,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     // Getting max(eorder)
     int getCountEventsInTimeline() {
         importExportLock.lock();
@@ -7906,6 +7907,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
     String getLastStartedEventName() {
         importExportLock.lock();

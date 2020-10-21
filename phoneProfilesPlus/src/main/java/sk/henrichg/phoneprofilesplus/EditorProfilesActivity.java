@@ -2491,7 +2491,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
 
                     // clear shared preferences for last activated profile
-                    Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                    //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
                     //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                     PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
@@ -3167,7 +3167,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
 
                         // clear shared preferences for last activated profile
-                        Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                        //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
                         //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 

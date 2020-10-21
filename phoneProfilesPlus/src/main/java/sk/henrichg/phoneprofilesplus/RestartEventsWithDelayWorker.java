@@ -26,7 +26,7 @@ public class RestartEventsWithDelayWorker extends Worker {
     public Result doWork() {
         try {
             PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "xxxx");
-//            PPApplication.logE("[MAREK_TEST] RestartEventsWithDelayWorker.doWork","xxx"); //"clearOld="+clearOld);
+//            PPApplication.logE("[FIFO_TEST] RestartEventsWithDelayWorker.doWork","xxx"); //"clearOld="+clearOld);
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started

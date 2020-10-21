@@ -305,9 +305,9 @@ public class Profile {
     static final String NO_CHANGE_VALUE_STR = "0";
     //static final String SHARED_PROFILE_VALUE_STR = "99";
 
-    private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
+    //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
-    private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
+    //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
 
     static final int[] profileIconId = {
             R.drawable.ic_profile_default,
@@ -2864,7 +2864,7 @@ public class Profile {
         return String.valueOf(dValue.intValue());
     }
 
-    static Profile getProfileFromSharedPreferences(Context context, String prefsName)
+    static Profile getProfileFromSharedPreferences(Context context/*, String prefsName*/)
     {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
@@ -2890,7 +2890,7 @@ public class Profile {
             maximumValueBluetoothSCO = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
         }
 
-        SharedPreferences preferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(/*prefsName*/"profile_preferences_default_profile", Context.MODE_PRIVATE);
 
         Profile profile = new Profile();
 
@@ -2982,6 +2982,7 @@ public class Profile {
         return profile;
     }
 
+    /*
     static void saveProfileToSharedPreferences(Profile profile, Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -3057,6 +3058,7 @@ public class Profile {
 
         editor.apply();
     }
+    */
 
     static Profile getMappedProfile(Profile profile, Profile sharedProfile/*, Context context*/)
     {

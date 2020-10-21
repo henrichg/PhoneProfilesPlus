@@ -190,7 +190,7 @@ public class SearchCalendarEventsWorker extends Worker {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval="+shortInterval);
+                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval=true");
                     _cancelWork();
                     PPApplication.sleep(5000);
                     _scheduleWork(true);

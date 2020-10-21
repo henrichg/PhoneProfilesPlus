@@ -662,7 +662,7 @@ public class EditorProfileListFragment extends Fragment
         }
 
         // delete deleted profile from FIFO
-        PPApplication.logE("[MAREK_TEST] EditorProfileListFragment.deleteProfile", "#### remove deleted profile");
+//        PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteProfile", "#### remove deleted profile");
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = activityDataWrapper.getActivatedProfilesFIFO();
             if (activateProfilesFIFO == null)
@@ -814,7 +814,7 @@ public class EditorProfileListFragment extends Fragment
                         }
                     }
                     //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
-                    PPApplication.logE("[MAREK_TEST] EditorProfileListFragment.deleteAllProfiles", "#### clear");
+//                    PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteAllProfiles", "#### clear");
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();
                         activityDataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);

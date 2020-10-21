@@ -135,14 +135,14 @@ class EventsHandler {
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
 //            if (isRestart)
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- start --------------------------------");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- start --------------------------------");
 
             if (!PPApplication.getApplicationStarted(true))
                 // application is not started
                 return;
 
 //            if (isRestart)
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- application started --------------------------------");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- application started --------------------------------");
 
             PhoneProfilesService ppService;
 
@@ -156,7 +156,7 @@ class EventsHandler {
 
             PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 //            if (isRestart)
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             //boolean interactive;
 
@@ -203,7 +203,7 @@ class EventsHandler {
                 //dataWrapper.invalidateDataWrapper();
 
 //                if (isRestart)
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
 
                 return;
             }
@@ -218,7 +218,7 @@ class EventsHandler {
 
 //                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 //                    if (isRestart)
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "------ events not exists ------");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "------ events not exists ------");
 
                     doEndHandler(null);
                     //dataWrapper.invalidateDataWrapper();
@@ -232,10 +232,10 @@ class EventsHandler {
                             //PPApplication.logE("$$$ EventsHandler.handleEvents", "not any event is running");
 
                             //if (isRestart) {
-                                PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "(1)");
-                                PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "sensorType=" + sensorType);
-                                PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile=" + PPApplication.prefLastActivatedProfile);
-                                PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "runningEventCountE=0");
+                                PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "(1)");
+                                PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "sensorType=" + sensorType);
+                                PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile=" + PPApplication.prefLastActivatedProfile);
+                                PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "runningEventCountE=0");
                             //}
 
                             if (PPApplication.prefLastActivatedProfile != 0) {
@@ -258,7 +258,7 @@ class EventsHandler {
                     //}
 
 //                    if (isRestart)
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
                     return;
                 }
@@ -461,16 +461,16 @@ class EventsHandler {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
                 }*/
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "restart events");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "restart events");
 
                 //reactivateProfile = true;
 
                 // 1. pause events
                 for (Event _event : dataWrapper.eventList) {
 //                    if (PPApplication.logEnabled()) {
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "state PAUSE");
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event._name=" + _event._name);
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "state PAUSE");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "event._name=" + _event._name);
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 //                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -501,16 +501,16 @@ class EventsHandler {
                         }
 
 //                        if (PPApplication.logEnabled()) {
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "state PAUSE");
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "state PAUSE");
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
 //                        }
                     }
                 }
 
-                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### clear for pause - restart events");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### clear for pause - restart events");
                 synchronized (PPApplication.profileActivationMutex) {
                     List<String> activateProfilesFIFO = new ArrayList<>();
                     dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
@@ -524,9 +524,9 @@ class EventsHandler {
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 //                    if (PPApplication.logEnabled()) {
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "state RUNNING");
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event.name=" + _event._name);
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "state RUNNING");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "event.name=" + _event._name);
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 //                    }
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -555,13 +555,13 @@ class EventsHandler {
                         }
 
 //                        if (PPApplication.logEnabled()) {
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "state RUNNING");
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "paused=" + paused);
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "running=" + running);
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "state RUNNING");
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "paused=" + paused);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "running=" + running);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
 //                        }
                     }
                 }
@@ -624,11 +624,11 @@ class EventsHandler {
                             }*/
                         }
 
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "state PAUSE");
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "state PAUSE");
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
                     }
                 }
 
@@ -671,11 +671,11 @@ class EventsHandler {
                                 notified = true;
                         }
 
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "state RUNNING");
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "state RUNNING");
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event._name=" + _event._name);
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
                     }
                 }
             }
@@ -684,9 +684,9 @@ class EventsHandler {
 
 //            if (isRestart) {
 //                if (mergedProfile._id == 0)
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "no profile for activation");
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "no profile for activation");
 //                else
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "profileName=" + mergedProfile._name);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "profileName=" + mergedProfile._name);
 //            }
 
             //if ((!restartAtEndOfEvent) || isRestart) {
@@ -703,9 +703,9 @@ class EventsHandler {
             Profile semiOldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
 //            if (isRestart) {
 //                if (activatedProfile != null)
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activatedProfile._name=" + activatedProfile._name);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activatedProfile._name=" + activatedProfile._name);
 //                else
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "not profile activated");
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "not profile activated");
 //            }
             long defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyDefaultProfile = false;
@@ -717,8 +717,8 @@ class EventsHandler {
             if (!DataWrapper.getIsManualProfileActivation(false, context)) {
 //                if (PPApplication.logEnabled()) {
 //                    if (isRestart) {
-                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "active profile is NOT activated manually");
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "active profile is NOT activated manually");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
 //                    }
 //                }
                 // no manual profile activation
@@ -726,14 +726,14 @@ class EventsHandler {
                     // activate default profile
 
 //                    if (isRestart)
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "no events running");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "no events running");
                     // no events running
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
 //                        if (isRestart)
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "default profile is set");
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile is set");
 
                         long semiOldActivatedProfileId = 0;
                         if (semiOldActivatedProfile != null)
@@ -749,9 +749,9 @@ class EventsHandler {
                             defaultProfileActivated = true;
                             mergedProfilesCount++;
 //                            if (isRestart)
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated default profile");
 
-                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + PPApplication.prefLastActivatedProfile);
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + PPApplication.prefLastActivatedProfile);
                             dataWrapper.addProfileToFIFO(defaultProfileId, 0);
                             /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                             if (activateProfilesFIFO == null)
@@ -784,7 +784,7 @@ class EventsHandler {
                         }
                     } else {
                         if (PPApplication.prefLastActivatedProfile != 0) {
-                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
                             dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
                             /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                             if (activateProfilesFIFO == null)
@@ -805,7 +805,7 @@ class EventsHandler {
                 // manual profile activation
 
  //                if (isRestart)
-                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "active profile is activated manually");
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "active profile is activated manually");
 
                 boolean defaultProfileActivated = false;
 
@@ -821,9 +821,9 @@ class EventsHandler {
                     mergedProfile.mergeProfiles(semiOldActivatedProfileId, dataWrapper/*, false*/);
                     //mergedProfilesCount++;
 //                    if (isRestart)
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated old profile");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated old profile");
 
-                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### add semi-old activated profile - profileId=" + semiOldActivatedProfileId);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add semi-old activated profile - profileId=" + semiOldActivatedProfileId);
                     dataWrapper.addProfileToFIFO(semiOldActivatedProfileId, 0);
                     /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                     if (activateProfilesFIFO == null)
@@ -852,9 +852,9 @@ class EventsHandler {
                         defaultProfileActivated = true;
                         mergedProfilesCount++;
 //                        if (isRestart)
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "activated default profile");
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated default profile");
 
-                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + PPApplication.prefLastActivatedProfile);
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + PPApplication.prefLastActivatedProfile);
                         dataWrapper.addProfileToFIFO(defaultProfileId, 0);
                         /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                         if (activateProfilesFIFO == null)
@@ -870,7 +870,7 @@ class EventsHandler {
                         dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);*/
                     } else {
                         if (PPApplication.prefLastActivatedProfile != 0) {
-                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
                             dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
                             /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                             if (activateProfilesFIFO == null)
@@ -919,27 +919,27 @@ class EventsHandler {
 
 //            if (PPApplication.logEnabled()) {
 //                if (isRestart) {
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "mergedProfilesCount=" + mergedProfilesCount);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "usedEventsCount=" + usedEventsCount);
 //
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
 //                }
 //            }
 
             boolean doSleep = false;
 
 //            if (isRestart)
-//                PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
+//                PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "mergedProfile._name="+mergedProfile._name);
 
             if (mergedProfile._id != 0) {
                 // activate merged profile
 //                if (PPApplication.logEnabled()) {
 //                    if (isRestart) {
-//                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "#### oldActivatedProfile-profileName=" + oldActivatedProfile._name);
+//                        PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "#### oldActivatedProfile-profileName=" + oldActivatedProfile._name);
 //                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### oldActivatedProfile-profileId=" + oldActivatedProfile._id);
 //
-//                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "#### mergedProfile-profileName=" + mergedProfile._name);
+//                        PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "#### mergedProfile-profileName=" + mergedProfile._name);
 //                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-profileId=" + mergedProfile._id);
 //                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeRingerMode=" + mergedProfile._volumeRingerMode);
 //                        //PPApplication.logE("$$$ EventsHandler.handleEvents", "#### mergedProfile-_volumeZenMode=" + mergedProfile._volumeZenMode);
@@ -954,9 +954,9 @@ class EventsHandler {
                     profileChanged = true;
 
 //                if (isRestart)
-//                    PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### isRestart=" + isRestart);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
+//                    PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### isRestart=" + isRestart);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### profileChanged=" + profileChanged);
 
                 if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 
@@ -966,7 +966,7 @@ class EventsHandler {
                             mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
 
 //                    if (isRestart)
-//                        PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "called is DataWrapper.activateProfileFromEvent");
+//                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "called is DataWrapper.activateProfileFromEvent");
                     dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
                     doSleep = true;
@@ -975,9 +975,9 @@ class EventsHandler {
                 if (!DataWrapper.getIsManualProfileActivation(false, context)) {
                     // not manual profile activation
                     //if (isRestart) {
-                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "(2)");
-                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile=" + PPApplication.prefLastActivatedProfile);
-                        PPApplication.logE("[MAREK_TEST]  EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
+                        PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "(2)");
+                        PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "PPApplication.prefLastActivatedProfile=" + PPApplication.prefLastActivatedProfile);
+                        PPApplication.logE("[FIFO_TEST]  EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
                     //}
 
                     if (runningEventCountE == 0) {
@@ -1018,7 +1018,7 @@ class EventsHandler {
                     if (ppService != null) {
                         ppService.playNotificationSound(defaultProfileNotificationSound, defaultProfileNotificationVibrate);
 //                        if (isRestart)
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "default profile notified");
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile notified");
                         notified = true;
                     }
                 }
@@ -1038,7 +1038,7 @@ class EventsHandler {
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
                 PPApplication.updateGUI(1); //context, true, true);
 
-                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### in fifo is:");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### in fifo is:");
                 synchronized (PPApplication.profileActivationMutex) {
                     dataWrapper.getActivatedProfilesFIFO();
                 }
@@ -1048,7 +1048,7 @@ class EventsHandler {
             //dataWrapper.invalidateDataWrapper();
 
 //            if (isRestart)
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "-- end --------------------------------");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- end --------------------------------");
 
                 PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
 
@@ -1427,10 +1427,10 @@ class EventsHandler {
 
 //        if (PPApplication.logEnabled()) {
 //            if (forRestartEvents) {
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "--- start --------------------------");
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "------- event._id=" + event._id);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "------- event._name=" + event._name);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "------- sensorType=" + sensorType);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "--- start --------------------------");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "------- event._id=" + event._id);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "------- event._name=" + event._name);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "------- sensorType=" + sensorType);
 //            }
 //        }
 
@@ -1454,9 +1454,9 @@ class EventsHandler {
         event._eventPreferencesDeviceBoot.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
-//            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvent", "notAllowedTime=" + notAllowedTime);
-//            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvent", "timePassed=" + timePassed);
+//            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
+//            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "notAllowedTime=" + notAllowedTime);
+//            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "timePassed=" + timePassed);
 //        }
 
         boolean allPassed = true;
@@ -1597,49 +1597,49 @@ class EventsHandler {
 
 //        if (PPApplication.logEnabled()) {
 //            if (forRestartEvents && someNotAllowed) {
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "timePassed=" + timePassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "batteryPassed=" + batteryPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "callPassed=" + callPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "peripheralPassed=" + peripheralPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "calendarPassed=" + calendarPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "wifiPassed=" + wifiPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "screenPassed=" + screenPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "smsPassed=" + smsPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notificationPassed=" + notificationPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "applicationPassed=" + applicationPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "locationPassed=" + locationPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "orientationPassed=" + orientationPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "mobileCellPassed=" + mobileCellPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "nfcPassed=" + nfcPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "radioSwitchPassed=" + radioSwitchPassed);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "alarmClockPassed=" + alarmClockPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "timePassed=" + timePassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "batteryPassed=" + batteryPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "callPassed=" + callPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "peripheralPassed=" + peripheralPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "calendarPassed=" + calendarPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "wifiPassed=" + wifiPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "screenPassed=" + screenPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "smsPassed=" + smsPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notificationPassed=" + notificationPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "applicationPassed=" + applicationPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "locationPassed=" + locationPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "orientationPassed=" + orientationPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "mobileCellPassed=" + mobileCellPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "nfcPassed=" + nfcPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "radioSwitchPassed=" + radioSwitchPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "alarmClockPassed=" + alarmClockPassed);
 //
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedTime=" + notAllowedTime);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedCall=" + notAllowedCall);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedPeripheral=" + notAllowedPeripheral);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedCalendar=" + notAllowedCalendar);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedScreen=" + notAllowedScreen);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedBluetooth=" + notAllowedBluetooth);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedSms=" + notAllowedSms);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedNotification=" + notAllowedNotification);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedApplication=" + notAllowedApplication);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedLocation=" + notAllowedLocation);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedOrientation=" + notAllowedOrientation);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedMobileCell=" + notAllowedMobileCell);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedNfc=" + notAllowedNfc);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
-//                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "-----------------------------------");
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedTime=" + notAllowedTime);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedCall=" + notAllowedCall);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedPeripheral=" + notAllowedPeripheral);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedCalendar=" + notAllowedCalendar);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedScreen=" + notAllowedScreen);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedBluetooth=" + notAllowedBluetooth);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedSms=" + notAllowedSms);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedNotification=" + notAllowedNotification);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedApplication=" + notAllowedApplication);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedLocation=" + notAllowedLocation);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedOrientation=" + notAllowedOrientation);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedMobileCell=" + notAllowedMobileCell);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedNfc=" + notAllowedNfc);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedRadioSwitch=" + notAllowedRadioSwitch);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedAlarmClock=" + notAllowedAlarmClock);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "-----------------------------------");
 //            }
 //        }
 
 //            if (event._name.equals("Event")) {
 //        if (forRestartEvents) {
-//            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "allPassed=" + allPassed);
-//            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "someNotAllowed=" + someNotAllowed);
+//            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "allPassed=" + allPassed);
+//            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "someNotAllowed=" + someNotAllowed);
 //        }
 //
 //            if (event._name.equals("Event")) {
@@ -1666,9 +1666,9 @@ class EventsHandler {
 //            if (PPApplication.logEnabled()) {
 ////                if (event._name.equals("Event")) {
 //                if (forRestartEvents) {
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._name=" + event._name);
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event.getStatus()=" + event.getStatus());
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "newEventStatus=" + newEventStatus);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._name=" + event._name);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event.getStatus()=" + event.getStatus());
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "newEventStatus=" + newEventStatus);
 //                }
 //            }
 
@@ -1677,11 +1677,11 @@ class EventsHandler {
             if ((event.getStatus() != newEventStatus) || forRestartEvents || event._isInDelayStart || event._isInDelayEnd) {
 //                if (event._name.equals("Event"))
 //                if (forRestartEvents) {
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", " do new event status");
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._delayStart="+event._delayStart);
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._delayEnd="+event._delayEnd);
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._isInDelayStart="+event._isInDelayStart);
-//                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._isInDelayEnd="+event._isInDelayEnd);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", " do new event status");
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._delayStart="+event._delayStart);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._delayEnd="+event._delayEnd);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._isInDelayStart="+event._isInDelayStart);
+//                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._isInDelayEnd="+event._isInDelayEnd);
 //                }
 
                 if (((newEventStatus == Event.ESTATUS_RUNNING) || forRestartEvents) && (!statePause)) {
@@ -1698,7 +1698,7 @@ class EventsHandler {
                         if (event._isInDelayEnd) {
                             // is in dealy end, for this is already running
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "_isInDelayEnd");
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "_isInDelayEnd");
 
                             // remove delay end because is already running
                             event.removeDelayEndAlarm(dataWrapper);
@@ -1709,31 +1709,31 @@ class EventsHandler {
                     }
 
 //                    if (forRestartEvents)
-//                        PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "start - continueHandle="+continueHandle);
+//                        PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "start - continueHandle="+continueHandle);
 
                     if (!continueHandle) {
                         //noinspection ConstantConditions
 //                        if (forRestartEvents)
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
                         return;
                     }
 
 //                    if (PPApplication.logEnabled()) {
 ////                        if (event._name.equals("Event")) {
 //                        if (forRestartEvents) {
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "start event");
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "event._name=" + event._name);
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "start event");
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "event._name=" + event._name);
 //                        }
 //                    }
 
                     if ((!isInDelayEnd) || forRestartEvents) {
 //                        if (event._name.equals("Event"))
 //                        if (forRestartEvents)
-//                            PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "start event (2)");
+//                            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "start event (2)");
                         if (!forDelayStartAlarm) {
 //                            if (event._name.equals("Event"))
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "start event (3)");
+//                                PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "start event (3)");
                             if (!event._isInDelayStart) {
                                 // if not delay alarm is set, set it
                                 // this also set event._isInDelayStart
@@ -1746,41 +1746,41 @@ class EventsHandler {
                             }
 //                            if (event._name.equals("Event"))
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
+//                                PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "event._isInDelayStart=" + event._isInDelayStart);
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
                                 long oldMergedProfile = mergedProfile._id;
                                 //Profile _oldMergedProfile = mergedProfile;
 //                                if (forRestartEvents)
-//                                    PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "call startEvent() (1)");
+//                                    PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "call startEvent() (1)");
                                 event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                                 startProfileMerged = oldMergedProfile != mergedProfile._id;
 //                                if (event._name.equals("Event")) {
 //                                if (forRestartEvents) {
 //                                    //PPApplication.logE("[***] EventsHandler.doHandleEvents", "_oldMergedProfile="+_oldMergedProfile._name);
-//                                    PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
-//                                    PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "mergedProfile._name="+mergedProfile._name);
-//                                    PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "startProfileMerged="+startProfileMerged);
+//                                    PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
+//                                    PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "mergedProfile._name="+mergedProfile._name);
+//                                    PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "startProfileMerged="+startProfileMerged);
 //                                }
                             }
                         }
                         if (forDelayStartAlarm && event._isInDelayStart) {
 //                            if (event._name.equals("Event"))
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "start event (4)");
+//                                PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "start event (4)");
                             // called for delay alarm
                             // start event
                             long oldMergedProfile = mergedProfile._id;
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "call startEvent() (2)");
+//                                PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "call startEvent() (2)");
                             event.startEvent(dataWrapper, /*interactive,*/ forRestartEvents, mergedProfile);
                             startProfileMerged = oldMergedProfile != mergedProfile._id;
 //                            if (event._name.equals("Event")) {
 //                            if (forRestartEvents) {
 ////                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "oldMergedProfile="+oldMergedProfile);
-//                                PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
-//                                PPApplication.logE("[MAREK_TEST] ----- EventsHandler.doHandleEvents", "startProfileMerged="+startProfileMerged);
+//                                PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
+//                                PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvents", "startProfileMerged="+startProfileMerged);
 //                            }
                         }
                     }
@@ -1795,7 +1795,7 @@ class EventsHandler {
 
                         //if (event._name.equals("Event"))
 //                        if (forRestartEvents)
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "isInDelayStart");
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "isInDelayStart");
 
                         // remove delay start because is already paused
                         event.removeDelayStartAlarm(dataWrapper);
@@ -1807,17 +1807,17 @@ class EventsHandler {
 //                    if (PPApplication.logEnabled()) {
 //                        //if (event._name.equals("Event")) {
 //                        if (forRestartEvents) {
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "pause event");
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._name=" + event._name);
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "pause event");
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._name=" + event._name);
 //                        }
 //                    }
 
                     if ((!isInDelayStart) || forRestartEvents) {
 //                        if (forRestartEvents)
-//                            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "end event (2)");
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "end event (2)");
                         if (!forDelayEndAlarm) {
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "end event (3)");
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "end event (3)");
                             //if (event._name.equals("Event"))
                             //    PPApplication.logE("[***] EventsHandler.doHandleEvents", "!forDelayEndAlarm");
                             if (!event._isInDelayEnd) {
@@ -1831,13 +1831,13 @@ class EventsHandler {
                                 event.checkDelayEnd(/*this*/);
                             }
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "event._isInDelayEnd=" + event._isInDelayEnd);
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._isInDelayEnd=" + event._isInDelayEnd);
                             if (!event._isInDelayEnd) {
                                 // no delay alarm is set
                                 // pause event
                                 long oldMergedProfile = mergedProfile._id;
 //                                if (forRestartEvents)
-//                                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "call pauseEvent() (1)");
+//                                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "call pauseEvent() (1)");
 
                                 // do not allow restart events in Event.doActivateEndProfile() when is already doing restart events
                                 // allowRestart parameter must be false for doing restart events (to avoid infinite loop)
@@ -1848,28 +1848,28 @@ class EventsHandler {
 //                                if (event._name.equals("Event")) {
 //                                if (forRestartEvents) {
 ////                                    PPApplication.logE("[***] EventsHandler.doHandleEvents", "oldMergedProfile="+oldMergedProfile);
-//                                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
-//                                    PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "endProfileMerged="+endProfileMerged);
+//                                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
+//                                    PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "endProfileMerged="+endProfileMerged);
 //                                }
                             }
                         }
 
                         if (forDelayEndAlarm && event._isInDelayEnd) {
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "end event (4)");
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "end event (4)");
                             // called for delay alarm
                             // pause event
                             long oldMergedProfile = mergedProfile._id;
 //                            if (forRestartEvents)
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "call pauseEvent() (2)");
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "call pauseEvent() (2)");
                             event.pauseEvent(dataWrapper, true, false,
                                     false, true, mergedProfile, !forRestartEvents, forRestartEvents, true);
                             endProfileMerged = oldMergedProfile != mergedProfile._id;
 //                            if (event._name.equals("Event")) {
 //                            if (forRestartEvents) {
 ////                                PPApplication.logE("[***] EventsHandler.doHandleEvents", "oldMergedProfile="+oldMergedProfile);
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
-//                                PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents", "endProfileMerged="+endProfileMerged);
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "mergedProfile._id="+mergedProfile._id);
+//                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "endProfileMerged="+endProfileMerged);
 //                            }
                         }
                     }
@@ -1878,7 +1878,7 @@ class EventsHandler {
         }
 
 //        if (forRestartEvents)
-//            PPApplication.logE("[MAREK_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
+//            PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents","--- end --------------------------");
     }
 
 //--------
