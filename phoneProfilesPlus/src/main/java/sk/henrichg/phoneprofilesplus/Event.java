@@ -1575,7 +1575,8 @@ class Event {
             } else {
                 long profileId = _fkProfileStart;
                 PPApplication.logE("[MAREK_TEST] Event.startEvent", "#### add profileId=" + profileId);
-                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                dataWrapper.addProfileToFIFO(profileId, _id);
+                /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                 if (activateProfilesFIFO == null)
                     activateProfilesFIFO = new ArrayList<>();
                 int size = activateProfilesFIFO.size();
@@ -1586,7 +1587,7 @@ class Event {
                 String toFifo = profileId + "|" + _id;
                 if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                     activateProfilesFIFO.add(toFifo);
-                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);*/
             }
         }
 
@@ -1742,7 +1743,8 @@ class Event {
 
                     long profileId = _fkProfileEnd;
                     PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
-                    List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                    dataWrapper.addProfileToFIFO(profileId, _id);
+                    /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                     if (activateProfilesFIFO == null)
                         activateProfilesFIFO = new ArrayList<>();
                     int size = activateProfilesFIFO.size();
@@ -1753,8 +1755,7 @@ class Event {
                     String toFifo = profileId + "|" + _id;
                     if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                         activateProfilesFIFO.add(toFifo);
-                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
-
+                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);*/
                 }
                 // second activate when undone profile is set
                 if (_atEndDo == EATENDDO_UNDONE_PROFILE)
@@ -1835,7 +1836,9 @@ class Event {
                         mergedProfile.mergeProfiles(activateProfile, dataWrapper/*, false*/);
 
                         PPApplication.logE("[MAREK_TEST] Event.doActivateEndProfile", "#### add profileId=" + activateProfile);
-                        List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                        // do not save to fifo profile with event for Undo
+                        dataWrapper.addProfileToFIFO(activateProfile, 0);
+                        /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                         if (activateProfilesFIFO == null)
                             activateProfilesFIFO = new ArrayList<>();
                         int size = activateProfilesFIFO.size();
@@ -1843,13 +1846,11 @@ class Event {
                             activateProfilesFIFO.remove(0);
                             size--;
                         }
-
                         // do not save to fifo profile with event for Undo
                         String toFifo = activateProfile + "|0";
-
                         if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                             activateProfilesFIFO.add(toFifo);
-                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);*/
                     }
                 }
             }

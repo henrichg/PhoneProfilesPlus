@@ -3917,8 +3917,9 @@ public class PhoneProfilesService extends Service
                         dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
 
                         if (PPApplication.prefLastActivatedProfile != 0) {
-                            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### add profileId=" + PPApplication.prefLastActivatedProfile);
-                            activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
+                            dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
+                            /*activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
                             if (activateProfilesFIFO == null)
                                 activateProfilesFIFO = new ArrayList<>();
                             int size = activateProfilesFIFO.size();
@@ -3929,7 +3930,7 @@ public class PhoneProfilesService extends Service
                             String toFifo = PPApplication.prefLastActivatedProfile + "|0";
                             if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                                 activateProfilesFIFO.add(toFifo);
-                            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);*/
                         }
 
                     }

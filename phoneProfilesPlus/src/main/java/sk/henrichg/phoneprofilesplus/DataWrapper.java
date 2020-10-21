@@ -531,7 +531,8 @@ public class DataWrapper {
             if (activatedProfile != null) {
                 long profileId = activatedProfile._id;
                 PPApplication.logE("[MAREK_TEST] DataWrapper.activateProfileFromEvent", "#### add profileId=" + profileId);
-                List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
+                addProfileToFIFO(profileId, event_id);
+                /*List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
                 if (activateProfilesFIFO == null)
                     activateProfilesFIFO = new ArrayList<>();
                 int size = activateProfilesFIFO.size();
@@ -542,7 +543,7 @@ public class DataWrapper {
                 String toFifo = profileId + "|" + event_id;
                 if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                     activateProfilesFIFO.add(toFifo);
-                saveActivatedProfilesFIFO(activateProfilesFIFO);
+                saveActivatedProfilesFIFO(activateProfilesFIFO);*/
             }
         }
 
@@ -1723,7 +1724,8 @@ public class DataWrapper {
 
                     long profileId = _profile._id;
                     PPApplication.logE("[MAREK_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
-                    List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
+                    addProfileToFIFO(profileId, 0);
+                    /*List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
                     if (activateProfilesFIFO == null)
                         activateProfilesFIFO = new ArrayList<>();
                     int size = activateProfilesFIFO.size();
@@ -1734,7 +1736,7 @@ public class DataWrapper {
                     String toFifo = profileId + "|0";
                     if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
                         activateProfilesFIFO.add(toFifo);
-                    saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    saveActivatedProfilesFIFO(activateProfilesFIFO);*/
 
                     ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
                     ///////////
@@ -3312,4 +3314,18 @@ public class DataWrapper {
         }
     }
 
+    void addProfileToFIFO(long profileId, long eventId) {
+        List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
+        if (activateProfilesFIFO == null)
+            activateProfilesFIFO = new ArrayList<>();
+        int size = activateProfilesFIFO.size();
+        if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
+            activateProfilesFIFO.remove(0);
+            size--;
+        }
+        String toFifo = profileId + "|" + eventId;
+        if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
+            activateProfilesFIFO.add(toFifo);
+        saveActivatedProfilesFIFO(activateProfilesFIFO);
+    }
 }
