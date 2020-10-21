@@ -214,13 +214,13 @@ public class PPApplication extends Application
                                                 //+"|[TEST MEDIA VOLUME]"
                                                 //+"|[TEST_BLOCK_PROFILE_EVENTS_ACTIONS]"
 
-                                                //+"|[MAREK_TEST]"
+                                                +"|[MAREK_TEST]"
                                                 //+"|[BLOCK_ACTIONS]"
 
                                                 //+"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
 
-                                                +"|[BACKGROUND_ACTIVITY]"
+                                                //+"|[BACKGROUND_ACTIVITY]"
 
                                                 //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
@@ -3657,7 +3657,8 @@ public class PPApplication extends Application
             }
 
             //Profile.setActivatedProfileForDuration(context, 0);
-            List<Long> activateProfilesFIFO = new ArrayList<>();
+            List<String> activateProfilesFIFO = new ArrayList<>();
+            PPApplication.logE("[MAREK_TEST] PPApplication._exitApp", "#### clear");
             dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
 
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);

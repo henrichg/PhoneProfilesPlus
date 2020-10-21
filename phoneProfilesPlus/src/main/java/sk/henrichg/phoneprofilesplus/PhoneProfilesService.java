@@ -3896,9 +3896,9 @@ public class PhoneProfilesService extends Service
                         for (Profile profile : dataWrapper.profileList)
                             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
                         //Profile.setActivatedProfileForDuration(appContext, 0);
-                        Profile profile = DataWrapper.getNonInitializedProfile(
-                                getString(R.string.empty_string), Profile.PROFILE_ICON_DEFAULT, 0);
-                        Profile.saveProfileToSharedPreferences(profile, appContext);
+                        //Profile profile = DataWrapper.getNonInitializedProfile(
+                        //        getString(R.string.empty_string), Profile.PROFILE_ICON_DEFAULT, 0);
+                        //Profile.saveProfileToSharedPreferences(profile, appContext);
                         Event.setEventsBlocked(appContext, false);
                         dataWrapper.fillEventList();
                         synchronized (dataWrapper.eventList) {
@@ -3912,8 +3912,22 @@ public class PhoneProfilesService extends Service
                         DatabaseHandler.getInstance(appContext).unblockAllEvents();
                         Event.setForceRunEventRunning(appContext, false);
 
-                        List<Long> activateProfilesFIFO = new ArrayList<>();
+                        List<String> activateProfilesFIFO = new ArrayList<>();
+                        PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### clear");
                         dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+
+                        if (PPApplication.prefLastActivatedProfile != 0) {
+                            PPApplication.logE("[MAREK_TEST] PhoneProfilesService.doFirstStart", "#### add profileId=" + PPApplication.prefLastActivatedProfile);
+                            activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                            if (activateProfilesFIFO == null)
+                                activateProfilesFIFO = new ArrayList<>();
+                            int size = activateProfilesFIFO.size();
+                            String toFifo = PPApplication.prefLastActivatedProfile + "|0";
+                            if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
+                                activateProfilesFIFO.add(toFifo);
+                            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        }
+
                     }
 
                     //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "8");

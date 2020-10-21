@@ -2492,7 +2492,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     // clear shared preferences for last activated profile
                     Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                    Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
+                    //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                     PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
                     //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
@@ -3168,7 +3168,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         // clear shared preferences for last activated profile
                         Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                        Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
+                        //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
                         //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);

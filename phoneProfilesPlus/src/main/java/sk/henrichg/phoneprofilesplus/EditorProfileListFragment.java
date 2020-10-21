@@ -662,13 +662,16 @@ public class EditorProfileListFragment extends Fragment
         }
 
         // delete deleted profile from FIFO
-        List<Long> activateProfilesFIFO = activityDataWrapper.getActivatedProfilesFIFO();
+        PPApplication.logE("[MAREK_TEST] EditorProfileListFragment.deleteProfile", "#### remove deleted profile");
+        List<String> activateProfilesFIFO = activityDataWrapper.getActivatedProfilesFIFO();
         if (activateProfilesFIFO == null)
             activateProfilesFIFO = new ArrayList<>();
-        List<Long> newActivateProfilesFIFO = new ArrayList<>();
-        for (long profileId : activateProfilesFIFO) {
+        List<String> newActivateProfilesFIFO = new ArrayList<>();
+        for (String toFifo : activateProfilesFIFO) {
+            String[] splits = toFifo.split("\\|");
+            long profileId = Long.parseLong(splits[0]);
             if (profileId != profile._id)
-             newActivateProfilesFIFO.add(profileId);
+                newActivateProfilesFIFO.add(toFifo);
         }
         activityDataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
 
@@ -809,7 +812,8 @@ public class EditorProfileListFragment extends Fragment
                         }
                     }
                     //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
-                    List<Long> activateProfilesFIFO = new ArrayList<>();
+                    List<String> activateProfilesFIFO = new ArrayList<>();
+                    PPApplication.logE("[MAREK_TEST] EditorProfileListFragment.deleteAllProfiles", "#### clear");
                     activityDataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
 
                     //listView.getRecycledViewPool().clear();

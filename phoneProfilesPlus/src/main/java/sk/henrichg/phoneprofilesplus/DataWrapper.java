@@ -506,13 +506,16 @@ public class DataWrapper {
                 _profile._checked = false;
             }
 
+
             if (profile != null) {
                 profile._checked = true;
                 //PPApplication.logE("DataWrapper.setProfileActive", "profile._name="+profile._name);
+                PPApplication.logE("[MAREK_TEST] DataWrapper.setProfileActive", "profile._id="+profile._id);
                 PPApplication.setLastActivatedProfile(context, profile._id);
             }
             else {
                 //PPApplication.logE("DataWrapper.setProfileActive", "profile=null");
+                PPApplication.logE("[MAREK_TEST] DataWrapper.setProfileActive", "profile._id=0");
                 PPApplication.setLastActivatedProfile(context, 0);
             }
 
@@ -520,18 +523,21 @@ public class DataWrapper {
         }
     }
 
-    void activateProfileFromEvent(long profile_id, boolean manualActivation, boolean merged, boolean forRestartEvents)
+    void activateProfileFromEvent(long event_id, long profile_id, boolean manualActivation, boolean merged, boolean forRestartEvents)
     {
         if (!merged) {
             // save before activated profile inot FIFO
-            Profile oldActivatedProfile = getActivatedProfileFromDB(false, false);
-            if (oldActivatedProfile != null) {
-                long profileId = oldActivatedProfile._id;
-//            PPApplication.logE("----------- $$$ EventsHandler.handleEvents", "setActivatedProfileForEventUndo profileId=" + profileId);
-                List<Long> activateProfilesFIFO = getActivatedProfilesFIFO();
+            Profile activatedProfile = getActivatedProfileFromDB(false, false);
+            if (activatedProfile != null) {
+                long profileId = activatedProfile._id;
+                PPApplication.logE("[MAREK_TEST] DataWrapper.activateProfileFromEvent", "#### add profileId=" + profileId);
+                List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
                 if (activateProfilesFIFO == null)
                     activateProfilesFIFO = new ArrayList<>();
-                activateProfilesFIFO.add(profileId);
+                int size = activateProfilesFIFO.size();
+                String toFifo = profileId + "|" + event_id;
+                if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
+                    activateProfilesFIFO.add(toFifo);
                 saveActivatedProfilesFIFO(activateProfilesFIFO);
             }
         }
@@ -1218,7 +1224,6 @@ public class DataWrapper {
             }
             */
             long profileId = PPApplication.prefLastActivatedProfile;
-            //PPApplication.logE("DataWrapper.activateProfileOnBoot", "lastActivatedProfile="+profileId);
             if (profileId == 0) {
                 profileId = ApplicationPreferences.applicationDefaultProfile;
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
@@ -1598,8 +1603,8 @@ public class DataWrapper {
             else
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");*/
 
-            if (_profile != null)
-                Profile.saveProfileToSharedPreferences(_profile, context);
+            //if (_profile != null)
+            //    Profile.saveProfileToSharedPreferences(_profile, context);
 
             //boolean fullyStarted = false;
             //if (PhoneProfilesService.getInstance() != null)
@@ -1636,7 +1641,7 @@ public class DataWrapper {
             //final Activity activity = _activity;
 
             // get currently activated profile
-            Profile oldActivatedProfile = getActivatedProfile(false, false);
+            //Profile oldActivatedProfile = getActivatedProfile(false, false);
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile=" + activatedProfile);
                 if (activatedProfile != null)
@@ -1702,21 +1707,26 @@ public class DataWrapper {
                     //// set profile duration alarm
 
                     // save before activated profile
-                    if (oldActivatedProfile != null) {
-                        long profileId = oldActivatedProfile._id;
+                    //if (oldActivatedProfile != null) {
+                        //long profileId = oldActivatedProfile._id;
 //                        if (PPApplication.logEnabled()) {
 //                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
 //                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
 //                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
 //                        }
                         //Profile.setActivatedProfileForDuration(context, profileId);
+                    //}
 
-                        List<Long> activateProfilesFIFO = getActivatedProfilesFIFO();
-                        if (activateProfilesFIFO == null)
-                            activateProfilesFIFO = new ArrayList<>();
-                        activateProfilesFIFO.add(profileId);
-                        saveActivatedProfilesFIFO(activateProfilesFIFO);
-                    }
+                    long profileId = _profile._id;
+                    PPApplication.logE("[MAREK_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
+                    List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
+                    if (activateProfilesFIFO == null)
+                        activateProfilesFIFO = new ArrayList<>();
+                    int size = activateProfilesFIFO.size();
+                    String toFifo = profileId + "|0";
+                    if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
+                        activateProfilesFIFO.add(toFifo);
+                    saveActivatedProfilesFIFO(activateProfilesFIFO);
 
                     ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
                     ///////////
@@ -2050,7 +2060,8 @@ public class DataWrapper {
             //ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
             //Profile.setActivatedProfileForDuration(context, 0);
 
-            List<Long> activateProfilesFIFO = new ArrayList<>();
+            List<String> activateProfilesFIFO = new ArrayList<>();
+            PPApplication.logE("[MAREK_TEST] DataWrapper.activateProfile", "#### clear");
             saveActivatedProfilesFIFO(activateProfilesFIFO);
 
             if (ApplicationPreferences.applicationActivate)
@@ -3251,16 +3262,17 @@ public class DataWrapper {
         }
     }
 
-    List<Long> getActivatedProfilesFIFO() {
+    List<String> getActivatedProfilesFIFO() {
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
             int count = preferences.getInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
 
             if (count > -1) {
-                List<Long> activateProfilesFifo = new ArrayList<>();
+                List<String> activateProfilesFifo = new ArrayList<>();
 
                 for (int i = 0; i < count; i++) {
-                    long profileId = preferences.getLong(ACTIVATED_PROFILES_FIFO_ID_PREF + i, 0);
+                    String profileId = preferences.getString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, "0|0");
+                    PPApplication.logE("[MAREK_TEST] DataWrapper.getActivatedProfilesFIFO", "#### profileId=" + profileId);
                     activateProfilesFifo.add(profileId);
                 }
                 return activateProfilesFifo;
@@ -3269,7 +3281,7 @@ public class DataWrapper {
         }
     }
 
-    void saveActivatedProfilesFIFO(List<Long> activateProfilesFifo)
+    void saveActivatedProfilesFIFO(List<String> activateProfilesFifo)
     {
         synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
@@ -3283,7 +3295,8 @@ public class DataWrapper {
                 editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, activateProfilesFifo.size());
 
                 for (int i = 0; i < activateProfilesFifo.size(); i++) {
-                    editor.putLong(ACTIVATED_PROFILES_FIFO_ID_PREF + i, activateProfilesFifo.get(i));
+                    PPApplication.logE("[MAREK_TEST] DataWrapper.saveActivatedProfilesFIFO", "#### profileId=" + activateProfilesFifo.get(i));
+                    editor.putString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, activateProfilesFifo.get(i));
                 }
             }
 

@@ -21,7 +21,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        PPApplication.logE("[BACKGROUND_ACTIVITY] NFCTagReadActivity.onCreate", "xxx");
+//        PPApplication.logE("[BACKGROUND_ACTIVITY] NFCTagReadActivity.onCreate", "xxx");
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
