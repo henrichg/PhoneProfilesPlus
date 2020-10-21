@@ -8,6 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -508,6 +509,11 @@ class EventsHandler {
 //                        }
                     }
                 }
+
+                List<String> activateProfilesFIFO = new ArrayList<>();
+                PPApplication.logE("[MAREK_TEST] EventsHandler.handleEvents", "#### clear for pause - restart events");
+                dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+
 
                 //runningEventCountP = _etl.size();
 
