@@ -44,15 +44,14 @@
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
     <uses-permission android:name="com.android.vending.BILLING"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
-    <!--
-         <uses-permission android:name="android.permission.OVERRIDE_WIFI_CONFIG"
-                     tools:ignore="ProtectedPermissions"/>
-    -->
+<!--    <uses-permission android:name="android.permission.OVERRIDE_WIFI_CONFIG" tools:ignore="ProtectedPermissions"/>-->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 <!--    <uses-permission android:name="android.permission.BROADCAST_STICKY" />-->
 <!--    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"  tools:ignore="ProtectedPermissions" />-->
 
 <!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
+
+<!--    <uses-permission android:name="android.permission.DEVICE_POWER" tools:ignore="ProtectedPermissions" />-->
 
     <uses-permission android:name="sk.henrichg.phoneprofiles.EXPORT_PP_DATA_PERMISSION" />
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
