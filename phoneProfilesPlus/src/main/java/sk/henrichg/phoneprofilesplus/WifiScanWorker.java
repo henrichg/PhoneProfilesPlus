@@ -274,8 +274,8 @@ public class WifiScanWorker extends Worker {
                 setWaitForResults(context, false);
                 WifiScanner.setForceOneWifiScan(context, WifiScanner.FORCE_ONE_SCAN_DISABLED);
 
-                PPApplication.cancelWork(WORK_TAG);
-                PPApplication.cancelWork(WORK_TAG_SHORT);
+                PPApplication.cancelWork(WORK_TAG, false);
+                PPApplication.cancelWork(WORK_TAG_SHORT, false);
 
 //                PPApplication.logE("[FIFO_TEST] WifiScanWorker._cancelWork", "CANCELED");
 

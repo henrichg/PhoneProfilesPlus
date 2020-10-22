@@ -2494,7 +2494,7 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
+        PPApplication.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id), false);
         PPApplication.elapsedAlarmsEventDelayStartWork.remove(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
 
         this._isInDelayStart = false;
@@ -2758,7 +2758,7 @@ class Event {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
+        PPApplication.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id), false);
         PPApplication.elapsedAlarmsEventDelayEndWork.remove(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
 
         this._isInDelayEnd = false;

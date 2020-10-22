@@ -1090,7 +1090,7 @@ public class PPApplication extends Application
             return null;
     }
 
-    static void cancelWork(final String name) {
+    static void cancelWork(final String name, final boolean forceCancel) {
         // cancel only enqueued works
         PPApplication.startHandlerThreadCancelWork();
         final Handler handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
@@ -1110,7 +1110,7 @@ public class PPApplication extends Application
                         // cancel only enqueued works
                         for (WorkInfo workInfo : workInfoList) {
                             WorkInfo.State state = workInfo.getState();
-                            if (state == WorkInfo.State.ENQUEUED) {
+                            if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
                                 // any work is enqueued, cancel it
                                 workManager.cancelWorkById(workInfo.getId());
                             }
@@ -1128,68 +1128,68 @@ public class PPApplication extends Application
     static void cancelAllWorks(@SuppressWarnings("SameParameterValue") boolean atStart) {
         //PPApplication.logE("------------ PPApplication.cancelAllWorks", "atStart="+atStart);
         if (atStart) {
-            cancelWork(ShowProfileNotificationWorker.WORK_TAG);
-            cancelWork(UpdateGUIWorker.WORK_TAG);
+            cancelWork(ShowProfileNotificationWorker.WORK_TAG, false);
+            cancelWork(UpdateGUIWorker.WORK_TAG, false);
         }
         if (!atStart)
-            cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+            cancelWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
         for (String tag : PPApplication.elapsedAlarmsProfileDurationWork)
-            cancelWork(tag);
+            cancelWork(tag, false);
         PPApplication.elapsedAlarmsProfileDurationWork.clear();
         for (String tag : PPApplication.elapsedAlarmsRunApplicationWithDelayWork)
-            cancelWork(tag);
+            cancelWork(tag, false);
         PPApplication.elapsedAlarmsRunApplicationWithDelayWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayStartWork)
-            cancelWork(tag);
+            cancelWork(tag, false);
         PPApplication.elapsedAlarmsEventDelayStartWork.clear();
         for (String tag : PPApplication.elapsedAlarmsEventDelayEndWork)
-            cancelWork(tag);
+            cancelWork(tag, false);
         PPApplication.elapsedAlarmsEventDelayEndWork.clear();
         for (String tag : PPApplication.elapsedAlarmsStartEventNotificationWork)
-            cancelWork(tag);
+            cancelWork(tag, false);
         PPApplication.elapsedAlarmsStartEventNotificationWork.clear();
         if (atStart) {
-            cancelWork(DisableInternalChangeWorker.WORK_TAG);
-            cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG);
+            cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
+            cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
         }
-        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
-        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
-        cancelWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
-        cancelWork(BluetoothScanWorker.WORK_TAG);
-        cancelWork(BluetoothScanWorker.WORK_TAG_SHORT);
-        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
-        cancelWork(RestartEventsWithDelayWorker.WORK_TAG);
-        cancelWork(GeofenceScanWorker.WORK_TAG);
-        cancelWork(GeofenceScanWorker.WORK_TAG_SHORT);
-        cancelWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK);
-        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG);
+        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
+        cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
+        cancelWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG, false);
+        cancelWork(BluetoothScanWorker.WORK_TAG, false);
+        cancelWork(BluetoothScanWorker.WORK_TAG_SHORT, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, false);
+        cancelWork(RestartEventsWithDelayWorker.WORK_TAG, false);
+        cancelWork(GeofenceScanWorker.WORK_TAG, false);
+        cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
+        cancelWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, false);
         if (atStart)
-            cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
-        cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
+            cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
+        cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, false);
         if (atStart) {
-            cancelWork(PACKAGE_REPLACED_WORK_TAG);
-            cancelWork(AFTER_FIRST_START_WORK_TAG);
-            cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG);
+            cancelWork(PACKAGE_REPLACED_WORK_TAG, false);
+            cancelWork(AFTER_FIRST_START_WORK_TAG, false);
+            cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG, false);
         }
-        cancelWork(SearchCalendarEventsWorker.WORK_TAG);
-        cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT);
-        cancelWork(WifiScanWorker.WORK_TAG);
-        cancelWork(WifiScanWorker.WORK_TAG_SHORT);
-        cancelWork(WifiScanWorker.WORK_TAG_START_SCAN);
-        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG);
-        cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG);
-        //cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG);
-        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG);
+        cancelWork(SearchCalendarEventsWorker.WORK_TAG, false);
+        cancelWork(SearchCalendarEventsWorker.WORK_TAG_SHORT, false);
+        cancelWork(WifiScanWorker.WORK_TAG, false);
+        cancelWork(WifiScanWorker.WORK_TAG_SHORT, false);
+        cancelWork(WifiScanWorker.WORK_TAG_START_SCAN, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG, false);
+        cancelWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG, false);
+        cancelWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG, false);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG, false);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG, false);
+        //cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG, false);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG, false);
+        cancelWork(MainWorker.SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG, false);
     }
 
     /*
@@ -3908,7 +3908,7 @@ public class PPApplication extends Application
             DisableBlockProfileEventActionWorker.enqueueWork();
         }
         else {
-            PPApplication.cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG);
+            PPApplication.cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG, false);
         }
     }
 

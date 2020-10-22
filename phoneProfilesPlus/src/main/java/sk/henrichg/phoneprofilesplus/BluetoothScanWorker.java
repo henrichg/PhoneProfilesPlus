@@ -276,8 +276,8 @@ public class BluetoothScanWorker extends Worker {
                 BluetoothScanner.setForceOneBluetoothScan(context, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                 BluetoothScanner.setForceOneLEBluetoothScan(context, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
-                PPApplication.cancelWork(WORK_TAG);
-                PPApplication.cancelWork(WORK_TAG_SHORT);
+                PPApplication.cancelWork(WORK_TAG, false);
+                PPApplication.cancelWork(WORK_TAG_SHORT, false);
 
                 //PPApplication.logE("BluetoothScanWorker._cancelWork", "CANCELED");
 

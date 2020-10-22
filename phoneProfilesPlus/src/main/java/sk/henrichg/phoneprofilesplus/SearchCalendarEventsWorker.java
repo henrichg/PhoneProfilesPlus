@@ -207,8 +207,8 @@ public class SearchCalendarEventsWorker extends Worker {
                 waitForFinish(false);
                 waitForFinish(true);
 
-                PPApplication.cancelWork(WORK_TAG);
-                PPApplication.cancelWork(WORK_TAG_SHORT);
+                PPApplication.cancelWork(WORK_TAG, false);
+                PPApplication.cancelWork(WORK_TAG_SHORT, false);
 
                 //PPApplication.logE("SearchCalendarEventsWorker._cancelWork", "CANCELED");
 

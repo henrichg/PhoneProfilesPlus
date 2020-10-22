@@ -232,7 +232,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "before show profile notification");
 
         // delete notification if is displayed
-        PPApplication.cancelWork(ShowProfileNotificationWorker.WORK_TAG);
+        PPApplication.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             try {
@@ -426,6 +426,7 @@ public class PhoneProfilesService extends Service
             //isInForeground = false;
             stopForeground(true);
 
+            PPApplication.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {
@@ -2905,8 +2906,8 @@ public class PhoneProfilesService extends Service
 
     private void cancelBackgroundScanningWorker() {
         //PPApplication.logE("[RJS] PhoneProfilesService.cancelBackgroundScanningWorker", "xxx");
-        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
-        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
+        PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
     }
 
     void scheduleBackgroundScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
@@ -2923,8 +2924,8 @@ public class PhoneProfilesService extends Service
                 eventAllowed = true;
             }
             if (eventAllowed) {
-                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG);
-                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
+                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
+                PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
                 PPApplication.sleep(5000);
                 OneTimeWorkRequest periodicEventsHandlerWorker =
                         new OneTimeWorkRequest.Builder(PeriodicEventsHandlerWorker.class)
@@ -6187,6 +6188,7 @@ public class PhoneProfilesService extends Service
                 //startForegroundNotification = true;
                 //isInForeground = false;
                 stopForeground(true);
+                PPApplication.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
                 NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null) {
                     try {
