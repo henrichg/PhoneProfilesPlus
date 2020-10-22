@@ -322,33 +322,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
+        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
 
-        if (PhoneProfilesService.getInstance() != null) {
-            PPApplication.doNotShowProfileNotification = true;
-            PhoneProfilesService.getInstance().clearProfileNotification();
+        if (activityStarted) {
+            doPreferenceChanges();
         }
-
-        // do not use this, background color will not be changed with this
-        /*NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null)
-            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
-
-        Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null) {
-                    PPApplication.doNotShowProfileNotification = false;
-                    // forServiceStart must be true because of call of clearProfileNotification()
-                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ true/*, true*/);
-                }
-            }
-        }, 1000);
-        //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
-        //PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.onStop");
-        PPApplication.updateGUI(0/*getApplicationContext(), true, true*/);
     }
 
     @Override
@@ -381,7 +359,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         //PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
 
         if (activityStarted) {
-            doPreferenceChanges();
+            //doPreferenceChanges();
 
             // for startActivityForResult
             Intent returnIntent = new Intent();
@@ -399,7 +377,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     private void doPreferenceChanges() {
-        //Log.e("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxx");
+        PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxx");
         final Context appContext = getApplicationContext();
 
         PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -446,6 +424,32 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
             // PPApplication.recordException(e);
         //}
+
+        if (PhoneProfilesService.getInstance() != null) {
+            PPApplication.doNotShowProfileNotification = true;
+            PhoneProfilesService.getInstance().clearProfileNotification();
+        }
+
+        // do not use this, background color will not be changed with this
+        /*NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
+
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+                if (PhoneProfilesService.getInstance() != null) {
+                    PPApplication.doNotShowProfileNotification = false;
+                    // forServiceStart must be true because of call of clearProfileNotification()
+                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ true/*, true*/);
+                }
+            }
+        }, 1000);
+        //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
+        //PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.onStop");
+        PPApplication.updateGUI(0/*getApplicationContext(), true, true*/);
 
         if (Permissions.grantRootChanged) {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "grant root changed");
@@ -551,8 +555,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
             //final Context appContext = getApplicationContext();
             PPApplication.startHandlerThreadPPCommand();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
-            handler.post(new Runnable() {
+            final Handler handler2 = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
+            handler2.post(new Runnable() {
                 @Override
                 public void run() {
                     PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");

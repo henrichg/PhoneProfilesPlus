@@ -232,6 +232,7 @@ public class PPApplication extends Application
                                                 //+"|EventsPrefsFragment.onSharedPreferenceChanged"
 
                                                 +"|CheckGitHubReleasesBroadcastReceiver"
+                                                +"|PhoneProfilesPrefsActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
