@@ -3617,8 +3617,7 @@ public class PPApplication extends Application
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
 
-                if (dataWrapper != null)
-                    addActivityLog(dataWrapper.context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
+                addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
 
                 /*if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {
