@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -14,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -44,6 +46,13 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
             now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
             now.set(Calendar.MILLISECOND, 0);
+
+            if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(now.getTimeInMillis());
+                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+            }
         } else {
             // each month at 13:30
             now.set(Calendar.HOUR_OF_DAY, 13);

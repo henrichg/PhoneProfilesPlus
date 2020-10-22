@@ -107,7 +107,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -230,6 +230,8 @@ public class PPApplication extends Application
 
                                                 //+"|OrientationScanner.onSensorChanged"
                                                 //+"|EventsPrefsFragment.onSharedPreferenceChanged"
+
+                                                +"|CheckGitHubReleasesBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
