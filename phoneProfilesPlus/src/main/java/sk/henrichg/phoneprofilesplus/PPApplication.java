@@ -3638,31 +3638,31 @@ public class PPApplication extends Application
                 //}
 
                 //PPApplication.initRoot();
-            }
 
-            if (dataWrapper != null) {
-                synchronized (dataWrapper.profileList) {
-                    if (!dataWrapper.profileListFilled)
-                        dataWrapper.fillProfileList(false, false);
-                    for (Profile profile : dataWrapper.profileList)
-                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
+                if (dataWrapper != null) {
+                    synchronized (dataWrapper.profileList) {
+                        if (!dataWrapper.profileListFilled)
+                            dataWrapper.fillProfileList(false, false);
+                        for (Profile profile : dataWrapper.profileList)
+                            ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, context);
+                    }
+
+                    synchronized (dataWrapper.eventList) {
+                        if (!dataWrapper.eventListFilled)
+                            dataWrapper.fillEventList();
+                        for (Event event : dataWrapper.eventList)
+                            StartEventNotificationBroadcastReceiver.removeAlarm(event, context);
+                    }
                 }
 
-                synchronized (dataWrapper.eventList) {
-                    if (!dataWrapper.eventListFilled)
-                        dataWrapper.fillEventList();
-                    for (Event event : dataWrapper.eventList)
-                        StartEventNotificationBroadcastReceiver.removeAlarm(event, context);
-                }
-            }
 
-
-            //Profile.setActivatedProfileForDuration(context, 0);
-//            PPApplication.logE("[FIFO_TEST] PPApplication._exitApp", "#### clear");
-            if (dataWrapper != null) {
-                synchronized (PPApplication.profileActivationMutex) {
-                    List<String> activateProfilesFIFO = new ArrayList<>();
-                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                //Profile.setActivatedProfileForDuration(context, 0);
+    //            PPApplication.logE("[FIFO_TEST] PPApplication._exitApp", "#### clear");
+                if (dataWrapper != null) {
+                    synchronized (PPApplication.profileActivationMutex) {
+                        List<String> activateProfilesFIFO = new ArrayList<>();
+                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    }
                 }
             }
 

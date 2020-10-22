@@ -12,7 +12,10 @@ public class ShutdownBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("[IN_BROADCAST] ShutdownBroadcastReceiver.onReceive", "xxx");
             //PPApplication.logE("PPApplication.exitApp", "from ShutdownBroadcastReceiver.onReceive shutdown=true");
         //}
+
         // !!! Do not use handler !!!
-        PPApplication.exitApp(false, context.getApplicationContext(), null, null, true/*, false, true*/);
+        Context appContext = context.getApplicationContext();
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+        PPApplication.exitApp(false, appContext, dataWrapper, null, true/*, false, true*/);
     }
 }

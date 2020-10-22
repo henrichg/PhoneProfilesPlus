@@ -1171,8 +1171,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
                     ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                    PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
-                            EditorProfilesActivity.this, false/*, true, true*/);
+                    PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),EditorProfilesActivity.this, false/*, true, true*/);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
