@@ -656,11 +656,14 @@ public class MainWorker extends Worker {
                                           String startForExternalAppAction,
                                           int startForExternalAppDataType,
                                           String startForExternalAppDataValue) {
-        PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "START");
+        PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "START");
 
         //BootUpReceiver.bootUpCompleted = true;
 
         //boolean fromDoFirstStart = getInputData().getBoolean(PhoneProfilesService.EXTRA_FROM_DO_FIRST_START, true);
+
+        //if (fromDoFirstStart) {
+        PPApplication.createNotificationChannels(appContext);
 
         // activate profile immediately after start of PPP
         // this is required for some users, for example: francescocaldelli@gmail.com
@@ -672,8 +675,6 @@ public class MainWorker extends Worker {
         PPApplication.setApplicationFullyStarted(appContext);
         //}
 
-        //if (fromDoFirstStart) {
-        PPApplication.createNotificationChannels(appContext);
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -735,6 +736,7 @@ public class MainWorker extends Worker {
         }
 
         //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=DelayedWorksWorker.doWork");
+//        PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "forceUpdateGUI");
         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
         //}
 
@@ -749,7 +751,7 @@ public class MainWorker extends Worker {
             appContext.startActivity(intent);
         }
 
-        PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "END");
+        PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "END");
     }
 
 }

@@ -14,6 +14,8 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -536,9 +538,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         PPApplication.setWidgetProfileName(context, 2, pName);*/
 
-        Intent intent = new Intent(context, OneRowWidgetProvider.class);
-        intent.setAction(ACTION_REFRESH_ONEROWWIDGET);
-        context.sendBroadcast(intent);
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
+        Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        //Intent intent = new Intent(context, OneRowWidgetProvider.class);
+        //intent.setAction(ACTION_REFRESH_ONEROWWIDGET);
+        //context.sendBroadcast(intent);
+
         /*AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
             int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));

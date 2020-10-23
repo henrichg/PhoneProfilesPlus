@@ -107,7 +107,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -189,7 +189,8 @@ public class PPApplication extends Application
                                                 //+"|DisableScreenTimeoutInternalChangeWorker"
 
                                                 //+"|****** EventsHandler.handleEvents"
-                                                //+"|-------- PPApplication.forceUpdateGUI"
+                                                //+"|PPApplication.forceUpdateGUI"
+                                                //+"|UpdateGUIWorker.doWork"
                                                 //+"|###### PPApplication.updateGUI"
                                                 //+"|$$$ EventsHandler.handleEvents"
                                                 //+"|$$$ DataWrapper.setProfileActive"
@@ -231,8 +232,8 @@ public class PPApplication extends Application
                                                 //+"|OrientationScanner.onSensorChanged"
                                                 //+"|EventsPrefsFragment.onSharedPreferenceChanged"
 
-                                                +"|CheckGitHubReleasesBroadcastReceiver"
-                                                +"|PhoneProfilesPrefsActivity"
+                                                //+"|CheckGitHubReleasesBroadcastReceiver"
+                                                //+"|OneRowWidgetProvider"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -634,6 +635,10 @@ public class PPApplication extends Application
     //static final ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
     static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
     static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
+    static final IconWidgetProvider iconWidgetBroadcastReceiver = new IconWidgetProvider();
+    static final OneRowWidgetProvider oneRowWidgetBroadcastReceiver = new OneRowWidgetProvider();
+    static final ProfileListWidgetProvider listWidgetBroadcastReceiver = new ProfileListWidgetProvider();
+    static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
 
     static TimeChangedReceiver timeChangedReceiver = null;
     static PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
@@ -1514,8 +1519,9 @@ public class PPApplication extends Application
 
     static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification/*, boolean refresh*/) {
         //PPApplication.logE("##### PPApplication.forceUpdateGUI", "xxx");
-        /*PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
-        PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);*/
+        //PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoEditor="+alsoEditor);
+        //PPApplication.logE("##### PPApplication.forceUpdateGUI", "alsoNotification="+alsoNotification);
+        //PPApplication.logE("##### PPApplication.forceUpdateGUI", "refresh="+refresh);
 
         // update gui even when app is not fully started
         //if (!PPApplication.applicationFullyStarted)
@@ -1526,6 +1532,7 @@ public class PPApplication extends Application
             //IconWidgetProvider myWidget = new IconWidgetProvider();
             //myWidget.updateWidgets(context, refresh);
             IconWidgetProvider.updateWidgets(context/*, true*/);
+//            PPApplication.logE("##### PPApplication.forceUpdateGUI", "icon widget");
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1533,6 +1540,7 @@ public class PPApplication extends Application
         // one row widget
         try {
             OneRowWidgetProvider.updateWidgets(context/*, true*/);
+//            PPApplication.logE("##### PPApplication.forceUpdateGUI", "one row widget");
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1542,6 +1550,7 @@ public class PPApplication extends Application
             //ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
             //myWidget.updateWidgets(context, refresh);
             ProfileListWidgetProvider.updateWidgets(context/*, true*/);
+//            PPApplication.logE("##### PPApplication.forceUpdateGUI", "list widget widget");
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1552,19 +1561,20 @@ public class PPApplication extends Application
                 //SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
                 //myWidget.updateWidgets(context, refresh);
                 SamsungEdgeProvider.updateWidgets(context/*, true*/);
+//                PPApplication.logE("##### PPApplication.forceUpdateGUI", "samsung edge panel");
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
         }
 
         // dash clock extension
-        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "(1)");
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "dash clock extension)");
         Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
         //intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
-        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "(2)");
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "activities");
         Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
         //intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
@@ -1592,7 +1602,7 @@ public class PPApplication extends Application
 //                        }
 //                        //}
 
-                        PPApplication.logE("[WORKER_CALL] PPApplication.forceUpdateGUI", "xxx");
+                        PPApplication.logE("[WORKER_CALL] PPApplication.forceUpdateGUI", "PPP notification");
                         workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
@@ -1624,6 +1634,8 @@ public class PPApplication extends Application
         intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         context.sendBroadcast(intent5);
         */
+
+//        PPApplication.logE("------- PPApplication.updateGUI", "delay=" + delay);
 
         OneTimeWorkRequest worker;
         if (delay == 0) {

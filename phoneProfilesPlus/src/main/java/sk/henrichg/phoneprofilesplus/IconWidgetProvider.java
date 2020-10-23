@@ -13,6 +13,8 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 public class IconWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";
@@ -497,9 +499,14 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         PPApplication.setWidgetProfileName(context.getApplicationContext(), 1, pName);*/
 
-        Intent intent = new Intent(context, IconWidgetProvider.class);
-        intent.setAction(ACTION_REFRESH_ICONWIDGET);
-        context.sendBroadcast(intent);
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.updateWidgets", "xxx");
+        Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        //Intent intent = new Intent(context, IconWidgetProvider.class);
+        //intent.setAction(ACTION_REFRESH_ICONWIDGET);
+        //context.sendBroadcast(intent);
+
         /*AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
         if (manager != null) {
             int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));

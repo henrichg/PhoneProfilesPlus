@@ -17,6 +17,8 @@ import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -767,9 +769,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         PPApplication.setWidgetProfileName(context, 3, pName);*/
 
-        Intent intent = new Intent(context, ProfileListWidgetProvider.class);
-        intent.setAction(ACTION_REFRESH_LISTWIDGET);
-        context.sendBroadcast(intent);
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] ProfileListWidgetProvider.updateWidgets", "xxx");
+        Intent intent3 = new Intent(ACTION_REFRESH_LISTWIDGET);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        //Intent intent = new Intent(context, ProfileListWidgetProvider.class);
+        //intent.setAction(ACTION_REFRESH_LISTWIDGET);
+        //context.sendBroadcast(intent);
         //_updateWidgets(context);
 
         //if (dataWrapper != null)

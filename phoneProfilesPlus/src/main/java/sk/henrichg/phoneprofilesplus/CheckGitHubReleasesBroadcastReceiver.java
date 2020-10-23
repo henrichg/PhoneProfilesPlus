@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -15,7 +14,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -23,8 +21,8 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] DonationBroadcastReceiver.onReceive", "xxx");
-        //CallsCounter.logCounter(context, "DonationBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
+        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+//        CallsCounter.logCounter(context, "CheckGitHubReleasesBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
 
         if (intent != null) {
             doWork(/*true,*/ context);
@@ -35,12 +33,12 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
     {
         removeAlarm(context);
 
-        //PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "xxx");
+        //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "xxx");
 
         Calendar now = Calendar.getInstance();
-        if (DebugVersion.enabled) {
-            //now.add(Calendar.MINUTE, 1);
-            now.set(Calendar.HOUR_OF_DAY, 13);
+        //if (DebugVersion.enabled) {
+        //    now.add(Calendar.MINUTE, 1);
+            /*now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, 30);
             //now.add(Calendar.DAY_OF_MONTH, 30);
             now.add(Calendar.DAY_OF_MONTH, 1);
@@ -51,9 +49,9 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String result = sdf.format(now.getTimeInMillis());
-                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
-            }
-        } else {
+                //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+            }*/
+        //} else {
             // each month at 13:30
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, 30);
@@ -66,16 +64,16 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String result = sdf.format(now.getTimeInMillis());
-                PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "now=" + result);
+                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
             }*/
-        }
+        //}
 
         long alarmTime = now.getTimeInMillis();
 
-        //Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
+        //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
-        //intent.setClass(context, DonationBroadcastReceiver.class);
+        //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -104,10 +102,10 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
+                //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
-                //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
+                //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
@@ -128,7 +126,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        //PPApplication.logE("[DONATION] DonationBroadcastReceiver.doWork", "xxx");
+        //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.doWork", "xxx");
 
         //if (useHandler) {
             PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
@@ -136,13 +134,13 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DonationBroadcastReceiver.doWork");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_onReceive");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_onReceive");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -212,7 +210,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
         } catch (Exception e) {
-            //Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
+            //Log.e("CheckGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

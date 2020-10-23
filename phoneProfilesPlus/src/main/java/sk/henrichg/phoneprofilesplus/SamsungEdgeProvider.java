@@ -11,6 +11,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.widget.RemoteViews;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
@@ -426,9 +428,13 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         PPApplication.setWidgetProfileName(context, 4, pName);*/
 
-        Intent intent = new Intent(context, SamsungEdgeProvider.class);
-        intent.setAction(ACTION_REFRESH_EDGEPANEL);
-        context.sendBroadcast(intent);
+        PPApplication.logE("[LOCAL_BROADCAST_CALL] SamsungEdgeProvider.updateWidgets", "xxx");
+        Intent intent3 = new Intent(ACTION_REFRESH_EDGEPANEL);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        //Intent intent = new Intent(context, SamsungEdgeProvider.class);
+        //intent.setAction(ACTION_REFRESH_EDGEPANEL);
+        //context.sendBroadcast(intent);
         //_updateWidgets(context);
 
         //if (dataWrapper != null)
