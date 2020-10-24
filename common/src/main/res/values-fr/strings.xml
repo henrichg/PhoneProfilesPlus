@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk se trouve dans</string>
     <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
     <string name="donation_google_play">Veuillez faire un don en utilisant Google Play :</string>
-    <!--    <string name="donation_paypal">Please donate using PayPal:</string>-->
+    <string name="donation_paypal">Please donate using PayPal:</string>
     <string name="about_application_package_type_google_play">Mettre à jour depuis le Play Store.</string>
     <string name="about_application_package_type_github">Installé à partir de GitHub ou d\'une autre source.</string>
     <string name="notification_channel_new_release">Nouvelle version de PhoneProfilesPlus</string>
@@ -1556,7 +1556,6 @@
     <!--<string name="array_pref_color_dark">Dark</string>-->
     <!--<string name="array_pref_color_light">Light</string>-->
     <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
-    <!-- <string name="donation_paypal">PayPal</string> -->
     <!--<string name="title_activity_image_view_preference_dialog">Change icon</string>-->
     <!--<string name="title_activity_profile_preference_dialog">Set profile</string>-->
     <!--<string name="event_preferences_undoneProfile">Undo the profile</string>-->
