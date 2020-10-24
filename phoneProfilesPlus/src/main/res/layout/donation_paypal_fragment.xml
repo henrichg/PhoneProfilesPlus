@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/donation_paypal_fragment_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp" >
+
+    <LinearLayout
+        android:id="@+id/donation_paypal_fragment_liLa1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--
+        <ProgressBar
+            android:id="@+id/donation_paypal_loading"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/empty_string"
+            android:paddingBottom="15dp"
+            android:indeterminate="true" />
+
+        <TextView
+            android:id="@+id/donation_paypal_error_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="5dp"
+            android:visibility="gone"
+            android:textColor="#FFFF0000"/>
+        -->
+        <TextView
+            android:id="@+id/donation_paypal_donation_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="@string/donation_description"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/donation_paypal_donation_description_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="@string/donation_description_2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/donation_paypal_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:text="@string/donation_paypal"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!--
+        <TextView
+            android:id="@+id/donation_paypal_fragment_textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/donation_google_android_market_description"
+            android:textAppearance="@android:style/TextAppearance.Small" />
+        -->
+
+        <GridView
+            android:id="@+id/donation_paypal_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="20dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:padding="15dip"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:drawSelectorOnTop="true"
+            android:enabled="false"/>
+
+        <!--
+        <LinearLayout
+            android:id="@+id/donation_paypal_fragment_liLa2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="15dp" >
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/donation_paypal_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_weight="1"
+                android:prompt="@string/donation_google_android_market_text"
+                android:popupElevation="0dp"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+
+            <Button
+                android:id="@+id/donation_paypal_donate_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/donation_google_android_market_donate_button"
+                android:textColor="@color/action_button_text_color"
+                android:background="?attr/selectableItemBackground"
+                android:enabled="false" />
+
+        </LinearLayout>
+        -->
+
+        <!--
+        <TextView
+            android:id="@+id/donation_paypal_fragment_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:text="@string/donation_paypal"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:id="@+id/donation_paypal_fragment_liLa3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+            <View
+                android:id="@+id/donation_paypal_fragment_view1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/donation_paypal_donate_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/action_button_text_color"
+                android:background="?attr/selectableItemBackground"
+                android:text="@string/donation_google_android_market_donate_button" />
+
+        </LinearLayout>
+        -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/donation_paypal_fragment_liLa2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:id="@+id/donation_paypal_activity_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginTop="20dp"
+            android:background="?attr/dialogDivider"/>
+
+        <Button
+            android:id="@+id/donation_paypal_activity_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:minHeight="40dp"
+            android:textColor="@color/action_button_text_color"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/donation_activity_close"
+            style="?android:attr/borderlessButtonStyle"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
+

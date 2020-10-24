@@ -427,6 +427,11 @@
             android:name=".GitHubAssetsScreenshotActivity"
             android:label="@string/github_assets_screenshot_label">
         </activity>
+        <activity
+            android:name=".DonationPayPalActivity"
+            android:label="@string/donation_activity_title">
+        </activity>
+
 
         <!-- implicit broadcast receivers, in Android O exception group -->
         <!-- https://developer.android.com/guide/components/broadcast-exceptions.html -->

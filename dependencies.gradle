@@ -27,14 +27,9 @@
 // 5900 = remove tap target helps, user can it start from Editor
 // 6200 = enable notification scanning when any non-stopped event has Notification sensor
 
-// !!!!! DOLEZITE: vsetko okolo PayPal som vygodil, lebo je mozne, ze mi Google nedovoli update.
-//       Ich bot, podla vsetkeho vyhladava retazce v kode.
-//       Musis pozriet aj stringy !!!!
-//       Po 2. novembri znova vrat. Mas to v GitHub.
-
 ext.ppVersions = [
-    publishVersion: '4.2.0.4',
-    publishVersionCode: 6310,
+    publishVersion: '4.3',
+    publishVersionCode: 6320,
 
     minSdk: 23,
     targetSdk: 28,

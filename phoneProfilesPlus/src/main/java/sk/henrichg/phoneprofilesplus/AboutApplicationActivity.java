@@ -445,10 +445,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent;
-                //if (PPApplication.googlePlayInstaller)
+                if (PPApplication.googlePlayInstaller)
                     intent = new Intent(getBaseContext(), DonationGPlayActivity.class);
-                //else
-                //    intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
+                else
+                    intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
                 startActivity(intent);
             }
         });

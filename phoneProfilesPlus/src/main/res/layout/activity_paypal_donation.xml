@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/donation_paypal_activity_container_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="false">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/donation_paypal_activity_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="sk.henrichg.phoneprofilesplus.DonationPayPalFragment"
+        android:tag="donationPayPalFragment"/>
+
+</LinearLayout>
