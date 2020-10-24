@@ -1515,7 +1515,7 @@
     <string name="directory_tree_activity_not_found_alert">Nije moguće prikazati stablo direktorija.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Za \"MIUI\" je moguće onemogućiti ovaj dijalog. Klikni ovdje, za prikaz kako.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">U Postavkama\/Aplikacije\/Uredi Aplikacije\/PhoneProfilesPlus\/Druge dozvole:\"Promijeni Wi-Fi povezivanje\" i \"Promijeni Bluetooth povezivanje\" namjestite na \"Prihvati\".</string>
-    <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
+    <string name="toast_restart_events_global_events_run_is_disabled">Restart događaja ne radi zato što je pokretanje događaja onemogućeno</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Izvoz u PhoneProfilesPlus</string>
