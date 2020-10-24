@@ -302,7 +302,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @Override
     public void onUpdate(Context context, SlookCocktailManager cocktailBarManager, int[] cocktailIds) {
         super.onUpdate(context, cocktailBarManager, cocktailIds);
-        PPApplication.logE("[IN_LISTENER] SamsungEdgeProvider.onUpdate", "xxx");
+//        PPApplication.logE("[IN_LISTENER] SamsungEdgeProvider.onUpdate", "xxx");
         if (cocktailIds.length > 0) {
             final Context _context = context;
             final SlookCocktailManager _cocktailBarManager = cocktailBarManager;
@@ -313,7 +313,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
                     //createProfilesDataWrapper(_context);
 
                     for (int cocktailId : _cocktailIds) {
@@ -331,7 +331,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
-        PPApplication.logE("[IN_BROADCAST] SamsungEdgeProvider.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] SamsungEdgeProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
@@ -346,7 +346,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
                         //if (EditorProfilesActivity.doImport)
                         //    return;
 
@@ -428,7 +428,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         PPApplication.setWidgetProfileName(context, 4, pName);*/
 
-        PPApplication.logE("[LOCAL_BROADCAST_CALL] SamsungEdgeProvider.updateWidgets", "xxx");
+//        PPApplication.logE("[LOCAL_BROADCAST_CALL] SamsungEdgeProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_EDGEPANEL);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 

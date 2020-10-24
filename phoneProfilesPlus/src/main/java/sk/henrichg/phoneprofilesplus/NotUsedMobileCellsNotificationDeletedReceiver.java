@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "NewMobileCellsNotificationDeletedReceiver_onReceive");
 
@@ -28,7 +27,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -55,7 +54,8 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
                         } catch (Exception e) {
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

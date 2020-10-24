@@ -25,7 +25,7 @@ public class DisableBlockProfileEventActionWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        PPApplication.logE("[IN_WORKER] DisableBlockProfileEventActionWorker.doWork", "xxxx");
+//        PPApplication.logE("[IN_WORKER] DisableBlockProfileEventActionWorker.doWork", "xxxx");
 
         try {
             PPApplication.blockProfileEventActions = false;
@@ -67,7 +67,7 @@ public class DisableBlockProfileEventActionWorker extends Worker {
 //                    }
 //                    //}
 
-                    PPApplication.logE("[WORKER_CALL] DisableBlockProfileEventActionWorker.enqueueWork", "xxx");
+//                    PPApplication.logE("[WORKER_CALL] DisableBlockProfileEventActionWorker.enqueueWork", "xxx");
                     workManager.enqueueUniqueWork(DisableBlockProfileEventActionWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }

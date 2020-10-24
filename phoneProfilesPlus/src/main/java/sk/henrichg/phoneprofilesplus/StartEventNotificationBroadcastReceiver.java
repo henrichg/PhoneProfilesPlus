@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -23,7 +22,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "StartEventNotificationBroadcastReceiver.onReceive", "StartEventNotificationBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -126,7 +125,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
-                            PPApplication.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "(1)");
+//                            PPApplication.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "(1)");
                             //workManager.enqueue(worker);
                             workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id);
@@ -200,7 +199,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     if (event_id != 0) {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -217,7 +216,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
                         } catch (Exception e) {
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

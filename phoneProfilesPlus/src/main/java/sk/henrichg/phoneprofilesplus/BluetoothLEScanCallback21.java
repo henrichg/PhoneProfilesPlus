@@ -6,7 +6,6 @@ import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanResult(int callbackType, ScanResult result) {
-        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onScanResult", "xxx");
+//        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onScanResult", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onScanResult", "BluetoothLEScanCallback21.onScanResult");
 
@@ -46,7 +45,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -63,7 +62,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
                     BluetoothScanWorker.addLEScanResult(deviceData);
                 } catch (Exception e) {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -76,7 +76,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onBatchScanResults(List<ScanResult> results) {
-        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onBatchScanResults", "xxx");
+//        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onBatchScanResults", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothLEScanCallback21.onBatchScanResults", "BluetoothLEScanCallback21.onBatchScanResults");
 
@@ -102,7 +102,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -129,7 +129,8 @@ class BluetoothLEScanCallback21 extends ScanCallback {
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanCallback21.onBatchScanResults");
                 } catch (Exception e) {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -142,7 +143,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanFailed(int errorCode) {
-        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onScanFailed", "xxx");
+//        PPApplication.logE("[IN_LISTENER] BluetoothLEScanCallback21.onScanFailed", "xxx");
 
         //Log.e("BluetoothLEScanCallback21.onScanFailed", "errorCode=" + errorCode);
         PPApplication.logToCrashlytics("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);

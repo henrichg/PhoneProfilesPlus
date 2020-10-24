@@ -9,7 +9,7 @@ public class PermissionsNotificationDeletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] PermissionsNotificationDeletedReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] PermissionsNotificationDeletedReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PermissionsNotificationDeletedReceiver.onReceive", "PermissionsNotificationDeletedReceiver_onReceive");
 

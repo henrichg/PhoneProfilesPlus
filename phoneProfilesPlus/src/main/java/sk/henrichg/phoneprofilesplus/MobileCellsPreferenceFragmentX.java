@@ -843,7 +843,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         @Override
         public void onReceive(final Context context, Intent intent) {
-            PPApplication.logE("[IN_BROADCAST] MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver", "xxx");
+//            PPApplication.logE("[IN_BROADCAST] MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver", "xxx");
             //if (preference != null)
             //    preference.refreshListView(false, Integer.MAX_VALUE);
             refreshListView(false, Integer.MAX_VALUE);

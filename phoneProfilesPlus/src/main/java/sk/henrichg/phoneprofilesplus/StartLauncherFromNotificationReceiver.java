@@ -11,7 +11,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] StartLauncherFromNotificationReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] StartLauncherFromNotificationReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "StartLauncherFromNotificationReceiver.onReceive", "StartLauncherFromNotificationReceiver_onReceive");
 
@@ -27,7 +27,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     final Handler _handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     Runnable r = new Runnable() {
                         public void run() {
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
 
                             // intent to LauncherActivity, for click on notification
                             Intent launcherIntent = new Intent(appContext, LauncherActivity.class);

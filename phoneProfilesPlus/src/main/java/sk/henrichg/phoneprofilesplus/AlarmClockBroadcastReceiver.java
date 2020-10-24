@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import java.util.Calendar;
 
@@ -15,7 +14,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] AlarmClockBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] AlarmClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "AlarmClockBroadcastReceiver.onReceive", "AlarmClockBroadcastReceiver_onReceive");
 
@@ -38,7 +37,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -48,14 +47,15 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[EVENTS_HANDLER_CALL] AlarmClockBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_ALARM_CLOCK");
+//                        PPApplication.logE("[EVENTS_HANDLER_CALL] AlarmClockBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_ALARM_CLOCK");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventAlarmClockParameters(_time, alarmPackageName);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);
 
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=AlarmClockBroadcastReceiver.onReceive");
                     } catch (Exception e) {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

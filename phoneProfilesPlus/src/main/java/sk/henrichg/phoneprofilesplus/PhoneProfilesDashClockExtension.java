@@ -25,7 +25,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     protected void onInitialize(boolean isReconnect) {
         super.onInitialize(isReconnect);
 
-        PPApplication.logE("[IN_LISTENER] DashClockExtension.onInitialize", "xxx");
+//        PPApplication.logE("[IN_LISTENER] DashClockExtension.onInitialize", "xxx");
 
         instance = this;
 
@@ -42,7 +42,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     {
         super.onDestroy();
 
-        PPApplication.logE("[IN_LISTENER] DashClockExtension.onDestroy", "xxx");
+//        PPApplication.logE("[IN_LISTENER] DashClockExtension.onDestroy", "xxx");
 
         instance = null;
         /*if (dataWrapper != null)
@@ -52,7 +52,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     @Override
     protected void onUpdateData(int reason) {
-        PPApplication.logE("[IN_LISTENER] DashClockExtension.onUpdateData", "xxx");
+//        PPApplication.logE("[IN_LISTENER] DashClockExtension.onUpdateData", "xxx");
 
         if (instance == null)
             return;
@@ -68,7 +68,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
                 try {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesDashClockExtension.onUpdateData", "do it");

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 public class TimeChangedReceiver extends BroadcastReceiver {
     public TimeChangedReceiver() {
@@ -13,7 +12,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null)) {
             final String action = intent.getAction();
@@ -67,7 +66,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
@@ -82,7 +81,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TimeChangedReceiver.onReceive");
 
                             } catch (Exception e) {
-                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

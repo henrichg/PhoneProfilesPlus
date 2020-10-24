@@ -19,7 +19,7 @@ class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
-        PPApplication.logE("[IN_LISTENER] OrientationScanner.onSensorChanged", "xxx");
+//        PPApplication.logE("[IN_LISTENER] OrientationScanner.onSensorChanged", "xxx");
 
         //PPApplication.logE("OrientationScanner.onSensorChanged", "current thread="+Thread.currentThread());
 
@@ -227,7 +227,7 @@ class OrientationScanner implements SensorEventListener {
             try {
                 // redraw light current value p[reference
 //                PPApplication.logE("[BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
-                PPApplication.logE("[LOCAL_BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
+//                PPApplication.logE("[LOCAL_BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
                 Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
                 LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
             } catch (Exception ignored) {}
@@ -312,7 +312,7 @@ class OrientationScanner implements SensorEventListener {
         //                        }
         //                        //}
 
-                                PPApplication.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
+//                                PPApplication.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
                                 //workManager.enqueue(worker);
                                 // MUST BE KEEP !!! REPLACE cause to not call worker, because is replaced with delat again !!!
                                 workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
@@ -346,7 +346,7 @@ class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        PPApplication.logE("[IN_LISTENER] OrientationScanner.onAccuracyChanged", "xxx");
+//        PPApplication.logE("[IN_LISTENER] OrientationScanner.onAccuracyChanged", "xxx");
     }
 
 }

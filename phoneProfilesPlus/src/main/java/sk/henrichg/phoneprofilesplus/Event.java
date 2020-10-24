@@ -1414,8 +1414,8 @@ class Event {
 
         if (!this.isRunnable(dataWrapper.context, true)) {
             // event is not runnable, no start it
-            if (_name.equals("Evening "))
-                PPApplication.logE("Event.startEvent","event is not runnable, no start it");
+//            if (_name.equals("Evening "))
+//                PPApplication.logE("Event.startEvent","event is not runnable, no start it");
             return;
         }
 
@@ -2366,7 +2366,7 @@ class Event {
 //                            }
 //                            //}
 
-                                PPApplication.logE("[WORKER_CALL] Event.setDelayStartAlarm", "xxx");
+//                                PPApplication.logE("[WORKER_CALL] Event.setDelayStartAlarm", "xxx");
                                 workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
                                 PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id);
@@ -2610,7 +2610,7 @@ class Event {
 //                            }
 //                            //}
 
-                                PPApplication.logE("[WORKER_CALL] Event.setDelayEndAlarm", "xxx");
+//                                PPApplication.logE("[WORKER_CALL] Event.setDelayEndAlarm", "xxx");
                                 workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
                                 PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id);

@@ -447,7 +447,7 @@ public class EditorProfileListFragment extends Fragment
                 progressBarRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.LoadProfileListAsyncTask");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.LoadProfileListAsyncTask");
                         //fragment.textViewNoData.setVisibility(GONE);
                         fragment.progressBar.setVisibility(View.VISIBLE);
                     }
@@ -1525,7 +1525,7 @@ public class EditorProfileListFragment extends Fragment
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.showTargetHelps");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.showTargetHelps");
                         showAdapterTargetHelps();
                     }
                 }, 500);

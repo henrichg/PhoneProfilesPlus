@@ -25,7 +25,6 @@ import android.telephony.ServiceState;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -372,7 +371,7 @@ class PhoneStateScanner extends PhoneStateListener {
     {
         super.onCellInfoChanged(cellInfo);
 
-        PPApplication.logE("[IN_LISTENER] PhoneStateScanner.onCellInfoChanged", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneStateScanner.onCellInfoChanged", "xxx");
 
         //PPApplication.logE("PhoneStateScanner.onCellInfoChanged", "telephonyManager="+telephonyManager);
         //CallsCounter.logCounter(context, "PhoneStateScanner.onCellInfoChanged", "PhoneStateScanner_onCellInfoChanged");
@@ -383,7 +382,7 @@ class PhoneStateScanner extends PhoneStateListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellInfoChanged");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellInfoChanged");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -403,7 +402,8 @@ class PhoneStateScanner extends PhoneStateListener {
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellInfoChanged");
                 } catch (Exception e) {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -420,7 +420,7 @@ class PhoneStateScanner extends PhoneStateListener {
     public void onServiceStateChanged (ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
-        PPApplication.logE("[IN_LISTENER] PhoneStateScanner.onServiceStateChanged", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneStateScanner.onServiceStateChanged", "xxx");
 
         //PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "telephonyManager=" + telephonyManager);
         //CallsCounter.logCounter(context, "PhoneStateScanner.onServiceStateChanged", "PhoneStateScanner_onServiceStateChanged");
@@ -431,7 +431,7 @@ class PhoneStateScanner extends PhoneStateListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onServiceStateChanged");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onServiceStateChanged");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -454,7 +454,8 @@ class PhoneStateScanner extends PhoneStateListener {
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onServiceStateChanged");
                 } catch (Exception e) {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -548,7 +549,7 @@ class PhoneStateScanner extends PhoneStateListener {
     public void onCellLocationChanged (final CellLocation location) {
         super.onCellLocationChanged(location);
 
-        PPApplication.logE("[IN_LISTENER] PhoneStateScanner.onCellLocationChanged", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneStateScanner.onCellLocationChanged", "xxx");
 
         //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
         //CallsCounter.logCounter(context, "PhoneStateScanner.onCellLocationChanged", "PhoneStateScanner_onCellLocationChanged");
@@ -559,7 +560,7 @@ class PhoneStateScanner extends PhoneStateListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellLocationChanged");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellLocationChanged");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -588,7 +589,8 @@ class PhoneStateScanner extends PhoneStateListener {
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellLocationChanged");
                 } catch (Exception e) {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -630,7 +632,7 @@ class PhoneStateScanner extends PhoneStateListener {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.rescanMobileCells");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.rescanMobileCells");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -653,7 +655,8 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.rescanMobileCells");
                     } catch (Exception e) {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -709,7 +712,7 @@ class PhoneStateScanner extends PhoneStateListener {
 //                        }
 //                        //}
 
-                        PPApplication.logE("[WORKER_CALL] PhoneStateScanner.handleEvents", "xxx");
+//                        PPApplication.logE("[WORKER_CALL] PhoneStateScanner.handleEvents", "xxx");
                         //workManager.enqueue(worker);
                         workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                     }
@@ -838,7 +841,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                     intent.setPackage(PPApplication.PACKAGE_NAME);
                                     context.sendBroadcast(intent);
 
-                                    PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(1)");
+//                                    PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(1)");
                                     Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
                                     refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
                                     LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
@@ -1178,7 +1181,7 @@ class PhoneStateScanner extends PhoneStateListener {
         //if (forceStart) {
         if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
             if (isValidCellId(_registeredCell)) {
-                PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(2)");
+//                PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(2)");
                 // broadcast for event preferences
                 Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView");
                 LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);

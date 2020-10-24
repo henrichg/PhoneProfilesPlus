@@ -125,7 +125,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.createProfileNotificationChannel"
                                                 //+"|AvoidRescheduleReceiverWorker"
                                                 +"|PhoneProfilesService.onCreate"
-                                                +"|PhoneProfilesService.onStartCommand"
+                                                //+"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
                                                 +"|PhoneProfilesService.doForPackageReplaced"
                                                 //+"|PhoneProfilesService.isServiceRunning"
@@ -145,7 +145,7 @@ public class PPApplication extends Application
                                                 //+"|DataWrapper.setProfileActive"
                                                 //+"|DataWrapper.activateProfileOnBoot"
                                                 +"|BootUpReceiver"
-                                                +"|PhoneProfilesBackupAgent"
+                                                //+"|PhoneProfilesBackupAgent"
                                                 +"|ShutdownBroadcastReceiver"
                                                 +"|DatabaseHandler.onUpgrade"
                                                 //+"|IgnoreBatteryOptimizationNotification"
@@ -303,7 +303,7 @@ public class PPApplication extends Application
     //static boolean applicationPackageReplaced = false;
     static boolean deviceBoot = false;
 
-    static boolean restoreFinished = true;
+    static final boolean restoreFinished = true;
 
     static Collator collator = null;
 
@@ -1105,7 +1105,7 @@ public class PPApplication extends Application
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
 
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
@@ -1284,7 +1284,7 @@ public class PPApplication extends Application
             handler.post(new Runnable() {
                              @Override
                              public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
                 //if (ApplicationPreferences.preferences == null)
                 //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -1511,7 +1511,7 @@ public class PPApplication extends Application
 
     static void runCommand(Context context, Intent intent) {
         //PPApplication.logE("PPApplication.runCommand", "xxx");
-        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.runCommand", "xxx");
+//        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.runCommand", "xxx");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
@@ -1568,13 +1568,13 @@ public class PPApplication extends Application
         }
 
         // dash clock extension
-        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "dash clock extension)");
+//        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "dash clock extension)");
         Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
         //intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
-        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "activities");
+//        PPApplication.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "activities");
         Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
         //intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
@@ -1602,7 +1602,7 @@ public class PPApplication extends Application
 //                        }
 //                        //}
 
-                        PPApplication.logE("[WORKER_CALL] PPApplication.forceUpdateGUI", "PPP notification");
+//                        PPApplication.logE("[WORKER_CALL] PPApplication.forceUpdateGUI", "PPP notification");
                         workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 }
@@ -1707,7 +1707,7 @@ public class PPApplication extends Application
 //                    }
 //                    //}
 
-                    PPApplication.logE("[WORKER_CALL] PPApplication.updateGUI", "xxx");
+//                    PPApplication.logE("[WORKER_CALL] PPApplication.updateGUI", "xxx");
                     workManager.enqueueUniqueWork(UpdateGUIWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
@@ -1732,7 +1732,7 @@ public class PPApplication extends Application
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
                 try {
                     Toast msg = ToastCompat.makeText(appContext, text, length);
                     //Toast msg = Toast.makeText(appContext, text, length);
@@ -3707,7 +3707,7 @@ public class PPApplication extends Application
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = new Runnable() {
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
                         try {
                             if (activity != null)
                                 activity.finish();
@@ -3748,7 +3748,7 @@ public class PPApplication extends Application
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
                         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -3767,7 +3767,8 @@ public class PPApplication extends Application
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
                         } catch (Exception e) {
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

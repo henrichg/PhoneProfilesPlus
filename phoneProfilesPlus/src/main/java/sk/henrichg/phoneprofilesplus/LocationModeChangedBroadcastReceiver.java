@@ -6,13 +6,12 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "LocationModeChangedBroadcastReceiver.onReceive", "LocationModeChangedBroadcastReceiver_onReceive");
 
@@ -32,7 +31,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -45,7 +44,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
 
-                            PPApplication.logE("[EVENTS_HANDLER_CALL] LocationModeChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                            PPApplication.logE("[EVENTS_HANDLER_CALL] LocationModeChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
@@ -62,12 +61,13 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.sleep(10000);
 
-                        PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
+//                        PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
 
                     } catch (Exception e) {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

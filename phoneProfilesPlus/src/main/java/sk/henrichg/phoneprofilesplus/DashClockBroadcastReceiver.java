@@ -12,7 +12,7 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] DashClockBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] DashClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "DashClockBroadcastReceiver.onReceive", "DashClockBroadcastReceiver_onReceive");
 

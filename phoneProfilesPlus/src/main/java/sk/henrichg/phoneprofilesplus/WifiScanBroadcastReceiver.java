@@ -16,7 +16,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","xxx");
+//        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","xxx");
         //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
         //CallsCounter.logCounter(context, "WifiScanBroadcastReceiver.onReceive", "WifiScanBroadcastReceiver_onReceive");
 
@@ -109,7 +109,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 //                                        }
 //                                        //}
 
-                                        PPApplication.logE("[WORKER_CALL] WifiScanBroadcastReceiver.onReceive", "xxx");
+//                                        PPApplication.logE("[WORKER_CALL] WifiScanBroadcastReceiver.onReceive", "xxx");
                                         //workManager.enqueue(worker);
                                         workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                                     }

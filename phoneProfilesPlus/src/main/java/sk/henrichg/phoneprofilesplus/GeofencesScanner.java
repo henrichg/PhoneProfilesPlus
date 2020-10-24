@@ -5,7 +5,6 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,7 +40,7 @@ class GeofencesScanner
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                PPApplication.logE("[IN_LISTENER] GeofenceScanner.LocationCallback", "xxx");
+//                PPApplication.logE("[IN_LISTENER] GeofenceScanner.LocationCallback", "xxx");
                 //PPApplication.logE("##### GeofenceScanner.LocationCallback", "xxx");
                 //PPApplication.logE("##### GeofenceScanner.LocationCallback", "locationResult="+locationResult);
                 if (locationResult == null)
@@ -84,7 +83,7 @@ class GeofencesScanner
                     //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         //PPApplication.logE("##### GeofenceScanner.LocationCallback", "handleEvents");
-                        PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
+//                        PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                         EventsHandler eventsHandler = new EventsHandler(scanner.context);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                     }
@@ -140,7 +139,7 @@ class GeofencesScanner
                     handler6.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.connect");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofenceScanner.connect");
 
                             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
@@ -162,7 +161,8 @@ class GeofencesScanner
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=GeofenceScanner.onConnected");
                             } catch (Exception e) {
-                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -433,7 +433,7 @@ class GeofencesScanner
     final LocationCallback updateTransitionsByLastKnownLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
-            PPApplication.logE("[IN_LISTENER] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
+//            PPApplication.logE("[IN_LISTENER] GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "xxx");
             //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "locationResult="+locationResult);
 
@@ -473,7 +473,7 @@ class GeofencesScanner
                 //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "handleEvents");
-                    PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
+//                    PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanner.updateTransitionsByLastKnownLocationCallback", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
                     EventsHandler eventsHandler = new EventsHandler(scanner.context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
                 }
@@ -549,7 +549,7 @@ class GeofencesScanner
                 handler.post(new Runnable() {
                      @Override
                      public void run() {
-                         PPApplication.logE("[IN_THREAD_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "START update");
+//                         PPApplication.logE("[IN_THREAD_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "START update");
 
                          if (mFusedLocationClient == null)
                              return;
@@ -606,7 +606,8 @@ class GeofencesScanner
 
                              //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "END update");
                          } catch (Exception e) {
-                             PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                             PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                             PPApplication.recordException(e);
                          } finally {
                              if ((wakeLock != null) && wakeLock.isHeld()) {
                                  try {

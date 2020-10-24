@@ -15,11 +15,11 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
 
         //deviceIsOnline = isOnline(context.getApplicationContext());
 
-        PPApplication.logE("[LOCAL_BROADCAST_CALL] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[LOCAL_BROADCAST_CALL] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
         Intent _intent = new Intent(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver");
         LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(_intent);
     }

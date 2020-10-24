@@ -23,7 +23,7 @@ public class UpdateGUIWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[IN_WORKER]  UpdateGUIWorker.doWork", "xxxx");
+//            PPApplication.logE("[IN_WORKER]  UpdateGUIWorker.doWork", "xxxx");
 
             Context appContext = context.getApplicationContext();
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
@@ -13,7 +12,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "StartEventNotificationDeletedReceiver.onReceive", "StartEventNotificationDeletedReceiver_onReceive");
 
         final Context appContext = context.getApplicationContext();
@@ -23,7 +22,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
                 if (event_id != 0) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -41,7 +40,8 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
                     } catch (Exception e) {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

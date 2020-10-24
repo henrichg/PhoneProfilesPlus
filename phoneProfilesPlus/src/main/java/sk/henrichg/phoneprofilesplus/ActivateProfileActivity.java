@@ -44,7 +44,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            PPApplication.logE("[IN_BROADCAST] ActivateProfileActivity.refreshGUIBroadcastReceiver", "xxx");
+//            PPApplication.logE("[IN_BROADCAST] ActivateProfileActivity.refreshGUIBroadcastReceiver", "xxx");
             //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
             boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
             ActivateProfileActivity.this.refreshGUI(/*refresh,*//*true,*/  refreshIcons);
@@ -55,7 +55,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            PPApplication.logE("[IN_BROADCAST] ActivateProfileActivity.showTargetHelpsBroadcastReceiver", "xxx");
+//            PPApplication.logE("[IN_BROADCAST] ActivateProfileActivity.showTargetHelpsBroadcastReceiver", "xxx");
             if (ActivateProfileActivity.this.isFinishing()) {
                 if (ActivatorTargetHelpsActivity.activity != null)
                     ActivatorTargetHelpsActivity.activity.finish();
@@ -94,7 +94,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            PPApplication.logE("[IN_BROADCAST] ActivateProfileActivity.finishBroadcastReceiver", "xxx");
+//            PPApplication.logE("[IN_BROADCAST] ActivateProfileActivity.finishBroadcastReceiver", "xxx");
             String action = intent.getAction();
             if (action != null) {
                 if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
@@ -722,7 +722,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (1)");
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (1)");
 
                                 if (ActivatorTargetHelpsActivity.activity != null) {
                                     //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
@@ -757,9 +757,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (2)");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (2)");
 
-                        PPApplication.logE("[LOCAL_BROADCAST_CALL] ActivateProfileActivity.showTargetHelps", "xxx");
+//                        PPApplication.logE("[LOCAL_BROADCAST_CALL] ActivateProfileActivity.showTargetHelps", "xxx");
                         Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
                         intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
@@ -778,7 +778,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (3)");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (3)");
 
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");

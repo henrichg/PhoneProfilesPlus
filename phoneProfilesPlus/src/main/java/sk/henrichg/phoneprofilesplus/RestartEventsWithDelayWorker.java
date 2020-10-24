@@ -25,7 +25,7 @@ public class RestartEventsWithDelayWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "xxxx");
+//            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "xxxx");
 //            PPApplication.logE("[FIFO_TEST] RestartEventsWithDelayWorker.doWork","xxx"); //"clearOld="+clearOld);
 
             if (!PPApplication.getApplicationStarted(true))

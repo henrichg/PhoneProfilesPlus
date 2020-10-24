@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -322,7 +321,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
+//        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
 
         if (activityStarted) {
             doPreferenceChanges();
@@ -377,7 +376,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     private void doPreferenceChanges() {
-        PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxx");
+//        PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "xxx");
         final Context appContext = getApplicationContext();
 
         PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
@@ -439,7 +438,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null) {
                     PPApplication.doNotShowProfileNotification = false;
                     // forServiceStart must be true because of call of clearProfileNotification()
@@ -559,7 +558,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             handler2.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -580,7 +579,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         TimeChangedReceiver.doWork(appContext, true);
 
                     } catch (Exception e) {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

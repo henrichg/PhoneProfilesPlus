@@ -137,7 +137,7 @@ class WifiScanner {
                                 @Override
                                 public void run() {
                                     try {
-                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.1");
+//                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.1");
                                         if (WifiScanWorker.wifi == null)
                                             WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                                         //lock();
@@ -228,7 +228,7 @@ class WifiScanner {
 //                                                    }
 //                                                    //}
 
-                                                    PPApplication.logE("[WORKER_CALL] WifiScanner.doScan", "xxx");
+//                                                    PPApplication.logE("[WORKER_CALL] WifiScanner.doScan", "xxx");
                                                     //workManager.enqueue(worker);
                                                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                                                 }
@@ -275,7 +275,7 @@ class WifiScanner {
                     wifiChangeHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.2");
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.2");
 
                             if (ApplicationPreferences.prefEventWifiEnabledForScan) {
                                 try {
@@ -402,7 +402,7 @@ class WifiScanner {
                             @Override
                             public void run() {
                                 //if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.enableWifi");
+//                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.enableWifi");
 
                                     //PPApplication.logE("$$$ WifiScanner.enableWifi", "before enable wifi");
                                     //PPApplication.logE("[HANDLER] WifiScanner.enableWifi", "before enable wifi");

@@ -17,7 +17,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] PhoneCallReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] PhoneCallReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "PhoneCallReceiver.onReceive", "PhoneCallReceiver_onReceive");
 

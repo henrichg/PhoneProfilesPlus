@@ -15,7 +15,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "BluetoothLEScanBroadcastReceiver.onReceive", "BluetoothLEScanBroadcastReceiver_onReceive");
 
@@ -67,7 +67,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 //                            //}
 
                             //workManager.enqueue(worker);
-                            PPApplication.logE("[WORKER_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+//                            PPApplication.logE("[WORKER_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                         }
                     }

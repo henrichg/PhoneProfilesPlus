@@ -5,7 +5,6 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 @SuppressWarnings("WeakerAccess")
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
@@ -21,28 +20,28 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLost(Network network) {
         //record wi-fi disconnect event
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
         //record wi-fi connect event
-        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
+//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         connected = true;
         doConnection();
     }
@@ -64,7 +63,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -110,7 +109,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                                 // start events handler
                                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PPWifiNetworkCallback.doConnection");
 
-                                PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback.doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
+//                                PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback.doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
@@ -123,7 +122,8 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPWifiNetworkCallback.doConnection");
                 } catch (Exception e) {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
