@@ -107,7 +107,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -128,11 +128,11 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.onStartCommand"
                                                 +"|PhoneProfilesService.doForFirstStart"
                                                 +"|PhoneProfilesService.doForPackageReplaced"
-                                                //+"|PhoneProfilesService.isServiceRunning"
+                                                +"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
-                                                //+"|PhoneProfilesService._showProfileNotification"
+                                                +"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
@@ -461,6 +461,8 @@ public class PPApplication extends Application
     static final String CHECK_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_GITHUB_RELEASES_NOTIFICATION_TAG";
     static final int END_OF_GOOGLE_PLAY_NOTIFICATION_ID = 123;
     static final String END_OF_GOOGLE_PLAY_NOTIFICATION_TAG = PACKAGE_NAME+"_END_OF_GOOGLE_PLAY_NOTIFICATION";
+    static final int CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID = 124;
+    static final String CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG";
 
     static final int PROFILE_ACTIVATION_ERROR_NOTIFICATION_ID = 130;
     static final String PROFILE_ACTIVATION_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_ERROR_NOTIFICATION";
@@ -566,6 +568,7 @@ public class PPApplication extends Application
     //static final String ACTION_UPDATE_GUI = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_UPDATE_GUI";
     static final String ACTION_DONATION = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_DONATION";
     static final String ACTION_CHECK_GITHUB_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_GITHUB_RELEASES";
+    static final String ACTION_CHECK_CRITICAL_GITHUB_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES";
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
@@ -653,6 +656,7 @@ public class PPApplication extends Application
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
     static CheckGitHubReleasesBroadcastReceiver checkGitHubReleasesBroadcastReceiver = null;
+    static CheckCriticalGitHubReleasesBroadcastReceiver checkCriticalGitHubReleasesBroadcastReceiver = null;
     //static StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = null;
     static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
 

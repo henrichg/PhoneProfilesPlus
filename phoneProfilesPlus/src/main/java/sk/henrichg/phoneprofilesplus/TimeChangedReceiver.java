@@ -130,6 +130,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
         DonationBroadcastReceiver.setAlarm(appContext);
         CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
+        CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
         TwilightScanner.doWork();
 
         SearchCalendarEventsWorker.scheduleWork(true);

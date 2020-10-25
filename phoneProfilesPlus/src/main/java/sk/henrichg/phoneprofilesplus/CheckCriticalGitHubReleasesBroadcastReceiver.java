@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -13,11 +14,18 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
 
-public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
+public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
@@ -37,8 +45,8 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
         Calendar now = Calendar.getInstance();
         //if (DebugVersion.enabled) {
         //    now.add(Calendar.MINUTE, 1);
-            /*now.set(Calendar.HOUR_OF_DAY, 13);
-            now.set(Calendar.MINUTE, 0);
+            /*now.set(Calendar.HOUR_OF_DAY, 12);
+            now.set(Calendar.MINUTE, 30);
             //now.add(Calendar.DAY_OF_MONTH, 30);
             now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
@@ -51,11 +59,10 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
             }*/
         //} else {
-            // each month at 13:00
-            now.set(Calendar.HOUR_OF_DAY, 13);
-            now.set(Calendar.MINUTE, 0);
-            now.add(Calendar.DAY_OF_MONTH, 30);
-            //now.add(Calendar.DAY_OF_MONTH, 1);
+            // each day at 12:30
+            now.set(Calendar.HOUR_OF_DAY, 12);
+            now.set(Calendar.MINUTE, 30);
+            now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
             now.set(Calendar.MILLISECOND, 0);
 
@@ -71,7 +78,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
         //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
         Intent intent = new Intent();
-        intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+        intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
         //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -103,7 +110,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
             if (alarmManager != null) {
                 //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
                 Intent intent = new Intent();
-                intent.setAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+                intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
                 //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
@@ -169,49 +176,111 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
         }*/
     }
 
-    private static void _doWork(Context appContext) {
-        // show notification for check new release
-        PPApplication.createNewReleaseNotificationChannel(appContext);
+    private static String convertStreamToString(InputStream is) {
 
-        NotificationCompat.Builder mBuilder;
-        Intent _intent;
-        _intent = new Intent(appContext, CheckGitHubReleasesActivity.class);
-
-        String nTitle = appContext.getString(R.string.menu_check_github_releases);
-        String nText = appContext.getString(R.string.check_github_releases_notification);
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = appContext.getString(R.string.ppp_app_name);
-            nText = appContext.getString(R.string.menu_check_github_releases) + ": " +
-                    appContext.getString(R.string.check_github_releases_notification);
-        }
-        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                .setAutoCancel(true); // clear notification after click
-
-        PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21) {
-        mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
-
-        Notification notification = mBuilder.build();
-        notification.vibrate = null;
-        notification.defaults &= ~DEFAULT_VIBRATE;
-
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        String line;
         try {
-            mNotificationManager.notify(
-                    PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
-                    PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
-        } catch (Exception e) {
-            //Log.e("CheckGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+            while ((line = reader.readLine()) != null) {
+                //noinspection StringConcatenationInsideStringBufferAppend
+                sb.append(line + "n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
+
+    private static void _doWork(Context appContext) {
+        String contents = "";
+
+        try {
+            URLConnection conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases").openConnection();
+            InputStream in = conn.getInputStream();
+            contents = convertStreamToString(in);
+        /*} catch (MalformedURLException e) {
+            PPApplication.recordException(e);*/
+        } catch (IOException e) {
             PPApplication.recordException(e);
+        }
+
+        String version;
+        boolean found = false;
+        if (!contents.isEmpty()) {
+            int startIndex = contents.indexOf("###ppp-release:");
+            int endIndex=contents.indexOf("***###");
+            if ((startIndex >=0) && (endIndex > startIndex)) {
+                version = contents.substring(startIndex, endIndex);
+                startIndex = version.indexOf(":");
+                version = version.substring(startIndex+1);
+                //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
+                String[] splits = version.split(":");
+                if (splits.length == 2) {
+                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
+                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
+                    int versionCode = 0;
+                    try {
+                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                        versionCode = PPApplication.getVersionCode(pInfo);
+                    } catch (Exception ignored) {}
+                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
+                    if ((versionCode > 0) && (versionCode < Integer.parseInt(splits[1])))
+                        found = true;
+                }
+            }
+        }
+
+        if (found) {
+            // show notification for check new release
+            PPApplication.createNewReleaseNotificationChannel(appContext);
+
+            NotificationCompat.Builder mBuilder;
+            Intent _intent;
+            _intent = new Intent(appContext, CheckGitHubReleasesActivity.class);
+
+            String nTitle = appContext.getString(R.string.critical_github_release);
+            String nText = appContext.getString(R.string.critical_github_release_notification);
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = appContext.getString(R.string.ppp_app_name);
+                nText = appContext.getString(R.string.critical_github_release) + ": " +
+                        appContext.getString(R.string.critical_github_release_notification);
+            }
+            mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
+                    .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                    .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                    .setContentTitle(nTitle) // title for notification
+                    .setContentText(nText)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                    .setAutoCancel(true); // clear notification after click
+
+            PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(pi);
+            mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
+            mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            //}
+
+            Notification notification = mBuilder.build();
+            notification.vibrate = null;
+            notification.defaults &= ~DEFAULT_VIBRATE;
+
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+            try {
+                mNotificationManager.notify(
+                        PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
+                        PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+            } catch (Exception e) {
+                //Log.e("CheckGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            }
         }
     }
 
