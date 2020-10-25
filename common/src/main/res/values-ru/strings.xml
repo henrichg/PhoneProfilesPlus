@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk находится в</string>
     <string name="check_github_releases_notification">Нажмите на это уведомление, чтобы проверить релизы PhoneProfilesPlus на GitHub. Возможно, уже вышла новая версия.</string>
     <string name="donation_google_play">Поддержите проект через Google Play:</string>
-    <string name="donation_paypal">Please donate using PayPal:</string>
+    <string name="donation_paypal">Поддержите проект через PayPal:</string>
     <string name="about_application_package_type_google_play">Установлено из Google Play.</string>
     <string name="about_application_package_type_github">Установлено из GitHub или другого источника.</string>
     <string name="notification_channel_new_release">Новая версия PhoneProfilesPlus</string>
@@ -1516,6 +1516,8 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">В MIUI эти диалоги можно отключить. Чтобы узнать как, нажмите сюда.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">На устройстве зайдите в \"Настройки\"\/\"Приложения\"\/\"Управление приложениями\"\/PhoneProfilesPlus\/\"Другие разрешения\" и установите \"Изменение состояния Wi-Fi\" и \"Изменение состояния Bluetooth\" на \"Разрешить\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Перезапуск событий не работает, т. к. запуск событий не разрешён</string>
+    <string name="critical_github_release">Critical app. release</string>
+    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Экспорт в PhoneProfilesPlus</string>

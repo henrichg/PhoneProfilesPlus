@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bevindt zich in</string>
     <string name="check_github_releases_notification">Klik op deze notificatie voor het controleren van PhoneProfilesPlus release op GitHub. Misschien is er een nieuwere versie beschikbaar.</string>
     <string name="donation_google_play">Doneer alsjeblieft via Google Play:</string>
-    <string name="donation_paypal">Please donate using PayPal:</string>
+    <string name="donation_paypal">Doneer alsjeblieft via PayPal:</string>
     <string name="about_application_package_type_google_play">Geïnstalleerd vanaf Google Play.</string>
     <string name="about_application_package_type_github">Geïnstalleerd vanaf GitHub of een andere bron.</string>
     <string name="notification_channel_new_release">Nieuwe PhoneProfilesPlus release</string>
@@ -1516,6 +1516,8 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Voor MIUI\" is het mogelijk om deze dialogen uit te schakelen. Klik hier om te zien hoe.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In apparaatinstellingen\/Apps\/Beheer apps\/PhoneProfilesPlus\/Overige machtigingen: \"Wifi-verbinding wijzigen\" en \"Bluetooth conenctivity\" ingestellen op \"Accepteren\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Herstart van events werkt niet omdat events uitvoeren is uitgeschakeld</string>
+    <string name="critical_github_release">Critical app. release</string>
+    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>

@@ -1516,6 +1516,8 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Pre \"MIUI\" je možné zakázať tieto dialógy. Kliknite sem, pre zobrazenie, ako.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastaveniach zariadenia\/Aplikácie\/Spravovať aplikácie\/PhoneProfilesPlus\/Ostatné povolenia: \"Zmeniť Wi-Fi pripojenie\" a \"Zmeniť pripojenie Bluetooth\" nastaviť na \"Povoliť\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Reštart udalostí nefunguje, pretože beh udalostí je vypnutý</string>
+    <string name="critical_github_release">Kritické vydanie aplikácie</string>
+    <string name="critical_github_release_notification">Kliknite na túto notifikáciu pre stiahutie kritického vydania PhoneProfilesPlus z jeho GitHub.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>

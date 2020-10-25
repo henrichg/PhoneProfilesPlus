@@ -1516,6 +1516,8 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Pour \"MIUI\", il est possible de désactiver ces boîtes de dialogue. Cliquez ici, pour savoir comment.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Dans paramètres>Applications>Gérer les applications>PhoneProfilesPlus>Autres autorisations : régler « Changer la connectivité Wi-Fi » et « Changer la connectivité Bluetooth » sur « Accepter ».</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Redémarrer les événements ne fonctionnera pas car ils sont désactivés</string>
+    <string name="critical_github_release">Critical app. release</string>
+    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exporter vers PhoneProfilesPlus</string>

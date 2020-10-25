@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk befindet sich in</string>
     <string name="check_github_releases_notification">Klicken Sie auf diese Benachrichtigung, um die Veröffentlichungen von PhoneProfilesPlus im GitHub zu überprüfen. Vielleicht wurde eine neuere Version veröffentlicht.</string>
     <string name="donation_google_play">Bitte spenden Sie über Google Play:</string>
-    <string name="donation_paypal">Please donate using PayPal:</string>
+    <string name="donation_paypal">Bitte spenden Sie mit PayPal:</string>
     <string name="about_application_package_type_google_play">Aus dem Google Play Store installiert.</string>
     <string name="about_application_package_type_github">Installiert von GitHub oder einer anderen Quelle.</string>
     <string name="notification_channel_new_release">Neue PhoneProfilesPlus-Version</string>
@@ -1516,6 +1516,8 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Für „MIUI” ist es möglich, diese Dialoge zu deaktivieren. Hier klicken, um eine Anleitung anzuzeigen.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In den Geräteeinstellungen ➜ Apps ➜ Apps verwalten ➜ PhoneProfilesPlus ➜ Weitere Berechtigungen: „WLAN-Konnektivität ändern” und „Bluetooth-Konnektivität ändern” auf „Akzeptieren” setzen.</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Neustarten von Ereignissen kann nicht genutzt werden, da das Ausführen von Ereignissen deaktiviert ist</string>
+    <string name="critical_github_release">Critical app. release</string>
+    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Nach PhoneProfilesPlus exportieren</string>

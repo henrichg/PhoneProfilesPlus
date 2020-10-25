@@ -1495,7 +1495,7 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlusExtender.apk se encuentra en</string>
     <string name="check_github_releases_notification">Haz clic en esta notificación para comprobar las versiones de PhoneProfilesPlus en GitHub. Tal vez haya una nueva versión.</string>
     <string name="donation_google_play">Por favor, dona usando Google Play:</string>
-    <string name="donation_paypal">Please donate using PayPal:</string>
+    <string name="donation_paypal">Por favor, dona usando PayPal:</string>
     <string name="about_application_package_type_google_play">Instalada desde Google Play.</string>
     <string name="about_application_package_type_github">Instalada desde GitHub u otra fuente.</string>
     <string name="notification_channel_new_release">Nueva versión de PhoneProfilesPlus</string>
@@ -1516,6 +1516,8 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Para \"MIUI\" es posible desactivar estos diálogos. Haz clic aquí, para mostrar cómo.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">En ajustes del dispositivo\/Apps\/Administrar aplicaciones\/PhoneProfilesPlus\/Otros permisos: Selecciona \"Aceptar\" para \"Cambiar conectividad Wi-Fi\" y \"Cambiar conectividad Bluetooth\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Reiniciar eventos no está funcionando porque la ejecución de eventos está desactivada</string>
+    <string name="critical_github_release">Critical app. release</string>
+    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
     <string name="phone_profiles_export_pp_data_notification">Exportar a PhoneProfilesPlus</string>
