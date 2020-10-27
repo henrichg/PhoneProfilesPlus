@@ -473,8 +473,6 @@
     <string name="permissions_for_location_geofence_editor_activity_text2">Please grant them in next dialog. Location change detection will then be performed.</string>
     <string name="event_preferences_location_new_location_name">Location</string>
     <string name="event_preferences_location_no_address_found">No address found</string>
-    <string name="event_preferences_location_google_api_connection_error_title">Google Play Services error</string>
-    <string name="event_preferences_location_google_api_connection_error_text">Connection to Google Play Services failed. Click here to resolve it.</string>
     <string name="event_preferences_location_radius">Radius:</string>
     <string name="event_preferences_location_when_outside_pref_name">Start when outside location</string>
     <string name="event_preferences_location_when_outside_description">When outside</string>
@@ -901,9 +899,6 @@
     <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
-    <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>
-    <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
-    <string name="donation_google_error">Error.</string>
     <string name="fast_access_duration_activate_without_button_2">Activate without duration</string>
     <string name="profileicon_pref_dlg_customIconButton">Custom icon</string>
     <string name="mobile_cells_registration_cell_name_hint">Click to set cell name</string>
@@ -1592,17 +1587,13 @@
     <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
     <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>
 
-    <string name="google_play_not_more_supported_title">End of Google Play support</string>
-    <string name="google_play_not_more_supported_info">Dear user, after 2. november 2020, PhoneProfilesPlus will never be deployed into Google Play.\n\nBut support continues. New versions will be deployed in PhoneProfilesPlus GitHub site, in Releases section, similar to PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus will, each month, generate notification and when you click it, it opens internet browser with GitHub Releases site and you can download new version.</string>
     <string name="menu_check_github_releases">Check app. releases</string>
     <string name="check_github_releases_actual_version">Actual version:</string>
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Download latest version of PhoneProfilesPlus.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
-    <string name="donation_google_play">Please donate using Google Play:</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
-    <string name="about_application_package_type_google_play">Installed from Google Play.</string>
     <string name="about_application_package_type_github">Installed from GitHub or another source.</string>
 
     <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>

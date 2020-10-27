@@ -468,8 +468,6 @@
     <string name="permissions_for_location_geofence_editor_activity_text2">Sta die toe in de volgende schermen. Vervolgens kan locatie wijzigingsdetectie uitgevoerd worden.</string>
     <string name="event_preferences_location_new_location_name">Locatie</string>
     <string name="event_preferences_location_no_address_found">Geen adres gevonden</string>
-    <string name="event_preferences_location_google_api_connection_error_title">Google Play Services fout</string>
-    <string name="event_preferences_location_google_api_connection_error_text">Verbinding met Google Play Services is mislukt. Klik hier om het op te lossen.</string>
     <string name="event_preferences_location_radius">Straal:</string>
     <string name="event_preferences_location_when_outside_pref_name">Starten wanneer buiten locatie</string>
     <string name="event_preferences_location_when_outside_description">Wanneer buiten</string>
@@ -896,9 +894,6 @@
     <string name="profile_preferences_applicationDisableOrientationScanning">Oriëntatie scannen uitschakelen</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Pop-up meldingen</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Download de nieuwste versie van PhoneProfilesPlusExtender.apk uit GitHub. Klik dan op de melding van de download en installeer de gedownloade apk.</string>
-    <string name="donation_thanks_dialog">Dank je voor het doneren. \nIk waardeer dit.</string>
-    <string name="donation_google_android_market_not_supported">In-App donaties zijn niet ondersteund. Is Google Play Store goed geïnstalleerd?</string>
-    <string name="donation_google_error">Fout.</string>
     <string name="fast_access_duration_activate_without_button_2">Activeer zonder tijdsduur</string>
     <string name="profileicon_pref_dlg_customIconButton">Aangepast icoon</string>
     <string name="mobile_cells_registration_cell_name_hint">Klik om celnaam in te stellen</string>
@@ -1486,17 +1481,13 @@
     <string name="profile_activation_activation_error_change_wifi">Fout tijdens het activeren van het profiel. Wijzigen van de Wi-Fi status is mislukt.</string>
     <string name="profile_activation_activation_error_close_all_applications">Fout bij het activeren van profiel. Sluiten alle applicaties mislukt.</string>
     <string name="profile_preferences_deviceWiFiAPInfo30_summary">Niet ondersteund in Android 11+</string>
-    <string name="google_play_not_more_supported_title">Einde van Google Play ondersteuning</string>
-    <string name="google_play_not_more_supported_info">Beste gebruiker, na 2. november 2020, zal PhoneProfilesPlus niet meer beschikbaar zijn in Google Play.\n\nDe ondersteuning gaat door. Nieuwe versies komen beschikbaar op de PhoneProfilesPlus GitHub site, in Releases sectie. Vergelijkbaar met PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus zal, elke maand, een notificatie genereren en wanneer je er op klikt, het opent de internet browser met de GitHub Releases website en je kunt dan de nieuwe versie downloaden.</string>
     <string name="menu_check_github_releases">Controleer de app releases</string>
     <string name="check_github_releases_actual_version">Huidige versie:</string>
     <string name="check_github_releases_go_to_github">Ga naar GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Download de nieuwste versie van PhoneProfilesPlus.apk vanaf GitHub. Klik vervolgens op de notificatie van de gedownloade apk en installeer deze.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bevindt zich in</string>
     <string name="check_github_releases_notification">Klik op deze notificatie voor het controleren van PhoneProfilesPlus release op GitHub. Misschien is er een nieuwere versie beschikbaar.</string>
-    <string name="donation_google_play">Doneer alsjeblieft via Google Play:</string>
     <string name="donation_paypal">Doneer alsjeblieft via PayPal:</string>
-    <string name="about_application_package_type_google_play">Geïnstalleerd vanaf Google Play.</string>
     <string name="about_application_package_type_github">Geïnstalleerd vanaf GitHub of een andere bron.</string>
     <string name="notification_channel_new_release">Nieuwe PhoneProfilesPlus release</string>
     <string name="notification_channel_new_release_description">Toont notificatie over nieuwe PhoneProfilesPlus release.</string>
@@ -1516,20 +1507,15 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Voor MIUI\" is het mogelijk om deze dialogen uit te schakelen. Klik hier om te zien hoe.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In apparaatinstellingen\/Apps\/Beheer apps\/PhoneProfilesPlus\/Overige machtigingen: \"Wifi-verbinding wijzigen\" en \"Bluetooth conenctivity\" ingestellen op \"Accepteren\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Herstart van events werkt niet omdat events uitvoeren is uitgeschakeld</string>
-    <string name="critical_github_release">Critical app. release</string>
-    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
-    <!-- **************************************************************************************** -->
-    <!-- for PhoneProfiles -->
-    <string name="phone_profiles_export_pp_data_notification">Exporteren naar PhoneProfilesPlus</string>
-    <string name="notification_channel_exportPPData">Exporteren naar PhoneProfilesPlus</string>
-    <string name="notification_channel_export_pp_data_description">Toont wanneer de export van PhoneProfiles gegevens naar PhoneProfilesPlus wordt uitgevoerd.</string>
-    <string name="export_pp_data_text">Exporteren naar PhoneProfilesPlus is bezig</string>
-    <string name="phone_profiles_export_pp_data_stop">Stop</string>
-    <string name="export_pp_data_permission">PhoneProfiles export gegevens</string>
-    <string name="not_more_maintained_notification_title">Niet meer onderhouden</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles worden niet meer onderhouden. Er worden alleen kritieke bugfixes gemaakt. Als u wilt, installeer PhoneProfilesPlus en in het Editor menu \"Backup/restore\"/\"Importeer data uit PhoneProfiles\".</string>
-    <string name="not_more_maintained_notification_disable_button">Niet opnieuw tonen</string>
-    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles worden niet meer onderhouden. Weet u zeker dat u deze melding in de toekomst niet meer wilt weergeven?</string>
+    <string name="critical_github_release">Belangrijke vrijgage van app</string>
+    <string name="critical_github_release_notification">Klik op deze melding om de belangrijke PhoneProfilesPlus versie te downloaden vanuit GitHub.</string>
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
+    <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
+    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
+    <string name="acra_notification_send_button">Send</string>
+    <string name="acra_notification_discard_button">Discard</string>
+    <string name="notification_channel_crash_report">Crash report</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1553,6 +1539,13 @@
     <string name="extender_accessibility_service_profile_lock_device">• Toegankelijkheid service voor profiel parameter \"Apparaat vergrendelen\":</string>
     <string name="extender_application_releases">Releases:</string>
     <string name="extender_web_browser_chooser">Bekijk weblink met</string>
+    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
+    <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
+    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
+    <string name="extender_acra_notification_send_button">Send</string>
+    <string name="extender_acra_notification_discard_button">Discard</string>
+    <string name="extender_notification_channel_crash_report">Crash report</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->
@@ -1822,4 +1815,16 @@
     <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
     <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
     <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
+    <!-- **************************************************************************************** -->
+    <!-- for PhoneProfiles -->
+    <!--    <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_exportPPData">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_export_pp_data_description">Shows when is running export of PhoneProfiles data into PhoneProfilesPlus.</string>-->
+    <!--    <string name="export_pp_data_text">Export into PhoneProfilesPlus is running</string>-->
+    <!--    <string name="phone_profiles_export_pp_data_stop">Stop</string>-->
+    <!--    <string name="export_pp_data_permission">PhoneProfiles export data</string>-->
+    <!--    <string name="not_more_maintained_notification_title">No more maintained</string>-->
+    <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
+    <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
 </resources>

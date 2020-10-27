@@ -468,8 +468,6 @@
     <string name="permissions_for_location_geofence_editor_activity_text2">Lutfen sonraki iletişim kutularında izinleri verin. Daha sonra konum değişikliği tesbiti gerçekleştirilecek.</string>
     <string name="event_preferences_location_new_location_name">Konum</string>
     <string name="event_preferences_location_no_address_found">Adres bulunamadı</string>
-    <string name="event_preferences_location_google_api_connection_error_title">Google Play Hizmetleri hatası</string>
-    <string name="event_preferences_location_google_api_connection_error_text">Google Play Hizmetleri bağlantısı başarısız oldu. Sorunu çözmek için buraya dokunun.</string>
     <string name="event_preferences_location_radius">Yarıçap:</string>
     <string name="event_preferences_location_when_outside_pref_name">Dış konumda iken başlat</string>
     <string name="event_preferences_location_when_outside_description">Dışarıda iken</string>
@@ -896,9 +894,6 @@
     <string name="profile_preferences_applicationDisableOrientationScanning">Döndürme şartı taramasını kapat</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) açılan bildirimler</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">PhoneProfilesPlusExtender.apk\'nın son sürümünü GitHub\'dan indirin. Daha sonra indirilen apk ilgili bildirime dokunup yükleyin.</string>
-    <string name="donation_thanks_dialog">Bağış için teşekkür ederiz.\nGerçekten bunu takdir ediyoruz.</string>
-    <string name="donation_google_android_market_not_supported">Uygulama-içi Bağış mümkün değil. Google Play Mağaza doğru yüklenmiş mi?</string>
-    <string name="donation_google_error">Hata.</string>
     <string name="fast_access_duration_activate_without_button_2">Süresiz faaliyete geçir</string>
     <string name="profileicon_pref_dlg_customIconButton">Özel simge</string>
     <string name="mobile_cells_registration_cell_name_hint">Hücre ismi vermek için buraya dokunun</string>
@@ -1486,17 +1481,13 @@
     <string name="profile_activation_activation_error_change_wifi">Tercihi faaliyete geçirmede hata. Wi-Fi durumunu değiştirme hatalı.</string>
     <string name="profile_activation_activation_error_close_all_applications">Tercihi faaliyete geçirmede hata. Bütün uygulamaları kapatma hatalı.</string>
     <string name="profile_preferences_deviceWiFiAPInfo30_summary">Android 11+ desteklenmiyor</string>
-    <string name="google_play_not_more_supported_title">Google Play desteğinin nihayeti</string>
-    <string name="google_play_not_more_supported_info">Değerli kullanıcı, 2 Kasım 2020\'den sonra artık PhoneProfilesPlus Google Play\'den yayınlanmayacak.\n\nFakat desteğimiz devam edecek. Yeni sürümler New versions PhoneProfilesPlus GitHub sitesinde Sürümler kısmında yayınlanacak, PhoneProfilesPlusExtender\'a benzer şekilde.\n\nPhoneProfilesPlus, her ay bildirim üretecek ve bildirime dokunduğunuzda internet tarayıcınız GitHub Sürümleri sitesi ile açılıcak ve yeni sürümü indirebileceksiniz.</string>
     <string name="menu_check_github_releases">Uygulama sürümlerini denetle</string>
     <string name="check_github_releases_actual_version">Mevcud sürüm:</string>
     <string name="check_github_releases_go_to_github">GitHub sürümlerine git</string>
     <string name="check_github_releases_install_info_1">PhoneProfilesPlus.apk\'nın son sürümünü GitHub\'dan indirin. Daha sonra indirilen apk ilgili bildirime dokunup yükleyin.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bulunduğu yer</string>
     <string name="check_github_releases_notification">PhoneProfilesPlus\'ın GitHub sürümleri kontrolü için bu bildirime dokunun. Belki yeni bir sürüm yayınlanmış olabilir.</string>
-    <string name="donation_google_play">Lütfen bize Google Play`den bağış yapın:</string>
     <string name="donation_paypal">Lütfen bize PayPal`den bağış yapın:</string>
-    <string name="about_application_package_type_google_play">Google Play Store\'dan yüklendi.</string>
     <string name="about_application_package_type_github">GitHub veya başka bir kaynaktan yüklendi.</string>
     <string name="notification_channel_new_release">Yeni PhoneProfilesPlus yayınlandı</string>
     <string name="notification_channel_new_release_description">Yeni PhoneProfilesPlus yayını hakkında bildirim gösterir.</string>
@@ -1516,20 +1507,15 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">\"MIUI\" arayüzü için bu pencereleri devre dışı bırakmak mümkündür. Nasıl yapıldığını görmek için buraya dokunun.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Cihazda Ayarlar\/Uygulamalar\/Uygulamaları yönet\/PhoneProfilesPlus\/Diğer izinler: \"Wi-Fi bağlanılabilirliği değiştir\" and \"Bluetooth bağlanılabilirliği değiştir\" tercihlerini \"Kabul et\" olarak ayarlayınız.</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Durumları tekrar başlatma çalışmıyor, çünkü durumların çalışması devre dışı</string>
-    <string name="critical_github_release">Critical app. release</string>
-    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
-    <!-- **************************************************************************************** -->
-    <!-- for PhoneProfiles -->
-    <string name="phone_profiles_export_pp_data_notification">PhoneProfilesPlus\'a veri aktar</string>
-    <string name="notification_channel_exportPPData">PhoneProfilesPlus\'a veri aktar</string>
-    <string name="notification_channel_export_pp_data_description">Verileri PhoneProfiles\'tan PhoneProfilesPlus\'a aktarma çalışırken göster.</string>
-    <string name="export_pp_data_text">PhoneProfilesPlus\'a veri aktarması çalıştırılıyor</string>
-    <string name="phone_profiles_export_pp_data_stop">Durdur</string>
-    <string name="export_pp_data_permission">Verileri dışa aktar</string>
-    <string name="not_more_maintained_notification_title">Daha fazla devam etmeyecek</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles devam etmeyecek. Yalnızca kritik hata düzeltmeleri yapılacaktır. İsterseniz, PhoneProfilesPlus\'ı yükleyin ve Düzenleyici menüsünde \"Yedekle/Geri yükle\"/\"PhoneProfiles\'dan veri aktar\" özelliğini kullanın.</string>
-    <string name="not_more_maintained_notification_disable_button">Bunu bir daha gösterme</string>
-    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles daha fazla devam etmeyecek. Bu ikazı bir daha görmek istemediğinizden emin misiniz?</string>
+    <string name="critical_github_release">Kritik uygulama sürümü</string>
+    <string name="critical_github_release_notification">PhoneProfilesPlus\'ın GitHub kritik sürümünü indirmek için bu bildirime dokunun.</string>
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
+    <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
+    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
+    <string name="acra_notification_send_button">Send</string>
+    <string name="acra_notification_discard_button">Discard</string>
+    <string name="notification_channel_crash_report">Crash report</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1553,6 +1539,13 @@
     <string name="extender_accessibility_service_profile_lock_device">• \"Cihazı kilitle\" tercih şartı için Erişebilirlik hizmeti:</string>
     <string name="extender_application_releases">Sürümler:</string>
     <string name="extender_web_browser_chooser">Şununla internet adresine bak</string>
+    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
+    <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
+    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
+    <string name="extender_acra_notification_send_button">Send</string>
+    <string name="extender_acra_notification_discard_button">Discard</string>
+    <string name="extender_notification_channel_crash_report">Crash report</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->
@@ -1822,4 +1815,16 @@
     <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
     <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
     <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
+    <!-- **************************************************************************************** -->
+    <!-- for PhoneProfiles -->
+    <!--    <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_exportPPData">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_export_pp_data_description">Shows when is running export of PhoneProfiles data into PhoneProfilesPlus.</string>-->
+    <!--    <string name="export_pp_data_text">Export into PhoneProfilesPlus is running</string>-->
+    <!--    <string name="phone_profiles_export_pp_data_stop">Stop</string>-->
+    <!--    <string name="export_pp_data_permission">PhoneProfiles export data</string>-->
+    <!--    <string name="not_more_maintained_notification_title">No more maintained</string>-->
+    <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
+    <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
 </resources>

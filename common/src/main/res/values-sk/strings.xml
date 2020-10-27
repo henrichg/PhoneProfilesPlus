@@ -468,8 +468,6 @@
     <string name="permissions_for_location_geofence_editor_activity_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom zisťovanie zmeny polohy bude fungovať.</string>
     <string name="event_preferences_location_new_location_name">Poloha</string>
     <string name="event_preferences_location_no_address_found">Nenašla sa adresa</string>
-    <string name="event_preferences_location_google_api_connection_error_title">Chyba Google Play Services</string>
-    <string name="event_preferences_location_google_api_connection_error_text">Zlyhalo pripojenie k Google Play Services. Kliknite sem pre jeho vyriešenie.</string>
     <string name="event_preferences_location_radius">Polomer:</string>
     <string name="event_preferences_location_when_outside_pref_name">Štart, keď je mimo polohy</string>
     <string name="event_preferences_location_when_outside_description">Mimo polohy</string>
@@ -896,9 +894,6 @@
     <string name="profile_preferences_applicationDisableOrientationScanning">Zakázať skenovanie orientácie</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Vyskakovacie notifikácie</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Stiahnite si najnovšiu verziu PhoneProfilesPlusExtender.apk z jeho GitHub. Kliknite na notifikáciu o stiahnutom apk a nainštalujte ho.</string>
-    <string name="donation_thanks_dialog">Ďakujem za darovanie.\nNaozaj si to vážim.</string>
-    <string name="donation_google_android_market_not_supported">Platby z aplikácií nie sú podporované. Ste si istý, že je Obchod Play správne nainštalovaný?</string>
-    <string name="donation_google_error">Chyba.</string>
     <string name="fast_access_duration_activate_without_button_2">Aktivovať bez trvania</string>
     <string name="profileicon_pref_dlg_customIconButton">Vlastná ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Kliknite pre nastavenie názvu bunky</string>
@@ -1486,17 +1481,13 @@
     <string name="profile_activation_activation_error_change_wifi">Chyba počas aktivácie profilu. Zmena stavu Wi-Fi zlyhala.</string>
     <string name="profile_activation_activation_error_close_all_applications">Chyba počas aktivácie profilu. Zatvorenie všetkých aplikácií zlyhalo.</string>
     <string name="profile_preferences_deviceWiFiAPInfo30_summary">Nie je podporované pre Android 11+</string>
-    <string name="google_play_not_more_supported_title">Koniec podpory Obchodu Play</string>
-    <string name="google_play_not_more_supported_info">Vážený používateľ, po 2. novembri 2020 nebude PhoneProfilesPlus nikdy nasadený do služby Obchod Play.\n\nAle podpora pokračuje. Nové verzie budú nasadené na webe PhoneProfilesPlus GitHub v sekcii Releases, podobne ako PhoneProfilesPlusExtender.\n\nPhoneProfilesPlus bude každý mesiac generovať notifikáciu a po kliknutí na ňu, otvorí internetový prehliadač so stránkou GitHub Releases a môžete si stiahnuť novú verziu.</string>
     <string name="menu_check_github_releases">Skontrolovať vydania apl.</string>
     <string name="check_github_releases_actual_version">Aktuálna verzia:</string>
     <string name="check_github_releases_go_to_github">Ísť do GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Stiahnite si najnovšiu verziu PhoneProfilesPlus.apk z jeho GitHub. Kliknite na notifikáciu o stiahnutom apk a nainštalujte ho.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk sa nachádza v</string>
     <string name="check_github_releases_notification">Kliknite na túto notifikáciu na skontrolovanie vydaní PhoneProfilesPlus v GitHub. Možno bola vydaná novšia verzia.</string>
-    <string name="donation_google_play">Prosím prispejte cez Obchod Play:</string>
     <string name="donation_paypal">Prosím prispejte cez PayPal:</string>
-    <string name="about_application_package_type_google_play">Nainštalované z Obchodu Play.</string>
     <string name="about_application_package_type_github">Nainštalované z GitHub alebo iného zdroja.</string>
     <string name="notification_channel_new_release">Nová verzia PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Zobrazuje notifikáciu o novej verzii PhoneProfilesPlus.</string>
@@ -1518,18 +1509,13 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Reštart udalostí nefunguje, pretože beh udalostí je vypnutý</string>
     <string name="critical_github_release">Kritické vydanie aplikácie</string>
     <string name="critical_github_release_notification">Kliknite na túto notifikáciu pre stiahutie kritického vydania PhoneProfilesPlus z jeho GitHub.</string>
-    <!-- **************************************************************************************** -->
-    <!-- for PhoneProfiles -->
-    <string name="phone_profiles_export_pp_data_notification">Export do PhoneProfilesPlus</string>
-    <string name="notification_channel_exportPPData">Export do PhoneProfilesPlus</string>
-    <string name="notification_channel_export_pp_data_description">Zobrazí sa, ak beží export dát PhoneProfiles do PhoneProfilesPlus.</string>
-    <string name="export_pp_data_text">Export do PhoneProfilesPlus beží</string>
-    <string name="phone_profiles_export_pp_data_stop">Zastaviť</string>
-    <string name="export_pp_data_permission">Export PhoneProfiles dát</string>
-    <string name="not_more_maintained_notification_title">Už sa viac neudržiava</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles sa už viac neudržiava. Iba kritické chyby budú opravované. Ak chcete, nainštalujte PhoneProfilesPlus a v menu Editora použite funkciu \"Záloha/Obnova\"/\"Import údajov z PhoneProfiles\".</string>
-    <string name="not_more_maintained_notification_disable_button">Nabudúce nezobrazovať</string>
-    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles už nie je udržiavaný. Už viac nezobrazovať túto notifikáciu?</string>
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Správa o zlyhaní</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus zlyhal. Pripojená je správa o zlyhaní.</string>
+    <string name="acra_notification_title">Je mi ľúto, PhoneProfilesPlus zlyhal</string>
+    <string name="acra_notification_text">Kliknutím na tlačítko „Odoslať“, odošlete autorovi správu o zlyhaní. Ďakujem veľmi pekne.</string>
+    <string name="acra_notification_send_button">Odoslať</string>
+    <string name="acra_notification_discard_button">Zahodiť</string>
+    <string name="notification_channel_crash_report">Správa o zlyhaní</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1553,6 +1539,13 @@
     <string name="extender_accessibility_service_profile_lock_device">• Služba Dostupnosť pre parameter profilu \"Zamknutie zariadenia\":</string>
     <string name="extender_application_releases">Vydania:</string>
     <string name="extender_web_browser_chooser">Zobraziť webový odkaz pomocou</string>
+    <string name="extender_acra_email_subject_text">PhoneProfilesPlus - Správa o zlyhaní</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlus zlyhal. Pripojená je správa o zlyhaní.</string>
+    <string name="extender_acra_notification_title">Je mi ľúto, PhoneProfilesPlus zlyhal</string>
+    <string name="extender_acra_notification_text">Kliknutím na tlačítko „Odoslať“, odošlete autorovi správu o zlyhaní. Ďakujem veľmi pekne.</string>
+    <string name="extender_acra_notification_send_button">Odoslať</string>
+    <string name="extender_acra_notification_discard_button">Zahodiť</string>
+    <string name="extender_notification_channel_crash_report">Správa o zlyhaní</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->
@@ -1822,4 +1815,16 @@
     <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
     <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
     <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
+    <!-- **************************************************************************************** -->
+    <!-- for PhoneProfiles -->
+    <!--    <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_exportPPData">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_export_pp_data_description">Shows when is running export of PhoneProfiles data into PhoneProfilesPlus.</string>-->
+    <!--    <string name="export_pp_data_text">Export into PhoneProfilesPlus is running</string>-->
+    <!--    <string name="phone_profiles_export_pp_data_stop">Stop</string>-->
+    <!--    <string name="export_pp_data_permission">PhoneProfiles export data</string>-->
+    <!--    <string name="not_more_maintained_notification_title">No more maintained</string>-->
+    <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
+    <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
 </resources>

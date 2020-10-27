@@ -468,8 +468,6 @@
     <string name="permissions_for_location_geofence_editor_activity_text2">Omogućite dozvole u sledećem dijalogu. Detekcija i promijena lokacije će biti obavljena.</string>
     <string name="event_preferences_location_new_location_name">Lokacija</string>
     <string name="event_preferences_location_no_address_found">Nije pronađena adresa</string>
-    <string name="event_preferences_location_google_api_connection_error_title">Pogreška Google Play servisa</string>
-    <string name="event_preferences_location_google_api_connection_error_text">Povezivanje sa Google Play servisom nije uspijelo. Kliknite ovde za pokušaj ispravke.</string>
     <string name="event_preferences_location_radius">Radijus:</string>
     <string name="event_preferences_location_when_outside_pref_name">Počmite kada ste izvan lokacije</string>
     <string name="event_preferences_location_when_outside_description">Kada ste izvan</string>
@@ -896,9 +894,6 @@
     <string name="profile_preferences_applicationDisableOrientationScanning">Onemogući skeniranje orijentacije</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Iskačuće obavijesti</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Preuzmite poslednju verziju PhoneProfilesPlusExtender.apk sa GitHub sajta. Zatim kliknite na obavijest o preuzetoj aplikaciji za instalaciju.</string>
-    <string name="donation_thanks_dialog">Hvala na donaciji,\n jako to cenimo.</string>
-    <string name="donation_google_android_market_not_supported">Donacije putem aplikacije nisu podržane. Da li je Google Play Store instalirana pravilno?</string>
-    <string name="donation_google_error">Pogreška.</string>
     <string name="fast_access_duration_activate_without_button_2">Aktivacija bez trajanja</string>
     <string name="profileicon_pref_dlg_customIconButton">Proizvoljna ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Klikni za izbor imena ćelije</string>
@@ -1486,17 +1481,13 @@
     <string name="profile_activation_activation_error_change_wifi">Pogreška tijekom aktivacije profila. Promjena stanja Wi-Fi nije uspjela.</string>
     <string name="profile_activation_activation_error_close_all_applications">Pogreška tijekom aktivacije profila. Zatvaranje svih aplikacija nije uspjelo.</string>
     <string name="profile_preferences_deviceWiFiAPInfo30_summary">Nije podržano u Androidu 11+</string>
-    <string name="google_play_not_more_supported_title">Nije više podržano od strane Google Play-a</string>
-    <string name="google_play_not_more_supported_info">Poštovani korisniče, nakon 2. studenog 2020. PhoneProfilesPlus više se neće distribuirati na Google Play-u.\n\nAli podrška se nastavlja. Nove verzije možete naći na web lokaciji PhoneProfilesPlus GitHub, u odjeljku Izdanja, slično kao PhoneProfilesPlusExtender. \n\nPhoneProfilesPlus će svakog mjeseca generirati obavijest i kada je kliknete, otvoriće se internet preglednik s web stranicom GitHub Izdanjima odakle možete preuzeti najnoviju verziju.</string>
     <string name="menu_check_github_releases">Provjeri postojanje novije verzije</string>
     <string name="check_github_releases_actual_version">Aktuelna verzija:</string>
     <string name="check_github_releases_go_to_github">Posjeti GitHub stranicu sa Izdanjima</string>
     <string name="check_github_releases_install_info_1">Preuzmite poslednju verziju PhoneProfilesPlusExtender.apk sa GitHub sajta. Zatim kliknite na obavijest za preuzimanje aplikacije za instalaciju.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlusExtender.apk se nalazi u</string>
     <string name="check_github_releases_notification">Klikni ovu obavijest za provjeru izdanja PhoneProfilesPlus na GitHub-u. Možda postoji novija verzija aplikacije.</string>
-    <string name="donation_google_play">Molimo donirajte putem Google Play aplikacije:</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
-    <string name="about_application_package_type_google_play">Instalirano sa Google Play-a.</string>
     <string name="about_application_package_type_github">Instalirano sa GitHUb-a ili nekog drugog izvora.</string>
     <string name="notification_channel_new_release">Nova PhoneProfilesPlus verzija</string>
     <string name="notification_channel_new_release_description">Prikazuj obavijesti o novoj PhoneProfilesPlus verziji.</string>
@@ -1518,18 +1509,13 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Restart događaja ne radi zato što je pokretanje događaja onemogućeno</string>
     <string name="critical_github_release">Critical app. release</string>
     <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
-    <!-- **************************************************************************************** -->
-    <!-- for PhoneProfiles -->
-    <string name="phone_profiles_export_pp_data_notification">Izvoz u PhoneProfilesPlus</string>
-    <string name="notification_channel_exportPPData">Izvoz u PhoneProfilesPlus</string>
-    <string name="notification_channel_export_pp_data_description">Prikaži kada se radi izvoz podataka Profila telefona u PhoneProfilesPlus.</string>
-    <string name="export_pp_data_text">Izvoz u PhoneProfilesPlus je pokrenut</string>
-    <string name="phone_profiles_export_pp_data_stop">Zaustavi</string>
-    <string name="export_pp_data_permission">Izvoz podataka Profila telefona</string>
-    <string name="not_more_maintained_notification_title">Nije više podržano</string>
-    <string name="not_more_maintained_notification_text">Profili telefona nisu više podržani. Samo kritične pogreške će biti ispravljene. Ako želite, instalirajte PhoneProfilesPlus i u meniju Editor koristite funkciju \"Backup/restore\"/\" uvoz podataka iz Profila telefona\".</string>
-    <string name="not_more_maintained_notification_disable_button">Ne prikazuj ponovno</string>
-    <string name="not_more_maintained_confirm_notification_disable">Profili telefona nisu više podržani. Dali ste sigurni da ne želite da se ova obavijest prikazuje u budućnosti?</string>
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
+    <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
+    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
+    <string name="acra_notification_send_button">Send</string>
+    <string name="acra_notification_discard_button">Discard</string>
+    <string name="notification_channel_crash_report">Crash report</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1553,6 +1539,13 @@
     <string name="extender_accessibility_service_profile_lock_device">Servis pristupačnosti za parametar profila \"Zaključaj uređaj\":</string>
     <string name="extender_application_releases">Izdanja:</string>
     <string name="extender_web_browser_chooser">Pregled korištenja web linka</string>
+    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
+    <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
+    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
+    <string name="extender_acra_notification_send_button">Send</string>
+    <string name="extender_acra_notification_discard_button">Discard</string>
+    <string name="extender_notification_channel_crash_report">Crash report</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->
@@ -1822,4 +1815,16 @@
     <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
     <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
     <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
+    <!-- **************************************************************************************** -->
+    <!-- for PhoneProfiles -->
+    <!--    <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_exportPPData">Export into PhoneProfilesPlus</string>-->
+    <!--    <string name="notification_channel_export_pp_data_description">Shows when is running export of PhoneProfiles data into PhoneProfilesPlus.</string>-->
+    <!--    <string name="export_pp_data_text">Export into PhoneProfilesPlus is running</string>-->
+    <!--    <string name="phone_profiles_export_pp_data_stop">Stop</string>-->
+    <!--    <string name="export_pp_data_permission">PhoneProfiles export data</string>-->
+    <!--    <string name="not_more_maintained_notification_title">No more maintained</string>-->
+    <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
+    <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
+    <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
 </resources>

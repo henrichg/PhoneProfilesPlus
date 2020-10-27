@@ -485,6 +485,7 @@ public class RingtonePreferenceX extends DialogPreference {
         final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
         handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.onSaveInstanceState");
+            //noinspection Convert2MethodRef
             stopPlayRingtone();
         });
 
