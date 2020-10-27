@@ -93,6 +93,18 @@
         android:name="android.hardware.sensor.light"
         android:required="false"/>
 
+    <!-- ACRA fix of MailSenderConfigurationBuilder for Android 11-->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="message/rfc822" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND_MULTIPLE" />
+            <data android:mimeType="message/rfc822" />
+        </intent>
+    </queries>
+
     <application
         android:name=".PPApplication"
         android:icon="@mipmap/ic_launcher"
@@ -139,9 +151,9 @@
             android:value="AEdPqrEAAAAIP7KUKJY6Yrqkov5SWxTVUdqPJvIT8OHO5MeQKw"/>
         -->
 
-        <meta-data
-            android:name="firebase_crashlytics_collection_enabled"
-            android:value="true" />
+<!--        <meta-data-->
+<!--            android:name="firebase_crashlytics_collection_enabled"-->
+<!--            android:value="true" />-->
 
 <!--        <provider-->
 <!--            android:name="androidx.work.impl.WorkManagerInitializer"-->

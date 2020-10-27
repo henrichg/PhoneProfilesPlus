@@ -39,13 +39,17 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.rootshell.RootShell;
 import com.stericson.rootshell.execution.Command;
 import com.stericson.rootshell.execution.Shell;
 import com.stericson.roottools.RootTools;
+
+import org.acra.ACRA;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.MailSenderConfigurationBuilder;
+import org.acra.data.StringFormat;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -72,6 +76,10 @@ import dev.doubledot.doki.views.DokiContentView;
 import me.drakeet.support.toast.ToastCompat;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
+
+//import org.acra.annotation.*;
+//import org.acra.config.ToastConfigurationBuilder;
+//import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 @SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application
@@ -790,6 +798,26 @@ public class PPApplication extends Application
 
         super.onCreate();
 
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
+                .setBuildConfigClass(BuildConfig.class)
+                .setReportFormat(StringFormat.KEY_VALUE_LIST);
+        /*builder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
+                .setResText(R.string.acra_toast_text)
+                .setEnabled(true);*/
+        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
+                .setMailTo("henrich.gron@gmail.com")
+                .setResSubject(R.string.acra_email_subject_text)
+                .setResBody(R.string.acra_email_body_text)
+                .setReportAsFile(true)
+                .setReportFileName("crash_report.txt")
+                .setEnabled(true);
+
+        ACRA.init(this, builder);
+
+        // don't schedule anything in crash reporter process
+        if (ACRA.isACRASenderServiceProcess())
+            return;
+
         PPApplication.logE("##### PPApplication.onCreate", "xxx");
 
         applicationFullyStarted = false;
@@ -832,7 +860,7 @@ public class PPApplication extends Application
         HAS_FEATURE_LOCATION = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
         HAS_FEATURE_LOCATION_GPS = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
 
-        PPApplication.logE("##### PPApplication.onCreate", "enn of get features");
+        PPApplication.logE("##### PPApplication.onCreate", "end of get features");
 
         loadGlobalApplicationData(getApplicationContext());
         loadApplicationPreferences(getApplicationContext());
@@ -4100,34 +4128,40 @@ public class PPApplication extends Application
 
     static void recordException(Throwable ex) {
         try {
-            FirebaseCrashlytics.getInstance().recordException(ex);
+            //FirebaseCrashlytics.getInstance().recordException(ex);
+            //ACRA.getErrorReporter().handleSilentException(ex);
+            ACRA.getErrorReporter().putCustomData("NON-FATAL_EXCEPTION", Log.getStackTraceString(ex));
         } catch (Exception ignored) {}
     }
 
     static void logToCrashlytics(String s) {
         try {
-            FirebaseCrashlytics.getInstance().log(s);
+            //FirebaseCrashlytics.getInstance().log(s);
+            ACRA.getErrorReporter().putCustomData("Log", s);
         } catch (Exception ignored) {}
     }
 
     @SuppressWarnings("SameParameterValue")
     static void setCustomKey(String key, int value) {
         try {
-            FirebaseCrashlytics.getInstance().setCustomKey(key, value);
+            //FirebaseCrashlytics.getInstance().setCustomKey(key, value);
+            ACRA.getErrorReporter().putCustomData(key, String.valueOf(value));
         } catch (Exception ignored) {}
     }
 
     @SuppressWarnings("SameParameterValue")
     static void setCustomKey(String key, String value) {
         try {
-            FirebaseCrashlytics.getInstance().setCustomKey(key, value);
+            //FirebaseCrashlytics.getInstance().setCustomKey(key, value);
+            ACRA.getErrorReporter().putCustomData(key, value);
         } catch (Exception ignored) {}
     }
 
     @SuppressWarnings("SameParameterValue")
     static void setCustomKey(String key, boolean value) {
         try {
-            FirebaseCrashlytics.getInstance().setCustomKey(key, value);
+            //FirebaseCrashlytics.getInstance().setCustomKey(key, value);
+            ACRA.getErrorReporter().putCustomData(key, String.valueOf(value));
         } catch (Exception ignored) {}
     }
 

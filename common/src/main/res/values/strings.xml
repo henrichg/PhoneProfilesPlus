@@ -1635,6 +1635,9 @@
     <string name="critical_github_release">Critical app. release</string>
     <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
 
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus crashed. Look at attached crash-report.txt</string>
+
     <!-- **************************************************************************************** -->
     <!-- for PhoneProfiles -->
 

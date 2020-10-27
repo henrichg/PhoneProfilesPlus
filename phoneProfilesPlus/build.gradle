@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.crashlytics'
+//apply plugin: 'com.google.firebase.crashlytics'
 apply from: '../dependencies.gradle'
 
 android {
@@ -22,10 +22,10 @@ android {
                 "sv", "te", "th", "tr", "uk", "vi", "zh-rCN", "zh-rTW"
     }
 
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_7
-//        targetCompatibility JavaVersion.VERSION_1_7
-//    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     buildTypes {
         release {
@@ -59,7 +59,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     //implementation 'com.google.firebase:firebase-analytics:17.6.0'
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    //implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    implementation "ch.acra:acra-mail:$ppVersions.acra"
+    //implementation "ch.acra:acra-toast:$ppVersions.acra"
 
     implementation "androidx.work:work-runtime:$ppVersions.workXLib"
 

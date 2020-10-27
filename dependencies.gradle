@@ -29,7 +29,7 @@
 
 ext.ppVersions = [
     publishVersion: '4.3.0.1b',
-    publishVersionCode: 6332,
+    publishVersionCode: 6334,
 
     minSdk: 23,
     targetSdk: 28,
@@ -37,5 +37,7 @@ ext.ppVersions = [
     buildTools: '30.0.1',
 
     appcompatXLib: '1.2.0',
-    workXLib: '2.4.0'
+    workXLib: '2.4.0',
+
+    acra: '5.7.0'
 ]
