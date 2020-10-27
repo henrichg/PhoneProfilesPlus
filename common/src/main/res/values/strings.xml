@@ -1644,21 +1644,6 @@
     <string name="notification_channel_crash_report">Crash report</string>
 
     <!-- **************************************************************************************** -->
-    <!-- for PhoneProfiles -->
-
-    <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>
-    <string name="notification_channel_exportPPData">Export into PhoneProfilesPlus</string>
-    <string name="notification_channel_export_pp_data_description">Shows when is running export of PhoneProfiles data into PhoneProfilesPlus.</string>
-    <string name="export_pp_data_text">Export into PhoneProfilesPlus is running</string>
-    <string name="phone_profiles_export_pp_data_stop">Stop</string>
-    <string name="export_pp_data_permission">PhoneProfiles export data</string>
-
-    <string name="not_more_maintained_notification_title">No more maintained</string>
-    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>
-    <string name="not_more_maintained_notification_disable_button">Do not show again</string>
-    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>
-
-    <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1981,6 +1966,22 @@
 <!--    <string name="event_preferences_atEndHowUndo">How to undo profile</string>-->
 <!--    <string name="array_pref_atEndDo_undoByEventsStart">By events start order</string>-->
 <!--    <string name="array_pref_atEndDo_undoByProfileActivation">By profiles activation order</string>-->
+
+<!-- **************************************************************************************** -->
+<!-- for PhoneProfiles -->
+
+<!--    <string name="phone_profiles_export_pp_data_notification">Export into PhoneProfilesPlus</string>-->
+<!--    <string name="notification_channel_exportPPData">Export into PhoneProfilesPlus</string>-->
+<!--    <string name="notification_channel_export_pp_data_description">Shows when is running export of PhoneProfiles data into PhoneProfilesPlus.</string>-->
+<!--    <string name="export_pp_data_text">Export into PhoneProfilesPlus is running</string>-->
+<!--    <string name="phone_profiles_export_pp_data_stop">Stop</string>-->
+<!--    <string name="export_pp_data_permission">PhoneProfiles export data</string>-->
+
+<!--    <string name="not_more_maintained_notification_title">No more maintained</string>-->
+<!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
+<!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
+<!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+
 
 </resources>
 
