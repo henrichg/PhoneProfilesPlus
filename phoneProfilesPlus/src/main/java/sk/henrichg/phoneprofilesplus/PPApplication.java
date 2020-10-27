@@ -49,6 +49,7 @@ import com.stericson.roottools.RootTools;
 import org.acra.ACRA;
 import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.MailSenderConfigurationBuilder;
+import org.acra.config.NotificationConfigurationBuilder;
 import org.acra.data.StringFormat;
 
 import java.io.BufferedReader;
@@ -420,6 +421,7 @@ public class PPApplication extends Application
     static final String NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
     static final String DONATION_CHANNEL = "phoneProfilesPlus_donation";
     static final String NEW_RELEASE_CHANNEL = "phoneProfilesPlus_newRelease";
+    static final String CRASH_REPORT_NOTIFICATION_CHANNEL = "phoneProfilesPlus_crash_report";
 
     static final int PROFILE_NOTIFICATION_ID = 100;
     static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
@@ -804,6 +806,15 @@ public class PPApplication extends Application
         /*builder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
                 .setResText(R.string.acra_toast_text)
                 .setEnabled(true);*/
+        builder.getPluginConfigurationBuilder(NotificationConfigurationBuilder.class)
+                .setResChannelName(R.string.notification_channel_crash_report)
+                .setResChannelImportance(NotificationManager.IMPORTANCE_DEFAULT)
+                .setResIcon(R.drawable.ic_exclamation_notify)
+                .setResTitle(R.string.acra_notification_title)
+                .setResText(R.string.acra_notification_text)
+                .setResSendButtonText(R.string.acra_notification_send_button)
+                .setResDiscardButtonText(R.string.acra_notification_discard_button)
+                .setEnabled(true);
         builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
                 .setMailTo("henrich.gron@gmail.com")
                 .setResSubject(R.string.acra_email_subject_text)
@@ -2612,6 +2623,44 @@ public class PPApplication extends Application
         }
     }
 
+    /*
+    static void createCrashReportNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            try {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
+                    if (notificationManager.getNotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } catch (Exception e) {
+                    return;
+                }
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_crash_report);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.empty_string);
+
+                NotificationChannel channel = new NotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(true);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(true);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                channel.setBypassDnd(true);
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
+    }
+    */
+
     static void createNotificationChannels(Context appContext) {
         PPApplication.createProfileNotificationChannel(appContext);
         PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
@@ -2622,6 +2671,7 @@ public class PPApplication extends Application
         PPApplication.createMobileCellsNewCellNotificationChannel(appContext);
         PPApplication.createDonationNotificationChannel(appContext);
         PPApplication.createNewReleaseNotificationChannel(appContext);
+        //PPApplication.createCrashReportNotificationChannel(appContext);
     }
 
     /*
@@ -4129,8 +4179,8 @@ public class PPApplication extends Application
     static void recordException(Throwable ex) {
         try {
             //FirebaseCrashlytics.getInstance().recordException(ex);
-            //ACRA.getErrorReporter().handleSilentException(ex);
-            ACRA.getErrorReporter().putCustomData("NON-FATAL_EXCEPTION", Log.getStackTraceString(ex));
+            ACRA.getErrorReporter().handleException(ex);
+            //ACRA.getErrorReporter().putCustomData("NON-FATAL_EXCEPTION", Log.getStackTraceString(ex));
         } catch (Exception ignored) {}
     }
 

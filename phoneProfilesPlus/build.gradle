@@ -61,7 +61,7 @@ dependencies {
     //implementation 'com.google.firebase:firebase-analytics:17.6.0'
     //implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
     implementation "ch.acra:acra-mail:$ppVersions.acra"
-    //implementation "ch.acra:acra-toast:$ppVersions.acra"
+    implementation "ch.acra:acra-notification:$ppVersions.acra"
 
     implementation "androidx.work:work-runtime:$ppVersions.workXLib"
 
