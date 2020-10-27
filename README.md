@@ -24,7 +24,6 @@ Required external libs
 - AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager
 - Google Material library
 - Google Play services library (GMS): location, maps
-- Google Billing library
 - ACRA - https://github.com/ACRA/acra
 - google-gson - https://code.google.com/p/google-gson/
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
