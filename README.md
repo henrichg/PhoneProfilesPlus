@@ -25,7 +25,7 @@ Required external libs
 - Google Material library
 - Google Play services library (GMS): location, maps
 - Google Billing library
-- Firebase Crashlytics library
+- ACRA - https://github.com/ACRA/acra
 - google-gson - https://code.google.com/p/google-gson/
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - RecyclerView-FastScroll - https://github.com/timusus/RecyclerView-FastScroll
