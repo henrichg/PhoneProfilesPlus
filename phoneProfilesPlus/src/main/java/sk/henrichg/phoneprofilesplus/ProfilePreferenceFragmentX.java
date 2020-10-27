@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -45,12 +44,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
         listView = view.findViewById(R.id.profile_pref_dlg_listview);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
-            {
-                doOnItemSelected(position);
-            }
-        });
+        listView.setOnItemClickListener((parent, item, position, id) -> doOnItemSelected(position));
 
         new AsyncTask<Void, Integer, Void>() {
 

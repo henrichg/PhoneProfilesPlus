@@ -174,44 +174,41 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
         PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
         final Handler handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-        handler2.post(new Runnable() {
-            @Override
-            public void run() {
+        handler2.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GeofencesScannerSwitchGPSBroadcastReceiver.doWork");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofencesScannerSwitchGPSBroadcastReceiver_doWork");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofencesScannerSwitchGPSBroadcastReceiver_doWork");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                        GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                        if (geofencesScanner != null) {
-                            if (GeofencesScanner.mUpdatesStarted) {
-                                if (GeofencesScanner.useGPS) {
-                                    geofencesScanner.flushLocations();
-                                    PPApplication.sleep(5000);
-                                }
-                                GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
-                                geofencesScanner.stopLocationUpdates();
-                                geofencesScanner.startLocationUpdates();
-                                geofencesScanner.updateTransitionsByLastKnownLocation();
+                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                    GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    if (geofencesScanner != null) {
+                        if (GeofencesScanner.mUpdatesStarted) {
+                            if (GeofencesScanner.useGPS) {
+                                geofencesScanner.flushLocations();
+                                PPApplication.sleep(5000);
                             }
+                            GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
+                            geofencesScanner.stopLocationUpdates();
+                            geofencesScanner.startLocationUpdates();
+                            geofencesScanner.updateTransitionsByLastKnownLocation();
                         }
                     }
+                }
 
-                } catch (Exception e) {
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
-                    }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
                 }
             }
         });

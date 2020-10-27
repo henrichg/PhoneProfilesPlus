@@ -1,12 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import java.util.ArrayList;
 
 class ImportantInfoActivityFragmentStateAdapterX extends FragmentStateAdapter {
 

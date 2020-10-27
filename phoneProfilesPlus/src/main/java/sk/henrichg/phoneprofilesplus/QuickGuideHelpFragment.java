@@ -66,7 +66,7 @@ public class QuickGuideHelpFragment extends Fragment {
         text = text + "</ol>";
         textView.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
 
-        AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
+        AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                 getString(R.string.important_info_contact),
                 "", getString(R.string.about_application_support_subject),
                 AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
@@ -111,12 +111,9 @@ public class QuickGuideHelpFragment extends Fragment {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                new Handler().postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=QuickGuideHelpFragment.onViewCreated");
-                        scrollView.scrollTo(0, viewToScroll.getTop());
-                    }
+                    scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }
         }

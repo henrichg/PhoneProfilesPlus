@@ -82,29 +82,21 @@ class NFCTagPreferenceAdapterX extends BaseAdapter
 
         holder.checkBox.setTag(position);
         holder.checkBox.setChecked(preference.isNfcTagSelected(nfcTag._name));
-        holder.checkBox.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v) {
-                CheckBox chb = (CheckBox) v;
+        holder.checkBox.setOnClickListener(v -> {
+            CheckBox chb = (CheckBox) v;
 
-                String tag = preference.nfcTagList.get((Integer)chb.getTag())._name;
+            String tag = preference.nfcTagList.get((Integer)chb.getTag())._name;
 
-                if (chb.isChecked())
-                    preference.addNfcTag(tag);
-                else
-                    preference.removeNfcTag(tag);
-            }
+            if (chb.isChecked())
+                preference.addNfcTag(tag);
+            else
+                preference.removeNfcTag(tag);
         });
 
         TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         holder.itemEditMenu.setTag(position);
         final ImageView itemEditMenu = holder.itemEditMenu;
-        holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                preference.showEditMenu(itemEditMenu);
-            }
-        });
+        holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu));
 
         return vi;
     }

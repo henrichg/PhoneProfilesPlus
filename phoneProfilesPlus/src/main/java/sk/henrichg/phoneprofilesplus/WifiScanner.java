@@ -133,24 +133,21 @@ class WifiScanner {
                         if (ApplicationPreferences.prefEventWifiEnabledForScan) {
                             // service restarted during scanning, disable wifi
                             //PPApplication.logE("$$$W WifiScanner.doScan", "disable wifi - service restarted");
-                            wifiChangeHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
+                            wifiChangeHandler.post(() -> {
+                                try {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.1");
-                                        if (WifiScanWorker.wifi == null)
-                                            WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                                        //lock();
-                                        //PPApplication.logE("#### setWifiEnabled", "from WifiScanner.doScan 1");
-                                        //if (Build.VERSION.SDK_INT >= 29)
-                                        //    CmdWifi.setWifi(false);
-                                        //else
-                                        if (WifiScanWorker.wifi != null)
-                                            WifiScanWorker.wifi.setWifiEnabled(false);
-                                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
-                                    } catch (Exception e) {
-                                        PPApplication.recordException(e);
-                                    }
+                                    if (WifiScanWorker.wifi == null)
+                                        WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                    //lock();
+                                    //PPApplication.logE("#### setWifiEnabled", "from WifiScanner.doScan 1");
+                                    //if (Build.VERSION.SDK_INT >= 29)
+                                    //    CmdWifi.setWifi(false);
+                                    //else
+                                    if (WifiScanWorker.wifi != null)
+                                        WifiScanWorker.wifi.setWifiEnabled(false);
+                                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
                                 }
                             });
                             PPApplication.sleep(1000);
@@ -272,31 +269,28 @@ class WifiScanner {
                         }
                     }
 
-                    wifiChangeHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    wifiChangeHandler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.doScan.2");
 
-                            if (ApplicationPreferences.prefEventWifiEnabledForScan) {
-                                try {
-                                    if (WifiScanWorker.wifi == null)
-                                        WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                                    //PPApplication.logE("$$$W WifiScanner.doScan", "disable wifi");
-                                    //lock();
-                                    //PPApplication.logE("#### setWifiEnabled", "from WifiScanner.doScan 2");
-                                    //if (Build.VERSION.SDK_INT >= 29)
-                                    //    CmdWifi.setWifi(false);
-                                    //else
-                                    if (WifiScanWorker.wifi != null)
-                                        WifiScanWorker.wifi.setWifiEnabled(false);
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            } //else
-                                //PPApplication.logE("$$$W WifiScanner.doScan", "keep enabled wifi");
+                        if (ApplicationPreferences.prefEventWifiEnabledForScan) {
+                            try {
+                                if (WifiScanWorker.wifi == null)
+                                    WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                                //PPApplication.logE("$$$W WifiScanner.doScan", "disable wifi");
+                                //lock();
+                                //PPApplication.logE("#### setWifiEnabled", "from WifiScanner.doScan 2");
+                                //if (Build.VERSION.SDK_INT >= 29)
+                                //    CmdWifi.setWifi(false);
+                                //else
+                                if (WifiScanWorker.wifi != null)
+                                    WifiScanWorker.wifi.setWifiEnabled(false);
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        } //else
+                            //PPApplication.logE("$$$W WifiScanner.doScan", "keep enabled wifi");
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
-                        }
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                     });
                     PPApplication.sleep(1000);
                     //unlock();
@@ -398,28 +392,25 @@ class WifiScanner {
                         WifiScanWorker.lock(context);
                         final WifiManager _wifi = wifi;
                         //PPApplication.logE("[HANDLER] WifiScanner.enableWifi", "before start handler");
-                        wifiChangeHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                //if (PPApplication.logEnabled()) {
+                        wifiChangeHandler.post(() -> {
+                            //if (PPApplication.logEnabled()) {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanner.enableWifi");
 
-                                    //PPApplication.logE("$$$ WifiScanner.enableWifi", "before enable wifi");
-                                    //PPApplication.logE("[HANDLER] WifiScanner.enableWifi", "before enable wifi");
-                                    //PPApplication.logE("#### setWifiEnabled", "from WifiScanner.enableWifi");
-                                //}
+                                //PPApplication.logE("$$$ WifiScanner.enableWifi", "before enable wifi");
+                                //PPApplication.logE("[HANDLER] WifiScanner.enableWifi", "before enable wifi");
+                                //PPApplication.logE("#### setWifiEnabled", "from WifiScanner.enableWifi");
+                            //}
 
-                                //if (Build.VERSION.SDK_INT >= 29)
-                                //    CmdWifi.setWifi(true);
-                                //else
-                                    _wifi.setWifiEnabled(true);
+                            //if (Build.VERSION.SDK_INT >= 29)
+                            //    CmdWifi.setWifi(true);
+                            //else
+                                _wifi.setWifiEnabled(true);
 
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("$$$ WifiScanner.enableWifi", "after enable wifi");
+                            /*if (PPApplication.logEnabled()) {
+                                PPApplication.logE("$$$ WifiScanner.enableWifi", "after enable wifi");
 
-                                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
-                                }*/
-                            }
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
+                            }*/
                         });
                         //PPApplication.logE("@@@ WifiScanner.enableWifi","set enabled");
                         return WifiManager.WIFI_STATE_ENABLING;

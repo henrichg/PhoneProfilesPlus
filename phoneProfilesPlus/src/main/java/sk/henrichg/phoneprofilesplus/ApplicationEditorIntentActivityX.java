@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -216,57 +215,44 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         categoryIndices = new boolean[categoryArray.length];
         AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
         TooltipCompat.setTooltipText(intentCategoryButton, getString(R.string.application_editor_intent_edit_category_button_tooltip));
-        intentCategoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(activity)
-                                .setTitle(R.string.application_editor_intent_categories_dlg_title)
-                                //.setIcon(getDialogIcon())
-                                .setMultiChoiceItems(R.array.applicationEditorIntentCategoryArray, categoryIndices,
-                                        new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                        categoryIndices[which] = isChecked;
-                                    }
-                                });
-                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        intentNameEditText.clearFocus();
-                        intentPackageName.clearFocus();
-                        intentClassName.clearFocus();
-                        intentActionEdit.clearFocus();
-                        intentData.clearFocus();
-                        intentMimeType.clearFocus();
+        intentCategoryButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder =
+                    new AlertDialog.Builder(activity)
+                            .setTitle(R.string.application_editor_intent_categories_dlg_title)
+                            //.setIcon(getDialogIcon())
+                            .setMultiChoiceItems(R.array.applicationEditorIntentCategoryArray, categoryIndices,
+                                    (dialog, which, isChecked) -> categoryIndices[which] = isChecked);
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                intentNameEditText.clearFocus();
+                intentPackageName.clearFocus();
+                intentClassName.clearFocus();
+                intentActionEdit.clearFocus();
+                intentData.clearFocus();
+                intentMimeType.clearFocus();
 
-                        String categoryValue = "";
-                        int i = 0;
-                        for (boolean selected : categoryIndices) {
-                            if (selected) {
-                                if (!categoryValue.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    categoryValue = categoryValue + "\n";
-                                //noinspection StringConcatenationInLoop
-                                categoryValue = categoryValue + categoryArray[i];
-                            }
-                            ++i;
-                        }
-                        categoryTextView.setText(categoryValue);
-                        /*intentScrollView.post(new Runnable() {
-                            public void run() {
-                                intentScrollView.scrollTo(0, categoryTextView.getBottom());
-                            }
-                        });*/
+                String categoryValue = "";
+                int i = 0;
+                for (boolean selected : categoryIndices) {
+                    if (selected) {
+                        if (!categoryValue.isEmpty())
+                            //noinspection StringConcatenationInLoop
+                            categoryValue = categoryValue + "\n";
+                        //noinspection StringConcatenationInLoop
+                        categoryValue = categoryValue + categoryArray[i];
                     }
-                });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    ++i;
+                }
+                categoryTextView.setText(categoryValue);
+                /*intentScrollView.post(new Runnable() {
+                    public void run() {
+                        intentScrollView.scrollTo(0, categoryTextView.getBottom());
                     }
-                });
+                });*/
+            });
+            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            });
 
-                AlertDialog dialog = builder.create();
+            AlertDialog dialog = builder.create();
 
 //                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                    @Override
@@ -278,10 +264,9 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 //                    }
 //                });
 
-                //AlertDialog mDialog = builder.create();
-                if (!isFinishing())
-                    dialog.show();
-            }
+            //AlertDialog mDialog = builder.create();
+            if (!isFinishing())
+                dialog.show();
         });
 
         flagsTextView = findViewById(R.id.application_editor_intent_flags_value);
@@ -289,56 +274,43 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         flagIndices = new boolean[flagArray.length];
         AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
         TooltipCompat.setTooltipText(intentFlagsButton, getString(R.string.application_editor_intent_edit_flags_button_tooltip));
-        intentFlagsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(activity)
-                                .setTitle(R.string.application_editor_intent_flags_dlg_title)
-                                //.setIcon(getDialogIcon())
-                                .setMultiChoiceItems(R.array.applicationEditorIntentFlagArray, flagIndices, new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                        flagIndices[which] = isChecked;
-                                    }
-                                });
-                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        intentNameEditText.clearFocus();
-                        intentPackageName.clearFocus();
-                        intentClassName.clearFocus();
-                        intentActionEdit.clearFocus();
-                        intentData.clearFocus();
-                        intentMimeType.clearFocus();
+        intentFlagsButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder =
+                    new AlertDialog.Builder(activity)
+                            .setTitle(R.string.application_editor_intent_flags_dlg_title)
+                            //.setIcon(getDialogIcon())
+                            .setMultiChoiceItems(R.array.applicationEditorIntentFlagArray, flagIndices, (dialog, which, isChecked) -> flagIndices[which] = isChecked);
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                intentNameEditText.clearFocus();
+                intentPackageName.clearFocus();
+                intentClassName.clearFocus();
+                intentActionEdit.clearFocus();
+                intentData.clearFocus();
+                intentMimeType.clearFocus();
 
-                        String flagsValue = "";
-                        int i = 0;
-                        for (boolean selected : flagIndices) {
-                            if (selected) {
-                                if (!flagsValue.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    flagsValue = flagsValue + "\n";
-                                //noinspection StringConcatenationInLoop
-                                flagsValue = flagsValue + flagArray[i];
-                            }
-                            ++i;
-                        }
-                        flagsTextView.setText(flagsValue);
-                        /*intentScrollView.post(new Runnable() {
-                            public void run() {
-                                intentScrollView.scrollTo(0, flagsTextView.getBottom());
-                            }
-                        });*/
+                String flagsValue = "";
+                int i = 0;
+                for (boolean selected : flagIndices) {
+                    if (selected) {
+                        if (!flagsValue.isEmpty())
+                            //noinspection StringConcatenationInLoop
+                            flagsValue = flagsValue + "\n";
+                        //noinspection StringConcatenationInLoop
+                        flagsValue = flagsValue + flagArray[i];
                     }
-                });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    ++i;
+                }
+                flagsTextView.setText(flagsValue);
+                /*intentScrollView.post(new Runnable() {
+                    public void run() {
+                        intentScrollView.scrollTo(0, flagsTextView.getBottom());
                     }
-                });
+                });*/
+            });
+            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            });
 
-                AlertDialog mDialog = builder.create();
+            AlertDialog mDialog = builder.create();
 
 //                mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                    @Override
@@ -350,9 +322,8 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 //                    }
 //                });
 
-                if (!isFinishing())
-                    mDialog.show();
-            }
+            if (!isFinishing())
+                mDialog.show();
         });
 
         intentExtraKeyName1 = findViewById(R.id.application_editor_intent_extra_key_1);
@@ -552,43 +523,35 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         }
 
         enableOKButton();
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveIntent();
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT, ppIntent);
-                returnIntent.putExtra(ApplicationEditorDialogX.EXTRA_APPLICATION, application);
-                returnIntent.putExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-            }
+        okButton.setOnClickListener(v -> {
+            saveIntent();
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT, ppIntent);
+            returnIntent.putExtra(ApplicationEditorDialogX.EXTRA_APPLICATION, application);
+            returnIntent.putExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
         });
 
         Button cancelButton = findViewById(R.id.application_editor_intent_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent returnIntent = new Intent();
-                setResult(Activity.RESULT_CANCELED, returnIntent);
-                finish();
-            }
+        cancelButton.setOnClickListener(v -> {
+            Intent returnIntent = new Intent();
+            setResult(Activity.RESULT_CANCELED, returnIntent);
+            finish();
         });
 
         Button testButton = findViewById(R.id.application_editor_intent_test);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent="+ppIntent);
-                if (ppIntent == null) {
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(activity)
-                                    .setTitle(R.string.application_editor_intent_test_title)
-                                    //.setIcon(getDialogIcon())
-                                    .setMessage(R.string.application_editor_intent_test_activity_bad_data);
-                    builder.setPositiveButton(android.R.string.ok, null);
+        testButton.setOnClickListener(v -> {
+            //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent="+ppIntent);
+            if (ppIntent == null) {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(activity)
+                                .setTitle(R.string.application_editor_intent_test_title)
+                                //.setIcon(getDialogIcon())
+                                .setMessage(R.string.application_editor_intent_test_activity_bad_data);
+                builder.setPositiveButton(android.R.string.ok, null);
 
-                    AlertDialog mDialog = builder.create();
+                AlertDialog mDialog = builder.create();
 
 //                    mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                        @Override
@@ -600,55 +563,55 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 //                        }
 //                    });
 
-                    if (!isFinishing())
-                        mDialog.show();
-                }
-                else {
-                    saveIntent();
-                    Intent testIntent = createIntent(ppIntent);
-                    //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "testIntent="+testIntent);
-                    boolean ok = false;
-                    if (testIntent != null) {
-                        //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent._intentType="+ppIntent._intentType);
-                        if (ppIntent._intentType == 0) {
-                            try {
-                                testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(testIntent);
-                                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "activity started");
-                                ok = true;
-                            } catch (Exception e) {
-                                //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
-                            }
-                        } else {
-                            try {
-                                sendBroadcast(testIntent);
-                                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "broadcast sent");
-                                ok = true;
-                            } catch (Exception e) {
-                                //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
-                            }
+                if (!isFinishing())
+                    mDialog.show();
+            }
+            else {
+                saveIntent();
+                Intent testIntent = createIntent(ppIntent);
+                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "testIntent="+testIntent);
+                boolean ok = false;
+                if (testIntent != null) {
+                    //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ppIntent._intentType="+ppIntent._intentType);
+                    if (ppIntent._intentType == 0) {
+                        try {
+                            testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(testIntent);
+                            //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "activity started");
+                            ok = true;
+                        } catch (Exception e) {
+                            //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
+                            //PPApplication.recordException(e);
+                        }
+                    } else {
+                        try {
+                            sendBroadcast(testIntent);
+                            //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "broadcast sent");
+                            ok = true;
+                        } catch (Exception e) {
+                            //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
                         }
                     }
-                    //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ok="+ok);
-                    if (!ok) {
-                        AlertDialog.Builder builder;
-                        if (ppIntent._intentType == 0) {
-                            builder =
-                                    new AlertDialog.Builder(activity)
-                                            .setTitle(R.string.application_editor_intent_test_title)
-                                            //.setIcon(getDialogIcon())
-                                            .setMessage(R.string.application_editor_intent_test_activity_bad_data);
-                        } else {
-                            builder =
-                                    new AlertDialog.Builder(activity)
-                                            .setTitle(R.string.application_editor_intent_test_title)
-                                            //.setIcon(getDialogIcon())
-                                            .setMessage(R.string.application_editor_intent_test_broadcast_bad_data);
-                        }
-                        builder.setPositiveButton(android.R.string.ok, null);
+                }
+                //PPApplication.logE("ApplicationEditorIntentActivityX.onCreate.testButtonClick", "ok="+ok);
+                if (!ok) {
+                    AlertDialog.Builder builder;
+                    if (ppIntent._intentType == 0) {
+                        builder =
+                                new AlertDialog.Builder(activity)
+                                        .setTitle(R.string.application_editor_intent_test_title)
+                                        //.setIcon(getDialogIcon())
+                                        .setMessage(R.string.application_editor_intent_test_activity_bad_data);
+                    } else {
+                        builder =
+                                new AlertDialog.Builder(activity)
+                                        .setTitle(R.string.application_editor_intent_test_title)
+                                        //.setIcon(getDialogIcon())
+                                        .setMessage(R.string.application_editor_intent_test_broadcast_bad_data);
+                    }
+                    builder.setPositiveButton(android.R.string.ok, null);
 
-                        AlertDialog mDialog = builder.create();
+                    AlertDialog mDialog = builder.create();
 
 //                        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                            @Override
@@ -660,9 +623,8 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 //                            }
 //                        });
 
-                        if (!isFinishing())
-                            mDialog.show();
-                    }
+                    if (!isFinishing())
+                        mDialog.show();
                 }
             }
         });

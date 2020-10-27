@@ -6,10 +6,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Collections;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Collections;
 
 class ApplicationsDialogPreferenceAdapterX extends RecyclerView.Adapter<ApplicationsDialogPreferenceViewHolderX>
                                             implements ItemTouchHelperAdapter
@@ -41,24 +41,21 @@ class ApplicationsDialogPreferenceAdapterX extends RecyclerView.Adapter<Applicat
         Application application = preference.applicationsList.get(position);
         holder.bindApplication(application);
 
-        holder.dragHandle.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mDragStartListener.onStartDrag(holder);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        v.performClick();
-                        break;
-                    default:
-                        break;
-                }
-                /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+        holder.dragHandle.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
                     mDragStartListener.onStartDrag(holder);
-                }*/
-                return false;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    v.performClick();
+                    break;
+                default:
+                    break;
             }
+            /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                mDragStartListener.onStartDrag(holder);
+            }*/
+            return false;
         });
     }
 

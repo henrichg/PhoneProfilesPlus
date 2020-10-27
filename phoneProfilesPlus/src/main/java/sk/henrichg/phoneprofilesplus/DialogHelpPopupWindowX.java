@@ -27,16 +27,13 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
         TextView textView = popupView.findViewById(R.id.dialog_help_popup_window_text);
         textView.setText(helpString);
 
-        setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                if (dialog.getWindow() != null) {
-                    ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
-                    clearDim(root);
-                }
-                ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+        setOnDismissListener(() -> {
+            if (dialog.getWindow() != null) {
+                ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
                 clearDim(root);
             }
+            ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+            clearDim(root);
         });
     }
 

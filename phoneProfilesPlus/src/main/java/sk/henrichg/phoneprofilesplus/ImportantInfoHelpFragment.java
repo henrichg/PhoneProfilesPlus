@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
@@ -155,26 +154,24 @@ public class ImportantInfoHelpFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= 28) {
                 //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 //infoText21.setVisibility(View.GONE);
-                infoText22.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                            try {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+                infoText22.setOnClickListener(v -> {
+                    boolean ok = false;
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -186,9 +183,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                }
 //                            });
 
-                            if (!activity.isFinishing())
-                                dialog.show();
-                        }
+                        if (!activity.isFinishing())
+                            dialog.show();
                     }
                 });
             }
@@ -377,26 +373,24 @@ public class ImportantInfoHelpFragment extends Fragment {
             //infoText19.setVisibility(View.GONE);
             //if (Build.VERSION.SDK_INT >= 23) {
                 TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
-                infoText20.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                            try {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+                infoText20.setOnClickListener(v -> {
+                    boolean ok = false;
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -408,21 +402,57 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                }
 //                            });
 
-                            if (!activity.isFinishing())
-                                dialog.show();
-                        }
+                        if (!activity.isFinishing())
+                            dialog.show();
                     }
                 });
                 //TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
                 //infoText21.setVisibility(View.GONE);
                 infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
-                infoText22.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                infoText22.setOnClickListener(v -> {
+                    boolean ok = false;
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+
+//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                        if (!activity.isFinishing())
+                            dialog.show();
+                    }
+                });
+
+                TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
+                infoText10a.setOnClickListener(v -> {
+                    //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    //String packageName = context.PPApplication.PACKAGE_NAME;
+                    //if (pm.isIgnoringBatteryOptimizations(packageName)) {
                         boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
                             try {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivity(intent);
                                 ok = true;
@@ -437,48 +467,38 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
 
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                    @Override
+//                                    public void onShow(DialogInterface dialog) {
+//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                        if (positive != null) positive.setAllCaps(false);
+//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                        if (negative != null) negative.setAllCaps(false);
+//                                    }
+//                                });
 
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
-                    }
-                });
-
-                TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
-                infoText10a.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                        //String packageName = context.PPApplication.PACKAGE_NAME;
-                        //if (pm.isIgnoringBatteryOptimizations(packageName)) {
-                            boolean ok = false;
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
-                                try {
-                                    @SuppressLint("InlinedApi")
-                                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    startActivity(intent);
-                                    ok = true;
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
+                    /*} else {
+                        boolean ok = false;
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, context)) {
+                            try {
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                                intent.setData(Uri.parse("package:" + packageName));
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivity(intent);
+                                ok = true;
+                            } catch (Exception ignored) {
                             }
-                            if (!ok) {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
-
+                        }
+                        if (!ok) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
 //                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                    @Override
 //                                    public void onShow(DialogInterface dialog) {
@@ -488,43 +508,10 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                        if (negative != null) negative.setAllCaps(false);
 //                                    }
 //                                });
-
-                                if (!activity.isFinishing())
-                                    dialog.show();
-                            }
-                        /*} else {
-                            boolean ok = false;
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, context)) {
-                                try {
-                                    @SuppressLint("InlinedApi")
-                                    Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                                    intent.setData(Uri.parse("package:" + packageName));
-                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    startActivity(intent);
-                                    ok = true;
-                                } catch (Exception ignored) {
-                                }
-                            }
-                            if (!ok) {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
-                                if (!activity.isFinishing())
-                                    dialog.show();
-                            }
-                        }*/
-                    }
+                            if (!activity.isFinishing())
+                                dialog.show();
+                        }
+                    }*/
                 });
             //}
         //}
@@ -593,25 +580,23 @@ public class ImportantInfoHelpFragment extends Fragment {
                 TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 //if (android.os.Build.VERSION.SDK_INT >= 23)
                 //    infoText14.setText(R.string.important_info_profile_zenModeM);
-                infoText14.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, context)) {
-                            try {
-                                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+                infoText14.setOnClickListener(v -> {
+                    boolean ok = false;
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, context)) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -623,9 +608,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                }
 //                            });
 
-                            if (!activity.isFinishing())
-                                dialog.show();
-                        }
+                        if (!activity.isFinishing())
+                            dialog.show();
                     }
                 });
             }
@@ -722,36 +706,25 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText670.setText(getString(R.string.important_info_do_not_kill_my_app1) + " " +
                 getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
                 getString(R.string.important_info_do_not_kill_my_app2));
-        infoText670.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PPApplication.showDoNotKillMyAppDialog(ImportantInfoHelpFragment.this);
-            }
-        });
+        infoText670.setOnClickListener(v -> PPApplication.showDoNotKillMyAppDialog(ImportantInfoHelpFragment.this));
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
-        infoText40.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
-                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                startActivity(intent);
-            }
+        infoText40.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+            //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+            startActivity(intent);
         });
 
 
         infoText10a = view.findViewById(R.id.activity_info_notification_application_settings);
-        infoText10a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
-                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                startActivity(intent);
-            }
+        infoText10a.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+            //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+            startActivity(intent);
         });
 
         TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation2);
@@ -919,7 +892,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextGrant1Command.setText(spannable);
 
-        AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
+        AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                 getString(R.string.important_info_contact),
                 "", getString(R.string.about_application_support_subject),
                 AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
@@ -966,14 +939,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
             infoText1.setVisibility(View.VISIBLE);
-            infoText1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
-                }
-            });
+            infoText1.setOnClickListener(v -> installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3)));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
@@ -991,12 +959,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                new Handler().postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated");
-                        scrollView.scrollTo(0, viewToScroll.getTop());
-                    }
+                    scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }
         }
@@ -1012,17 +977,14 @@ public class ImportantInfoHelpFragment extends Fragment {
         dialogBuilder.setMessage(dialogText);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_install, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
+        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+            String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1038,7 +1000,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 //            }
 //        });
 
-        if (!getActivity().isFinishing())
+        if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
     }
 

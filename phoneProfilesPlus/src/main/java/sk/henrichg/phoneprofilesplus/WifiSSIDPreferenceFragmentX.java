@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -13,7 +12,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -77,22 +75,19 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
         addIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
         TooltipCompat.setTooltipText(addIcon, getString(R.string.wifi_ssid_pref_dlg_add_button_tooltip));
-        addIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String ssid = SSIDName.getText().toString();
-                preference.addSSID(ssid);
-                boolean found = false;
-                for (WifiSSIDData customSSIDData : preference.customSSIDList) {
-                    if (customSSIDData.ssid.equals(ssid)) {
-                        found = true;
-                        break;
-                    }
+        addIcon.setOnClickListener(v -> {
+            String ssid = SSIDName.getText().toString();
+            preference.addSSID(ssid);
+            boolean found = false;
+            for (WifiSSIDData customSSIDData : preference.customSSIDList) {
+                if (customSSIDData.ssid.equals(ssid)) {
+                    found = true;
+                    break;
                 }
-                if (!found)
-                    preference.customSSIDList.add(new WifiSSIDData(ssid, /*"",*/ true, false, false));
-                refreshListView(false, ssid);
             }
+            if (!found)
+                preference.customSSIDList.add(new WifiSSIDData(ssid, /*"",*/ true, false, false));
+            refreshListView(false, ssid);
         });
 
         SSIDName = view.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
@@ -119,85 +114,70 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         listAdapter = new WifiSSIDPreferenceAdapterX(prefContext, preference);
         SSIDListView.setAdapter(listAdapter);
 
-        SSIDListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                String ssid = preference.SSIDList.get(position).ssid;
-                if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
-                        ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))) {
-                    SSIDName.setText(ssid);
-                }
+        SSIDListView.setOnItemClickListener((parent, v, position, id) -> {
+            String ssid = preference.SSIDList.get(position).ssid;
+            if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
+                    ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))) {
+                SSIDName.setText(ssid);
             }
-
         });
 
         final ImageView helpIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
-        helpIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String helpString = getString(R.string.event_preference_wifi_ssidName_type)+"\n\n"+
-                        getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
-                        getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                        getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
-                        getString(R.string.pref_dlg_info_about_wildcards_3);
+        helpIcon.setOnClickListener(v -> {
+            String helpString = getString(R.string.event_preference_wifi_ssidName_type)+"\n\n"+
+                    getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
+                    getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+                    getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
+                    getString(R.string.pref_dlg_info_about_wildcards_3);
 
-                DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
-            }
+            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
         });
 
         ImageView changeSelectionIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_changeSelection);
         TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.wifi_ssid_pref_dlg_select_button_tooltip));
-        changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() != null)
-                    if (!getActivity().isFinishing()) {
-                        mSelectorDialog = new AlertDialog.Builder(prefContext)
-                                .setTitle(R.string.pref_dlg_change_selection_title)
-                                .setCancelable(true)
-                                .setNegativeButton(android.R.string.cancel, null)
-                                .setItems(R.array.wifiSSIDChangeSelectionArray, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which) {
-                                            case 0:
-                                                preference.value = "";
-                                                break;
-                                            case 1:
-                                                for (WifiSSIDData ssid : preference.SSIDList) {
-                                                    if (ssid.ssid.equals(SSIDName.getText().toString()))
-                                                        preference.addSSID(ssid.ssid);
-                                                }
-                                                break;
-                                            default:
+        changeSelectionIcon.setOnClickListener(view1 -> {
+            if (getActivity() != null)
+                if (!getActivity().isFinishing()) {
+                    mSelectorDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.pref_dlg_change_selection_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .setItems(R.array.wifiSSIDChangeSelectionArray, (dialog, which) -> {
+                                switch (which) {
+                                    case 0:
+                                        preference.value = "";
+                                        break;
+                                    case 1:
+                                        for (WifiSSIDData ssid : preference.SSIDList) {
+                                            if (ssid.ssid.equals(SSIDName.getText().toString()))
+                                                preference.addSSID(ssid.ssid);
                                         }
-                                        refreshListView(false, "");
-                                    }
-                                })
-                                .create();
+                                        break;
+                                    default:
+                                }
+                                refreshListView(false, "");
+                            })
+                            .create();
 
-    //                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-    //                        @Override
-    //                        public void onShow(DialogInterface dialog) {
-    //                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-    //                            if (positive != null) positive.setAllCaps(false);
-    //                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-    //                            if (negative != null) negative.setAllCaps(false);
-    //                        }
-    //                    });
+//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
-                        mSelectorDialog.show();
-                    }
-            }
+                    mSelectorDialog.show();
+                }
         });
 
         rescanButton = view.findViewById(R.id.wifi_ssid_pref_dlg_rescanButton);
-        rescanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Permissions.grantWifiScanDialogPermissions(prefContext))
-                    refreshListView(true, "");
-            }
+        rescanButton.setOnClickListener(v -> {
+            if (Permissions.grantWifiScanDialogPermissions(prefContext))
+                refreshListView(true, "");
         });
 
         locationSystemSettingsRelLa = view.findViewById(R.id.wifi_ssid_pref_dlg_locationSystemSettingsRelLa);
@@ -245,26 +225,24 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
                 locationEnabledStatusTextView.setText(statusText);
 
-                locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (getActivity() != null) {
-                            boolean ok = false;
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
-                                try {
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
-                                    ok = true;
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
+                locationSystemSettingsButton.setOnClickListener(v -> {
+                    if (getActivity() != null) {
+                        boolean ok = false;
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
+                                ok = true;
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
                             }
-                            if (!ok) {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
+                        }
+                        if (!ok) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
 
 //                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                    @Override
@@ -276,10 +254,9 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 //                                    }
 //                                });
 
-                                if (getActivity() != null)
-                                    if (!getActivity().isFinishing())
-                                        dialog.show();
-                            }
+                            if (getActivity() != null)
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
                         }
                     }
                 });
@@ -491,57 +468,54 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         final int ssidPos = (int)view.getTag();
         final String ssid = preference.SSIDList.get(ssidPos).ssid;
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_change) {
-                    if (!SSIDName.getText().toString().isEmpty()) {
-                        String[] splits = preference.value.split("\\|");
-                        preference.value = "";
-                        boolean found = false;
-                        for (String _ssid : splits) {
-                            if (!_ssid.isEmpty()) {
-                                if (!_ssid.equals(ssid)) {
-                                    if (!preference.value.isEmpty())
-                                        //noinspection StringConcatenationInLoop
-                                        preference.value = preference.value + "|";
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_change) {
+                if (!SSIDName.getText().toString().isEmpty()) {
+                    String[] splits = preference.value.split("\\|");
+                    preference.value = "";
+                    boolean found = false;
+                    for (String _ssid : splits) {
+                        if (!_ssid.isEmpty()) {
+                            if (!_ssid.equals(ssid)) {
+                                if (!preference.value.isEmpty())
                                     //noinspection StringConcatenationInLoop
-                                    preference.value = preference.value + _ssid;
-                                } else
-                                    found = true;
-                            }
+                                    preference.value = preference.value + "|";
+                                //noinspection StringConcatenationInLoop
+                                preference.value = preference.value + _ssid;
+                            } else
+                                found = true;
                         }
-                        if (found) {
-                            if (!preference.value.isEmpty())
-                                preference.value = preference.value + "|";
-                            preference.value = preference.value + SSIDName.getText().toString();
-                        }
-                        for (WifiSSIDData customSSID : preference.customSSIDList) {
-                            if (customSSID.ssid.equals(ssid)) {
-                                customSSID.ssid = SSIDName.getText().toString();
-                                break;
-                            }
-                        }
-                        refreshListView(false, "");
                     }
-                    return true;
-                }
-                else
-                if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
-                    preference.removeSSID(ssid);
+                    if (found) {
+                        if (!preference.value.isEmpty())
+                            preference.value = preference.value + "|";
+                        preference.value = preference.value + SSIDName.getText().toString();
+                    }
                     for (WifiSSIDData customSSID : preference.customSSIDList) {
                         if (customSSID.ssid.equals(ssid)) {
-                            preference.customSSIDList.remove(customSSID);
+                            customSSID.ssid = SSIDName.getText().toString();
                             break;
                         }
                     }
                     refreshListView(false, "");
-                    return true;
                 }
-                else {
-                    return false;
+                return true;
+            }
+            else
+            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
+                preference.removeSSID(ssid);
+                for (WifiSSIDData customSSID : preference.customSSIDList) {
+                    if (customSSID.ssid.equals(ssid)) {
+                        preference.customSSIDList.remove(customSSID);
+                        break;
+                    }
                 }
+                refreshListView(false, "");
+                return true;
+            }
+            else {
+                return false;
             }
         });
 

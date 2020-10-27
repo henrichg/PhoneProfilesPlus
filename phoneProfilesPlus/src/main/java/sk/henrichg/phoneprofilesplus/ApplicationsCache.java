@@ -7,13 +7,13 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.collection.LruCache;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.collection.LruCache;
 
 class ApplicationsCache {
 

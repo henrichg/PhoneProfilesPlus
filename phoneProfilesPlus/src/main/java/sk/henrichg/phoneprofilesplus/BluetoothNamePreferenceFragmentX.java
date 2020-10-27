@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -14,7 +13,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -78,26 +76,23 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 
         addIcon = view.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
         TooltipCompat.setTooltipText(addIcon, getString(R.string.bluetooth_name_pref_dlg_add_button_tooltip));
-        addIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String btName = bluetoothName.getText().toString();
-                preference.addBluetoothName(btName);
-                boolean found = false;
-                for (BluetoothDeviceData customBtNameData : preference.customBluetoothList) {
-                    if (customBtNameData.getName().equalsIgnoreCase(btName)) {
-                        found = true;
-                        break;
-                    }
+        addIcon.setOnClickListener(v -> {
+            String btName = bluetoothName.getText().toString();
+            preference.addBluetoothName(btName);
+            boolean found = false;
+            for (BluetoothDeviceData customBtNameData : preference.customBluetoothList) {
+                if (customBtNameData.getName().equalsIgnoreCase(btName)) {
+                    found = true;
+                    break;
                 }
-                if (!found) {
-                    //if (android.os.Build.VERSION.SDK_INT >= 18)
-                    preference.customBluetoothList.add(new BluetoothDeviceData(btName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
-                    //else
-                    //    customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true, 0));
-                }
-                refreshListView(false, btName);
             }
+            if (!found) {
+                //if (android.os.Build.VERSION.SDK_INT >= 18)
+                preference.customBluetoothList.add(new BluetoothDeviceData(btName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
+                //else
+                //    customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true, 0));
+            }
+            refreshListView(false, btName);
         });
 
         bluetoothName = view.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
@@ -124,89 +119,74 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         listAdapter = new BluetoothNamePreferenceAdapterX(prefContext, preference);
         bluetoothListView.setAdapter(listAdapter);
 
-        bluetoothListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                String btName = preference.bluetoothList.get(position).getName();
-                if (!(btName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE) ||
-                        btName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))) {
-                    bluetoothName.setText(btName);
-                }
+        bluetoothListView.setOnItemClickListener((parent, v, position, id) -> {
+            String btName = preference.bluetoothList.get(position).getName();
+            if (!(btName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE) ||
+                    btName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))) {
+                bluetoothName.setText(btName);
             }
-
         });
 
         final ImageView helpIcon = view.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
-        helpIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String helpString = getString(R.string.event_preference_bluetooth_btName_type)+"\n\n"+
-                        //getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
-                        getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
-                        getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                        getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
-                        getString(R.string.pref_dlg_info_about_wildcards_3);
+        helpIcon.setOnClickListener(v -> {
+            String helpString = getString(R.string.event_preference_bluetooth_btName_type)+"\n\n"+
+                    //getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
+                    getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
+                    getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+                    getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
+                    getString(R.string.pref_dlg_info_about_wildcards_3);
 
-                DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
-            }
+            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
         });
 
 
         ImageView changeSelectionIcon = view.findViewById(R.id.bluetooth_name_pref_dlg_changeSelection);
         TooltipCompat.setTooltipText(changeSelectionIcon, getString(R.string.bluetooth_name_pref_dlg_select_button_tooltip));
-        changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() != null)
-                    if (!getActivity().isFinishing()) {
-                        mSelectorDialog = new AlertDialog.Builder(prefContext)
-                                .setTitle(R.string.pref_dlg_change_selection_title)
-                                .setCancelable(true)
-                                .setNegativeButton(android.R.string.cancel, null)
-                                //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
-                                .setItems(R.array.bluetoothNameDChangeSelectionArray, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which) {
-                                            case 0:
-                                                preference.value = "";
-                                                break;
-                                            case 1:
-                                                for (BluetoothDeviceData bluetooth : preference.bluetoothList) {
-                                                    if (bluetooth.name.equals(bluetoothName.getText().toString()))
-                                                        preference.addBluetoothName(bluetooth.name);
-                                                }
-                                                break;
-                                            default:
+        changeSelectionIcon.setOnClickListener(view1 -> {
+            if (getActivity() != null)
+                if (!getActivity().isFinishing()) {
+                    mSelectorDialog = new AlertDialog.Builder(prefContext)
+                            .setTitle(R.string.pref_dlg_change_selection_title)
+                            .setCancelable(true)
+                            .setNegativeButton(android.R.string.cancel, null)
+                            //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                            .setItems(R.array.bluetoothNameDChangeSelectionArray, (dialog, which) -> {
+                                switch (which) {
+                                    case 0:
+                                        preference.value = "";
+                                        break;
+                                    case 1:
+                                        for (BluetoothDeviceData bluetooth : preference.bluetoothList) {
+                                            if (bluetooth.name.equals(bluetoothName.getText().toString()))
+                                                preference.addBluetoothName(bluetooth.name);
                                         }
-                                        refreshListView(false, "");
-                                        //dialog.dismiss();
-                                    }
-                                })
-                                .create();
+                                        break;
+                                    default:
+                                }
+                                refreshListView(false, "");
+                                //dialog.dismiss();
+                            })
+                            .create();
 
-    //                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-    //                        @Override
-    //                        public void onShow(DialogInterface dialog) {
-    //                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-    //                            if (positive != null) positive.setAllCaps(false);
-    //                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-    //                            if (negative != null) negative.setAllCaps(false);
-    //                        }
-    //                    });
+//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
 
-                        mSelectorDialog.show();
-                    }
-            }
+                    mSelectorDialog.show();
+                }
         });
 
         rescanButton = view.findViewById(R.id.bluetooth_name_pref_dlg_rescanButton);
-        rescanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Permissions.grantBluetoothScanDialogPermissions(prefContext))
-                    refreshListView(true, "");
-            }
+        rescanButton.setOnClickListener(v -> {
+            if (Permissions.grantBluetoothScanDialogPermissions(prefContext))
+                refreshListView(true, "");
         });
 
         locationSystemSettingsRelLa = view.findViewById(R.id.bluetooth_name_pref_dlg_locationSystemSettingsRelLa);
@@ -260,26 +240,24 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 
                 locationEnabledStatusTextView.setText(statusText);
 
-                locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean ok = false;
-                        if (getActivity() != null) {
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
-                                try {
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
-                                    ok = true;
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                                if (!ok) {
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog = dialogBuilder.create();
+                locationSystemSettingsButton.setOnClickListener(v -> {
+                    boolean ok = false;
+                    if (getActivity() != null) {
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
+                                ok = true;
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                            if (!ok) {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = dialogBuilder.create();
 
 //                                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                        @Override
@@ -291,10 +269,9 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 //                                        }
 //                                    });
 
-                                    if (getActivity() != null)
-                                        if (!getActivity().isFinishing())
-                                            dialog.show();
-                                }
+                                if (getActivity() != null)
+                                    if (!getActivity().isFinishing())
+                                        dialog.show();
                             }
                         }
                     }
@@ -525,58 +502,56 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         int btNamePos = (int)view.getTag();
         final String btName = preference.bluetoothList.get(btNamePos).getName();
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            @SuppressWarnings("StringConcatenationInLoop")
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_change) {
-                    if (!bluetoothName.getText().toString().isEmpty()) {
-                        String[] splits = preference.value.split("\\|");
-                        preference.value = "";
-                        boolean found = false;
-                        for (String _bluetoothName : splits) {
-                            if (!_bluetoothName.isEmpty()) {
-                                if (!_bluetoothName.equals(btName)) {
-                                    if (!preference.value.isEmpty())
-                                        preference.value = preference.value + "|";
-                                    preference.value = preference.value + _bluetoothName;
-                                } else
-                                    found = true;
-                            }
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_change) {
+                if (!bluetoothName.getText().toString().isEmpty()) {
+                    String[] splits = preference.value.split("\\|");
+                    preference.value = "";
+                    boolean found = false;
+                    for (String _bluetoothName : splits) {
+                        if (!_bluetoothName.isEmpty()) {
+                            if (!_bluetoothName.equals(btName)) {
+                                if (!preference.value.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    preference.value = preference.value + "|";
+                                //noinspection StringConcatenationInLoop
+                                preference.value = preference.value + _bluetoothName;
+                            } else
+                                found = true;
                         }
-                        //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
-                        if (found) {
-                            if (!preference.value.isEmpty())
-                                preference.value = preference.value + "|";
-                            preference.value = preference.value + bluetoothName.getText().toString();
-                        }
-                        //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
-                        for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
-                            if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
-                                customBluetoothName.name = bluetoothName.getText().toString();
-                                break;
-                            }
-                        }
-                        refreshListView(false, "");
                     }
-                    return true;
-                }
-                else
-                if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_delete) {
-                    preference.removeBluetoothName(btName);
+                    //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
+                    if (found) {
+                        if (!preference.value.isEmpty())
+                            preference.value = preference.value + "|";
+                        preference.value = preference.value + bluetoothName.getText().toString();
+                    }
+                    //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
                     for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
                         if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
-                            preference.customBluetoothList.remove(customBluetoothName);
+                            customBluetoothName.name = bluetoothName.getText().toString();
                             break;
                         }
                     }
                     refreshListView(false, "");
-                    return true;
                 }
-                else {
-                    return false;
+                return true;
+            }
+            else
+            if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_delete) {
+                preference.removeBluetoothName(btName);
+                for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
+                    if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
+                        preference.customBluetoothList.remove(customBluetoothName);
+                        break;
+                    }
                 }
+                refreshListView(false, "");
+                return true;
+            }
+            else {
+                return false;
             }
         });
 

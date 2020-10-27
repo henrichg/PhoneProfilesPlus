@@ -305,31 +305,28 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 } catch (Exception ee) {
                     PPApplication.startHandlerThread(/*"BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness"*/);
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
 
-                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
-                                synchronized (PPApplication.rootMutex) {
-                                    String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " + value;
-                                    //if (PPApplication.isSELinuxEnforcing())
-                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                    Command command = new Command(0, false, command1); //, command2);
-                                    try {
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        PPApplication.commandWait(command, "BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
-                                    } catch (Exception e) {
-                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                        //Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
-                                        //PPApplication.recordException(e);
-                                    }
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " + value;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                Command command = new Command(0, false, command1); //, command2);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command, "BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
+                                    //PPApplication.recordException(e);
                                 }
                             }
-
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                         }
+
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                     });
                 }
             }

@@ -518,20 +518,17 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
-                    //createProfilesDataWrapper(_context);
+                //createProfilesDataWrapper(_context);
 
-                    for (int appWidgetId : _appWidgetIds) {
-                        doOnUpdate(_context, _appWidgetManager, appWidgetId, true);
-                    }
-
-                    //if (dataWrapper != null)
-                    //    dataWrapper.invalidateDataWrapper();
-                    //dataWrapper = null;
+                for (int appWidgetId : _appWidgetIds) {
+                    doOnUpdate(_context, _appWidgetManager, appWidgetId, true);
                 }
+
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
+                //dataWrapper = null;
             });
         }
     }
@@ -553,20 +550,17 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                     PPApplication.startHandlerThreadWidget();
                     final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
-                            for (int appWidgetId : appWidgetIds) {
-                                //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
-                                RemoteViews layout;
-                                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-                                layout = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
-                                try {
-                                    appWidgetManager.updateAppWidget(appWidgetId, layout);
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
+                        for (int appWidgetId : appWidgetIds) {
+                            //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
+                            RemoteViews layout;
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                            layout = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
+                            try {
+                                appWidgetManager.updateAppWidget(appWidgetId, layout);
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
                             }
                         }
                     });
@@ -580,13 +574,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
                     PPApplication.startHandlerThreadWidget();
                     final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
-                            for (int appWidgetId : appWidgetIds) {
-                                doOnUpdate(context, appWidgetManager, appWidgetId, false);
-                            }
+                        for (int appWidgetId : appWidgetIds) {
+                            doOnUpdate(context, appWidgetManager, appWidgetId, false);
                         }
                     });
                 }
@@ -672,26 +663,23 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
-                //createProfilesDataWrapper(context);
+            //createProfilesDataWrapper(context);
 
-                String preferenceKey = "isLargeLayout_"+appWidgetId;
+            String preferenceKey = "isLargeLayout_"+appWidgetId;
 
-                // remove preference, will by computed in setLayoutParams
-                Editor editor = ApplicationPreferences.getEditor(context);
-                editor.remove(preferenceKey);
-                editor.apply();
+            // remove preference, will by computed in setLayoutParams
+            Editor editor = ApplicationPreferences.getEditor(context);
+            editor.remove(preferenceKey);
+            editor.apply();
 
 
-                updateAfterWidgetOptionsChanged(context, appWidgetId);
+            updateAfterWidgetOptionsChanged(context, appWidgetId);
 
-                //if (dataWrapper != null)
-                //    dataWrapper.invalidateDataWrapper();
-                //dataWrapper = null;
-            }
+            //if (dataWrapper != null)
+            //    dataWrapper.invalidateDataWrapper();
+            //dataWrapper = null;
         });
 
         /*

@@ -58,12 +58,7 @@ public class LockDeviceActivity extends AppCompatActivity {
             //if (layoutInflater != null) {
                 view = getLayoutInflater().inflate(R.layout.activity_lock_device, null);
                 view.setSystemUiVisibility(5894);
-                view.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-                    @Override
-                    public void onSystemUiVisibilityChange(int i) {
-                        view.setSystemUiVisibility(5894);
-                    }
-                });
+                view.setOnSystemUiVisibilityChangeListener(i -> view.setSystemUiVisibility(5894));
 
                 WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
                 if (windowManager != null)
@@ -130,11 +125,9 @@ public class LockDeviceActivity extends AppCompatActivity {
             if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
                 //PPApplication.logE("LockDeviceActivity.onDestroy", "permission ok");
                 if (PPApplication.screenTimeoutHandler != null) {
-                    PPApplication.screenTimeoutHandler.post(new Runnable() {
-                        public void run() {
-                            //PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
-                            ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
-                        }
+                    PPApplication.screenTimeoutHandler.post(() -> {
+                        //PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
+                        ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
                     });
                 }/* else {
                     dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);

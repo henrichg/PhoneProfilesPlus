@@ -38,12 +38,10 @@ class ApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impleme
         else
             imageViewMenu = null;
 
-        radioBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
-                rb.setChecked(true);
-                dialog.doOnItemSelected((Integer)rb.getTag());
-            }
+        radioBtn.setOnClickListener(v -> {
+            RadioButton rb = (RadioButton) v;
+            rb.setChecked(true);
+            dialog.doOnItemSelected((Integer)rb.getTag());
         });
 
         itemView.setOnClickListener(this);
@@ -68,12 +66,7 @@ class ApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder impleme
         if (imageViewMenu != null) {
             TooltipCompat.setTooltipText(imageViewMenu, dialog.activity.getString(R.string.tooltip_options_menu));
             imageViewMenu.setTag(position);
-            imageViewMenu.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    dialog.showEditMenu(imageViewMenu);
-                }
-            });
+            imageViewMenu.setOnClickListener(v -> dialog.showEditMenu(imageViewMenu));
         }
     }
 

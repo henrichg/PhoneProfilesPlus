@@ -32,12 +32,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             //PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
-                    _onUpdate(context, appWidgetManager, appWidgetIds);
-                }
+                _onUpdate(context, appWidgetManager, appWidgetIds);
             });
         }
     }
@@ -430,12 +427,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if ((ids != null) && (ids.length > 0)) {
                     PPApplication.startHandlerThreadWidget();
                     final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
-                            _onUpdate(context, manager, ids);
-                        }
+                        _onUpdate(context, manager, ids);
                     });
                 }
             }

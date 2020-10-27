@@ -1,9 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+import androidx.annotation.NonNull;
+
 import java.text.DateFormat;
 import java.util.Date;
-
-import androidx.annotation.NonNull;
 
 class TwilightState {
 

@@ -109,21 +109,18 @@ class MobileCellsPreferenceAdapterX extends BaseAdapter
 
         holder.checkBox.setTag(position);
         holder.checkBox.setChecked(preference.isCellSelected(cellData.cellId));
-        holder.checkBox.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v) {
-                CheckBox chb = (CheckBox) v;
+        holder.checkBox.setOnClickListener(v -> {
+            CheckBox chb = (CheckBox) v;
 
-                int cellPosition = (Integer)chb.getTag();
-                if (cellPosition < preference.filteredCellsList.size()) {
-                    int cellId = preference.filteredCellsList.get(cellPosition).cellId;
+            int cellPosition = (Integer)chb.getTag();
+            if (cellPosition < preference.filteredCellsList.size()) {
+                int cellId = preference.filteredCellsList.get(cellPosition).cellId;
 
-                    if (chb.isChecked())
-                        preference.addCellId(cellId);
-                    else
-                        preference.removeCellId(cellId);
-                    preference.refreshListView(false, Integer.MAX_VALUE);
-                }
+                if (chb.isChecked())
+                    preference.addCellId(cellId);
+                else
+                    preference.removeCellId(cellId);
+                preference.refreshListView(false, Integer.MAX_VALUE);
             }
         });
 
@@ -144,12 +141,7 @@ class MobileCellsPreferenceAdapterX extends BaseAdapter
         TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         holder.itemEditMenu.setTag(preference.filteredCellsList.get(position).cellId);
         final ImageView itemEditMenu = holder.itemEditMenu;
-        holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                preference.showEditMenu(itemEditMenu);
-            }
-        });
+        holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu));
 
         return vi;
     }

@@ -13,8 +13,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -78,15 +76,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         textViewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
         progressBar = view.findViewById(R.id.shortcut_profiles_list_linla_progress);
 
-        listView.setOnItemClickListener(new OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                createShortcut(position);
-
-            }
-
-        });
+        listView.setOnItemClickListener((parent, view1, position, id) -> createShortcut(position));
 
         if (!activityDataWrapper.profileListFilled)
         {
@@ -138,13 +128,10 @@ public class ShortcutCreatorListFragment extends Fragment {
 
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
-                progressBarRunnable = new Runnable() {
-                    @Override
-                    public void run() {
+                progressBarRunnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ShortcutCreatorListFragment.LoadProfileListAsyncTask");
-                        //fragment.textViewNoData.setVisibility(GONE);
-                        fragment.progressBar.setVisibility(View.VISIBLE);
-                    }
+                    //fragment.textViewNoData.setVisibility(GONE);
+                    fragment.progressBar.setVisibility(View.VISIBLE);
                 };
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
             }

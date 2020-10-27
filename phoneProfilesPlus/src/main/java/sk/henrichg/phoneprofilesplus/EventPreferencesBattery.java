@@ -318,98 +318,83 @@ class EventPreferencesBattery extends EventPreferences {
         final Context _context = context.getApplicationContext();
 
         if (lowLevelPreference != null) {
-            lowLevelPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String sNewValue = (String) newValue;
-                    int iNewValue;
-                    if (sNewValue.isEmpty())
-                        iNewValue = 0;
-                    else
-                        iNewValue = Integer.parseInt(sNewValue);
+            lowLevelPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                String sNewValue = (String) newValue;
+                int iNewValue;
+                if (sNewValue.isEmpty())
+                    iNewValue = 0;
+                else
+                    iNewValue = Integer.parseInt(sNewValue);
 
-                    String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
-                    int iHightLevelValue;
-                    if (sHightLevelValue.isEmpty())
-                        iHightLevelValue = 100;
-                    else
-                        iHightLevelValue = Integer.parseInt(sHightLevelValue);
+                String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
+                int iHightLevelValue;
+                if (sHightLevelValue.isEmpty())
+                    iHightLevelValue = 100;
+                else
+                    iHightLevelValue = Integer.parseInt(sHightLevelValue);
 
-                    boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
+                boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
 
-                    if (!OK) {
-                        PPApplication.showToast(_context.getApplicationContext(),
-                                _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
-                                        _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
-                                Toast.LENGTH_SHORT);
-                    }
-
-                    return OK;
+                if (!OK) {
+                    PPApplication.showToast(_context.getApplicationContext(),
+                            _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
+                                    _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
+                            Toast.LENGTH_SHORT);
                 }
+
+                return OK;
             });
         }
 
         if (hightLevelPreference != null) {
-            hightLevelPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String sNewValue = (String) newValue;
-                    int iNewValue;
-                    if (sNewValue.isEmpty())
-                        iNewValue = 100;
-                    else
-                        iNewValue = Integer.parseInt(sNewValue);
+            hightLevelPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                String sNewValue = (String) newValue;
+                int iNewValue;
+                if (sNewValue.isEmpty())
+                    iNewValue = 100;
+                else
+                    iNewValue = Integer.parseInt(sNewValue);
 
-                    String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
-                    int iLowLevelValue;
-                    if (sLowLevelValue.isEmpty())
-                        iLowLevelValue = 0;
-                    else
-                        iLowLevelValue = Integer.parseInt(sLowLevelValue);
+                String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
+                int iLowLevelValue;
+                if (sLowLevelValue.isEmpty())
+                    iLowLevelValue = 0;
+                else
+                    iLowLevelValue = Integer.parseInt(sLowLevelValue);
 
-                    boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
+                boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
 
-                    if (!OK) {
-                        PPApplication.showToast(_context.getApplicationContext(),
-                                _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
-                                        _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
-                                Toast.LENGTH_SHORT);
-                    }
-
-                    return OK;
+                if (!OK) {
+                    PPApplication.showToast(_context.getApplicationContext(),
+                            _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
+                                    _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
+                            Toast.LENGTH_SHORT);
                 }
+
+                return OK;
             });
         }
 
         if ((chargingPreference != null) && (powerSaveModePreference != null)  && (pluggedPreference != null)) {
-            chargingPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String sNewValue = (String) newValue;
-                    if (!sNewValue.equals("0"))
-                        powerSaveModePreference.setChecked(false);
-                    return true;
-                }
+            chargingPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                String sNewValue = (String) newValue;
+                if (!sNewValue.equals("0"))
+                    powerSaveModePreference.setChecked(false);
+                return true;
             });
-            pluggedPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue != null)
-                        powerSaveModePreference.setChecked(false);
-                    return true;
-                }
+            pluggedPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                if (newValue != null)
+                    powerSaveModePreference.setChecked(false);
+                return true;
             });
-            powerSaveModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    boolean bNewValue = (boolean) newValue;
-                    if (bNewValue) {
-                        chargingPreference.setValue("0");
-                        Set<String> uncheckValues = new HashSet<>();
-                        pluggedPreference.setValues(uncheckValues);
-                    }
-                    return true;
+            powerSaveModePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean bNewValue = (boolean) newValue;
+                if (bNewValue) {
+                    chargingPreference.setValue("0");
+                    Set<String> uncheckValues = new HashSet<>();
+                    pluggedPreference.setValues(uncheckValues);
                 }
+                return true;
             });
         }
     }

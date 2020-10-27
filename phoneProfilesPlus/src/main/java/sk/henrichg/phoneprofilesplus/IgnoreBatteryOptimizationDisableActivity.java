@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -54,24 +53,15 @@ public class IgnoreBatteryOptimizationDisableActivity extends AppCompatActivity
             dialogBuilder.setTitle(getString(R.string.ignore_battery_optimization_notification_title));
             dialogBuilder.setMessage(getString(R.string.ignore_battery_optimization_confirm_notification_disable));
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), false);
-                    IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
-                }
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), false);
+                IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
             });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                    IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
-                }
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
+                IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
+                IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
             });
-            dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
-                }
-            });
+            dialogBuilder.setOnCancelListener(dialog -> IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext()));
             AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {

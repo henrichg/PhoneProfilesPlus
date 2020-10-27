@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,43 +33,36 @@ public class ExitApplicationActivity extends AppCompatActivity {
         dialogBuilder.setTitle(R.string.exit_application_alert_title);
         dialogBuilder.setMessage(R.string.exit_application_alert_message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                //PPApplication.logE("ExitApplicationActivity.onStart", "exit");
+        dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+            //PPApplication.logE("ExitApplicationActivity.onStart", "exit");
 
-                Context appContext = getApplicationContext();
+            Context appContext = getApplicationContext();
 
-                //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(appContext);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                editor.apply();
-                ApplicationPreferences.applicationEventNeverAskForEnableRun(appContext);
-                ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
-                ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
+            //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
+            SharedPreferences settings = ApplicationPreferences.getSharedPreferences(appContext);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+            editor.apply();
+            ApplicationPreferences.applicationEventNeverAskForEnableRun(appContext);
+            ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
+            ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
 
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
-                PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+            //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
+            PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
 
-                // close activities
-                Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-                intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
-                appContext.sendBroadcast(intent);
-                intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-                intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
-                appContext.sendBroadcast(intent);
+            // close activities
+            Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
+            appContext.sendBroadcast(intent);
+            intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
+            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
+            appContext.sendBroadcast(intent);
 
-            }
         });
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                ExitApplicationActivity.this.finish();
-            }
-        });
+        dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialogInterface, i) -> ExitApplicationActivity.this.finish());
         AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {

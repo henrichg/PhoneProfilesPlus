@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -215,12 +213,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         //if (profile_id != Profile.SHARED_PROFILE_ID) {
         // no menu for shared profile
 
-        onNextLayout(toolbar, new Runnable() {
-            @Override
-            public void run() {
-                showTargetHelps();
-            }
-        });
+        //noinspection Convert2MethodRef
+        onNextLayout(toolbar, () -> showTargetHelps());
         //}
 
         /*final Handler handler = new Handler(getMainLooper());
@@ -239,20 +233,14 @@ public class EventsPrefsActivity extends AppCompatActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
             dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                        savePreferences(newEventMode, predefinedEventIndex);
-                        resultCode = RESULT_OK;
-                        finish();
-                    }
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                if (checkPreferences(newEventMode, predefinedEventIndex)) {
+                    savePreferences(newEventMode, predefinedEventIndex);
+                    resultCode = RESULT_OK;
                     finish();
                 }
             });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> finish());
             AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -412,13 +400,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
             // must be used handler for rewrite toolbar title/subtitle
             final String eventName = event._name;
             Handler handler = new Handler(getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
-                    //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
-                    toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
-                }
+                //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
             }, 200);
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -449,15 +434,12 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
                 doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
                 doNotShowAgain.setChecked(false);
-                doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
-                        editor.apply();
-                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                    }
+                doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
+                    editor.apply();
+                    ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
                 });
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -466,29 +448,25 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 //dialogBuilder.setView(doNotShowAgain);
                 dialogBuilder.setView(superContainer);
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        /*SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                        editor.apply();*/
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                    /*SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                    editor.apply();*/
 
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
-                        editor.apply();
+                    SharedPreferences preferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = preferences1.edit();
+                    editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
+                    editor.apply();
 
-                        savePreferences(new_event_mode, predefinedEventIndex);
-                        resultCode = RESULT_OK;
-                        finish();
-                    }
+                    savePreferences(new_event_mode, predefinedEventIndex);
+                    resultCode = RESULT_OK;
+                    finish();
                 });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        savePreferences(new_event_mode, predefinedEventIndex);
-                        resultCode = RESULT_OK;
-                        finish();
-                    }
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
+                    savePreferences(new_event_mode, predefinedEventIndex);
+                    resultCode = RESULT_OK;
+                    finish();
                 });
                 AlertDialog dialog = dialogBuilder.create();
 
@@ -571,51 +549,48 @@ public class EventsPrefsActivity extends AppCompatActivity {
         {
             PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
-                    PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_1");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_1");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                        if (old_event_status != Event.ESTATUS_STOP) {
+                    if (old_event_status != Event.ESTATUS_STOP) {
+                        synchronized (PPApplication.eventsHandlerMutex) {
+
                             synchronized (PPApplication.eventsHandlerMutex) {
-
-                                synchronized (PPApplication.eventsHandlerMutex) {
-                                    // pause event - must be called, because status is ESTATUS_STOP
-                                    event.pauseEvent(dataWrapper, true, false,
-                                            false, false, null, false, false, true);
-                                    // stop event
-                                    event.stopEvent(dataWrapper, true, false,
-                                            true, true, true);
-                                }
-
-                                //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-//                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
-                                PPApplication.setBlockProfileEventActions(true);
+                                // pause event - must be called, because status is ESTATUS_STOP
+                                event.pauseEvent(dataWrapper, true, false,
+                                        false, false, null, false, false, true);
+                                // stop event
+                                event.stopEvent(dataWrapper, true, false,
+                                        true, true, true);
                             }
-                            // restart Events
-                            //dataWrapper.restartEvents(false, true, true, true, false);
-//                            PPApplication.logE("[APP START] EventsPrefsActivity.saveUpdateOfPreferences", "(1))");
-                            dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
-                        }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.1");
-                    } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                            //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
+//                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
+                            PPApplication.setBlockProfileEventActions(true);
                         }
+                        // restart Events
+                        //dataWrapper.restartEvents(false, true, true, true, false);
+//                            PPApplication.logE("[APP START] EventsPrefsActivity.saveUpdateOfPreferences", "(1))");
+                        dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
+                    }
+
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.1");
+                } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
                     }
                 }
             });
@@ -623,44 +598,41 @@ public class EventsPrefsActivity extends AppCompatActivity {
         else {
             PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
-                    PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_2");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_2");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                        // pause event
-                        event.pauseEvent(dataWrapper, true, false,
-                                false, false, null, false, false, true);
-                        // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
-                        // ESTATUS_PAUSE is set in Event.saveSharedPreferences()
-                        event.doLogForPauseEvent(dataWrapper.context, false);
+                    // pause event
+                    event.pauseEvent(dataWrapper, true, false,
+                            false, false, null, false, false, true);
+                    // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
+                    // ESTATUS_PAUSE is set in Event.saveSharedPreferences()
+                    event.doLogForPauseEvent(dataWrapper.context, false);
 
-                        // restart Events
-                        //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
+                    // restart Events
+                    //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (2)", "true");
-                        PPApplication.setBlockProfileEventActions(true);
-                        //dataWrapper.restartEvents(false, true, true, true, false);
+                    PPApplication.setBlockProfileEventActions(true);
+                    //dataWrapper.restartEvents(false, true, true, true, false);
 //                        PPApplication.logE("[APP START] EventsPrefsActivity.saveUpdateOfPreferences", "(2)");
-                        dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
+                    dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");
-                    } catch (Exception e) {
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
                     }
                 }
             });

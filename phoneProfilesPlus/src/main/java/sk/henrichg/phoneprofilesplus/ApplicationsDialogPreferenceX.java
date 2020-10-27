@@ -596,22 +596,19 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
         new MenuInflater(_context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.applications_pref_dlg_item_menu_edit) {
-                    startEditor(application);
-                    return true;
-                }
-                else
-                if (itemId == R.id.applications_pref_dlg_item_menu_delete) {
-                    deleteApplication(application);
-                    return true;
-                }
-                else {
-                    return false;
-                }
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.applications_pref_dlg_item_menu_edit) {
+                startEditor(application);
+                return true;
+            }
+            else
+            if (itemId == R.id.applications_pref_dlg_item_menu_delete) {
+                deleteApplication(application);
+                return true;
+            }
+            else {
+                return false;
             }
         });
 

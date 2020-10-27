@@ -120,19 +120,13 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                     mDataWrapper.finishActivity(mStartupSource, true, mActivity);
             }
         });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                updateEndsTimer = null;
-                mDataWrapper.finishActivity(mStartupSource, false, mActivity);
-            }
+        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            updateEndsTimer = null;
+            mDataWrapper.finishActivity(mStartupSource, false, mActivity);
         });
-        dialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                updateEndsTimer = null;
-                mDataWrapper.finishActivity(mStartupSource, false, mActivity);
-            }
+        dialogBuilder.setOnDismissListener(dialog -> {
+            updateEndsTimer = null;
+            mDataWrapper.finishActivity(mStartupSource, false, mActivity);
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -197,45 +191,39 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
 
-        mValueDialog = new TimeDurationPickerDialog(activity, new TimeDurationPickerDialog.OnDurationSetListener() {
-            @Override
-            public void onDurationSet(TimeDurationPicker view, long duration) {
-                int iValue = (int) duration / 1000;
+        mValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
+            int iValue1 = (int) duration / 1000;
 
-                if (iValue < mMin)
-                    iValue = mMin;
-                if (iValue > mMax)
-                    iValue = mMax;
+            if (iValue1 < mMin)
+                iValue1 = mMin;
+            if (iValue1 > mMax)
+                iValue1 = mMax;
 
-                mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mValue.setText(GlobalGUIRoutines.getDurationString(iValue1));
 
-                int hours = iValue / 3600;
-                int minutes = (iValue % 3600) / 60;
-                int seconds = iValue % 60;
+            int hours1 = iValue1 / 3600;
+            int minutes1 = (iValue1 % 3600) / 60;
+            int seconds1 = iValue1 % 60;
 
-                mSeekBarHours.setProgress(hours);
-                mSeekBarMinutes.setProgress(minutes);
-                mSeekBarSeconds.setProgress(seconds);
+            mSeekBarHours.setProgress(hours1);
+            mSeekBarMinutes.setProgress(minutes1);
+            mSeekBarSeconds.setProgress(seconds1);
 
-                updateTextFields(false);
-            }
+            updateTextFields(false);
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), activity);
-        mValue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int hours = mSeekBarHours.getProgress();
-                    int minutes = mSeekBarMinutes.getProgress();
-                    int seconds = mSeekBarSeconds.getProgress();
+        mValue.setOnClickListener(view -> {
+            int hours12 = mSeekBarHours.getProgress();
+            int minutes12 = mSeekBarMinutes.getProgress();
+            int seconds12 = mSeekBarSeconds.getProgress();
 
-                    int iValue = (hours * 3600 + minutes * 60 + seconds);
-                    if (iValue < mMin) iValue = mMin;
-                    if (iValue > mMax) iValue = mMax;
-                    mValueDialog.setDuration(iValue * 1000);
-                    if (!mActivity.isFinishing())
-                        mValueDialog.show();
-                }
-            }
+            int iValue12 = (hours12 * 3600 + minutes12 * 60 + seconds12);
+            if (iValue12 < mMin) iValue12 = mMin;
+            if (iValue12 > mMax) iValue12 = mMax;
+            mValueDialog.setDuration(iValue12 * 1000);
+            if (!mActivity.isFinishing())
+                mValueDialog.show();
+        }
         );
 
         mSeekBarHours.setOnSeekBarChangeListener(this);
@@ -293,12 +281,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             @Override
             public void run() {
                 if(updateEndsTimer != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(updateEndsTimer != null) {
-                                updateTextFields(false);
-                            }
+                    activity.runOnUiThread(() -> {
+                        if(updateEndsTimer != null) {
+                            updateTextFields(false);
                         }
                     });
                 } else {
@@ -315,39 +300,33 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicators.setVisibility(View.GONE);
-        profileView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FastAccessDurationProfileDialog dialog = new FastAccessDurationProfileDialog(mActivity, FastAccessDurationDialog.this);
-                if (!mActivity.isFinishing())
-                    dialog.show();
-            }
+        profileView.setOnClickListener(v -> {
+            FastAccessDurationProfileDialog dialog = new FastAccessDurationProfileDialog(mActivity, FastAccessDurationDialog.this);
+            if (!mActivity.isFinishing())
+                dialog.show();
         });
 
         mAfterDoProfile = mProfile._afterDurationProfile;
         updateProfileView();
 
         final Button activateWithoutButton = layout.findViewById(R.id.fast_access_duration_dlg_activate_without);
-        activateWithoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateEndsTimer = null;
+        activateWithoutButton.setOnClickListener(v -> {
+            updateEndsTimer = null;
 
-                mProfile._duration = 0;
-                DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
+            mProfile._duration = 0;
+            DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
-                //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-                //        /*true, mMonochrome, mMonochromeValue,*/
-                //        mStartupSource, true, true, false))
-                if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
-                    //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
-                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
-                }
-                else
-                    mDataWrapper.finishActivity(mStartupSource, true, mActivity);
-
-                mDialog.dismiss();
+            //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
+            //        /*true, mMonochrome, mMonochromeValue,*/
+            //        mStartupSource, true, true, false))
+            if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
+                //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
+                mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
             }
+            else
+                mDataWrapper.finishActivity(mStartupSource, true, mActivity);
+
+            mDialog.dismiss();
         });
 
     }

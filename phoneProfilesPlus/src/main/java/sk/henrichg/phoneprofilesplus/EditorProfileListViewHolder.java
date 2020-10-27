@@ -127,12 +127,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         TooltipCompat.setTooltipText(profileItemEditMenu, context.getString(R.string.tooltip_options_menu));
         profileItemEditMenu.setTag(profile);
-        profileItemEditMenu.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                editorFragment.showEditMenu(profileItemEditMenu);
-            }
-        });
+        profileItemEditMenu.setOnClickListener(v -> editorFragment.showEditMenu(profileItemEditMenu));
 
         //if (showInActivatorButton != null) {
             if (profile._showInActivator)
@@ -141,15 +136,12 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                 showInActivatorButton.setImageResource(R.drawable.ic_not_show_in_activator);
             TooltipCompat.setTooltipText(showInActivatorButton, context.getString(R.string.profile_preferences_showInActivator));
             showInActivatorButton.setTag(profile);
-            showInActivatorButton.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    editorFragment.showShowInActivatorMenu(showInActivatorButton);
-                    /*final Profile profile = (Profile)v.getTag();
-                    if (profile != null) {
-                        editorFragment.changeShowInActivator(profile);
-                    }*/
-                }
+            showInActivatorButton.setOnClickListener(v -> {
+                editorFragment.showShowInActivatorMenu(showInActivatorButton);
+                /*final Profile profile = (Profile)v.getTag();
+                if (profile != null) {
+                    editorFragment.changeShowInActivator(profile);
+                }*/
             });
         //}
     }

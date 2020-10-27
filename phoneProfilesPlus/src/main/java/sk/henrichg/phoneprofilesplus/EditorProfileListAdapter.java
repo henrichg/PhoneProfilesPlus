@@ -84,24 +84,21 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
         if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
             if (holder.dragHandle != null) {
-                holder.dragHandle.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                mDragStartListener.onStartDrag(holder);
-                                break;
-                            case MotionEvent.ACTION_UP:
-                                v.performClick();
-                                break;
-                            default:
-                                break;
-                        }
-                    /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                        mDragStartListener.onStartDrag(holder);
-                    }*/
-                        return false;
+                holder.dragHandle.setOnTouchListener((v, event) -> {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mDragStartListener.onStartDrag(holder);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            v.performClick();
+                            break;
+                        default:
+                            break;
                     }
+                /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(holder);
+                }*/
+                    return false;
                 });
             }
         }

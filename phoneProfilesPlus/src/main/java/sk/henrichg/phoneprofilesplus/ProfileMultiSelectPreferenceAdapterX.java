@@ -64,12 +64,10 @@ class ProfileMultiSelectPreferenceAdapterX extends BaseAdapter {
             holder.checkBox = vi.findViewById(R.id.profile_multiselect_pref_dlg_item_checkbox);
             vi.setTag(holder);
 
-            holder.checkBox.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    Profile profile = profileList.get((int)cb.getTag());
-                    profile._checked = cb.isChecked();
-                }
+            holder.checkBox.setOnClickListener(v -> {
+                CheckBox cb = (CheckBox) v;
+                Profile profile = profileList.get((int)cb.getTag());
+                profile._checked = cb.isChecked();
             });
 
         }

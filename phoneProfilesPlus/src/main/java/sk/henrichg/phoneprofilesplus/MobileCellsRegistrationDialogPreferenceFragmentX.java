@@ -60,21 +60,18 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        dialogBuilder.setPositiveButton(R.string.mobile_cells_registration_pref_dlg_start_button, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
-                    if (PhoneStateScanner.enabledAutoRegistration) {
-                        if (!PhoneStateScanner.isEventAdded(preference.event_id))
-                            PhoneStateScanner.addEvent(preference.event_id);
-                        else
-                            PhoneStateScanner.removeEvent(preference.event_id);
-                    }
-                    else {
-                        if (!PhoneStateScanner.isEventAdded(preference.event_id))
-                            PhoneStateScanner.addEvent(preference.event_id);
-                        preference.startRegistration();
-                    }
+        dialogBuilder.setPositiveButton(R.string.mobile_cells_registration_pref_dlg_start_button, (dialog, which) -> {
+            if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
+                if (PhoneStateScanner.enabledAutoRegistration) {
+                    if (!PhoneStateScanner.isEventAdded(preference.event_id))
+                        PhoneStateScanner.addEvent(preference.event_id);
+                    else
+                        PhoneStateScanner.removeEvent(preference.event_id);
+                }
+                else {
+                    if (!PhoneStateScanner.isEventAdded(preference.event_id))
+                        PhoneStateScanner.addEvent(preference.event_id);
+                    preference.startRegistration();
                 }
             }
         });
@@ -86,16 +83,13 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
+        mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-                preference.updateInterface(0, false);
-            }
+            preference.updateInterface(0, false);
         });
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
@@ -158,60 +152,51 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
 
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
-        mValueDialog = new TimeDurationPickerDialog(prefContext, new TimeDurationPickerDialog.OnDurationSetListener() {
-            @Override
-            public void onDurationSet(TimeDurationPicker view, long duration) {
-                int iValue = (int) duration / 1000;
+        mValueDialog = new TimeDurationPickerDialog(prefContext, (view, duration) -> {
+            int iValue1 = (int) duration / 1000;
 
-                if (iValue < preference.mMin)
-                    iValue = preference.mMin;
-                if (iValue > preference.mMax)
-                    iValue = preference.mMax;
+            if (iValue1 < preference.mMin)
+                iValue1 = preference.mMin;
+            if (iValue1 > preference.mMax)
+                iValue1 = preference.mMax;
 
-                preference.value = String.valueOf(iValue);
+            preference.value = String.valueOf(iValue1);
 
-                mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mValue.setText(GlobalGUIRoutines.getDurationString(iValue1));
 
-                int hours = iValue / 3600;
-                int minutes = (iValue % 3600) / 60;
-                int seconds = iValue % 60;
+            int hours1 = iValue1 / 3600;
+            int minutes1 = (iValue1 % 3600) / 60;
+            int seconds1 = iValue1 % 60;
 
-                mSeekBarHours.setProgress(hours);
-                mSeekBarMinutes.setProgress(minutes);
-                mSeekBarSeconds.setProgress(seconds);
-            }
+            mSeekBarHours.setProgress(hours1);
+            mSeekBarMinutes.setProgress(minutes1);
+            mSeekBarSeconds.setProgress(seconds1);
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), getActivity());
-        mValue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int hours = mSeekBarHours.getProgress();
-                    int minutes = mSeekBarMinutes.getProgress();
-                    int seconds = mSeekBarSeconds.getProgress();
+        mValue.setOnClickListener(view -> {
+            int hours12 = mSeekBarHours.getProgress();
+            int minutes12 = mSeekBarMinutes.getProgress();
+            int seconds12 = mSeekBarSeconds.getProgress();
 
-                    int iValue = (hours * 3600 + minutes * 60 + seconds);
-                    if (iValue < preference.mMin) iValue = preference.mMin;
-                    if (iValue > preference.mMax) iValue = preference.mMax;
+            int iValue12 = (hours12 * 3600 + minutes12 * 60 + seconds12);
+            if (iValue12 < preference.mMin) iValue12 = preference.mMin;
+            if (iValue12 > preference.mMax) iValue12 = preference.mMax;
 
-                    preference.value = String.valueOf(iValue);
+            preference.value = String.valueOf(iValue12);
 
-                    mValueDialog.setDuration(iValue * 1000);
-                    if (preference.fragment.getActivity() != null)
-                        if (!preference.fragment.getActivity().isFinishing())
-                            mValueDialog.show();
-                }
-            }
+            mValueDialog.setDuration(iValue12 * 1000);
+            if (preference.fragment.getActivity() != null)
+                if (!preference.fragment.getActivity().isFinishing())
+                    mValueDialog.show();
+        }
         );
 
         mMobileCellNamesDialog = new MobileCellNamesDialogX((Activity)prefContext, preference, false);
-        mCellsName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (getActivity() != null)
-                        if (!getActivity().isFinishing())
-                            mMobileCellNamesDialog.show();
-                }
-            }
+        mCellsName.setOnClickListener(view -> {
+            if (getActivity() != null)
+                if (!getActivity().isFinishing())
+                    mMobileCellNamesDialog.show();
+        }
         );
 
         mSeekBarHours.setOnSeekBarChangeListener(this);
@@ -223,20 +208,17 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
         startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateInterface(0, true);
-                //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
-                //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
-                preference.setSummaryDDP(0);
+        stopButton.setOnClickListener(v -> {
+            updateInterface(0, true);
+            //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
+            //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
+            preference.setSummaryDDP(0);
 
-                //MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, 0);
-                //PhoneStateScanner.stopAutoRegistration(prefContext.getApplicationContext());
+            //MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, 0);
+            //PhoneStateScanner.stopAutoRegistration(prefContext.getApplicationContext());
 
-                Intent intent5 = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
-                prefContext.sendBroadcast(intent5);
-            }
+            Intent intent5 = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
+            prefContext.sendBroadcast(intent5);
         });
 
         return mDialog;

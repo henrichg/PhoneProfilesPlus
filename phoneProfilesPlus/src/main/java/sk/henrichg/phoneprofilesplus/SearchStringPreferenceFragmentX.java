@@ -40,20 +40,17 @@ public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         final ImageView helpIcon = view.findViewById(R.id.search_string_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
-        helpIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String helpString =
-                        "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_1) + "\n" +
-                                "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_5) + "\n" +
-                                "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                                getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
-                                getString(R.string.pref_dlg_info_about_wildcards_6) + ", " +
-                                getString(R.string.pref_dlg_info_about_wildcards_3) + "\n" +
-                                "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_4)
-                        ;
-                DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
-            }
+        helpIcon.setOnClickListener(v -> {
+            String helpString =
+                    "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_1) + "\n" +
+                            "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_5) + "\n" +
+                            "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+                            getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
+                            getString(R.string.pref_dlg_info_about_wildcards_6) + ", " +
+                            getString(R.string.pref_dlg_info_about_wildcards_3) + "\n" +
+                            "\u2022 " + getString(R.string.pref_dlg_info_about_wildcards_4)
+                    ;
+            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
         });
 
     }

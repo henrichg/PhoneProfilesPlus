@@ -74,24 +74,21 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
             if (holder.dragHandle != null) {
-                holder.dragHandle.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                mDragStartListener.onStartDrag(holder);
-                                break;
-                            case MotionEvent.ACTION_UP:
-                                v.performClick();
-                                break;
-                            default:
-                                break;
-                        }
-                    /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                        mDragStartListener.onStartDrag(holder);
-                    }*/
-                        return false;
+                holder.dragHandle.setOnTouchListener((v, event1) -> {
+                    switch (event1.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mDragStartListener.onStartDrag(holder);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            v.performClick();
+                            break;
+                        default:
+                            break;
                     }
+                /*if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(holder);
+                }*/
+                    return false;
                 });
             }
         }

@@ -57,113 +57,110 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
             PPApplication.startHandlerThreadBroadcast(/*"BluetoothScanBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothScanBroadcastReceiver_onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothScanBroadcastReceiver_onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                        if (BluetoothScanWorker.bluetooth == null)
-                            BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
+                    if (BluetoothScanWorker.bluetooth == null)
+                        BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(appContext);
 
-                        if (BluetoothScanWorker.bluetooth != null) {
-                            int forceOneScan = ApplicationPreferences.prefForceOneBluetoothScan;
+                    if (BluetoothScanWorker.bluetooth != null) {
+                        int forceOneScan = ApplicationPreferences.prefForceOneBluetoothScan;
 
-                            if (Event.getGlobalEventsRunning() || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                        if (Event.getGlobalEventsRunning() || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
-                                boolean scanStarted = ApplicationPreferences.prefEventBluetoothWaitForResult;
+                            boolean scanStarted = ApplicationPreferences.prefEventBluetoothWaitForResult;
 
-                                if (scanStarted) {
-                                    //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "action=" + action);
+                            if (scanStarted) {
+                                //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "action=" + action);
 
-                                    switch (action) {
-                                        case BluetoothAdapter.ACTION_DISCOVERY_STARTED:
-                                            // may be not invoked if not any BT is around
+                                switch (action) {
+                                    case BluetoothAdapter.ACTION_DISCOVERY_STARTED:
+                                        // may be not invoked if not any BT is around
 
-                                            if (!BluetoothScanner.bluetoothDiscoveryStarted) {
-                                                BluetoothScanner.bluetoothDiscoveryStarted = true;
-                                                BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                                        if (!BluetoothScanner.bluetoothDiscoveryStarted) {
+                                            BluetoothScanner.bluetoothDiscoveryStarted = true;
+                                            BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                                        }
+                                        break;
+                                    case BluetoothDevice.ACTION_FOUND:
+                                        // When discovery finds a device
+
+                                        if (!BluetoothScanner.bluetoothDiscoveryStarted) {
+                                            BluetoothScanner.bluetoothDiscoveryStarted = true;
+                                            BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                                        }
+
+                                        synchronized (PPApplication.bluetoothCLScanMutex) {
+                                            //String btNameD = device.getName();
+                                            //String btNameE = "";
+                                            String btName = device.getName();
+                                            if (deviceName != null) {
+                                                //btNameE = deviceName;
+                                                //btName = btNameE;
+                                                btName = deviceName;
                                             }
-                                            break;
-                                        case BluetoothDevice.ACTION_FOUND:
-                                            // When discovery finds a device
 
-                                            if (!BluetoothScanner.bluetoothDiscoveryStarted) {
-                                                BluetoothScanner.bluetoothDiscoveryStarted = true;
-                                                BluetoothScanWorker.fillBoundedDevicesList(appContext);
-                                            }
+                                            /*if (PPApplication.logEnabled()) {
+                                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_d=" + btNameD);
+                                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_e=" + btNameE);
+                                                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceAddress=" + device.getAddress());
+                                            }*/
 
-                                            synchronized (PPApplication.bluetoothCLScanMutex) {
-                                                //String btNameD = device.getName();
-                                                //String btNameE = "";
-                                                String btName = device.getName();
-                                                if (deviceName != null) {
-                                                    //btNameE = deviceName;
-                                                    //btName = btNameE;
-                                                    btName = deviceName;
+                                            if (BluetoothScanner.tmpBluetoothScanResults == null)
+                                                BluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();
+
+                                            boolean found = false;
+                                            for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
+                                                if (_device.address.equals(device.getAddress())) {
+                                                    found = true;
+                                                    break;
                                                 }
-
-                                                /*if (PPApplication.logEnabled()) {
-                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_d=" + btNameD);
-                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceName_e=" + btNameE);
-                                                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "deviceAddress=" + device.getAddress());
-                                                }*/
-
-                                                if (BluetoothScanner.tmpBluetoothScanResults == null)
-                                                    BluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();
-
-                                                boolean found = false;
+                                            }
+                                            if (!found) {
                                                 for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                    if (_device.address.equals(device.getAddress())) {
+                                                    if (_device.getName().equalsIgnoreCase(device.getName())) {
                                                         found = true;
                                                         break;
                                                     }
                                                 }
-                                                if (!found) {
-                                                    for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                        if (_device.getName().equalsIgnoreCase(device.getName())) {
-                                                            found = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                                //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "found=" + found);
-                                                if (!found) {
-                                                    BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
-                                                            BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
-                                                }
                                             }
-                                            break;
-                                        case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
-                                            if (!BluetoothScanner.bluetoothDiscoveryStarted) {
-                                                BluetoothScanner.bluetoothDiscoveryStarted = true;
-                                                BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                                            //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "found=" + found);
+                                            if (!found) {
+                                                BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
+                                                        BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
                                             }
+                                        }
+                                        break;
+                                    case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
+                                        if (!BluetoothScanner.bluetoothDiscoveryStarted) {
+                                            BluetoothScanner.bluetoothDiscoveryStarted = true;
+                                            BluetoothScanWorker.fillBoundedDevicesList(appContext);
+                                        }
 
-                                            BluetoothScanWorker.finishCLScan(appContext);
-                                            break;
-                                    }
+                                        BluetoothScanWorker.finishCLScan(appContext);
+                                        break;
                                 }
                             }
                         }
+                    }
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanBroadcastReceiver.onReceive");
-                    } catch (Exception e) {
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanBroadcastReceiver.onReceive");
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
                     }
                 }
             });

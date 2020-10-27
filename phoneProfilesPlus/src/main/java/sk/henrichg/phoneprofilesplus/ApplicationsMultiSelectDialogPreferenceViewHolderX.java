@@ -25,12 +25,10 @@ class ApplicationsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.Vi
         checkBox = itemView.findViewById(R.id.applications_multiselect_pref_dlg_item_checkbox);
 
         // If CheckBox is toggled, update the Application it is tagged with.
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                Application application = (Application) cb.getTag();
-                application.checked = cb.isChecked();
-            }
+        checkBox.setOnClickListener(v -> {
+            CheckBox cb = (CheckBox) v;
+            Application application = (Application) cb.getTag();
+            application.checked = cb.isChecked();
         });
 
         itemView.setOnClickListener(this);

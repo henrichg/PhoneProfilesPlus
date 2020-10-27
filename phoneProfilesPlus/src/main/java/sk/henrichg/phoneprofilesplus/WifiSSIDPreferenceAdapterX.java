@@ -92,18 +92,15 @@ class WifiSSIDPreferenceAdapterX extends BaseAdapter
 
         holder.checkBox.setTag(position);
         holder.checkBox.setChecked(preference.isSSIDSelected(wifiSSID.ssid));
-        holder.checkBox.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v) {
-                CheckBox chb = (CheckBox) v;
+        holder.checkBox.setOnClickListener(v -> {
+            CheckBox chb = (CheckBox) v;
 
-                String ssid = preference.SSIDList.get((Integer)chb.getTag()).ssid;
+            String ssid = preference.SSIDList.get((Integer)chb.getTag()).ssid;
 
-                if (chb.isChecked())
-                    preference.addSSID(ssid);
-                else
-                    preference.removeSSID(ssid);
-            }
+            if (chb.isChecked())
+                preference.addSSID(ssid);
+            else
+                preference.removeSSID(ssid);
         });
 
         if (!wifiSSID.custom)
@@ -113,12 +110,7 @@ class WifiSSIDPreferenceAdapterX extends BaseAdapter
         TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         holder.itemEditMenu.setTag(position);
         final ImageView itemEditMenu = holder.itemEditMenu;
-        holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                preference.showEditMenu(itemEditMenu);
-            }
-        });
+        holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu));
 
         return vi;
     }

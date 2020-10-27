@@ -435,15 +435,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
 
         Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        handler.postDelayed(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null) {
-                    PPApplication.doNotShowProfileNotification = false;
-                    // forServiceStart must be true because of call of clearProfileNotification()
-                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ true/*, true*/);
-                }
+            if (PhoneProfilesService.getInstance() != null) {
+                PPApplication.doNotShowProfileNotification = false;
+                // forServiceStart must be true because of call of clearProfileNotification()
+                PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ true/*, true*/);
             }
         }, 1000);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
@@ -555,38 +552,35 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //final Context appContext = getApplicationContext();
             PPApplication.startHandlerThreadPPCommand();
             final Handler handler2 = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
-            handler2.post(new Runnable() {
-                @Override
-                public void run() {
+            handler2.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesPrefsActivity_doPreferenceChanges");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesPrefsActivity_doPreferenceChanges");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                        //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
-                        /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
-                            x
-                        else*/
-                            // unblockEventsRun must be true to reset alarms
-                            //PPApplication.restartEvents(appContext, true, true);
+                    //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
+                    /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
+                        x
+                    else*/
+                        // unblockEventsRun must be true to reset alarms
+                        //PPApplication.restartEvents(appContext, true, true);
 
-                        // change of this parameter is as change of local time
-                        TimeChangedReceiver.doWork(appContext, true);
+                    // change of this parameter is as change of local time
+                    TimeChangedReceiver.doWork(appContext, true);
 
-                    } catch (Exception e) {
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
                         }
                     }
                 }

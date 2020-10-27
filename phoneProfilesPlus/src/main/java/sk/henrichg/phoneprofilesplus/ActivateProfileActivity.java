@@ -254,33 +254,30 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         eventsRunStopIndicator = findViewById(R.id.act_prof_run_stop_indicator);
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
-        eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isFinishing()) {
-                    RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), ActivateProfileActivity.this);
+        eventsRunStopIndicator.setOnClickListener(view -> {
+            if (!isFinishing()) {
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), ActivateProfileActivity.this);
 
-                    View contentView = popup.getContentView();
-                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    int popupWidth = contentView.getMeasuredWidth();
-                    //int popupHeight = contentView.getMeasuredHeight();
-                    //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
-                    //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
+                View contentView = popup.getContentView();
+                contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                int popupWidth = contentView.getMeasuredWidth();
+                //int popupHeight = contentView.getMeasuredHeight();
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
 
-                    int[] runStopIndicatorLocation = new int[2];
-                    eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
-                    //eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
+                int[] runStopIndicatorLocation = new int[2];
+                eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
+                //eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
 
-                    int x = 0;
-                    int y = 0;
+                int x = 0;
+                int y = 0;
 
-                    if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
-                        x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
+                if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
+                    x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
 
-                    popup.setClippingEnabled(false); // disabled for draw outside activity
-                    popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                            RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
-                }
+                popup.setClippingEnabled(false); // disabled for draw outside activity
+                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
             }
         });
 
@@ -719,21 +716,18 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     public void onSequenceCanceled(TapTarget lastTarget) {
                         targetHelpsSequenceStarted = false;
                         final Handler handler = new Handler(getMainLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
+                        handler.postDelayed(() -> {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (1)");
 
-                                if (ActivatorTargetHelpsActivity.activity != null) {
-                                    //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
-                                    try {
-                                        ActivatorTargetHelpsActivity.activity.finish();
-                                    } catch (Exception e) {
-                                        PPApplication.recordException(e);
-                                    }
-                                    ActivatorTargetHelpsActivity.activity = null;
-                                    //ActivatorTargetHelpsActivity.activatorActivity = null;
+                            if (ActivatorTargetHelpsActivity.activity != null) {
+                                //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
+                                try {
+                                    ActivatorTargetHelpsActivity.activity.finish();
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
                                 }
+                                ActivatorTargetHelpsActivity.activity = null;
+                                //ActivatorTargetHelpsActivity.activatorActivity = null;
                             }
                         }, 500);
 
@@ -754,42 +748,36 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 //final Context context = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (2)");
 
 //                        PPApplication.logE("[LOCAL_BROADCAST_CALL] ActivateProfileActivity.showTargetHelps", "xxx");
-                        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
-                        intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
-                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-                        /*if (ActivateProfileActivity.getInstance() != null) {
-                            Fragment fragment = ActivateProfileActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
-                            if (fragment != null) {
-                                ((ActivateProfileListFragment) fragment).showTargetHelps();
-                            }
-                        }*/
-                    }
+                    Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
+                    intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
+                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                    /*if (ActivateProfileActivity.getInstance() != null) {
+                        Fragment fragment = ActivateProfileActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
+                        if (fragment != null) {
+                            ((ActivateProfileListFragment) fragment).showTargetHelps();
+                        }
+                    }*/
                 }, 500);
             }
         }
         else {
             final Handler handler = new Handler(getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileActivity.showTargetHelps (3)");
 
-                    if (ActivatorTargetHelpsActivity.activity != null) {
-                        //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
-                        try {
-                            ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                        ActivatorTargetHelpsActivity.activity = null;
-                        //ActivatorTargetHelpsActivity.activatorActivity = null;
+                if (ActivatorTargetHelpsActivity.activity != null) {
+                    //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
+                    try {
+                        ActivatorTargetHelpsActivity.activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
+                    ActivatorTargetHelpsActivity.activity = null;
+                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }

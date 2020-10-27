@@ -64,12 +64,10 @@ class DaysOfWeekPreferenceAdapterX extends BaseAdapter
             convertView.setTag(new DayOfWeekViewHolder(textViewDisplayName, checkBox));
 
             // If CheckBox is toggled, update the Contact it is tagged with.
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    DayOfWeek dayOfWeek = (DayOfWeek) cb.getTag();
-                    dayOfWeek.checked = cb.isChecked();
-                }
+            checkBox.setOnClickListener(v -> {
+                CheckBox cb = (CheckBox) v;
+                DayOfWeek dayOfWeek = (DayOfWeek) cb.getTag();
+                dayOfWeek.checked = cb.isChecked();
             });
         }
         // Reuse existing row view

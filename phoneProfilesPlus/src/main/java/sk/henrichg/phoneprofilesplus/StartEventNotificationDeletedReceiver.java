@@ -19,35 +19,32 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
         PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationDeletedReceiver.onReceive"*/);
         final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
-                if (event_id != 0) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationDeletedReceiver_onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+            if (event_id != 0) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationDeletedReceiver_onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                        Event event = databaseHandler.getEvent(event_id);
-                        if (event != null)
-                            StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
+                    DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                    Event event = databaseHandler.getEvent(event_id);
+                    if (event != null)
+                        StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
-                    } catch (Exception e) {
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
                     }
                 }
             }

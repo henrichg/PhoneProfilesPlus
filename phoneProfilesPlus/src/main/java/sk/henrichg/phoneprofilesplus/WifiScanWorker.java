@@ -247,14 +247,11 @@ public class WifiScanWorker extends Worker {
             if (shortInterval) {
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.scheduleWork" + " shortInterval=true");
-                        _cancelWork(context);
-                        PPApplication.sleep(5000);
-                        _scheduleWork(context, true);
-                    }
+                    _cancelWork(context);
+                    PPApplication.sleep(5000);
+                    _scheduleWork(context, true);
                 });
             }
             else
@@ -343,12 +340,9 @@ public class WifiScanWorker extends Worker {
         if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=WifiScanWorker.cancelWork");
-                    _cancelWork(context);
-                }
+                _cancelWork(context);
             });
         }
         else {

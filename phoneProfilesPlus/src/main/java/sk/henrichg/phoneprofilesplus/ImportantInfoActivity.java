@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
@@ -106,14 +105,11 @@ public class ImportantInfoActivity extends AppCompatActivity {
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager,
-                new TabLayoutMediator.OnConfigureTabCallback() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        if (position == 1)
-                            tab.setText(R.string.important_info_quick_guide_tab);
-                        else
-                            tab.setText(R.string.important_info_important_info_tab);
-                    }
+                (tab, position) -> {
+                    if (position == 1)
+                        tab.setText(R.string.important_info_quick_guide_tab);
+                    else
+                        tab.setText(R.string.important_info_important_info_tab);
                 });
         tabLayoutMediator.attach();
 

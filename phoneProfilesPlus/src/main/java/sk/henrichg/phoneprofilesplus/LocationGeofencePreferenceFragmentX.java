@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -66,31 +65,28 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         listAdapter = new LocationGeofencesPreferenceAdapterX(prefContext, DatabaseHandler.getInstance(prefContext.getApplicationContext()).getGeofencesCursor(), this);
         geofencesListView.setAdapter(listAdapter);
 
-        geofencesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                LocationGeofencesPreferenceAdapterX.ViewHolder viewHolder =
-                        (LocationGeofencesPreferenceAdapterX.ViewHolder) v.getTag();
+        geofencesListView.setOnItemClickListener((parent, v, position, id) -> {
+            LocationGeofencesPreferenceAdapterX.ViewHolder viewHolder =
+                    (LocationGeofencesPreferenceAdapterX.ViewHolder) v.getTag();
 
-                /*
-                if (listAdapter.selectedRB != null){
-                    long gid = (long)listAdapter.selectedRB.getTag();
-                    Log.d("LocationGeofencePreference.onItemClick", "checked id="+gid);
-                    listAdapter.selectedRB.setChecked(false);
-                }
-                */
-                //listAdapter.selectedRB = viewHolder.radioButton;
+            /*
+            if (listAdapter.selectedRB != null){
+                long gid = (long)listAdapter.selectedRB.getTag();
+                Log.d("LocationGeofencePreference.onItemClick", "checked id="+gid);
+                listAdapter.selectedRB.setChecked(false);
+            }
+            */
+            //listAdapter.selectedRB = viewHolder.radioButton;
 
-                long gid = viewHolder.geofenceId;
-                if (preference.onlyEdit == 0) {
-                    DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence(String.valueOf(gid), 2);
-                    //viewHolder.radioButton.setChecked(true);
-                    //updateGUIWithGeofence(gid);
-                    preference.refreshListView();
-                }
-                else {
-                    startEditor(gid);
-                }
-
+            long gid = viewHolder.geofenceId;
+            if (preference.onlyEdit == 0) {
+                DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence(String.valueOf(gid), 2);
+                //viewHolder.radioButton.setChecked(true);
+                //updateGUIWithGeofence(gid);
+                preference.refreshListView();
+            }
+            else {
+                startEditor(gid);
             }
 
         });
@@ -117,22 +113,14 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         });
         */
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startEditor(0);
-            }
-        });
+        addButton.setOnClickListener(v -> startEditor(0));
 
         final Button unselectAllButton = view.findViewById(R.id.location_pref_dlg_unselectAll);
         if (preference.onlyEdit == 0) {
-            unselectAllButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // clear all checks
-                    DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0);
-                    preference.refreshListView();
-                }
+            unselectAllButton.setOnClickListener(v -> {
+                // clear all checks
+                DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0);
+                preference.refreshListView();
             });
         }
         else {
@@ -177,27 +165,25 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
             locationEnabledStatusTextView.setText(statusText);
 
-            locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getActivity() != null) {
-                        boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
-                            try {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+            locationSystemSettingsButton.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    boolean ok = false;
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                    }
+                    if (!ok) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -209,10 +195,9 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 //                                }
 //                            });
 
-                            if (getActivity() != null)
-                                if (!getActivity().isFinishing())
-                                    dialog.show();
-                        }
+                        if (getActivity() != null)
+                            if (!getActivity().isFinishing())
+                                dialog.show();
                     }
                 }
             });
@@ -257,32 +242,30 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
         final long geofenceId = (long)view.getTag();
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.location_geofence_pref_item_menu_edit) {
-                    startEditor(geofenceId);
-                    return true;
-                }
-                else
-                if (itemId == R.id.location_geofence_pref_item_menu_delete) {
-                    if (geofenceId > 0) {
-                        if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
-                            DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
-                            preference.refreshListView();
-                            //updateGUIWithGeofence(0);
-                                /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
-                                    // stop location updates
-                                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                                        PhoneProfilesService.getGeofencesScanner().disconnect();
-                                }*/
-                        } else {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-                            dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
-                            dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.location_geofence_pref_item_menu_edit) {
+                startEditor(geofenceId);
+                return true;
+            }
+            else
+            if (itemId == R.id.location_geofence_pref_item_menu_delete) {
+                if (geofenceId > 0) {
+                    if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
+                        DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
+                        preference.refreshListView();
+                        //updateGUIWithGeofence(0);
+                            /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
+                                // stop location updates
+                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                                    PhoneProfilesService.getGeofencesScanner().disconnect();
+                            }*/
+                    } else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                        dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
+                        dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                    @Override
@@ -294,16 +277,15 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 //                                    }
 //                                });
 
-                            if (getActivity() != null)
-                                if (!getActivity().isFinishing())
-                                    dialog.show();
-                        }
+                        if (getActivity() != null)
+                            if (!getActivity().isFinishing())
+                                dialog.show();
                     }
-                    return true;
                 }
-                else {
-                    return false;
-                }
+                return true;
+            }
+            else {
+                return false;
             }
         });
 

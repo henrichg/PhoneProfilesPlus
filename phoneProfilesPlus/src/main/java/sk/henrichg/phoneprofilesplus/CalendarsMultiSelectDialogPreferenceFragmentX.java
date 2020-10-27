@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -68,23 +67,17 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
         rellaData = view.findViewById(R.id.calendars_multiselect_pref_dlg_rella_data);
         listView = view.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
-            {
-                CalendarEvent calendar = (CalendarEvent)listAdapter.getItem(position);
-                calendar.toggleChecked();
-                CalendarViewHolder viewHolder = (CalendarViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(calendar.checked);
-            }
+        listView.setOnItemClickListener((parent, item, position, id) -> {
+            CalendarEvent calendar = (CalendarEvent)listAdapter.getItem(position);
+            calendar.toggleChecked();
+            CalendarViewHolder viewHolder = (CalendarViewHolder) item.getTag();
+            viewHolder.checkBox.setChecked(calendar.checked);
         });
 
         final Button unselectAllButton = view.findViewById(R.id.calendars_multiselect_pref_dlg_unselect_all);
-        unselectAllButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                preference.value="";
-                refreshListView(false);
-            }
+        unselectAllButton.setOnClickListener(v -> {
+            preference.value="";
+            refreshListView(false);
         });
 
         if (Permissions.grantCalendarDialogPermissions(prefContext))

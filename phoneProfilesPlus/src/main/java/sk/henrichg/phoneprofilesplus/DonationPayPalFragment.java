@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -120,12 +119,9 @@ public class DonationPayPalFragment extends Fragment {
         updateGUIAfterBillingConnected();
 
         Button closeButton = view.findViewById(R.id.donation_paypal_activity_close);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() != null)
-                    getActivity().finish();
-            }
+        closeButton.setOnClickListener(v -> {
+            if (getActivity() != null)
+                getActivity().finish();
         });
     }
 
@@ -165,14 +161,7 @@ public class DonationPayPalFragment extends Fragment {
         if (getActivity() != null) {
             String[] prices = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €"};
             mPayPalGridView.setAdapter(new DonationPayPalAdapter(DonationPayPalFragment.this, prices));
-            mPayPalGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    donatePayPalOnClick(position);
-                }
-
-
-            });
+            mPayPalGridView.setOnItemClickListener((parent, view, position, id) -> donatePayPalOnClick(position));
             mPayPalGridView.setEnabled(true);
         }
     }

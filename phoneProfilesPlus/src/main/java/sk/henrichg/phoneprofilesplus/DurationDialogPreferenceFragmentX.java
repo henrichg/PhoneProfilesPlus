@@ -85,46 +85,40 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
 
         mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
-        mValueDialog = new TimeDurationPickerDialog(context, new TimeDurationPickerDialog.OnDurationSetListener() {
-            @Override
-            public void onDurationSet(TimeDurationPicker view, long duration) {
-                int iValue = (int) duration / 1000;
+        mValueDialog = new TimeDurationPickerDialog(context, (view1, duration) -> {
+            int iValue1 = (int) duration / 1000;
 
-                if (iValue < preference.mMin)
-                    iValue = preference.mMin;
-                if (iValue > preference.mMax)
-                    iValue = preference.mMax;
+            if (iValue1 < preference.mMin)
+                iValue1 = preference.mMin;
+            if (iValue1 > preference.mMax)
+                iValue1 = preference.mMax;
 
-                preference.value = String.valueOf(iValue);
+            preference.value = String.valueOf(iValue1);
 
-                mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mValue.setText(GlobalGUIRoutines.getDurationString(iValue1));
 
-                int hours = iValue / 3600;
-                int minutes = (iValue % 3600) / 60;
-                int seconds = iValue % 60;
+            int hours1 = iValue1 / 3600;
+            int minutes1 = (iValue1 % 3600) / 60;
+            int seconds1 = iValue1 % 60;
 
-                mSeekBarHours.setProgress(hours);
-                mSeekBarMinutes.setProgress(minutes);
-                mSeekBarSeconds.setProgress(seconds);
-            }
+            mSeekBarHours.setProgress(hours1);
+            mSeekBarMinutes.setProgress(minutes1);
+            mSeekBarSeconds.setProgress(seconds1);
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), getActivity());
-        mValue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    int hours = mSeekBarHours.getProgress();
-                    int minutes = mSeekBarMinutes.getProgress();
-                    int seconds = mSeekBarSeconds.getProgress();
+        mValue.setOnClickListener(view12 -> {
+                int hours12 = mSeekBarHours.getProgress();
+                int minutes12 = mSeekBarMinutes.getProgress();
+                int seconds12 = mSeekBarSeconds.getProgress();
 
-                    int iValue = (hours * 3600 + minutes * 60 + seconds);
-                    if (iValue < preference.mMin) iValue = preference.mMin;
-                    if (iValue > preference.mMax) iValue = preference.mMax;
+                int iValue12 = (hours12 * 3600 + minutes12 * 60 + seconds12);
+                if (iValue12 < preference.mMin) iValue12 = preference.mMin;
+                if (iValue12 > preference.mMax) iValue12 = preference.mMax;
 
-                    mValueDialog.setDuration(iValue * 1000);
-                    if (getActivity() != null)
-                        if (!getActivity().isFinishing())
-                            mValueDialog.show();
-                }
+                mValueDialog.setDuration(iValue12 * 1000);
+                if (getActivity() != null)
+                    if (!getActivity().isFinishing())
+                        mValueDialog.show();
             }
         );
 

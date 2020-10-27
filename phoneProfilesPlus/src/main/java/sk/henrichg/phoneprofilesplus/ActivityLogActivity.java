@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -127,11 +126,9 @@ public class ActivityLogActivity extends AppCompatActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.activity_log_clear_alert_title);
             dialogBuilder.setMessage(R.string.activity_log_clear_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                    activityLogAdapter.reload(dataWrapper);
-                }
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
+                activityLogAdapter.reload(dataWrapper);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();

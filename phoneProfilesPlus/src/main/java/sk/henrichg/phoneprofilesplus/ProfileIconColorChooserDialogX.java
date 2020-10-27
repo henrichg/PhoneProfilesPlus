@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -191,12 +190,10 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
                 chromaColorView.setColorMode(ColorMode.values()[0]);
                 chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
 
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        int color = chromaColorView.getCurrentColor();
-                        profileIconPreference.setCustomColor(true, color);
-                        mDialog.dismiss();
-                    }
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                    int color = chromaColorView.getCurrentColor();
+                    profileIconPreference.setCustomColor(true, color);
+                    mDialog.dismiss();
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
 

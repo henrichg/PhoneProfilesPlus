@@ -71,12 +71,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(applicationsListView);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                preference.startEditor(null);
-            }
-        });
+        addButton.setOnClickListener(v -> preference.startEditor(null));
 
         refreshListView(false);
     }

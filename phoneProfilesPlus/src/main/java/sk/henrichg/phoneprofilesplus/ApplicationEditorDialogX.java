@@ -85,13 +85,10 @@ class ApplicationEditorDialogX
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.applications_editor_dialog_title);
         dialogBuilder.setCancelable(true);
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //if (cachedApplicationList != null) {
-                    ApplicationEditorDialogX.this.preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
-                //}
-            }
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            //if (cachedApplicationList != null) {
+                ApplicationEditorDialogX.this.preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
+            //}
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
@@ -110,45 +107,36 @@ class ApplicationEditorDialogX
 
         LinearLayout delayValueRoot = layout.findViewById(R.id.applications_editor_dialog_startApplicationDelay_root);
         TooltipCompat.setTooltipText(delayValueRoot, activity.getString(R.string.applications_editor_dialog_edit_delay_tooltip));
-        mDelayValueDialog = new TimeDurationPickerDialog(activity, new TimeDurationPickerDialog.OnDurationSetListener() {
-            @Override
-            public void onDurationSet(TimeDurationPicker view, long duration) {
-                int iValue = (int) duration / 1000;
+        mDelayValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
+            int iValue = (int) duration / 1000;
 
-                if (iValue < 0)
-                    iValue = 0;
-                if (iValue > 86400)
-                    iValue = 86400;
+            if (iValue < 0)
+                iValue = 0;
+            if (iValue > 86400)
+                iValue = 86400;
 
-                mDelayValue.setText(GlobalGUIRoutines.getDurationString(iValue));
+            mDelayValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
-                startApplicationDelay = iValue;
-            }
+            startApplicationDelay = iValue;
         }, startApplicationDelay * 1000, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
-        delayValueRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mDelayValueDialog.setDuration(startApplicationDelay * 1000);
-                    if (!ApplicationEditorDialogX.this.activity.isFinishing())
-                            mDelayValueDialog.show();
-                }
-            }
+        delayValueRoot.setOnClickListener(view -> {
+            mDelayValueDialog.setDuration(startApplicationDelay * 1000);
+            if (!ApplicationEditorDialogX.this.activity.isFinishing())
+                    mDelayValueDialog.show();
+        }
         );
 
-        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
+        mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-                if (selectedPosition == -1) {
-                    Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                    if (positive != null)
-                        positive.setEnabled(false);
-                }
+            if (selectedPosition == -1) {
+                Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null)
+                    positive.setEnabled(false);
             }
         });
 
@@ -226,12 +214,7 @@ class ApplicationEditorDialogX
 
         addButton  = layout.findViewById(R.id.applications_editor_dialog_addIntent);
         TooltipCompat.setTooltipText(addButton, activity.getString(R.string.applications_editor_dialog_add_button_tooltip));
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startEditor(null);
-            }
-        });
+        addButton.setOnClickListener(view -> startEditor(null));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         listView = layout.findViewById(R.id.applications_editor_dialog_listview);
@@ -448,28 +431,25 @@ class ApplicationEditorDialogX
         else
             new MenuInflater(context).inflate(R.menu.applications_intent_editor_dlg_item_edit_no_delete, popup.getMenu());
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.applications_intent_editor_dlg_item_menu_edit) {
-                    startEditor(application);
-                    return true;
-                }
-                else
-                if (itemId == R.id.applications_intent_editor_dlg_item_menu_duplicate) {
-                    Application newApplication = duplicateIntent(application);
-                    startEditor(newApplication);
-                    return true;
-                }
-                else
-                if (itemId == R.id.applications_intent_editor_dlg_item_menu_delete) {
-                    deleteIntent(application);
-                    return true;
-                }
-                else {
-                    return false;
-                }
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.applications_intent_editor_dlg_item_menu_edit) {
+                startEditor(application);
+                return true;
+            }
+            else
+            if (itemId == R.id.applications_intent_editor_dlg_item_menu_duplicate) {
+                Application newApplication = duplicateIntent(application);
+                startEditor(newApplication);
+                return true;
+            }
+            else
+            if (itemId == R.id.applications_intent_editor_dlg_item_menu_delete) {
+                deleteIntent(application);
+                return true;
+            }
+            else {
+                return false;
             }
         });
 

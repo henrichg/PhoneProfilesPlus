@@ -33,33 +33,30 @@ public class NotificationEventEndBroadcastReceiver extends BroadcastReceiver {
             //if (useHandler) {
             PPApplication.startHandlerThreadBroadcast(/*"NotificationEventEndBroadcastReceiver.doWork"*/);
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotificationEventEndBroadcastReceiver.doWork");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotificationEventEndBroadcastReceiver_doWork");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotificationEventEndBroadcastReceiver_doWork");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
 //                        PPApplication.logE("[EVENTS_HANDLER_CALL] NotificationEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_NOTIFICATION");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NotificationEventEndBroadcastReceiver.doWork");
-                    } catch (Exception e) {
+                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NotificationEventEndBroadcastReceiver.doWork");
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
                         }
                     }
                 }

@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -141,13 +140,11 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
                     chromaColorView.setColorMode(ColorMode.values()[0]);
                     chromaColorView.setIndicatorMode(IndicatorMode.values()[1]);
 
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            int color = chromaColorView.getCurrentColor();
-                            preference.value = String.valueOf(color);
-                            preference.persistValue();
-                            dismiss();
-                        }
+                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                        int color = chromaColorView.getCurrentColor();
+                        preference.value = String.valueOf(color);
+                        preference.persistValue();
+                        dismiss();
                     });
                     dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
 

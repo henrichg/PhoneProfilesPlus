@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -142,12 +141,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         //if (profile_id != Profile.SHARED_PROFILE_ID) {
         // no menu for shared profile
 
-        onNextLayout(toolbar, new Runnable() {
-            @Override
-            public void run() {
-                showTargetHelps();
-            }
-        });
+        //noinspection Convert2MethodRef
+        onNextLayout(toolbar, () -> showTargetHelps());
         //}
 
         /*final Handler handler = new Handler(getMainLooper());
@@ -166,18 +161,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
             dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    savePreferences(newProfileMode, predefinedProfileIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                }
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                savePreferences(newProfileMode, predefinedProfileIndex);
+                resultCode = RESULT_OK;
+                finish();
             });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> finish());
             AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -389,13 +378,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             // must be used handler for rewrite toolbar title/subtitle
             final String profileName = profile._name;
             Handler handler = new Handler(getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
-                    //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
-                    toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
-                }
+                //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+                toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
             }, 200);
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

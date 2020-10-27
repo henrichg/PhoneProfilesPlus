@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -549,31 +548,18 @@ public class GrantPermissionActivity extends AppCompatActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.permissions_alert_title);
             dialogBuilder.setMessage(GlobalGUIRoutines.fromHtml(showRequestString, true, false, 0, 0));
-            dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    int iteration = 4;
-                    if (showRequestWriteSettings)
-                        iteration = 1;
-                    //else if (showRequestAccessNotificationPolicy)
-                    //    iteration = 2;
-                    else if (showRequestDrawOverlays)
-                        iteration = 3;
-                    requestPermissions(iteration, canShowRationale(context, false));
-                }
+            dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                int iteration = 4;
+                if (showRequestWriteSettings)
+                    iteration = 1;
+                //else if (showRequestAccessNotificationPolicy)
+                //    iteration = 2;
+                else if (showRequestDrawOverlays)
+                    iteration = 3;
+                requestPermissions(iteration, canShowRationale(context, false));
             });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    finish();
-                }
-            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> finish());
+            dialogBuilder.setOnCancelListener(dialog -> finish());
             AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -1013,31 +999,22 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
                     dialogBuilder.setMessage(R.string.permissions_write_settings_not_allowed_confirm);
-                    dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Permissions.setShowRequestWriteSettingsPermission(context, false);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.WRITE_SETTINGS);
-                            requestPermissions(3/*2*/, withRationale);
-                        }
+                    dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, (dialog, which) -> {
+                        Permissions.setShowRequestWriteSettingsPermission(context, false);
+                        if (rationaleAlreadyShown)
+                            removePermission(Manifest.permission.WRITE_SETTINGS);
+                        requestPermissions(3/*2*/, withRationale);
                     });
-                    dialogBuilder.setNegativeButton(R.string.permission_ask_button, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Permissions.setShowRequestWriteSettingsPermission(context, true);
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.WRITE_SETTINGS);
-                            requestPermissions(3/*2*/, withRationale);
-                        }
+                    dialogBuilder.setNegativeButton(R.string.permission_ask_button, (dialog, which) -> {
+                        Permissions.setShowRequestWriteSettingsPermission(context, true);
+                        if (rationaleAlreadyShown)
+                            removePermission(Manifest.permission.WRITE_SETTINGS);
+                        requestPermissions(3/*2*/, withRationale);
                     });
-                    dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            if (rationaleAlreadyShown)
-                                removePermission(Manifest.permission.WRITE_SETTINGS);
-                            requestPermissions(3/*2*/, withRationale);
-                        }
+                    dialogBuilder.setOnCancelListener(dialog -> {
+                        if (rationaleAlreadyShown)
+                            removePermission(Manifest.permission.WRITE_SETTINGS);
+                        requestPermissions(3/*2*/, withRationale);
                     });
                     AlertDialog dialog = dialogBuilder.create();
 
@@ -1156,14 +1133,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
                     if (Build.VERSION.SDK_INT >= 29) {
                         dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_alway_required);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Permissions.setShowRequestDrawOverlaysPermission(context, true);
-                                if (rationaleAlreadyShown)
-                                    removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                                requestPermissions(4, withRationale);
-                            }
+                        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            Permissions.setShowRequestDrawOverlaysPermission(context, true);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                            requestPermissions(4, withRationale);
                         });
                     }
                     else {
@@ -1171,32 +1145,23 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm);
                         else
                             dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm_miui);
-                        dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Permissions.setShowRequestDrawOverlaysPermission(context, false);
-                                if (rationaleAlreadyShown)
-                                    removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                                requestPermissions(4, withRationale);
-                            }
-                        });
-                        dialogBuilder.setNegativeButton(R.string.permission_ask_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Permissions.setShowRequestDrawOverlaysPermission(context, true);
-                                if (rationaleAlreadyShown)
-                                    removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
-                                requestPermissions(4, withRationale);
-                            }
-                        });
-                    }
-                    dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
+                        dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, (dialog, which) -> {
+                            Permissions.setShowRequestDrawOverlaysPermission(context, false);
                             if (rationaleAlreadyShown)
                                 removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
                             requestPermissions(4, withRationale);
-                        }
+                        });
+                        dialogBuilder.setNegativeButton(R.string.permission_ask_button, (dialog, which) -> {
+                            Permissions.setShowRequestDrawOverlaysPermission(context, true);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                            requestPermissions(4, withRationale);
+                        });
+                    }
+                    dialogBuilder.setOnCancelListener(dialog -> {
+                        if (rationaleAlreadyShown)
+                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                        requestPermissions(4, withRationale);
                     });
                     AlertDialog dialog = dialogBuilder.create();
 

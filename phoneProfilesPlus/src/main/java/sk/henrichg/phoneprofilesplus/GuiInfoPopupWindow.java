@@ -49,20 +49,12 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
 
         AppCompatImageButton closeButton = popupView.findViewById(R.id.popup_window_close);
         if (closeButton != null) {
-            closeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                }
-            });
+            closeButton.setOnClickListener(v -> dismiss());
         }
 
-        setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
-                clearDim(root);
-            }
+        setOnDismissListener(() -> {
+            ViewGroup root1 = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+            clearDim(root1);
         });
     }
 

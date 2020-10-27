@@ -26,66 +26,63 @@ class IgnoreBatteryOptimizationNotification {
             if (useHandler) {
                 PPApplication.startHandlerThread(/*"IgnoreBatteryOptimizationNotification.showNotification"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":IgnoreBatteryOptimizationNotification_showNotification");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":IgnoreBatteryOptimizationNotification_showNotification");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                            //boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
-                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
-                            /*if (Event.getGlobalEventsRunning()) {
-                                //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
-                                //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
-                                DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                                show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
-                                //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
-                            }
-                            else
-                            show = false;*/
+                        //boolean show = ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart;
+                        //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 1=" + show);
+                        /*if (Event.getGlobalEventsRunning()) {
+                            //show = show && DataWrapper.getIsManualProfileActivation(false, appContext);
+                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 2=" + show);
+                            DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                            show = show && (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ALL, false) != 0);
+                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "show 3=" + show);
+                        }
+                        else
+                        show = false;*/
 
-                            //if (show) {
-                                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                try {
-                                    if (pm != null) {
-                                        //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
+                        //if (show) {
+                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            try {
+                                if (pm != null) {
+                                    //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "pm="+pm);
 
-                                        if (!pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME)) {
-                                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
+                                    if (!pm.isIgnoringBatteryOptimizations(PPApplication.PACKAGE_NAME)) {
+                                        //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "optimized");
 
-                                            if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
-                                                showNotification(appContext,
-                                                        appContext.getString(R.string.ignore_battery_optimization_notification_title),
-                                                        appContext.getString(R.string.ignore_battery_optimization_notification_text));
-                                        }
-                                        else {
-                                            //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
-
-                                            // show notification again
-                                            setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
-                                        }
+                                        if (ApplicationPreferences.prefShowIgnoreBatteryOptimizationNotificationOnStart)
+                                            showNotification(appContext,
+                                                    appContext.getString(R.string.ignore_battery_optimization_notification_title),
+                                                    appContext.getString(R.string.ignore_battery_optimization_notification_text));
                                     }
-                                } catch (Exception ignore) {
-                                }
-                            //}
+                                    else {
+                                        //PPApplication.logE("IgnoreBatteryOptimizationNotification.showNotification", "not optimized");
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
-                        } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                        // show notification again
+                                        setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
+                                    }
                                 }
+                            } catch (Exception ignore) {
+                            }
+                        //}
+
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=IgnoreBatteryOptimizationNotification_showNotification");
+                    } catch (Exception e) {
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }

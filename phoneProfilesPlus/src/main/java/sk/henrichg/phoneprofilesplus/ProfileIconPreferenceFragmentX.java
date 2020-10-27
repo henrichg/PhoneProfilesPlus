@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -46,24 +45,17 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         gridView.setAdapter(adapter);
         gridView.setSelection(ProfileIconPreferenceAdapterX.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                preference.setImageIdentifierAndType(ProfileIconPreferenceAdapterX.getImageResourceName(position),true);
-                adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
-                preference.updateIcon(true);
-                colorChooserButton.setEnabled(preference.isImageResourceID);
-            }
+        gridView.setOnItemClickListener((parent, v, position, id) -> {
+            preference.setImageIdentifierAndType(ProfileIconPreferenceAdapterX.getImageResourceName(position),true);
+            adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
+            preference.updateIcon(true);
+            colorChooserButton.setEnabled(preference.isImageResourceID);
         });
 
         preference.dialogIcon = view.findViewById(R.id.profileicon_pref_dlg_icon);
 
         colorChooserButton = view.findViewById(R.id.profileicon_pref_dlg_change_color);
-        colorChooserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCustomColorChooser();
-            }
-        });
+        colorChooserButton.setOnClickListener(v -> showCustomColorChooser());
         colorChooserButton.setEnabled(preference.isImageResourceID);
 
         /*final ImageView helpIcon = layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
@@ -75,13 +67,10 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         });*/
 
         final Button customIconButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon);
-        customIconButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Permissions.grantCustomProfileIconPermissions(prefContext)) {
-                    preference.startGallery();
-                    //mDialog.dismiss();
-                }
+        customIconButton.setOnClickListener(v -> {
+            if (Permissions.grantCustomProfileIconPermissions(prefContext)) {
+                preference.startGallery();
+                //mDialog.dismiss();
             }
         });
 

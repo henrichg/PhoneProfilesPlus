@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.os.Bundle;
@@ -71,17 +70,14 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         message = message + getString(R.string.profile_preferences_volumeNotificationVolume0_radioButtonsLabel);
 
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "1");
-                //if ((!uriId.isEmpty()) && (phoneProfilesSilentRB.isChecked()))
-                //    editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
-                //else
-                    editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-                editor.apply();
-            }
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "1");
+            //if ((!uriId.isEmpty()) && (phoneProfilesSilentRB.isChecked()))
+            //    editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
+            //else
+                editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
+            editor.apply();
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

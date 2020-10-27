@@ -71,12 +71,10 @@ class CalendarsMultiSelectPreferenceAdapterX extends BaseAdapter
             convertView.setTag(new CalendarViewHolder(calendarColor, textViewDisplayName, checkBox));
 
             // If CheckBox is toggled, update the Contact it is tagged with.
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    CalendarEvent calendar = (CalendarEvent) cb.getTag();
-                    calendar.checked = cb.isChecked();
-                }
+            checkBox.setOnClickListener(v -> {
+                CheckBox cb = (CheckBox) v;
+                CalendarEvent calendar1 = (CalendarEvent) cb.getTag();
+                calendar1.checked = cb.isChecked();
             });
         }
         // Reuse existing row view

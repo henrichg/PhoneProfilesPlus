@@ -187,14 +187,11 @@ public class SearchCalendarEventsWorker extends Worker {
         if (shortInterval) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.scheduleWork" + " shortInterval=true");
-                    _cancelWork();
-                    PPApplication.sleep(5000);
-                    _scheduleWork(true);
-                }
+                _cancelWork();
+                PPApplication.sleep(5000);
+                _scheduleWork(true);
             });
         }
         else
@@ -280,12 +277,9 @@ public class SearchCalendarEventsWorker extends Worker {
         if (useHandler /*&& (_handler == null)*/) {
             PPApplication.startHandlerThreadPPScanners();
             final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=SearchCalendarEventsWorker.cancelWork");
-                    _cancelWork();
-                }
+                _cancelWork();
             });
         }
         else {

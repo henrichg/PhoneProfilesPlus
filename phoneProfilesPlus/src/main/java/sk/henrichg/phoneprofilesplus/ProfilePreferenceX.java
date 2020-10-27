@@ -92,12 +92,9 @@ public class ProfilePreferenceX extends DialogPreference {
             }
 
             Handler handler = new Handler(prefContext.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreferenceX.onBindViewHolder");
-                    setSummary(Long.parseLong(profileId));
-                }
+                setSummary(Long.parseLong(profileId));
             }, 200);
         }
     }

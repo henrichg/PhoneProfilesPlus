@@ -4,10 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 class ContactsMultiSelectPreferenceAdapterX extends RecyclerView.Adapter<ContactsMultiSelectDialogPreferenceViewHolderX>
                                                 implements FastScrollRecyclerView.SectionedAdapter

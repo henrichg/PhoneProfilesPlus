@@ -136,11 +136,9 @@ class AddProfileAdapter extends BaseAdapter {
         }
 
         holder.radioButton.setTag(position);
-        holder.radioButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
-                dialog.doOnItemSelected((Integer)rb.getTag());
-            }
+        holder.radioButton.setOnClickListener(v -> {
+            RadioButton rb = (RadioButton) v;
+            dialog.doOnItemSelected((Integer)rb.getTag());
         });
 
         return vi;

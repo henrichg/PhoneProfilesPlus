@@ -2,12 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -47,28 +44,20 @@ class FastAccessDurationProfileDialog
 
         mDialog = dialogBuilder.create();
 
-        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
+        mDialog.setOnShowListener(dialog -> {
 //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
 //                if (positive != null) positive.setAllCaps(false);
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-                FastAccessDurationProfileDialog.this.onShow();
-            }
+            FastAccessDurationProfileDialog.this.onShow();
         });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                doOnItemSelected(position);
-            }
-
-        });
+        listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
 
     }
 

@@ -317,21 +317,18 @@ class ActivateProfileListAdapter extends BaseAdapter
                 public void onSequenceFinish() {
                     //targetHelpsSequenceStarted = false;
                     final Handler handler = new Handler(activity.getMainLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.postDelayed(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (1)");
 
-                            if (ActivatorTargetHelpsActivity.activity != null) {
-                                //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
-                                try {
-                                    ActivatorTargetHelpsActivity.activity.finish();
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                                ActivatorTargetHelpsActivity.activity = null;
-                                //ActivatorTargetHelpsActivity.activatorActivity = null;
+                        if (ActivatorTargetHelpsActivity.activity != null) {
+                            //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                            try {
+                                ActivatorTargetHelpsActivity.activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
                             }
+                            ActivatorTargetHelpsActivity.activity = null;
+                            //ActivatorTargetHelpsActivity.activatorActivity = null;
                         }
                     }, 500);
                 }
@@ -345,21 +342,18 @@ class ActivateProfileListAdapter extends BaseAdapter
                 public void onSequenceCanceled(TapTarget lastTarget) {
                     //targetHelpsSequenceStarted = false;
                     final Handler handler = new Handler(activity.getMainLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.postDelayed(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (2)");
 
-                            if (ActivatorTargetHelpsActivity.activity != null) {
-                                //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
-                                try {
-                                    ActivatorTargetHelpsActivity.activity.finish();
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                                ActivatorTargetHelpsActivity.activity = null;
-                                //ActivatorTargetHelpsActivity.activatorActivity = null;
+                        if (ActivatorTargetHelpsActivity.activity != null) {
+                            //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                            try {
+                                ActivatorTargetHelpsActivity.activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
                             }
+                            ActivatorTargetHelpsActivity.activity = null;
+                            //ActivatorTargetHelpsActivity.activatorActivity = null;
                         }
                     }, 500);
                 }
@@ -371,21 +365,18 @@ class ActivateProfileListAdapter extends BaseAdapter
         }
         else {
             final Handler handler = new Handler(activity.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListAdapter.showTargetHelps (3)");
 
-                    if (ActivatorTargetHelpsActivity.activity != null) {
-                        //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
-                        try {
-                            ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                        ActivatorTargetHelpsActivity.activity = null;
-                        //ActivatorTargetHelpsActivity.activatorActivity = null;
+                if (ActivatorTargetHelpsActivity.activity != null) {
+                    //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                    try {
+                        ActivatorTargetHelpsActivity.activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
+                    ActivatorTargetHelpsActivity.activity = null;
+                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }

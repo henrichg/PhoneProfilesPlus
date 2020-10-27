@@ -387,58 +387,50 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
             TooltipCompat.setTooltipText(eventItemEditMenu, context.getString(R.string.tooltip_options_menu));
             eventItemEditMenu.setTag(event);
-            eventItemEditMenu.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    editorFragment.showEditMenu(eventItemEditMenu);
-                }
-            });
+            eventItemEditMenu.setOnClickListener(v -> editorFragment.showEditMenu(eventItemEditMenu));
 
             TooltipCompat.setTooltipText(eventStatus, context.getString(R.string.editor_event_list_item_event_status));
             final ImageView _eventStatusView = eventStatus;
             final Event _event = this.event;
-            eventStatus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (editorFragment.getActivity() == null)
-                        return;
+            eventStatus.setOnClickListener(view -> {
+                if (editorFragment.getActivity() == null)
+                    return;
 
-                    if (!editorFragment.getActivity().isFinishing()) {
-                        EventStatusPopupWindow popup = new EventStatusPopupWindow(editorFragment, _event);
+                if (!editorFragment.getActivity().isFinishing()) {
+                    EventStatusPopupWindow popup = new EventStatusPopupWindow(editorFragment, _event);
 
-                        View contentView = popup.getContentView();
-                        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                        int popupWidth = contentView.getMeasuredWidth();
-                        int popupHeight = contentView.getMeasuredHeight();
-                        //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupWidth="+popupWidth);
-                        //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupHeight="+popupHeight);
+                    View contentView = popup.getContentView();
+                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                    int popupWidth = contentView.getMeasuredWidth();
+                    int popupHeight = contentView.getMeasuredHeight();
+                    //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupWidth="+popupWidth);
+                    //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupHeight="+popupHeight);
 
-                        ViewGroup activityView = editorFragment.getActivity().findViewById(android.R.id.content);
-                        //View activityView = editorFragment.getActivity().getWindow().getDecorView().getRootView();
-                        int activityHeight = activityView.getHeight();
-                        int activityWidth = activityView.getWidth();
+                    ViewGroup activityView = editorFragment.getActivity().findViewById(android.R.id.content);
+                    //View activityView = editorFragment.getActivity().getWindow().getDecorView().getRootView();
+                    int activityHeight = activityView.getHeight();
+                    int activityWidth = activityView.getWidth();
 
-                        //int[] activityLocation = new int[2];
-                        //_eventStatusView.getLocationOnScreen(location);
-                        //activityView.getLocationInWindow(activityLocation);
+                    //int[] activityLocation = new int[2];
+                    //_eventStatusView.getLocationOnScreen(location);
+                    //activityView.getLocationInWindow(activityLocation);
 
-                        int[] statusViewLocation = new int[2];
-                        //_eventStatusView.getLocationOnScreen(statusViewLocation);
-                        _eventStatusView.getLocationInWindow(statusViewLocation);
+                    int[] statusViewLocation = new int[2];
+                    //_eventStatusView.getLocationOnScreen(statusViewLocation);
+                    _eventStatusView.getLocationInWindow(statusViewLocation);
 
-                        int x = 0;
-                        int y = 0;
+                    int x = 0;
+                    int y = 0;
 
-                        if ((statusViewLocation[0] + popupWidth) > activityWidth)
-                            x = -(statusViewLocation[0] - (activityWidth - popupWidth));
+                    if ((statusViewLocation[0] + popupWidth) > activityWidth)
+                        x = -(statusViewLocation[0] - (activityWidth - popupWidth));
 
-                        if ((statusViewLocation[1] + popupHeight) > activityHeight)
-                            y = -(statusViewLocation[1] - (activityHeight - popupHeight));
+                    if ((statusViewLocation[1] + popupHeight) > activityHeight)
+                        y = -(statusViewLocation[1] - (activityHeight - popupHeight));
 
-                        //popup.setClippingEnabled(false); // disabled for draw outside activity
-                        popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                                RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
-                    }
+                    //popup.setClippingEnabled(false); // disabled for draw outside activity
+                    popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
                 }
             });
 
@@ -448,15 +440,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 ignoreManualActivationButton.setImageResource(R.drawable.ic_not_show_in_activator);
             TooltipCompat.setTooltipText(ignoreManualActivationButton, context.getString(R.string.event_preferences_ForceRun));
             ignoreManualActivationButton.setTag(event);
-            ignoreManualActivationButton.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    editorFragment.showIgnoreManualActivationMenu(ignoreManualActivationButton);
-                    /*final Event event = (Event)v.getTag();
-                    if (event != null) {
-                        editorFragment.updateEventForceRun(event);
-                    }*/
-                }
+            ignoreManualActivationButton.setOnClickListener(v -> {
+                editorFragment.showIgnoreManualActivationMenu(ignoreManualActivationButton);
+                /*final Event event = (Event)v.getTag();
+                if (event != null) {
+                    editorFragment.updateEventForceRun(event);
+                }*/
             });
         }
     }

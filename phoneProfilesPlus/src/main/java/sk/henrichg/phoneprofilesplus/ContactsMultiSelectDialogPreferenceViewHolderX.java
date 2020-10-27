@@ -30,12 +30,10 @@ class ContactsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.ViewHo
         checkBox = itemView.findViewById(R.id.contacts_multiselect_pref_dlg_item_checkbox);
 
         // If CheckBox is toggled, update the Contact it is tagged with.
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                Contact contact = (Contact) cb.getTag();
-                contact.checked = cb.isChecked();
-            }
+        checkBox.setOnClickListener(v -> {
+            CheckBox cb = (CheckBox) v;
+            Contact contact = (Contact) cb.getTag();
+            contact.checked = cb.isChecked();
         });
 
         itemView.setOnClickListener(this);

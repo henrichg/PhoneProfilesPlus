@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -131,13 +130,12 @@ public class EditorEventListFragment extends Fragment
         void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/);
     }
 
+    /*, boolean startTargetHelps*/
     /**
      * A dummy implementation of the Callbacks interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static final OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
-        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
-        }
+    private static final OnStartEventPreferences sDummyOnStartEventPreferencesCallback = (event, editMode, predefinedEventIndex) -> {
     };
 
     public EditorEventListFragment() {
@@ -356,34 +354,31 @@ public class EditorEventListFragment extends Fragment
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
-        bottomToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.menu_add_event) {
-                    if (eventListAdapter != null) {
-                        if (!getActivity().isFinishing()) {
-                            ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
-                            ((EditorProfilesActivity) getActivity()).addEventDialog.show();
-                        }
+        bottomToolbar.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.menu_add_event) {
+                if (eventListAdapter != null) {
+                    if (!getActivity().isFinishing()) {
+                        ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
+                        ((EditorProfilesActivity) getActivity()).addEventDialog.show();
                     }
-                    return true;
                 }
-                else
-                if (itemId == R.id.menu_delete_all_events) {
-                    deleteAllEvents();
-                    return true;
-                }
-                else
-                if (itemId == R.id.menu_default_profile) {
-                    Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
-                    startActivity(intent);
-                    return true;
-                }
-                else
-                    return false;
+                return true;
             }
+            else
+            if (itemId == R.id.menu_delete_all_events) {
+                deleteAllEvents();
+                return true;
+            }
+            else
+            if (itemId == R.id.menu_default_profile) {
+                Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                startActivity(intent);
+                return true;
+            }
+            else
+                return false;
         });
 
         /*
@@ -482,13 +477,10 @@ public class EditorEventListFragment extends Fragment
 
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
-                progressBarRunnable = new Runnable() {
-                    @Override
-                    public void run() {
+                progressBarRunnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
-                        //fragment.textViewNoData.setVisibility(GONE);
-                        fragment.progressBar.setVisibility(VISIBLE);
-                    }
+                    //fragment.textViewNoData.setVisibility(GONE);
+                    fragment.progressBar.setVisibility(VISIBLE);
                 };
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
             }
@@ -678,33 +670,30 @@ public class EditorEventListFragment extends Fragment
                     final DataWrapper _dataWrapper = activityDataWrapper;
                     PPApplication.startHandlerThread();
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
-                            PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_1");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                        PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_1");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                synchronized (PPApplication.eventsHandlerMutex) {
-                                    event.pauseEvent(_dataWrapper, false, false,
-                                            false, true, null, false, false, true);
-                                }
+                            synchronized (PPApplication.eventsHandlerMutex) {
+                                event.pauseEvent(_dataWrapper, false, false,
+                                        false, true, null, false, false, true);
+                            }
 
-                            } catch (Exception e) {
+                        } catch (Exception e) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
                         }
@@ -721,33 +710,30 @@ public class EditorEventListFragment extends Fragment
                 final DataWrapper _dataWrapper = activityDataWrapper;
                 PPApplication.startHandlerThread();
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
-                        PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_2");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                    PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_2");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                            synchronized (PPApplication.eventsHandlerMutex) {
-                                event.stopEvent(_dataWrapper, false, false,
-                                        true, true, true); // activate return profile
-                            }
+                        synchronized (PPApplication.eventsHandlerMutex) {
+                            event.stopEvent(_dataWrapper, false, false,
+                                    true, true, true); // activate return profile
+                        }
 
-                        } catch (Exception e) {
+                    } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
@@ -918,27 +904,24 @@ public class EditorEventListFragment extends Fragment
         //else
         //	menuItem.setVisible(false);
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.event_list_item_menu_run_stop) {
-                    runStopEvent(event);
-                    return true;
-                }
-                else
-                if (itemId == R.id.event_list_item_menu_duplicate) {
-                    duplicateEvent(event);
-                    return true;
-                }
-                else
-                if (itemId == R.id.event_list_item_menu_delete) {
-                    deleteEventWithAlert(event);
-                    return true;
-                }
-                else
-                    return false;
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.event_list_item_menu_run_stop) {
+                runStopEvent(event);
+                return true;
             }
+            else
+            if (itemId == R.id.event_list_item_menu_duplicate) {
+                duplicateEvent(event);
+                return true;
+            }
+            else
+            if (itemId == R.id.event_list_item_menu_delete) {
+                deleteEventWithAlert(event);
+                return true;
+            }
+            else
+                return false;
         });
 
 
@@ -954,12 +937,7 @@ public class EditorEventListFragment extends Fragment
         dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
         dialogBuilder.setMessage(getResources().getString(R.string.delete_event_alert_message));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                deleteEvent(_event);
-            }
-        });
+        dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteEvent(_event));
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
         AlertDialog dialog = dialogBuilder.create();
 
@@ -985,48 +963,45 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
             dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0, "");
 
-                public void onClick(DialogInterface dialog, int which) {
-                    PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0, "");
+                //listView.getRecycledViewPool().clear();
 
-                    //listView.getRecycledViewPool().clear();
+                activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
-                    activityDataWrapper.stopAllEventsFromMainThread(true, true);
-
-                    synchronized (activityDataWrapper.eventList) {
-                        // remove notifications about event parameters errors
-                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
-                        //noinspection ForLoopReplaceableByForEach
-                        for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
-                            Event event = it.next();
-                            try {
-                                notificationManager.cancel(
-                                        PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
-                                        PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+                synchronized (activityDataWrapper.eventList) {
+                    // remove notifications about event parameters errors
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
+                    //noinspection ForLoopReplaceableByForEach
+                    for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
+                        Event event = it.next();
+                        try {
+                            notificationManager.cancel(
+                                    PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
+                                    PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                     }
-
-                    eventListAdapter.clear();
-                    // this is in eventListAdapter.clear()
-                    //eventListAdapter.notifyDataSetChanged();
-
-                    if (getActivity() != null) {
-                        /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
-                        PPApplication.startPPService(getActivity(), serviceIntent);*/
-                        Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
-                        PPApplication.runCommand(getActivity(), commandIntent);
-                    }
-
-                    onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
                 }
+
+                eventListAdapter.clear();
+                // this is in eventListAdapter.clear()
+                //eventListAdapter.notifyDataSetChanged();
+
+                if (getActivity() != null) {
+                    /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
+                    PPApplication.startPPService(getActivity(), serviceIntent);*/
+                    Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                    //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                    commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
+                    PPApplication.runCommand(getActivity(), commandIntent);
+                }
+
+                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -1726,12 +1701,10 @@ public class EditorEventListFragment extends Fragment
             else {
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
-                        showAdapterTargetHelps();
-                    }
+                    //noinspection Convert2MethodRef
+                    showAdapterTargetHelps();
                 }, 500);
             }
         }
@@ -1856,41 +1829,38 @@ public class EditorEventListFragment extends Fragment
 
         final Event event = (Event)view.getTag();
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                if (getActivity() != null) {
-                    int itemId = item.getItemId();
-                    if (itemId == R.id.event_list_item_ignore_manual_activation_title) {
-                        PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.popupmenu_title_click_below_toast),
-                                Toast.LENGTH_SHORT);
-                        return true;
-                    }
-                    else
-                    if (itemId == R.id.event_list_item_not_ignore_manual_activation) {
-                        event._ignoreManualActivation = false;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                        //eventListAdapter.notifyDataSetChanged();
-                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                        ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
-                        return true;
-                    }
-                    else
-                    if (itemId == R.id.event_list_item_ignore_manual_activation) {
-                        event._ignoreManualActivation = true;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                        //eventListAdapter.notifyDataSetChanged();
-                        EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-                        ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
+        popup.setOnMenuItemClickListener(item -> {
+            if (getActivity() != null) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.event_list_item_ignore_manual_activation_title) {
+                    PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                            getResources().getString(R.string.popupmenu_title_click_below_toast),
+                            Toast.LENGTH_SHORT);
+                    return true;
                 }
-                return true;
+                else
+                if (itemId == R.id.event_list_item_not_ignore_manual_activation) {
+                    event._ignoreManualActivation = false;
+                    DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                    //eventListAdapter.notifyDataSetChanged();
+                    EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                    return true;
+                }
+                else
+                if (itemId == R.id.event_list_item_ignore_manual_activation) {
+                    event._ignoreManualActivation = true;
+                    DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                    //eventListAdapter.notifyDataSetChanged();
+                    EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
+            return true;
         });
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))

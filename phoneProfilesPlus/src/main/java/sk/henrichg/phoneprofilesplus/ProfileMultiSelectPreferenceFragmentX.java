@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -44,14 +43,11 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
         listView = view.findViewById(R.id.profile_multiselect_pref_dlg_listview);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
-            {
-                Profile profile = (Profile)profilePreferenceAdapter.getItem(position);
-                profile._checked = !profile._checked;
-                ProfilesViewHolder viewHolder = (ProfilesViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(profile._checked);
-            }
+        listView.setOnItemClickListener((parent, item, position, id) -> {
+            Profile profile = (Profile)profilePreferenceAdapter.getItem(position);
+            profile._checked = !profile._checked;
+            ProfilesViewHolder viewHolder = (ProfilesViewHolder) item.getTag();
+            viewHolder.checkBox.setChecked(profile._checked);
         });
 
         new AsyncTask<Void, Integer, Void>() {

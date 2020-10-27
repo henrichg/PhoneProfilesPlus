@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -74,12 +73,9 @@ class MobileCellNamesDialogX {
             });
         }
 
-        dialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
-                    asyncTask.cancel(true);
-                }
+        dialogBuilder.setOnDismissListener(dialog -> {
+            if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+                asyncTask.cancel(true);
             }
         });
 
@@ -131,16 +127,13 @@ class MobileCellNamesDialogX {
         listAdapter = new MobileCellNamesDialogAdapterX(activity, this);
         cellNamesListView.setAdapter(listAdapter);
 
-        cellNamesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                if (showFilterItems) {
-                    ((MobileCellsPreferenceX) preference).setCellFilterText(cellNamesList.get(position));
-                    mDialog.dismiss();
-                }
-                else
-                    cellName.setText(cellNamesList.get(position));
+        cellNamesListView.setOnItemClickListener((parent, v, position, id) -> {
+            if (showFilterItems) {
+                ((MobileCellsPreferenceX) preference).setCellFilterText(cellNamesList.get(position));
+                mDialog.dismiss();
             }
-
+            else
+                cellName.setText(cellNamesList.get(position));
         });
 
     }

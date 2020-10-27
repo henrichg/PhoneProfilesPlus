@@ -420,7 +420,7 @@ public class PPApplication extends Application
     static final String NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
     static final String DONATION_CHANNEL = "phoneProfilesPlus_donation";
     static final String NEW_RELEASE_CHANNEL = "phoneProfilesPlus_newRelease";
-    static final String CRASH_REPORT_NOTIFICATION_CHANNEL = "phoneProfilesPlus_crash_report";
+    //static final String CRASH_REPORT_NOTIFICATION_CHANNEL = "phoneProfilesPlus_crash_report";
 
     static final int PROFILE_NOTIFICATION_ID = 100;
     static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
@@ -468,8 +468,6 @@ public class PPApplication extends Application
     static final String DRAW_OVER_APPS_NOTIFICATION_TAG = PACKAGE_NAME+"_DRAW_OVER_APPS_NOTIFICATION";
     static final int CHECK_GITHUB_RELEASES_NOTIFICATION_ID = 122;
     static final String CHECK_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_GITHUB_RELEASES_NOTIFICATION_TAG";
-    static final int END_OF_GOOGLE_PLAY_NOTIFICATION_ID = 123;
-    static final String END_OF_GOOGLE_PLAY_NOTIFICATION_TAG = PACKAGE_NAME+"_END_OF_GOOGLE_PLAY_NOTIFICATION";
     static final int CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID = 124;
     static final String CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG";
 
@@ -511,14 +509,13 @@ public class PPApplication extends Application
     //public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
 
     // global internal preferences
-    private static final String PREF_SHOW_END_OF_GOOGLE_PLAY_SUPPORT = "endOfGooglePlaySupport";
     private static final String PREF_APPLICATION_STARTED = "applicationStarted";
     private static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
     private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
     private static final String PREF_DONATION_NOTIFICATION_COUNT = "donation_notification_count";
     private static final String PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION = "days_for_next_donation_notification";
-    private static final String PREF_DONATION_DONATED = "donation_donated";
+    //private static final String PREF_DONATION_DONATED = "donation_donated";
     //private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
     //private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
     //private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
@@ -1127,32 +1124,29 @@ public class PPApplication extends Application
         // cancel only enqueued works
         PPApplication.startHandlerThreadCancelWork();
         final Handler handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name);
 
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-                    ListenableFuture<List<WorkInfo>> statuses;
-                    statuses = workManager.getWorkInfosForUniqueWork(name);
-                    //noinspection TryWithIdenticalCatches
-                    try {
-                        List<WorkInfo> workInfoList = statuses.get();
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+                ListenableFuture<List<WorkInfo>> statuses;
+                statuses = workManager.getWorkInfosForUniqueWork(name);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
-                        // cancel only enqueued works
-                        for (WorkInfo workInfo : workInfoList) {
-                            WorkInfo.State state = workInfo.getState();
-                            if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
-                                // any work is enqueued, cancel it
-                                workManager.cancelWorkById(workInfo.getId());
-                            }
+                    // cancel only enqueued works
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        if (forceCancel || (state == WorkInfo.State.ENQUEUED)) {
+                            // any work is enqueued, cancel it
+                            workManager.cancelWorkById(workInfo.getId());
                         }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -1306,17 +1300,14 @@ public class PPApplication extends Application
         if (PPApplication.prefActivityLogEnabled) {
             PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                             @Override
-                             public void run() {
+            handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
-                //if (ApplicationPreferences.preferences == null)
-                //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-                DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-                        logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
-                             }
+//if (ApplicationPreferences.preferences == null)
+//    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+//ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
+DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
+       logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
             });
         }
     }
@@ -1754,17 +1745,14 @@ public class PPApplication extends Application
     static void showToast(final Context context, final String text, final int length) {
         final Context appContext = context.getApplicationContext();
         Handler handler = new Handler(context.getApplicationContext().getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
-                try {
-                    Toast msg = ToastCompat.makeText(appContext, text, length);
-                    //Toast msg = Toast.makeText(appContext, text, length);
-                    msg.show();
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
+            try {
+                Toast msg = ToastCompat.makeText(appContext, text, length);
+                //Toast msg = Toast.makeText(appContext, text, length);
+                msg.show();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
         });
     }
@@ -2193,6 +2181,7 @@ public class PPApplication extends Application
         editor.apply();
     }
 
+    /*
     static public boolean getDonationDonated(Context context)
     {
         return ApplicationPreferences.
@@ -2204,6 +2193,7 @@ public class PPApplication extends Application
         editor.putBoolean(PREF_DONATION_DONATED, true);
         editor.apply();
     }
+    */
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isIgnoreBatteryOptimizationEnabled(Context appContext) {
@@ -3742,15 +3732,13 @@ public class PPApplication extends Application
                 PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false/*, true*/);
 
                 Handler _handler = new Handler(context.getMainLooper());
-                Runnable r = new Runnable() {
-                    public void run() {
+                Runnable r = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication._exitApp");
-                        try {
-                            if (activity != null)
-                                activity.finish();
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+                    try {
+                        if (activity != null)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
                 };
                 _handler.post(r);
@@ -3782,36 +3770,33 @@ public class PPApplication extends Application
             if (useHandler) {
                 PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
-                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_exitApp");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_exitApp");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {}
-                            }
-                            _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                        _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
 
-                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
-                        } catch (Exception e) {
+                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
+                    } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {}
-                            }
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
                         }
                     }
                 });

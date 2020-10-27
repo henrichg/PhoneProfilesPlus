@@ -185,20 +185,17 @@ class EventPreferencesScreen extends EventPreferences {
         final PreferenceManager _prefMng = prefMng;
 
         if (eventTypePreference != null) {
-            eventTypePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String sNewValue = (String) newValue;
-                    int iNewValue;
-                    if (sNewValue.isEmpty())
-                        iNewValue = 100;
-                    else
-                        iNewValue = Integer.parseInt(sNewValue);
+            eventTypePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                String sNewValue = (String) newValue;
+                int iNewValue;
+                if (sNewValue.isEmpty())
+                    iNewValue = 100;
+                else
+                    iNewValue = Integer.parseInt(sNewValue);
 
-                    setWhenUnlockedTitle(_prefMng, iNewValue);
+                setWhenUnlockedTitle(_prefMng, iNewValue);
 
-                    return true;
-                }
+                return true;
             });
         }
     }

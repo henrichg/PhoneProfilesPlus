@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,7 +13,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -2491,39 +2489,50 @@ class Permissions {
 
             doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
             doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot);
-            doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
-                    editor.apply();
-                    ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-                }
+            doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
+                editor.apply();
+                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
             });
         }
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_grant, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (fragment != null) {
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                    editor.apply();
-                    ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+        dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
+            if (fragment != null) {
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.apply();
+                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
 
-                    grantRootChanged = true;
-                    fragment.setRedTextToPreferences();
+                grantRootChanged = true;
+                fragment.setRedTextToPreferences();
+            }
+
+            boolean ok = false;
+            PackageManager packageManager = activity.getPackageManager();
+            // SuperSU
+            Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+            if (intent != null) {
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                try {
+                    // startActivityForResult not working, it is external application
+                    activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
+                    PPApplication.initRoot();
+                    ok = true;
+                } catch (Exception ignore) {
                 }
-
-                boolean ok = false;
-                PackageManager packageManager = activity.getPackageManager();
-                // SuperSU
-                Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+            }
+            if (!ok) {
+                // MAGISK
+                intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
                 if (intent != null) {
                     intent.addCategory(Intent.CATEGORY_LAUNCHER);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     try {
+                        intent.putExtra("section", "superuser");
                         // startActivityForResult not working, it is external application
                         activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
                         PPApplication.initRoot();
@@ -2531,28 +2540,13 @@ class Permissions {
                     } catch (Exception ignore) {
                     }
                 }
-                if (!ok) {
-                    // MAGISK
-                    intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
-                    if (intent != null) {
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            intent.putExtra("section", "superuser");
-                            // startActivityForResult not working, it is external application
-                            activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
-                            PPApplication.initRoot();
-                            ok = true;
-                        } catch (Exception ignore) {
-                        }
-                    }
-                }
-                if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog2 = dialogBuilder.create();
+            }
+            if (!ok) {
+                AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
+                dialogBuilder1.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder1.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog2 = dialogBuilder1.create();
 
 //                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
 //                        @Override
@@ -2564,17 +2558,14 @@ class Permissions {
 //                        }
 //                    });
 
-                    if (!activity.isFinishing())
-                        dialog2.show();
-                }
+                if (!activity.isFinishing())
+                    dialog2.show();
             }
         });
-        dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (fragment != null) {
-                    grantRootChanged = true;
-                    fragment.setRedTextToPreferences();
-                }
+        dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {
+            if (fragment != null) {
+                grantRootChanged = true;
+                fragment.setRedTextToPreferences();
             }
         });
         AlertDialog dialog = dialogBuilder.create();
@@ -2618,43 +2609,36 @@ class Permissions {
 
             doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
             doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantG1Permission);
-            doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, isChecked);
-                    editor.apply();
-                    ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
-                }
+            doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, isChecked);
+                editor.apply();
+                ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
             });
         }
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_grant, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (fragment != null) {
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                    editor.apply();
-                    ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
+        dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
+            if (fragment != null) {
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+                editor.apply();
+                ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
 
-                    //grantRootChanged = true;
-                    fragment.setRedTextToPreferences();
-                }
-
-                Intent intentLaunch = new Intent(activity, ImportantInfoActivity.class);
-                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
-                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
-                activity.startActivity(intentLaunch);
+                //grantRootChanged = true;
+                fragment.setRedTextToPreferences();
             }
+
+            Intent intentLaunch = new Intent(activity, ImportantInfoActivity.class);
+            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
+            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
+            activity.startActivity(intentLaunch);
         });
-        dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (fragment != null) {
-                    //grantRootChanged = true;
-                    fragment.setRedTextToPreferences();
-                }
+        dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {
+            if (fragment != null) {
+                //grantRootChanged = true;
+                fragment.setRedTextToPreferences();
             }
         });
         AlertDialog dialog = dialogBuilder.create();

@@ -61,6 +61,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static boolean enabledAutoRegistration = false;
     static int durationForAutoRegistration = 0;
     static String cellsNameForAutoRegistration = "";
+    @SuppressWarnings("Convert2Diamond")
     static private final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
     static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
@@ -379,37 +380,34 @@ class PhoneStateScanner extends PhoneStateListener {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"PhoneStateScanner.onCellInfoChanged"*/);
         final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellInfoChanged");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellInfoChanged");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellInfoChanged");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-                    if (cellInfo == null)
-                        getAllCellInfo();
-                    else
-                        getAllCellInfo(cellInfo);
+                if (cellInfo == null)
+                    getAllCellInfo();
+                else
+                    getAllCellInfo(cellInfo);
 
-                    //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellInfoChanged()", "xxx");
-                    handleEvents(/*appContext*/);
+                //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellInfoChanged()", "xxx");
+                handleEvents(/*appContext*/);
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellInfoChanged");
-                } catch (Exception e) {
+                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellInfoChanged");
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
             }
@@ -428,40 +426,37 @@ class PhoneStateScanner extends PhoneStateListener {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"PhoneStateScanner.onServiceStateChanged"*/);
         final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onServiceStateChanged");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onServiceStateChanged");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onServiceStateChanged");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-                    getRegisteredCell();
-                    /*if (PPApplication.logEnabled()) {
-                        if (isValidCellId(registeredCell))
-                            PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=" + registeredCell);
-                        else
-                            PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=NOT valid");
-                    }*/
+                getRegisteredCell();
+                /*if (PPApplication.logEnabled()) {
+                    if (isValidCellId(registeredCell))
+                        PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=" + registeredCell);
+                    else
+                        PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=NOT valid");
+                }*/
 
-                    //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onServiceStateChanged()", "xxx");
-                    handleEvents(/*appContext*/);
+                //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onServiceStateChanged()", "xxx");
+                handleEvents(/*appContext*/);
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onServiceStateChanged");
-                } catch (Exception e) {
+                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onServiceStateChanged");
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
             }
@@ -557,46 +552,43 @@ class PhoneStateScanner extends PhoneStateListener {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"PhoneStateScanner.onCellLocationChanged"*/);
         final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.onCellLocationChanged");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellLocationChanged");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellLocationChanged");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-                    /*if (location == null)
-                        getCellLocation();
+                /*if (location == null)
+                    getCellLocation();
+                else
+                    getCellLocation(location);*/
+                getRegisteredCell();
+
+                /*if (PPApplication.logEnabled()) {
+                    //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
+                    if (isValidCellId(registeredCell))
+                        PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell=" + registeredCell);
                     else
-                        getCellLocation(location);*/
-                    getRegisteredCell();
+                        PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell=NOT valid");
+                }*/
 
-                    /*if (PPApplication.logEnabled()) {
-                        //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
-                        if (isValidCellId(registeredCell))
-                            PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell=" + registeredCell);
-                        else
-                            PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell=NOT valid");
-                    }*/
+                //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellLocationChanged()", "xxx");
+                handleEvents(/*appContext*/);
 
-                    //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.onCellLocationChanged()", "xxx");
-                    handleEvents(/*appContext*/);
-
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellLocationChanged");
-                } catch (Exception e) {
+                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.onCellLocationChanged");
+            } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
             }
@@ -629,40 +621,37 @@ class PhoneStateScanner extends PhoneStateListener {
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"PhoneStateScanner.rescanMobileCells"*/);
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneStateScanner.rescanMobileCells");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_rescanMobileCells");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_rescanMobileCells");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                        getRegisteredCell();
-                        /*if (PPApplication.logEnabled()) {
-                            if (isValidCellId(registeredCell))
-                                PPApplication.logE("PhoneStateScanner.rescanMobileCells", "registeredCell=" + registeredCell);
-                            else
-                                PPApplication.logE("PhoneStateScanner.rescanMobileCells", "registeredCell=NOT valid");
-                        }*/
+                    getRegisteredCell();
+                    /*if (PPApplication.logEnabled()) {
+                        if (isValidCellId(registeredCell))
+                            PPApplication.logE("PhoneStateScanner.rescanMobileCells", "registeredCell=" + registeredCell);
+                        else
+                            PPApplication.logE("PhoneStateScanner.rescanMobileCells", "registeredCell=NOT valid");
+                    }*/
 
-                        //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.rescanMobileCells()", "xxx");
-                        handleEvents(/*appContext*/);
+                    //PPApplication.logE("[TEST BATTERY] PhoneStateScanner.rescanMobileCells()", "xxx");
+                    handleEvents(/*appContext*/);
 
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.rescanMobileCells");
-                    } catch (Exception e) {
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneStateScanner.rescanMobileCells");
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
                         }
                     }
                 }

@@ -116,34 +116,31 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         //if (useHandler) {
             PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DonationBroadcastReceiver.doWork");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_doWork");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
                     try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_doWork");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        _doWork(appContext);
+                    } catch (Exception ignored) {}
 
-                        try {
-                            _doWork(appContext);
-                        } catch (Exception ignored) {}
+                    setAlarm(appContext);
 
-                        setAlarm(appContext);
-
-                    } catch (Exception e) {
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
                         }
                     }
                 }
@@ -159,10 +156,10 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(appContext) + 1;
         int donationNotificationCount = PPApplication.getDonationNotificationCount(appContext);
         int daysForNextNotification = PPApplication.getDaysForNextDonationNotification(appContext);
-        boolean donationDonated = PPApplication.getDonationDonated(appContext);
+        //boolean donationDonated = PPApplication.getDonationDonated(appContext);
 
-        if (DebugVersion.enabled) {
-            donationDonated = false;
+        //if (DebugVersion.enabled) {
+            //donationDonated = false;
             /*if (donationNotificationCount == 5) {
                 donationNotificationCount = 3;
                 daysAfterFirstStart = 120;
@@ -173,7 +170,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
             //daysAfterFirstStart = 1168;
             //PPApplication.setDonationNotificationCount(context, donationNotificationCount);
             //PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
-        }
+        //}
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("DonationBroadcastReceiver._doWork", "daysAfterFirstStart=" + daysAfterFirstStart);
@@ -229,7 +226,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         }
         //PPApplication.logE("DonationBroadcastReceiver._doWork", "notify=" + notify);
 
-        if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
+        //if (!donationDonated/* && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)*/) {
 
             if (notify) {
                 PPApplication.setDonationNotificationCount(appContext, donationNotificationCount + 1);
@@ -279,7 +276,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-        }
+        //}
         /*else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
         }*/

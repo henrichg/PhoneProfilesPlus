@@ -98,11 +98,9 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
             profile = profileList.get(position-1);
 
         holder.radioBtn.setTag(position);
-        holder.radioBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
-                dialog.doOnItemSelected((Integer)rb.getTag());
-            }
+        holder.radioBtn.setOnClickListener(v -> {
+            RadioButton rb = (RadioButton) v;
+            dialog.doOnItemSelected((Integer)rb.getTag());
         });
 
         if (profile != null)

@@ -98,12 +98,7 @@ class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder im
 
         TooltipCompat.setTooltipText(imageViewMenu, context.getString(R.string.tooltip_options_menu));
         imageViewMenu.setTag(application);
-        imageViewMenu.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                preference.showEditMenu(imageViewMenu);
-            }
-        });
+        imageViewMenu.setOnClickListener(v -> preference.showEditMenu(imageViewMenu));
 
     }
 

@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -18,13 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -49,7 +46,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.math.BigDecimal;
 
@@ -186,32 +182,29 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         dialogBuilder.setTitle(R.string.event_preferences_location_radius_label);
         dialogBuilder.setCancelable(true);
 
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                boolean persist = true;
-                BigDecimal number = numberPicker.getEnteredNumber();
-                if (isSmaller(number) || isBigger(number)) {
-                /*String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
-                mNumberPicker.getErrorView().setText(errorText);
-                mNumberPicker.getErrorView().show();*/
-                    persist = false;
-                } else if (isSmaller(number)) {
-                /*String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
-                mNumberPicker.getErrorView().setText(errorText);
-                mNumberPicker.getErrorView().show();*/
-                    persist = false;
-                } else if (isBigger(number)) {
-                /*String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
-                mNumberPicker.getErrorView().setText(errorText);
-                mNumberPicker.getErrorView().show();*/
-                    persist = false;
-                }
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            boolean persist = true;
+            BigDecimal number = numberPicker.getEnteredNumber();
+            if (isSmaller(number) || isBigger(number)) {
+            /*String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
+            mNumberPicker.getErrorView().setText(errorText);
+            mNumberPicker.getErrorView().show();*/
+                persist = false;
+            } else if (isSmaller(number)) {
+            /*String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
+            mNumberPicker.getErrorView().setText(errorText);
+            mNumberPicker.getErrorView().show();*/
+                persist = false;
+            } else if (isBigger(number)) {
+            /*String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
+            mNumberPicker.getErrorView().setText(errorText);
+            mNumberPicker.getErrorView().show();*/
+                persist = false;
+            }
 
-                if (persist) {
-                    geofence._radius = numberPicker.getNumber().floatValue();
-                    updateEditedMarker(true);
-                }
+            if (persist) {
+                geofence._radius = numberPicker.getNumber().floatValue();
+                updateEditedMarker(true);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -246,12 +239,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 //            }
 //        });
 
-        radiusValue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!(isFinishing()))
-                    valueDialog.show();
-            }
+        radiusValue.setOnClickListener(view -> {
+            if (!(isFinishing()))
+                valueDialog.show();
         });
 
 
@@ -292,66 +282,52 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         addressText = findViewById(R.id.location_editor_address_text);
 
         okButton = findViewById(R.id.location_editor_ok);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = geofenceNameEditText.getText().toString();
-                if ((!name.isEmpty()) && (mLocation != null)) {
-                    geofence._name = name;
-                    geofence._latitude = mLocation.getLatitude();
-                    geofence._longitude = mLocation.getLongitude();
+        okButton.setOnClickListener(v -> {
+            String name = geofenceNameEditText.getText().toString();
+            if ((!name.isEmpty()) && (mLocation != null)) {
+                geofence._name = name;
+                geofence._latitude = mLocation.getLatitude();
+                geofence._longitude = mLocation.getLongitude();
 
-                    if (geofenceId > 0) {
-                        DatabaseHandler.getInstance(getApplicationContext()).updateGeofence(geofence);
-                    } else {
-                        DatabaseHandler.getInstance(getApplicationContext()).addGeofence(geofence);
-                        /*synchronized (PPApplication.geofenceScannerMutex) {
-                            // start location updates
-                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                                PhoneProfilesService.getGeofencesScanner().connectForResolve();
-                        }*/
-                    }
-
-                    DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
-
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofence._id);
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
+                if (geofenceId > 0) {
+                    DatabaseHandler.getInstance(getApplicationContext()).updateGeofence(geofence);
+                } else {
+                    DatabaseHandler.getInstance(getApplicationContext()).addGeofence(geofence);
+                    /*synchronized (PPApplication.geofenceScannerMutex) {
+                        // start location updates
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                            PhoneProfilesService.getGeofencesScanner().connectForResolve();
+                    }*/
                 }
-            }
-        });
 
-        Button cancelButton = findViewById(R.id.location_editor_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
+
                 Intent returnIntent = new Intent();
-                setResult(Activity.RESULT_CANCELED, returnIntent);
+                returnIntent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofence._id);
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });
 
+        Button cancelButton = findViewById(R.id.location_editor_cancel);
+        cancelButton.setOnClickListener(v -> {
+            Intent returnIntent = new Intent();
+            setResult(Activity.RESULT_CANCELED, returnIntent);
+            finish();
+        });
+
         AppCompatImageButton myLocationButton = findViewById(R.id.location_editor_my_location);
         TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_set_to_my_location_button_tooltip));
-        myLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getLastLocation();
-                if (mLastLocation != null)
-                    mLocation = new Location(mLastLocation);
-                refreshActivity(true);
-            }
+        myLocationButton.setOnClickListener(v -> {
+            getLastLocation();
+            if (mLastLocation != null)
+                mLocation = new Location(mLastLocation);
+            refreshActivity(true);
         });
 
         addressButton = findViewById(R.id.location_editor_address_btn);
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
-        addressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getGeofenceAddress(/*true*/);
-            }
-        });
+        addressButton.setOnClickListener(v -> getGeofenceAddress(/*true*/));
 
     }
 
@@ -454,16 +430,13 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             mMap.getUiSettings().setMapToolbarEnabled(false);
             updateEditedMarker(true);
 
-            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                @Override
-                public void onMapClick(LatLng point) {
-                    //Log.d("Map", "Map clicked");
-                    if (mLocation == null)
-                        mLocation = new Location("LOC");
-                    mLocation.setLatitude(point.latitude);
-                    mLocation.setLongitude(point.longitude);
-                    refreshActivity(false);
-                }
+            mMap.setOnMapClickListener(point -> {
+                //Log.d("Map", "Map clicked");
+                if (mLocation == null)
+                    mLocation = new Location("LOC");
+                mLocation.setLatitude(point.latitude);
+                mLocation.setLongitude(point.longitude);
+                refreshActivity(false);
             });
         }
         //else {
@@ -572,21 +545,18 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
                 mFusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                // Got last known location. In some rare situations this can be null.
-                                //PPApplication.logE("LocationGeofenceEditorActivity.getLastLocation","location="+location);
-                                if (location != null) {
-                                    mLastLocation = location;
-                                }
-                                if (mLastLocation == null) {
-                                    //Log.e("LocationGeofenceEditorActivity.getLastLocation", "startLocationUpdates");
-                                    startLocationUpdates();
-                                } else if (mLocation == null)
-                                    mLocation = new Location(mLastLocation);
-                                refreshActivity(true);
+                        .addOnSuccessListener(this, location -> {
+                            // Got last known location. In some rare situations this can be null.
+                            //PPApplication.logE("LocationGeofenceEditorActivity.getLastLocation","location="+location);
+                            if (location != null) {
+                                mLastLocation = location;
                             }
+                            if (mLastLocation == null) {
+                                //Log.e("LocationGeofenceEditorActivity.getLastLocation", "startLocationUpdates");
+                                startLocationUpdates();
+                            } else if (mLocation == null)
+                                mLocation = new Location(mLastLocation);
+                            refreshActivity(true);
                         });
             } catch (Exception e) {
                 PPApplication.recordException(e);
@@ -693,41 +663,38 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     workManager.enqueueUniqueWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, fetchAddressWorker);
 
                     workManager.getWorkInfoByIdLiveData(fetchAddressWorker.getId())
-                            .observe(this, new Observer<WorkInfo>() {
-                                @Override
-                                public void onChanged(@Nullable WorkInfo workInfo) {
-                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
+                            .observe(this, workInfo -> {
+                                //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "xxx");
 
-                                    if ((workInfo != null) && (workInfo.getState() == WorkInfo.State.SUCCEEDED)) {
-                                        //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
+                                if ((workInfo != null) && (workInfo.getState() == WorkInfo.State.SUCCEEDED)) {
+                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "WorkInfo.State.SUCCEEDED");
 
-                                        Data outputData = workInfo.getOutputData();
-                                        //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData=" + outputData);
+                                    Data outputData = workInfo.getOutputData();
+                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "outputData=" + outputData);
 
-                                        int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
+                                    int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
+                                    //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+
+                                    boolean enableAddressButton = false;
+                                    if (resultCode == SUCCESS_RESULT) {
                                         //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
 
-                                        boolean enableAddressButton = false;
-                                        if (resultCode == SUCCESS_RESULT) {
-                                            //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "resultCode=" + resultCode);
+                                        // Display the address string
+                                        // or an error message sent from the intent service.
+                                        String addressOutput = outputData.getString(RESULT_DATA_KEY);
+                                        //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
 
-                                            // Display the address string
-                                            // or an error message sent from the intent service.
-                                            String addressOutput = outputData.getString(RESULT_DATA_KEY);
-                                            //PPApplication.logE("LocationGeofenceEditorActivity.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
+                                        addressText.setText(addressOutput);
 
-                                            addressText.setText(addressOutput);
+                                        if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
+                                            geofenceNameEditText.setText(addressOutput);
 
-                                            if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
-                                                geofenceNameEditText.setText(addressOutput);
+                                        updateEditedMarker(false);
 
-                                            updateEditedMarker(false);
-
-                                            enableAddressButton = true;
-                                        }
-
-                                        GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
+                                        enableAddressButton = true;
                                     }
+
+                                    GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
                                 }
                             });
                 }

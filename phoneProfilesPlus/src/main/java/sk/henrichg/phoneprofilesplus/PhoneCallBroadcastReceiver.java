@@ -82,25 +82,22 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"PhoneCallBroadcastReceiver.doCall"*/);
         final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
 
-                switch (phoneEvent) {
-                    case SERVICE_PHONE_EVENT_START:
-                        callStarted(incoming, /*number, eventTime,*/ appContext);
-                        break;
-                    case SERVICE_PHONE_EVENT_ANSWER:
-                        callAnswered(incoming, /*number, eventTime,*/ appContext);
-                        break;
-                    case SERVICE_PHONE_EVENT_END:
-                        callEnded(incoming, missed, /*number, eventTime,*/ appContext);
-                        break;
-                }
-
-                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallBroadcastReceiver.doCall");
+            switch (phoneEvent) {
+                case SERVICE_PHONE_EVENT_START:
+                    callStarted(incoming, /*number, eventTime,*/ appContext);
+                    break;
+                case SERVICE_PHONE_EVENT_ANSWER:
+                    callAnswered(incoming, /*number, eventTime,*/ appContext);
+                    break;
+                case SERVICE_PHONE_EVENT_END:
+                    callEnded(incoming, missed, /*number, eventTime,*/ appContext);
+                    break;
             }
+
+            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallBroadcastReceiver.doCall");
         });
     }
 

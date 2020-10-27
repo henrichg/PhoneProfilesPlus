@@ -6,7 +6,6 @@ import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -31,7 +30,6 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -455,57 +453,54 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
-        new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.menu_profiles_view) {
-                    //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
-                    String[] filterItems = new String[]{
-                            getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
-                            getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                            getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                    };
-                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                            EditorProfilesActivity.this,
-                            R.layout.highlighted_filter_spinner,
-                            filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                    filterSpinner.setAdapter(filterSpinnerAdapter);
-                    selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
-                    return true;
-                }
-                else
-                if (itemId == R.id.menu_events_view) {
-                    //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
-                    String[] filterItems = new String[]{
-                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
-                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
-                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_not_stopped),
-                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_running),
-                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
-                            getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
-                    };
-                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                            EditorProfilesActivity.this,
-                            R.layout.highlighted_filter_spinner,
-                            filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                    filterSpinner.setAdapter(filterSpinnerAdapter);
-                    selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                    if (fragment instanceof EditorEventListFragment) {
-                        ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
+                item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.menu_profiles_view) {
+                        //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
+                        String[] filterItems = new String[]{
+                                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
+                                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                        };
+                        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                                EditorProfilesActivity.this,
+                                R.layout.highlighted_filter_spinner,
+                                filterItems);
+                        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                        filterSpinner.setAdapter(filterSpinnerAdapter);
+                        selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
+                        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (fragment instanceof EditorProfileListFragment)
+                            ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+                        return true;
                     }
-                    return true;
-                }
-                else
-                    return false;
-            }
-        });
+                    else
+                    if (itemId == R.id.menu_events_view) {
+                        //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
+                        String[] filterItems = new String[]{
+                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
+                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
+                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_not_stopped),
+                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_running),
+                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
+                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
+                        };
+                        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                                EditorProfilesActivity.this,
+                                R.layout.highlighted_filter_spinner,
+                                filterItems);
+                        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                        filterSpinner.setAdapter(filterSpinnerAdapter);
+                        selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
+                        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (fragment instanceof EditorEventListFragment) {
+                            ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
+                        }
+                        return true;
+                    }
+                    else
+                        return false;
+                });
         // set size of icons of BottomNavigationView
         /*BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
@@ -562,33 +557,30 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         eventsRunStopIndicator = findViewById(R.id.editor_list_run_stop_indicator);
         TooltipCompat.setTooltipText(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title));
-        eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isFinishing()) {
-                    RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
+        eventsRunStopIndicator.setOnClickListener(view -> {
+            if (!isFinishing()) {
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
 
-                    View contentView = popup.getContentView();
-                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    int popupWidth = contentView.getMeasuredWidth();
-                    //int popupHeight = contentView.getMeasuredHeight();
-                    //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
-                    //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
+                View contentView = popup.getContentView();
+                contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                int popupWidth = contentView.getMeasuredWidth();
+                //int popupHeight = contentView.getMeasuredHeight();
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
 
-                    int[] runStopIndicatorLocation = new int[2];
-                    //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
-                    eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
+                int[] runStopIndicatorLocation = new int[2];
+                //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
+                eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
 
-                    int x = 0;
-                    int y = 0;
+                int x = 0;
+                int y = 0;
 
-                    if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
-                        x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
+                if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
+                    x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
 
-                    popup.setClippingEnabled(false); // disabled for draw outside activity
-                    popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                            RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
-                }
+                popup.setClippingEnabled(false); // disabled for draw outside activity
+                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
             }
         });
         
@@ -955,12 +947,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
-        onNextLayout(editorToolbar, new Runnable() {
-            @Override
-            public void run() {
-                showTargetHelps();
-            }
-        });
+        //noinspection Convert2MethodRef
+        onNextLayout(editorToolbar, () -> showTargetHelps());
 
         return ret;
     }
@@ -1156,23 +1144,21 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialogBuilder.setTitle(R.string.exit_application_alert_title);
             dialogBuilder.setMessage(R.string.exit_application_alert_message);
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
 
-                    //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                    editor.apply();
-                    ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                    ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
-                    ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
+                //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+                editor.apply();
+                ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
+                ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                    PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),EditorProfilesActivity.this, false/*, true, true*/);
-                }
+                PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),EditorProfilesActivity.this, false/*, true, true*/);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -1197,12 +1183,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialogBuilder.setTitle(R.string.gui_items_help_alert_title);
             dialogBuilder.setMessage(R.string.gui_items_help_alert_message);
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
-                    ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
-                    showTargetHelps();
-                }
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
+                ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
+                showTargetHelps();
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -2189,18 +2173,13 @@ public class EditorProfilesActivity extends AppCompatActivity
             message = getString(R.string.export_profiles_alert_error);
         dialogBuilder.setMessage(message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // refresh activity
-                GlobalGUIRoutines.reloadActivity(EditorProfilesActivity.this, true);
-            }
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            // refresh activity
+            GlobalGUIRoutines.reloadActivity(EditorProfilesActivity.this, true);
         });
-        dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                // refresh activity
-                GlobalGUIRoutines.reloadActivity(EditorProfilesActivity.this, true);
-            }
+        dialogBuilder.setOnCancelListener(dialog -> {
+            // refresh activity
+            GlobalGUIRoutines.reloadActivity(EditorProfilesActivity.this, true);
         });
         AlertDialog dialog = dialogBuilder.create();
 
@@ -2557,25 +2536,24 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder2.setTitle(R.string.import_profiles_alert_title);
         dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
 
-        dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
-                    boolean ok = false;
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-                        ok = true;
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                    if (!ok){
-                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
-                        _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
-                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog _dialog = _dialogBuilder.create();
+        dialogBuilder2.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+            if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
+                boolean ok = false;
+                try {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                    startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                    ok = true;
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                if (!ok){
+                    AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
+                    _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                    //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog _dialog = _dialogBuilder.create();
 
 //                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -2587,9 +2565,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                                }
 //                            });
 
-                        if (!isFinishing())
-                            _dialog.show();
-                    }
+                    if (!isFinishing())
+                        _dialog.show();
                 }
             }
         });
@@ -2634,15 +2611,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
                 dialogBuilder.setView(layout);
 
-                dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // send stop into PP
-                                Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PPP);
-                                sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
-                                importFromPPStopped = true;
-                            }
-                        });
+                dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    // send stop into PP
+                    Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PPP);
+                    sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
+                    importFromPPStopped = true;
+                });
 
                 importProgressDialog = dialogBuilder.create();
 
@@ -3238,33 +3212,28 @@ public class EditorProfilesActivity extends AppCompatActivity
         final View layout = inflater.inflate(R.layout.dialog_import_pp_data_alert, null);
         dialogBuilder2.setView(layout);
 
-        dialogBuilder2.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                boolean importProfiles = true;
-                boolean deleteConfiguredProfiles = false;
-                boolean importApplicationPreferences = false;
-                CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
-                if (checkbox != null) importProfiles = checkbox.isChecked();
-                checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
-                if (checkbox != null) deleteConfiguredProfiles = checkbox.isChecked();
-                checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
-                if (checkbox != null) importApplicationPreferences = checkbox.isChecked();
-                doImportDataFromPP(importProfiles, deleteConfiguredProfiles, importApplicationPreferences);
-            }
+        dialogBuilder2.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+            boolean importProfiles = true;
+            boolean deleteConfiguredProfiles = false;
+            boolean importApplicationPreferences = false;
+            CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
+            if (checkbox != null) importProfiles = checkbox.isChecked();
+            checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
+            if (checkbox != null) deleteConfiguredProfiles = checkbox.isChecked();
+            checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
+            if (checkbox != null) importApplicationPreferences = checkbox.isChecked();
+            doImportDataFromPP(importProfiles, deleteConfiguredProfiles, importApplicationPreferences);
         });
         dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
 
         AlertDialog dialog = dialogBuilder2.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
-                if (checkbox != null) checkbox.setChecked(true);
-                checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
-                if (checkbox != null) checkbox.setChecked(false);
-                checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
-                if (checkbox != null) checkbox.setChecked(false);
-            }
+        dialog.setOnShowListener(dialog1 -> {
+            CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
+            if (checkbox != null) checkbox.setChecked(true);
+            checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
+            if (checkbox != null) checkbox.setChecked(false);
+            checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
+            if (checkbox != null) checkbox.setChecked(false);
         });
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -3381,15 +3350,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         getString(R.string.export_profiles_alert_message_note));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                if (email)
-                    doExportData(true, toAuthor);
-                else
-                if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this))
-                    doExportData(false, false);
-            }
+        dialogBuilder.setPositiveButton(R.string.alert_button_backup, (dialog, which) -> {
+            if (email)
+                doExportData(true, toAuthor);
+            else
+            if (Permissions.grantExportPermissions(getApplicationContext(), EditorProfilesActivity.this))
+                doExportData(false, false);
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         AlertDialog dialog = dialogBuilder.create();
@@ -3620,34 +3586,28 @@ public class EditorProfilesActivity extends AppCompatActivity
                             rewriteInfo.setEnabled(false);
                             final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
                             checkBox.setChecked(true);
-                            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                    rewriteInfo.setEnabled(!isChecked);
+                            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> rewriteInfo.setEnabled(!isChecked));
+                            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                                boolean ok = false;
+                                try {
+                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                                    //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
+                                    if (checkBox.isChecked())
+                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
+                                    else
+                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
+                                    ok = true;
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
                                 }
-                            });
-                            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    boolean ok = false;
-                                    try {
-                                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                                        //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
-                                        if (checkBox.isChecked())
-                                            startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
-                                        else
-                                            startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
-                                        ok = true;
-                                    } catch (Exception e) {
-                                        PPApplication.recordException(e);
-                                    }
-                                    if (!ok){
-                                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
-                                        _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
-                                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                        AlertDialog _dialog = _dialogBuilder.create();
+                                if (!ok){
+                                    AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
+                                    _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                                    //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                    _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog _dialog = _dialogBuilder.create();
 
 //                                        _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                            @Override
@@ -3659,9 +3619,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                                            }
 //                                        });
 
-                                        if (!isFinishing())
-                                            _dialog.show();
-                                    }
+                                    if (!isFinishing())
+                                        _dialog.show();
                                 }
                             });
                             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -3788,28 +3747,25 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (filterProfilesSelectedItem != 0) {
                     final EditorProfilesActivity editorActivity = this;
                     Handler handler = new Handler(getMainLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.postDelayed(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.redrawProfileListFragment");
-                            if (!editorActivity.isFinishing()) {
-                                boolean changeFilter = false;
-                                switch (filterProfilesSelectedItem) {
-                                    case EditorProfilesActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
-                                        changeFilter = profile._showInActivator;
-                                        break;
-                                    case EditorProfilesActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
-                                        changeFilter = !profile._showInActivator;
-                                        break;
-                                }
-                                if (changeFilter) {
-                                    fragment.scrollToProfile = profile;
-                                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
-                                    editorActivity.selectFilterItem(0, 0, false, true);
-                                }
-                                else
-                                    fragment.scrollToProfile = null;
+                        if (!editorActivity.isFinishing()) {
+                            boolean changeFilter = false;
+                            switch (filterProfilesSelectedItem) {
+                                case EditorProfilesActivity.DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
+                                    changeFilter = profile._showInActivator;
+                                    break;
+                                case EditorProfilesActivity.DSI_PROFILES_SHOW_IN_ACTIVATOR:
+                                    changeFilter = !profile._showInActivator;
+                                    break;
                             }
+                            if (changeFilter) {
+                                fragment.scrollToProfile = profile;
+                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                editorActivity.selectFilterItem(0, 0, false, true);
+                            }
+                            else
+                                fragment.scrollToProfile = null;
                         }
                     }, 200);
                 }
@@ -3895,34 +3851,30 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialogBuilder.setMessage(message);
 
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if (_startProfileId == 0) {
-                        // create profile
-                        int[] profileStartIndex = {0, 0, 0, 2, 4, 0, 5};
-                        getDataWrapper().getPredefinedProfile(profileStartIndex[predefinedEventIndex], true, getBaseContext());
-                    }
-                    if (_endProfileId == 0) {
-                        // create profile
-                        int[] profileEndIndex = {0, 0, 0, 0, 0, 0, 6};
-                        getDataWrapper().getPredefinedProfile(profileEndIndex[predefinedEventIndex], true, getBaseContext());
-                    }
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                if (_startProfileId == 0) {
+                    // create profile
+                    int[] profileStartIndex = {0, 0, 0, 2, 4, 0, 5};
+                    getDataWrapper().getPredefinedProfile(profileStartIndex[predefinedEventIndex], true, getBaseContext());
+                }
+                if (_endProfileId == 0) {
+                    // create profile
+                    int[] profileEndIndex = {0, 0, 0, 0, 0, 0, 6};
+                    getDataWrapper().getPredefinedProfile(profileEndIndex[predefinedEventIndex], true, getBaseContext());
+                }
 
-                    Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
-                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-                    intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
-                    intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
-                    startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
-                }
+                Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
+                intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
+                intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
             });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
-                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-                    intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
-                    intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
-                    startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
-                }
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
+                Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
+                intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
+                intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
             });
             AlertDialog dialog = dialogBuilder.create();
 
@@ -3969,34 +3921,31 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (filterEventsSelectedItem != 0) {
                     final EditorProfilesActivity editorActivity = this;
                     Handler handler = new Handler(getMainLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.postDelayed(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.redrawEventListFragment");
-                            if (!editorActivity.isFinishing()) {
-                                boolean changeFilter = false;
-                                switch (filterEventsSelectedItem) {
-                                    case EditorProfilesActivity.DSI_EVENTS_NOT_STOPPED:
-                                        changeFilter = event.getStatus() == Event.ESTATUS_STOP;
-                                        break;
-                                    case EditorProfilesActivity.DSI_EVENTS_RUNNING:
-                                        changeFilter = event.getStatus() != Event.ESTATUS_RUNNING;
-                                        break;
-                                    case EditorProfilesActivity.DSI_EVENTS_PAUSED:
-                                        changeFilter = event.getStatus() != Event.ESTATUS_PAUSE;
-                                        break;
-                                    case EditorProfilesActivity.DSI_EVENTS_STOPPED:
-                                        changeFilter = event.getStatus() != Event.ESTATUS_STOP;
-                                        break;
-                                }
-                                if (changeFilter) {
-                                    fragment.scrollToEvent = event;
-                                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
-                                    editorActivity.selectFilterItem(1, 0, false, true);
-                                }
-                                else
-                                    fragment.scrollToEvent = null;
+                        if (!editorActivity.isFinishing()) {
+                            boolean changeFilter = false;
+                            switch (filterEventsSelectedItem) {
+                                case EditorProfilesActivity.DSI_EVENTS_NOT_STOPPED:
+                                    changeFilter = event.getStatus() == Event.ESTATUS_STOP;
+                                    break;
+                                case EditorProfilesActivity.DSI_EVENTS_RUNNING:
+                                    changeFilter = event.getStatus() != Event.ESTATUS_RUNNING;
+                                    break;
+                                case EditorProfilesActivity.DSI_EVENTS_PAUSED:
+                                    changeFilter = event.getStatus() != Event.ESTATUS_PAUSE;
+                                    break;
+                                case EditorProfilesActivity.DSI_EVENTS_STOPPED:
+                                    changeFilter = event.getStatus() != Event.ESTATUS_STOP;
+                                    break;
                             }
+                            if (changeFilter) {
+                                fragment.scrollToEvent = event;
+                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+                                editorActivity.selectFilterItem(1, 0, false, true);
+                            }
+                            else
+                                fragment.scrollToEvent = null;
                         }
                     }, 200);
                 }
@@ -4521,24 +4470,21 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 //final Context context = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.showTargetHelps");
 
 //                        PPApplication.logE("[LOCAL_BROADCAST_CALL] EditorProfileActivity.showTargetHelps", "xxx");
-                        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver");
-                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-                        /*if (EditorProfilesActivity.getInstance() != null) {
-                            Fragment fragment = EditorProfilesActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
-                            if (fragment != null) {
-                                if (fragment instanceof EditorProfileListFragment)
-                                    ((EditorProfileListFragment) fragment).showTargetHelps();
-                                else
-                                    ((EditorEventListFragment) fragment).showTargetHelps();
-                            }
-                        }*/
-                    }
+                    Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver");
+                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                    /*if (EditorProfilesActivity.getInstance() != null) {
+                        Fragment fragment = EditorProfilesActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (fragment != null) {
+                            if (fragment instanceof EditorProfileListFragment)
+                                ((EditorProfileListFragment) fragment).showTargetHelps();
+                            else
+                                ((EditorEventListFragment) fragment).showTargetHelps();
+                        }
+                    }*/
                 }, 500);
             }
         }

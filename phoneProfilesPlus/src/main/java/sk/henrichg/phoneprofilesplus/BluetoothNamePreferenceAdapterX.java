@@ -102,19 +102,16 @@ class BluetoothNamePreferenceAdapterX extends BaseAdapter
 
         holder.checkBox.setTag(position);
         holder.checkBox.setChecked(preference.isBluetoothNameSelected(bluetoothDevice.getName()));
-        holder.checkBox.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v) {
-                CheckBox chb = (CheckBox) v;
+        holder.checkBox.setOnClickListener(v -> {
+            CheckBox chb = (CheckBox) v;
 
-                int index = (Integer)chb.getTag();
-                String bluetoothName = preference.bluetoothList.get(index).getName();
+            int index = (Integer)chb.getTag();
+            String bluetoothName = preference.bluetoothList.get(index).getName();
 
-                if (chb.isChecked())
-                    preference.addBluetoothName(bluetoothName);
-                else
-                    preference.removeBluetoothName(bluetoothName);
-            }
+            if (chb.isChecked())
+                preference.addBluetoothName(bluetoothName);
+            else
+                preference.removeBluetoothName(bluetoothName);
         });
 
         if (!bluetoothDevice.custom)
@@ -124,12 +121,7 @@ class BluetoothNamePreferenceAdapterX extends BaseAdapter
         TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         holder.itemEditMenu.setTag(position);
         final ImageView itemEditMenu = holder.itemEditMenu;
-        holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                preference.showEditMenu(itemEditMenu);
-            }
-        });
+        holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu));
 
         return vi;
     }

@@ -66,22 +66,20 @@ class NotUsedMobileCellsDetectedAdapter extends BaseAdapter {
 
         holder.checkBox.setTag(event);
         holder.checkBox.setChecked(event.getStatus() == 1);
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                Event event = (Event) cb.getTag();
-                event.setStatus(cb.isChecked() ? 1 : 0);
+        holder.checkBox.setOnClickListener(v -> {
+            CheckBox cb = (CheckBox) v;
+            Event event1 = (Event) cb.getTag();
+            event1.setStatus(cb.isChecked() ? 1 : 0);
 
-                boolean anyChecked = false;
-                for (Event _event : eventList) {
-                    if (_event.getStatus() == 1) {
-                        anyChecked = true;
-                        break;
-                    }
+            boolean anyChecked = false;
+            for (Event _event : eventList) {
+                if (_event.getStatus() == 1) {
+                    anyChecked = true;
+                    break;
                 }
-                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(
-                        !activity.cellNameTextView.getText().toString().isEmpty() && anyChecked);
             }
+            activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(
+                    !activity.cellNameTextView.getText().toString().isEmpty() && anyChecked);
         });
 
         return vi;

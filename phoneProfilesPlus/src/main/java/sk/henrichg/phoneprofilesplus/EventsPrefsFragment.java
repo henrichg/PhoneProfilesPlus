@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -288,22 +287,19 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         // must be used handler for rewrite toolbar title/subtitle
         final EventsPrefsFragment fragment = this;
         Handler handler = new Handler(getActivity().getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        handler.postDelayed(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
-                if (getActivity() == null)
-                    return;
+            if (getActivity() == null)
+                return;
 
-                Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-                if (nestedFragment) {
-                    toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
-                }
-                else {
-                    toolbar.setTitle(getString(R.string.title_activity_event_preferences));
-                }
-
+            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
+            if (nestedFragment) {
+                toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
             }
+            else {
+                toolbar.setTitle(getString(R.string.title_activity_event_preferences));
+            }
+
         }, 200);
 
         setRedTextToPreferences();
@@ -313,28 +309,26 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
             //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    String activity;
-                    activity = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
-                    if (GlobalGUIRoutines.activityActionExists(activity, context)) {
-                        try {
-                            Intent intent = new Intent(activity);
-                            startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+            notificationAccessPreference.setOnPreferenceClickListener(preference -> {
+                boolean ok = false;
+                String activity1;
+                activity1 = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                if (GlobalGUIRoutines.activityActionExists(activity1, context)) {
+                    try {
+                        Intent intent = new Intent(activity1);
+                        startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!ok) {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -346,77 +340,65 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         Preference extenderPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
-                    return false;
-                }
+            extenderPreference.setOnPreferenceClickListener(preference -> {
+                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                return false;
             });
         }
         Preference accessibilityPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    enableExtender();
-                    return false;
-                }
+            accessibilityPreference.setOnPreferenceClickListener(preference -> {
+                enableExtender();
+                return false;
             });
         }
         Preference preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "locationScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_LOCATION_APP_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference1 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "locationScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_LOCATION_APP_SETTINGS);
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+            preference.setOnPreferenceClickListener(preference12 -> {
+                boolean ok = false;
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!ok) {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -428,53 +410,47 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "wifiScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_WIFI_SCANNING_APP_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference13 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "wifiScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_WIFI_SCANNING_APP_SETTINGS);
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+            preference.setOnPreferenceClickListener(preference14 -> {
+                boolean ok = false;
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!ok) {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -486,38 +462,35 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesTime.PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+            preference.setOnPreferenceClickListener(preference15 -> {
+                boolean ok = false;
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!ok) {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -529,12 +502,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         if (Build.VERSION.SDK_INT >= 27) {
@@ -549,28 +521,26 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
             if (preference != null) {
                 //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        boolean ok = false;
-                        //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_SETTINGS, context.getApplicationContext())) {
-                            try {
-                                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+                preference.setOnPreferenceClickListener(preference16 -> {
+                    boolean ok = false;
+                    //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_SETTINGS, context.getApplicationContext())) {
+                        try {
+                            Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                        if (!ok) {
-                            if (getActivity() != null) {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
+                    }
+                    if (!ok) {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
 
 //                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                    @Override
@@ -582,54 +552,48 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                    }
 //                                });
 
-                                if (!getActivity().isFinishing())
-                                    dialog.show();
-                            }
+                            if (!getActivity().isFinishing())
+                                dialog.show();
                         }
-                        return false;
                     }
+                    return false;
                 });
             }
         }
         preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_APP_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference17 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_APP_SETTINGS);
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+            preference.setOnPreferenceClickListener(preference18 -> {
+                boolean ok = false;
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!ok) {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -641,92 +605,77 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         preference = prefMng.findPreference(PREF_ORIENTATION_SCANNING_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "orientationScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_ORIENTATION_SCANNING_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference19 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "orientationScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_ORIENTATION_SCANNING_SETTINGS);
+                return false;
             });
         }
         extenderPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
-                    return false;
-                }
+            extenderPreference.setOnPreferenceClickListener(preference110 -> {
+                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                return false;
             });
         }
         Preference orientationPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (orientationPreference != null) {
             //orientationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            orientationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    enableExtender();
-                    return false;
-                }
+            orientationPreference.setOnPreferenceClickListener(preference111 -> {
+                enableExtender();
+                return false;
             });
         }
         preference = prefMng.findPreference(PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_MOBILE_CELLS_SCANNING_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference112 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_MOBILE_CELLS_SCANNING_SETTINGS);
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+            preference.setOnPreferenceClickListener(preference113 -> {
+                boolean ok = false;
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    if (!ok) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!ok) {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -738,73 +687,60 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesTime.PREF_EVENT_TIME_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_TIME_SCANNING_APP_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference114 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_TIME_SCANNING_APP_SETTINGS);
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_CALENDAR_SCANNING_APP_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference115 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_CALENDAR_SCANNING_APP_SETTINGS);
+                return false;
             });
         }
 
         preference = prefMng.findPreference(PREF_USE_PRIORITY_APP_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "eventRunCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_USE_PRIORITY_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference116 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "eventRunCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_USE_PRIORITY_SETTINGS);
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "notificationScanningCategoryRoot");
-                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_NOTIFICATION_SCANNING_APP_SETTINGS);
-                    return false;
-                }
+            preference.setOnPreferenceClickListener(preference117 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "notificationScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_NOTIFICATION_SCANNING_APP_SETTINGS);
+                return false;
             });
         }
         MobileCellsRegistrationDialogPreferenceX mobileCellsRegistrationDialogPreference =
@@ -823,53 +759,45 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         extenderPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
-                    return false;
-                }
+            extenderPreference.setOnPreferenceClickListener(preference118 -> {
+                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                return false;
             });
         }
         Preference smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    enableExtender();
-                    return false;
-                }
+            smsPreference.setOnPreferenceClickListener(preference119 -> {
+                enableExtender();
+                return false;
             });
         }
         smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_LAUNCH_EXTENDER);
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
-                        PackageManager packageManager = context.getPackageManager();
-                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
-                        if (intent != null) {
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                startActivity(intent);
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+            smsPreference.setOnPreferenceClickListener(preference120 -> {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    PackageManager packageManager = context.getPackageManager();
+                    Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                     }
-                    else {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                else {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -881,65 +809,56 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
 
         extenderPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                            getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
-                    return false;
-                }
+            extenderPreference.setOnPreferenceClickListener(preference121 -> {
+                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                return false;
             });
         }
         Preference callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (callPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            callPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    enableExtender();
-                    return false;
-                }
+            callPreference.setOnPreferenceClickListener(preference122 -> {
+                enableExtender();
+                return false;
             });
         }
         callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_LAUNCH_EXTENDER);
         if (callPreference != null) {
             //callPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            callPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
-                        PackageManager packageManager = context.getPackageManager();
-                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
-                        if (intent != null) {
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                startActivity(intent);
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+            callPreference.setOnPreferenceClickListener(preference123 -> {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    PackageManager packageManager = context.getPackageManager();
+                    Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                     }
-                    else {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                else {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -951,40 +870,37 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         accessibilityPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_LAUNCH_EXTENDER);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
-                        PackageManager packageManager = context.getPackageManager();
-                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
-                        if (intent != null) {
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                startActivity(intent);
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+            accessibilityPreference.setOnPreferenceClickListener(preference124 -> {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    PackageManager packageManager = context.getPackageManager();
+                    Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                     }
-                    else {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                else {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -996,40 +912,37 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         accessibilityPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
-                        PackageManager packageManager = context.getPackageManager();
-                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
-                        if (intent != null) {
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                startActivity(intent);
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
+            accessibilityPreference.setOnPreferenceClickListener(preference125 -> {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    PackageManager packageManager = context.getPackageManager();
+                    Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                     }
-                    else {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                else {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -1041,56 +954,53 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
         preference = prefMng.findPreference(EventPreferencesBattery.PREF_EVENT_BATTERY_BATTERY_SAVER_SYSTEM_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    boolean activityExists;
-                    Intent intent;
-                    /*if (Build.VERSION.SDK_INT == 21) {
-                        intent = new Intent();
-                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                        activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
-                    } else*/ {
-                        activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, context);
-                        intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
-                    }
-                    if (activityExists) {
-                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        try {
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            //if (Build.VERSION.SDK_INT > 21) {
-                                intent = new Intent();
-                                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                                activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
-                                if (activityExists) {
-                                    try {
-                                        startActivity(intent);
-                                    } catch (Exception ee) {
-                                        PPApplication.recordException(ee);
-                                    }
+            preference.setOnPreferenceClickListener(preference126 -> {
+                boolean activityExists;
+                Intent intent;
+                /*if (Build.VERSION.SDK_INT == 21) {
+                    intent = new Intent();
+                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                    activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
+                } else*/ {
+                    activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, context);
+                    intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+                }
+                if (activityExists) {
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    try {
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        //if (Build.VERSION.SDK_INT > 21) {
+                            intent = new Intent();
+                            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                            activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
+                            if (activityExists) {
+                                try {
+                                    startActivity(intent);
+                                } catch (Exception ee) {
+                                    PPApplication.recordException(ee);
                                 }
-                            //}
-                        }
+                            }
+                        //}
                     }
-                    if (!activityExists) {
-                        if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!activityExists) {
+                    if (getActivity() != null) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -1102,12 +1012,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                                }
 //                            });
 
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
-                    return false;
                 }
+                return false;
             });
         }
 
@@ -1180,16 +1089,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 // must be used handler for rewrite toolbar title/subtitle
                 final String _value = value;
                 Handler handler = new Handler(getActivity().getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
-                        if (getActivity() == null)
-                            return;
+                    if (getActivity() == null)
+                        return;
 
-                        Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-                        toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
-                    }
+                    Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
+                    toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
                 }, 200);
             }
         }
@@ -1573,12 +1479,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     preference.setSummary(summary);
 
                     if (event._id > 0) {
-                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                            @Override
-                            public boolean onPreferenceClick(Preference preference) {
-                                Permissions.grantEventPermissions(activity, event/*, false, true*/);
-                                return false;
-                            }
+                        preference.setOnPreferenceClickListener(preference1 -> {
+                            Permissions.grantEventPermissions(activity, event/*, false, true*/);
+                            return false;
                         });
                     }
                 }
@@ -1626,14 +1529,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
-                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                            @Override
-                            public boolean onPreferenceClick(Preference preference) {
-                                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
-                                return false;
-                            }
+                        preference.setOnPreferenceClickListener(preference12 -> {
+                            installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
+                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
+                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                            return false;
                         });
                     }
                     else {
@@ -1644,12 +1544,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
-                        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                            @Override
-                            public boolean onPreferenceClick(Preference preference) {
-                                enableExtender();
-                                return false;
-                            }
+                        preference.setOnPreferenceClickListener(preference13 -> {
+                            enableExtender();
+                            return false;
                         });
                     }
                 }
@@ -1754,26 +1651,20 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
         button.setText(getActivity().getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GitHubAssetsScreenshotActivity.class);
-                intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplusextender_assets_screenshot);
-                startActivity(intent);
-            }
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), GitHubAssetsScreenshotActivity.class);
+            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplusextender_assets_screenshot);
+            startActivity(intent);
         });
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_install, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
+        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+            String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1789,7 +1680,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //            }
 //        });
 
-        if (!getActivity().isFinishing())
+        if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
     }
 

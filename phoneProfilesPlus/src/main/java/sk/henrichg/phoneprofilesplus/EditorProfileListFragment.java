@@ -4,7 +4,6 @@ import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -16,7 +15,6 @@ import android.text.style.CharacterStyle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -109,13 +107,12 @@ public class EditorProfileListFragment extends Fragment
         void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/);
     }
 
+    /*, boolean startTargetHelps*/
     /**
      * A dummy implementation of the Callbacks interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static final OnStartProfilePreferences sDummyOnStartProfilePreferencesCallback = new OnStartProfilePreferences() {
-        public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
-        }
+    private static final OnStartProfilePreferences sDummyOnStartProfilePreferencesCallback = (profile, editMode, predefinedProfileIndex) -> {
     };
 
     public EditorProfileListFragment() {
@@ -282,34 +279,31 @@ public class EditorProfileListFragment extends Fragment
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_profiles_bottom_bar);
-        bottomToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.menu_add_profile) {
-                    if (profileListAdapter != null) {
-                        if (!activity.isFinishing()) {
-                            ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
-                            ((EditorProfilesActivity) activity).addProfileDialog.show();
-                        }
+        bottomToolbar.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.menu_add_profile) {
+                if (profileListAdapter != null) {
+                    if (!activity.isFinishing()) {
+                        ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
+                        ((EditorProfilesActivity) activity).addProfileDialog.show();
                     }
-                    return true;
                 }
-                else
-                if (itemId == R.id.menu_delete_all_profiles) {
-                    deleteAllProfiles();
-                    return true;
-                }
-                else
-                if (itemId == R.id.menu_default_profile) {
-                    Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
-                    startActivity(intent);
-                    return true;
-                }
-                else
-                    return false;
+                return true;
             }
+            else
+            if (itemId == R.id.menu_delete_all_profiles) {
+                deleteAllProfiles();
+                return true;
+            }
+            else
+            if (itemId == R.id.menu_default_profile) {
+                Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                startActivity(intent);
+                return true;
+            }
+            else
+                return false;
         });
 
         if (fromOnViewCreated) {
@@ -444,13 +438,10 @@ public class EditorProfileListFragment extends Fragment
 
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
-                progressBarRunnable = new Runnable() {
-                    @Override
-                    public void run() {
+                progressBarRunnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.LoadProfileListAsyncTask");
-                        //fragment.textViewNoData.setVisibility(GONE);
-                        fragment.progressBar.setVisibility(View.VISIBLE);
-                    }
+                    //fragment.textViewNoData.setVisibility(GONE);
+                    fragment.progressBar.setVisibility(View.VISIBLE);
                 };
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
             }
@@ -728,27 +719,24 @@ public class EditorProfileListFragment extends Fragment
 
         final Profile profile = (Profile)view.getTag();
 
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.profile_list_item_menu_activate) {
-                    activateProfile(profile/*, true*/);
-                    return true;
-                }
-                else
-                if (itemId == R.id.profile_list_item_menu_duplicate) {
-                    duplicateProfile(profile);
-                    return true;
-                }
-                else
-                if (itemId == R.id.profile_list_item_menu_delete) {
-                    deleteProfileWithAlert(profile);
-                    return true;
-                }
-                else {
-                    return false;
-                }
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.profile_list_item_menu_activate) {
+                activateProfile(profile/*, true*/);
+                return true;
+            }
+            else
+            if (itemId == R.id.profile_list_item_menu_duplicate) {
+                duplicateProfile(profile);
+                return true;
+            }
+            else
+            if (itemId == R.id.profile_list_item_menu_delete) {
+                deleteProfileWithAlert(profile);
+                return true;
+            }
+            else {
+                return false;
             }
         });
 
@@ -767,12 +755,7 @@ public class EditorProfileListFragment extends Fragment
         dialogBuilder.setMessage(R.string.delete_profile_alert_message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                deleteProfile(_profile);
-            }
-        });
+        dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteProfile(_profile));
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
         AlertDialog dialog = dialogBuilder.create();
 
@@ -801,55 +784,52 @@ public class EditorProfileListFragment extends Fragment
 
             //final Activity activity = getActivity();
 
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, null, 0, "");
 
-                public void onClick(DialogInterface dialog, int which) {
-                    PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, null, 0, "");
-
-                    // remove alarm for profile duration
-                    synchronized (activityDataWrapper.profileList) {
-                        if (activityDataWrapper.profileListFilled) {
-                            for (Profile profile : activityDataWrapper.profileList)
-                                ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, activityDataWrapper.context);
-                        }
+                // remove alarm for profile duration
+                synchronized (activityDataWrapper.profileList) {
+                    if (activityDataWrapper.profileListFilled) {
+                        for (Profile profile : activityDataWrapper.profileList)
+                            ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, activityDataWrapper.context);
                     }
-                    //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
-//                    PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteAllProfiles", "#### clear");
-                    synchronized (PPApplication.profileActivationMutex) {
-                        List<String> activateProfilesFIFO = new ArrayList<>();
-                        activityDataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
-                    }
-
-                    //listView.getRecycledViewPool().clear();
-
-                    activityDataWrapper.stopAllEventsFromMainThread(true, false);
-                    profileListAdapter.clearNoNotify();
-                    DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
-                    DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
-
-                    profileListAdapter.notifyDataSetChanged();
-
-                    //Profile profile = databaseHandler.getActivatedProfile();
-                    //Profile profile = profileListAdapter.getActivatedProfile();
-                    updateHeader(null);
-                    //PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
-                    //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteAllProfiles");
-                    PPApplication.updateGUI(0/*activityDataWrapper.context, true, true*/);
-
-                    activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
-
-                    /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                    PPApplication.startPPService(getActivity(), serviceIntent);*/
-                    Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                    //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                    PPApplication.runCommand(getActivity(), commandIntent);
-
-                    onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
                 }
+                //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
+//                    PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteAllProfiles", "#### clear");
+                synchronized (PPApplication.profileActivationMutex) {
+                    List<String> activateProfilesFIFO = new ArrayList<>();
+                    activityDataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                }
+
+                //listView.getRecycledViewPool().clear();
+
+                activityDataWrapper.stopAllEventsFromMainThread(true, false);
+                profileListAdapter.clearNoNotify();
+                DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
+                DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
+
+                profileListAdapter.notifyDataSetChanged();
+
+                //Profile profile = databaseHandler.getActivatedProfile();
+                //Profile profile = profileListAdapter.getActivatedProfile();
+                updateHeader(null);
+                //PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
+                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
+                //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteAllProfiles");
+                PPApplication.updateGUI(0/*activityDataWrapper.context, true, true*/);
+
+                activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
+
+                /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                PPApplication.startPPService(getActivity(), serviceIntent);*/
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                PPApplication.runCommand(getActivity(), commandIntent);
+
+                onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -1314,39 +1294,36 @@ public class EditorProfileListFragment extends Fragment
                 PPApplication.recordException(e);
             }
 
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                public boolean onMenuItemClick(android.view.MenuItem item) {
-                    if (getActivity() != null) {
-                        int itemId = item.getItemId();
-                        if (itemId == R.id.profile_list_item_menu_show_in_activator_title) {
-                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                    getResources().getString(R.string.popupmenu_title_click_below_toast),
-                                    Toast.LENGTH_SHORT);
-                            return true;
-                        }
-                        else
-                        if (itemId == R.id.profile_list_item_menu_not_show_in_activator) {
-                            profile._showInActivator = false;
-                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                            //profileListAdapter.notifyDataSetChanged();
-                            ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
-                            return true;
-                        }
-                        else
-                        if (itemId == R.id.profile_list_item_menu_show_in_activator) {
-                            profile._showInActivator = true;
-                            DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                            //profileListAdapter.notifyDataSetChanged();
-                            ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
+            popup.setOnMenuItemClickListener(item -> {
+                if (getActivity() != null) {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.profile_list_item_menu_show_in_activator_title) {
+                        PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                getResources().getString(R.string.popupmenu_title_click_below_toast),
+                                Toast.LENGTH_SHORT);
+                        return true;
                     }
-                    return true;
+                    else
+                    if (itemId == R.id.profile_list_item_menu_not_show_in_activator) {
+                        profile._showInActivator = false;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                        //profileListAdapter.notifyDataSetChanged();
+                        ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                        return true;
+                    }
+                    else
+                    if (itemId == R.id.profile_list_item_menu_show_in_activator) {
+                        profile._showInActivator = true;
+                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                        //profileListAdapter.notifyDataSetChanged();
+                        ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
+                return true;
             });
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
@@ -1522,12 +1499,10 @@ public class EditorProfileListFragment extends Fragment
             else {
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.showTargetHelps");
-                        showAdapterTargetHelps();
-                    }
+                    //noinspection Convert2MethodRef
+                    showAdapterTargetHelps();
                 }, 500);
             }
         }

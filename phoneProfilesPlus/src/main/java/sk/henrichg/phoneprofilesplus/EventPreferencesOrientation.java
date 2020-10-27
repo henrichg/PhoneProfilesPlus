@@ -648,66 +648,60 @@ class EventPreferencesOrientation extends EventPreferences {
             final Context _context = context.getApplicationContext();
 
             if (minLightPreference != null) {
-                minLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String sNewValue = (String) newValue;
-                        int iNewValue;
-                        if (sNewValue.isEmpty())
-                            iNewValue = 0;
-                        else
-                            iNewValue = Integer.parseInt(sNewValue);
+                minLightPreference.setOnPreferenceChangeListener((preference1, newValue) -> {
+                    String sNewValue = (String) newValue;
+                    int iNewValue;
+                    if (sNewValue.isEmpty())
+                        iNewValue = 0;
+                    else
+                        iNewValue = Integer.parseInt(sNewValue);
 
-                        String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "2147483647");
-                        int iHightLevelValue;
-                        if (sHightLevelValue.isEmpty())
-                            iHightLevelValue = 2147483647;
-                        else
-                            iHightLevelValue = Integer.parseInt(sHightLevelValue);
+                    String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MAX, "2147483647");
+                    int iHightLevelValue;
+                    if (sHightLevelValue.isEmpty())
+                        iHightLevelValue = 2147483647;
+                    else
+                        iHightLevelValue = Integer.parseInt(sHightLevelValue);
 
-                        boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
+                    boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
 
-                        if (!OK) {
-                            PPApplication.showToast(_context.getApplicationContext(),
-                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_min) + ": " +
-                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
-                                    Toast.LENGTH_SHORT);
-                        }
-
-                        return OK;
+                    if (!OK) {
+                        PPApplication.showToast(_context.getApplicationContext(),
+                                _context.getResources().getString(R.string.event_preferences_orientation_light_level_min) + ": " +
+                                        _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
+                                Toast.LENGTH_SHORT);
                     }
+
+                    return OK;
                 });
             }
             if (maxLightPreference != null) {
-                maxLightPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String sNewValue = (String) newValue;
-                        int iNewValue;
-                        if (sNewValue.isEmpty())
-                            iNewValue = 2147483647;
-                        else
-                            iNewValue = Integer.parseInt(sNewValue);
+                maxLightPreference.setOnPreferenceChangeListener((preference12, newValue) -> {
+                    String sNewValue = (String) newValue;
+                    int iNewValue;
+                    if (sNewValue.isEmpty())
+                        iNewValue = 2147483647;
+                    else
+                        iNewValue = Integer.parseInt(sNewValue);
 
-                        String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
-                        int iLowLevelValue;
-                        if (sLowLevelValue.isEmpty())
-                            iLowLevelValue = 0;
-                        else
-                            iLowLevelValue = Integer.parseInt(sLowLevelValue);
+                    String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_LIGHT_MIN, "0");
+                    int iLowLevelValue;
+                    if (sLowLevelValue.isEmpty())
+                        iLowLevelValue = 0;
+                    else
+                        iLowLevelValue = Integer.parseInt(sLowLevelValue);
 
-                        //noinspection ConstantConditions
-                        boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 2147483647));
+                    //noinspection ConstantConditions
+                    boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 2147483647));
 
-                        if (!OK) {
-                            PPApplication.showToast(_context.getApplicationContext(),
-                                    _context.getResources().getString(R.string.event_preferences_orientation_light_level_max) + ": " +
-                                            _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
-                                    Toast.LENGTH_SHORT);
-                        }
-
-                        return OK;
+                    if (!OK) {
+                        PPApplication.showToast(_context.getApplicationContext(),
+                                _context.getResources().getString(R.string.event_preferences_orientation_light_level_max) + ": " +
+                                        _context.getResources().getString(R.string.event_preferences_orientation_light_level_bad_value),
+                                Toast.LENGTH_SHORT);
                     }
+
+                    return OK;
                 });
             }
         }

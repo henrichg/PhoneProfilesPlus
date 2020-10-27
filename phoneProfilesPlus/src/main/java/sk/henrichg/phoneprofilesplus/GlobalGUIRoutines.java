@@ -272,15 +272,12 @@ class GlobalGUIRoutines {
 
     static void switchNightMode(final Context appContext, boolean useMainLooperHandler) {
         if (useMainLooperHandler) {
-            new Handler(getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
+            new Handler(getMainLooper()).post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
-                    try {
-                        switchNightMode(appContext);
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
+                try {
+                    switchNightMode(appContext);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
                 }
             });
         }
@@ -295,25 +292,21 @@ class GlobalGUIRoutines {
 
         if (newIntent)
         {
-            new Handler(activity.getMainLooper()).post(new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
+            new Handler(activity.getMainLooper()).post(() -> {
+                try {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
-                        Context context = activity.getApplicationContext();
+                    Context context = activity.getApplicationContext();
 
-                        Intent intent = activity.getIntent();
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    Intent intent = activity.getIntent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-                        activity.finish();
-                        activity.overridePendingTransition(0, 0);
+                    activity.finish();
+                    activity.overridePendingTransition(0, 0);
 
-                        context.startActivity(intent);
-                        //activity.overridePendingTransition(0, 0);
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
+                    context.startActivity(intent);
+                    //activity.overridePendingTransition(0, 0);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
                 }
             });
         }

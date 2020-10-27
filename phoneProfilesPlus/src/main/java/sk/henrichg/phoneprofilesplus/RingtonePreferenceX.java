@@ -316,137 +316,134 @@ public class RingtonePreferenceX extends DialogPreference {
 
             PPApplication.startHandlerThreadPlayTone();
             final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    try {
+            handler.post(() -> {
+                try {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.playRingtone");
-                        stopPlayRingtone();
+                    stopPlayRingtone();
 
-                        Context appContext = prefContext.getApplicationContext();
+                    Context appContext = prefContext.getApplicationContext();
 
-                        /*if (TonesHandler.isPhoneProfilesSilent(_ringtoneUri, appContext)) {
-                            //String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
-                            //File soundFile = new File(appContext.getFilesDir(), filename);
-                            // /data/user/0/sk.henrichg.phoneprofilesplus/files
-                            //PPApplication.logE("RingtonePreferenceX.playRingtone", "soundFile=" + soundFile);
-                            //mediaPlayer.setDataSource(soundFile.getAbsolutePath());
-                            Log.e("RingtonePreferenceX.playRingtone", "phoneprofiles_silent.ogg");
-                            return;
-                        }
-                        else*/ {
-                            if (mediaPlayer == null)
-                                mediaPlayer = new MediaPlayer();
+                    /*if (TonesHandler.isPhoneProfilesSilent(_ringtoneUri, appContext)) {
+                        //String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
+                        //File soundFile = new File(appContext.getFilesDir(), filename);
+                        // /data/user/0/sk.henrichg.phoneprofilesplus/files
+                        //PPApplication.logE("RingtonePreferenceX.playRingtone", "soundFile=" + soundFile);
+                        //mediaPlayer.setDataSource(soundFile.getAbsolutePath());
+                        Log.e("RingtonePreferenceX.playRingtone", "phoneprofiles_silent.ogg");
+                        return;
+                    }
+                    else*/ {
+                        if (mediaPlayer == null)
+                            mediaPlayer = new MediaPlayer();
 
-                            mediaPlayer.setDataSource(appContext, _ringtoneUri);
-                        }
+                        mediaPlayer.setDataSource(appContext, _ringtoneUri);
+                    }
 
-                        RingerModeChangeReceiver.internalChange = true;
+                    RingerModeChangeReceiver.internalChange = true;
 
-                        AudioAttributes attrs = new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_MEDIA)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                                .build();
-                        mediaPlayer.setAudioAttributes(attrs);
-                        //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    AudioAttributes attrs = new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .build();
+                    mediaPlayer.setAudioAttributes(attrs);
+                    //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                        mediaPlayer.prepare();
-                        mediaPlayer.setLooping(false);
+                    mediaPlayer.prepare();
+                    mediaPlayer.setLooping(false);
 
-                        oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                        int ringtoneVolume = 0;
-                        int maximumRingtoneValue = 0;
+                    int ringtoneVolume = 0;
+                    int maximumRingtoneValue = 0;
 
-                        switch (ringtoneType) {
-                            case "ringtone":
-                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                                break;
-                            case "notification":
-                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-                                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                                break;
-                            case "alarm":
-                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                                break;
-                        }
+                    switch (ringtoneType) {
+                        case "ringtone":
+                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                            maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                            break;
+                        case "notification":
+                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                            maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                            break;
+                        case "alarm":
+                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                            maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                            break;
+                    }
 
-                        //PPApplication.logE("RingtonePreferenceX.playRingtone", "ringtoneVolume=" + ringtoneVolume);
+                    //PPApplication.logE("RingtonePreferenceX.playRingtone", "ringtoneVolume=" + ringtoneVolume);
 
-                        int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
-                        float percentage = (float) ringtoneVolume / maximumRingtoneValue * 100.0f;
-                        int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+                    float percentage = (float) ringtoneVolume / maximumRingtoneValue * 100.0f;
+                    int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
-                        //PPApplication.logE("RingtonePreferenceX.playRingtone", "mediaVolume=" + mediaVolume);
+                    //PPApplication.logE("RingtonePreferenceX.playRingtone", "mediaVolume=" + mediaVolume);
 
-                        ActivateProfileHelper.setMediaVolume(prefContext, audioManager, mediaVolume);
+                    ActivateProfileHelper.setMediaVolume(prefContext, audioManager, mediaVolume);
 
-                        mediaPlayer.start();
-                        ringtoneIsPlayed = true;
+                    mediaPlayer.start();
+                    ringtoneIsPlayed = true;
 
-                        playTimer = new Timer();
-                        playTimer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                if (mediaPlayer != null) {
-                                    try {
-                                        if (mediaPlayer.isPlaying())
-                                            mediaPlayer.stop();
-                                    } catch (Exception e) {
-                                        //PPApplication.recordException(e);
-                                    }
-                                    try {
-                                        mediaPlayer.release();
-                                    } catch (Exception e) {
-                                        //PPApplication.recordException(e);
-                                    }
-
-                                    if (oldMediaVolume > -1)
-                                        ActivateProfileHelper.setMediaVolume(prefContext, audioManager, oldMediaVolume);
-                                    //PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
+                    playTimer = new Timer();
+                    playTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (mediaPlayer != null) {
+                                try {
+                                    if (mediaPlayer.isPlaying())
+                                        mediaPlayer.stop();
+                                } catch (Exception e) {
+                                    //PPApplication.recordException(e);
+                                }
+                                try {
+                                    mediaPlayer.release();
+                                } catch (Exception e) {
+                                    //PPApplication.recordException(e);
                                 }
 
-                                ringtoneIsPlayed = false;
-                                mediaPlayer = null;
-
-                                DisableInternalChangeWorker.enqueueWork();
-
-                                /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                                final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        RingerModeChangeReceiver.internalChange = false;
-                                    }
-                                }, 3000);*/
-                                //PostDelayedBroadcastReceiver.setAlarm(
-                                //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
-
-                                playTimer = null;
+                                if (oldMediaVolume > -1)
+                                    ActivateProfileHelper.setMediaVolume(prefContext, audioManager, oldMediaVolume);
+                                //PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
                             }
-                        }, mediaPlayer.getDuration());
 
-                    } catch (Exception e) {
-                        //Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
-                        stopPlayRingtone();
+                            ringtoneIsPlayed = false;
+                            mediaPlayer = null;
 
-                        DisableInternalChangeWorker.enqueueWork();
+                            DisableInternalChangeWorker.enqueueWork();
 
-                        /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                RingerModeChangeReceiver.internalChange = false;
-                            }
-                        }, 3000);*/
-                        //PostDelayedBroadcastReceiver.setAlarm(
-                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
-                    }
+                            /*PPApplication.startHandlerThreadInternalChangeToFalse();
+                            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    RingerModeChangeReceiver.internalChange = false;
+                                }
+                            }, 3000);*/
+                            //PostDelayedBroadcastReceiver.setAlarm(
+                            //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
+
+                            playTimer = null;
+                        }
+                    }, mediaPlayer.getDuration());
+
+                } catch (Exception e) {
+                    //Log.e("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
+                    //PPApplication.recordException(e);
+                    stopPlayRingtone();
+
+                    DisableInternalChangeWorker.enqueueWork();
+
+                    /*PPApplication.startHandlerThreadInternalChangeToFalse();
+                    final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            RingerModeChangeReceiver.internalChange = false;
+                        }
+                    }, 3000);*/
+                    //PostDelayedBroadcastReceiver.setAlarm(
+                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                 }
             });
 
@@ -486,12 +483,9 @@ public class RingtonePreferenceX extends DialogPreference {
 
         PPApplication.startHandlerThreadPlayTone();
         final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.onSaveInstanceState");
-                stopPlayRingtone();
-            }
+            stopPlayRingtone();
         });
 
         final Parcelable superState = super.onSaveInstanceState();
@@ -508,12 +502,10 @@ public class RingtonePreferenceX extends DialogPreference {
     protected void onRestoreInstanceState(Parcelable state) {
         PPApplication.startHandlerThreadPlayTone();
         final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
+        handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.onRestoreInstanceState");
-                stopPlayRingtone();
-            }
+            //noinspection Convert2MethodRef
+            stopPlayRingtone();
         });
 
         if (state == null || !state.getClass().equals(SavedState.class)) {

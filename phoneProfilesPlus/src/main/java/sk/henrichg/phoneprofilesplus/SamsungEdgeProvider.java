@@ -310,20 +310,17 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
-                    //createProfilesDataWrapper(_context);
+                //createProfilesDataWrapper(_context);
 
-                    for (int cocktailId : _cocktailIds) {
-                        doOnUpdate(_context, _cocktailBarManager, cocktailId, true);
-                    }
-
-                    //if (dataWrapper != null)
-                    //    dataWrapper.invalidateDataWrapper();
-                    //dataWrapper = null;
+                for (int cocktailId : _cocktailIds) {
+                    doOnUpdate(_context, _cocktailBarManager, cocktailId, true);
                 }
+
+                //if (dataWrapper != null)
+                //    dataWrapper.invalidateDataWrapper();
+                //dataWrapper = null;
             });
         }
     }
@@ -343,23 +340,20 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if ((cocktailIds != null) && (cocktailIds.length > 0)) {
                 PPApplication.startHandlerThreadWidget();
                 final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
-                        //if (EditorProfilesActivity.doImport)
-                        //    return;
+                    //if (EditorProfilesActivity.doImport)
+                    //    return;
 
-                        //createProfilesDataWrapper(context);
+                    //createProfilesDataWrapper(context);
 
-                        for (int cocktailId : cocktailIds) {
-                            doOnUpdate(context, cocktailManager, cocktailId, false);
-                        }
-
-                        //if (dataWrapper != null)
-                        //    dataWrapper.invalidateDataWrapper();
-                        //dataWrapper = null;
+                    for (int cocktailId : cocktailIds) {
+                        doOnUpdate(context, cocktailManager, cocktailId, false);
                     }
+
+                    //if (dataWrapper != null)
+                    //    dataWrapper.invalidateDataWrapper();
+                    //dataWrapper = null;
                 });
             }
         }

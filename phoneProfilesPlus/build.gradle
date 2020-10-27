@@ -133,4 +133,4 @@ dependencies {
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0'
 }
 
-apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
+//apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

@@ -6,7 +6,6 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -55,11 +54,9 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 
         listAdapter = new ConnectToSSIDPreferenceAdapterX(prefContext, preference);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                preference.value = preference.ssidList.get(position).ssid;
-                listAdapter.notifyDataSetChanged();
-            }
+        listView.setOnItemClickListener((parent, v, position, id) -> {
+            preference.value = preference.ssidList.get(position).ssid;
+            listAdapter.notifyDataSetChanged();
         });
 
         wifiEnabled = false;

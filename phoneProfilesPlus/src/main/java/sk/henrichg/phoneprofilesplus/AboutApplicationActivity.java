@@ -115,7 +115,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         text.setText(sbt);
 
-        emailMe((TextView) findViewById(R.id.about_application_support),
+        emailMe(findViewById(R.id.about_application_support),
                 getString(R.string.about_application_support),
                 getString(R.string.about_application_support2),
                 getString(R.string.about_application_support_subject),
@@ -438,13 +438,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
         }*/
 
         Button donateButton = findViewById(R.id.about_application_donate_button);
-        donateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
-                startActivity(intent);
-            }
+        donateButton.setOnClickListener(view -> {
+            Intent intent;
+            intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
+            startActivity(intent);
         });
 
     }

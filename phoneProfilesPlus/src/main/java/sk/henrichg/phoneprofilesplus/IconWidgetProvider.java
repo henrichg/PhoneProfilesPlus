@@ -26,12 +26,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
         if (appWidgetIds.length > 0) {
             PPApplication.startHandlerThreadWidget();
             final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
-                    _onUpdate(context, appWidgetManager, appWidgetIds);
-                }
+                _onUpdate(context, appWidgetManager, appWidgetIds);
             });
         }
     }
@@ -415,12 +412,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 if ((ids != null) && (ids.length > 0)) {
                     PPApplication.startHandlerThreadWidget();
                     final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
-                            _onUpdate(context, manager, ids);
-                        }
+                        _onUpdate(context, manager, ids);
                     });
                 }
             }

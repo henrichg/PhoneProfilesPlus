@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -32,11 +31,7 @@ public class WorkManagerNotWorkingActivity extends AppCompatActivity {
         dialogBuilder.setMessage(R.string.background_jobs_not_working_alert_message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(false);
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                WorkManagerNotWorkingActivity.this.finish();
-            }
-        });
+        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> WorkManagerNotWorkingActivity.this.finish());
         /*dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {

@@ -10,9 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -138,25 +135,18 @@ public class ActivateProfileListFragment extends Fragment {
 
         //absListView.setLongClickable(false);
 
-        absListView.setOnItemClickListener(new OnItemClickListener() {
+        absListView.setOnItemClickListener((parent, view1, position, id) -> {
 
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (!ApplicationPreferences.applicationLongClickActivation)
-                    activateProfile((Profile) profileListAdapter.getItem(position));
-            }
+            if (!ApplicationPreferences.applicationLongClickActivation)
+                activateProfile((Profile) profileListAdapter.getItem(position));
         });
 
-        absListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+        absListView.setOnItemLongClickListener((parent, view12, position, id) -> {
 
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            if (ApplicationPreferences.applicationLongClickActivation)
+                activateProfile((Profile)profileListAdapter.getItem(position));
 
-                if (ApplicationPreferences.applicationLongClickActivation)
-                    activateProfile((Profile)profileListAdapter.getItem(position));
-
-                return false;
-            }
-
+            return false;
         });
 
         //absListView.setRemoveListener(onRemove);
@@ -279,14 +269,11 @@ public class ActivateProfileListFragment extends Fragment {
 
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
-                progressBarRunnable = new Runnable() {
-                    @Override
-                    public void run() {
+                progressBarRunnable = () -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (1)");
 
-                        //fragment.textViewNoData.setVisibility(View.GONE);
-                        fragment.progressBar.setVisibility(View.VISIBLE);
-                    }
+                    //fragment.textViewNoData.setVisibility(View.GONE);
+                    fragment.progressBar.setVisibility(View.VISIBLE);
                 };
                 progressBarHandler.postDelayed(progressBarRunnable, 100);
                 //fragment.progressBar.setVisibility(View.VISIBLE);
@@ -378,15 +365,12 @@ public class ActivateProfileListFragment extends Fragment {
 
                 //noinspection ConstantConditions
                 final Handler handler = new Handler(fragment.getActivity().getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.LoadProfileListAsyncTask (2)");
 
-                        if (fragment.getActivity() != null) {
-                            if (!fragment.getActivity().isFinishing())
-                                ((ActivateProfileActivity) fragment.getActivity()).startTargetHelpsActivity();
-                        }
+                    if (fragment.getActivity() != null) {
+                        if (!fragment.getActivity().isFinishing())
+                            ((ActivateProfileActivity) fragment.getActivity()).startTargetHelpsActivity();
                     }
                 }, 500);
 
@@ -635,32 +619,27 @@ public class ActivateProfileListFragment extends Fragment {
             else {
                 //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (1)");
-                        showAdapterTargetHelps();
-                    }
+                    //noinspection Convert2MethodRef
+                    showAdapterTargetHelps();
                 }, 500);
             }
         }
         else {
             final Handler handler = new Handler(getActivity().getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showTargetHelps (2)");
 
-                    if (ActivatorTargetHelpsActivity.activity != null) {
-                        //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
-                        try {
-                            ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                        ActivatorTargetHelpsActivity.activity = null;
-                        //ActivatorTargetHelpsActivity.activatorActivity = null;
+                if (ActivatorTargetHelpsActivity.activity != null) {
+                    //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
+                    try {
+                        ActivatorTargetHelpsActivity.activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
+                    ActivatorTargetHelpsActivity.activity = null;
+                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }
@@ -694,21 +673,18 @@ public class ActivateProfileListFragment extends Fragment {
             profileListAdapter.showTargetHelps(getActivity(), /*this,*/ itemView);
         else {
             final Handler handler = new Handler(getActivity().getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            handler.postDelayed(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivateProfileListFragment.showAdapterTargetHelps");
 
-                    if (ActivatorTargetHelpsActivity.activity != null) {
-                        //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
-                        try {
-                            ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                        ActivatorTargetHelpsActivity.activity = null;
-                        //ActivatorTargetHelpsActivity.activatorActivity = null;
+                if (ActivatorTargetHelpsActivity.activity != null) {
+                    //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
+                    try {
+                        ActivatorTargetHelpsActivity.activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
+                    ActivatorTargetHelpsActivity.activity = null;
+                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
         }

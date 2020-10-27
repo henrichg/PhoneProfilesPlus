@@ -70,13 +70,10 @@ class ConnectToSSIDPreferenceAdapterX extends BaseAdapter
 
         holder.radioButton.setTag(position);
         holder.radioButton.setChecked(preference.value.equals(wifiSSID.ssid));
-        holder.radioButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
-                preference.value = preference.ssidList.get((Integer)rb.getTag()).ssid;
-                notifyDataSetChanged();
-            }
+        holder.radioButton.setOnClickListener(v -> {
+            RadioButton rb = (RadioButton) v;
+            preference.value = preference.ssidList.get((Integer)rb.getTag()).ssid;
+            notifyDataSetChanged();
         });
 
         return vi;

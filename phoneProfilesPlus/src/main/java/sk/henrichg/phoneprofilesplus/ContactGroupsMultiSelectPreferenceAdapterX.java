@@ -63,13 +63,11 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
             convertView.setTag(new ContactGroupViewHolder(textViewDisplayName, checkBox));
 
             // If CheckBox is toggled, update the ContactGroup it is tagged with.
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    ContactGroup contactGroup = (ContactGroup) cb.getTag();
-                    if (contactGroup != null)
-                        contactGroup.checked = cb.isChecked();
-                }
+            checkBox.setOnClickListener(v -> {
+                CheckBox cb = (CheckBox) v;
+                ContactGroup contactGroup = (ContactGroup) cb.getTag();
+                if (contactGroup != null)
+                    contactGroup.checked = cb.isChecked();
             });
         }
         // Reuse existing row view

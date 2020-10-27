@@ -94,29 +94,22 @@ class LocationGeofencesPreferenceAdapterX extends CursorAdapter {
         rowData.name.setText(cursor.getString(KEY_G_NAME));
 
         if (preferenceFragment.preference.onlyEdit == 0) {
-            rowData.checkBox.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox chb = (CheckBox) v;
+            rowData.checkBox.setOnClickListener(v -> {
+                CheckBox chb = (CheckBox) v;
 
-                    long id = (long) chb.getTag();
-                    DatabaseHandler.getInstance(preferenceFragment.preference.dataWrapper.context).checkGeofence(String.valueOf(id), 2);
+                long id1 = (long) chb.getTag();
+                DatabaseHandler.getInstance(preferenceFragment.preference.dataWrapper.context).checkGeofence(String.valueOf(id1), 2);
 
-                    //preference.updateGUIWithGeofence(id);
+                //preference.updateGUIWithGeofence(id);
 
-                    preferenceFragment.preference.refreshListView();
-                }
+                preferenceFragment.preference.refreshListView();
             });
         }
 
         TooltipCompat.setTooltipText(rowData.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         rowData.itemEditMenu.setTag(id);
         final ImageView itemEditMenu = rowData.itemEditMenu;
-        rowData.itemEditMenu.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                preferenceFragment.showEditMenu(itemEditMenu);
-            }
-        });
+        rowData.itemEditMenu.setOnClickListener(v -> preferenceFragment.showEditMenu(itemEditMenu));
 
     }
 
