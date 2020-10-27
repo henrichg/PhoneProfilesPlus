@@ -366,10 +366,6 @@
                        android:resource="@xml/filter_nfc" />-->
         </activity>
         <activity
-            android:name=".DonationGPlayActivity"
-            android:label="@string/donation_activity_title">
-        </activity>
-        <activity
             android:name=".ActivatorTargetHelpsActivity"
             android:label="@string/empty_string"
             android:excludeFromRecents="true"
@@ -417,13 +413,6 @@
         </activity>
         <activity
             android:name=".IgnoreBatteryOptimizationDisableActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity">
-        </activity>
-        <activity
-            android:name=".EndOfGooglePlaySupportActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"

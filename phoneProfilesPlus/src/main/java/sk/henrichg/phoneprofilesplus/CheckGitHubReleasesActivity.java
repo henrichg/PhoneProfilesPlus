@@ -55,10 +55,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         } catch (Exception e) {
             message = "";
         }
-        if (PPApplication.googlePlayInstaller)
-            message = message + activity.getString(R.string.about_application_package_type_google_play);
-        else
-            message = message + activity.getString(R.string.about_application_package_type_github);
+        message = message + activity.getString(R.string.about_application_package_type_github);
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";

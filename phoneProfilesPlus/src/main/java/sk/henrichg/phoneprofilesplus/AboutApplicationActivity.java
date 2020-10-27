@@ -105,10 +105,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         } catch (Exception e) {
             message = "";
         }
-        if (PPApplication.googlePlayInstaller)
-            message = message + getString(R.string.about_application_package_type_google_play);
-        else
-            message = message + getString(R.string.about_application_package_type_github);
+        message = message + getString(R.string.about_application_package_type_github);
         text.setText(message);
 
         text = findViewById(R.id.about_application_author);
@@ -445,10 +442,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent;
-                if (PPApplication.googlePlayInstaller)
-                    intent = new Intent(getBaseContext(), DonationGPlayActivity.class);
-                else
-                    intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
+                intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
                 startActivity(intent);
             }
         });

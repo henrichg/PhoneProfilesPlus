@@ -64,7 +64,6 @@ import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -112,7 +111,7 @@ public class PPApplication extends Application
     static final int WORK_PRUNE_DELAY_MINUTES = 60;
 
     //static final boolean gitHubRelease = true;
-    static boolean googlePlayInstaller = false;
+    //static boolean googlePlayInstaller = false;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
@@ -984,25 +983,8 @@ public class PPApplication extends Application
         anrWatchDog.start();
         */
 
-        try {
-            // A list with valid installers package name
-            List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
-            // The package name of the app that has installed your app
-            final String installer = getPackageManager().getInstallerPackageName(PPApplication.PACKAGE_NAME);
-            // true if your app has been downloaded from Play Store
-            googlePlayInstaller = installer != null && validInstallers.contains(installer);
-            PPApplication.setCustomKey("FROM_GOOGLE_PLAY", googlePlayInstaller);
-        } catch (Exception e) {
-            // https://github.com/firebase/firebase-android-sdk/issues/1226
-            //PPApplication.recordException(e);
-        }
-        //try {
-            PPApplication.setCustomKey("DEBUG", DebugVersion.enabled);
-        //} catch (Exception e) {
-            // https://github.com/firebase/firebase-android-sdk/issues/1226
-            //PPApplication.recordException(e);
-        //}
-
+        PPApplication.setCustomKey("FROM_GOOGLE_PLAY", false);
+        PPApplication.setCustomKey("DEBUG", DebugVersion.enabled);
 
         //lastUptimeTime = SystemClock.elapsedRealtime();
         //lastEpochTime = System.currentTimeMillis();
@@ -2221,33 +2203,6 @@ public class PPApplication extends Application
         Editor editor = ApplicationPreferences.getEditor(context);
         editor.putBoolean(PREF_DONATION_DONATED, true);
         editor.apply();
-    }
-
-    static boolean prefShowEndOfGooglePlaySupport;
-    static void getShowEndOfGooglePlaySupport(Context context)
-    {
-        if (googlePlayInstaller) {
-            prefShowEndOfGooglePlaySupport = false;
-            return;
-        }
-        synchronized (applicationGlobalPreferencesMutex) {
-            prefShowEndOfGooglePlaySupport = ApplicationPreferences.
-                    getSharedPreferences(context).getBoolean(PREF_SHOW_END_OF_GOOGLE_PLAY_SUPPORT, true);
-            //return prefShowEndOfGooglePlaySupport;
-        }
-    }
-    static void disableShowEndOfGooglePlaySupport(Context context)
-    {
-        if (googlePlayInstaller) {
-            prefShowEndOfGooglePlaySupport = false;
-            return;
-        }
-        synchronized (applicationGlobalPreferencesMutex) {
-            Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putBoolean(PREF_SHOW_END_OF_GOOGLE_PLAY_SUPPORT, false);
-            editor.apply();
-            prefShowEndOfGooglePlaySupport = false;
-        }
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")

@@ -3887,8 +3887,6 @@ public class PhoneProfilesService extends Service
 
                     // show info notification
                     ImportantInfoNotification.showInfoNotification(appContext);
-                    // show end of Google Play support
-                    EndOfGooglePlaySupport.showNotification(appContext);
 
                     // do not show it at start of PPP, will be shown for each profile activation.
                     //DrawOverAppsPermissionNotification.showNotification(appContext, false);
