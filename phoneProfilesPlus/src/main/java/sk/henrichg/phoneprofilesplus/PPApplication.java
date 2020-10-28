@@ -515,7 +515,7 @@ public class PPApplication extends Application
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
     private static final String PREF_DONATION_NOTIFICATION_COUNT = "donation_notification_count";
     private static final String PREF_DAYS_FOR_NEXT_DONATION_NOTIFICATION = "days_for_next_donation_notification";
-    //private static final String PREF_DONATION_DONATED = "donation_donated";
+    private static final String PREF_DONATION_DONATED = "donation_donated";
     //private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
     //private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
     //private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
@@ -2181,7 +2181,6 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         editor.apply();
     }
 
-    /*
     static public boolean getDonationDonated(Context context)
     {
         return ApplicationPreferences.
@@ -2193,7 +2192,6 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         editor.putBoolean(PREF_DONATION_DONATED, true);
         editor.apply();
     }
-    */
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isIgnoreBatteryOptimizationEnabled(Context appContext) {
