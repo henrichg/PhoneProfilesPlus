@@ -145,9 +145,9 @@
             android:value="@string/google_maps_key"/>
 
         <!-- Google Backup key -->
-        <meta-data
-            android:name="com.google.android.backup.api_key"
-            android:value="@string/google_backup_key"/>
+<!--        <meta-data-->
+<!--            android:name="com.google.android.backup.api_key"-->
+<!--            android:value="@string/google_backup_key"/>-->
 
 <!--        <meta-data-->
 <!--            android:name="firebase_crashlytics_collection_enabled"-->
