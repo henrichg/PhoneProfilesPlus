@@ -1176,8 +1176,6 @@
     <string name="profile_preferences_preferenceTypesInfo_summary">Klik hier om informatie te tonen over voorkeur types: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Klik hier voor meer informatie.</string>
     <string name="popup_window_events_status_show_info">Klik hier voor meer informatie.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Weergave filter</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Klik hier om te wisselen tussen profielen en Events weergave.</string>
     <string name="important_info_profile_type_of_preferences">Type voorkeuren:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configureer meldingstoon naar:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Meldingstoon \"Geen\" is geconfigureerd.</string>
@@ -1509,13 +1507,17 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Herstart van events werkt niet omdat events uitvoeren is uitgeschakeld</string>
     <string name="critical_github_release">Belangrijke vrijgage van app</string>
     <string name="critical_github_release_notification">Klik op deze melding om de belangrijke PhoneProfilesPlus versie te downloaden vanuit GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
-    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
-    <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
-    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="acra_notification_send_button">Send</string>
-    <string name="acra_notification_discard_button">Discard</string>
-    <string name="notification_channel_crash_report">Crash report</string>
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash rapport</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus is gecrasht. In de bijlage het crashrapport.</string>
+    <string name="acra_notification_title">Sorry, PhoneProfilesPlus is gecrasht</string>
+    <string name="acra_notification_text">Klik op de knop \"Verzenden\", om het crashrapport te verzenden naar de auteur. Dank je.</string>
+    <string name="acra_notification_send_button">Verzend</string>
+    <string name="acra_notification_discard_button">Verwijder</string>
+    <string name="notification_channel_crash_report">Crashrapport</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1539,13 +1541,13 @@
     <string name="extender_accessibility_service_profile_lock_device">• Toegankelijkheid service voor profiel parameter \"Apparaat vergrendelen\":</string>
     <string name="extender_application_releases">Releases:</string>
     <string name="extender_web_browser_chooser">Bekijk weblink met</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
-    <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
-    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="extender_acra_notification_send_button">Send</string>
-    <string name="extender_acra_notification_discard_button">Discard</string>
-    <string name="extender_notification_channel_crash_report">Crash report</string>
+    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crashrapport</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender is gecrasht. In de bijlage het crashrapport.</string>
+    <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender is gecrasht</string>
+    <string name="extender_acra_notification_text">Klik op de knop \"Verzenden\", om het crashrapport te verzenden naar de auteur. Dank je.</string>
+    <string name="extender_acra_notification_send_button">Verzend</string>
+    <string name="extender_acra_notification_discard_button">Verwijder</string>
+    <string name="extender_notification_channel_crash_report">Crashrapport</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

@@ -1176,8 +1176,6 @@
     <string name="profile_preferences_preferenceTypesInfo_summary">(G1), (R), (S), (I) tercih türleri hakkında malumatı görmek için buraya dokunun.</string>
     <string name="profile_preferences_types_G1_show_info">Daha fazla malumat için buraya dokunun.</string>
     <string name="popup_window_events_status_show_info">Daha fazla malumat için buraya dokunun.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Filtreleri gösterir</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Tercihler ve Durumlar ekranları arasında geçiş yapmak için buna dokunun.</string>
     <string name="important_info_profile_type_of_preferences">Tercihlerin türü:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Bildirim sesini ayarla:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Bildirim sesi \"Yok\" olarak ayarlandı.</string>
@@ -1509,13 +1507,17 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Durumları tekrar başlatma çalışmıyor, çünkü durumların çalışması devre dışı</string>
     <string name="critical_github_release">Kritik uygulama sürümü</string>
     <string name="critical_github_release_notification">PhoneProfilesPlus\'ın GitHub kritik sürümünü indirmek için bu bildirime dokunun.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
-    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
-    <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
-    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="acra_notification_send_button">Send</string>
-    <string name="acra_notification_discard_button">Discard</string>
-    <string name="notification_channel_crash_report">Crash report</string>
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Çökme raporu</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus çöktü. Çökme raporu eklendi.</string>
+    <string name="acra_notification_title">Maalesef PhoneProfilesPlus çöktü</string>
+    <string name="acra_notification_text">Lutfen, çökme raporunu yazara göndermek için \"Gönder\" butonuna dokunun. Çok teşekkür ederiz.</string>
+    <string name="acra_notification_send_button">Gönder</string>
+    <string name="acra_notification_discard_button">Vazgeç</string>
+    <string name="notification_channel_crash_report">Çökme raporu</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1539,13 +1541,13 @@
     <string name="extender_accessibility_service_profile_lock_device">• \"Cihazı kilitle\" tercih şartı için Erişebilirlik hizmeti:</string>
     <string name="extender_application_releases">Sürümler:</string>
     <string name="extender_web_browser_chooser">Şununla internet adresine bak</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
-    <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
-    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="extender_acra_notification_send_button">Send</string>
-    <string name="extender_acra_notification_discard_button">Discard</string>
-    <string name="extender_notification_channel_crash_report">Crash report</string>
+    <string name="extender_acra_email_subject_text">PhoneProfilesPlus simgesi - Çökme raporu</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlus çöktü. Çökme raporu eklendi.</string>
+    <string name="extender_acra_notification_title">Maalesef PhoneProfilesPlus çöktü</string>
+    <string name="extender_acra_notification_text">Lutfen, çökme raporunu yazara göndermek için \"Gönder\" butonuna dokunun. Çok teşekkür ederiz.</string>
+    <string name="extender_acra_notification_send_button">Gönder</string>
+    <string name="extender_acra_notification_discard_button">Vazgeç</string>
+    <string name="extender_notification_channel_crash_report">Çökme raporu</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

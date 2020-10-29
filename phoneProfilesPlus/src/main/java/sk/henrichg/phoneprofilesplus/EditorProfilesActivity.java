@@ -134,7 +134,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
-    public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
+
     public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
     public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
 
@@ -155,7 +155,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private ListView drawerListView;
     //private ActionBarDrawerToggle drawerToggle;
     //private BottomNavigationView bottomNavigationView;
-    private AppCompatSpinner filterSpinner;
+    AppCompatSpinner filterSpinner;
     //private AppCompatSpinner orderSpinner;
     //private View headerView;
     //private ImageView drawerHeaderFilterImage;
@@ -4066,11 +4066,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         startTargetHelps = true;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorActivityStartTargetHelps;
-        boolean startTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner;
+        //boolean startTargetHelpsProfilesFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsProfilesFilterSpinner;
+        //boolean startTargetHelpsEventsFilterSpinner = ApplicationPreferences.prefEditorActivityStartTargetHelpsEventsFilterSpinner;
         boolean startTargetHelpsRunStopIndicator = ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator;
         boolean startTargetHelpsBottomNavigation = ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation;
 
-        if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation ||
+        if (startTargetHelps || //startTargetHelpsProfilesFilterSpinner || startTargetHelpsEventsFilterSpinner ||
+                startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation ||
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile ||
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
@@ -4082,17 +4084,28 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder ||
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus) {
 
-            if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation) {
+            if (startTargetHelps || //startTargetHelpsProfilesFilterSpinner || startTargetHelpsEventsFilterSpinner ||
+                    startTargetHelpsRunStopIndicator || startTargetHelpsBottomNavigation) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
+
+                //if (editorSelectedView == 0)
+                //    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_PROFILES_FILTER_SPINNER, false);
+                //else
+                //    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_EVENTS_FILTER_SPINNER, false);
+
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorActivityStartTargetHelps = false;
-                ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner = false;
+
+                //if (editorSelectedView == 0)
+                //    ApplicationPreferences.prefEditorActivityStartTargetHelpsProfilesFilterSpinner = false;
+                //else
+                //    ApplicationPreferences.prefEditorActivityStartTargetHelpsEventsFilterSpinner = false;
+
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = false;
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = false;
 
@@ -4130,7 +4143,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (startTargetHelps) {
 
                     // do not add it again
-                    startTargetHelpsFilterSpinner = false;
+                    //if (editorSelectedView == 0)
+                    //    startTargetHelpsProfilesFilterSpinner = false;
+                    //else
+                    //    startTargetHelpsEventsFilterSpinner = false;
+
                     startTargetHelpsRunStopIndicator = false;
                     startTargetHelpsBottomNavigation = false;
 
@@ -4144,17 +4161,31 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .drawShadow(true)
                                     .id(1)
                         );*/
-                        targets.add(
-                                //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                        .transparentTarget(true)
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(1)
-                        );
+                        /*if (editorSelectedView == 0)
+                            targets.add(
+                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                            .transparentTarget(true)
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(true)
+                                            .drawShadow(true)
+                                            .id(1)
+                            );
+                        else
+                            targets.add(
+                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                            .transparentTarget(true)
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(true)
+                                            .drawShadow(true)
+                                            .id(1)
+                            );
+                        */
                         targets.add(
                                 TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                         .outerCircleColor(outerCircleColor)
@@ -4162,10 +4193,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .textColor(textColor)
                                         .tintTarget(true)
                                         .drawShadow(true)
-                                        .id(2)
+                                        .id(1)
                         );
 
-                        int id = 3;
+                        int id = 2;
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_restart_events, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
@@ -4254,17 +4285,30 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .drawShadow(true)
                                         .id(1)
                         );*/
-                        targets.add(
-                                //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                        .transparentTarget(true)
-                                        .outerCircleColor(outerCircleColor)
-                                        .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(true)
-                                        .drawShadow(true)
-                                        .id(1)
-                        );
+                        /*if (editorSelectedView == 0)
+                            targets.add(
+                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                            .transparentTarget(true)
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(true)
+                                            .drawShadow(true)
+                                            .id(1)
+                            );
+                        else
+                            targets.add(
+                                    //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                    TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                            .transparentTarget(true)
+                                            .outerCircleColor(outerCircleColor)
+                                            .targetCircleColor(targetCircleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(true)
+                                            .drawShadow(true)
+                                            .id(1)
+                            );*/
                         targets.add(
                                 TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                         .outerCircleColor(outerCircleColor)
@@ -4272,10 +4316,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .textColor(textColor)
                                         .tintTarget(true)
                                         .drawShadow(true)
-                                        .id(2)
+                                        .id(1)
                         );
 
-                        int id = 3;
+                        int id = 2;
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_run_stop_events, getString(R.string.editor_activity_targetHelps_runStopEvents_title), getString(R.string.editor_activity_targetHelps_runStopEvents_description))
@@ -4357,7 +4401,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     }
                 }
-                if (startTargetHelpsFilterSpinner) {
+                /*if (startTargetHelpsProfilesFilterSpinner) {
                     targets.add(
                             //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
                             TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
@@ -4370,6 +4414,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .id(1)
                     );
                 }
+                if (startTargetHelpsEventsFilterSpinner) {
+                    targets.add(
+                            //TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                            TapTarget.forView(filterSpinner, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                    .transparentTarget(true)
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(true)
+                                    .drawShadow(true)
+                                    .id(1)
+                    );
+                }*/
                 if (startTargetHelpsRunStopIndicator) {
                     targets.add(
                             TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))

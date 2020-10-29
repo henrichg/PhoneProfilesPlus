@@ -111,6 +111,7 @@ public class EditorEventListFragment extends Fragment
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
     public static final String PREF_START_TARGET_HELPS_ORDER_SPINNER = "editor_profile_activity_start_target_helps_order_spinner";
 
     private int filterType = FILTER_TYPE_ALL;
@@ -1550,25 +1551,28 @@ public class EditorEventListFragment extends Fragment
             return;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps;
+        boolean startTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner;
         boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
         boolean startTargetHelpsOrderSpinner = ApplicationPreferences. prefEditorEventsFragmentStartTargetHelpsOrderSpinner;
 
-        if (startTargetHelps || startTargetHelpsDefaultProfile || startTargetHelpsOrderSpinner ||
+        if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsDefaultProfile || startTargetHelpsOrderSpinner ||
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps ||
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder ||
                 ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus) {
 
-            if (startTargetHelps || startTargetHelpsDefaultProfile || startTargetHelpsOrderSpinner) {
+            if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsDefaultProfile || startTargetHelpsOrderSpinner) {
 
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 if (filterType != FILTER_TYPE_START_ORDER)
                     editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = false;
+                ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner = false;
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = false;
                 if (filterType != FILTER_TYPE_START_ORDER)
                     ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = false;
@@ -1597,6 +1601,21 @@ public class EditorEventListFragment extends Fragment
                 List<TapTarget> targets = new ArrayList<>();
                 int id = 1;
                 if (startTargetHelps) {
+                    try {
+                        targets.add(
+                                TapTarget.forView(((EditorProfilesActivity)getActivity()).filterSpinner, getString(R.string.editor_activity_targetHelps_eventsFilterSpinner_title), getString(R.string.editor_activity_targetHelps_eventsFilterSpinner_description))
+                                        .transparentTarget(true)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(true)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception e) {
+                        //PPApplication.recordException(e);
+                    }
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, getString(R.string.editor_activity_targetHelps_newEventButton_title), getString(R.string.editor_activity_targetHelps_newEventButton_description))

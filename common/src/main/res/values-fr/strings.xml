@@ -1176,8 +1176,6 @@
     <string name="profile_preferences_preferenceTypesInfo_summary">Cliquez ici pour afficher des informations sur les types de préférences: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Cliquez ici pour afficher plus d\'informations.</string>
     <string name="popup_window_events_status_show_info">Cliquez ici pour afficher plus d\'informations.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Filtre de vues</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Cliquez sur ce bouton pour passer entre les profils et les vues Événements.</string>
     <string name="important_info_profile_type_of_preferences">Type de préférences :</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configurer le son de notification à :</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Le son de notification \"Aucun\" est configuré.</string>
@@ -1509,13 +1507,17 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Redémarrer les événements ne fonctionnera pas car ils sont désactivés</string>
     <string name="critical_github_release">Mise à jour critique</string>
     <string name="critical_github_release_notification">Cliquez sur cette notification pour télécharger la mise à jour critique de PhoneProfilesPlus à partir de GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
-    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
-    <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
-    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="acra_notification_send_button">Send</string>
-    <string name="acra_notification_discard_button">Discard</string>
-    <string name="notification_channel_crash_report">Crash report</string>
+    <string name="acra_email_subject_text">PhoneProfilesPlus - Rapport d\'erreur</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus c\'est arrêté. La pièce jointe est un rapport d\'erreur.</string>
+    <string name="acra_notification_title">Désolé, PhoneProfilesPlus a planté</string>
+    <string name="acra_notification_text">Veuillez cliquer sur le bouton \"Envoyer\", pour envoyer un rapport de plantage à l\'auteur. Merci beaucoup.</string>
+    <string name="acra_notification_send_button">Envoyer</string>
+    <string name="acra_notification_discard_button">Abandonner</string>
+    <string name="notification_channel_crash_report">Rapport d\'erreur</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1539,13 +1541,13 @@
     <string name="extender_accessibility_service_profile_lock_device">• Service d\'accessibilité pour le paramètre de profil \"Verrouillage de l\'appareil\" :</string>
     <string name="extender_application_releases">Versions :</string>
     <string name="extender_web_browser_chooser">Voir le lien web en utilisant</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
-    <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
-    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="extender_acra_notification_send_button">Send</string>
-    <string name="extender_acra_notification_discard_button">Discard</string>
-    <string name="extender_notification_channel_crash_report">Crash report</string>
+    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Rapport d\'erreur</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender c\'est arrêté. La pièce jointe est un rapport d\'erreur.</string>
+    <string name="extender_acra_notification_title">Désolé, PhoneProfilesPlusExtender a planté</string>
+    <string name="extender_acra_notification_text">Veuillez cliquer sur le bouton \"Envoyer\", pour envoyer un rapport de plantage à l\'auteur. Merci beaucoup.</string>
+    <string name="extender_acra_notification_send_button">Envoyer</string>
+    <string name="extender_acra_notification_discard_button">Abandonner</string>
+    <string name="extender_notification_channel_crash_report">Rapport d\'erreur</string>
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
     <!--<string name="array_pref_color_native">Native</string>-->
     <!--<string name="array_pref_color_dark">Dark</string>-->

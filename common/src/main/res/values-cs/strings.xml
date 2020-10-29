@@ -1176,8 +1176,6 @@
     <string name="profile_preferences_preferenceTypesInfo_summary">Klikněte sem pro zobrazení informací o typech parametrů: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Klikněte sem pro zobrazení více informací.</string>
     <string name="popup_window_events_status_show_info">Klikněte sem pro zobrazení více informací.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Filtr pohledů</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Klikněte sem pro přepínání mezi pohledy na Profily a Události.</string>
     <string name="important_info_profile_type_of_preferences">Typy parametrů:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Nakonfigurovat tón notifikace na:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Tón notifikace \"Žádný\" je nakonfigurován.</string>
@@ -1516,6 +1514,10 @@
     <string name="acra_notification_send_button">Odeslat</string>
     <string name="acra_notification_discard_button">Zahodit</string>
     <string name="notification_channel_crash_report">Zpráva o selhání</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filtr zobrazení Profilů</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Klikněte sem pro přepínání filtru zobrazení Profilů.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filtr zobrazení Událostí</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Klikněte sem pro přepínání filtru zobrazení událostí.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

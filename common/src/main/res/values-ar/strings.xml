@@ -1176,8 +1176,6 @@
     <string name="profile_preferences_preferenceTypesInfo_summary">انقر هنا لإظهار معلومات حول أنواع الإعدادات: (G1) ، (R) ، (S) ، (I).</string>
     <string name="profile_preferences_types_G1_show_info">انقر هنا لإظهار المزيد من المعلومات.</string>
     <string name="popup_window_events_status_show_info">انقر هنا لإظهار المزيد من المعلومات.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">مرشح المشاهدات</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">انقر هنا للتبديل بين طرق عرض الأوضاع والأحداث.</string>
     <string name="important_info_profile_type_of_preferences">نوع الإعدادات:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">تكوين نغمة الإشعار إلى:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
@@ -1516,6 +1514,10 @@
     <string name="acra_notification_send_button">Send</string>
     <string name="acra_notification_discard_button">Discard</string>
     <string name="notification_channel_crash_report">Crash report</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

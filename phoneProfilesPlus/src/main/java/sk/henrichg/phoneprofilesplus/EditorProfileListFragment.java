@@ -90,6 +90,7 @@ public class EditorProfileListFragment extends Fragment
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
 
     private int filterType = FILTER_TYPE_ALL;
 
@@ -1377,24 +1378,27 @@ public class EditorProfileListFragment extends Fragment
             return;
 
         boolean startTargetHelps = ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps;
+        boolean startTargetHelpsFilterSpinner = ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner;
         boolean startTargetHelpsDefaultProfile = ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile;
 
-        if (startTargetHelps || startTargetHelpsDefaultProfile ||
+        if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsDefaultProfile ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder ||
                 ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator) {
 
             //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (startTargetHelps || startTargetHelpsDefaultProfile) {
+            if (startTargetHelps || startTargetHelpsFilterSpinner || startTargetHelpsDefaultProfile) {
 
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activityDataWrapper.context);
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
                 ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = false;
+                ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = false;
                 ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = false;
 
                 //String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
@@ -1413,6 +1417,21 @@ public class EditorProfileListFragment extends Fragment
                 List<TapTarget> targets = new ArrayList<>();
                 int id = 1;
                 if (startTargetHelps) {
+                    try {
+                        targets.add(
+                                TapTarget.forView(((EditorProfilesActivity)getActivity()).filterSpinner, getString(R.string.editor_activity_targetHelps_profilesFilterSpinner_title), getString(R.string.editor_activity_targetHelps_profilesFilterSpinner_description))
+                                        .transparentTarget(true)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(true)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception e) {
+                        //PPApplication.recordException(e);
+                    }
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, getString(R.string.editor_activity_targetHelps_newProfileButton_title), getString(R.string.editor_activity_targetHelps_newProfileButton_description))

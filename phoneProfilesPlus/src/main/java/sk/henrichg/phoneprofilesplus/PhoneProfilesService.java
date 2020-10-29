@@ -4393,7 +4393,8 @@ public class PhoneProfilesService extends Service
 
                 if (actualVersionCode <= 4870) {
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
+                    editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
+                    editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
 
                     String theme = ApplicationPreferences.applicationTheme(appContext, false);
                     if (!(theme.equals("white") || theme.equals("dark") || theme.equals("night_mode"))) {

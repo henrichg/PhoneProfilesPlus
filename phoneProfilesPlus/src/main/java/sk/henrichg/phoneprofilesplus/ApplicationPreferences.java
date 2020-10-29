@@ -201,14 +201,15 @@ class ApplicationPreferences {
     static boolean prefActivatorAdapterStartTargetHelps;
     static boolean prefEditorActivityStartTargetHelps;
     static boolean prefEditorActivityStartTargetHelpsDefaultProfile;
-    static boolean prefEditorActivityStartTargetHelpsFilterSpinner;
     static boolean prefEditorActivityStartTargetHelpsRunStopIndicator;
     static boolean prefEditorActivityStartTargetHelpsBottomNavigation;
     static boolean prefEditorProfilesFragmentStartTargetHelps;
+    static boolean prefEditorProfilesFragmentStartTargetHelpsFilterSpinner;
     static boolean prefEditorProfilesAdapterStartTargetHelps;
     static boolean prefEditorProfilesAdapterStartTargetHelpsOrder;
     static boolean prefEditorProfilesAdapterStartTargetHelpsShowInActivator;
     static boolean prefEditorEventsFragmentStartTargetHelps;
+    static boolean prefEditorEventsFragmentStartTargetHelpsFilterSpinner;
     static boolean prefEditorEventsFragmentStartTargetHelpsOrderSpinner;
     static boolean prefEditorEventsAdapterStartTargetHelps;
     static boolean prefEditorEventsAdapterStartTargetHelpsOrder;
@@ -1108,14 +1109,15 @@ class ApplicationPreferences {
         prefActivatorAdapterStartTargetHelps = _preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorActivityStartTargetHelps = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
         prefEditorActivityStartTargetHelpsDefaultProfile = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
-        prefEditorActivityStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
         prefEditorActivityStartTargetHelpsRunStopIndicator = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, false);
         prefEditorActivityStartTargetHelpsBottomNavigation = _preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, false);
         prefEditorProfilesFragmentStartTargetHelps = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
+        prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
         prefEditorProfilesAdapterStartTargetHelps = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorProfilesAdapterStartTargetHelpsOrder = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
         prefEditorProfilesAdapterStartTargetHelpsShowInActivator = _preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, false);
         prefEditorEventsFragmentStartTargetHelps = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
+        prefEditorEventsFragmentStartTargetHelpsFilterSpinner = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
         prefEditorEventsFragmentStartTargetHelpsOrderSpinner = _preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, false);
         prefEditorEventsAdapterStartTargetHelps = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
         prefEditorEventsAdapterStartTargetHelpsOrder = _preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
@@ -1137,24 +1139,30 @@ class ApplicationPreferences {
         ApplicationPreferences.prefEditorActivityStartTargetHelps = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsDefaultProfile = start;
-        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, start);
-        ApplicationPreferences.prefEditorActivityStartTargetHelpsFilterSpinner = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsRunStopIndicator = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelpsBottomNavigation = start;
+
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelps = start;
+        editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, start);
+        ApplicationPreferences.prefEditorProfilesFragmentStartTargetHelpsFilterSpinner = start;
+
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelps = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, start);
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsOrder = start;
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_SHOW_IN_ACTIVATOR, start);
         ApplicationPreferences.prefEditorProfilesAdapterStartTargetHelpsShowInActivator = start;
+
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelps = start;
+        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, start);
+        ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsFilterSpinner = start;
         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_ORDER_SPINNER, start);
         ApplicationPreferences.prefEditorEventsFragmentStartTargetHelpsOrderSpinner = start;
+
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelps = start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, start);

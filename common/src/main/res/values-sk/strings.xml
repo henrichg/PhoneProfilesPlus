@@ -1176,8 +1176,6 @@
     <string name="profile_preferences_preferenceTypesInfo_summary">Kliknite sem pre zobrazenie informácií o typoch parametrov: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Kliknite sem pre zobrazenie viac informácií.</string>
     <string name="popup_window_events_status_show_info">Kliknite sem pre zobrazenie viac informácií.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Filter pohľadov</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Kliknite sem pre prepínanie medzi pohľadmi na Profily a Udalosti.</string>
     <string name="important_info_profile_type_of_preferences">Typy parametrov:</string>
     <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Nakonfigurovať tón notifikácie na:</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Tón notifikácie \"Žiadny\" je nakonfigurovaný.</string>
@@ -1383,7 +1381,7 @@
     <string name="phone_profiles_pref_grantG1Permission_summary">Prosím udeľte povolenie WRITE_SECURE_SETTINGS pre PhoneProfilesPlus. Je vyžadované pre parametre profilu a udalosti, označené ako (G1). Potom ROOT nebude potrebný.</string>
     <string name="profile_preferences_profile_not_found">Profil nenájdený. Vymazaný?</string>
     <string name="event_preferences_event_not_found">Udalosť nenájdená. Vymazaná?</string>
-    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte udelené povolenie \"Vykresliť cez ďalšie aplikácie\". Ale toto povolenie je vyžadované pre Android 10. Prosim udelte ho.</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte udelené povolenie \"Vykresliť cez ďalšie aplikácie\". Ale toto povolenie je vyžadované pre Android 10. Prosím udelte ho.</string>
     <string name="event_preferences_battery_level_info">Upozornenie pre úroveň batérie</string>
     <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Spodná úroveň &gt; 0% alebo horná úroveň &lt; 100% spotrebúva batériu!</string>
     <string name="event_preference_sensor_device_boot_summary">Tento senzor naštartuje udalosť okamžite po štarte zariadenia. Parametre: Trvalý beh, Trvanie (dĺžka udalosti).</string>
@@ -1417,7 +1415,7 @@
     <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Pre povolenie parametrov profilu „Nerušiť“, povoľte pre PhoneProfilesPlus \"Prístup k notifikáciám“ v systémových nastaveniach.</string>
     <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Pre povolenie parametrov profilu \"Typ „Nerušiť“\", povoľte pre PhoneProfilesPlus \"Prístup k notifikáciám“ v systémových nastaveniach. Kliknite sem pre jeho povolenie.</string>
     <string name="phone_profiles_pref_category_background_scanning">Skenovanie na pozadí</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Tieto nastavenia sú pre skenovanie na pozadí. Je to uzitočné, ak Sensor času alebo Sensor kalendára v udalosti nepracuje správne.\n\nOpdorúča sa nepovoliť toto skenovanie, ak sensor Polohy, Wi-Fi, Bluetooth, Orientácie je používaný v nejakej udalosti.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Tieto nastavenia sú pre skenovanie na pozadí. Je to užitočné, ak Sensor času alebo Sensor kalendára v udalosti nepracuje správne.\n\nOpdorúča sa nepovoliť toto skenovanie, ak sensor Polohy, Wi-Fi, Bluetooth, Orientácie je používaný v nejakej udalosti.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Povoliť skenovanie na pozadí</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Interval skenovania na pozadí (min.)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Skenovanie na pozadí v režime Šetrič batérie</string>
@@ -1508,7 +1506,7 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastaveniach zariadenia\/Aplikácie\/Spravovať aplikácie\/PhoneProfilesPlus\/Ostatné povolenia: \"Zmeniť Wi-Fi pripojenie\" a \"Zmeniť pripojenie Bluetooth\" nastaviť na \"Povoliť\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Reštart udalostí nefunguje, pretože beh udalostí je vypnutý</string>
     <string name="critical_github_release">Kritické vydanie aplikácie</string>
-    <string name="critical_github_release_notification">Kliknite na túto notifikáciu pre stiahutie kritického vydania PhoneProfilesPlus z jeho GitHub.</string>
+    <string name="critical_github_release_notification">Kliknite na túto notifikáciu pre stiahnutie kritického vydania PhoneProfilesPlus z jeho GitHub.</string>
     <string name="acra_email_subject_text">PhoneProfilesPlus - Správa o zlyhaní</string>
     <string name="acra_email_body_text">PhoneProfilesPlus zlyhal. Pripojená je správa o zlyhaní.</string>
     <string name="acra_notification_title">Je mi ľúto, PhoneProfilesPlus zlyhal</string>
@@ -1516,6 +1514,10 @@
     <string name="acra_notification_send_button">Odoslať</string>
     <string name="acra_notification_discard_button">Zahodiť</string>
     <string name="notification_channel_crash_report">Správa o zlyhaní</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter zobrazenia Profilov</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Kliknite sem pre prepínanie filtra zobrazenia Profilov.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter zobrazenia Udalostí</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Kliknite sem pre prepínanie filtra zobrazenia Udalostí.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
