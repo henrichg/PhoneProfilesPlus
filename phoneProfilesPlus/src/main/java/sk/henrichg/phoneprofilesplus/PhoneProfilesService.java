@@ -6925,10 +6925,10 @@ public class PhoneProfilesService extends Service
                         //PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "mediaRingingVolume=" + mediaRingingVolume);
 
                         /*if (android.os.Build.VERSION.SDK_INT >= 23)
-                            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+                            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         else
                             audioManager.setStreamMute(AudioManager.STREAM_RING, true);*/
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, 0);
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                         ringingMediaPlayer.start();
 
@@ -6982,7 +6982,7 @@ public class PhoneProfilesService extends Service
 
                 try {
                     if (ringingCallIsSimulating)
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, 0);
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -7170,7 +7170,7 @@ public class PhoneProfilesService extends Service
 
                         PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "mediaNotificationVolume=" + mediaNotificationVolume);
 
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaNotificationVolume, 0);
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                         notificationMediaPlayer.start();
 
@@ -7215,7 +7215,7 @@ public class PhoneProfilesService extends Service
             notificationMediaPlayer.release();
             notificationMediaPlayer = null;
 
-            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, 0);
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             PPApplication.logE("PhoneProfilesService.stopSimulatingNotificationTone", "notification stopped");
         }
         //if (abandonFocus)
@@ -7249,24 +7249,24 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.onAudioFocusChange","AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK");
             if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
                 if (usedRingingStream == AudioManager.STREAM_ALARM)
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
             //if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
             //    if (usedNotificationStream == AudioManager.STREAM_ALARM)
-            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, 0);
+            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             //}
         } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
             // Resume playback
             PPApplication.logE("PhoneProfilesService.onAudioFocusChange","AUDIOFOCUS_GAIN");
             if ((ringingMediaPlayer != null) && ringingCallIsSimulating) {
                 if (usedRingingStream == AudioManager.STREAM_ALARM)
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (!ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.start();
             }
             //if ((notificationMediaPlayer != null) && notificationToneIsSimulating) {
             //    if (usedNotificationStream == AudioManager.STREAM_ALARM)
-            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaNotificationVolume, 0);
+            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             //    if (!notificationMediaPlayer.isPlaying())
             //        notificationMediaPlayer.start();
             //}

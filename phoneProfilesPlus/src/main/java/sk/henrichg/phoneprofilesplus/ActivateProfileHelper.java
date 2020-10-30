@@ -725,7 +725,7 @@ class ActivateProfileHelper {
                 // actual system ringer mode = vibrate
                 // volume changed it to vibrate
                 //RingerModeChangeReceiver.internalChange = true;
-                audioManager.setStreamVolume(AudioManager.STREAM_RING, 1, 0);
+                audioManager.setStreamVolume(AudioManager.STREAM_RING, 1, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 PhoneProfilesService.ringingVolume = 1;
                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, 1);
             }
@@ -779,12 +779,12 @@ class ActivateProfileHelper {
                                 newNotificationVolume = oldNotificationVolume - 1;
                             else
                                 newNotificationVolume = oldNotificationVolume + 1;
-                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, 0);
+                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                             PPApplication.sleep(2000);
                             merged = audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume;
                         } else
                             merged = false;
-                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, 0);
+                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         audioManager.setRingerMode(ringerMode);
 
                         //PPApplication.logE("ActivateProfileHelper.setMergedRingNotificationVolumes", "merged=" + merged);
@@ -821,30 +821,30 @@ class ActivateProfileHelper {
         if (profile._volumeMuteSound) {
             if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
                 if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (!audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (!audioManager.isStreamMute(AudioManager.STREAM_DTMF))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
             if (!audioManager.isStreamMute(AudioManager.STREAM_MUSIC))
-                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0);
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
         }
         else {
             if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (audioManager.isStreamMute(AudioManager.STREAM_SYSTEM))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (audioManager.isStreamMute(AudioManager.STREAM_DTMF))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, 0);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_DTMF, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
             if (audioManager.isStreamMute(AudioManager.STREAM_MUSIC))
-                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, 0);
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
         }
 
         // get mute state before set of all volumes; system stream may set mute to true
@@ -887,7 +887,7 @@ class ActivateProfileHelper {
                 if (Build.VERSION.SDK_INT >= 26) {
                     if (profile.getVolumeAccessibilityChange()) {
                         try {
-                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), 0);
+                            audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                             //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -917,7 +917,7 @@ class ActivateProfileHelper {
                             if (profile.getVolumeDTMFChange()) {
                                 RingerModeChangeReceiver.notUnlinkVolumes = false;
                                 try {
-                                    audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), 0);
+                                    audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -928,7 +928,7 @@ class ActivateProfileHelper {
                             if (profile.getVolumeSystemChange()) {
                                 RingerModeChangeReceiver.notUnlinkVolumes = false;
                                 try {
-                                    audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM /* 1 */, profile.getVolumeSystemValue(), 0);
+                                    audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM /* 1 */, profile.getVolumeSystemValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
                                     //correctVolume0(audioManager);
                                 } catch (Exception e) {
@@ -961,12 +961,12 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-RINGING-unlink  ringer volume=" + volume);
                                 if (volume != -999) {
                                     try {
-                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, 0);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         if (PhoneProfilesService.getInstance() != null)
                                             PhoneProfilesService.getInstance().ringingVolume = volume;
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, 0);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                                         //correctVolume0(audioManager);
                                         if (!profile.getVolumeNotificationChange())
@@ -983,7 +983,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  ringer volume=" + volume);
                                 if (volume != -999) {
                                     try {
-                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, 0);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         if (PhoneProfilesService.getInstance() != null)
                                             PhoneProfilesService.getInstance().ringingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
@@ -997,7 +997,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  notification volume=" + volume);
                                 if (volume != -999) {
                                     try {
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, 0);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                                     } catch (Exception e) {
@@ -1012,7 +1012,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  ringer volume=" + volume);
                                 if (volume != -999) {
                                     try {
-                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, 0);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         if (PhoneProfilesService.getInstance() != null)
                                             PhoneProfilesService.getInstance().ringingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
@@ -1027,7 +1027,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  notification volume=" + volume);
                                 if (volume != -999) {
                                     try {
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, 0);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                         //correctVolume0(audioManager);
@@ -1048,7 +1048,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
                                 if (volume != -999) {
                                     try {
-                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, 0);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                                         //correctVolume0(audioManager);
@@ -1064,7 +1064,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
                             if (volume != -999) {
                                 try {
-                                    audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, 0);
+                                    audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     if (PhoneProfilesService.getInstance() != null)
                                         PhoneProfilesService.getInstance().ringingVolume = volume;
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
@@ -1097,7 +1097,7 @@ class ActivateProfileHelper {
         if (forProfileActivation) {
             if (profile.getVolumeBluetoothSCOChange()) {
                 try {
-                    audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), 0);
+                    audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -1105,7 +1105,7 @@ class ActivateProfileHelper {
             }
             if (profile.getVolumeVoiceChange()) {
                 try {
-                    audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -1113,19 +1113,19 @@ class ActivateProfileHelper {
             }
             if (profile.getVolumeAlarmChange()) {
                 try {
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM /* 4 */, profile.getVolumeAlarmValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             }
-            if (!profile._volumeMuteSound) {
-                if (!musicMuted) {
+            //if (!profile._volumeMuteSound) {
+            //    if (!musicMuted) {
                     if (profile.getVolumeMediaChange()) {
                         setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
                     }
-                }
-            }
+            //    }
+            //}
         }
 
         //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
@@ -1140,7 +1140,7 @@ class ActivateProfileHelper {
         // Neither user 10118 nor current process has android.permission.STATUS_BAR_SERVICE.
         try {
             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (1)");
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
         } catch (SecurityException e) {
             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (1) - SecurityException");
@@ -1153,7 +1153,7 @@ class ActivateProfileHelper {
                     //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "disable safe volume without root");
                     Settings.Global.putInt(appContext.getContentResolver(), "audio_safe_volume_state", 2);
                     //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (2)");
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 }
                 catch (Exception e2) {
                     //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (2) - Exception");
@@ -1172,7 +1172,7 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command, "ActivateProfileHelper.setMediaVolume");
                             //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (3)");
-                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, 0);
+                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         } catch (Exception ee) {
                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //PPApplication.recordException(e);;
