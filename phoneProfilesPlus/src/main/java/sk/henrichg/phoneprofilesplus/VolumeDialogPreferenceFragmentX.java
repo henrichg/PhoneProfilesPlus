@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -146,7 +147,10 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
             if (preference.audioManager != null) {
-                ActivateProfileHelper.setMediaVolume(_context, preference.audioManager, preference.defaultValueMusic);
+                if (preference.defaultValueMusic != -1)
+                    ActivateProfileHelper.setMediaVolume(_context, preference.audioManager, preference.defaultValueMusic);
+                if (preference.oldMediaMuted)
+                    preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (preference.mediaPlayer != null) {
                     try {
                         if (preference.mediaPlayer.isPlaying())
@@ -232,6 +236,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 volume = Math.round(preference.maximumMediaValue / 100.0f * percentage);
             }
 
+            if (preference.oldMediaMuted && (preference.audioManager != null))
+                preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume);
 
             final Context _context = context;

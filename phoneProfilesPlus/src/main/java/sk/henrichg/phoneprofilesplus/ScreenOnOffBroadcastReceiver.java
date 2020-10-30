@@ -48,7 +48,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 }
 
                 //if (PPApplication.logEnabled()) {
-                    //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
+                //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
                 //}
 
                 switch (action) {
@@ -146,34 +146,32 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         handler1.post(() -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive (2)");
                             //if (PhoneProfilesService.getInstance() != null) {
-                                if (PPApplication.lockDeviceActivity != null) {
-                                    try {
-                                        PPApplication.lockDeviceActivity.finish();
-                                    } catch (Exception e) {
-                                        PPApplication.recordException(e);
-                                    }
+                            if (PPApplication.lockDeviceActivity != null) {
+                                try {
+                                    PPApplication.lockDeviceActivity.finish();
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
                                 }
+                            }
                             //}
                         });
 
-                        if (!Event.getGlobalEventsRunning()) {
-                            //PPApplication.showProfileNotification(/*true*/);
+                        /*if (!Event.getGlobalEventsRunning()) {
                             if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
-                        }
+                                PhoneProfilesService.getInstance().showProfileNotification(false);
+                        }*/
                         break;
                     }
                     case Intent.ACTION_USER_PRESENT:
                         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
 
-                        if (Build.VERSION.SDK_INT < 26) {
+                        /*if (Build.VERSION.SDK_INT < 26) {
                             if (ApplicationPreferences.notificationShowInStatusBar &&
                                     ApplicationPreferences.notificationHideInLockScreen) {
-                                //PPApplication.showProfileNotification(/*true*/);
                                 if (PhoneProfilesService.getInstance() != null)
-                                    PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
+                                    PhoneProfilesService.getInstance().showProfileNotification(false/);
                             }
-                        }
+                        }*/
 
                         // change screen timeout
                         final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
@@ -219,14 +217,16 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                 }
 
-                if (Build.VERSION.SDK_INT < 26) {
-                    if (action.equals(Intent.ACTION_SCREEN_ON)) {
-                        if (ApplicationPreferences.notificationShowInStatusBar &&
-                                ApplicationPreferences.notificationHideInLockScreen) {
-                            //PPApplication.showProfileNotification(/*true*/);
+                if (action.equals(Intent.ACTION_SCREEN_ON) || action.equals(Intent.ACTION_USER_PRESENT)) {
+                    if (Build.VERSION.SDK_INT < 26) {
+                        if (ApplicationPreferences.notificationShowInStatusBar /*&&
+                                ApplicationPreferences.notificationHideInLockScreen*/) {
                             if (PhoneProfilesService.getInstance() != null)
                                 PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
                         }
+                    } else {
+                        if (PhoneProfilesService.getInstance() != null)
+                            PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
                     }
                 }
 

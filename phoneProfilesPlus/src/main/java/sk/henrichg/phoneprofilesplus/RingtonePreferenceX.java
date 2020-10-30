@@ -47,6 +47,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
     private static MediaPlayer mediaPlayer = null;
     private static int oldMediaVolume = -1;
+    private static boolean oldMediaMuted = false;
     private static Timer playTimer = null;
     private static boolean ringtoneIsPlayed = false;
 
@@ -301,6 +302,8 @@ public class RingtonePreferenceX extends DialogPreference {
 
                 if (oldMediaVolume > -1)
                     ActivateProfileHelper.setMediaVolume(prefContext, audioManager, oldMediaVolume);
+                if (oldMediaMuted)
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
         }
     }
@@ -351,7 +354,11 @@ public class RingtonePreferenceX extends DialogPreference {
                     mediaPlayer.prepare();
                     mediaPlayer.setLooping(false);
 
-                    oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    oldMediaMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
+                    if (!oldMediaMuted)
+                        oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    else
+                        oldMediaVolume = -1;
 
                     int ringtoneVolume = 0;
                     int maximumRingtoneValue = 0;
@@ -380,6 +387,8 @@ public class RingtonePreferenceX extends DialogPreference {
 
                     //PPApplication.logE("RingtonePreferenceX.playRingtone", "mediaVolume=" + mediaVolume);
 
+                    if (oldMediaMuted)
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     ActivateProfileHelper.setMediaVolume(prefContext, audioManager, mediaVolume);
 
                     mediaPlayer.start();
@@ -404,6 +413,8 @@ public class RingtonePreferenceX extends DialogPreference {
 
                                 if (oldMediaVolume > -1)
                                     ActivateProfileHelper.setMediaVolume(prefContext, audioManager, oldMediaVolume);
+                                if (oldMediaMuted)
+                                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                 //PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
                             }
 

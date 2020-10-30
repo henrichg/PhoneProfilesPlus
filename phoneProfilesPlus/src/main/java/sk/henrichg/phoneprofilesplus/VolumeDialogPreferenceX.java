@@ -39,6 +39,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     private int defaultValueAccessibility = 0;
     private int defaultValueBluetoothSCO = 0;
     final int stepSize = 1;
+    boolean oldMediaMuted = false;
 
     private String sValue = "0|1";
     private String defaultValue;
@@ -92,7 +93,12 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             // get actual values from audio manager
             defaultValueRing = audioManager.getStreamVolume(AudioManager.STREAM_RING);
             defaultValueNotification = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-            defaultValueMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+            oldMediaMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
+            if (!oldMediaMuted)
+                defaultValueMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            else
+                defaultValueMusic = -1;
             defaultValueAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
             defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
             defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
@@ -100,6 +106,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             if (Build.VERSION.SDK_INT >= 26)
                 defaultValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
             defaultValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueRing=" + defaultValueRing);
                 PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueDTMF=" + defaultValueDTMF);
