@@ -13,9 +13,9 @@ class TonesHandler {
     //static final int TONE_ID = R.raw.phoneprofiles_silent;
     //static final String TONE_NAME = "PhoneProfiles Silent";
 
-    private static final String RINGING_TONE_URI_NONE = "content://settings/system/ringtone";
+    static final String RINGING_TONE_URI_NONE = "content://settings/system/ringtone";
     static final String NOTIFICATION_TONE_URI_NONE = "content://settings/system/notification_sound";
-    private static final String ALARM_TONE_URI_NONE = "content://settings/system/alarm_alert";
+    static final String ALARM_TONE_URI_NONE = "content://settings/system/alarm_alert";
 
     /*
     static String getPhoneProfilesSilentUri(Context context, int type) {
