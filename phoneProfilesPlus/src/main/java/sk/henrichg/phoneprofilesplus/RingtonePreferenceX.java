@@ -365,16 +365,25 @@ public class RingtonePreferenceX extends DialogPreference {
 
                     switch (ringtoneType) {
                         case "ringtone":
-                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                             maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                            if (!oldMediaMuted)
+                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                            else
+                                ringtoneVolume = Math.round(maximumRingtoneValue * 0.75f);
                             break;
                         case "notification":
-                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
                             maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                            if (!oldMediaMuted)
+                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                            else
+                                ringtoneVolume = Math.round(maximumRingtoneValue * 0.75f);
                             break;
                         case "alarm":
-                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                             maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                            if (!oldMediaMuted)
+                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                            else
+                                ringtoneVolume = Math.round(maximumRingtoneValue * 0.75f);
                             break;
                     }
 
