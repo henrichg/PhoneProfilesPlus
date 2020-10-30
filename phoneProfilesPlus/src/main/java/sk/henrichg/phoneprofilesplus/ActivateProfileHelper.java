@@ -819,7 +819,7 @@ class ActivateProfileHelper {
         //PPApplication.logE("ActivateProfileHelper.setVolumes", "profile._volumeMuteSound=" + profile._volumeMuteSound);
 
         if (profile._volumeMuteSound) {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
                 if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (!audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
@@ -833,7 +833,7 @@ class ActivateProfileHelper {
                 audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
         }
         else {
-            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/) || (ringerMode == 0)) {
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode) || (ringerMode == 0)) {
                 if (audioManager.isStreamMute(AudioManager.STREAM_RING))
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 if (audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION))
@@ -1119,13 +1119,13 @@ class ActivateProfileHelper {
                     PPApplication.recordException(e);
                 }
             }
-            //if (!profile._volumeMuteSound) {
-            //    if (!musicMuted) {
+            if (!profile._volumeMuteSound) {
+                if (!musicMuted) {
                     if (profile.getVolumeMediaChange()) {
                         setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
                     }
-            //    }
-            //}
+                }
+            }
         }
 
         //int value = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
@@ -1157,7 +1157,7 @@ class ActivateProfileHelper {
                 }
                 catch (Exception e2) {
                     //PPApplication.logE("[TEST MEDIA VOLUME] ActivateProfileHelper.setMediaVolume", "set media volume (2) - Exception");
-                    PPApplication.recordException(e);
+                    PPApplication.recordException(e2);
                 }
             }
             else {
