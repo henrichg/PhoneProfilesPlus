@@ -4,7 +4,6 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -218,16 +217,16 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 }
 
                 if (action.equals(Intent.ACTION_SCREEN_ON) || action.equals(Intent.ACTION_USER_PRESENT)) {
-                    if (Build.VERSION.SDK_INT < 26) {
-                        if (ApplicationPreferences.notificationShowInStatusBar /*&&
-                                ApplicationPreferences.notificationHideInLockScreen*/) {
+                    /*if (Build.VERSION.SDK_INT < 26) {
+                        if (ApplicationPreferences.notificationShowInStatusBar &&
+                                ApplicationPreferences.notificationHideInLockScreen) {
                             if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
+                                PhoneProfilesService.getInstance().showProfileNotification(false/);
                         }
-                    } else {
+                    } else {*/
                         if (PhoneProfilesService.getInstance() != null)
                             PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
-                    }
+                    //}
                 }
 
                 /*if (PPApplication.logEnabled()) {
