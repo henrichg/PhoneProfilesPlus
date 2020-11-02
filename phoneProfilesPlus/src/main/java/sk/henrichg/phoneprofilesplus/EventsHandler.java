@@ -1823,12 +1823,12 @@ class EventsHandler {
                             if (!event._isInDelayEnd) {
                                 // if not delay alarm is set, set it
                                 // this also set event._isInDelayEnd
-                                event.setDelayEndAlarm(dataWrapper); // for end delay
+                                event.setDelayEndAlarm(dataWrapper, forRestartEvents); // for end delay
                             }
                             if (event._isInDelayEnd) {
                                 // if delay expires, pause event
                                 // this also set event._isInDelayEnd
-                                event.checkDelayEnd(/*this*/);
+                                event.checkDelayEnd();
                             }
 //                            if (forRestartEvents)
 //                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "event._isInDelayEnd=" + event._isInDelayEnd);
@@ -1854,6 +1854,10 @@ class EventsHandler {
                             }
                         }
 
+                        if (forRestartEvents && event._isInDelayEnd) {
+                            // do not use delay end alarm for restart events
+                            event.removeDelayEndAlarm(dataWrapper);
+                        }
                         if (forDelayEndAlarm && event._isInDelayEnd) {
 //                            if (forRestartEvents)
 //                                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "end event (4)");
