@@ -2504,7 +2504,7 @@ class Event {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    void setDelayEndAlarm(DataWrapper dataWrapper)
+    void setDelayEndAlarm(DataWrapper dataWrapper, boolean forRestartEvents)
     {
         removeDelayEndAlarm(dataWrapper);
 
@@ -2533,6 +2533,10 @@ class Event {
 
         if (getStatus() == ESTATUS_PAUSE)
             // event is already in pause status
+            return;
+
+        if (forRestartEvents)
+            // for restart events do not use delayEnd
             return;
 
         /*if (PPApplication.logEnabled()) {
