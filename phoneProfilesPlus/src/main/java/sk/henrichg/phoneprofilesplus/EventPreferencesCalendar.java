@@ -585,8 +585,10 @@ class EventPreferencesCalendar extends EventPreferences {
                 Instances.CALENDAR_ID,     // 4
                 Instances.ALL_DAY,         // 5
                 Instances.EVENT_LOCATION,  // 6
-                Instances.AVAILABILITY/*,  // 7
-            Instances.EVENT_TIMEZONE   // 8 */
+                Instances.AVAILABILITY,    // 7
+                Instances.EVENT_ID,        // 8
+                Instances.STATUS           // 9
+                /*Instances.EVENT_TIMEZONE    10 */
         };
 
         // The indices for the projection array above.
@@ -596,7 +598,8 @@ class EventPreferencesCalendar extends EventPreferences {
         //final int PROJECTION_DESCRIPTION_INDEX = 3;
         final int PROJECTION_CALENDAR_ID_INDEX = 4;
         final int PROJECTION_ALL_DAY_INDEX = 5;
-        //final int PROJECTION_EVENT_TIMEZONE_INDEX = 6;
+        //final int PROJECTION_EVENT_TIMEZONE_INDEX = 9;
+        //final int PROJECTION_EVENT_ID = 8;
 
         Cursor cur;
         ContentResolver cr = dataWrapper.context.getContentResolver();
@@ -734,7 +737,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_FREE + ")");
                 break;
             case AVAILABILITY_TENTATIVE:
-                selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")");
+                selection.append(" AND (" + Instances.STATUS + "=" + Instances.STATUS_TENTATIVE + ")");
                 break;
         }
 
