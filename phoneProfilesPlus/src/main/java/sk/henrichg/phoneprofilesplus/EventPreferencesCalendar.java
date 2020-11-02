@@ -737,7 +737,8 @@ class EventPreferencesCalendar extends EventPreferences {
                 selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_FREE + ")");
                 break;
             case AVAILABILITY_TENTATIVE:
-                selection.append(" AND (" + Instances.STATUS + "=" + Instances.STATUS_TENTATIVE + ")");
+                selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")");
+                //selection.append(" AND (" + Instances.STATUS + "=" + Instances.STATUS_TENTATIVE + ")");
                 break;
         }
 

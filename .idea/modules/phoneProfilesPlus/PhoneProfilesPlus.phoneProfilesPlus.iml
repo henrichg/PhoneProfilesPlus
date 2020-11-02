@@ -50,7 +50,7 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.2.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:1.0" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout-solver:2.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout-solver:2.0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.6" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.apps.dashclock:dashclock-api:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.multidex:multidex:2.0.1@aar" level="project" />
@@ -60,7 +60,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.material:material:1.2.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager2:viewpager2:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.preference:preference:1.1.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.0.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.0.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.getkeepsafe.taptargetview:taptargetview:1.13.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-maps:17.0.0@aar" level="project" />
