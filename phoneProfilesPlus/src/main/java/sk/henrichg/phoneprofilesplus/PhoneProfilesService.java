@@ -6242,20 +6242,25 @@ public class PhoneProfilesService extends Service
                 return null;
             }
             if (services != null) {
-                PPApplication.logE("PhoneProfilesService.isServiceRunning", "services.size()="+services.size());
+                //PPApplication.logE("PhoneProfilesService.getServiceInfo", "services.size()="+services.size());
                 try {
+                    ActivityManager.RunningServiceInfo serviceInfo = null;
                     for (ActivityManager.RunningServiceInfo service : services) {
+                        //PPApplication.logE("PhoneProfilesService.getServiceInfo", "service.service.getClassName()="+service.service.getClassName());
                         if (serviceClass.getName().equals(service.service.getClassName())) {
-                            PPApplication.logE("PhoneProfilesService.isServiceRunning", "service running");
+                            //PPApplication.logE("PhoneProfilesService.getServiceInfo", "service running");
+                            //serviceInfo = service;
                             return service;
                         }
                     }
+                    //if (serviceInfo != null)
+                    //    return serviceInfo;
                 } catch (Exception e) {
                     return null;
                 }
             }
         }
-        //PPApplication.logE("PhoneProfilesService.isServiceRunning", "false");
+        //PPApplication.logE("PhoneProfilesService.getServiceInfo", "false");
         return null;
     }
 
