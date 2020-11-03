@@ -6244,7 +6244,7 @@ public class PhoneProfilesService extends Service
             if (services != null) {
                 //PPApplication.logE("PhoneProfilesService.getServiceInfo", "services.size()="+services.size());
                 try {
-                    ActivityManager.RunningServiceInfo serviceInfo = null;
+                    //ActivityManager.RunningServiceInfo serviceInfo = null;
                     for (ActivityManager.RunningServiceInfo service : services) {
                         //PPApplication.logE("PhoneProfilesService.getServiceInfo", "service.service.getClassName()="+service.service.getClassName());
                         if (serviceClass.getName().equals(service.service.getClassName())) {

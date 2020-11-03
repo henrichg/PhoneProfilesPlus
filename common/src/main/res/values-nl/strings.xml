@@ -1514,10 +1514,10 @@
     <string name="acra_notification_send_button">Verzend</string>
     <string name="acra_notification_discard_button">Verwijder</string>
     <string name="notification_channel_crash_report">Crashrapport</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter op profielweergave</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Klik hier om te wisselen tussen filter van profielweergave.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter op Eventweergave</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Klik hier om te wisselen tussen filter van Eventweergave.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

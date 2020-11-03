@@ -1514,10 +1514,10 @@
     <string name="acra_notification_send_button">Envoyer</string>
     <string name="acra_notification_discard_button">Abandonner</string>
     <string name="notification_channel_crash_report">Rapport d\'erreur</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filtre d\'affichage des profils</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Cliquez sur ce bouton pour basculer vers le filtre de la vue Profils.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filtre de la vue des événements</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Cliquez sur ce bouton pour basculer vers le filtre de la vue Événements.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

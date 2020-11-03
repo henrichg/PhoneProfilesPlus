@@ -1514,10 +1514,10 @@
     <string name="acra_notification_send_button">Відправити</string>
     <string name="acra_notification_discard_button">Відхилити</string>
     <string name="notification_channel_crash_report">Звіт про аварію</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Фільтр вигляду Профілів</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Натисніть тут для зміни вигляду фільтру Профілів.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Фільтр вигляду Подій</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Натисніть тут для зміни фільтру вигляду Подій.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

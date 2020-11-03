@@ -1514,10 +1514,10 @@
     <string name="acra_notification_send_button">Gönder</string>
     <string name="acra_notification_discard_button">Vazgeç</string>
     <string name="notification_channel_crash_report">Çökme raporu</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Tercih listesi filtresi</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Tercihlerin sırası filtresi arasında geçiş yapmak için buna dokunun.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Durum listesi filtresi</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Durumların sırası filtresi arasında geçiş yapmak için buna dokunun.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

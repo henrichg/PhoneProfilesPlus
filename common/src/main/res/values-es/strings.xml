@@ -1514,10 +1514,10 @@
     <string name="acra_notification_send_button">Enviar</string>
     <string name="acra_notification_discard_button">Descartar</string>
     <string name="notification_channel_crash_report">Informe de error</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Vista de Filtro de Perfiles</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Haz clic aquí para cambiar la vista del filtro de Perfiles.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Vista de Filtro de Eventos</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Haz clic aquí para cambiar la vista del filtro de Eventos.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

@@ -1515,10 +1515,10 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="acra_notification_send_button">Wyślij</string>
     <string name="acra_notification_discard_button">Odrzuć</string>
     <string name="notification_channel_crash_report">Raport błędu</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filtr widoku profili</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Kliknij tutaj aby przełączyć filtr widoku Profili.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filtr widoku Zdarzeń</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Kliknij tutaj, aby przełączyć filtr widoku Zdarzeń.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

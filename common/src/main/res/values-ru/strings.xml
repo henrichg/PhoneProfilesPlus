@@ -1514,10 +1514,10 @@
     <string name="acra_notification_send_button">Отправить</string>
     <string name="acra_notification_discard_button">Отменить</string>
     <string name="notification_channel_crash_report">Отчёт об ошибке</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
-    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Фильтр профилей</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Нажмте сюда для переключения между различными фильтрами профилей.</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Фильтр событий</string>
+    <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Нажмите сюда для переключения между различными фильтрами событий.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

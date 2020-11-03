@@ -1515,7 +1515,7 @@
     <string name="acra_notification_discard_button">Verwerfen</string>
     <string name="notification_channel_crash_report">Absturzbericht</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
-    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
+    <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Hier klicken, um zwischen den Filtern der Profilansicht zu wechseln.</string>
     <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
     <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
     <!-- **************************************************************************************** -->
