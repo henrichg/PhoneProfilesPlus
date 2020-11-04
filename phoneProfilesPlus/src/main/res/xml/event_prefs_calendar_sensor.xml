@@ -44,11 +44,20 @@
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preference_calendar_availability"
-        app:summary="@string/array_event_pref_calendarSearchField_eventName"
+        app:summary="@string/array_event_pref_calendarAvailability_noCheck"
         app:key="eventCalendarAvailability"
         app:defaultValue="0"
         app:entries="@array/eventCalendarAvailabilityArray"
         app:entryValues="@array/eventCalendarAvailabilityValues"
+        app:dependency="eventCalendarEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/event_preference_calendar_status"
+        app:summary="@string/array_event_pref_calendarStatus_noCheck"
+        app:key="eventCalendarStatus"
+        app:defaultValue="0"
+        app:entries="@array/eventCalendarStatusArray"
+        app:entryValues="@array/eventCalendarStatusValues"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX

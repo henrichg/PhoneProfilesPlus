@@ -35,6 +35,7 @@ class EventPreferencesCalendar extends EventPreferences {
     int _searchField;
     String _searchString;
     int _availability;
+    int _status;
     boolean _ignoreAllDayEvents;
     int _startBeforeEvent;
 
@@ -51,6 +52,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
     private static final String PREF_EVENT_CALENDAR_START_BEFORE_EVENT = "eventCalendarStartBeforeEvent";
     static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarBackgroundScanningAppSettings";
+    private static final String PREF_EVENT_CALENDAR_STATUS = "eventCalendarStatus";
 
     private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategoryRoot";
 
@@ -63,6 +65,11 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final int AVAILABILITY_FREE = 2;
     private static final int AVAILABILITY_TENTATIVE = 3;
 
+    //private static final int STATUS_NO_CHECK = 0;
+    private static final int STATUS_CONFIRMED = 1;
+    private static final int STATUS_TENTATIVE = 2;
+    private static final int STATUS_CANCELED = 3;
+
     EventPreferencesCalendar(Event event,
                                 boolean enabled,
                                 String calendars,
@@ -70,6 +77,7 @@ class EventPreferencesCalendar extends EventPreferences {
                                 int searchField,
                                 String searchString,
                                 int availability,
+                                int status,
                                 boolean ignoreAllDayEvents,
                                 int startBeforeEvent)
     {
@@ -80,6 +88,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._searchField = searchField;
         this._searchString = searchString;
         this._availability = availability;
+        this._status = status;
         this._ignoreAllDayEvents = ignoreAllDayEvents;
         this._startBeforeEvent = startBeforeEvent;
 
@@ -96,6 +105,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._searchField = fromEvent._eventPreferencesCalendar._searchField;
         this._searchString = fromEvent._eventPreferencesCalendar._searchString;
         this._availability = fromEvent._eventPreferencesCalendar._availability;
+        this._status = fromEvent._eventPreferencesCalendar._status;
         this._ignoreAllDayEvents = fromEvent._eventPreferencesCalendar._ignoreAllDayEvents;
         this._startBeforeEvent = fromEvent._eventPreferencesCalendar._startBeforeEvent;
         this.setSensorPassed(fromEvent._eventPreferencesCalendar.getSensorPassed());
@@ -114,6 +124,7 @@ class EventPreferencesCalendar extends EventPreferences {
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_FIELD, String.valueOf(_searchField));
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_STRING, _searchString);
         editor.putString(PREF_EVENT_CALENDAR_AVAILABILITY, String.valueOf(_availability));
+        editor.putString(PREF_EVENT_CALENDAR_STATUS, String.valueOf(_status));
         editor.putBoolean(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, _ignoreAllDayEvents);
         editor.putString(PREF_EVENT_CALENDAR_START_BEFORE_EVENT, Integer.toString(_startBeforeEvent));
         editor.apply();
@@ -127,6 +138,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._searchField = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_SEARCH_FIELD, "0"));
         this._searchString = preferences.getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "");
         this._availability = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_AVAILABILITY, "0"));
+        this._status = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_STATUS, "0"));
         this._ignoreAllDayEvents = preferences.getBoolean(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, false);
         this._startBeforeEvent = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_START_BEFORE_EVENT, "0"));
 
@@ -168,7 +180,10 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + "<b>" + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "</b> • ";
 
                 String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": <b>" +availabilities[this._availability] + "</b>";
+                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": <b>" +availabilities[this._availability] + " • </b>";
+
+                String[] statuses = context.getResources().getStringArray(R.array.eventCalendarStatusArray);
+                descr = descr + context.getString(R.string.event_preference_calendar_status) + ": <b>" +statuses[this._status] + "</b>";
 
                 if (this._startBeforeEvent > 0)
                     descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + GlobalGUIRoutines.getDurationString(this._startBeforeEvent) + "</b>";
@@ -257,7 +272,8 @@ class EventPreferencesCalendar extends EventPreferences {
         }
 
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
-            key.equals(PREF_EVENT_CALENDAR_AVAILABILITY))
+            key.equals(PREF_EVENT_CALENDAR_AVAILABILITY) ||
+            key.equals(PREF_EVENT_CALENDAR_STATUS))
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -273,6 +289,15 @@ class EventPreferencesCalendar extends EventPreferences {
             }
         }
         if (key.equals(PREF_EVENT_CALENDAR_AVAILABILITY)) {
+            ListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+            }
+        }
+        if (key.equals(PREF_EVENT_CALENDAR_STATUS)) {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
@@ -337,6 +362,7 @@ class EventPreferencesCalendar extends EventPreferences {
             key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_SEARCH_STRING) ||
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY) ||
+            key.equals(PREF_EVENT_CALENDAR_STATUS) ||
             key.equals(PREF_EVENT_CALENDAR_START_BEFORE_EVENT) ||
             key.equals(PREF_EVENT_CALENDAR_APP_SETTINGS))
         {
@@ -351,6 +377,7 @@ class EventPreferencesCalendar extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_FIELD, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_STRING, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_AVAILABILITY, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_STATUS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_START_BEFORE_EVENT, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_ALL_EVENTS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, preferences, context);
@@ -361,7 +388,7 @@ class EventPreferencesCalendar extends EventPreferences {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._allEvents,
-                    this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents, this._startBeforeEvent);
+                    this._searchField, this._searchString, this._availability, this._status, this._ignoreAllDayEvents, this._startBeforeEvent);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -739,6 +766,18 @@ class EventPreferencesCalendar extends EventPreferences {
             case AVAILABILITY_TENTATIVE:
                 selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")");
                 //selection.append(" AND (" + Instances.STATUS + "=" + Instances.STATUS_TENTATIVE + ")");
+                break;
+        }
+
+        switch (_status) {
+            case STATUS_CONFIRMED:
+                selection.append(" AND (" + Instances.STATUS + "=" + Instances.STATUS_CONFIRMED + ")");
+                break;
+            case STATUS_TENTATIVE:
+                selection.append(" AND (" + Instances.STATUS + "=" + Instances.STATUS_TENTATIVE + ")");
+                break;
+            case STATUS_CANCELED:
+                selection.append(" AND (" + Instances.STATUS + "=" + Instances.STATUS_CANCELED + ")");
                 break;
         }
 

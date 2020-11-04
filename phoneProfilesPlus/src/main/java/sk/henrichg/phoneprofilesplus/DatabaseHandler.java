@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2439;
+    private static final int DATABASE_VERSION = 2440;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -335,6 +335,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_ALARM_CLOCK_APPLICATIONS = "alarmClockApplications";
     private static final String KEY_E_ALARM_CLOCK_PACKAGE_NAME = "alarmClockPackageName";
     private static final String KEY_E_AT_END_HOW_UNDO = "atEndHowUndo";
+    private static final String KEY_E_CALENDAR_STATUS = "calendarStatus";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -717,7 +718,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_DEVICE_BOOT_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_ALARM_CLOCK_APPLICATIONS + " " + TEXT_TYPE + ","
                 + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " " + TEXT_TYPE + ","
-                + KEY_E_AT_END_HOW_UNDO + " " + INTEGER_TYPE
+                + KEY_E_AT_END_HOW_UNDO + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_STATUS + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1123,6 +1125,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_APPLICATIONS, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PACKAGE_NAME, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_AT_END_HOW_UNDO, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_STATUS, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -2958,6 +2961,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             cursor.close();
+        }
+        if (oldVersion < 2440)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_STATUS + "=0");
         }
 
     }
@@ -5346,6 +5353,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_CALENDAR_EVENT_END_TIME,
                         KEY_E_CALENDAR_EVENT_FOUND,
                         KEY_E_CALENDAR_AVAILABILITY,
+                        KEY_E_CALENDAR_STATUS,
                         KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS,
                         KEY_E_CALENDAR_START_BEFORE_EVENT,
                         KEY_E_CALENDAR_SENSOR_PASSED,
@@ -5369,6 +5377,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._endTime = cursor.getLong(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_END_TIME));
                 eventPreferences._eventFound = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_FOUND)) == 1);
                 eventPreferences._availability = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_AVAILABILITY));
+                eventPreferences._status = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_STATUS));
                 eventPreferences._ignoreAllDayEvents = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS)) == 1);
                 eventPreferences._startBeforeEvent = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_START_BEFORE_EVENT));
                 eventPreferences._allEvents = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_ALL_EVENTS)) == 1);
@@ -5897,6 +5906,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALENDAR_EVENT_END_TIME, eventPreferences._endTime);
         values.put(KEY_E_CALENDAR_EVENT_FOUND, (eventPreferences._eventFound) ? 1 : 0);
         values.put(KEY_E_CALENDAR_AVAILABILITY, eventPreferences._availability);
+        values.put(KEY_E_CALENDAR_STATUS, eventPreferences._status);
         values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, (eventPreferences._ignoreAllDayEvents) ? 1 : 0);
         values.put(KEY_E_CALENDAR_START_BEFORE_EVENT, eventPreferences._startBeforeEvent);
         values.put(KEY_E_CALENDAR_SENSOR_PASSED, eventPreferences.getSensorPassed());

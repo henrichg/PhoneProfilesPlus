@@ -1637,6 +1637,12 @@
     <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter of Events view</string>
     <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
 
+    <string name="event_preference_calendar_status">Status</string>
+    <string name="array_event_pref_calendarStatus_noCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarStatus_confirmed">Confirmed</string>
+    <string name="array_event_pref_calendarStatus_tentative">Tentative</string>
+    <string name="array_event_pref_calendarStatus_canceled">Canceled</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
