@@ -1643,6 +1643,8 @@
     <string name="array_event_pref_calendarStatus_tentative">Tentative</string>
     <string name="array_event_pref_calendarStatus_canceled">Canceled</string>
 
+    <string name="important_info_accessibility_service_new_version_notification">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in \"Important information\", section \"News\". Click here, to show it.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

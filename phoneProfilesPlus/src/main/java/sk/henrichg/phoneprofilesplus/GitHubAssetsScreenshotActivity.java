@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,11 @@ public class GitHubAssetsScreenshotActivity extends AppCompatActivity {
         imageView.setContentDescription("GitHub \"Assets\" " + getString(R.string.github_assets_screenshot_label));
         int image = getIntent().getIntExtra(EXTRA_IMAGE, R.drawable.ic_empty);
         imageView.setImageResource(image);
+
+        Button closeButton = findViewById(R.id.github_assets_screenshot_activity_close);
+        closeButton.setOnClickListener(v -> {
+            finish();
+        });
 
     }
 

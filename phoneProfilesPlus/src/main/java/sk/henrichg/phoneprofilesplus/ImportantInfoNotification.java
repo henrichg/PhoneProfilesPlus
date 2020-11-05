@@ -60,7 +60,7 @@ class ImportantInfoNotification {
                 if (show == 2)
                     showNotification(context, false/*savedVersionCode == 0*/,
                             context.getString(R.string.info_notification_title),
-                            context.getString(R.string.important_info_accessibility_service_new_version));
+                            context.getString(R.string.important_info_accessibility_service_new_version_notification));
 
                 //setShowInfoNotificationOnStart(context, false, packageVersionCode);
             }
