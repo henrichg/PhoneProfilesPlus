@@ -196,42 +196,39 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     }
 
     private static void _doWork(Context appContext) {
-        String contents = "";
-
+        boolean found = false;
         try {
+            String contents = "";
             URLConnection conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases").openConnection();
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);
-        /*} catch (MalformedURLException e) {
-            PPApplication.recordException(e);*/
-        } catch (IOException e) {
-            PPApplication.recordException(e);
-        }
 
-        String version;
-        boolean found = false;
-        if (!contents.isEmpty()) {
-            int startIndex = contents.indexOf("###ppp-release:");
-            int endIndex=contents.indexOf("***###");
-            if ((startIndex >=0) && (endIndex > startIndex)) {
-                version = contents.substring(startIndex, endIndex);
-                startIndex = version.indexOf(":");
-                version = version.substring(startIndex+1);
-                //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
-                String[] splits = version.split(":");
-                if (splits.length == 2) {
-                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
-                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
-                    int versionCode = 0;
-                    try {
-                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                        versionCode = PPApplication.getVersionCode(pInfo);
-                    } catch (Exception ignored) {}
-                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
-                    if ((versionCode > 0) && (versionCode < Integer.parseInt(splits[1])))
-                        found = true;
+            if (!contents.isEmpty()) {
+                int startIndex = contents.indexOf("###ppp-release:");
+                int endIndex=contents.indexOf("***###");
+                if ((startIndex >=0) && (endIndex > startIndex)) {
+                    String version = contents.substring(startIndex, endIndex);
+                    startIndex = version.indexOf(":");
+                    version = version.substring(startIndex+1);
+                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
+                    String[] splits = version.split(":");
+                    if (splits.length == 2) {
+                        //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
+                        //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
+                        int versionCode = 0;
+                        try {
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                            versionCode = PPApplication.getVersionCode(pInfo);
+                        } catch (Exception ignored) {}
+                        //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
+                        if ((versionCode > 0) && (versionCode < Integer.parseInt(splits[1])))
+                            found = true;
+                    }
                 }
             }
+
+        } catch (IOException e) {
+            PPApplication.recordException(e);
         }
 
         if (found) {
