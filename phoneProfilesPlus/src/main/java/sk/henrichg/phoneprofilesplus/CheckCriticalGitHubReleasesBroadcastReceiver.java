@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -228,7 +229,8 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             }
 
         } catch (IOException e) {
-            PPApplication.recordException(e);
+            if (!(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) && (Build.VERSION.SDK_INT >= 29))
+                PPApplication.recordException(e);
         }
 
         if (found) {
