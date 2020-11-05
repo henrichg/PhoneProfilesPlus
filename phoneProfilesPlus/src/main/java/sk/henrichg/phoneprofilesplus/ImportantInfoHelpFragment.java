@@ -19,6 +19,7 @@ import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -967,15 +968,35 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void installExtender(String dialogText) {
         if (getActivity() == null) {
             return;
         }
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(R.string.install_extender_dialog_title);
         dialogBuilder.setMessage(dialogText);
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);*/
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setTitle(R.string.install_extender_dialog_title);
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        @SuppressLint("InflateParams")
+        View layout = inflater.inflate(R.layout.dialog_install_extender, null);
+        dialogBuilder.setView(layout);
+
+        TextView text = layout.findViewById(R.id.install_extender_dialog_info_text);
+        text.setText(dialogText);
+
+        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+        button.setText(getActivity().getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), GitHubAssetsScreenshotActivity.class);
+            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplusextender_assets_screenshot);
+            startActivity(intent);
+        });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
             String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
