@@ -155,7 +155,7 @@ class EventPreferencesNotification extends EventPreferences {
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
-                } else if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                } else if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
                     descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
                 } else {
                     //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
@@ -281,7 +281,7 @@ class EventPreferencesNotification extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary);
-                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext())) {
+                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext(), true)) {
                     summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *\n\n"+
                             summary;
                 }
@@ -462,7 +462,7 @@ class EventPreferencesNotification extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
-                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
+                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
             Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
             ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
@@ -906,7 +906,7 @@ class EventPreferencesNotification extends EventPreferences {
     private boolean isNotificationVisible(Context context) {
         //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
         if (ApplicationPreferences.applicationEventNotificationEnableScanning &&
-            PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+            PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
             if (service != null) {
                 try {
@@ -1125,7 +1125,7 @@ class EventPreferencesNotification extends EventPreferences {
     private StatusBarNotification getNewestVisibleNotification(Context context) {
         //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "xxx");
         if (ApplicationPreferences.applicationEventNotificationEnableScanning &&
-                PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
             PPNotificationListenerService service = PPNotificationListenerService.getInstance();
             if (service != null) {
                 StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();

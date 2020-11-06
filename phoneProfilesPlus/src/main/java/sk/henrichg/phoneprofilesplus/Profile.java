@@ -102,6 +102,7 @@ public class Profile {
     boolean _volumeMuteSound;
     int _deviceLocationMode;
     int _applicationDisableNotificationScanning;
+    String _generateNotification;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -186,6 +187,7 @@ public class Profile {
     static final String PREF_PROFILE_VOLUME_MUTE_SOUND = "prf_pref_volumeMuteSound";
     static final String PREF_PROFILE_DEVICE_LOCATION_MODE = "prf_pref_deviceLocationMode";
     static final String PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "prf_pref_applicationDisableNotificationScanning";
+    static final String PREF_PROFILE_GENERATE_NOTIFICATION = "prf_pref_generateNotification";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -270,6 +272,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_screenOnPermanent", "0");
         defaultValuesString.put("prf_pref_deviceLocationMode", "0");
         defaultValuesString.put("prf_pref_applicationDisableNotificationScanning", "0");
+        defaultValuesString.put("prf_pref_generateNotification", "0|0|x|");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -822,7 +825,8 @@ public class Profile {
                    int screenOnPermanent,
                    boolean volumeMuteSound,
                    int deviceLocationMode,
-                   int applicationDisableNotificationScanning
+                   int applicationDisableNotificationScanning,
+                   String generateNotification
     )
     {
         this._id = id;
@@ -901,6 +905,7 @@ public class Profile {
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
         this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
+        this._generateNotification = generateNotification;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -983,7 +988,8 @@ public class Profile {
                    int screenOnPermanent,
                    boolean volumeMuteSound,
                    int deviceLocationMode,
-                   int applicationDisableNotificationScanning
+                   int applicationDisableNotificationScanning,
+                   String generateNotification
     )
     {
         this._name = name;
@@ -1061,6 +1067,7 @@ public class Profile {
         this._volumeMuteSound = volumeMuteSound;
         this._deviceLocationMode = deviceLocationMode;
         this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
+        this._generateNotification = generateNotification;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1145,6 +1152,7 @@ public class Profile {
         this._volumeMuteSound = profile._volumeMuteSound;
         this._deviceLocationMode = profile._deviceLocationMode;
         this._applicationDisableNotificationScanning = profile._applicationDisableNotificationScanning;
+        this._generateNotification = profile._generateNotification;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1409,6 +1417,8 @@ public class Profile {
                     this._deviceLocationMode = withProfile._deviceLocationMode;
                 if (withProfile._applicationDisableNotificationScanning != 0)
                     this._applicationDisableNotificationScanning = withProfile._applicationDisableNotificationScanning;
+                if (withProfile.getGenerateNotificationChange())
+                    this._generateNotification = withProfile._generateNotification;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -2664,6 +2674,114 @@ public class Profile {
     }
     */
 
+    boolean getGenerateNotificationChange()
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[0]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value == 0; // in preference dialog is checked=No change
+    }
+
+    private static boolean getGenerateNotificationChange(String _generateNotification)
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[0]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value == 0; // in preference dialog is checked=No change
+    }
+
+    int getGenerateNotificationIconType()
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[1]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value;
+    }
+
+    static int getGenerateNotificationIconType(String _generateNotification)
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[1]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value;
+    }
+
+    String geGenerateNotificationTitle()
+    {
+        String value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = splits[2];
+        } catch (Exception e) {
+            value = "x";
+        }
+        return value;
+    }
+
+    static String geGenerateNotificationTitle(String _generateNotification)
+    {
+        String value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = splits[2];
+        } catch (Exception e) {
+            value = "x";
+        }
+        return value;
+    }
+
+    String geGenerateNotificationBody()
+    {
+        String value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = splits[3];
+        } catch (Exception e) {
+            value = "";
+        }
+        return value;
+    }
+
+    static String geGenerateNotificationBody(String _generateNotification)
+    {
+        String value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = splits[3];
+        } catch (Exception e) {
+            value = "";
+        }
+        return value;
+    }
+
+    private boolean getGenerateNotificationSharedProfile()
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
     //----------------------------------
 
     void generateIconBitmap(Context context, boolean monochrome, int monochromeValue, boolean useMonochromeValueForCustomIcon)
@@ -2978,6 +3096,7 @@ public class Profile {
         profile._volumeMuteSound = preferences.getBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         profile._deviceLocationMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_MODE, "0"));
         profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0"));
+        profile._generateNotification = preferences.getString(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0|x|");
 
         return profile;
     }
@@ -3055,6 +3174,7 @@ public class Profile {
         editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
         editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, String.valueOf(profile._deviceLocationMode));
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, String.valueOf(profile._applicationDisableNotificationScanning));
+        editor.putString(PREF_PROFILE_GENERATE_NOTIFICATION, profile._generateNotification);
 
         editor.apply();
     }
@@ -3146,7 +3266,8 @@ public class Profile {
                     profile._screenOnPermanent,
                     profile._volumeMuteSound,
                     profile._deviceLocationMode,
-                    profile._applicationDisableNotificationScanning
+                    profile._applicationDisableNotificationScanning,
+                    profile._generateNotification
                     );
 
             boolean zenModeMapped = false;
@@ -3284,6 +3405,8 @@ public class Profile {
                 mappedProfile._deviceLocationMode = sharedProfile._deviceLocationMode;
             if (profile._applicationDisableNotificationScanning == SHARED_PROFILE_VALUE)
                 mappedProfile._applicationDisableNotificationScanning = sharedProfile._applicationDisableNotificationScanning;
+            if (profile.getGenerateNotificationSharedProfile())
+                mappedProfile._generateNotification = sharedProfile._generateNotification;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;

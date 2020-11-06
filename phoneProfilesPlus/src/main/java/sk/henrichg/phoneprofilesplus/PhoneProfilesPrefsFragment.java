@@ -2705,7 +2705,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(PREF_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary);
-            if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+            if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + ".\n\n" +
                         summary;
             }
@@ -3049,7 +3049,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventNotificationEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                     summary = summary + "<b>" + getString(R.string.array_pref_applicationDisableScanning_enabled) + "</b>";
-                    if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                    if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
                         summary = summary + "<br>";
                         summary = summary + getString(R.string.phone_profiles_pref_eventNotificationAccessSystemSettings) + ": " +
                                 "<b>" + getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + "</b>";

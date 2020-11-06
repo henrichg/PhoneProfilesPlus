@@ -459,7 +459,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
     }
 
-    public static boolean isNotificationListenerServiceEnabled(Context context) {
+    public static boolean isNotificationListenerServiceEnabled(Context context, boolean checkConnected) {
         /*
         ContentResolver contentResolver = context.getContentResolver();
         String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
@@ -481,8 +481,15 @@ public class PPNotificationListenerService extends NotificationListenerService {
         String packageName = PPApplication.PACKAGE_NAME;
 
         //if (packageNames != null) {
-            synchronized (PPApplication.ppNotificationListenerService) {
-                return packageNames.contains(packageName) && connected;
+            if (checkConnected) {
+                synchronized (PPApplication.ppNotificationListenerService) {
+                    return packageNames.contains(packageName) && connected;
+                }
+            }
+            else {
+                synchronized (PPApplication.ppNotificationListenerService) {
+                    return packageNames.contains(packageName);
+                }
             }
 
             /*for (String pkgName : packageNames) {
@@ -512,7 +519,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         try {
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
             if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
-                if (isNotificationListenerServiceEnabled(context)) {
+                if (isNotificationListenerServiceEnabled(context, false)) {
                     int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                     switch (zenMode) {
                         case ActivateProfileHelper.ZENMODE_ALL:
@@ -594,7 +601,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                                 case INTERRUPTION_FILTER_NONE:
                                 case INTERRUPTION_FILTER_ALARMS:
                                     try {
-                                        if (isNotificationListenerServiceEnabled(context))
+                                        if (isNotificationListenerServiceEnabled(context, false))
                                             requestInterruptionFilter(filter);
                                     } catch (SecurityException e) {
                                         // Fix disallowed call from unknown listener exception.

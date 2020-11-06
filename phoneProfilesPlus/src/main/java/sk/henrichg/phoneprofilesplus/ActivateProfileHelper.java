@@ -1985,7 +1985,7 @@ class ActivateProfileHelper {
                     //return Permissions.checkAccessNotificationPolicy(appContext);
             }
             else
-                return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext);
+                return PPNotificationListenerService.isNotificationListenerServiceEnabled(appContext, false);
         //}
         //else
         //if (android.os.Build.VERSION.SDK_INT >= 21)
