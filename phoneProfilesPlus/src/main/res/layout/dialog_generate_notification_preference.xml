@@ -8,11 +8,11 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/generateNotificationPrefDialogGenerate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/generate_notification_pref_dialog_generate_rb"
+        android:text="@string/generate_notification_pref_dialog_generate_chb"
         android:layout_marginBottom="10dp"/>
 
     <TextView

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -15,7 +16,7 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
     private GenerateNotificationDialogPreferenceX preference;
 
     // Layout widgets
-    private RadioButton generateRBtn = null;
+    private CheckBox generateChBtn = null;
     private RadioButton informationIconRBtn = null;
     private RadioButton profileIconRBtn = null;
     private EditText notificationTitleEdtText = null;
@@ -37,13 +38,13 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        generateRBtn = view.findViewById(R.id.generateNotificationPrefDialogGenerate);
+        generateChBtn = view.findViewById(R.id.generateNotificationPrefDialogGenerate);
         informationIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogInformationIcon);
         profileIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogProfileIcon);
         notificationTitleEdtText = view.findViewById(R.id.generateNotificationPrefDialogNotificationTitle);
         notificationBodyEdtText = view.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
 
-        generateRBtn.setChecked(preference.generate == 1);
+        generateChBtn.setChecked(preference.generate == 1);
         informationIconRBtn.setChecked(preference.iconType == 0);
         profileIconRBtn.setChecked(preference.iconType == 1);
         notificationTitleEdtText.setText(preference.notificationTitle);
@@ -53,7 +54,7 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            preference.generate = generateRBtn.isChecked() ? 1 : 0;
+            preference.generate = generateChBtn.isChecked() ? 1 : 0;
             if (informationIconRBtn.isChecked())
                 preference.iconType = 0;
             else
