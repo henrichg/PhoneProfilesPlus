@@ -1742,6 +1742,10 @@ public class Profile {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableNotificationScanning");
                 return false;
             }
+            if (!this._generateNotification.equals(withProfile._generateNotification)) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableNotificationScanning");
+                return false;
+            }
 
             return true;
         }
@@ -2686,7 +2690,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    private static boolean getGenerateNotificationChange(String _generateNotification)
+    static boolean getGenerateNotificationChange(String _generateNotification)
     {
         int value;
         try {
@@ -2722,7 +2726,7 @@ public class Profile {
         return value;
     }
 
-    String geGenerateNotificationTitle()
+    String getGenerateNotificationTitle()
     {
         String value;
         try {
@@ -2734,7 +2738,7 @@ public class Profile {
         return value;
     }
 
-    static String geGenerateNotificationTitle(String _generateNotification)
+    static String getGenerateNotificationTitle(String _generateNotification)
     {
         String value;
         try {
@@ -2746,7 +2750,7 @@ public class Profile {
         return value;
     }
 
-    String geGenerateNotificationBody()
+    String getGenerateNotificationBody()
     {
         String value;
         try {
@@ -2758,7 +2762,7 @@ public class Profile {
         return value;
     }
 
-    static String geGenerateNotificationBody(String _generateNotification)
+    static String getGenerateNotificationBody(String _generateNotification)
     {
         String value;
         try {

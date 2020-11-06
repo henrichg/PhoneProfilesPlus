@@ -2098,6 +2098,33 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //
 //                summary = summary + title + ": <b>" + value + "</b>";
 //            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, R.string.profile_preferences_generateNotification, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION,
+                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION));
+
+                boolean generate = Profile.getGenerateNotificationChange(value);
+                int iconType = Profile.getGenerateNotificationIconType(value);
+                String notificationTitle = Profile.getGenerateNotificationTitle(value);
+                String notificationBody = Profile.getGenerateNotificationBody(value);
+
+                String summaryString = "";
+
+                if (iconType == 0)
+                    summaryString = summaryString + getString(R.string.preference_profile_generate_notification_information_icon) + "; ";
+                else
+                    summaryString = summaryString + getString(R.string.preference_profile_generate_notification_profile_icon) + "; ";
+
+                if (notificationBody.isEmpty())
+                    summaryString = summaryString + notificationTitle;
+                else
+                    summaryString = summaryString + notificationTitle + ", ...";
+
+                summary = summary + title + ": <b>" + summaryString + "</b>";
+            }
         }
 
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {
@@ -3173,6 +3200,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING);
         setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
         setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
+        setSummary(Profile.PREF_PROFILE_GENERATE_NOTIFICATION);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

@@ -376,6 +376,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (profile != null)
         {
+            PPApplication.logE("ProfilePrefsActivity.loadPreferences", "profile._generateNotification="+profile._generateNotification);
+
             // must be used handler for rewrite toolbar title/subtitle
             final String profileName = profile._name;
             Handler handler = new Handler(getMainLooper());
@@ -465,6 +467,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
             editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(profile._deviceLocationMode));
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(profile._applicationDisableNotificationScanning));
+            editor.putString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, profile._generateNotification);
             editor.apply();
         }
     }
@@ -590,6 +593,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._volumeMuteSound = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, false);
             profile._deviceLocationMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, ""));
             profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, ""));
+            profile._generateNotification = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, "");
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

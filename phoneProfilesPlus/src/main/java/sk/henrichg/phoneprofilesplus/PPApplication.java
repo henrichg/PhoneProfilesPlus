@@ -244,6 +244,11 @@ public class PPApplication extends Application
 
                                                 //+"|CheckGitHubReleasesBroadcastReceiver"
                                                 //+"|OneRowWidgetProvider"
+
+                                                +"|GenerateNotificationDialogPreferenceX"
+                                                +"|EditorProfileListFragment.startProfilePreferencesActivity"
+                                                +"|ProfilePrefsActivity.loadPreferences"
+
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

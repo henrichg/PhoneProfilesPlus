@@ -24,8 +24,6 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
     private String defaultValue;
     private boolean savedInstanceState;
 
-    int value = 0;
-
     public GenerateNotificationDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -52,8 +50,9 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         // Get the persistent value and correct it for the minimum value.
         sValue = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
+        PPApplication.logE("GenerateNotificationDialogPreferenceX.onSetInitialValue", "sValue="+sValue);
+        PPApplication.logE("GenerateNotificationDialogPreferenceX.onSetInitialValue", "this.defaultValue="+this.defaultValue);
 
-        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
         getValueGNDP();
         setSummaryGNDP();
     }
@@ -102,8 +101,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
 
     String getSValue() {
         //int _value = value + minimumValue;
-        return value
-                + "|" + generate
+        return generate
                 + "|" + iconType
                 + "|" + notificationTitle
                 + "|" + notificationBody;
@@ -129,7 +127,7 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         String[] splits = value.split("\\|");
         if (splits.length > 1) {
             try {
-                return Integer.parseInt(splits[0]) == 0;
+                return Integer.parseInt(splits[0]) == 1;
             } catch (Exception e) {
                 return false;
             }

@@ -592,7 +592,7 @@ public class EditorProfileListFragment extends Fragment
         {
             // edit profile
             int profilePos = profileListAdapter.getItemPosition(profile);
-            //PPApplication.logE("EditorProfileListFragment.startProfilePreferencesActivity", "profilePos="+profilePos);
+
             /*int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
             if ((profilePos <= first) || (profilePos >= last)) {

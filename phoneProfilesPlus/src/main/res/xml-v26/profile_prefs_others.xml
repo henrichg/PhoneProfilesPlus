@@ -49,7 +49,7 @@
 
     <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreferenceX
         app:defaultValue="0|0|x|"
-        app:key="prf_pref_prf_pref_generateNotification"
+        app:key="prf_pref_generateNotification"
         app:title="@string/profile_preferences_generateNotification"
         app:layout="@layout/mp_preference_material_widget" />
 

@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:selectAllOnFocus="true"
-        android:hint="@string/event_preferences_calendar_search_string"
+        android:hint="@string/generate_notification_pref_dialog_notification_title"
         android:inputType="textNoSuggestions"
         android:importantForAutofill="no" />
 
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:selectAllOnFocus="true"
-        android:hint="@string/event_preferences_calendar_search_string"
+        android:hint="@string/generate_notification_pref_dialog_notification_body"
         android:inputType="textNoSuggestions|textMultiLine"
         android:importantForAutofill="no" />
 
