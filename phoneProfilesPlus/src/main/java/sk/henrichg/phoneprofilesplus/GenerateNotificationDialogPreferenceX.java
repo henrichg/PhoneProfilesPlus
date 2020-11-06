@@ -125,12 +125,11 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         savedInstanceState = false;
     }
 
-    /*
     static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
         if (splits.length > 1) {
             try {
-                return Integer.parseInt(splits[1]) == 0;
+                return Integer.parseInt(splits[0]) == 0;
             } catch (Exception e) {
                 return false;
             }
@@ -138,7 +137,6 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         else
             return false;
     }
-    */
 
     @Override
     protected Parcelable onSaveInstanceState()

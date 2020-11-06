@@ -202,6 +202,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof GenerateNotificationDialogPreferenceX)
+        {
+            ((GenerateNotificationDialogPreferenceX)preference).fragment = new GenerateNotificationDialogPreferenceFragmentX();
+            dialogFragment = ((GenerateNotificationDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -1105,6 +1113,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             break;
                         case Profile.PREF_PROFILE_VOLUME_ZEN_MODE:
                             title = getString(preferenceTitleId);
+                            break;
+                        case Profile.PREF_PROFILE_GENERATE_NOTIFICATION:
+                            if (GenerateNotificationDialogPreferenceX.changeEnabled(value))
+                                title = getString(preferenceTitleId);
                             break;
                         default:
                             if (!value.equals(defaultValue)) {
@@ -3035,6 +3047,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
                 boolean _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, true, !_accessibilityEnabled, false);
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_GENERATE_NOTIFICATION))
+        {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String sValue = value.toString();
+                boolean change = GenerateNotificationDialogPreferenceX.changeEnabled(sValue);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false);
             }
         }
     }

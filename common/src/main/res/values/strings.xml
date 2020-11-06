@@ -1655,6 +1655,7 @@
     <string name="preference_profile_generate_notification_generate">Generate</string>
     <string name="preference_profile_generate_notification_information_icon">information icon</string>
     <string name="preference_profile_generate_notification_profile_icon">profile icon</string>
+    <string name="profile_preferences_generateNotification">Generate notification</string>
 
     <!-- **************************************************************************************** -->
 
