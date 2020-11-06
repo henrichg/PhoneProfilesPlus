@@ -59,6 +59,12 @@
     <declare-styleable name="PPContactsMultiSelectDialogPreference">
         <attr name="withoutNumbers" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="PPGenerateNotificationDialogPreference">
+        <attr name="gnGenerate" format="integer" />
+        <attr name="gnIconType" format="integer" />
+        <attr name="gnNotificationTitle" format="string" />
+        <attr name="gnNotificationBody" format="string" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
     <attr name="colorAccentDisabled" format="reference" />

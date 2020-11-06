@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/generateNotificationPrefDialogRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <RadioButton
+        android:id="@+id/generateNotificationPrefDialogGenerate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_notification_pref_dialog_generate_rb"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_notification_pref_dialog_icon_type" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp">
+        <RadioButton
+            android:id="@+id/generateNotificationPrefDialogInformationIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/generate_notification_pref_dialog_information_icon_rb"/>
+        <RadioButton
+            android:id="@+id/generateNotificationPrefDialogProfileIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/generate_notification_pref_dialog_profile_icon_rb"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_notification_pref_dialog_notification_title" />
+    <EditText
+        android:id="@+id/generateNotificationPrefDialogNotificationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:selectAllOnFocus="true"
+        android:hint="@string/event_preferences_calendar_search_string"
+        android:inputType="textNoSuggestions"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_notification_pref_dialog_notification_body" />
+    <EditText
+        android:id="@+id/generateNotificationPrefDialogNotificationBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:selectAllOnFocus="true"
+        android:hint="@string/event_preferences_calendar_search_string"
+        android:inputType="textNoSuggestions|textMultiLine"
+        android:importantForAutofill="no" />
+
+</LinearLayout>
