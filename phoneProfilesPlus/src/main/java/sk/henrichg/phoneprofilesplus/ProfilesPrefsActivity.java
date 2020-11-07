@@ -376,8 +376,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (profile != null)
         {
-            PPApplication.logE("ProfilePrefsActivity.loadPreferences", "profile._generateNotification="+profile._generateNotification);
-
             // must be used handler for rewrite toolbar title/subtitle
             final String profileName = profile._name;
             Handler handler = new Handler(getMainLooper());

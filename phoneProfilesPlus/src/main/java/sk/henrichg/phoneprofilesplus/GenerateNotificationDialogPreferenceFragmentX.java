@@ -18,6 +18,7 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
     // Layout widgets
     private CheckBox generateChBtn = null;
     private RadioButton informationIconRBtn = null;
+    private RadioButton exclamationIconRBtn = null;
     private RadioButton profileIconRBtn = null;
     private EditText notificationTitleEdtText = null;
     private EditText notificationBodyEdtText = null;
@@ -40,13 +41,15 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
 
         generateChBtn = view.findViewById(R.id.generateNotificationPrefDialogGenerate);
         informationIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogInformationIcon);
+        exclamationIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogExclamationIcon);
         profileIconRBtn = view.findViewById(R.id.generateNotificationPrefDialogProfileIcon);
         notificationTitleEdtText = view.findViewById(R.id.generateNotificationPrefDialogNotificationTitle);
         notificationBodyEdtText = view.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
 
         generateChBtn.setChecked(preference.generate == 1);
         informationIconRBtn.setChecked(preference.iconType == 0);
-        profileIconRBtn.setChecked(preference.iconType == 1);
+        exclamationIconRBtn.setChecked(preference.iconType == 1);
+        profileIconRBtn.setChecked(preference.iconType == 2);
         notificationTitleEdtText.setText(preference.notificationTitle);
         notificationBodyEdtText.setText(preference.notificationBody);
     }
@@ -58,8 +61,11 @@ public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDia
             if (informationIconRBtn.isChecked())
                 preference.iconType = 0;
             else
-            if (profileIconRBtn.isChecked())
+            if (exclamationIconRBtn.isChecked())
                 preference.iconType = 1;
+            else
+            if (profileIconRBtn.isChecked())
+                preference.iconType = 2;
             else
                 preference.iconType = 0;
             preference.notificationTitle = notificationTitleEdtText.getText().toString();

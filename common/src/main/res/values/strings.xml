@@ -1648,12 +1648,14 @@
     <string name="generate_notification_pref_dialog_generate_chb">Generate</string>
     <string name="generate_notification_pref_dialog_icon_type">Icon type</string>
     <string name="generate_notification_pref_dialog_information_icon_rb">Information icon</string>
+    <string name="generate_notification_pref_dialog_exclamation_icon_rb">Exclamation icon</string>
     <string name="generate_notification_pref_dialog_profile_icon_rb">Profile icon</string>
     <string name="generate_notification_pref_dialog_notification_title">Notification title</string>
     <string name="generate_notification_pref_dialog_notification_body">Notification body</string>
     <string name="preference_profile_generate_notification_no_generate">No generate</string>
     <string name="preference_profile_generate_notification_generate">Generate</string>
     <string name="preference_profile_generate_notification_information_icon">information icon</string>
+    <string name="preference_profile_generate_notification_exclamation_icon">exclamation icon</string>
     <string name="preference_profile_generate_notification_profile_icon">profile icon</string>
     <string name="profile_preferences_generateNotification">Generate notification</string>
 

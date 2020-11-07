@@ -50,8 +50,6 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
         // Get the persistent value and correct it for the minimum value.
         sValue = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
-        PPApplication.logE("GenerateNotificationDialogPreferenceX.onSetInitialValue", "sValue="+sValue);
-        PPApplication.logE("GenerateNotificationDialogPreferenceX.onSetInitialValue", "this.defaultValue="+this.defaultValue);
 
         getValueGNDP();
         setSummaryGNDP();
@@ -91,6 +89,9 @@ public class GenerateNotificationDialogPreferenceX extends DialogPreference {
             prefVolumeDataSummary = _context.getString(R.string.preference_profile_generate_notification_generate) + ": ";
             if (iconType == 0)
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_information_icon) + "; ";
+            else
+            if (iconType == 1)
+                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_exclamation_icon) + "; ";
             else
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_profile_icon) + "; ";
 

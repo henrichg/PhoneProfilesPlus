@@ -2106,7 +2106,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION));
 
-                boolean generate = Profile.getGenerateNotificationChange(value);
+                //boolean generate = Profile.getGenerateNotificationChange(value);
                 int iconType = Profile.getGenerateNotificationIconType(value);
                 String notificationTitle = Profile.getGenerateNotificationTitle(value);
                 String notificationBody = Profile.getGenerateNotificationBody(value);
@@ -2115,6 +2115,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 if (iconType == 0)
                     summaryString = summaryString + getString(R.string.preference_profile_generate_notification_information_icon) + "; ";
+                else
+                if (iconType == 1)
+                    summaryString = summaryString + getString(R.string.preference_profile_generate_notification_exclamation_icon) + "; ";
                 else
                     summaryString = summaryString + getString(R.string.preference_profile_generate_notification_profile_icon) + "; ";
 

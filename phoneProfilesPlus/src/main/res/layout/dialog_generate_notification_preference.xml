@@ -30,6 +30,11 @@
             android:layout_height="wrap_content"
             android:text="@string/generate_notification_pref_dialog_information_icon_rb"/>
         <RadioButton
+            android:id="@+id/generateNotificationPrefDialogExclamationIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/generate_notification_pref_dialog_exclamation_icon_rb"/>
+        <RadioButton
             android:id="@+id/generateNotificationPrefDialogProfileIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
