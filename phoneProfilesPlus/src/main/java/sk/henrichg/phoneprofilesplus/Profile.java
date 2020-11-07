@@ -272,7 +272,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_screenOnPermanent", "0");
         defaultValuesString.put("prf_pref_deviceLocationMode", "0");
         defaultValuesString.put("prf_pref_applicationDisableNotificationScanning", "0");
-        defaultValuesString.put("prf_pref_generateNotification", "0|0|x|");
+        defaultValuesString.put("prf_pref_generateNotification", "0|0||");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -3100,7 +3100,7 @@ public class Profile {
         profile._volumeMuteSound = preferences.getBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
         profile._deviceLocationMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_MODE, "0"));
         profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0"));
-        profile._generateNotification = preferences.getString(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0|x|");
+        profile._generateNotification = preferences.getString(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0||");
 
         return profile;
     }

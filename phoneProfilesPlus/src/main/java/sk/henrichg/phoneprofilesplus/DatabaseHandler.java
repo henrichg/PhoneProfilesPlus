@@ -2612,7 +2612,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             false,
                             0,
                             0,
-                            "0|0|x|"
+                            "0|0||"
                     );
 
                     profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2975,8 +2975,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2441)
         {
-            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_GENERATE_NOTIFICATION + "=\"0|0|x|\"");
-            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_GENERATE_NOTIFICATION + "=\"0|0|x|\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_GENERATE_NOTIFICATION + "=\"0|0||\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_GENERATE_NOTIFICATION + "=\"0|0||\"");
         }
 
     }
