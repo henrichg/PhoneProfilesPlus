@@ -3441,6 +3441,7 @@ class ActivateProfileHelper {
                 nText = profile.getGenerateNotificationTitle() + ": " +
                         profile.getGenerateNotificationBody();
             }
+            nTitle = nTitle + " (" + profile._name + ")";
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
                     .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
                     .setContentTitle(nTitle) // title for notification
