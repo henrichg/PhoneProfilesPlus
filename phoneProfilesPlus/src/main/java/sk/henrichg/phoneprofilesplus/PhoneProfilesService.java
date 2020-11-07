@@ -24,7 +24,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Icon;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.media.AudioAttributes;
@@ -58,6 +57,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -71,9 +71,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-
-import static android.app.Notification.DEFAULT_SOUND;
-import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class PhoneProfilesService extends Service
 {
@@ -5201,7 +5198,7 @@ public class PhoneProfilesService extends Service
         if (profile != null)
             requestCode = (int)profile._id;
 
-        Notification.Builder notificationBuilder;
+        NotificationCompat.Builder notificationBuilder;
 
         RemoteViews contentView = null;
         RemoteViews contentViewLarge = null;
@@ -5464,11 +5461,12 @@ public class PhoneProfilesService extends Service
         // ----- create notificationBuilders
         if (Build.VERSION.SDK_INT >= 26) {
             PPApplication.createProfileNotificationChannel(appContext);
-            notificationBuilder = new Notification.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
+            notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
             //notificationBuilder.setSettingsText("Test");
         }
         else {
-            notificationBuilder = new Notification.Builder(appContext);
+            PPApplication.createProfileNotificationChannel(appContext);
+            notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
             //PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
             if (notificationShowInStatusBar) {
                 KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
@@ -5480,23 +5478,23 @@ public class PhoneProfilesService extends Service
                     //PPApplication.logE("PhoneProfilesService.showProfileNotification", "hide in lockscreen parameter="+notificationHideInLockScreen);
                     if ((notificationHideInLockScreen && (!screenUnlocked)) ||
                             ((profile != null) && profile._hideStatusBarIcon))
-                        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                        notificationBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
                     else
-                        notificationBuilder.setPriority(Notification.PRIORITY_LOW);
+                        notificationBuilder.setPriority(NotificationCompat.PRIORITY_LOW);
                 }
                 else
-                    notificationBuilder.setPriority(Notification.PRIORITY_LOW);
+                    notificationBuilder.setPriority(NotificationCompat.PRIORITY_LOW);
             }
             else {
                 //PPApplication.logE("--------- PhoneProfilesService._showProfileNotification", "set priority MIN");
-                notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                notificationBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
             }
         }
 
         notificationBuilder.setContentIntent(pIntent);
         notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
-        notificationBuilder.setCategory(Notification.CATEGORY_SERVICE);
-        notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+        notificationBuilder.setCategory(NotificationCompat.CATEGORY_SERVICE);
+        notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
         //notificationBuilder.setTicker(profileName);
 
@@ -5521,7 +5519,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
                         if (/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4)) {
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
-                            notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
+                            notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                         } else {
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
                             iconSmallResource = R.drawable.ic_profile_default_notify_color;
@@ -5627,7 +5625,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
                 if (/*(Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4) && (iconBitmap != null)) {
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
-                    notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
+                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                 } else {
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
                     int iconSmallResource;
@@ -5843,10 +5841,10 @@ public class PhoneProfilesService extends Service
                         PPApplication.recordException(e);
                     }
                 } else {
-                    Notification.Action.Builder actionBuilder;
+                    NotificationCompat.Action.Builder actionBuilder;
                     //if (Build.VERSION.SDK_INT >= 23)
-                    actionBuilder = new Notification.Action.Builder(
-                            Icon.createWithResource(appContext, R.drawable.ic_widget_restart_events),
+                    actionBuilder = new NotificationCompat.Action.Builder(
+                            R.drawable.ic_widget_restart_events,
                             appContext.getString(R.string.menu_restart_events),
                             pIntentRE);
                 /*else
@@ -5967,7 +5965,7 @@ public class PhoneProfilesService extends Service
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "setCustomContentView");
                 if (useDecorator)
-                    notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
+                    notificationBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
                 switch (notificationLayoutType) {
                     case "1":
                         // only large layout
@@ -6000,10 +5998,10 @@ public class PhoneProfilesService extends Service
             exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            Notification.Action.Builder actionBuilder;
+            NotificationCompat.Action.Builder actionBuilder;
             //if (Build.VERSION.SDK_INT >= 23)
-                actionBuilder = new Notification.Action.Builder(
-                        Icon.createWithResource(appContext, R.drawable.ic_action_exit_app_white),
+                actionBuilder = new NotificationCompat.Action.Builder(
+                        R.drawable.ic_action_exit_app_white,
                         appContext.getString(R.string.menu_exit),
                         pExitAppIntent);
             /*else
@@ -6035,8 +6033,8 @@ public class PhoneProfilesService extends Service
                 phoneProfilesNotification.ledOffMS = 0;
                 phoneProfilesNotification.sound = null;
                 phoneProfilesNotification.vibrate = null;
-                phoneProfilesNotification.defaults &= ~DEFAULT_SOUND;
-                phoneProfilesNotification.defaults &= ~DEFAULT_VIBRATE;
+                phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_SOUND;
+                phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_VIBRATE;
             }
 
             //if ((Build.VERSION.SDK_INT >= 26) /*|| notificationStatusBarPermanent*/) {
