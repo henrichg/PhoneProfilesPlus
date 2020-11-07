@@ -493,10 +493,14 @@ public class PPApplication extends Application
     static final int EVENT_ID_NOTIFICATION_ID = 1000;
     static final int NOTIFY_EVENT_START_NOTIFICATION_ID = 1000;
     static final int NEW_MOBILE_CELLS_NOTIFICATION_ID = 1000;
+
+    static final int GENERATED_BY_PROFILE_NOTIFICATION_ID = 10000;
+
     static final String DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG = PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION";
     static final String DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG = PPApplication.PACKAGE_NAME+"_DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION";
     static final String NOTIFY_EVENT_START_NOTIFICATION_TAG = PPApplication.PACKAGE_NAME+"_NOTIFY_EVENT_START_NOTIFICATION";
     static final String NEW_MOBILE_CELLS_NOTIFICATION_TAG = PPApplication.PACKAGE_NAME+"_NEW_MOBILE_CELLS_NOTIFICATION";
+    static final String GENERATED_BY_PROFILE_NOTIFICATION_TAG = PACKAGE_NAME+"_GENERATED_BY_PROFILE_NOTIFICATION_TAG";
 
     // shared preferences names !!! Configure also in res/xml/phoneprofiles_backup_scheme.xml !!!
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";

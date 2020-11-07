@@ -47,6 +47,7 @@ import android.view.WindowManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -3423,6 +3424,87 @@ class ActivateProfileHelper {
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+            }
+        }
+
+        if (profile.getGenerateNotificationGenerate()) {
+            PPApplication.createGeneratedByProfileNotificationChannel(appContext);
+
+            NotificationCompat.Builder mBuilder;
+            Intent _intent;
+            _intent = new Intent(appContext, EditorProfilesActivity.class);
+
+            String nTitle = profile.getGenerateNotificationTitle();
+            String nText = profile.getGenerateNotificationBody();
+            if (android.os.Build.VERSION.SDK_INT < 24) {
+                nTitle = appContext.getString(R.string.ppp_app_name);
+                nText = profile.getGenerateNotificationTitle() + ": " +
+                        profile.getGenerateNotificationBody();
+            }
+            mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                    .setContentTitle(nTitle) // title for notification
+                    .setContentText(nText)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                    .setAutoCancel(true); // clear notification after click
+
+            switch (profile.getGenerateNotificationIconType()) {
+                case 0:
+                    mBuilder.setSmallIcon(R.drawable.ic_information_notify);
+                    break;
+                case 1:
+                    mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
+                    break;
+                default:
+                    // not supported color profile icons
+                    if (profile.getIsIconResourceID()) {
+                        int iconSmallResource = R.drawable.ic_profile_default_notify;
+                        try {
+                            String iconIdentifier = profile.getIconIdentifier();
+                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (idx != null)
+                                    iconSmallResource = (int) idx;
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                        mBuilder.setSmallIcon(iconSmallResource);
+                    } else {
+                        profile.generateIconBitmap(appContext, false, 0, false);
+                        if (profile._iconBitmap != null) {
+                            mBuilder.setSmallIcon(IconCompat.createWithBitmap(profile._iconBitmap));
+                        }
+                        else {
+                            int iconSmallResource;
+                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                            mBuilder.setSmallIcon(iconSmallResource);
+                        }
+                    }
+                    break;
+            }
+
+            PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(pi);
+            mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
+            mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            //}
+
+            Notification notification = mBuilder.build();
+            notification.vibrate = null;
+            notification.defaults &= ~DEFAULT_VIBRATE;
+
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+            try {
+                mNotificationManager.notify(
+                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int)profile._id,
+                        notification);
+            } catch (Exception e) {
+                //Log.e("CheckGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
             }
         }
 
