@@ -5511,29 +5511,29 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("PhoneProfilesService._showProfileNotification", "enabled is colorful icon in status bar");
 
                         // FC in Note 4, 6.0.1 :-/
-                        boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
+                        //boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
                           /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
                            Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
                           ) &&*/
-                                (android.os.Build.VERSION.SDK_INT == 23);
-                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
-                        if (/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4)) {
+                        //        (android.os.Build.VERSION.SDK_INT == 23);
+                        //PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
+                        //if (/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4)) {
                             PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
                             notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
-                        } else {
-                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
-                            iconSmallResource = R.drawable.ic_profile_default_notify_color;
-                            try {
-                                if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                                    Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
-                                    if (idx != null)
-                                        iconSmallResource = (int) idx;
-                                }
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                            notificationBuilder.setSmallIcon(iconSmallResource);
-                        }
+                        //} else {
+                        //    PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
+                        //    iconSmallResource = R.drawable.ic_profile_default_notify_color;
+                        //    try {
+                        //        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                        //            Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                        //            if (idx != null)
+                        //                iconSmallResource = (int) idx;
+                        //        }
+                        //    } catch (Exception e) {
+                        //        PPApplication.recordException(e);
+                        //    }
+                        //    notificationBuilder.setSmallIcon(iconSmallResource);
+                        //}
                     } else {
                         // native icon
                         PPApplication.logE("PhoneProfilesService._showProfileNotification", "colorful icon in status bar is disabled");
@@ -5617,13 +5617,14 @@ public class PhoneProfilesService extends Service
             } else {
                 PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
                 // FC in Note 4, 6.0.1 :-/
-                boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
+                //boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
                     /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
                      Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
                     ) &&*/
-                        (android.os.Build.VERSION.SDK_INT == 23);
-                PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
-                if (/*(Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4) && (iconBitmap != null)) {
+                //        (android.os.Build.VERSION.SDK_INT == 23);
+                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
+                //if (/*(Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4) && (iconBitmap != null)) {
+                if (iconBitmap != null) {
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
                     notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                 } else {

@@ -1518,6 +1518,27 @@
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Kliknite sem pre prepínanie filtra zobrazenia Profilov.</string>
     <string name="editor_activity_targetHelps_eventsFilterSpinner_title">Filter zobrazenia Udalostí</string>
     <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Kliknite sem pre prepínanie filtra zobrazenia Udalostí.</string>
+    <string name="event_preference_calendar_status">Status</string>
+    <string name="array_event_pref_calendarStatus_noCheck">Netestovať</string>
+    <string name="array_event_pref_calendarStatus_confirmed">Potvrdené</string>
+    <string name="array_event_pref_calendarStatus_tentative">Nezáväzné</string>
+    <string name="array_event_pref_calendarStatus_canceled">Zrušené</string>
+    <string name="important_info_accessibility_service_new_version_notification">Prosím nainštalujte novú verziu PhoneProfilesPlusExtender. Viac informácií o inštalácii je v \"Dôležité informácie\", sekcia \"Novinky\". Kliknite sem, pre ich zobrazenie.</string>
+    <string name="generate_notification_pref_dialog_generate_chb">Generovať</string>
+    <string name="generate_notification_pref_dialog_icon_type">Typ ikony</string>
+    <string name="generate_notification_pref_dialog_information_icon_rb">Informačná ikona</string>
+    <string name="generate_notification_pref_dialog_exclamation_icon_rb">Ikona upozornení</string>
+    <string name="generate_notification_pref_dialog_profile_icon_rb">Ikona profilu</string>
+    <string name="generate_notification_pref_dialog_notification_title">Titulok notifikácie</string>
+    <string name="generate_notification_pref_dialog_notification_body">Telo notifikácie</string>
+    <string name="preference_profile_generate_notification_no_generate">Negenerovať</string>
+    <string name="preference_profile_generate_notification_generate">Generovať</string>
+    <string name="preference_profile_generate_notification_information_icon">informačná ikona</string>
+    <string name="preference_profile_generate_notification_exclamation_icon">ikona upozornení</string>
+    <string name="preference_profile_generate_notification_profile_icon">ikona profilu</string>
+    <string name="profile_preferences_generateNotification">Generovať notifikáciu</string>
+    <string name="notification_channel_generated_by_profile">Notifikácia generovaná profilom</string>
+    <string name="notification_channel_generated_by_profile_description">Zobrazuje notifikáciu vygenerovanú profilom.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
