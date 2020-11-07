@@ -245,9 +245,9 @@ public class PPApplication extends Application
                                                 //+"|CheckGitHubReleasesBroadcastReceiver"
                                                 //+"|OneRowWidgetProvider"
 
-                                                +"|GenerateNotificationDialogPreferenceX"
-                                                +"|EditorProfileListFragment.startProfilePreferencesActivity"
-                                                +"|ProfilePrefsActivity.loadPreferences"
+                                                //+"|GenerateNotificationDialogPreferenceX"
+                                                //+"|EditorProfileListFragment.startProfilePreferencesActivity"
+                                                //+"|ProfilePrefsActivity.loadPreferences"
 
                                                 ;
 
