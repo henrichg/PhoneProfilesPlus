@@ -1417,7 +1417,7 @@ public class Profile {
                     this._deviceLocationMode = withProfile._deviceLocationMode;
                 if (withProfile._applicationDisableNotificationScanning != 0)
                     this._applicationDisableNotificationScanning = withProfile._applicationDisableNotificationScanning;
-                if (withProfile.getGenerateNotificationChange())
+                if (withProfile.getGenerateNotificationGenerate())
                     this._generateNotification = withProfile._generateNotification;
 
                 if (withProfile._volumeMuteSound)
@@ -2678,28 +2678,28 @@ public class Profile {
     }
     */
 
-    boolean getGenerateNotificationChange()
+    boolean getGenerateNotificationGenerate()
     {
         int value;
         try {
             String[] splits = _generateNotification.split("\\|");
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
-            value = 1;
+            value = 0;
         }
-        return value == 0; // in preference dialog is checked=No change
+        return value == 1; // in preference dialog is checked=No change
     }
 
-    static boolean getGenerateNotificationChange(String _generateNotification)
+    static boolean getGenerateNotificationGenerate(String _generateNotification)
     {
         int value;
         try {
             String[] splits = _generateNotification.split("\\|");
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
-            value = 1;
+            value = 0;
         }
-        return value == 0; // in preference dialog is checked=No change
+        return value == 1; // in preference dialog is checked=No change
     }
 
     int getGenerateNotificationIconType()

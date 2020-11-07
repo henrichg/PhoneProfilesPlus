@@ -502,6 +502,11 @@ class ProfilePreferencesIndicator {
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
                 }
             }
+            // generate notification
+            if (profile.getGenerateNotificationGenerate()) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_generate_notification;
+            }
 
             // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {
@@ -989,6 +994,11 @@ class ProfilePreferencesIndicator {
                     if (enabled)
                         indicator1 = addIntoIndicator(indicator1, "fcst", maxLineLength);
                 }
+            }
+            // generate notification
+            if (profile.getGenerateNotificationGenerate()) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "gent", maxLineLength);
             }
             // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {
