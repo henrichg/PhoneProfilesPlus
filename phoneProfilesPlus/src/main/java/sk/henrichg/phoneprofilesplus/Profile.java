@@ -2687,7 +2687,7 @@ public class Profile {
         } catch (Exception e) {
             value = 0;
         }
-        return value == 1; // in preference dialog is checked=No change
+        return value == 1;
     }
 
     static boolean getGenerateNotificationGenerate(String _generateNotification)
@@ -2699,7 +2699,7 @@ public class Profile {
         } catch (Exception e) {
             value = 0;
         }
-        return value == 1; // in preference dialog is checked=No change
+        return value == 1;
     }
 
     int getGenerateNotificationIconType()

@@ -428,6 +428,7 @@ public class PPApplication extends Application
     static final String DONATION_CHANNEL = "phoneProfilesPlus_donation";
     static final String NEW_RELEASE_CHANNEL = "phoneProfilesPlus_newRelease";
     //static final String CRASH_REPORT_NOTIFICATION_CHANNEL = "phoneProfilesPlus_crash_report";
+    static final String GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_generatedByProfile";
 
     static final int PROFILE_NOTIFICATION_ID = 100;
     static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
@@ -2611,6 +2612,42 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
     }
     */
 
+    static void createGeneratedByProfileNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            try {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                try {
+                    if (notificationManager.getNotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null)
+                        return;
+                } catch (Exception e) {
+                    return;
+                }
+
+                // The user-visible name of the channel.
+                CharSequence name = context.getString(R.string.notification_channel_generated_by_profile);
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_generated_by_profile_description);
+
+                NotificationChannel channel = new NotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(true);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(true);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                channel.setBypassDnd(true);
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
+    }
+
     static void createNotificationChannels(Context appContext) {
         PPApplication.createProfileNotificationChannel(appContext);
         PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
@@ -2622,6 +2659,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         PPApplication.createDonationNotificationChannel(appContext);
         PPApplication.createNewReleaseNotificationChannel(appContext);
         //PPApplication.createCrashReportNotificationChannel(appContext);
+        PPApplication.createGeneratedByProfileNotificationChannel(appContext);
     }
 
     /*
