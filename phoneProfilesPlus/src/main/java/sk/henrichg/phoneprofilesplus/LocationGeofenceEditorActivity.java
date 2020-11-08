@@ -709,6 +709,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     //------------------------------------------
 
+    @SuppressWarnings("deprecation")
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         try {

@@ -247,6 +247,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                             try {
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                //noinspection deprecation
                                 getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {

@@ -9,9 +9,9 @@ import android.os.Build;
 
 class ProfilePreferencesIndicator {
 
-    static int[] drawables = new int[60];
-    static String[] strings = new String[60];
-    static String[] preferences = new String[60];
+    static final int[] drawables = new int[60];
+    static final String[] strings = new String[60];
+    static final String[] preferences = new String[60];
     static int countDrawables = 0;
 
     private static Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)

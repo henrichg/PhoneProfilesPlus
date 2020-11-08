@@ -141,6 +141,7 @@ public class EditorProfileListFragment extends Fragment
 
         // this is really important in order to save the state across screen
         // configuration changes for example
+        //noinspection deprecation
         setRetainInstance(true);
 
         filterType = getArguments() != null ? 

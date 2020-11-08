@@ -172,6 +172,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                         try {
                             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            //noinspection deprecation
                             getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -225,6 +226,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                 //PhoneProfilesPrefsFragment.setChangedLocationGeofencePreference(this);
                 getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
             }*/
+            //noinspection deprecation
             getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
         }
     }

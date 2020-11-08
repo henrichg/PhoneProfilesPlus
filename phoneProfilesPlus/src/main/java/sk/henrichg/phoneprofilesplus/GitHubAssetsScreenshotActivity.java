@@ -38,9 +38,7 @@ public class GitHubAssetsScreenshotActivity extends AppCompatActivity {
         imageView.setImageResource(image);
 
         Button closeButton = findViewById(R.id.github_assets_screenshot_activity_close);
-        closeButton.setOnClickListener(v -> {
-            finish();
-        });
+        closeButton.setOnClickListener(v -> finish());
 
     }
 

@@ -929,6 +929,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //noinspection SwitchStatementWithTooFewBranches
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE: {
@@ -1335,6 +1336,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
+                            //noinspection deprecation
                             startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
                             break;
                         }
@@ -1396,6 +1398,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                             intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
+                            //noinspection deprecation
                             startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
                             break;
                         }
@@ -1451,6 +1454,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     intent.setData(Uri.parse("package"+PPApplication.PACKAGE_NAME));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getApplicationContext())) {
                         intent.putExtra(EXTRA_WITH_RATIONALE, false);
+                        //noinspection deprecation
                         startActivityForResult(intent, Permissions.REQUEST_CODE/*_FORCE_GRANT*/ + grantType);
                     }
                     else

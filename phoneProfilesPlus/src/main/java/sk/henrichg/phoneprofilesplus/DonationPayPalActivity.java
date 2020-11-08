@@ -68,6 +68,7 @@ public class DonationPayPalActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag("donationPayPalFragment");
         if (fragment != null) {
+            //noinspection deprecation
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }

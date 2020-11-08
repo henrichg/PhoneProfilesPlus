@@ -219,6 +219,7 @@ public class NumberPickerBuilder {
                 .newInstance(mReference, styleResId, minNumber, maxNumber, plusMinusVisibility, decimalVisibility,
                         labelText, currentNumberValue, currentDecimalValue, currentSignValue);
         if (targetFragment != null) {
+            //noinspection deprecation
             fragment.setTargetFragment(targetFragment, 0);
         }
         fragment.setNumberPickerDialogHandlersV2(mNumberPickerDialogHandlersV2);

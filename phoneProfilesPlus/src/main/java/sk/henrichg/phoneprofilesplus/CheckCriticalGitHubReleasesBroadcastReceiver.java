@@ -199,7 +199,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     private static void _doWork(Context appContext) {
         boolean found = false;
         try {
-            String contents = "";
+            String contents;// = "";
             URLConnection conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases").openConnection();
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);

@@ -2690,6 +2690,7 @@ public class Profile {
         return value == 1;
     }
 
+    /*
     static boolean getGenerateNotificationGenerate(String _generateNotification)
     {
         int value;
@@ -2701,6 +2702,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     int getGenerateNotificationIconType()
     {

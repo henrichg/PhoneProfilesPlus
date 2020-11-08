@@ -1001,6 +1001,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
         if (itemId == R.id.menu_settings) {
             intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
+            //noinspection deprecation
             startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
             return true;
         }
@@ -1799,6 +1800,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                     //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                    //noinspection deprecation
                     startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                     ok = true;
                 } catch (Exception e) {
@@ -2543,6 +2545,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                     //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                    //noinspection deprecation
                     startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                     ok = true;
                 } catch (Exception e) {
@@ -3596,8 +3599,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                                     //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
                                     if (checkBox.isChecked())
+                                        //noinspection deprecation
                                         startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
                                     else
+                                        //noinspection deprecation
                                         startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
                                     ok = true;
                                 } catch (Exception e) {
@@ -3707,6 +3712,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         intent.putExtra(EXTRA_NEW_PROFILE_MODE, editMode);
         intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        //noinspection deprecation
         startActivityForResult(intent, REQUEST_CODE_PROFILE_PREFERENCES);
         //PPApplication.logE("EditorProfilesActivity.startProfilePreferenceActivity", "call of ProfilesPrefsActivity");
     }
@@ -3814,6 +3820,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
             intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+            //noinspection deprecation
             startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
             //PPApplication.logE("EditorProfilesActivity.startEventPreferenceActivity", "call of EventsPrefsActivity");
         } else {
@@ -3868,6 +3875,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
                 intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
                 intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                //noinspection deprecation
                 startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
@@ -3875,6 +3883,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
                 intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
                 intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+                //noinspection deprecation
                 startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);
             });
             AlertDialog dialog = dialogBuilder.create();

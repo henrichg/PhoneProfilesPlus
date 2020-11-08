@@ -1672,6 +1672,7 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
+                    //noinspection deprecation
                     editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
                     //editorActivity = editor;
                     //context.startActivity(intent);
@@ -1702,6 +1703,7 @@ class Permissions {
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_APPLICATION_DATA_PATH, PPApplication.EXPORT_PATH);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
+                    //noinspection deprecation
                     editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMPORT);
                     //editorActivity = editor;
                     //context.startActivity(intent);

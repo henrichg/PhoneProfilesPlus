@@ -215,6 +215,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
                     handler.onDialogNumberSet(mReference, mPicker.getNumber(), mPicker.getDecimal(), mPicker.getIsNegative(), number);
                 }
                 final Activity activity = getActivity();
+                //noinspection deprecation
                 final Fragment fragment = getTargetFragment();
                 if (activity instanceof NumberPickerDialogHandlerV2) {
                     final NumberPickerDialogHandlerV2 act = (NumberPickerDialogHandlerV2) activity;

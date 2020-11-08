@@ -82,6 +82,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //PPApplication.logE("ProfilesPrefsFragment.onCreate", "xxx");
 
         // is required for to not call onCreate and onDestroy on orientation change
+        //noinspection deprecation
         setRetainInstance(true);
 
         nestedFragment = !(this instanceof ProfilesPrefsActivity.ProfilesPrefsRoot);
@@ -216,6 +217,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((getActivity() != null) && (!getActivity().isFinishing())) {
                 FragmentManager fragmentManager = getParentFragmentManager();//getFragmentManager();
                 //if (fragmentManager != null) {
+                //noinspection deprecation
                 dialogFragment.setTargetFragment(this, 0);
                 dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".ProfilesPrefsActivity.DIALOG");
                 //}
@@ -229,6 +231,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //PPApplication.logE("ProfilesPrefsFragment.onDisplayPreferenceDialog", "END");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -349,6 +352,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -359,6 +363,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, context)) {
                         try {
                             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -562,6 +567,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
                     intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categorySystemRoot");
                     //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    //noinspection deprecation
                     getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
                 }
                 return false;
@@ -1029,6 +1035,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -3826,6 +3833,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 @SuppressLint("InlinedApi")
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                //noinspection deprecation
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
@@ -3836,6 +3844,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                //noinspection deprecation
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
@@ -3926,6 +3935,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                //noinspection deprecation
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
             } catch (Exception e) {

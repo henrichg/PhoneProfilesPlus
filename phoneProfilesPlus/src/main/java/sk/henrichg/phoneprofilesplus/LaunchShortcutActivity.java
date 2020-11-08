@@ -43,6 +43,7 @@ public class LaunchShortcutActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             intent.setComponent(componentName);
+            //noinspection deprecation
             startActivityForResult(intent, 100);
         } catch (Exception e) {
             finish();
