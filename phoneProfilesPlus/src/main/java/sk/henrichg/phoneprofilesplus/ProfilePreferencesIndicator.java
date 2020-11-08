@@ -65,7 +65,7 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 1) {
                             if (fillPreferences)
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                     appContext.getString(R.string.array_pref_zenModeArray_off);
                             if (fillStrings)
                                 strings[countDrawables++] = "dnd:off";
@@ -77,7 +77,7 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 2) {
                             if (fillPreferences)
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                     appContext.getString(R.string.array_pref_zenModeArray_priority);
                             if (fillStrings)
                                 strings[countDrawables++] = "dnd:pri";
@@ -89,7 +89,7 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 3) {
                             if (fillPreferences)
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_totalSilence);
                             if (fillStrings)
                                 strings[countDrawables++] = "dnd:sln";
@@ -101,7 +101,7 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 4) {
                             if (fillPreferences)
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_offButVibration);
                             if (fillStrings) {
                                 strings[countDrawables++] = "dnd:off";
@@ -117,7 +117,7 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 5) {
                             if (fillPreferences)
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_priorityWithVibration);
                             if (fillStrings) {
                                 strings[countDrawables++] = "dnd:pri";
@@ -133,7 +133,7 @@ class ProfilePreferencesIndicator {
                         if (profile._volumeZenMode == 6) {
                             if (fillPreferences)
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
                                         appContext.getString(R.string.array_pref_zenModeArray_alarms);
                             if (fillStrings)
                                 strings[countDrawables++] = "dnd:ala";
