@@ -20,6 +20,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceX extends DialogPrefere
         super(context, attrs);
 
         preferencesList = new ArrayList<>();
+
+        setNegativeButtonText(null);
     }
 
     @Override
