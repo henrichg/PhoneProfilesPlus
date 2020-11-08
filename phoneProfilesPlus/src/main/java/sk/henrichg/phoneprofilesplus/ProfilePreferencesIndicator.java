@@ -63,28 +63,56 @@ class ProfilePreferencesIndicator {
                     if (profile._volumeRingerMode == 5) {
                         // zen mode
                         if (profile._volumeZenMode == 1) {
-                            if (fillPreferences)
+                            if (fillPreferences) {
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
-                                    appContext.getString(R.string.array_pref_zenModeArray_off);
-                            if (fillStrings)
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
+                                        appContext.getString(R.string.array_pref_zenModeArray_off);
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    preferences[countPreferences] = preferences[countPreferences] + ", " +
+                                            appContext.getString(R.string.profile_preferences_vibrateWhenRinging);
+                            }
+                            if (fillStrings) {
                                 strings[countDrawables++] = "dnd:off";
-                            else
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    strings[countDrawables++] = "vibr";
+                            }
+                            else {
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
-                            if (fillPreferences)
-                                countItems[countPreferences++] = 1;
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            }
+                            if (fillPreferences) {
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    countItems[countPreferences++] = 2;
+                                else
+                                    countItems[countPreferences++] = 1;
+                            }
                         }
                         if (profile._volumeZenMode == 2) {
-                            if (fillPreferences)
+                            if (fillPreferences) {
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
-                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
-                                    appContext.getString(R.string.array_pref_zenModeArray_priority);
-                            if (fillStrings)
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + " = " +
+                                        appContext.getString(R.string.array_pref_zenModeArray_priority);
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    preferences[countPreferences] = preferences[countPreferences] + ", " +
+                                            appContext.getString(R.string.profile_preferences_vibrateWhenRinging);
+                            }
+                            if (fillStrings) {
                                 strings[countDrawables++] = "dnd:pri";
-                            else
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    strings[countDrawables++] = "vibr";
+                            }
+                            else {
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
-                            if (fillPreferences)
-                                countItems[countPreferences++] = 1;
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            }
+                            if (fillPreferences) {
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    countItems[countPreferences++] = 2;
+                                else
+                                    countItems[countPreferences++] = 1;
+                            }
                         }
                         if (profile._volumeZenMode == 3) {
                             if (fillPreferences)
@@ -145,15 +173,29 @@ class ProfilePreferencesIndicator {
                     } else {
                         // sound mode sound
                         if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2)) {
-                            if (fillPreferences)
+                            if (fillPreferences) {
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
                                         appContext.getString(R.string.array_pref_soundModeArray_sound);
-                            if (fillStrings)
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    preferences[countPreferences] = preferences[countPreferences] + ", " +
+                                            appContext.getString(R.string.profile_preferences_vibrateWhenRinging);
+                            }
+                            if (fillStrings) {
                                 strings[countDrawables++] = "sond";
-                            else
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    strings[countDrawables++] = "vibr";
+                            }
+                            else {
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_on;
-                            if (fillPreferences)
-                                countItems[countPreferences++] = 1;
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            }
+                            if (fillPreferences) {
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    countItems[countPreferences++] = 2;
+                                else
+                                    countItems[countPreferences++] = 1;
+                            }
                         }
                         // sound mode vibrate
                         if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3)) {
@@ -169,15 +211,29 @@ class ProfilePreferencesIndicator {
                         }
                         // sound mode alarms only
                         if (profile._volumeRingerMode == 4) {
-                            if (fillPreferences)
+                            if (fillPreferences) {
                                 preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
                                         appContext.getString(R.string.array_pref_soundModeArray_silentM);
-                            if (fillStrings)
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    preferences[countPreferences] = preferences[countPreferences] + ", " +
+                                            appContext.getString(R.string.profile_preferences_vibrateWhenRinging);
+                            }
+                            if (fillStrings) {
                                 strings[countDrawables++] = "alrm";
-                            else
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    strings[countDrawables++] = "vibr";
+                            }
+                            else {
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
-                            if (fillPreferences)
-                                countItems[countPreferences++] = 1;
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            }
+                            if (fillPreferences) {
+                                if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                                    countItems[countPreferences++] = 2;
+                                else
+                                    countItems[countPreferences++] = 1;
+                            }
                         }
                     }
                 }
@@ -760,6 +816,7 @@ class ProfilePreferencesIndicator {
             // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange()) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    //noinspection IfStatementWithIdenticalBranches
                     if (profile.getDeviceBrightnessAutomatic()) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceBrightness) + ": " +
