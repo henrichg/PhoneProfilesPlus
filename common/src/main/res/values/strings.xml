@@ -1666,6 +1666,8 @@
     <string name="profile_preferences_soundsChange">Change sounds</string>
     <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
     <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
+    <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
+    <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
 
     <!-- **************************************************************************************** -->
 

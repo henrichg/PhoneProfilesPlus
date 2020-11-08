@@ -1,0 +1,39 @@
+package sk.henrichg.phoneprofilesplus;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+
+import androidx.preference.DialogPreference;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConfiguredProfilePreferencesDialogPreferenceX extends DialogPreference {
+
+    ConfiguredProfilePreferencesDialogPreferenceFragmentX fragment;
+
+    long profile_id;
+    List<ConfiguredProfilePreferencesData> preferencesList;
+
+    public ConfiguredProfilePreferencesDialogPreferenceX(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
+        preferencesList = new ArrayList<>();
+    }
+
+    @Override
+    protected Object onGetDefaultValue(TypedArray ta, int index)
+    {
+        super.onGetDefaultValue(ta, index);
+        return ta.getString(index);
+    }
+
+    /*
+    void refreshListView() {
+        if (fragment != null)
+            fragment.refreshListView();
+    }
+    */
+
+}

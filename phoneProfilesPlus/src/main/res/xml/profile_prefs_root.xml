@@ -50,6 +50,12 @@
         app:title="@string/profile_preferences_category_profileDeviceParameters"
         app:layout="@layout/mp_preference_category" >
 
+        <sk.henrichg.phoneprofilesplus.ConfiguredProfilePreferencesDialogPreferenceX
+            app:key="prf_pref_preferenceConfiguredProfilePreferences"
+            app:title="@string/profile_preferences_savedProfilePreferences_title"
+            app:summary="@string/profile_preferences_savedProfilePreferences_summary"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
             app:key="prf_pref_preferenceTypesInfo"
             app:title="@string/profile_preferences_preferenceTypesInfo_title"

@@ -211,6 +211,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof ConfiguredProfilePreferencesDialogPreferenceX)
+        {
+            ((ConfiguredProfilePreferencesDialogPreferenceX)preference).fragment = new ConfiguredProfilePreferencesDialogPreferenceFragmentX();
+            //Log.e("----------- ProfilesPrefsFragment.onDisplayPreferenceDialog", "profile_id="+((ProfilesPrefsActivity)getActivity()).profile_id);
+            ((ConfiguredProfilePreferencesDialogPreferenceX)preference).profile_id = ((ProfilesPrefsActivity)getActivity()).profile_id;
+            dialogFragment = ((ConfiguredProfilePreferencesDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
