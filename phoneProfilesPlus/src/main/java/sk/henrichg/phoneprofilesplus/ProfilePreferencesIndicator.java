@@ -9,6 +9,11 @@ import android.os.Build;
 
 class ProfilePreferencesIndicator {
 
+    static int[] drawables = new int[60];
+    static String[] strings = new String[60];
+    static String[] preferences = new String[60];
+    static int countDrawables = 0;
+
     private static Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
     {
         // bitmap to get size
@@ -45,51 +50,112 @@ class ProfilePreferencesIndicator {
 
     }
 
-    static Bitmap paint(Profile profile, boolean monochrome, Context context)
-    {
-        Context appContext = context.getApplicationContext();
-
-        int[] drawables = new int[60];
-        int countDrawables = 0;
-
-        //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
-
+    static void fillArrays(Profile profile, boolean fillStrings, boolean monochrome, boolean fillPreferences, Context appContext) {
+        countDrawables = 0;
         if (profile != null)
         {
             if (profile._volumeRingerMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._volumeRingerMode == 5) {
                         // zen mode
-                        if (profile._volumeZenMode == 1)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
-                        if (profile._volumeZenMode == 2)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
-                        if (profile._volumeZenMode == 3)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_none;
+                        if (profile._volumeZenMode == 1) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                    appContext.getString(R.string.array_pref_zenModeArray_off);
+                            if (fillStrings)
+                                strings[countDrawables++] = "dnd:off";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
+                        }
+                        if (profile._volumeZenMode == 2) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                    appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                    appContext.getString(R.string.array_pref_zenModeArray_priority);
+                            if (fillStrings)
+                                strings[countDrawables++] = "dnd:pri";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
+                        }
+                        if (profile._volumeZenMode == 3) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_zenModeArray_totalSilence);
+                            if (fillStrings)
+                                strings[countDrawables++] = "dnd:sln";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_none;
+                        }
                         if (profile._volumeZenMode == 4) {
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_zenModeArray_offButVibration);
+                            if (fillStrings) {
+                                strings[countDrawables++] = "dnd:off";
+                                strings[countDrawables++] = "vib";
+                            }
+                            else {
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            }
                         }
                         if (profile._volumeZenMode == 5) {
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_zenModeArray_priorityWithVibration);
+                            if (fillStrings) {
+                                strings[countDrawables++] = "dnd:pri";
+                                strings[countDrawables++] = "vib";
+                            }
+                            else {
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            }
                         }
-                        if (profile._volumeZenMode == 6)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
+                        if (profile._volumeZenMode == 6) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                        appContext.getString(R.string.array_pref_soundModeArray_ZenModeM) + "=" +
+                                        appContext.getString(R.string.array_pref_zenModeArray_alarms);
+                            if (fillStrings)
+                                strings[countDrawables++] = "dnd:ala";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
+                        }
                     } else {
                         // sound mode sound
-                        if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2))
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_on;
+                        if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2)) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                        appContext.getString(R.string.array_pref_soundModeArray_sound);
+                            if (fillStrings)
+                                strings[countDrawables++] = "ring";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_on;
+                        }
                         // sound mode vibrate
-                        if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                        if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3)) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                        appContext.getString(R.string.array_pref_soundModeArray_vibration);
+                            if (fillStrings)
+                                strings[countDrawables++] = "vibr";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                        }
                         // sound mode alarms only
                         if (profile._volumeRingerMode == 4) {
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
-                            /*if (monochrome)
-                                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off_mono;
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSoundMode) + ": " +
+                                        appContext.getString(R.string.array_pref_soundModeArray_silentM);
+                            if (fillStrings)
+                                strings[countDrawables++] = "alrm";
                             else
-                                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off;*/
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
                         }
                     }
                 }
@@ -109,169 +175,321 @@ class ProfilePreferencesIndicator {
             }*/
             // volume level
             if (profile._volumeMuteSound &&
-                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_mute;
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                if (fillPreferences)
+                    preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeMuteSound) + ": " +
+                            appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                if (fillStrings)
+                    strings[countDrawables++] = "volm";
+                else
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_mute;
 
                 if (profile.getVolumeAlarmChange() ||
-                    profile.getVolumeVoiceChange() ||
-                    profile.getVolumeAccessibilityChange() ||
-                    profile.getVolumeBluetoothSCOChange()) {
+                        profile.getVolumeVoiceChange() ||
+                        profile.getVolumeAccessibilityChange() ||
+                        profile.getVolumeBluetoothSCOChange()) {
                     if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level_partial;
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumePartial);
+                        if (fillStrings)
+                            strings[countDrawables++] = "volp";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level_partial;
                     }
                 }
             }
             else {
                 if (profile.getVolumeAlarmChange() ||
-                    profile.getVolumeMediaChange() ||
-                    profile.getVolumeNotificationChange() ||
-                    profile.getVolumeRingtoneChange() ||
-                    profile.getVolumeSystemChange() ||
-                    profile.getVolumeVoiceChange() ||
-                    profile.getVolumeDTMFChange() ||
-                    profile.getVolumeAccessibilityChange() ||
-                    profile.getVolumeBluetoothSCOChange()) {
+                        profile.getVolumeMediaChange() ||
+                        profile.getVolumeNotificationChange() ||
+                        profile.getVolumeRingtoneChange() ||
+                        profile.getVolumeSystemChange() ||
+                        profile.getVolumeVoiceChange() ||
+                        profile.getVolumeDTMFChange() ||
+                        profile.getVolumeAccessibilityChange() ||
+                        profile.getVolumeBluetoothSCOChange()) {
                     if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                            (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeAll);
+                        if (fillStrings)
+                            strings[countDrawables++] = "vola";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
                     }
                 }
             }
             // speaker phone
             if (profile._volumeSpeakerPhone != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._volumeSpeakerPhone == 1)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone;
-                    if (profile._volumeSpeakerPhone == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off_mono;
+                    if (profile._volumeSpeakerPhone == 1) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSpeakerPhone) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "spe:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone;
+                    }
+                    if (profile._volumeSpeakerPhone == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_volumeSpeakerPhone) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "spe:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off;
+                        }
                     }
                 }
             }
             // sound
             if ((profile._soundRingtoneChange == 1) ||
-                (profile._soundNotificationChange == 1) ||
-                (profile._soundAlarmChange == 1)) {
+                    (profile._soundNotificationChange == 1) ||
+                    (profile._soundAlarmChange == 1)) {
                 if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_sound;
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_soundsChange);
+                    if (fillStrings)
+                        strings[countDrawables++] = "sond";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_sound;
+                }
             }
             // sound on touch
             if (profile._soundOnTouch != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch;
-                    if (profile._soundOnTouch == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off_mono;
+                    if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_soundOnTouch) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "sto:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch;
+                    }
+                    if (profile._soundOnTouch == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_soundOnTouch) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "sto:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off;
+                        }
                     }
                 }
             }
             // vibration on touch
             if (profile._vibrationOnTouch != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
-                    if (profile._vibrationOnTouch == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off_mono;
+                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_vibrationOnTouch) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "vto:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
+                    }
+                    if (profile._vibrationOnTouch == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_vibrationOnTouch) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "vto:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
+                        }
                     }
                 }
             }
             // dtmf tone when dialing
             if (profile._dtmfToneWhenDialing != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing;
-                    if (profile._dtmfToneWhenDialing == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off_mono;
+                    if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_dtmfToneWhenDialing) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "dtd:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing;
+                    }
+                    if (profile._dtmfToneWhenDialing == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_dtmfToneWhenDialing) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "dtd:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off;
+                        }
                     }
                 }
             }
             // airplane mode
             if (profile._deviceAirplaneMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode;
-                    if (profile._deviceAirplaneMode == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off_mono;
+                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "arm:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode;
+                    }
+                    if (profile._deviceAirplaneMode == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceAirplaneMode) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "arm:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off;
+                        }
                     }
                 }
             }
             // auto-sync
             if (profile._deviceAutoSync != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
-                    if (profile._deviceAutoSync == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off_mono;
+                    if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceAutosync) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "asy:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
+                    }
+                    if (profile._deviceAutoSync == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceAutosync) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "asy:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
+                        }
                     }
                 }
             }
             // network type
             if (profile._deviceNetworkType != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceNetworkType);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ntyp";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
+                }
             }
             // network type prefs
             if (profile._deviceNetworkTypePrefs != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_pref;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ntpr";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_pref;
+                }
             }
             // mobile data
             if (profile._deviceMobileData != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata;
-                    if (profile._deviceMobileData == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off_mono;
+                    if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceMobileData_21) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "mda:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata;
+                    }
+                    if (profile._deviceMobileData == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceMobileData_21) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "mda:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off;
+                        }
                     }
                 }
             }
             // mobile data preferences
             if (profile._deviceMobileDataPrefs == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_pref;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceMobileDataPrefs);
+                    if (fillStrings)
+                        strings[countDrawables++] = "mdpr";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_pref;
+                }
             }
             // wifi
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
-                    if (profile._deviceWiFi == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off_mono;
+                    if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceWiFi) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "wif:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
+                    }
+                    if (profile._deviceWiFi == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceWiFi) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "wif:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;
+                        }
                     }
                 }
             }
@@ -279,190 +497,402 @@ class ProfilePreferencesIndicator {
                 // wifi AP
                 if (profile._deviceWiFiAP != 0) {
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5))
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
-                        if (profile._deviceWiFiAP == 2) {
-                            if (monochrome)
-                                drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
+                        if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5)) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceWiFiAP) + ": " +
+                                        appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                            if (fillStrings)
+                                strings[countDrawables++] = "wap:1";
                             else
-                                drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
+                        }
+                        if (profile._deviceWiFiAP == 2) {
+                            if (fillPreferences)
+                                preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceWiFiAP) + ": " +
+                                        appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                            if (fillStrings)
+                                strings[countDrawables++] = "wap:0";
+                            else {
+                                if (monochrome)
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
+                                else
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
+                            }
                         }
                     }
                 }
             }
             // wifi AP preferences
             if (profile._deviceWiFiAPPrefs == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_pref;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
+                    if (fillStrings)
+                        strings[countDrawables++] = "wapr";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_pref;
+                }
             }
             // bluetooth
             if (profile._deviceBluetooth != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth;
-                    if (profile._deviceBluetooth == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off_mono;
+                    if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceBluetooth) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "blt:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth;
+                    }
+                    if (profile._deviceBluetooth == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceBluetooth) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "blt:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off;
+                        }
                     }
                 }
             }
             // location mode
             if (profile._deviceLocationMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._deviceLocationMode > 1)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_on;
-                    if (profile._deviceLocationMode == 1) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off_mono;
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceLocationMode) + ": " +
+                                appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                    if (profile._deviceLocationMode > 1) {
+                        if (fillStrings)
+                            strings[countDrawables++] = "lom:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_on;
+                    }
+                    if (profile._deviceLocationMode == 1) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceLocationMode) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "lom:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off;
+                        }
                     }
                 }
             }
             // gps
             if (profile._deviceGPS != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_on;
-                    if (profile._deviceGPS == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off_mono;
+                    if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceGPS) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "gps:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_on;
+                    }
+                    if (profile._deviceGPS == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceGPS) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "gps:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off;
+                        }
                     }
                 }
             }
             // location settings preferences
             if (profile._deviceLocationServicePrefs == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_locationsettings_pref;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceLocationServicePrefs);
+                    if (fillStrings)
+                        strings[countDrawables++] = "lopr";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_locationsettings_pref;
+                }
             }
             // nfc
             if (profile._deviceNFC != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc;
-                    if (profile._deviceNFC == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off_mono;
+                    if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceNFC) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nfc:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc;
+                    }
+                    if (profile._deviceNFC == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceNFC) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nfc:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off;
+                        }
                     }
                 }
             }
             // screen timeout
             if (profile._deviceScreenTimeout != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_timeout;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceScreenTimeout);
+                    if (fillStrings)
+                        strings[countDrawables++] = "sctm";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_timeout;
+                }
             }
             // brightness/auto-brightness
             if (profile.getDeviceBrightnessChange()) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile.getDeviceBrightnessAutomatic())
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_autobrightness;
-                    else
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_brightness;
+                    if (profile.getDeviceBrightnessAutomatic()) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceBrightness) + ": " +
+                                    appContext.getString(R.string.profile_preferences_deviceBrightness_automatic);
+                        if (fillStrings)
+                            strings[countDrawables++] = "bri:a";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autobrightness;
+                    }
+                    else {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceBrightness) + ": " +
+                                    appContext.getString(R.string.profile_preferences_deviceBrightness_manual);
+                        if (fillStrings)
+                            strings[countDrawables++] = "bri:m";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_brightness;
+                    }
                 }
             }
             // auto-rotate
             if (profile._deviceAutoRotate != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                     if (profile._deviceAutoRotate == 6) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off;
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceAutoRotation) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "art:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off;
+                        }
                     }
-                    else
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
+                    else {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceAutoRotation) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "art:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
+                    }
             }
             // screen on permanent
             if (profile._screenOnPermanent != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent;
-                    if (profile._screenOnPermanent == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off_mono;
+                    if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceScreenOnPermanent) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "son:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent;
+                    }
+                    if (profile._screenOnPermanent == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceScreenOnPermanent) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "son:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off;
+                        }
                     }
                 }
             }
             // wallpaper
             if (profile._deviceWallpaperChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null,null,  true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null,null,  true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceWallpaperChange);
+                    if (fillStrings)
+                        strings[countDrawables++] = "walp";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
+                }
             }
             // lock screen
             if (profile._deviceKeyguard != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
-                    if (profile._deviceKeyguard == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
+                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceKeyguard) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "kgu:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
+                    }
+                    if (profile._deviceKeyguard == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceKeyguard) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "kgu:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
+                        }
                     }
                 }
             }
             // lock device
             if (profile._lockDevice != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_lockDevice);
+                    if (fillStrings)
+                        strings[countDrawables++] = "lock";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                }
             }
             // notification led
             if (profile._notificationLed != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led;
-                    if (profile._notificationLed == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off_mono;
+                    if ((profile._notificationLed == 1) || (profile._notificationLed == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_notificationLed) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nld:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led;
+                    }
+                    if (profile._notificationLed == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_notificationLed) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nld:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
+                        }
                     }
                 }
             }
             // heads-up notifications
             if (profile._headsUpNotifications != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications;
-                    if (profile._headsUpNotifications == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off_mono;
+                    if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_headsUpNotifications) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "hup:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications;
+                    }
+                    if (profile._headsUpNotifications == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_headsUpNotifications) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "hup:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
+                        }
                     }
                 }
             }
             // always on display
             if (profile._alwaysOnDisplay != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display;
-                    if (profile._alwaysOnDisplay == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off_mono;
+                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_alwaysOnDisplay) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "aod:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display;
+                    }
+                    if (profile._alwaysOnDisplay == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_alwaysOnDisplay) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "aod:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off;
+                        }
                     }
                 }
             }
             // screen dark mode
             if (profile._screenDarkMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._screenDarkMode == 1)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode;
-                    if (profile._screenDarkMode == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off_mono;
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_screenDarkMode) + ": " +
+                                appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                    if (profile._screenDarkMode == 1) {
+                        if (fillStrings)
+                            strings[countDrawables++] = "dkm:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode;
+                    }
+                    if (profile._screenDarkMode == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_screenDarkMode) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "dkm:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off;
+                        }
                     }
                 }
             }
@@ -470,25 +900,51 @@ class ProfilePreferencesIndicator {
             // power save mode
             if (profile._devicePowerSaveMode != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
-                    if (profile._devicePowerSaveMode == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off_mono;
+                    if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3)) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_devicePowerSaveMode) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "psm:1";
                         else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
+                    }
+                    if (profile._devicePowerSaveMode == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_devicePowerSaveMode) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "psm:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off;
+                        }
                     }
                 }
             }
             // run application
             if (profile._deviceRunApplicationChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_run_application;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceRunApplicationsShortcutsChange);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ruap";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_run_application;
+                }
             }
             // close app applications
             if (profile._deviceCloseAllApplications != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_close_all_applications;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceCloseAllApplications);
+                    if (fillStrings)
+                        strings[countDrawables++] = "caap";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_close_all_applications;
+                }
             }
             // force stop application
             if (profile._deviceForceStopApplicationChange == 1) {
@@ -498,97 +954,202 @@ class ProfilePreferencesIndicator {
                         enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_5_1_3_1);
                     else
                         enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_3_0);
-                    if (enabled)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
+                    if (enabled) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_deviceForceStopApplicationsChange);
+                        if (fillStrings)
+                            strings[countDrawables++] = "fcst";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
+                    }
                 }
             }
             // generate notification
             if (profile.getGenerateNotificationGenerate()) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    drawables[countDrawables++] = R.drawable.ic_profile_pref_generate_notification;
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_generateNotification);
+                    if (fillStrings)
+                        strings[countDrawables++] = "gent";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_generate_notification;
+                }
             }
 
             // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3)) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi;
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableWifiScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "wfs:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi;
+                        }
                     }
-                    if (profile._applicationDisableWifiScanning == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_off;
+                    if (profile._applicationDisableWifiScanning == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableWifiScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "wfs:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_off;
+                    }
                 }
             }
             // disable bluetooth scanning
             if (profile._applicationDisableBluetoothScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3)) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth;
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableBluetoothScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "bls:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth;
+                        }
                     }
-                    if (profile._applicationDisableBluetoothScanning == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
+                    if (profile._applicationDisableBluetoothScanning == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableBluetoothScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "bls:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
+                    }
                 }
             }
             // disable location scanning
             if (profile._applicationDisableLocationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3)) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location;
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableLocationScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "los:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location;
+                        }
                     }
-                    if (profile._applicationDisableLocationScanning == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
+                    if (profile._applicationDisableLocationScanning == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableLocationScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "los:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
+                    }
                 }
             }
             // disable mobile cell scanning
             if (profile._applicationDisableMobileCellScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3)) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell;
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableMobileCellScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "mcs:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell;
+                        }
                     }
-                    if (profile._applicationDisableMobileCellScanning == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_off;
+                    if (profile._applicationDisableMobileCellScanning == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableMobileCellScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "mcs:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_off;
+                    }
                 }
             }
             // disable orientation scanning
             if (profile._applicationDisableOrientationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3)) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation;
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableOrientationScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "ors:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation;
+                        }
                     }
-                    if (profile._applicationDisableOrientationScanning == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
+                    if (profile._applicationDisableOrientationScanning == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableOrientationScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "ors:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
+                    }
                 }
             }
             // disable notification scanning
             if (profile._applicationDisableNotificationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3)) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification;
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableNotificationScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nos:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification;
+                        }
                     }
-                    if (profile._applicationDisableNotificationScanning == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_off;
+                    if (profile._applicationDisableNotificationScanning == 2) {
+                        if (fillPreferences)
+                            preferences[countDrawables++] = appContext.getString(R.string.profile_preferences_applicationDisableNotificationScanning) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "nos:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_off;
+                    }
                 }
             }
         }
         else
             countDrawables = -1;
+    }
+
+    static Bitmap paint(Profile profile, boolean monochrome, Context context)
+    {
+        Context appContext = context.getApplicationContext();
+
+        //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
+
+        fillArrays(profile, false, monochrome, false, context);
 
         Bitmap indicatorBitmap;
         if (countDrawables >= 0)
@@ -638,424 +1199,15 @@ class ProfilePreferencesIndicator {
 
         Context appContext = context.getApplicationContext();
 
-        String indicator1 = "";
-        if (profile != null)
-        {
-            maxLength = maxLineLength;
-            if (profile._volumeRingerMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._volumeRingerMode == 5) {
-                        // zen mode
-                        if (profile._volumeZenMode == 1)
-                            indicator1 = addIntoIndicator(indicator1, "dnd:off", maxLineLength);
-                        if (profile._volumeZenMode == 2)
-                            indicator1 = addIntoIndicator(indicator1, "dnd:pri", maxLineLength);
-                        if (profile._volumeZenMode == 3)
-                            indicator1 = addIntoIndicator(indicator1, "dnd:sln", maxLineLength);
-                        if (profile._volumeZenMode == 4) {
-                            indicator1 = addIntoIndicator(indicator1, "dnd:off", maxLineLength);
-                            indicator1 = addIntoIndicator(indicator1, "vib", maxLineLength);
-                        }
-                        if (profile._volumeZenMode == 5) {
-                            indicator1 = addIntoIndicator(indicator1, "dnd:pri", maxLineLength);
-                            indicator1 = addIntoIndicator(indicator1, "vibr", maxLineLength);
-                        }
-                        if (profile._volumeZenMode == 6)
-                            indicator1 = addIntoIndicator(indicator1, "dnd:ala", maxLineLength);
-                    } else {
-                        // sound mode sound
-                        if ((profile._volumeRingerMode == 1) || (profile._volumeRingerMode == 2))
-                            indicator1 = addIntoIndicator(indicator1, "ring", maxLineLength);
-                        // sound mode vibrate
-                        if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
-                            indicator1 = addIntoIndicator(indicator1, "vibr", maxLineLength);
-                        // sound mode alarms only
-                        if (profile._volumeRingerMode == 4)
-                            indicator1 = addIntoIndicator(indicator1, "alrm", maxLineLength);
-                    }
-                }
-            }
-            /*// vibrate when ringing
-            if (profile._vibrateWhenRinging != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, this) == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
-                        indicator1 = addIntoIndicator(indicator1, "wr1");
-                    if (profile._vibrateWhenRinging == 2)
-                        indicator1 = addIntoIndicator(indicator1, "wr0");
-                }
-            }*/
-            // volume level
-            if (profile._volumeMuteSound &&
-                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                indicator1 = addIntoIndicator(indicator1, "volm", maxLineLength);
+        fillArrays(profile, true, false, false, appContext);
 
-                if (profile.getVolumeAlarmChange() ||
-                    profile.getVolumeVoiceChange() ||
-                    profile.getVolumeAccessibilityChange() ||
-                    profile.getVolumeBluetoothSCOChange()) {
-                    if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-                        indicator1 = addIntoIndicator(indicator1, "volp", maxLineLength);
-                }
-            }
-            else {
-                if (profile.getVolumeAlarmChange() ||
-                    profile.getVolumeMediaChange() ||
-                    profile.getVolumeNotificationChange() ||
-                    profile.getVolumeRingtoneChange() ||
-                    profile.getVolumeSystemChange() ||
-                    profile.getVolumeVoiceChange() ||
-                    profile.getVolumeDTMFChange() ||
-                    profile.getVolumeAccessibilityChange() ||
-                    profile.getVolumeBluetoothSCOChange()) {
-                    if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-                        indicator1 = addIntoIndicator(indicator1, "vola", maxLineLength);
-                }
-            }
-            // speaker phone
-            if (profile._volumeSpeakerPhone != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._volumeSpeakerPhone == 1)
-                        indicator1 = addIntoIndicator(indicator1, "spe:1", maxLineLength);
-                    if (profile._volumeSpeakerPhone == 2)
-                        indicator1 = addIntoIndicator(indicator1, "spe:0", maxLineLength);
-                }
-            }
-            // sound
-            if ((profile._soundRingtoneChange == 1) ||
-                    (profile._soundNotificationChange == 1) ||
-                    (profile._soundAlarmChange == 1)) {
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-                    indicator1 = addIntoIndicator(indicator1, "sond", maxLineLength);
-            }
-            // sound on touch
-            if (profile._soundOnTouch != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3))
-                        indicator1 = addIntoIndicator(indicator1, "sto:1", maxLineLength);
-                    if (profile._soundOnTouch == 2)
-                        indicator1 = addIntoIndicator(indicator1, "sto:0", maxLineLength);
-                }
-            }
-            // vibration on touch
-            if (profile._vibrationOnTouch != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
-                        indicator1 = addIntoIndicator(indicator1, "vto:1", maxLineLength);
-                    if (profile._vibrationOnTouch == 2)
-                        indicator1 = addIntoIndicator(indicator1, "vto:0", maxLineLength);
-                }
-            }
-            // dtmf tone when dialing
-            if (profile._dtmfToneWhenDialing != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3))
-                        indicator1 = addIntoIndicator(indicator1, "dtd:1", maxLineLength);
-                    if (profile._dtmfToneWhenDialing == 2)
-                        indicator1 = addIntoIndicator(indicator1, "dtd:0", maxLineLength);
-                }
-            }
-            // airplane mode
-            if (profile._deviceAirplaneMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3))
-                        indicator1 = addIntoIndicator(indicator1, "arm:1", maxLineLength);
-                    if (profile._deviceAirplaneMode == 2)
-                        indicator1 = addIntoIndicator(indicator1, "arm:0", maxLineLength);
-                }
-            }
-            // auto-sync
-            if (profile._deviceAutoSync != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
-                        indicator1 = addIntoIndicator(indicator1, "asy:1", maxLineLength);
-                    if (profile._deviceAutoSync == 2)
-                        indicator1 = addIntoIndicator(indicator1, "asy:0", maxLineLength);
-                }
-            }
-            // Network type
-            if (profile._deviceNetworkType != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "ntyp", maxLineLength);
-            }
-            // Network type prefs
-            if (profile._deviceNetworkTypePrefs != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "ntpr", maxLineLength);
-            }
-            // mobile data
-            if (profile._deviceMobileData != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
-                        indicator1 = addIntoIndicator(indicator1, "mda:1", maxLineLength);
-                    if (profile._deviceMobileData == 2)
-                        indicator1 = addIntoIndicator(indicator1, "mda:0", maxLineLength);
-                }
-            }
-            // mobile data preferences
-            if (profile._deviceMobileDataPrefs == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "mdpr", maxLineLength);
-            }
-            // wifi
-            if (profile._deviceWiFi != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
-                        indicator1 = addIntoIndicator(indicator1, "wif:1", maxLineLength);
-                    if (profile._deviceWiFi == 2)
-                        indicator1 = addIntoIndicator(indicator1, "wif:0", maxLineLength);
-                }
-            }
-            // wifi AP
-            if (Build.VERSION.SDK_INT < 30) {
-                if (profile._deviceWiFiAP != 0) {
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3) || (profile._deviceWiFiAP == 4) || (profile._deviceWiFiAP == 5))
-                            indicator1 = addIntoIndicator(indicator1, "wap:1", maxLineLength);
-                        if (profile._deviceWiFiAP == 2)
-                            indicator1 = addIntoIndicator(indicator1, "wap:0", maxLineLength);
-                    }
-                }
-            }
-            // wifi AP preferences
-            if (profile._deviceWiFiAPPrefs == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "wapr", maxLineLength);
-            }
-            // bluetooth
-            if (profile._deviceBluetooth != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
-                        indicator1 = addIntoIndicator(indicator1, "blt:1", maxLineLength);
-                    if (profile._deviceBluetooth == 2)
-                        indicator1 = addIntoIndicator(indicator1, "blt:0", maxLineLength);
-                }
-            }
-            // location mode
-            if (profile._deviceLocationMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._deviceLocationMode > 1)
-                        indicator1 = addIntoIndicator(indicator1, "lom:1", maxLineLength);
-                    if (profile._deviceLocationMode == 1) {
-                        indicator1 = addIntoIndicator(indicator1, "lom:0", maxLineLength);
-                    }
-                }
-            }
-            // gps
-            if (profile._deviceGPS != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3))
-                        indicator1 = addIntoIndicator(indicator1, "gps:1", maxLineLength);
-                    if (profile._deviceGPS == 2)
-                        indicator1 = addIntoIndicator(indicator1, "gps:0", maxLineLength);
-                }
-            }
-            // location settings preferences
-            if (profile._deviceLocationServicePrefs == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "lopr", maxLineLength);
-            }
-            // nfc
-            if (profile._deviceNFC != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3))
-                        indicator1 = addIntoIndicator(indicator1, "nfc:1", maxLineLength);
-                    if (profile._deviceNFC == 2)
-                        indicator1 = addIntoIndicator(indicator1, "nfc:0", maxLineLength);
-                }
-            }
-            // screen timeout
-            if (profile._deviceScreenTimeout != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "sctm", maxLineLength);
-            }
-            // brightness/auto-brightness
-            if (profile.getDeviceBrightnessChange())
-            {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile.getDeviceBrightnessAutomatic())
-                        indicator1 = addIntoIndicator(indicator1, "bri:a", maxLineLength);
-                    else
-                        indicator1 = addIntoIndicator(indicator1, "bri:m", maxLineLength);
-                }
-            }
-            // auto-rotation
-            if (profile._deviceAutoRotate != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    if (profile._deviceAutoRotate == 6)
-                        indicator1 = addIntoIndicator(indicator1, "art:0", maxLineLength);
-                    else
-                        indicator1 = addIntoIndicator(indicator1, "art:1", maxLineLength);
-            }
-            // screen on permanent
-            if (profile._screenOnPermanent != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._screenOnPermanent == 1) || (profile._screenOnPermanent == 3))
-                        indicator1 = addIntoIndicator(indicator1, "son:1", maxLineLength);
-                    if (profile._screenOnPermanent == 2)
-                        indicator1 = addIntoIndicator(indicator1, "son:0", maxLineLength);
-                }
-            }
-            // wallpaper
-            if (profile._deviceWallpaperChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "walp", maxLineLength);
-            }
-            // lock screen
-            if (profile._deviceKeyguard != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
-                        indicator1 = addIntoIndicator(indicator1, "kgu:1", maxLineLength);
-                    if (profile._deviceKeyguard == 2)
-                        indicator1 = addIntoIndicator(indicator1, "kgu:0", maxLineLength);
-                }
-            }
-            // lock device
-            if (profile._lockDevice != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "lock", maxLineLength);
-            }
-            // notification led
-            if (profile._notificationLed != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
-                        indicator1 = addIntoIndicator(indicator1, "nld:1", maxLineLength);
-                    if (profile._notificationLed == 2)
-                        indicator1 = addIntoIndicator(indicator1, "nld:0", maxLineLength);
-                }
-            }
-            // heads-up notifications
-            if (profile._headsUpNotifications != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3))
-                        indicator1 = addIntoIndicator(indicator1, "hup:1", maxLineLength);
-                    if (profile._headsUpNotifications == 2)
-                        indicator1 = addIntoIndicator(indicator1, "hup:0", maxLineLength);
-                }
-            }
-            // always on display
-            if (profile._alwaysOnDisplay != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._alwaysOnDisplay == 1) || (profile._alwaysOnDisplay == 3))
-                        indicator1 = addIntoIndicator(indicator1, "aod:1", maxLineLength);
-                    if (profile._alwaysOnDisplay == 2)
-                        indicator1 = addIntoIndicator(indicator1, "aod:0", maxLineLength);
-                }
-            }
-            // screen dark mode
-            if (profile._screenDarkMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (profile._screenDarkMode == 1)
-                        indicator1 = addIntoIndicator(indicator1, "dkm:1", maxLineLength);
-                    if (profile._screenDarkMode == 2)
-                        indicator1 = addIntoIndicator(indicator1, "dkm:0", maxLineLength);
-                }
-            }
-            // power save mode
-            if (profile._devicePowerSaveMode != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
-                        indicator1 = addIntoIndicator(indicator1, "psm:1", maxLineLength);
-                    if (profile._devicePowerSaveMode == 2)
-                        indicator1 = addIntoIndicator(indicator1, "psm:0", maxLineLength);
-                }
-            }
-            // run application
-            if (profile._deviceRunApplicationChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "ruap", maxLineLength);
-            }
-            // close all applications
-            if (profile._deviceCloseAllApplications == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "caap", maxLineLength);
-            }
-            // force stop application
-            if (profile._deviceForceStopApplicationChange == 1) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                {
-                    boolean enabled;
-                    if (Build.VERSION.SDK_INT >= 28)
-                        enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_5_1_3_1);
-                    else
-                        enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_3_0);
-                    if (enabled)
-                        indicator1 = addIntoIndicator(indicator1, "fcst", maxLineLength);
-                }
-            }
-            // generate notification
-            if (profile.getGenerateNotificationGenerate()) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    indicator1 = addIntoIndicator(indicator1, "gent", maxLineLength);
-            }
-            // disable wifi scanning
-            if (profile._applicationDisableWifiScanning != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "wfs:0", maxLineLength);
-                    if (profile._applicationDisableWifiScanning == 2)
-                        indicator1 = addIntoIndicator(indicator1, "wfs:1", maxLineLength);
-                }
-            }
-            // disable bluetooth scanning
-            if (profile._applicationDisableBluetoothScanning != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "bls:0", maxLineLength);
-                    if (profile._applicationDisableBluetoothScanning == 2)
-                        indicator1 = addIntoIndicator(indicator1, "bls:1", maxLineLength);
-                }
-            }
-            // disable location scanning
-            if (profile._applicationDisableLocationScanning != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "los:0", maxLineLength);
-                    if (profile._applicationDisableLocationScanning == 2)
-                        indicator1 = addIntoIndicator(indicator1, "los:1", maxLineLength);
-                }
-            }
-            // disable mobile cell scanning
-            if (profile._applicationDisableMobileCellScanning != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "mcs:0", maxLineLength);
-                    if (profile._applicationDisableMobileCellScanning == 2)
-                        indicator1 = addIntoIndicator(indicator1, "mcs:1", maxLineLength);
-                }
-            }
-            // disable orientation scanning
-            if (profile._applicationDisableOrientationScanning != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null,null,  true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "ors:0", maxLineLength);
-                    if (profile._applicationDisableOrientationScanning == 2)
-                        indicator1 = addIntoIndicator(indicator1, "ors:1", maxLineLength);
-                }
-            }
-            // disable notification scanning
-            if (profile._applicationDisableNotificationScanning != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, null,null,  true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableNotificationScanning == 1) || (profile._applicationDisableNotificationScanning == 3))
-                        indicator1 = addIntoIndicator(indicator1, "nos:0", maxLineLength);
-                    if (profile._applicationDisableNotificationScanning == 2)
-                        indicator1 = addIntoIndicator(indicator1, "nos:1", maxLineLength);
-                }
-            }
+        String indicator1 = "";
+        if (countDrawables > 0) {
+            maxLength = maxLineLength;
+            for (int i = 0; i < countDrawables; i++)
+                indicator1 = addIntoIndicator(indicator1, strings[i], maxLineLength);
         }
-        
+
         return indicator1;
     }
 
