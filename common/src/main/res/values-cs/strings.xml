@@ -1539,6 +1539,13 @@
     <string name="profile_preferences_generateNotification">Generovat notifikaci</string>
     <string name="notification_channel_generated_by_profile">Notifikace generována profilem</string>
     <string name="notification_channel_generated_by_profile_description">Zobrazuje notifikaci vygenerovanou profilem.</string>
+    <string name="profile_preferences_volumePartial">Změnit nestlmené hlasitosti</string>
+    <string name="profile_preferences_volumeAll">Změnit hlasitosti</string>
+    <string name="profile_preferences_soundsChange">Změnit tóny</string>
+    <string name="profile_preferences_deviceBrightness_automatic">Automatický jas obrazovky</string>
+    <string name="profile_preferences_deviceBrightness_manual">Manuální jas obrazovky</string>
+    <string name="profile_preferences_savedProfilePreferences_title">Uložené parametry zařízení</string>
+    <string name="profile_preferences_savedProfilePreferences_summary">Klikněte sem pro zobrazení uložených parametrů zařízení.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
