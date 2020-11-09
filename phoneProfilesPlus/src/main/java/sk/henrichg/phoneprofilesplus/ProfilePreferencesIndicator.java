@@ -238,19 +238,6 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            /*// vibrate when ringing
-            if (profile._vibrateWhenRinging != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing;
-                    if (profile._vibrateWhenRinging == 2) {
-                        if (monochrome)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing_off_mono;
-                        else
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing_off;
-                    }
-                }
-            }*/
             // volume level
             if (profile._volumeMuteSound &&
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
