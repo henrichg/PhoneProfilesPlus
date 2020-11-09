@@ -651,6 +651,19 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
+            // connect to ssid
+            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceConnectToSSID);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ssid";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_connect_to_ssid;
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
             // bluetooth
             if (profile._deviceBluetooth != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
