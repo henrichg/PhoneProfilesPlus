@@ -5770,7 +5770,8 @@ public class PhoneProfilesService extends Service
             }
             else {
                 if (notificationPrefIndicator) {
-                    String indicators = ProfilePreferencesIndicator.getString(profile, 0, appContext);
+                    ProfilePreferencesIndicator _indicators = new ProfilePreferencesIndicator();
+                    String indicators = _indicators.getString(profile, 0, appContext);
                     notificationBuilder.setContentText(indicators);
                     PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()="+indicators);
                 }

@@ -9,15 +9,15 @@ import android.os.Build;
 
 class ProfilePreferencesIndicator {
 
-    static final int[] drawables = new int[60];
-    static final String[] strings = new String[60];
-    static int countDrawables = 0;
+    final int[] drawables = new int[60];
+    final String[] strings = new String[60];
+    int countDrawables = 0;
 
-    static final String[] preferences = new String[60];
-    static final int[] countItems = new int[60];
-    static int countPreferences = 0;
+    final String[] preferences = new String[60];
+    final int[] countItems = new int[60];
+    int countPreferences = 0;
 
-    private static Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
+    private Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
     {
         // bitmap to get size
         //Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_pref_volume_on);
@@ -42,7 +42,7 @@ class ProfilePreferencesIndicator {
         return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
     }
 
-    private static void addIndicator(int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
+    private void addIndicator(int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
     {
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
         //Bitmap preferenceBitmap = BitmapManipulator.getBitmapFromResource(preferenceBitmapResourceID, false, context);
@@ -53,7 +53,7 @@ class ProfilePreferencesIndicator {
 
     }
 
-    static void fillArrays(Profile profile, boolean fillStrings, boolean monochrome, boolean fillPreferences, Context appContext) {
+    void fillArrays(Profile profile, boolean fillStrings, boolean monochrome, boolean fillPreferences, Context appContext) {
         countDrawables = 0;
         countPreferences = 0;
         if (profile != null)
@@ -1353,7 +1353,7 @@ class ProfilePreferencesIndicator {
             countDrawables = -1;
     }
 
-    static Bitmap paint(Profile profile, boolean monochrome, Context context)
+    Bitmap paint(Profile profile, boolean monochrome, Context context)
     {
         Context appContext = context.getApplicationContext();
 
@@ -1385,8 +1385,8 @@ class ProfilePreferencesIndicator {
 
     }
 
-    private static int maxLength;
-    private static String addIntoIndicator(String indicator, String preference, int maxLineLength)
+    private int maxLength;
+    private String addIntoIndicator(String indicator, String preference, int maxLineLength)
     {
         String ind = indicator;
         if (maxLineLength > 0) {
@@ -1404,7 +1404,7 @@ class ProfilePreferencesIndicator {
         return ind;
     }
 
-    static String getString(Profile profile, int maxLineLength, Context context) {
+    String getString(Profile profile, int maxLineLength, Context context) {
         // profile preferences indicator
 
         Context appContext = context.getApplicationContext();

@@ -119,13 +119,15 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     }
                 }
 
+                ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
+
                 // Publish the extension data update.
                 publishUpdate(new ExtensionData()
                         .visible(true)
                         .icon(iconResource)
                         .status(status)
                         .expandedTitle(profileName)
-                        .expandedBody(ProfilePreferencesIndicator.getString(profile, 25, _instance))
+                        .expandedBody(indicators.getString(profile, 25, _instance))
                         .contentDescription("PhoneProfilesPlus - " + profileName)
                         .clickIntent(intent));
             } catch (Exception e) {
