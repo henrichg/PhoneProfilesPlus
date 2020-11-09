@@ -1531,6 +1531,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
+            preference = findPreference("notificationAppInstedProfileIconInStatusBarInfo");
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = findPreference("notificationStatusBarCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
         }
     }
 
