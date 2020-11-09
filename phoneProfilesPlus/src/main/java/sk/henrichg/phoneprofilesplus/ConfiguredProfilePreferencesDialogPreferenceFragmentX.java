@@ -81,37 +81,37 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
 
                     DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false);
                     Profile profile = dataWrapper.getProfileById(preference.profile_id, false, false, false);
-                    //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "profile._name="+profile._name);
+                    if (profile != null) {
+                        //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "profile._name="+profile._name);
 
-                    ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
-                    indicators.fillArrays(profile, false, false, true, prefContext);
-                    indicators.fillArrays(profile, true, false, true, prefContext);
+                        ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
+                        indicators.fillArrays(profile, false, false, true, prefContext);
+                        indicators.fillArrays(profile, true, false, true, prefContext);
 
-                    //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "ProfilePreferencesIndicator.countDrawables="+ProfilePreferencesIndicator.countDrawables);
+                        //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "ProfilePreferencesIndicator.countDrawables="+ProfilePreferencesIndicator.countDrawables);
 
-                    int idDrawable = 0;
-                    for (int i = 0; i < indicators.countPreferences; i++) {
-                        ConfiguredProfilePreferencesData configuredPreferences;
-                        if (indicators.countItems[i] == 2) {
-                            configuredPreferences = new ConfiguredProfilePreferencesData(
-                                    indicators.drawables[idDrawable],
-                                    indicators.drawables[idDrawable+1],
-                                    indicators.strings[idDrawable] + " " + indicators.strings[idDrawable+1],
-                                    indicators.preferences[i]
-                            );
+                        int idDrawable = 0;
+                        for (int i = 0; i < indicators.countPreferences; i++) {
+                            ConfiguredProfilePreferencesData configuredPreferences;
+                            if (indicators.countItems[i] == 2) {
+                                configuredPreferences = new ConfiguredProfilePreferencesData(
+                                        indicators.drawables[idDrawable],
+                                        indicators.drawables[idDrawable + 1],
+                                        indicators.strings[idDrawable] + " " + indicators.strings[idDrawable + 1],
+                                        indicators.preferences[i]
+                                );
+                            } else {
+                                configuredPreferences = new ConfiguredProfilePreferencesData(
+                                        indicators.drawables[idDrawable],
+                                        0,
+                                        indicators.strings[idDrawable],
+                                        indicators.preferences[i]
+                                );
+                            }
+                            _preferencesList.add(configuredPreferences);
+                            idDrawable += indicators.countItems[i];
                         }
-                        else {
-                            configuredPreferences = new ConfiguredProfilePreferencesData(
-                                    indicators.drawables[idDrawable],
-                                    0,
-                                    indicators.strings[idDrawable],
-                                    indicators.preferences[i]
-                            );
-                        }
-                        _preferencesList.add(configuredPreferences);
-                        idDrawable += indicators.countItems[i];
                     }
-
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
