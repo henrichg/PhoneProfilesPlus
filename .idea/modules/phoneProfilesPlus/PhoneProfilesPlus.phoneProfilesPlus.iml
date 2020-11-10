@@ -105,7 +105,6 @@
     <orderEntry type="library" name="Gradle: androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.print:print:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.simplecityapps:recyclerview-fastscroll:2.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:library:0.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:api:0.0.1@aar" level="project" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.common" />
@@ -115,6 +114,7 @@
     <orderEntry type="module" module-name="PhoneProfilesPlus.android-betterpickers" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.time-duration-picker" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.AndroidClearChroma" />
+    <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.phoneProfilesImport" />
   </component>
 </module>

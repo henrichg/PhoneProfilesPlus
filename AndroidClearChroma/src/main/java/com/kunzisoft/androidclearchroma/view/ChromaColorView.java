@@ -154,33 +154,26 @@ public class ChromaColorView extends RelativeLayout {
             }
         });
 
-        colorView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null)
-                    imm.hideSoftInputFromWindow(colorEdit.getWindowToken(), 0);
-            }
+        colorView.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null)
+                imm.hideSoftInputFromWindow(colorEdit.getWindowToken(), 0);
         });
 
-        ChannelView.OnProgressChangedListener seekBarChangeListener = new ChannelView.OnProgressChangedListener() {
-            @SuppressWarnings("unused")
-            @Override
-            public void onProgressChanged() {
-                List<Channel> channels = new ArrayList<>();
-                for (ChannelView chan : channelViews) {
-                    channels.add(chan.getChannel());
-                }
-                currentColor = colorMode.getColorMode().evaluateColor(channels);
-                // Listener for color selected in real time
-                if (mOnColorChangedListener != null)
-                    mOnColorChangedListener.onColorChanged(currentColor);
-
-                // Change view for visibility of color
-                Drawable colorViewDrawable = new ColorDrawable(currentColor);
-                colorView.setImageDrawable(colorViewDrawable);
-                colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
+        ChannelView.OnProgressChangedListener seekBarChangeListener = () -> {
+            List<Channel> channels1 = new ArrayList<>();
+            for (ChannelView chan : channelViews) {
+                channels1.add(chan.getChannel());
             }
+            currentColor = colorMode.getColorMode().evaluateColor(channels1);
+            // Listener for color selected in real time
+            if (mOnColorChangedListener != null)
+                mOnColorChangedListener.onColorChanged(currentColor);
+
+            // Change view for visibility of color
+            Drawable colorViewDrawable1 = new ColorDrawable(currentColor);
+            colorView.setImageDrawable(colorViewDrawable1);
+            colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
         };
 
         for (ChannelView c : channelViews) {

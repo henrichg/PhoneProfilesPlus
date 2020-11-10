@@ -24,26 +24,11 @@ public class HSV implements AbstractColorMode {
     public List<Channel> getChannels() {
         List<Channel> list = new ArrayList<>();
 
-        list.add(new Channel(R.string.acch_channel_hue, 0, 360, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                return (int) colorToHSV(color)[0];
-            }
-        }));
+        list.add(new Channel(R.string.acch_channel_hue, 0, 360, color -> (int) colorToHSV(color)[0]));
 
-        list.add(new Channel(R.string.acch_channel_saturation, 0, 100, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                return (int) (colorToHSV(color)[1] * 100);
-            }
-        }));
+        list.add(new Channel(R.string.acch_channel_saturation, 0, 100, color -> (int) (colorToHSV(color)[1] * 100)));
 
-        list.add(new Channel(R.string.acch_channel_value, 0, 100, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                return (int) (colorToHSV(color)[2] * 100);
-            }
-        }));
+        list.add(new Channel(R.string.acch_channel_value, 0, 100, color -> (int) (colorToHSV(color)[2] * 100)));
 
         return list;
     }

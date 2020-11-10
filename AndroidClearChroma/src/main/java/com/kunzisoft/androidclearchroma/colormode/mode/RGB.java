@@ -19,26 +19,11 @@ public class RGB implements AbstractColorMode {
     public List<Channel> getChannels() {
         List<Channel> list = new ArrayList<>();
 
-        list.add(new Channel(R.string.acch_channel_red, 0, 255, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                return Color.red(color);
-            }
-        }));
+        list.add(new Channel(R.string.acch_channel_red, 0, 255, Color::red));
 
-        list.add(new Channel(R.string.acch_channel_green, 0, 255, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                return Color.green(color);
-            }
-        }));
+        list.add(new Channel(R.string.acch_channel_green, 0, 255, Color::green));
 
-        list.add(new Channel(R.string.acch_channel_blue, 0, 255, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                return Color.blue(color);
-            }
-        }));
+        list.add(new Channel(R.string.acch_channel_blue, 0, 255, Color::blue));
 
         return list;
     }

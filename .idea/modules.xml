@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/PhoneProfilesPlus.common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/phoneProfilesImport/PhoneProfilesPlus.phoneProfilesImport.iml" filepath="$PROJECT_DIR$/.idea/modules/phoneProfilesImport/PhoneProfilesPlus.phoneProfilesImport.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/phoneProfilesPlus/PhoneProfilesPlus.phoneProfilesPlus.iml" filepath="$PROJECT_DIR$/.idea/modules/phoneProfilesPlus/PhoneProfilesPlus.phoneProfilesPlus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.iml" filepath="$PROJECT_DIR$/.idea/modules/recyclerview-fastscroll/PhoneProfilesPlus.recyclerview-fastscroll.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/time-duration-picker/PhoneProfilesPlus.time-duration-picker.iml" />
     </modules>
   </component>

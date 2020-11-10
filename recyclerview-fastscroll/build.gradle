@@ -22,12 +22,18 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
-    implementation project(':RootShell')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$ppVersions.recyclerView"
+
     //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 }
+

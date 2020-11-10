@@ -2,10 +2,8 @@ package com.stericson.rootshell.containers;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -196,12 +194,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
         protected void lookup(File path, List<File> fileList) {
             String desourcedPath = path.toString().replace("src" + File.separator, "").replace("main" + File.separator + "java" + File.separator, "");
 
-            File[] files = path.listFiles(new FileFilter() {
-                @Override
-                public boolean accept(File file) {
-                    return true;
-                }
-            });
+            File[] files = path.listFiles(file -> true);
             if (files != null) {
                 for (File file : files) {
                     if (file.isDirectory()) {
@@ -214,12 +207,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                             if (hasClassAnnotation(file)) {
                                 final String fileNamePrefix = file.getName().replace(".java", "");
                                 final File compiledPath = new File(getBuiltPath().toString() + File.separator + desourcedPath);
-                                File[] classAndInnerClassFiles = compiledPath.listFiles(new FilenameFilter() {
-                                    @Override
-                                    public boolean accept(File dir, String filename) {
-                                        return filename.startsWith(fileNamePrefix);
-                                    }
-                                });
+                                File[] classAndInnerClassFiles = compiledPath.listFiles((dir, filename) -> filename.startsWith(fileNamePrefix));
                                 if (classAndInnerClassFiles != null) {
                                     for (final File matchingFile : classAndInnerClassFiles) {
                                         fileList.add(new File(desourcedPath + File.separator + matchingFile.getName()));
@@ -324,12 +312,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
             File ideaPath = new File("out" + File.separator + "production"); // IntelliJ
             if (ideaPath.isDirectory()) {
-                File[] children = ideaPath.listFiles(new FileFilter() {
-                    @Override
-                    public boolean accept(File pathname) {
-                        return pathname.isDirectory();
-                    }
-                });
+                File[] children = ideaPath.listFiles(File::isDirectory);
                 if ((children != null) && children.length > 0) {
                     foundPath = new File(ideaPath.getAbsolutePath() + File.separator + children[0].getName());
                 }

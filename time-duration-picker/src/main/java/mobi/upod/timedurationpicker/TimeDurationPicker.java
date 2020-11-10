@@ -140,25 +140,10 @@ public class TimeDurationPicker extends FrameLayout {
 
         updateUnits();
 
-        backspaceButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackspace();
-            }
-        });
-        clearButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClear();
-            }
-        });
+        backspaceButton.setOnClickListener(v -> onBackspace());
+        clearButton.setOnClickListener(v -> onClear());
 
-        final OnClickListener numberClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onNumberClick(((Button) v).getText());
-            }
-        };
+        final OnClickListener numberClickListener = v -> onNumberClick(((Button) v).getText());
         for (Button button : numPadButtons) {
             button.setOnClickListener(numberClickListener);
         }

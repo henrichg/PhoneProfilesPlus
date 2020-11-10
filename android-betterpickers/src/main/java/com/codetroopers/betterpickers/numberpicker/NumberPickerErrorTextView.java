@@ -50,12 +50,7 @@ public class NumberPickerErrorTextView extends TextView {
         startAnimation(fadeIn);
     }
 
-    private final Runnable hideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+    private final Runnable hideRunnable = this::hide;
 
     private final Handler fadeInEndHandler = new Handler();
 

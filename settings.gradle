@@ -5,6 +5,7 @@ include ':RootTools'
 include ':android-betterpickers'
 include ':time-duration-picker'
 include ':AndroidClearChroma'
+include ':recyclerview-fastscroll'
 include ':phoneProfilesImport'
 include ':phoneProfilesPlus'
 

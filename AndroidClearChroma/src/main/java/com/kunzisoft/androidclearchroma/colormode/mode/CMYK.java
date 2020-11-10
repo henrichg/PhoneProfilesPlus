@@ -29,36 +29,22 @@ public class CMYK implements AbstractColorMode {
     public List<Channel> getChannels() {
         List<Channel> list = new ArrayList<>();
 
-        list.add(new Channel(R.string.acch_channel_cyan, 0, MAX_VALUE, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                // C = (1-R'-K) / (1-K)
-                return (int) (MAX_VALUE * ((MAX_VALUE - (Color.red(color)/fraction()) - black(color) ) / (MAX_VALUE - black(color))));
-            }
+        list.add(new Channel(R.string.acch_channel_cyan, 0, MAX_VALUE, color -> {
+            // C = (1-R'-K) / (1-K)
+            return (int) (MAX_VALUE * ((MAX_VALUE - (Color.red(color)/fraction()) - black(color) ) / (MAX_VALUE - black(color))));
         }));
 
-        list.add(new Channel(R.string.acch_channel_magenta, 0, MAX_VALUE, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                // M = (1-G'-K) / (1-K)
-                return (int) (MAX_VALUE * ((MAX_VALUE - (Color.green(color)/fraction()) - black(color) ) / (MAX_VALUE - black(color))));
-            }
+        list.add(new Channel(R.string.acch_channel_magenta, 0, MAX_VALUE, color -> {
+            // M = (1-G'-K) / (1-K)
+            return (int) (MAX_VALUE * ((MAX_VALUE - (Color.green(color)/fraction()) - black(color) ) / (MAX_VALUE - black(color))));
         }));
 
-        list.add(new Channel(R.string.acch_channel_yellow, 0, MAX_VALUE, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                // M = (1-Y'-K) / (1-K)
-                return (int) (MAX_VALUE * ((MAX_VALUE - (Color.blue(color)/fraction()) - black(color) ) / (MAX_VALUE - black(color))));
-            }
+        list.add(new Channel(R.string.acch_channel_yellow, 0, MAX_VALUE, color -> {
+            // M = (1-Y'-K) / (1-K)
+            return (int) (MAX_VALUE * ((MAX_VALUE - (Color.blue(color)/fraction()) - black(color) ) / (MAX_VALUE - black(color))));
         }));
 
-        list.add(new Channel(R.string.acch_channel_black, 0, MAX_VALUE, new Channel.ColorExtractor() {
-            @Override
-            public int extract(int color) {
-                return (int) black(color);
-            }
-        }));
+        list.add(new Channel(R.string.acch_channel_black, 0, MAX_VALUE, color -> (int) black(color)));
 
         return list;
     }
