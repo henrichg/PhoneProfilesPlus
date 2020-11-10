@@ -35,7 +35,7 @@ Required external libs
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
 - android-betterpickers (as module, code modified) - https://github.com/code-troopers/android-betterpickers
 - AndroidClearChroma (as module, code modified) - https://github.com/Kunzisoft/AndroidClearChroma
-- RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repositry: https://github.com/timusus/RecyclerView-FastScroll)
+- RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
 - RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api
