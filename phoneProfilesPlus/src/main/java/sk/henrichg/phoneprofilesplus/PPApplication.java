@@ -3504,7 +3504,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
             line = input.readLine();
             input.close();
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             Log.e("PPApplication.getROMManufacturer", "Unable to read sysprop ro.product.brand", ex);
             return null;
         }
@@ -3513,7 +3513,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                 try {
                     input.close();
                 }
-                catch (IOException e) {
+                catch (Exception e) {
                     Log.e("PPApplication.getROMManufacturer", "Exception while closing InputStream", e);
                 }
             }
@@ -3558,7 +3558,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                 input.close();
             }
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             //Log.e("PPApplication.isMIUIROM", Log.getStackTraceString(ex));
             PPApplication.recordException(ex);
         }
@@ -3581,7 +3581,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
             line = input.readLine();
             input.close();
             return line;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             //Log.e("PPApplication.getEmuiRomName", Log.getStackTraceString(ex));
             PPApplication.recordException(ex);
             return "";
@@ -3655,7 +3655,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
             line = input.readLine();
             input.close();
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
             //Log.e("PPApplication.getSystemProperty", "Unable to read sysprop " + propName, ex);
             PPApplication.recordException(ex);
@@ -3669,7 +3669,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                 {
                     input.close();
                 }
-                catch (IOException e)
+                catch (Exception e)
                 {
                     //Log.e("PPApplication.getSystemProperty", "Exception while closing InputStream", e);
                     PPApplication.recordException(e);
