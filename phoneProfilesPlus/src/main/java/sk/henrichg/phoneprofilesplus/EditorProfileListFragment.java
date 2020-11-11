@@ -670,7 +670,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
         }
 
-        //listView.getRecycledViewPool().clear();
+        listView.getRecycledViewPool().clear();
 
         activityDataWrapper.stopEventsForProfileFromMainThread(profile, true);
         profileListAdapter.deleteItemNoNotify(profile);
@@ -803,7 +803,7 @@ public class EditorProfileListFragment extends Fragment
                     activityDataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
                 }
 
-                //listView.getRecycledViewPool().clear();
+                listView.getRecycledViewPool().clear();
 
                 activityDataWrapper.stopAllEventsFromMainThread(true, false);
                 profileListAdapter.clearNoNotify();
@@ -1027,7 +1027,8 @@ public class EditorProfileListFragment extends Fragment
             listView.cancelDrag();*/
 
         //if (profileListAdapter != null)
-        //    listView.getRecycledViewPool().clear();
+        if (listView != null)
+            listView.getRecycledViewPool().clear();
 
         if (profileListAdapter != null) {
             if ((newProfile) && (profile != null))

@@ -158,7 +158,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
     }
 
     void updateGUI() {
-        //applicationsListView.getRecycledViewPool().clear();
+        applicationsListView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
     }
 
