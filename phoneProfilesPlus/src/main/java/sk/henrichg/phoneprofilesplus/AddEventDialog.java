@@ -39,7 +39,7 @@ class AddEventDialog
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.dialog_event_prefeference, null);
+        View layout = inflater.inflate(R.layout.dialog_event_preference, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();

@@ -30,7 +30,7 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
         this.context = context;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.dialog_info_prefeference, null, false);
+        return inflater.inflate(R.layout.dialog_info_preference, null, false);
     }
 
     @Override
