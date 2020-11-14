@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -51,14 +50,14 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             //now.add(Calendar.DAY_OF_MONTH, 30);
             now.add(Calendar.DAY_OF_MONTH, 1);
             now.set(Calendar.SECOND, 0);
-            now.set(Calendar.MILLISECOND, 0);
+            now.set(Calendar.MILLISECOND, 0);*/
 
-            if (PPApplication.logEnabled()) {
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(now.getTimeInMillis());
-                //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
-            }*/
+        //    if (PPApplication.logEnabled()) {
+        //        @SuppressLint("SimpleDateFormat")
+        //        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+        //        String result = sdf.format(now.getTimeInMillis());
+        //        Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+        //    }
         //} else {
             // each day at 12:30
             now.set(Calendar.HOUR_OF_DAY, 12);
@@ -229,8 +228,8 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             }
 
         } catch (IOException e) {
-            if (!(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) && (Build.VERSION.SDK_INT >= 29))
-                PPApplication.recordException(e);
+            //if (!(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) && (Build.VERSION.SDK_INT >= 29))
+            //    PPApplication.recordException(e);
         }
 
         if (found) {
