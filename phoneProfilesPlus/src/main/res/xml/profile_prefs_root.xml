@@ -54,6 +54,7 @@
             app:key="prf_pref_preferenceConfiguredProfilePreferences"
             app:title="@string/profile_preferences_savedProfilePreferences_title"
             app:summary="@string/profile_preferences_savedProfilePreferences_summary"
+            app:widgetLayout="@layout/widget_info_preference_clickable"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
