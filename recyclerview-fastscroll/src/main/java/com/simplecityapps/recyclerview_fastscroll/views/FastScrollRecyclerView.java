@@ -260,6 +260,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * Maps the touch (from 0..1) to the adapter position that should be visible.
      */
     public String scrollToPositionAtProgress(float touchFraction) {
+        if (getAdapter() == null) {
+            return "";
+        }
         int itemCount = getAdapter().getItemCount();
         if (itemCount == 0) {
             return "";
@@ -304,7 +307,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
 
         LinearLayoutManager layoutManager = ((LinearLayoutManager) getLayoutManager());
-        layoutManager.scrollToPositionWithOffset(scrollPosition, scrollOffset);
+        if (layoutManager != null)
+            layoutManager.scrollToPositionWithOffset(scrollPosition, scrollOffset);
 
         if (!(getAdapter() instanceof SectionedAdapter)) {
             return "";
@@ -346,7 +350,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     @SuppressWarnings("unchecked")
     private float findItemPosition(float touchFraction) {
-
         if (getAdapter() instanceof MeasurableAdapter) {
             @SuppressWarnings("rawtypes")
             MeasurableAdapter measurer = (MeasurableAdapter) getAdapter();
@@ -370,7 +373,10 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
             Log.w(TAG, "Failed to find a view at the provided scroll fraction (" + touchFraction + ")");
             return touchFraction * getAdapter().getItemCount();
         } else {
-            return getAdapter().getItemCount() * touchFraction;
+            if (getAdapter() != null)
+                return getAdapter().getItemCount() * touchFraction;
+            else
+                return 0;
         }
     }
 
@@ -420,6 +426,9 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         stateOut.rowTopOffset = -1;
         stateOut.rowHeight = -1;
 
+        if (getAdapter() == null)
+            return;
+
         int itemCount = getAdapter().getItemCount();
 
         // Return early if there are no items, or no children.
@@ -430,17 +439,25 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         View child = getChildAt(0);
 
         stateOut.rowIndex = getChildAdapterPosition(child);
-        if (getLayoutManager() instanceof GridLayoutManager) {
+
+        LayoutManager layoutManager = getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
             stateOut.rowIndex = stateOut.rowIndex / ((GridLayoutManager) getLayoutManager()).getSpanCount();
         }
-        if (getAdapter() instanceof MeasurableAdapter) {
-            stateOut.rowTopOffset = getLayoutManager().getDecoratedTop(child);
-            //noinspection rawtypes
-            stateOut.rowHeight = ((MeasurableAdapter) getAdapter()).getViewTypeHeight(this, findViewHolderForAdapterPosition(stateOut.rowIndex), getAdapter().getItemViewType(stateOut.rowIndex));
-        } else {
-            stateOut.rowTopOffset = getLayoutManager().getDecoratedTop(child);
-            stateOut.rowHeight = child.getHeight() + getLayoutManager().getTopDecorationHeight(child)
-                    + getLayoutManager().getBottomDecorationHeight(child);
+        if (layoutManager != null) {
+            if (getAdapter() instanceof MeasurableAdapter) {
+                stateOut.rowTopOffset = layoutManager.getDecoratedTop(child);
+                //noinspection rawtypes
+                stateOut.rowHeight = ((MeasurableAdapter) getAdapter()).getViewTypeHeight(this, findViewHolderForAdapterPosition(stateOut.rowIndex), getAdapter().getItemViewType(stateOut.rowIndex));
+            } else {
+                stateOut.rowTopOffset = layoutManager.getDecoratedTop(child);
+                stateOut.rowHeight = child.getHeight() + layoutManager.getTopDecorationHeight(child)
+                        + layoutManager.getBottomDecorationHeight(child);
+            }
+        }
+        else {
+            stateOut.rowTopOffset = 0;
+            stateOut.rowHeight = 0;
         }
     }
 
