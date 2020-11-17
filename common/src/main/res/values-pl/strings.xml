@@ -1540,13 +1540,15 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="profile_preferences_generateNotification">Generuje powiadomienie</string>
     <string name="notification_channel_generated_by_profile">Powiadomienie wygenerowane przez profil</string>
     <string name="notification_channel_generated_by_profile_description">Pokazuje powiadomienia wygenerowane przez profil.</string>
-    <string name="profile_preferences_volumePartial">Change not muted volumes</string>
-    <string name="profile_preferences_volumeAll">Chnage volumes</string>
-    <string name="profile_preferences_soundsChange">Change sounds</string>
-    <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
-    <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
+    <string name="profile_preferences_volumePartial">Zmień niewyciszone głośności</string>
+    <string name="profile_preferences_volumeAll">Zmień głośność</string>
+    <string name="profile_preferences_soundsChange">Zmień dźwięki</string>
+    <string name="profile_preferences_deviceBrightness_automatic">Automatyczna jasność</string>
+    <string name="profile_preferences_deviceBrightness_manual">Jasność ust. ręcznie</string>
+    <string name="profile_preferences_savedProfilePreferences_title">Zapisane parametry urządzenia</string>
+    <string name="profile_preferences_savedProfilePreferences_summary">Kliknij tutaj, aby wyświetlić zapisane parametry urządzenia.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

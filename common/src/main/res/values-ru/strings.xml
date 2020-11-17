@@ -1539,13 +1539,15 @@
     <string name="profile_preferences_generateNotification">Сгенерировать уведомление</string>
     <string name="notification_channel_generated_by_profile">Уведомление, сгенерированное профилем</string>
     <string name="notification_channel_generated_by_profile_description">Показывает уведомление, сгенерированное профилем.</string>
-    <string name="profile_preferences_volumePartial">Change not muted volumes</string>
+    <string name="profile_preferences_volumePartial">Изменить неприглушённые уровни громкости</string>
     <string name="profile_preferences_volumeAll">Изменить уровни громкости</string>
     <string name="profile_preferences_soundsChange">Изменить звуки</string>
-    <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
-    <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
+    <string name="profile_preferences_deviceBrightness_automatic">Автоматическая яркость</string>
+    <string name="profile_preferences_deviceBrightness_manual">Ручная яркость</string>
     <string name="profile_preferences_savedProfilePreferences_title">Сохранённые параметры устройства</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Нажмите сюда, чтобы просмотреть сохранённые параметры устройства.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

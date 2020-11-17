@@ -1546,6 +1546,8 @@
     <string name="profile_preferences_deviceBrightness_manual">Manuální jas obrazovky</string>
     <string name="profile_preferences_savedProfilePreferences_title">Uložené parametry zařízení</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Klikněte sem pro zobrazení uložených parametrů zařízení.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Ikona aplikace namísto profilu</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Pokud se ve stavovém řádku namísto ikony profilu zobrazuje ikona aplikace PhoneProfilesPlus, můžete to změnit. Změňte \"Nastavení\" zařízení/\"Upozornění\"/\"Oznamovací roletka\"=\"Android\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

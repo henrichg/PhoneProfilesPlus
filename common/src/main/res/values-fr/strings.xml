@@ -1539,13 +1539,15 @@
     <string name="profile_preferences_generateNotification">Générer une notification</string>
     <string name="notification_channel_generated_by_profile">Notification générée par le profil</string>
     <string name="notification_channel_generated_by_profile_description">Affiche les notifications générées par le profil.</string>
-    <string name="profile_preferences_volumePartial">Change not muted volumes</string>
-    <string name="profile_preferences_volumeAll">Chnage volumes</string>
-    <string name="profile_preferences_soundsChange">Change sounds</string>
-    <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
-    <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
+    <string name="profile_preferences_volumePartial">Changer les volumes non mis en sourdine</string>
+    <string name="profile_preferences_volumeAll">Changer les volumes</string>
+    <string name="profile_preferences_soundsChange">Changer les sons</string>
+    <string name="profile_preferences_deviceBrightness_automatic">Luminosité automatique</string>
+    <string name="profile_preferences_deviceBrightness_manual">Luminosité manuelle</string>
+    <string name="profile_preferences_savedProfilePreferences_title">Paramètres de l\'appareil enregistrés</string>
+    <string name="profile_preferences_savedProfilePreferences_summary">Cliquez ici pour afficher les paramètres sauvegardés de l\'appareil .</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

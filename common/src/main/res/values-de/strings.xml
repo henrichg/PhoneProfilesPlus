@@ -1520,32 +1520,34 @@
     <string name="editor_activity_targetHelps_eventsFilterSpinner_description">Click this to switch between filter of Events view.</string>
     <string name="event_preference_calendar_status">Status</string>
     <string name="array_event_pref_calendarStatus_noCheck">Nicht überprüfen</string>
-    <string name="array_event_pref_calendarStatus_confirmed">Bestehtigt</string>
+    <string name="array_event_pref_calendarStatus_confirmed">Bestätigt</string>
     <string name="array_event_pref_calendarStatus_tentative">Unter Vorbehalt</string>
     <string name="array_event_pref_calendarStatus_canceled">Abgebrochen</string>
     <string name="important_info_accessibility_service_new_version_notification">Bitte installieren Sie die neue Version von PhoneProfilesPlusExtender. Weitere Informationen zur Installation finden Sie unter „Wichtige Informationen”, im Abschnitt \"Neuigkeiten\". Hier klicken, um sie anzuzeigen.</string>
-    <string name="generate_notification_pref_dialog_generate_chb">Erstellen</string>
+    <string name="generate_notification_pref_dialog_generate_chb">Generieren</string>
     <string name="generate_notification_pref_dialog_icon_type">Symboltyp</string>
     <string name="generate_notification_pref_dialog_information_icon_rb">Informationssymbol</string>
     <string name="generate_notification_pref_dialog_exclamation_icon_rb">Ausrufezeichen</string>
     <string name="generate_notification_pref_dialog_profile_icon_rb">Profilsymbol</string>
     <string name="generate_notification_pref_dialog_notification_title">Benachrichtigungstitel</string>
     <string name="generate_notification_pref_dialog_notification_body">Benachrichtigungsinhalt</string>
-    <string name="preference_profile_generate_notification_no_generate">Nicht erstellen</string>
-    <string name="preference_profile_generate_notification_generate">Erstellen</string>
-    <string name="preference_profile_generate_notification_information_icon">informationssymbol</string>
+    <string name="preference_profile_generate_notification_no_generate">Keine Generierung</string>
+    <string name="preference_profile_generate_notification_generate">Generieren</string>
+    <string name="preference_profile_generate_notification_information_icon">Informationssymbol</string>
     <string name="preference_profile_generate_notification_exclamation_icon">Ausrufezeichen</string>
     <string name="preference_profile_generate_notification_profile_icon">Profilsymbol</string>
     <string name="profile_preferences_generateNotification">Benachrichtigung erstellen</string>
     <string name="notification_channel_generated_by_profile">Benachrichtigung durch Profil erstellt</string>
     <string name="notification_channel_generated_by_profile_description">Zeigt die vom Profil erstellten Benachrichtigungen an.</string>
-    <string name="profile_preferences_volumePartial">Change not muted volumes</string>
-    <string name="profile_preferences_volumeAll">Chnage volumes</string>
-    <string name="profile_preferences_soundsChange">Change sounds</string>
-    <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
-    <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
+    <string name="profile_preferences_volumePartial">Nicht stumm geschaltete Lautstärke ändern</string>
+    <string name="profile_preferences_volumeAll">Lautstärke ändern</string>
+    <string name="profile_preferences_soundsChange">Töne ändern</string>
+    <string name="profile_preferences_deviceBrightness_automatic">Automatische Helligkeit</string>
+    <string name="profile_preferences_deviceBrightness_manual">Helligkeit manuell einstellen</string>
+    <string name="profile_preferences_savedProfilePreferences_title">Gespeicherte Geräteparameter</string>
+    <string name="profile_preferences_savedProfilePreferences_summary">Hier klicken, um gespeicherte Geräteparameter anzuzeigen.</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Symbol der Anwendung statt des Profils</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
