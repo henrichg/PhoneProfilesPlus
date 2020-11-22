@@ -1567,6 +1567,9 @@ class Event {
 
             //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
             if (this._manualProfileActivation) {
+                //TODO !!! CHANGE THIS !!!
+                //TODO normal merge profile, do not activate merged manually here
+                //TODO activate merged profile manually in EventsHandler
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
 //                if (_name.equals("Evening "))
 //                    PPApplication.logE("[***] Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");

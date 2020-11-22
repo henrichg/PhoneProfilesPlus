@@ -254,12 +254,12 @@ class AddEventAdapter extends BaseAdapter {
             }
 
             // profile end
-            if (event._manualProfileActivation) {
+            /*if (event._manualProfileActivation) {
                 holder.profileEndIcon.setVisibility(View.GONE);
                 holder.profileEndName.setVisibility(View.GONE);
                 if (holder.profileEndIndicator != null)
                     holder.profileEndIndicator.setVisibility(View.GONE);
-            } else {
+            } else*/ {
                 holder.profileEndIcon.setVisibility(View.VISIBLE);
                 if (applicationEditorPrefIndicator) {
                     if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)

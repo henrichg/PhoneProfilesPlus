@@ -289,13 +289,13 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             // profile end
-            if (event._manualProfileActivation) {
+            /*if (event._manualProfileActivation) {
                 profileEndIcon.setVisibility(View.GONE);
                 profileEndName.setVisibility(View.GONE);
                 if (profileEndIndicator != null)
                     profileEndIndicator.setVisibility(View.GONE);
             }
-            else {
+            else*/ {
                 profileEndIcon.setVisibility(View.VISIBLE);
                 if (applicationEditorPrefIndicator) {
                     if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
