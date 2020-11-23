@@ -1044,27 +1044,27 @@ class Event {
             setSummary(prefMng, key, "", context);
         }
 
-        if (key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
+        if (//key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
                 key.equals(PREF_EVENT_PROFILE_END) ||
                 key.equals(PREF_EVENT_AT_END_DO) ||
                 //key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
                 key.equals(PREF_EVENT_END_OTHERS)) {
-            boolean value = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-            if (value) {
+            //boolean value = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
+            /*if (value) {
                 Preference preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
                 if (preference != null)
                     preference.setEnabled(false);
                 preference = prefMng.findPreference(PREF_EVENT_AT_END_DO);
                 if (preference != null)
                     preference.setEnabled(false);
-                /*preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
-                if (preference != null)
-                    preference.setEnabled(false);*/
+                //preference = prefMng.findPreference(PREF_EVENT_AT_END_HOW_UNDO);
+                //if (preference != null)
+                //    preference.setEnabled(false);
                 preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
                 if (preference != null)
                     preference.setEnabled(false);
             }
-            else {
+            else */{
                 Preference preference = prefMng.findPreference(PREF_EVENT_AT_END_DO);
                 if (preference != null)
                     preference.setEnabled(true);
@@ -1567,9 +1567,6 @@ class Event {
 
             //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
             if (this._manualProfileActivation) {
-                //TODO !!! CHANGE THIS !!!
-                //TODO normal merge profile, do not activate merged manually here
-                //TODO activate merged profile manually in EventsHandler
                 DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
 //                if (_name.equals("Evening "))
 //                    PPApplication.logE("[***] Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
