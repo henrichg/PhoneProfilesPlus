@@ -8,6 +8,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -1042,6 +1044,14 @@ class EventsHandler {
                 synchronized (PPApplication.profileActivationMutex) {
                     dataWrapper.getActivatedProfilesFIFO();
                 }
+            }
+            else {
+                // refresh only Editor
+                Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver");
+                refreshIntent.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+                //refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
+                //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
             }
 
 
