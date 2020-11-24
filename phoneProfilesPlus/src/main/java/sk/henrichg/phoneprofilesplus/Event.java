@@ -1128,6 +1128,9 @@ class Event {
         Preference preference = prefMng.findPreference(PREF_EVENT_IGNORE_MANUAL_ACTIVATION);
         if (preference != null)
             preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
+        preference = prefMng.findPreference(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION);
+        if (preference != null)
+            preference.setTitle("[»»] " + context.getString(R.string.event_preferences_noPauseByManualActivation));
 
         setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_NAME, preferences, context);

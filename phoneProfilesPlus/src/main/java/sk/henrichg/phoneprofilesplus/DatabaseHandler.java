@@ -7663,6 +7663,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 try {
                     ContentValues values = new ContentValues();
                     values.put(KEY_E_FORCE_RUN, event._ignoreManualActivation);
+                    if (event._ignoreManualActivation) {
+                        values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation);
+                    }
 
                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                             new String[]{String.valueOf(event._id)});

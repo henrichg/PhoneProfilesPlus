@@ -1142,6 +1142,7 @@
         <string-array name="ignoreManualActivationArray">
             <item>@string/array_ignore_manual_activation_not_ignore</item>
             <item>@string/array_ignore_manual_activation_ignore</item>
+            <item>@string/array_ignore_manual_activation_ignore_no_pause</item>
         </string-array>
     -->
     <string-array name="eventNotificationContactListTypeArray">

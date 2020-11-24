@@ -1871,6 +1871,17 @@ public class EditorEventListFragment extends Fragment
                 else
                 if (itemId == R.id.event_list_item_ignore_manual_activation) {
                     event._ignoreManualActivation = true;
+                    event._noPauseByManualActivation = false;
+                    DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                    //eventListAdapter.notifyDataSetChanged();
+                    EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                    ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+                    return true;
+                }
+                else
+                if (itemId == R.id.event_list_item_ignore_manual_activation_no_pause) {
+                    event._ignoreManualActivation = true;
+                    event._noPauseByManualActivation = true;
                     DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
                     //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());

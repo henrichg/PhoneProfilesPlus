@@ -188,14 +188,20 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {
                 if (event._ignoreManualActivation) {
                     addedLF = true;
-                    _eventName = event._name + "\n" + "[»]";
+                    if (event._noPauseByManualActivation)
+                        _eventName = event._name + "\n" + "[»»]";
+                    else
+                        _eventName = event._name + "\n" + "[»]";
                 } else
                     _eventName = event._name;
             }
             else {
                 addedLF = true;
                 if (event._ignoreManualActivation) {
-                    _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[»]";
+                    if (event._noPauseByManualActivation)
+                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[»»]";
+                    else
+                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[»]";
                 } else
                     _eventName = event._name + "\n" + eventStartOrder + eventPriority;
             }
@@ -434,8 +440,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             });
 
-            if (event._ignoreManualActivation)
-                ignoreManualActivationButton.setImageResource(R.drawable.ic_ignore_manual_activation);
+            if (event._ignoreManualActivation) {
+                if (event._noPauseByManualActivation)
+                    ignoreManualActivationButton.setImageResource(R.drawable.ic_ignore_manual_activation_no_pause);
+                else
+                    ignoreManualActivationButton.setImageResource(R.drawable.ic_ignore_manual_activation);
+            }
             else
                 ignoreManualActivationButton.setImageResource(R.drawable.ic_not_show_in_activator);
             TooltipCompat.setTooltipText(ignoreManualActivationButton, context.getString(R.string.event_preferences_ForceRun));

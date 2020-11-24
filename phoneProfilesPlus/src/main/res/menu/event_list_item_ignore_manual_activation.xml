@@ -12,4 +12,8 @@
         android:title="@string/array_ignore_manual_activation_ignore"
         android:icon="@drawable/ic_ignore_manual_activation"
         android:orderInCategory="102" />
+    <item android:id="@+id/event_list_item_ignore_manual_activation_no_pause"
+        android:title="@string/array_ignore_manual_activation_ignore_no_pause"
+        android:icon="@drawable/ic_ignore_manual_activation_no_pause"
+        android:orderInCategory="102" />
 </menu>
