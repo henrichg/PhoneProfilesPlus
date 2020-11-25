@@ -4,6 +4,12 @@
     app:title="@string/event_preferences_category_startOfEventOthers"
     app:key="eventEndOthersCategory" >
 
+    <SwitchPreferenceCompat
+        app:key="manualProfileActivationAtEnd"
+        app:title="@string/event_preferences_manualProfileActivationAtEnd"
+        app:defaultValue="false"
+        app:disableDependentsState="true"
+        app:layout="@layout/mp_preference_material_widget"/>
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="eventDelayEnd"
         app:summary="@string/event_preferences_delayStart"

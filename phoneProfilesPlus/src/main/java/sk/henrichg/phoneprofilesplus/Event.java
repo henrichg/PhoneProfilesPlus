@@ -955,8 +955,7 @@ class Event {
                                 delayStartChanged ||
                                 notificationSoundStartChanged ||
                                 notificationVibrateStartChanged ||
-                                notificationRepeatStartChanged ||
-                                manualProfileActivationAtEndChanged);
+                                notificationRepeatStartChanged);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
@@ -965,10 +964,6 @@ class Event {
                     if (manualProfileActivationChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
-                    }
-                    if (manualProfileActivationAtEndChanged) {
-                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_manualProfileActivationAtEnd);
                     }
                     if (profileStartWhenActivatedChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1011,10 +1006,15 @@ class Event {
             if (preference != null) {
                 boolean bold = (delayEndChanged ||
                                 notificationSoundEndChanged ||
-                                notificationVibrateEndChanged);
+                                notificationVibrateEndChanged ||
+                                manualProfileActivationAtEndChanged);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
+                    if (manualProfileActivationAtEndChanged) {
+                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_manualProfileActivationAtEnd);
+                    }
                     if (delayEndChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
