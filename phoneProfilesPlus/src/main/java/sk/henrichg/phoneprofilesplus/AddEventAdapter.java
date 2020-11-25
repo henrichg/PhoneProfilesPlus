@@ -284,7 +284,10 @@ class AddEventAdapter extends BaseAdapter {
                 if (profile != null) {
                     String profileName;
                     //if (event._atEndHowUndo == 0) {
-                        profileName = profile._name;
+                        if (event._manualProfileActivationAtEnd)
+                            profileName = "[M] " + profile._name;
+                        else
+                            profileName = profile._name;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                             profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_undone);
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
@@ -332,7 +335,10 @@ class AddEventAdapter extends BaseAdapter {
                     //if (event._atEndHowUndo == 0) {
                         profileName = profileEndNamesArray[position];
                         if ((position > 0) && (!profileName.isEmpty())) {
-                            profileName = "(*) " + profileName;
+                            if (event._manualProfileActivationAtEnd)
+                                profileName = "(*) [M] " + profileName;
+                            else
+                                profileName = "(*) " + profileName;
                             holder.profileEndName.setTextColor(Color.RED);
                         } else
                             holder.profileEndName.setTextColor(defaultColor);
@@ -340,8 +346,12 @@ class AddEventAdapter extends BaseAdapter {
                     //else
                     //    holder.profileEndName.setTextColor(defaultColor);
                     if (profileName.isEmpty()) {
-                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                            profileName = vi.getResources().getString(R.string.event_preference_profile_undone);
+                        if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
+                            if (event._manualProfileActivationAtEnd)
+                                profileName = "[M] " + vi.getResources().getString(R.string.event_preference_profile_undone);
+                            else
+                                profileName = vi.getResources().getString(R.string.event_preference_profile_undone);
+                        }
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                             profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                         else {
@@ -354,6 +364,8 @@ class AddEventAdapter extends BaseAdapter {
                         }
                     }
                     else {
+                        if (event._manualProfileActivationAtEnd)
+                            profileName =  "[M] " + profileName;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                             profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_undone);
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)

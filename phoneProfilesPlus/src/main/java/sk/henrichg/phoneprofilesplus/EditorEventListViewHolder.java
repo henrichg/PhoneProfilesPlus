@@ -320,7 +320,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     String profileName;
                     //noinspection IfStatementWithIdenticalBranches
                     //if (event._atEndHowUndo == 0) {
-                        profileName = profile._name;
+                        if (event._manualProfileActivationAtEnd)
+                            profileName = "[M] " +profile._name;
+                        else
+                            profileName = profile._name;
                         if (event._delayEnd > 0)
                             profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
@@ -366,8 +369,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     String profileName = "";
                     if (event._delayEnd > 0)
                         profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] ";
-                    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+                    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
+                        if (event._manualProfileActivationAtEnd)
+                            profileName = "[M] ";
                         profileName = profileName + context.getResources().getString(R.string.event_preference_profile_undone);
+                    }
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + context.getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {

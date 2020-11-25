@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2441;
+    private static final int DATABASE_VERSION = 2442;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -337,6 +337,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_ALARM_CLOCK_PACKAGE_NAME = "alarmClockPackageName";
     private static final String KEY_E_AT_END_HOW_UNDO = "atEndHowUndo";
     private static final String KEY_E_CALENDAR_STATUS = "calendarStatus";
+    private static final String KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -721,7 +722,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_ALARM_CLOCK_APPLICATIONS + " " + TEXT_TYPE + ","
                 + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " " + TEXT_TYPE + ","
                 + KEY_E_AT_END_HOW_UNDO + " " + INTEGER_TYPE + ","
-                + KEY_E_CALENDAR_STATUS + " " + INTEGER_TYPE
+                + KEY_E_CALENDAR_STATUS + " " + INTEGER_TYPE + ","
+                + KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1129,6 +1131,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_ALARM_CLOCK_PACKAGE_NAME, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_AT_END_HOW_UNDO, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_STATUS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -2979,6 +2982,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_GENERATE_NOTIFICATION + "=\"0|0||\"");
         }
 
+        if (oldVersion < 2442)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + "=0");
+        }
+
     }
 
     @Override
@@ -4687,7 +4695,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_DELAY_START, event._delayStart); // delay for start
                 values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0); // event is in delay before start
                 values.put(KEY_E_AT_END_DO, event._atEndDo); //at end of event do
-                values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation
+                values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation at start
                 values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, Profile.PROFILE_NO_ACTIVATE);
                 values.put(KEY_E_DELAY_END, event._delayEnd); // delay for end
                 values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0); // event is in delay after pause
@@ -4696,6 +4704,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0); // no pause event by manual profile activation
                 values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, event._startWhenActivatedProfile); // start when profile is activated
                 //values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
+                values.put(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0); // manual profile activation at end
 
                 db.beginTransaction();
 
@@ -4758,7 +4767,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_E_START_STATUS_TIME,
                                 KEY_E_PAUSE_STATUS_TIME,
                                 KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION,
-                                KEY_E_AT_END_HOW_UNDO
+                                KEY_E_AT_END_HOW_UNDO,
+                                KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END
                         },
                         KEY_E_ID + "=?",
                         new String[]{String.valueOf(event_id)}, null, null, null, null);
@@ -4792,8 +4802,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_START)) == 1,
                                 cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL_START)),
                                 cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_END)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE_END)) == 1//,
+                                cursor.getInt(cursor.getColumnIndex(KEY_E_NOTIFICATION_VIBRATE_END)) == 1,
                                 //cursor.getInt(cursor.getColumnIndex(KEY_E_AT_END_HOW_UNDO))
+                                cursor.getInt(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1
                         );
                     }
 
@@ -4848,7 +4859,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_PAUSE_STATUS_TIME + "," +
                         KEY_E_START_ORDER + "," +
                         KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION + "," +
-                        KEY_E_AT_END_HOW_UNDO +
+                        KEY_E_AT_END_HOW_UNDO + "," +
+                        KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END +
                         " FROM " + TABLE_EVENTS +
                         " ORDER BY " + KEY_E_ID;
 
@@ -4887,6 +4899,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         event._startOrder = cursor.getInt(cursor.getColumnIndex(KEY_E_START_ORDER));
                         event._noPauseByManualActivation = cursor.getInt(cursor.getColumnIndex(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION)) == 1;
                         //event._atEndHowUndo = cursor.getInt(cursor.getColumnIndex(KEY_E_AT_END_HOW_UNDO));
+                        event._manualProfileActivationAtEnd = cursor.getInt(cursor.getColumnIndex(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END)) == 1;
                         event.createEventPreferences();
                         getEventPreferences(event, db);
                         // Adding contact to list
@@ -4943,6 +4956,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
                 values.put(KEY_E_NO_PAUSE_BY_MANUAL_ACTIVATION, event._noPauseByManualActivation ? 1 : 0);
                 //values.put(KEY_E_AT_END_HOW_UNDO, event._atEndHowUndo);
+                values.put(KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, event._manualProfileActivationAtEnd ? 1 : 0);
 
                 db.beginTransaction();
 

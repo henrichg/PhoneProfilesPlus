@@ -62,6 +62,7 @@ class Event {
     String _notificationSoundEnd;
     boolean _notificationVibrateEnd;
     //int _atEndHowUndo;
+    boolean _manualProfileActivationAtEnd;
 
     //boolean _undoCalled;
 
@@ -128,6 +129,7 @@ class Event {
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
     private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
     //private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
+    private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
@@ -168,8 +170,10 @@ class Event {
                  boolean repeatNotificationStart,
                  int repeatNotificationIntervalStart,
                  String notificationSoundEnd,
-                 boolean notificationVibrateEnd/*,
-                 int atEndHowUndo*/)
+                 boolean notificationVibrateEnd,
+                 //int atEndHowUndo,
+                 boolean manualProfileActivationAtEnd
+          )
     {
         this._id = id;
         this._name = name;
@@ -198,6 +202,7 @@ class Event {
         this._pauseStatusTime = pauseStatusTime;
         this._noPauseByManualActivation = noPauseByManualActivation;
         //this._atEndHowUndo = atEndHowUndo;
+        this._manualProfileActivationAtEnd = manualProfileActivationAtEnd;
 
         //this._undoCalled = false;
 
@@ -229,8 +234,10 @@ class Event {
                  boolean repeatNotificationStart,
                  int repeatNotificationIntervalStart,
                  String notificationSoundEnd,
-                 boolean notificationVibrateEnd/*,
-                 int atEndHowUndo*/)
+                 boolean notificationVibrateEnd,
+                 //int atEndHowUndo
+                 boolean manualProfileActivationAtEnd
+        )
     {
         this._name = name;
         this._startOrder = startOrder;
@@ -258,6 +265,7 @@ class Event {
         this._pauseStatusTime = pauseStatusTime;
         this._noPauseByManualActivation = noPauseByManualActivation;
         //this._atEndHowUndo = atEndHowUndo;
+        this._manualProfileActivationAtEnd = manualProfileActivationAtEnd;
 
         //this._undoCalled = false;
 
@@ -293,6 +301,7 @@ class Event {
         this._pauseStatusTime = event._pauseStatusTime;
         this._noPauseByManualActivation = event._noPauseByManualActivation;
         //this._atEndHowUndo = event._atEndHowUndo;
+        this._manualProfileActivationAtEnd = event._manualProfileActivationAtEnd;
 
         //this._undoCalled = event._undoCalled;
 
@@ -649,6 +658,7 @@ class Event {
         editor.putString(PREF_EVENT_DELAY_END, Integer.toString(this._delayEnd));
         editor.putBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, this._noPauseByManualActivation);
         //editor.putString(PREF_EVENT_AT_END_HOW_UNDO, Integer.toString(this._atEndHowUndo));
+        editor.putBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, this._manualProfileActivationAtEnd);
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);
@@ -690,6 +700,7 @@ class Event {
         this._startWhenActivatedProfile = preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, "");
         this._noPauseByManualActivation = preferences.getBoolean(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, false);
         //this._atEndHowUndo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_HOW_UNDO, "0"));
+        this._manualProfileActivationAtEnd = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -865,7 +876,8 @@ class Event {
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_REPEAT_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END) ||
-            key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION)) {
+            key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION) ||
+            key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
 
             Preference preference = prefMng.findPreference(key);
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false);
@@ -885,7 +897,8 @@ class Event {
                 key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END) ||
                 key.equals(PREF_EVENT_DELAY_START) ||
                 key.equals(PREF_EVENT_DELAY_END) ||
-                key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
+                key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE) ||
+                key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
             //boolean forceRunChanged = false;
             boolean manualProfileActivationChanged;
             boolean profileStartWhenActivatedChanged;
@@ -896,6 +909,7 @@ class Event {
             boolean notificationRepeatStartChanged;
             boolean notificationSoundEndChanged;
             boolean notificationVibrateEndChanged;
+            boolean manualProfileActivationAtEndChanged;
 
             String startWhenActivatedProfile;
             int delayStart;
@@ -915,6 +929,7 @@ class Event {
                 notificationRepeatStartChanged = this._repeatNotificationStart;
                 notificationSoundEndChanged = !this._notificationSoundEnd.isEmpty();
                 notificationVibrateEndChanged = this._notificationVibrateEnd;
+                manualProfileActivationAtEndChanged = this._manualProfileActivationAtEnd;
             }
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_IGNORE_MANUAL_ACTIVATION, false);
@@ -930,6 +945,7 @@ class Event {
                 notificationRepeatStartChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT_START, false);
                 notificationSoundEndChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_END, "").isEmpty();
                 notificationVibrateEndChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_END, false);
+                manualProfileActivationAtEndChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
             }
             Preference preference = prefMng.findPreference("eventStartOthersCategoryRoot");
             if (preference != null) {
@@ -939,7 +955,8 @@ class Event {
                                 delayStartChanged ||
                                 notificationSoundStartChanged ||
                                 notificationVibrateStartChanged ||
-                                notificationRepeatStartChanged);
+                                notificationRepeatStartChanged ||
+                                manualProfileActivationAtEndChanged);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
@@ -948,6 +965,10 @@ class Event {
                     if (manualProfileActivationChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
+                    }
+                    if (manualProfileActivationAtEndChanged) {
+                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_manualProfileActivationAtEnd);
                     }
                     if (profileStartWhenActivatedChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1036,7 +1057,8 @@ class Event {
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_REPEAT_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END) ||
-            key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION)) {
+            key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION) ||
+            key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, Boolean.toString(value), context);
         }
@@ -1152,6 +1174,7 @@ class Event {
         setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION, preferences, context);
         //setSummary(prefMng, PREF_EVENT_AT_END_HOW_UNDO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, preferences, context);
         setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);

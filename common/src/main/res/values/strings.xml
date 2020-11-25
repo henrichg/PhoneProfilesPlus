@@ -333,7 +333,7 @@
     <string name="array_event_pref_calendarAvailability_busy">Busy</string>
     <string name="array_event_pref_calendarAvailability_free">Free</string>
     <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
-    <string name="event_preferences_manualProfileActivation">[M] Manual profile activation</string>
+    <string name="event_preferences_manualProfileActivation">[M] Manual profile activation at start</string>
     <string name="profileicon_pref_dialog_customColor_button">Change color</string>
     <string name="colorChooser_pref_dialog_title">Set color</string>
     <string name="phone_profiles_pref_category_system">System</string>
@@ -1673,6 +1673,7 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
 
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
+    <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
 
     <!-- **************************************************************************************** -->
 
