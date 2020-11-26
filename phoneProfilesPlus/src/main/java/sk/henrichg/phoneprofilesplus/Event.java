@@ -1664,7 +1664,7 @@ class Event {
                 // first activate _fkProfileEnd
                 if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
                 {
-                    if ((_fkProfileEnd != activatedProfileId) || forRestartEvents)
+                    if (_manualProfileActivationAtEnd || (_fkProfileEnd != activatedProfileId) || forRestartEvents)
                     {
                         //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(1) called is DataWrapper.activateProfileFromEvent");
                         dataWrapper.activateProfileFromEvent(_id, _fkProfileEnd, false, false, forRestartEvents);
@@ -1745,7 +1745,7 @@ class Event {
                     }
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
                     //if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)
-                    if ((activateProfile != activatedProfileId) || forRestartEvents)
+                    if (_manualProfileActivationAtEnd || (activateProfile != activatedProfileId) || forRestartEvents)
                     {
                         //if (eventTimeline._fkProfileEndActivated != 0)
                         if (activateProfile != 0)
@@ -1767,21 +1767,29 @@ class Event {
                     //PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
                     mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper/*, false*/);
 
-                    long profileId = _fkProfileEnd;
-//                    PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
-                    dataWrapper.addProfileToFIFO(profileId, _id);
-                    /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
-                    if (activateProfilesFIFO == null)
-                        activateProfilesFIFO = new ArrayList<>();
-                    int size = activateProfilesFIFO.size();
-                    if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
-                        activateProfilesFIFO.remove(0);
-                        size--;
+                    if (_manualProfileActivationAtEnd) {
+                        DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
+                        dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                        mergedProfile._id = 0;
                     }
-                    String toFifo = profileId + "|" + _id;
-                    if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
-                        activateProfilesFIFO.add(toFifo);
+                    else {
+                        long profileId = _fkProfileEnd;
+
+//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
+                        dataWrapper.addProfileToFIFO(profileId, _id);
+                        /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                        if (activateProfilesFIFO == null)
+                            activateProfilesFIFO = new ArrayList<>();
+                        int size = activateProfilesFIFO.size();
+                        if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
+                            activateProfilesFIFO.remove(0);
+                            size--;
+                        }
+                        String toFifo = profileId + "|" + _id;
+                        if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
+                            activateProfilesFIFO.add(toFifo);
                     dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);*/
+                    }
                 }
                 // second activate when undone profile is set
                 if (_atEndDo == EATENDDO_UNDONE_PROFILE)
@@ -1861,22 +1869,29 @@ class Event {
                         //mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
                         mergedProfile.mergeProfiles(activateProfile, dataWrapper/*, false*/);
 
-//                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + activateProfile);
-                        // do not save to fifo profile with event for Undo
-                        //dataWrapper.addProfileToFIFO(activateProfile, 0);
-                        /*List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
-                        if (activateProfilesFIFO == null)
-                            activateProfilesFIFO = new ArrayList<>();
-                        int size = activateProfilesFIFO.size();
-                        if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
-                            activateProfilesFIFO.remove(0);
-                            size--;
+                        if (_manualProfileActivationAtEnd) {
+                            DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
+                            dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                            mergedProfile._id = 0;
                         }
-                        // do not save to fifo profile with event for Undo
-                        String toFifo = activateProfile + "|0";
-                        if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
-                            activateProfilesFIFO.add(toFifo);
-                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);*/
+                        /*else {
+                            PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + activateProfile);
+                            // do not save to fifo profile with event for Undo
+                            //dataWrapper.addProfileToFIFO(activateProfile, 0);
+                            List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                            if (activateProfilesFIFO == null)
+                                activateProfilesFIFO = new ArrayList<>();
+                            int size = activateProfilesFIFO.size();
+                            if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
+                                activateProfilesFIFO.remove(0);
+                                size--;
+                            }
+                            // do not save to fifo profile with event for Undo
+                            String toFifo = activateProfile + "|0";
+                            if ((size == 0) || (!activateProfilesFIFO.get(size-1).equals(toFifo)))
+                                activateProfilesFIFO.add(toFifo);
+                            dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        }*/
                     }
                 }
             }
