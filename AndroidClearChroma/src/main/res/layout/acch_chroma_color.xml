@@ -4,7 +4,8 @@
     android:id="@+id/acch_color_view_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/acch_color_view"
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:maxHeight="@dimen/acch_color_view_height"
         android:background="@drawable/acch_color_background"
+        android:src="@android:color/black"
         android:clickable="true"
         android:focusable="true"/>
 
@@ -26,6 +28,7 @@
         android:maxLength="6"
         android:inputType="textCapCharacters|textNoSuggestions"
         android:importantForAutofill="no"
+        android:textSize="20sp"
         tools:ignore="LabelFor"/>
 
     <LinearLayout

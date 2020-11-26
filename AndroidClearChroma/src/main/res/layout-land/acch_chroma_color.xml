@@ -3,14 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/acch_color_view_root"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/acch_color_view"
         android:layout_width="@dimen/acch_color_view_width"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:background="@drawable/acch_color_background"/>
+        android:background="@drawable/acch_color_background"
+        android:src="@android:color/black"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,6 +33,7 @@
             android:maxLength="6"
             android:inputType="textCapCharacters|textNoSuggestions"
             android:importantForAutofill="no"
+            android:textSize="20sp"
             tools:ignore="LabelFor"/>
 
         <ScrollView
