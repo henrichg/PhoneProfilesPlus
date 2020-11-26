@@ -61,6 +61,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
             intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
             appContext.sendBroadcast(intent);
 
+            finish();
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialogInterface, i) -> ExitApplicationActivity.this.finish());
         AlertDialog dialog = dialogBuilder.create();

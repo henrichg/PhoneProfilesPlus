@@ -48,19 +48,12 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
         Calendar now = Calendar.getInstance();
         //if (DebugVersion.enabled) {
         //    now.add(Calendar.MINUTE, 1);
-            /*now.set(Calendar.HOUR_OF_DAY, 12);
-            now.set(Calendar.MINUTE, 30);
-            //now.add(Calendar.DAY_OF_MONTH, 30);
-            now.add(Calendar.DAY_OF_MONTH, 1);
-            now.set(Calendar.SECOND, 0);
-            now.set(Calendar.MILLISECOND, 0);*/
 
-        //    if (PPApplication.logEnabled()) {
-        //        @SuppressLint("SimpleDateFormat")
-        //        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        //        String result = sdf.format(now.getTimeInMillis());
-        //        Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
-        //    }
+            //    if (PPApplication.logEnabled()) {
+            //        @SuppressLint("SimpleDateFormat")
+            //        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            //        String result = sdf.format(now.getTimeInMillis());
+            //        Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
         //} else {
             // each day at 12:30
             now.set(Calendar.HOUR_OF_DAY, 12);
@@ -228,6 +221,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                             //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
                             if ((versionCode > 0) && (versionCode < Integer.parseInt(splits[1])))
                                 found = true;
+                            //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "found=" + found);
                         }
                     }
                 }
@@ -270,7 +264,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                 //}
 
-                Intent disableIntent = new Intent(appContext, IgnoreBatteryOptimizationDisableActivity.class);
+                Intent disableIntent = new Intent(appContext, CheckCriticalGitHubReleasesDisableActivity.class);
                 PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                         R.drawable.ic_action_exit_app_white,

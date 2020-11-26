@@ -56,12 +56,17 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), false);
                 CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
+                finish();
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
                 CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), true);
                 CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
+                finish();
             });
-            dialogBuilder.setOnCancelListener(dialog -> CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext()));
+            dialogBuilder.setOnCancelListener(dialog -> {
+                CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
+                finish();
+            });
             AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {

@@ -56,12 +56,17 @@ public class IgnoreBatteryOptimizationDisableActivity extends AppCompatActivity
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), false);
                 IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
+                finish();
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
                 IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
+                finish();
             });
-            dialogBuilder.setOnCancelListener(dialog -> IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext()));
+            dialogBuilder.setOnCancelListener(dialog -> {
+                IgnoreBatteryOptimizationNotification.removeNotification(getApplicationContext());
+                finish();
+            });
             AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
