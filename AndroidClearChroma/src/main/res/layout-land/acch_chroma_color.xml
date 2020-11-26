@@ -4,7 +4,7 @@
     android:id="@+id/acch_color_view_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"> <!-- requered for EditText selector icon -->
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/acch_color_view"
