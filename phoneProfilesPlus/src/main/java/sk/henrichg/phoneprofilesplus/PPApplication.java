@@ -1782,6 +1782,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         }
 
         IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
+        CheckCriticalGitHubReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
         getActivityLogEnabled(context);
         //getNotificationProfileName(context);
         //getWidgetProfileName(context);

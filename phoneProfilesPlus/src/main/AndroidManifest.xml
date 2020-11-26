@@ -431,6 +431,13 @@
             android:name=".DonationPayPalActivity"
             android:label="@string/donation_activity_title">
         </activity>
+        <activity
+            android:name=".CheckCriticalGitHubReleasesDisableActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
 
 
         <!-- implicit broadcast receivers, in Android O exception group -->

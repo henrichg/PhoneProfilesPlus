@@ -41,6 +41,7 @@ class ApplicationPreferences {
     static boolean prefEventWifiScanRequest;
     static boolean prefEventWifiWaitForResult;
     static boolean prefEventWifiEnabledForScan;
+    static boolean prefShowCriticalGitHubReleasesNotificationNotification;
 
     static boolean applicationEventNeverAskForEnableRun;
     static boolean applicationNeverAskForGrantRoot;
