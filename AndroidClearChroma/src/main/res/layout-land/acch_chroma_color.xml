@@ -34,6 +34,9 @@
             android:inputType="textCapCharacters|textNoSuggestions"
             android:importantForAutofill="no"
             android:textSize="20sp"
+            android:textSelectHandle="@drawable/acch_ic_empty"
+            android:textSelectHandleLeft="@drawable/acch_ic_empty"
+            android:textSelectHandleRight="@drawable/acch_ic_empty"
             tools:ignore="LabelFor"/>
 
         <ScrollView
