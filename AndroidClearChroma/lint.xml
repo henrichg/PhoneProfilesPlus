@@ -2,5 +2,6 @@
 <lint>
     <issue id="IconLocation">
         <ignore path="src/main/res/drawable/acch_draughtboard.png" />
+        <ignore path="src/main/res/drawable/acch_ic_empty.png" />
     </issue>
 </lint>

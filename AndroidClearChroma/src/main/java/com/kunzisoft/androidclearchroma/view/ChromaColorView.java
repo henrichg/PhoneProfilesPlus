@@ -101,6 +101,7 @@ public class ChromaColorView extends RelativeLayout {
     }
 
     private final ChannelView.OnProgressChangedListener seekBarChangeListener = new ChannelView.OnProgressChangedListener() {
+        @SuppressWarnings("unused")
         @Override
         public void onProgressChanged() {
             List<Channel> channels = new ArrayList<>();
