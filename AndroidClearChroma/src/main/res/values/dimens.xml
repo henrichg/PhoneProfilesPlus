@@ -24,5 +24,4 @@
 
     <dimen name="acch_channel_view_margin_top">16dp</dimen>
     <dimen name="acch_channel_view_margin_bottom">4dp</dimen>
-
 </resources>
