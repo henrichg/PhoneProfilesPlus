@@ -4,22 +4,22 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.R;
@@ -45,7 +45,8 @@ public class ChromaColorView extends RelativeLayout {
 
     private AppCompatImageView colorView;
     private final List<ChannelView> channelViews = new ArrayList<>();
-    private EditText colorEdit;
+    //private EditText colorEdit;
+    private TextView colorEditButton;
 
     private OnColorChangedListener mOnColorChangedListener;
 
@@ -96,7 +97,12 @@ public class ChromaColorView extends RelativeLayout {
         View root = inflate(context, R.layout.acch_chroma_color, this);
 
         colorView = root.findViewById(R.id.acch_color_view);
-        colorEdit = root.findViewById(R.id.acch_color_edit);
+        //colorEdit = root.findViewById(R.id.acch_color_edit);
+        colorEditButton = root.findViewById(R.id.acch_color_edit_button);
+
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+        Log.e("ChromaColorView.init", "fragmentManager="+fragmentManager);
+
         createView();
     }
 
@@ -116,13 +122,15 @@ public class ChromaColorView extends RelativeLayout {
             // Change view for visibility of color
             DrawableCompat.setTint(colorView.getDrawable(), currentColor);
             colorView.invalidate();
-            colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
+            //colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
+            colorEditButton.setText(String.format("%06X", 0xFFFFFF & currentColor));
         }
     };
 
     private void createView() {
         DrawableCompat.setTint(colorView.getDrawable(), currentColor);
-        colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
+        //colorEdit.setText(String.format("%06X", 0xFFFFFF & currentColor));
+        colorEditButton.setText(String.format("%06X", 0xFFFFFF & currentColor));
 
         ViewGroup channelContainer = findViewById(R.id.acch_channel_container);
         channelContainer.removeAllViews();
@@ -145,6 +153,14 @@ public class ChromaColorView extends RelativeLayout {
             channelViews.add(channelView);
         }
 
+        colorEditButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        /*
         colorEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -179,6 +195,7 @@ public class ChromaColorView extends RelativeLayout {
             if (imm != null)
                 imm.hideSoftInputFromWindow(colorEdit.getWindowToken(), 0);
         });
+        */
 
         for (ChannelView currentChannelView : channelViews) {
             currentChannelView.registerListener(seekBarChangeListener);

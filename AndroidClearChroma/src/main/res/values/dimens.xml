@@ -24,4 +24,7 @@
 
     <dimen name="acch_channel_view_margin_top">16dp</dimen>
     <dimen name="acch_channel_view_margin_bottom">4dp</dimen>
+
+    <dimen name="acch_button_corner_radius">5dp</dimen>
+
 </resources>
