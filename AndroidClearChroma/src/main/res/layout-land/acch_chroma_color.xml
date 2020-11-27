@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/acch_color_view_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -21,6 +22,7 @@
         android:layout_alignParentEnd="true"
         android:orientation="vertical" >
 
+        <!--
         <TextView
             android:id="@+id/acch_color_edit_button"
             android:layout_width="wrap_content"
@@ -38,8 +40,8 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"/>
+        -->
 
-        <!--
         <EditText
             android:id="@+id/acch_color_edit"
             android:layout_width="wrap_content"
@@ -56,7 +58,6 @@
             android:textSelectHandleLeft="@drawable/acch_ic_empty"
             android:textSelectHandleRight="@drawable/acch_ic_empty"
             tools:ignore="LabelFor"/>
-        -->
 
         <ScrollView
             android:layout_width="match_parent"

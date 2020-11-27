@@ -17,6 +17,8 @@ import android.widget.FrameLayout;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
+import com.kunzisoft.androidclearchroma.ChromaUtil;
+
 public class ColorChooserPreferenceX extends DialogPreference {
 
     ColorChooserPreferenceFragmentX fragment;
@@ -99,6 +101,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue) {
         value = getPersistedString((String) defaultValue);
+        setSummaryCCHP(value);
     }
 
     void persistValue() {
@@ -106,7 +109,14 @@ public class ColorChooserPreferenceX extends DialogPreference {
         {
             persistString(value);
             setColorInWidget();
+            setSummaryCCHP(value);
         }
+    }
+
+    private void setSummaryCCHP(String value)
+    {
+        int color = Integer.parseInt(value);
+        setSummary(ChromaUtil.getFormattedColorString(color, false));
     }
 
     int shiftColor(int color) {
@@ -183,6 +193,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
         ColorChooserPreferenceX.SavedState myState = (ColorChooserPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        setSummaryCCHP(value);
     }
 
     // SavedState class

@@ -77,7 +77,7 @@ dependencies {
     // required for dev.doubledot.doki.views.DokiContentView
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation "androidx.preference:preference:$ppVersions.preferences"
     //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
     //noinspection GradleDependency
