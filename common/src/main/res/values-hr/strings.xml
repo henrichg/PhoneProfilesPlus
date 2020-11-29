@@ -328,7 +328,7 @@
     <string name="array_event_pref_calendarAvailability_busy">Zauzet</string>
     <string name="array_event_pref_calendarAvailability_free">Besplatno</string>
     <string name="array_event_pref_calendarAvailability_tentative">Privremeni</string>
-    <string name="event_preferences_manualProfileActivation">[M] Ručna aktivacija profila</string>
+    <string name="event_preferences_manualProfileActivation">[M] Manual profile activation at start</string>
     <string name="profileicon_pref_dialog_customColor_button">Promijeni boju</string>
     <string name="colorChooser_pref_dialog_title">Postavi boju</string>
     <string name="phone_profiles_pref_category_system">Sustav</string>
@@ -1546,8 +1546,13 @@
     <string name="profile_preferences_deviceBrightness_manual">Ručno osvetljenje</string>
     <string name="profile_preferences_savedProfilePreferences_title">Snimljeni parametri uređaja</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Klikni ovdje za prikaz snimljenih parametara uređaja.</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Aplikacija umesto ikone profila</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ako je u status baru prikazana PhoneProfilesPlus aplikacija umesto ikone profila, možete je promeniti. Podesite uređaj
+\"Postavke\"/\"Obavijesti\"/\"Senka za obavijesti\"=\"Android\".</string>
+    <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
+    <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
+    <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
+    <string name="critical_github_release_notification_disable_button">Do not show again</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

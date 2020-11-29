@@ -328,7 +328,7 @@
     <string name="array_event_pref_calendarAvailability_busy">Zaneprázdněný</string>
     <string name="array_event_pref_calendarAvailability_free">K dispozici</string>
     <string name="array_event_pref_calendarAvailability_tentative">Nezávazný</string>
-    <string name="event_preferences_manualProfileActivation">[M] Manuálně aktivovat profil</string>
+    <string name="event_preferences_manualProfileActivation">[M] Manuální aktivovat profil při startu</string>
     <string name="profileicon_pref_dialog_customColor_button">Změna barvy</string>
     <string name="colorChooser_pref_dialog_title">Nastavit barvu</string>
     <string name="phone_profiles_pref_category_system">Systém</string>
@@ -1548,6 +1548,10 @@
     <string name="profile_preferences_savedProfilePreferences_summary">Klikněte sem pro zobrazení uložených parametrů zařízení.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Ikona aplikace namísto profilu</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Pokud se ve stavovém řádku namísto ikony profilu zobrazuje ikona aplikace PhoneProfilesPlus, můžete to změnit. Změňte \"Nastavení\" zařízení/\"Upozornění\"/\"Oznamovací roletka\"=\"Android\".</string>
+    <string name="array_ignore_manual_activation_ignore_no_pause">Ignorovat a nezastavit</string>
+    <string name="event_preferences_manualProfileActivationAtEnd">[M] Manuální aktivovat profil při konci</string>
+    <string name="critical_github_release_confirm_notification_disable">Stažení kritického vydání PhoneProfilesPlus je vyžadováno. V něm jsou opraveny kritické chyby. Opravdu nechcete více zobrazovat tuto notifikaci?</string>
+    <string name="critical_github_release_notification_disable_button">Příště nezobrazovat</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
