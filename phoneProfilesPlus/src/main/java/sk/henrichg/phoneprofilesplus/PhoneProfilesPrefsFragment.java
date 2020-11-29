@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -832,11 +833,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setEnabled(false);
             }
-            preference = findPreference(PREF_GRANT_G1_PERMISSION);
-            if (preference != null) {
-                preference.setSummary(getString(R.string.important_info_profile_grant) + " " +
-                        getString(R.string.profile_preferences_types_G1_show_info));
-            }
+//            preference = findPreference(PREF_GRANT_G1_PERMISSION);
+//            if (preference != null) {
+//                preference.setSummary(getString(R.string.important_info_profile_grant) + " " +
+//                        getString(R.string.profile_preferences_types_G1_show_info));
+//            }
 
         /*}
         else {
@@ -2658,6 +2659,23 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 preference.setSummary(summary);
             }
+            if (key.equals(PREF_GRANT_G1_PERMISSION)) {
+                String summary;
+                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
+                    summary = getString(R.string.permission_granted);
+                else
+                    summary = getString(R.string.permission_not_granted);
+                summary = summary + "\n\n" + getString(R.string.important_info_profile_grant) + " " +
+                        getString(R.string.profile_preferences_types_G1_show_info);
+                preference.setSummary(summary);
+            }
+            /*if (key.equals(PREF_APPLICATION_PERMISSIONS)) {
+                String summary = getString(R.string.permission_granted);
+
+
+                summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_applicationPermissions_summary);
+                preference.setSummary(summary);
+            }*/
         //}
         if (key.equals(PREF_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventLocationSystemSettings_summary);
