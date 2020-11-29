@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="acch_stroke_color">#858585</color>
-    <color name="acch_activityBackgroundColor">#FFFFFFFF</color>
 </resources>
