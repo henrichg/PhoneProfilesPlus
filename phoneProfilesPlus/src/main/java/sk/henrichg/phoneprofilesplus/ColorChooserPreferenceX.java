@@ -27,7 +27,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
 
     String value;
 
-    private final Context context;
+    final Context context;
 
     final int[] mColors;
 

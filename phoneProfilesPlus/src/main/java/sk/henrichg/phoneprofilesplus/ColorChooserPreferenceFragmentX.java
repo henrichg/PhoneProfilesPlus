@@ -124,12 +124,15 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
             if (index == -2) {
                 if (getActivity() != null) {
                     // custom color
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(preference.context);
                     dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
                     dialogBuilder.setCancelable(true);
                     dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-                    LayoutInflater inflater = getLayoutInflater();
+                    //LayoutInflater inflater = getLayoutInflater();
+                    // WARNING - use this for get transparent beckround of EditText celector handler
+                    LayoutInflater inflater = LayoutInflater.from(preference.context);
                     @SuppressLint("InflateParams")
                     View layout = inflater.inflate(R.layout.dialog_custom_color_preference, null);
                     dialogBuilder.setView(layout);

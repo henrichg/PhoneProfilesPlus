@@ -46,13 +46,11 @@
         android:layout_gravity="center_horizontal"
         android:digits="0123456789ABCDEF"
         android:maxLength="6"
+        android:imeOptions="actionDone|actionGo|actionSend"
         android:inputType="textCapCharacters|textNoSuggestions"
-        android:importantForAutofill="no"
         android:textSize="20sp"
-        android:textSelectHandle="@drawable/acch_ic_empty"
-        android:textSelectHandleLeft="@drawable/acch_ic_empty"
-        android:textSelectHandleRight="@drawable/acch_ic_empty"
-        tools:ignore="LabelFor"/>
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <LinearLayout
         android:id="@+id/acch_channel_container"
