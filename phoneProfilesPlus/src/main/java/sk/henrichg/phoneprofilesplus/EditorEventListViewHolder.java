@@ -240,6 +240,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
 
             // profile start
+            if (applicationEditorPrefIndicator) {
+                if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE)
+                    profileStartIcon.getLayoutParams().height = 1;
+                else
+                    profileStartIcon.getLayoutParams().height = GlobalGUIRoutines.dpToPx(30);
+            }
             Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true,
                     applicationEditorPrefIndicator, false);
             if (profile != null)
@@ -282,15 +288,29 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             {
-                profileStartName.setText(R.string.profile_preference_profile_not_set);
-                profileStartIcon.setImageResource(R.drawable.ic_profile_default);
-                if (applicationEditorPrefIndicator)
-                {
-                    //profilePrefIndicatorImageView.setImageBitmap(null);
-                    //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-                    //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (profileStartIndicator != null)
-                        profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                if (event._fkProfileStart == Profile.PROFILE_NO_ACTIVATE) {
+                    profileStartName.setText(R.string.profile_preference_profile_end_no_activate);
+                    profileStartIcon.setImageResource(R.drawable.ic_empty);
+                    if (applicationEditorPrefIndicator) {
+                        //profilePrefIndicatorImageView.setImageBitmap(null);
+                        //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
+                        //profilePrefIndicatorImageView.setImageBitmap(bitmap);
+                        if (profileStartIndicator != null)
+                            //profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                            profileStartIndicator.setVisibility(View.GONE);
+                    }
+                }
+                else {
+                    profileStartName.setText(R.string.profile_preference_profile_not_set);
+                    profileStartIcon.setImageResource(R.drawable.ic_profile_default);
+                    if (applicationEditorPrefIndicator)
+                    {
+                        //profilePrefIndicatorImageView.setImageBitmap(null);
+                        //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
+                        //profilePrefIndicatorImageView.setImageBitmap(bitmap);
+                        if (profileStartIndicator != null)
+                            profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    }
                 }
             }
 

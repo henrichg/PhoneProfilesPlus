@@ -134,7 +134,6 @@
     <string name="editor_drawer_list_item_events_stopped">Stopped</string>
     <string name="profile_preferences_deviceAutosync">Auto. synchronization</string>
     <string name="editor_drawer_order_event_name">Event name</string>
-    <string name="editor_drawer_order_profile_name">Profile name</string>
     <string name="default_profile_name_home">Home</string>
     <string name="default_profile_name_outdoor">Outdoor</string>
     <string name="default_profile_name_work">Work</string>
@@ -1677,6 +1676,9 @@
 
     <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
     <string name="critical_github_release_notification_disable_button">Do not show again</string>
+
+    <string name="editor_drawer_order_start_profile_name">Start profile name</string>
+    <string name="editor_drawer_order_end_profile_name">End profile name</string>
 
     <!-- **************************************************************************************** -->
 

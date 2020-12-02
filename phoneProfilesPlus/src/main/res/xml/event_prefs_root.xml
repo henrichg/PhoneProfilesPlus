@@ -42,7 +42,7 @@
             app:defaultValue="0"
             app:key="eventProfileStart"
             app:title="@string/event_preferences_eventProfileStart"
-            app:addNoActivateItem="0"
+            app:addNoActivateItem="1"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="eventForceRun"

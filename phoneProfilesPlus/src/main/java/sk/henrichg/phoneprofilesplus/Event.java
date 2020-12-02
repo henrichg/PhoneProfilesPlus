@@ -1571,37 +1571,37 @@ class Event {
 //            }
 //        }
 
-        if (mergedProfile == null) {
-            long activatedProfileId = 0;
-            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-            if (activatedProfile != null)
-                activatedProfileId = activatedProfile._id;
-            if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
+        if (this._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
+            if (mergedProfile == null) {
+                long activatedProfileId = 0;
+                Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+                if (activatedProfile != null)
+                    activatedProfileId = activatedProfile._id;
+                if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
 //                if (_name.equals("Evening "))
 //                    PPApplication.logE("[***] Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
-                dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
-            }
-            else {
-                //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
-                //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
-                PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
-            }
-        }
-        else {
-            mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
+                    dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
+                } else {
+                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
+                    //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
+                    //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+                    PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
+                }
+            } else {
+                mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
 
-            //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
-            if (this._manualProfileActivation) {
-                DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
+                //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
+                if (this._manualProfileActivation) {
+                    DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
 //                if (_name.equals("Evening "))
 //                    PPApplication.logE("[***] Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
-                dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
-                mergedProfile._id = 0;
-            } else {
-                long profileId = _fkProfileStart;
+                    dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                    mergedProfile._id = 0;
+                } else {
+                    long profileId = _fkProfileStart;
 //                PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
-                dataWrapper.addProfileToFIFO(profileId, _id);
+                    dataWrapper.addProfileToFIFO(profileId, _id);
+                }
             }
         }
 

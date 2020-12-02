@@ -106,8 +106,9 @@ public class EditorEventListFragment extends Fragment
 
     private static final int ORDER_TYPE_START_ORDER = 0;
     private static final int ORDER_TYPE_EVENT_NAME = 1;
-    private static final int ORDER_TYPE_PROFILE_NAME = 2;
+    private static final int ORDER_TYPE_START_PROFILE_NAME = 2;
     private static final int ORDER_TYPE_PRIORITY = 3;
+    private static final int ORDER_TYPE_END_PROFILE_NAME = 4;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
@@ -402,7 +403,8 @@ public class EditorEventListFragment extends Fragment
         String[] orderItems = new String[] {
                 getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_order),
                 getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_event_name),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_profile_name),
+                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_profile_name),
+                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_end_profile_name),
                 getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_priority)
         };
 
@@ -1321,15 +1323,39 @@ public class EditorEventListFragment extends Fragment
             }
         }
 
-        class ProfileNameComparator implements Comparator<Event> {
+        class StartProfileNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 if (PPApplication.collator != null) {
-                    Profile profileLhs = dataWrapper.getProfileById(lhs._fkProfileStart, false, false,false);
-                    Profile profileRhs = dataWrapper.getProfileById(rhs._fkProfileStart, false, false, false);
                     String nameLhs = "";
-                    if (profileLhs != null) nameLhs = profileLhs._name;
+                    if (lhs._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
+                        Profile profileLhs = dataWrapper.getProfileById(lhs._fkProfileStart, false, false, false);
+                        if (profileLhs != null) nameLhs = profileLhs._name;
+                    }
                     String nameRhs = "";
-                    if (profileRhs != null) nameRhs = profileRhs._name;
+                    if (rhs._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
+                        Profile profileRhs = dataWrapper.getProfileById(rhs._fkProfileStart, false, false, false);
+                        if (profileRhs != null) nameRhs = profileRhs._name;
+                    }
+                    return PPApplication.collator.compare(nameLhs, nameRhs);
+                }
+                else
+                    return 0;
+            }
+        }
+
+        class EndProfileNameComparator implements Comparator<Event> {
+            public int compare(Event lhs, Event rhs) {
+                if (PPApplication.collator != null) {
+                    String nameLhs = "";
+                    if (lhs._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
+                        Profile profileLhs = dataWrapper.getProfileById(lhs._fkProfileEnd, false, false, false);
+                        if (profileLhs != null) nameLhs = profileLhs._name;
+                    }
+                    String nameRhs = "";
+                    if (rhs._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
+                        Profile profileRhs = dataWrapper.getProfileById(rhs._fkProfileEnd, false, false, false);
+                        if (profileRhs != null) nameRhs = profileRhs._name;
+                    }
                     return PPApplication.collator.compare(nameLhs, nameRhs);
                 }
                 else
@@ -1352,8 +1378,11 @@ public class EditorEventListFragment extends Fragment
             case ORDER_TYPE_START_ORDER:
                 Collections.sort(eventList, new StartOrderComparator());
                 break;
-            case ORDER_TYPE_PROFILE_NAME:
-                Collections.sort(eventList, new ProfileNameComparator());
+            case ORDER_TYPE_START_PROFILE_NAME:
+                Collections.sort(eventList, new StartProfileNameComparator());
+                break;
+            case ORDER_TYPE_END_PROFILE_NAME:
+                Collections.sort(eventList, new EndProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
                 if (ApplicationPreferences.applicationEventUsePriority)
@@ -1807,9 +1836,12 @@ public class EditorEventListFragment extends Fragment
                     _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
                     break;
                 case 2:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_PROFILE_NAME;
                     break;
                 case 3:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_END_PROFILE_NAME;
+                    break;
+                case 4:
                     _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
                     break;
             }
