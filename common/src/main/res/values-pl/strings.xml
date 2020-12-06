@@ -129,7 +129,6 @@
     <string name="editor_drawer_list_item_events_stopped">Zatrzymane</string>
     <string name="profile_preferences_deviceAutosync">Auto synchronizacja</string>
     <string name="editor_drawer_order_event_name">Nazwa zdarzenia</string>
-    <string name="editor_drawer_order_profile_name">Nazwa profilu</string>
     <string name="default_profile_name_home">Dom</string>
     <string name="default_profile_name_outdoor">Na zewnątrz</string>
     <string name="default_profile_name_work">Praca</string>
@@ -328,7 +327,7 @@
     <string name="array_event_pref_calendarAvailability_busy">Zajęty</string>
     <string name="array_event_pref_calendarAvailability_free">Wolny</string>
     <string name="array_event_pref_calendarAvailability_tentative">Orientacyjny</string>
-    <string name="event_preferences_manualProfileActivation">[M] Manual profile activation at start</string>
+    <string name="event_preferences_manualProfileActivation">[M] Ręczna aktywacja profilu przy starcie</string>
     <string name="profileicon_pref_dialog_customColor_button">Zmiana koloru</string>
     <string name="colorChooser_pref_dialog_title">Wybierz kolor</string>
     <string name="phone_profiles_pref_category_system">System</string>
@@ -1549,10 +1548,12 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="profile_preferences_savedProfilePreferences_summary">Kliknij tutaj, aby wyświetlić zapisane parametry urządzenia.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
-    <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
-    <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
-    <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
-    <string name="critical_github_release_notification_disable_button">Do not show again</string>
+    <string name="array_ignore_manual_activation_ignore_no_pause">Ignoruj i nie wstrzymuj</string>
+    <string name="event_preferences_manualProfileActivationAtEnd">[M] Ręczna aktywacja profilu na końcu</string>
+    <string name="critical_github_release_confirm_notification_disable">Do pobrania jest wymagana krytyczna aktualizacja PhoneProfilesPlus. Czy na pewno nie pokazywać tego powiadomienia w przyszłości?</string>
+    <string name="critical_github_release_notification_disable_button">Nie wyświetlaj ponownie</string>
+    <string name="editor_drawer_order_start_profile_name">Start profile name</string>
+    <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

@@ -129,7 +129,6 @@
     <string name="editor_drawer_list_item_events_stopped">Zaustavljeno</string>
     <string name="profile_preferences_deviceAutosync">Auto sinhronizacija</string>
     <string name="editor_drawer_order_event_name">Naziv događaja</string>
-    <string name="editor_drawer_order_profile_name">Naziv profila</string>
     <string name="default_profile_name_home">Početna</string>
     <string name="default_profile_name_outdoor">Vanjsko</string>
     <string name="default_profile_name_work">Posao</string>
@@ -328,7 +327,7 @@
     <string name="array_event_pref_calendarAvailability_busy">Zauzet</string>
     <string name="array_event_pref_calendarAvailability_free">Besplatno</string>
     <string name="array_event_pref_calendarAvailability_tentative">Privremeni</string>
-    <string name="event_preferences_manualProfileActivation">[M] Manual profile activation at start</string>
+    <string name="event_preferences_manualProfileActivation">[M] Ručno aktiviranje profila na početku</string>
     <string name="profileicon_pref_dialog_customColor_button">Promijeni boju</string>
     <string name="colorChooser_pref_dialog_title">Postavi boju</string>
     <string name="phone_profiles_pref_category_system">Sustav</string>
@@ -1549,10 +1548,12 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Aplikacija umesto ikone profila</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ako je u status baru prikazana PhoneProfilesPlus aplikacija umesto ikone profila, možete je promeniti. Podesite uređaj
 \"Postavke\"/\"Obavijesti\"/\"Senka za obavijesti\"=\"Android\".</string>
-    <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
-    <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
-    <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
-    <string name="critical_github_release_notification_disable_button">Do not show again</string>
+    <string name="array_ignore_manual_activation_ignore_no_pause">Ignoriraj i nemoj prekidati</string>
+    <string name="event_preferences_manualProfileActivationAtEnd">[M] Ručno aktiviranje profila na kraju</string>
+    <string name="critical_github_release_confirm_notification_disable">Kritična ažuriranja PhoneProfilesPlus su pronađena i potrebno ih je preuzeti. U njima se nalaze ispravke kritičnih pogreški. Da li ste sigurni da ne želite ovu obavijest u budućnosti?</string>
+    <string name="critical_github_release_notification_disable_button">Ne prikazuj više</string>
+    <string name="editor_drawer_order_start_profile_name">Start profile name</string>
+    <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

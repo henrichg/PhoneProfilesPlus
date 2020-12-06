@@ -129,7 +129,6 @@
     <string name="editor_drawer_list_item_events_stopped">Stopnuté</string>
     <string name="profile_preferences_deviceAutosync">Auto. synchronizácia</string>
     <string name="editor_drawer_order_event_name">Názov udalosti</string>
-    <string name="editor_drawer_order_profile_name">Názov profilu</string>
     <string name="default_profile_name_home">Doma</string>
     <string name="default_profile_name_outdoor">Vonku</string>
     <string name="default_profile_name_work">Práca</string>
@@ -1547,11 +1546,13 @@
     <string name="profile_preferences_savedProfilePreferences_title">Uložené parametre zariadenia</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Kliknite sem pre zobrazenie uložených parametrov zariadenia.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Ikona aplikácie namiesto profilu</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ak sa v stavovom riadku namiesto ikony profilu zobrazuje ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Zmente \"Nastavenia\" zariadenia/\"Upozornenia\"/\"Notifikačná roletka“=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ak sa v stavovom riadku namiesto ikony profilu zobrazuje ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Zmeňte \"Nastavenia\" zariadenia/\"Upozornenia\"/\"Notifikačná roletka“=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorovať a nezastaviť</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manuálne aktivovať profil pri konci</string>
     <string name="critical_github_release_confirm_notification_disable">Stiahnutie kritického vydania PhoneProfilesPlus je vyžadované. V ňom sú opravené kritické chyby. Naozaj nechcete viac zobrazovať túto notifikáciu?</string>
     <string name="critical_github_release_notification_disable_button">Nabudúce nezobrazovať</string>
+    <string name="editor_drawer_order_start_profile_name">Názov profilu na štarte</string>
+    <string name="editor_drawer_order_end_profile_name">Názov profilu na konci</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

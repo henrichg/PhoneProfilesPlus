@@ -129,7 +129,6 @@
     <string name="editor_drawer_list_item_events_stopped">Zastaveno</string>
     <string name="profile_preferences_deviceAutosync">Auto. synchronizace</string>
     <string name="editor_drawer_order_event_name">Název události</string>
-    <string name="editor_drawer_order_profile_name">Název profilu</string>
     <string name="default_profile_name_home">Doma</string>
     <string name="default_profile_name_outdoor">Venku</string>
     <string name="default_profile_name_work">Práce</string>
@@ -1552,6 +1551,8 @@
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manuální aktivovat profil při konci</string>
     <string name="critical_github_release_confirm_notification_disable">Stažení kritického vydání PhoneProfilesPlus je vyžadováno. V něm jsou opraveny kritické chyby. Opravdu nechcete více zobrazovat tuto notifikaci?</string>
     <string name="critical_github_release_notification_disable_button">Příště nezobrazovat</string>
+    <string name="editor_drawer_order_start_profile_name">Název profilu na startu</string>
+    <string name="editor_drawer_order_end_profile_name">Název profilu na konci</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

@@ -129,7 +129,6 @@
     <string name="editor_drawer_list_item_events_stopped">Неактивні</string>
     <string name="profile_preferences_deviceAutosync">Авто синхронізація</string>
     <string name="editor_drawer_order_event_name">Назва події</string>
-    <string name="editor_drawer_order_profile_name">Назва профілю</string>
     <string name="default_profile_name_home">Дім</string>
     <string name="default_profile_name_outdoor">Вулиця</string>
     <string name="default_profile_name_work">Робота</string>
@@ -328,7 +327,7 @@
     <string name="array_event_pref_calendarAvailability_busy">Зайнятий</string>
     <string name="array_event_pref_calendarAvailability_free">Вільно</string>
     <string name="array_event_pref_calendarAvailability_tentative">Під питанням</string>
-    <string name="event_preferences_manualProfileActivation">[M] Manual profile activation at start</string>
+    <string name="event_preferences_manualProfileActivation">[M] При запуску вручну активувати профіль</string>
     <string name="profileicon_pref_dialog_customColor_button">Змінити колір</string>
     <string name="colorChooser_pref_dialog_title">Встановити колір</string>
     <string name="phone_profiles_pref_category_system">Система</string>
@@ -1548,10 +1547,13 @@
     <string name="profile_preferences_savedProfilePreferences_summary">Натисніть тут для показу збережених параметрів пристрою.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Іконка додатку замість іконки профілю</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Якщо, в рядку стану, замість іконки профілю іконка PhoneProfilesPlus, це можна змінити. \"Налаштування\"/ \"Сповіщення\"/ \"Notification shade\"=\"Android\".</string>
-    <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
-    <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
-    <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
-    <string name="critical_github_release_notification_disable_button">Do not show again</string>
+    <string name="array_ignore_manual_activation_ignore_no_pause">Ігнорувати й не призупиняти</string>
+    <string name="event_preferences_manualProfileActivationAtEnd">[M] По завершеню вручну активувати профіль</string>
+    <string name="critical_github_release_confirm_notification_disable">Вкрай важливо завантажити це оновлення PhoneProfilesPlus. В ньому усунуті критичні помилки. 
+Ви впевнені, що не бажаєте бачити це повідомлення в майбутньому?</string>
+    <string name="critical_github_release_notification_disable_button">Не показувати знову</string>
+    <string name="editor_drawer_order_start_profile_name">Ім\'я профілю при запуску</string>
+    <string name="editor_drawer_order_end_profile_name">Ім\'я профілю по завершені</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
