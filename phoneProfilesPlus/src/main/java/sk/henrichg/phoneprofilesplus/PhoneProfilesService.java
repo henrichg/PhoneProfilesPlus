@@ -3989,7 +3989,7 @@ public class PhoneProfilesService extends Service
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "14");
 
-                //PPApplication.logE("[DONATION] PhoneProfilesService.doForFirstStart - handler", "start donation alarm");
+                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start donation and check GitHub releases alarms");
                 DonationBroadcastReceiver.setAlarm(appContext);
                 CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
                 CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
@@ -4208,8 +4208,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.setDaysAfterFirstStart(appContext, 0);
                     PPApplication.setDonationNotificationCount(appContext, 0);
                     DonationBroadcastReceiver.setAlarm(appContext);
-                    CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
-                    CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
                 }
 
                 //if (actualVersionCode <= 2500) {
