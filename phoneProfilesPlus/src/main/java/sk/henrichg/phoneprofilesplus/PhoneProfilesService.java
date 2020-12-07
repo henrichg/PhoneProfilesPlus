@@ -3992,6 +3992,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start donation and check GitHub releases alarms");
                 DonationBroadcastReceiver.setAlarm(appContext);
                 CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
+                //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "ApplicationPreferences.prefShowCriticalGitHubReleasesNotificationNotification="+ApplicationPreferences.prefShowCriticalGitHubReleasesNotificationNotification);
                 CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
