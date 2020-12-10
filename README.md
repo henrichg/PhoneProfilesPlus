@@ -12,7 +12,7 @@ Android application - manually and by event triggered change of device settings 
 
 [Privacy Policy](https://sites.google.com/site/phoneprofilesplus/home/privacy-policy)
 
-Supported Android SDK -
+Supported Android SDK
 ----------------------
 
 - minSdkVersion = 23
