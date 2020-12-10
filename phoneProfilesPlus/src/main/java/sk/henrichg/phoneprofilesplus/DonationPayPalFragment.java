@@ -143,11 +143,11 @@ public class DonationPayPalFragment extends Fragment {
         //mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(position));
         //mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(index).getSku(), BillingClient.SkuType.INAPP);
 
-        String[] prices = new String[]{"1", "2", "3", "5", "8", "13", "20", "Custom"};
+        String[] prices = new String[]{"1", "2", "3", "5", "8", "13", "20", "?"};
 
         //String url = "https://www.paypal.me/HenrichGron/" + prices[position] + "EUR";
         String url;
-        if (prices[position].equals("Custom"))
+        if (prices[position].equals("?"))
             url = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR";
         else
             url = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR&amount=" + prices[position];
@@ -167,7 +167,7 @@ public class DonationPayPalFragment extends Fragment {
         //PPApplication.logE(TAG, "handleManagerAndUiReady");
 
         if (getActivity() != null) {
-            String[] prices = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €", "Custom €"};
+            String[] prices = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €", "? €"};
             mPayPalGridView.setAdapter(new DonationPayPalAdapter(DonationPayPalFragment.this, prices));
             mPayPalGridView.setOnItemClickListener((parent, view, position, id) -> donatePayPalOnClick(position));
             mPayPalGridView.setEnabled(true);
