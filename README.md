@@ -17,6 +17,7 @@ Supported Android SDK
 
 - minSdkVersion = 23
 - targetSdkVersion = 28
+- x
 
 Required external libs
 ----------------------
