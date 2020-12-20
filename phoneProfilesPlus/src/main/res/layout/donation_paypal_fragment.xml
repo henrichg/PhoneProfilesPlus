@@ -66,6 +66,7 @@
             android:textAppearance="@android:style/TextAppearance.Small" />
         -->
 
+        <!--
         <GridView
             android:id="@+id/donation_paypal_grid"
             android:layout_width="match_parent"
@@ -75,6 +76,22 @@
             android:horizontalSpacing="10dp"
             android:verticalSpacing="20dp"
             android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:padding="15dip"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:drawSelectorOnTop="true"
+            android:enabled="false"/>
+        -->
+        <GridView
+            android:id="@+id/donation_paypal_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="20dp"
+            android:numColumns="1"
             android:stretchMode="columnWidth"
             android:padding="15dip"
             android:clipToPadding="false"

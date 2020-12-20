@@ -1680,6 +1680,8 @@
     <string name="editor_drawer_order_start_profile_name">Start profile name</string>
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
 
+    <string name="donation_paypal_donate_button">Donate</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
