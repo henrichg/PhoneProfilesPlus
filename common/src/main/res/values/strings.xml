@@ -1675,7 +1675,7 @@
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
 
     <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
-    <string name="critical_github_release_notification_disable_button">Do not show again</string>
+    <string name="critical_github_release_notification_disable_button">Ignore this version</string>
 
     <string name="editor_drawer_order_start_profile_name">Start profile name</string>
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
