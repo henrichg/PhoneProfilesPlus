@@ -14,8 +14,10 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
 {
     private boolean activityStarted = false;
     private boolean criticalRelease = true;
+    private int versionCode = 0;
 
-    static final String EXTRA_GITHUB_RELEASE_TYPE = "github_release_type";
+    static final String EXTRA_GITHUB_RELEASE_CRITICAL = "github_release_critical";
+    static final String EXTRA_GITHUB_RELEASE_CODE = "github_release_code";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,8 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
         }
 
         Intent intent = getIntent();
-        criticalRelease = intent.getBooleanExtra(EXTRA_GITHUB_RELEASE_TYPE, true);
+        criticalRelease = intent.getBooleanExtra(EXTRA_GITHUB_RELEASE_CRITICAL, true);
+        versionCode = intent.getIntExtra(EXTRA_GITHUB_RELEASE_CRITICAL, 0);
 
         activityStarted = true;
 
@@ -66,12 +69,12 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
             }
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), false);
+                CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), versionCode);
                 CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
                 finish();
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), true);
+                CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), 0);
                 CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
                 finish();
             });
