@@ -1356,7 +1356,7 @@
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">显示情景持续时间(小部件)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">也许在您的设备上根本不工作。</string>
     <string name="application_is_not_started">未启动</string>
-    <string name="application_is_starting_toast">正在启动...</string>
+    <string name="application_is_starting_toast">正在启动…</string>
     <string name="application_is_started_toast">已启动</string>
     <string name="popupmenu_title_click_below_toast">点击下面更改此参数</string>
     <string name="duration_end_acronym">直到</string>

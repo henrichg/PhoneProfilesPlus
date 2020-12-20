@@ -95,6 +95,7 @@ class ActivateProfileHelper {
 
     static final String EXTRA_PROFILE_NAME = "profile_name";
 
+    @SuppressLint("MissingPermission")
     private static void doExecuteForRadios(Context context, Profile profile)
     {
         /*if (PPApplication.logEnabled()) {
@@ -375,7 +376,10 @@ class ActivateProfileHelper {
                                     if (wifiConnected)
                                         wifiInfo = wifiManager.getConnectionInfo();
 
-                                    List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                    List<WifiConfiguration> list = null;
+
+                                    if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION))
+                                        list = wifiManager.getConfiguredNetworks();
                                     if (list != null) {
                                         for (WifiConfiguration i : list) {
                                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {

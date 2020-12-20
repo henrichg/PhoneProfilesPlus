@@ -464,13 +464,13 @@ class EventPreferencesWifi extends EventPreferences {
                                         break;
                                     case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
                                         for (WifiSSIDData data : wifiConfigurationList) {
-                                            connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
+                                            connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList, eventsHandler.context);
                                             if (connected[i])
                                                 break;
                                         }
                                         break;
                                     default:
-                                        connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList);
+                                        connected[i] = WifiScanWorker.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList, eventsHandler.context);
                                         break;
                                 }
                                 i++;

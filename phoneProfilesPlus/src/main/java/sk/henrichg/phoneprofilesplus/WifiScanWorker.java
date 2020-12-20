@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.ScanResult;
@@ -648,6 +650,7 @@ public class WifiScanWorker extends Worker {
         }
     }
 
+    @SuppressLint("MissingPermission")
     static void fillWifiConfigurationList(Context context/*, boolean enableWifi*/)
     {
         //if (wifiConfigurationList == null)
@@ -680,7 +683,9 @@ public class WifiScanWorker extends Worker {
         }
         //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifi is enabled");
 
-        List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
+        List<WifiConfiguration> _wifiConfigurationList = null;
+        if (Permissions.hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION))
+            _wifiConfigurationList = wifi.getConfiguredNetworks();
 
         /*if (wifiEnabled) {
             try {
@@ -898,7 +903,8 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    private static String getSSID(WifiManager wifiManager, WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList)
+    @SuppressLint("MissingPermission")
+    private static String getSSID(WifiManager wifiManager, WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList, Context context)
     {
         String SSID = wifiInfo.getSSID();
         if (SSID == null)
@@ -922,7 +928,9 @@ public class WifiScanWorker extends Worker {
         }
 
         if (SSID.equals("<unknown ssid>")) {
-            List<WifiConfiguration> listOfConfigurations = wifiManager.getConfiguredNetworks();
+            List<WifiConfiguration> listOfConfigurations = null;
+            if (Permissions.hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION))
+                listOfConfigurations = wifiManager.getConfiguredNetworks();
 
             if (listOfConfigurations != null) {
                 for (int index = 0; index < listOfConfigurations.size(); index++) {
@@ -937,9 +945,9 @@ public class WifiScanWorker extends Worker {
         return SSID;
     }
 
-    static boolean compareSSID(WifiManager wifiManager, WifiInfo wifiInfo, String SSID, List<WifiSSIDData> wifiConfigurationList)
+    static boolean compareSSID(WifiManager wifiManager, WifiInfo wifiInfo, String SSID, List<WifiSSIDData> wifiConfigurationList, Context context)
     {
-        String wifiInfoSSID = getSSID(wifiManager, wifiInfo, wifiConfigurationList);
+        String wifiInfoSSID = getSSID(wifiManager, wifiInfo, wifiConfigurationList, context);
         String ssid2 = "\"" + SSID + "\"";
         //return (wifiInfoSSID.equals(SSID) || wifiInfoSSID.equals(ssid2));
         return (Wildcard.match(wifiInfoSSID, SSID, '_', '%', true) || Wildcard.match(wifiInfoSSID, ssid2, '_', '%', true));

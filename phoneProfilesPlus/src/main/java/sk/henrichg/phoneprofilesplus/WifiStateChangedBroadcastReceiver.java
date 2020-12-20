@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] ----------- WifiStateChangedBroadcastReceiver.onReceive", "xxx");
@@ -68,7 +71,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (!PhoneProfilesService.getInstance().connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                         if (wifiManager != null) {
-                                            List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                            List<WifiConfiguration> list = null;
+                                            if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION))
+                                                list = wifiManager.getConfiguredNetworks();
                                             if (list != null) {
                                                 for (WifiConfiguration i : list) {
                                                     if (i.SSID != null && i.SSID.equals(PhoneProfilesService.getInstance().connectToSSID)) {
