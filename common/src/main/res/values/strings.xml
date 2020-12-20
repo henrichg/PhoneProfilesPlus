@@ -1682,6 +1682,10 @@
 
     <string name="donation_paypal_donate_button">Donate</string>
 
+    <string name="normal_github_release">New app. release</string>
+    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
+    <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -13,6 +13,9 @@ import java.util.Calendar;
 public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivity
 {
     private boolean activityStarted = false;
+    private boolean criticalRelease = true;
+
+    static final String EXTRA_GITHUB_RELEASE_TYPE = "github_release_type";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
             finish();
             return;
         }
+
+        Intent intent = getIntent();
+        criticalRelease = intent.getBooleanExtra(EXTRA_GITHUB_RELEASE_TYPE, true);
 
         activityStarted = true;
 
@@ -50,8 +56,14 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
             //GlobalGUIRoutines.setLanguage(this);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(getString(R.string.critical_github_release));
-            dialogBuilder.setMessage(getString(R.string.critical_github_release_confirm_notification_disable));
+            if (criticalRelease) {
+                dialogBuilder.setTitle(getString(R.string.critical_github_release));
+                dialogBuilder.setMessage(getString(R.string.critical_github_release_confirm_notification_disable));
+            }
+            else {
+                dialogBuilder.setTitle(getString(R.string.normal_github_release));
+                dialogBuilder.setMessage(getString(R.string.normal_github_release_confirm_notification_disable));
+            }
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), false);

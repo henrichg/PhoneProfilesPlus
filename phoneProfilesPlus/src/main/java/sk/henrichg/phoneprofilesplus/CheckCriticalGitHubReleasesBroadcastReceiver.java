@@ -194,6 +194,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     private static void _doWork(Context appContext) {
         if (ApplicationPreferences.prefShowCriticalGitHubReleasesNotificationNotification) {
             boolean found = false;
+            boolean critical = true;
             try {
                 String contents;// = "";
                 URLConnection conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases").openConnection();
@@ -209,7 +210,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                         version = version.substring(startIndex + 1);
                         //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
                         String[] splits = version.split(":");
-                        if (splits.length == 2) {
+                        if (splits.length >= 2) {
                             //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
                             //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
                             int versionCode = 0;
@@ -222,6 +223,17 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                             if ((versionCode > 0) && (versionCode < Integer.parseInt(splits[1])))
                                 found = true;
                             //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "found=" + found);
+                        }
+                        /*if (splits.length == 2) {
+                            // old check, always critical update
+                            critical = true;
+                        }
+                        else*/ if (splits.length == 3) {
+                            // new, better check
+                            // last parameter:
+                            //  "normal" - normal update
+                            //  "critical" - critical update
+                            critical = splits[2].equals("critical");
                         }
                     }
                 }
@@ -241,12 +253,25 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 Intent _intent;
                 _intent = new Intent(appContext, CheckGitHubReleasesActivity.class);
 
-                String nTitle = appContext.getString(R.string.critical_github_release);
-                String nText = appContext.getString(R.string.critical_github_release_notification);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = appContext.getString(R.string.ppp_app_name);
-                    nText = appContext.getString(R.string.critical_github_release) + ": " +
-                            appContext.getString(R.string.critical_github_release_notification);
+                String nTitle;
+                String nText;
+                if (critical) {
+                    nTitle = appContext.getString(R.string.critical_github_release);
+                    nText = appContext.getString(R.string.critical_github_release_notification);
+                    if (android.os.Build.VERSION.SDK_INT < 24) {
+                        nTitle = appContext.getString(R.string.ppp_app_name);
+                        nText = appContext.getString(R.string.critical_github_release) + ": " +
+                                appContext.getString(R.string.critical_github_release_notification);
+                    }
+                }
+                else {
+                    nTitle = appContext.getString(R.string.normal_github_release);
+                    nText = appContext.getString(R.string.normal_github_release_notification);
+                    if (android.os.Build.VERSION.SDK_INT < 24) {
+                        nTitle = appContext.getString(R.string.ppp_app_name);
+                        nText = appContext.getString(R.string.normal_github_release) + ": " +
+                                appContext.getString(R.string.normal_github_release_notification);
+                    }
                 }
                 mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
                         .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
@@ -265,6 +290,8 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 //}
 
                 Intent disableIntent = new Intent(appContext, CheckCriticalGitHubReleasesDisableActivity.class);
+                disableIntent.putExtra(CheckCriticalGitHubReleasesDisableActivity.EXTRA_GITHUB_RELEASE_TYPE, critical);
+
                 PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                         R.drawable.ic_action_exit_app_white,
