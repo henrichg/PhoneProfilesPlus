@@ -1554,6 +1554,7 @@
     <string name="critical_github_release_notification_disable_button">Ne prikazuj više</string>
     <string name="editor_drawer_order_start_profile_name">Start profile name</string>
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
+    <string name="donation_paypal_donate_button">Donate</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

@@ -1554,6 +1554,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="critical_github_release_notification_disable_button">Do not show again</string>
     <string name="editor_drawer_order_start_profile_name">Avvia nome profilo</string>
     <string name="editor_drawer_order_end_profile_name">Fine nome profilo</string>
+    <string name="donation_paypal_donate_button">Donate</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>

@@ -137,7 +137,7 @@ public class DonationPayPalFragment extends Fragment {
     /**
      * Donate button executes donations based on selection in spinner
      */
-    private void donatePayPalOnClick(int position) {
+    private void donatePayPalOnClick(@SuppressWarnings("unused") int position) {
         //final int index = mGoogleSpinner.getSelectedItemPosition();
 
         //mBillingProvider.getBillingManager().startPurchaseFlow(SKU_DETAILS.get(position));
