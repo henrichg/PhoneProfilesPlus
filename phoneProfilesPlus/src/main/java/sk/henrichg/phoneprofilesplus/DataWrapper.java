@@ -838,6 +838,15 @@ public class DataWrapper {
                         shortcutManager.setDynamicShortcuts(shortcuts);
                 }
             } catch (Exception e) {
+//                java.lang.IllegalStateException: Launcher activity not found for package sk.henrichg.phoneprofilesplus
+//                at android.os.Parcel.createException(Parcel.java:2096)
+//                at android.os.Parcel.readException(Parcel.java:2056)
+//                at android.os.Parcel.readException(Parcel.java:2004)
+//                at android.content.pm.IShortcutService$Stub$Proxy.setDynamicShortcuts(IShortcutService.java:830)
+//                at android.content.pm.ShortcutManager.setDynamicShortcuts(ShortcutManager.java:112)
+//                at sk.henrichg.phoneprofilesplus.DataWrapper.setDynamicLauncherShortcuts(DataWrapper.java:818)
+//                - Generated, when device is rooted?
+
                 //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
