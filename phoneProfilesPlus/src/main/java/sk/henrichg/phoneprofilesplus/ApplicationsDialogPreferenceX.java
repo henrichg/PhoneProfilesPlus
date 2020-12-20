@@ -583,6 +583,9 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
     void showEditMenu(View view)
     {
+        if (fragment == null)
+            return;
+
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         PopupMenu popup;
@@ -618,11 +621,13 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     }
 
     void startEditor(Application application) {
-        if (fragment.getActivity() != null)
-            if (!fragment.getActivity().isFinishing()) {
-                mEditorDialog = new ApplicationEditorDialogX(fragment.getActivity(), this, application);
-                mEditorDialog.show();
-            }
+        if (fragment != null) {
+            if (fragment.getActivity() != null)
+                if (!fragment.getActivity().isFinishing()) {
+                    mEditorDialog = new ApplicationEditorDialogX(fragment.getActivity(), this, application);
+                    mEditorDialog.show();
+                }
+        }
     }
 
     void updateGUI() {

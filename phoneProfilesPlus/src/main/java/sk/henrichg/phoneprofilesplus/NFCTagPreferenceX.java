@@ -138,11 +138,12 @@ public class NFCTagPreferenceX extends DialogPreference {
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(prefContext);
         if (!nfcAdapter.isEnabled()) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-            dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
-            dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
-            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-            AlertDialog dialog = dialogBuilder.create();
+            if (fragment != null) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
+                dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
+                dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                @Override
@@ -154,9 +155,10 @@ public class NFCTagPreferenceX extends DialogPreference {
 //                }
 //            });
 
-            if (fragment.getActivity() != null)
-                if (!fragment.getActivity().isFinishing())
-                    dialog.show();
+                if (fragment.getActivity() != null)
+                    if (!fragment.getActivity().isFinishing())
+                        dialog.show();
+            }
             return;
         }
 
