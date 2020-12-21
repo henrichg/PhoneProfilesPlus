@@ -1550,10 +1550,13 @@
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
     <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
-    <string name="critical_github_release_notification_disable_button">Do not show again</string>
+    <string name="critical_github_release_notification_disable_button">Ignore this version</string>
     <string name="editor_drawer_order_start_profile_name">Start profile name</string>
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <string name="donation_paypal_donate_button">Donate</string>
+    <string name="normal_github_release">New app. release</string>
+    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
+    <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

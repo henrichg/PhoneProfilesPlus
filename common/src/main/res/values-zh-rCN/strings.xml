@@ -1550,10 +1550,13 @@
     <string name="array_ignore_manual_activation_ignore_no_pause">忽略且不暂停</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] 结束时手动激活情景</string>
     <string name="critical_github_release_confirm_notification_disable">关键的 PhoneProfilesPlus 版本需要下载。它已修复严重错误。您确定今后不再显示此通知吗？</string>
-    <string name="critical_github_release_notification_disable_button">不再显示</string>
+    <string name="critical_github_release_notification_disable_button">Ignore this version</string>
     <string name="editor_drawer_order_start_profile_name">启动情景名称</string>
     <string name="editor_drawer_order_end_profile_name">结束情景名称</string>
     <string name="donation_paypal_donate_button">Donate</string>
+    <string name="normal_github_release">New app. release</string>
+    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
+    <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

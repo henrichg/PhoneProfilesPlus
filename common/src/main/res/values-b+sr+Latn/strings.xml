@@ -1551,10 +1551,13 @@
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignoriši i nemoj prekidati</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Ručno aktiviranje profila na kraju</string>
     <string name="critical_github_release_confirm_notification_disable">Kritična ažuriranja PhoneProfilesPlus su pronađena i potrebno ih je preuzeti. U njima se nalaze ispravke kritičnih greški. Da li ste sigurni da ne želite ovo obaveštenje u budućnosti?</string>
-    <string name="critical_github_release_notification_disable_button">Ne prikazuj ponovo</string>
+    <string name="critical_github_release_notification_disable_button">Ignore this version</string>
     <string name="editor_drawer_order_start_profile_name">Start profile name</string>
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <string name="donation_paypal_donate_button">Donate</string>
+    <string name="normal_github_release">New app. release</string>
+    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
+    <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

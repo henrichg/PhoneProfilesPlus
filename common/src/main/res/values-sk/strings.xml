@@ -1550,10 +1550,13 @@
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorovať a nezastaviť</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manuálne aktivovať profil pri konci</string>
     <string name="critical_github_release_confirm_notification_disable">Stiahnutie kritického vydania PhoneProfilesPlus je vyžadované. V ňom sú opravené kritické chyby. Naozaj nechcete viac zobrazovať túto notifikáciu?</string>
-    <string name="critical_github_release_notification_disable_button">Nabudúce nezobrazovať</string>
+    <string name="critical_github_release_notification_disable_button">Ignorovať túto verziu</string>
     <string name="editor_drawer_order_start_profile_name">Názov profilu na štarte</string>
     <string name="editor_drawer_order_end_profile_name">Názov profilu na konci</string>
     <string name="donation_paypal_donate_button">Prispieť</string>
+    <string name="normal_github_release">Nová verzia aplikácie</string>
+    <string name="normal_github_release_notification">Kliknite na túto notifikáciu pre stiahnutie nového vydania PhoneProfilesPlus z jeho GitHub.</string>
+    <string name="normal_github_release_confirm_notification_disable">Naozaj nechcete viac zobrazovať túto notifikáciu?</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
