@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -197,7 +198,12 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
         int versionCodeInReleases = 0;
         try {
             String contents;// = "";
-            URLConnection conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases").openConnection();
+            URLConnection conn;
+            if (DebugVersion.enabled)
+                conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases-debug").openConnection();
+            else
+                conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases").openConnection();
+            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "conn.getUrl()="+conn.getURL());
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);
 
@@ -208,11 +214,11 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                     String version = contents.substring(startIndex, endIndex);
                     startIndex = version.indexOf(":");
                     version = version.substring(startIndex + 1);
-                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
+                    Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
                     String[] splits = version.split(":");
                     if (splits.length >= 2) {
-                        //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
-                        //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
+                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
+                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
                         int versionCode = 0;
                         try {
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
@@ -221,18 +227,20 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                         }
                         versionCodeInReleases = Integer.parseInt(splits[1]);
                         if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < versionCodeInReleases) {
-                            //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
+                            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
                             if ((versionCode > 0) && (versionCode < versionCodeInReleases))
                                 found = true;
                         }
-                        //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "found=" + found);
+                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "found=" + found);
                     }
-                    /*if (splits.length == 2) {
+                    if (splits.length == 2) {
                         // old check, always critical update
-                        critical = true;
+                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "OLD CHECK");
+                        //critical = true;
                     }
-                    else*/ if (splits.length == 3) {
+                    else if (splits.length == 3) {
                         // new, better check
+                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "NEW CHECK");
                         // last parameter:
                         //  "normal" - normal update
                         //  "critical" - critical update
