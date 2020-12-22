@@ -3,4 +3,16 @@
     <integer name="profilePrefIndicatorScaleType">2</integer>
     <dimen name="gridView_horizontalSpacing">1dp</dimen>
     <bool name="windowLightStatusBar">true</bool>
+
+    <string name="crowdin_url" translatable="false">https://crowdin.com/project/phoneprofilesplus</string>
+    <string name="privacy_policy_url" translatable="false">https://sites.google.com/site/phoneprofilesplus/home/privacy-policy</string>
+    <string name="github_ppp_releases_url" translatable="false">https://github.com/henrichg/PhoneProfilesPlus/releases</string>
+    <string name="github_ppp_url" translatable="false">https://github.com/henrichg/PhoneProfilesPlus</string>
+    <string name="github_pppe_url" translatable="false">https://github.com/henrichg/PhoneProfilesPlusExtender</string>
+    <string name="xda_developers_ppp_url" translatable="false">https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429</string>
+    <string name="ppp_rleases_debug_url" translatable="false">https://sites.google.com/site/phoneprofilesplus/releases-debug</string>
+    <string name="ppp_rleases_url" translatable="false">https://sites.google.com/site/phoneprofilesplus/releases</string>
+    <string name="paypal_donation_url" translatable="false">https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=AF5QK49DMAL2U</string>
+    <string name="github_pppe_releases_url" translatable="false">https://github.com/henrichg/PhoneProfilesPlusExtender/releases</string>
+
 </resources>

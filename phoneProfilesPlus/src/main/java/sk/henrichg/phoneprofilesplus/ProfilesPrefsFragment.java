@@ -3914,7 +3914,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+            String url = getString(R.string.github_pppe_releases_url); //"https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
