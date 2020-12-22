@@ -79,7 +79,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, (dialog, which) -> {
-            String url = activity.getString(R.string.github_ppp_releases_url); //"https://github.com/henrichg/PhoneProfilesPlus/releases";
+            String url = PPApplication.GITHUB_PPP_RELEASES_URL;
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {

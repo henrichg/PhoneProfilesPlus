@@ -200,11 +200,9 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             String contents;// = "";
             URLConnection conn;
             if (DebugVersion.enabled)
-                //conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases-debug").openConnection();
-                conn = new URL(appContext.getString(R.string.ppp_rleases_debug_url)).openConnection();
+                conn = new URL(PPApplication.PPP_RLEASES_DEBUG_URL).openConnection();
             else
-                //conn = new URL("https://sites.google.com/site/phoneprofilesplus/releases").openConnection();
-                conn = new URL(appContext.getString(R.string.ppp_rleases_url)).openConnection();
+                conn = new URL(PPApplication.PPP_RLEASES_URL).openConnection();
             Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "conn.getUrl()="+conn.getURL());
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);

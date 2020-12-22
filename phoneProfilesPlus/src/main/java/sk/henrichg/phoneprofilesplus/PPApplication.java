@@ -111,6 +111,20 @@ public class PPApplication extends Application
     static final int WORK_PRUNE_DELAY_DAYS = 1;
     static final int WORK_PRUNE_DELAY_MINUTES = 60;
 
+    // urls
+    static final String CROWDIN_URL = "https://crowdin.com/project/phoneprofilesplus";
+    static final String PRIVACY_POLICY_URL = "https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
+    static final String GITHUB_PPP_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases";
+    static final String GITHUB_PPP_URL = "https://github.com/henrichg/PhoneProfilesPlus";
+    static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
+    static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
+    static final String PPP_RLEASES_DEBUG_URL = "https://sites.google.com/site/phoneprofilesplus/releases-debug";
+    static final String PPP_RLEASES_URL = "https://sites.google.com/site/phoneprofilesplus/releases";
+    static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";
+    static final String GITHUB_PPPE_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+
+
+
     //static final boolean gitHubRelease = true;
     //static boolean googlePlayInstaller = false;
 

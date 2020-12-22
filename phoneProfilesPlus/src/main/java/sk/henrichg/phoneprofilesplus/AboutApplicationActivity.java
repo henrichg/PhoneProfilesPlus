@@ -124,7 +124,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_translations);
-        str2 = str1 + " " + getString(R.string.crowdin_url); //https://crowdin.com/project/phoneprofilesplus";
+        str2 = str1 + " " + PPApplication.CROWDIN_URL;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -136,7 +136,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(@NonNull View textView) {
-                String url = getString(R.string.crowdin_url); //"https://crowdin.com/project/phoneprofilesplus";
+                String url = PPApplication.CROWDIN_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -159,7 +159,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
-        str2 = str1 + " " + getString(R.string.privacy_policy_url); //https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
+        str2 = str1 + " " + PPApplication.PRIVACY_POLICY_URL;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         /*ClickableSpan*/ clickableSpan = new ClickableSpan() {
@@ -171,7 +171,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(@NonNull View textView) {
-                String url = getString(R.string.privacy_policy_url); //"https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
+                String url = PPApplication.PRIVACY_POLICY_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -188,7 +188,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_releases);
         str1 = getString(R.string.about_application_releases);
-        str2 = str1 + " " + getString(R.string.github_ppp_releases_url); //https://github.com/henrichg/PhoneProfilesPlus/releases";
+        str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -200,7 +200,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(@NonNull View textView) {
-                String url = getString(R.string.github_ppp_releases_url); //"https://github.com/henrichg/PhoneProfilesPlus/releases";
+                String url = PPApplication.GITHUB_PPP_RELEASES_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -217,7 +217,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_source_code);
         str1 = getString(R.string.about_application_source_code);
-        str2 = str1 + " " + getString(R.string.github_ppp_url); //https://github.com/henrichg/PhoneProfilesPlus";
+        str2 = str1 + " " + PPApplication.GITHUB_PPP_URL;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -229,7 +229,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(@NonNull View textView) {
-                String url = getString(R.string.github_ppp_url); //"https://github.com/henrichg/PhoneProfilesPlus";
+                String url = PPApplication.GITHUB_PPP_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -246,7 +246,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_extender_source_code);
         str1 = getString(R.string.about_application_extender_source_code);
-        str2 = str1 + " " + getString(R.string.github_pppe_url); //https://github.com/henrichg/PhoneProfilesPlusExtender";
+        str2 = str1 + " " + PPApplication.GITHUB_PPPE_URL;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -258,7 +258,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(@NonNull View textView) {
-                String url = getString(R.string.github_pppe_url); //"https://github.com/henrichg/PhoneProfilesPlusExtender";
+                String url = PPApplication.GITHUB_PPPE_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -275,7 +275,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_xda_developers_community);
         str1 = getString(R.string.about_application_xda_developers_community);
-        str2 = str1 + " " + getString(R.string.xda_developers_ppp_url); //https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
+        str2 = str1 + " " + PPApplication.XDA_DEVELOPERS_PPP_URL;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -287,7 +287,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(@NonNull View textView) {
-                String url = getString(R.string.xda_developers_ppp_url); ///"https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
+                String url = PPApplication.XDA_DEVELOPERS_PPP_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {

@@ -901,7 +901,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         String str1 = getString(R.string.about_application_translations);
-        String str2 = str1 + " " + getString(R.string.crowdin_url); //https://crowdin.com/project/phoneprofilesplus";
+        String str2 = str1 + " " + PPApplication.CROWDIN_URL;
         spannable = new SpannableString(str2);
         //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -913,7 +913,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
             @Override
             public void onClick(@NonNull View textView) {
-                String url = getString(R.string.crowdin_url); //"https://crowdin.com/project/phoneprofilesplus";
+                String url = PPApplication.CROWDIN_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -999,7 +999,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            String url = getString(R.string.github_pppe_releases_url); //"https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+            String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
