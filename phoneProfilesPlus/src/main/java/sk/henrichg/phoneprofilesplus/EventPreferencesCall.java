@@ -288,8 +288,19 @@ class EventPreferencesCall extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isRunnable, false);
         boolean isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
-        if (preference != null)
+        if (preference != null) {
+
+            String summary;
+            if (isAccessibilityEnabled)
+                summary = context.getString(R.string.accessibility_service_enabled);
+            else {
+                summary = context.getString(R.string.accessibility_service_disabled);
+                summary = summary + "\n\n" + context.getString(R.string.event_preferences_call_AccessibilitySettingsForExtender_summary);
+            }
+            preference.setSummary(summary);
+
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
+        }
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {

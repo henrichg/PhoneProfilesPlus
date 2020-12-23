@@ -454,6 +454,23 @@ class EventPreferencesOrientation extends EventPreferences {
             boolean bold = checkLightPreference.isChecked();
             GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, true, !isRunnable, false);
         }
+
+        boolean isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context) == 1;
+        preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
+        if (preference != null) {
+
+            String summary;
+            if (isAccessibilityEnabled)
+                summary = context.getString(R.string.accessibility_service_enabled);
+            else {
+                summary = context.getString(R.string.accessibility_service_disabled);
+                summary = summary + "\n\n" + context.getString(R.string.event_preferences_orientation_AccessibilitySettingsForExtender_summary);
+            }
+            preference.setSummary(summary);
+
+            //GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
+        }
+
     }
 
     @SuppressWarnings("StringConcatenationInLoop")

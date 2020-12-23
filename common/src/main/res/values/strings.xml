@@ -1688,6 +1688,8 @@
 
     <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
+    <string name="accessibility_service_enabled">Enabled</string>
+    <string name="accessibility_service_disabled">Disabled</string>
 
     <!-- **************************************************************************************** -->
 

@@ -3101,7 +3101,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 Profile profile = new Profile();
                 profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
+
                 boolean _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+
+                String summary;
+                if (_accessibilityEnabled)
+                    summary = getString(R.string.accessibility_service_enabled);
+                else {
+                    summary = getString(R.string.accessibility_service_disabled);
+                    summary = summary + "\n\n" + getString(R.string.profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary);
+                }
+                preference.setSummary(summary);
+
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, true, !_accessibilityEnabled, false);
             }
         }
@@ -3110,7 +3121,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 Profile profile = new Profile();
                 profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
+
                 boolean _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+
+                String summary;
+                if (_accessibilityEnabled)
+                    summary = getString(R.string.accessibility_service_enabled);
+                else {
+                    summary = getString(R.string.accessibility_service_disabled);
+                    summary = summary + "\n\n" + getString(R.string.profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary);
+                }
+                preference.setSummary(summary);
+
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, true, !_accessibilityEnabled, false);
             }
         }
