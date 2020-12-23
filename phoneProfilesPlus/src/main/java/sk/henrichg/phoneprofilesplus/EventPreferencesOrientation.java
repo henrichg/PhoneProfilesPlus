@@ -388,13 +388,21 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
-                if (extenderVersion == 0)
-                    preference.setSummary(R.string.event_preferences_orientation_PPPExtender_install_summary);
-                else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
-                else
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                if (extenderVersion == 0) {
+                    String summary = context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
+                            "\n\n" + context.getString(R.string.event_preferences_orientation_PPPExtender_install_summary);
+                    preference.setSummary(summary);
+                }
+                else {
+                    String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
+                    String summary = context.getString(R.string.profile_preferences_PPPExtender_installed_summary) +
+                            " " + extenderVersionName + "\n\n";
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
+                        summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
+                    else
+                        summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                    preference.setSummary(summary);
+                }
             }
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {

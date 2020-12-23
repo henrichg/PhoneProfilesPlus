@@ -57,7 +57,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventSMSInstallExtender"
-        app:title="@string/extender_app_name"
+        app:title="@string/install_extender_dialog_title"
         app:summary="@string/event_preferences_sms_PPPExtender_install_summary"
         app:dependency="eventSMSEnabled"
         app:widgetLayout="@layout/widget_start_activity_preference"

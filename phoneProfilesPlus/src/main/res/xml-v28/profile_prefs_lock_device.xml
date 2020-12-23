@@ -14,7 +14,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_lockDeviceInstallExtender"
-        app:title="@string/extender_app_name"
+        app:title="@string/install_extender_dialog_title"
         app:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />

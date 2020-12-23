@@ -388,6 +388,33 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    static String getExtenderVersionName(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
+            boolean installed = appInfo.enabled;
+            if (installed) {
+                //PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "installed=true");
+                PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                //noinspection UnnecessaryLocalVariable
+
+                String version =  pInfo.versionName;
+                //PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "version="+version);
+                return version;
+            }
+            else {
+                //PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "installed=false");
+                return "";
+            }
+        }
+        catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
+            return "";
+        }
+    }
+
     static boolean isEnabled(Context context,
                              @SuppressWarnings("SameParameterValue") int version) {
         int extenderVersion = isExtenderInstalled(context);

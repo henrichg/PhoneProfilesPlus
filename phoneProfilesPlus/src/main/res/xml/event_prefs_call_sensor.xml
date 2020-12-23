@@ -58,7 +58,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventCallInstallExtender"
-        app:title="@string/extender_app_name"
+        app:title="@string/install_extender_dialog_title"
         app:summary="@string/event_preferences_call_PPPExtender_install_summary"
         app:dependency="eventCallEnabled"
         app:widgetLayout="@layout/widget_start_activity_preference"

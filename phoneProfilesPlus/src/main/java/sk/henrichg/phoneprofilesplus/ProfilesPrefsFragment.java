@@ -2963,16 +2963,23 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if (extenderVersion == 0)
-                    preference.setSummary(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
-                else
-                if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
-                else
-                if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1))
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
-                else
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                if (extenderVersion == 0) {
+                    String summary = getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
+                            "\n\n" + getString(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
+                    preference.setSummary(summary);
+                }
+                else {
+                    String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
+                    String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
+                            " " + extenderVersionName + "\n\n";
+                    if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
+                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
+                    else if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1))
+                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
+                    else
+                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                    preference.setSummary(summary);
+                }
             }
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
@@ -3026,13 +3033,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if (extenderVersion == 0)
-                    preference.setSummary(R.string.profile_preferences_lockDevice_PPPExtender_install_summary);
-                else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0)
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
-                else
-                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                if (extenderVersion == 0) {
+                    String summary = getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
+                            "\n\n" + getString(R.string.profile_preferences_lockDevice_PPPExtender_install_summary);
+                    preference.setSummary(summary);
+                }
+                else {
+                    String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
+                    String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
+                            " " + extenderVersionName + "\n\n";
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0)
+                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
+                    else
+                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                    preference.setSummary(summary);
+                }
             }
         }
         if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
