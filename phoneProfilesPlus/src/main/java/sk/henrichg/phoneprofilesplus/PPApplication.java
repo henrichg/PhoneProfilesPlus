@@ -2246,7 +2246,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
                         return;// true;
                 } catch (Exception e) {
-                    throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - notificationManager=null");
+                    //throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - notificationManager=null");
                 }
 
                 int importance;
@@ -2310,7 +2310,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2348,7 +2348,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(INFORMATION_NOTIFICATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2384,7 +2384,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2420,7 +2420,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2456,7 +2456,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2493,7 +2493,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2529,7 +2529,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2565,7 +2565,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(NEW_RELEASE_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
@@ -2639,7 +2639,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                     if (notificationManager.getNotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null)
                         return;
                 } catch (Exception e) {
-                    return;
+                    //return;
                 }
 
                 // The user-visible name of the channel.
