@@ -263,6 +263,8 @@ public class PPApplication extends Application
                                                 //+"|EditorProfileListFragment.startProfilePreferencesActivity"
                                                 //+"|ProfilePrefsActivity.loadPreferences"
 
+                                                +"|heckCriticalGitHubReleasesBroadcastReceiver"
+
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

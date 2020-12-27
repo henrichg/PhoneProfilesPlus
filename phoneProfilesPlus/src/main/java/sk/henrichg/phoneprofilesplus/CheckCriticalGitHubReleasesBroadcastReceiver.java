@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -203,7 +202,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 conn = new URL(PPApplication.PPP_RLEASES_DEBUG_URL).openConnection();
             else
                 conn = new URL(PPApplication.PPP_RLEASES_URL).openConnection();
-            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "conn.getUrl()="+conn.getURL());
+            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "conn.getUrl()="+conn.getURL());
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);
 
@@ -214,11 +213,11 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                     String version = contents.substring(startIndex, endIndex);
                     startIndex = version.indexOf(":");
                     version = version.substring(startIndex + 1);
-                    Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
+                    PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "version="+version);
                     String[] splits = version.split(":");
                     if (splits.length >= 2) {
-                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
-                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
+                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionName=" + splits[0]);
+                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCode=" + splits[1]);
                         int versionCode = 0;
                         try {
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
@@ -227,20 +226,20 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                         }
                         versionCodeInReleases = Integer.parseInt(splits[1]);
                         if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < versionCodeInReleases) {
-                            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
+                            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "PPP versionCode=" + versionCode);
                             if ((versionCode > 0) && (versionCode < versionCodeInReleases))
                                 found = true;
                         }
-                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "found=" + found);
+                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "found=" + found);
                     }
                     if (splits.length == 2) {
                         // old check, always critical update
-                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "OLD CHECK");
+                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "OLD CHECK");
                         //critical = true;
                     }
                     else if (splits.length == 3) {
                         // new, better check
-                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "NEW CHECK");
+                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "NEW CHECK");
                         // last parameter:
                         //  "normal" - normal update
                         //  "critical" - critical update
@@ -253,6 +252,9 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             //if (!(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) && (Build.VERSION.SDK_INT >= 29))
             //    PPApplication.recordException(e);
         }
+
+        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "found="+found);
+        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "critical="+critical);
 
         if (found) {
             removeNotification(appContext);
