@@ -57,7 +57,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -263,7 +262,7 @@ public class PPApplication extends Application
                                                 //+"|EditorProfileListFragment.startProfilePreferencesActivity"
                                                 //+"|ProfilePrefsActivity.loadPreferences"
 
-                                                +"|heckCriticalGitHubReleasesBroadcastReceiver"
+                                                +"|CheckCriticalGitHubReleasesBroadcastReceiver"
 
                                                 ;
 
@@ -1369,7 +1368,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
             return;
 
         try {
-            //Log.e("PPApplication.logIntoFile", "----- path=" + path.getAbsolutePath());
+            //Log.e("PPApplication.logIntoFile", "--- START");
 
             /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
@@ -1402,7 +1401,7 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
             buf.newLine();
             buf.flush();
             buf.close();
-        } catch (IOException ignored) {
+        } catch (Exception e) {
             //Log.e("PPApplication.logIntoFile", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
         }
