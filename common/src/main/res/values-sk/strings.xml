@@ -1557,6 +1557,10 @@
     <string name="normal_github_release">Nová verzia aplikácie</string>
     <string name="normal_github_release_notification">Kliknite na túto notifikáciu pre stiahnutie nového vydania PhoneProfilesPlus z jeho GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Naozaj nechcete viac zobrazovať túto notifikáciu?</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Nainštalované:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Nenainštalované</string>
+    <string name="accessibility_service_enabled">Povolené</string>
+    <string name="accessibility_service_disabled">Zakázané</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

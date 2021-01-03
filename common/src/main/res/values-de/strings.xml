@@ -1550,13 +1550,17 @@
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorieren und nicht pausieren</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Profil beim Beenden manuell aktivieren</string>
     <string name="critical_github_release_confirm_notification_disable">Einer fehlerbereinigte Version von PhoneProfilesPlus steht zum Herunterladen bereit. Darin sind kritische Fehler behoben. Möchten Sie zukünftig wirklich diese Meldung nicht mehr anzeigen?</string>
-    <string name="critical_github_release_notification_disable_button">Ignore this version</string>
+    <string name="critical_github_release_notification_disable_button">Diese Version auslassen</string>
     <string name="editor_drawer_order_start_profile_name">Start profile name</string>
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <string name="donation_paypal_donate_button">Spenden</string>
-    <string name="normal_github_release">New app. release</string>
-    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
-    <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
+    <string name="normal_github_release">Neue App veröffentlicht</string>
+    <string name="normal_github_release_notification">Bitte klicken Sie auf diese Benachrichtigung, um die neue Version von PhoneProfilesPlus von GitHub herunterzuladen.</string>
+    <string name="normal_github_release_confirm_notification_disable">Möchten Sie diese Benachrichtigung in Zukunft wirklich nicht mehr anzeigen?</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Installiert:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Nicht installiert</string>
+    <string name="accessibility_service_enabled">Aktiviert</string>
+    <string name="accessibility_service_disabled">Deaktiviert</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

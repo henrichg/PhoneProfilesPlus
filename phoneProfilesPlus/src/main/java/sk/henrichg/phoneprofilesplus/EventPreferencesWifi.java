@@ -355,21 +355,24 @@ class EventPreferencesWifi extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
+
+//            if (_event._name.equals("Wi-fi"))
+//                PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "----------- START");
+
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 
 //                if (PPApplication.logEnabled()) {
-//                    if (_event._name.equals("Doma")) {
-//                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "START");
+//                    if (_event._name.equals("Wi-fi")) {
 //                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "------- event._id=" + _event._id);
 //                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "------- event._name=" + _event._name);
 //                    }
 //                }
 
-                //if (_event._name.equals("Doma"))
-                //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "-------- eventSSID=" + _SSID);
+//                if (_event._name.equals("Wi-fi"))
+//                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "-------- eventSSID=" + _SSID);
 
                 eventsHandler.wifiPassed = false;
 
@@ -387,8 +390,8 @@ class EventPreferencesWifi extends EventPreferences {
                     boolean done = false;
 
                     if (isWifiEnabled) {
-                        //if (event._name.equals("Doma"))
-                        //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiStateEnabled=true");
+//                        if (_event._name.equals("Wi-fi"))
+//                            PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiStateEnabled=true");
 
                         //PPApplication.logE("----- EventPreferencesWifi.doHandleEvent","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
@@ -442,13 +445,13 @@ class EventPreferencesWifi extends EventPreferences {
                         }
 
                         if (wifiConnected) {
-                            /*if (PPApplication.logEnabled()) {
-                                if (event._name.equals("Doma")) {
-                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi connected");
-                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiSSID="+wifiInfo.getSSID());
-                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiBSSID=" + wifiInfo.getBSSID());
-                                }
-                            }*/
+//                            if (PPApplication.logEnabled()) {
+//                                if (_event._name.equals("Wi-fi")) {
+//                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi connected");
+//                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiSSID="+wifiInfo.getSSID());
+//                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiBSSID=" + wifiInfo.getBSSID());
+//                                }
+//                            }
 
                             //PPApplication.logE("----- EventPreferencesWifi.doHandleEvent","SSID="+event._eventPreferencesWifi._SSID);
 
@@ -502,8 +505,8 @@ class EventPreferencesWifi extends EventPreferences {
                                     done = true;
                             }
                         } else {
-                            //if (event._name.equals("Doma"))
-                            //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi not connected");
+//                            if (_event._name.equals("Wi-fi"))
+//                                PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi not connected");
 
                             if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                                 (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
@@ -513,8 +516,8 @@ class EventPreferencesWifi extends EventPreferences {
                             }
                         }
                     } else {
-                        //if (event._name.equals("Doma"))
-                        //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiStateEnabled=false");
+//                        if (_event._name.equals("Wi-fi"))
+//                            PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiStateEnabled=false");
                         if ((_connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                             (_connectionType == EventPreferencesWifi.CTYPE_NOT_CONNECTED)) {
                             // not use scanner data
@@ -523,8 +526,8 @@ class EventPreferencesWifi extends EventPreferences {
                         }
                     }
 
-                    //if (event._name.equals("Doma"))
-                    //   PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiPassed - connected =" + eventsHandler.wifiPassed);
+//                    if (_event._name.equals("Wi-fi"))
+//                       PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiPassed - connected =" + eventsHandler.wifiPassed);
 
                     if ((_connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
                         (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)) {
@@ -556,21 +559,21 @@ class EventPreferencesWifi extends EventPreferences {
 
                                         eventsHandler.wifiPassed = false;
 
-                                        /*if (PPApplication.logEnabled()) {
-                                            if (event._name.equals("Doma")) {
-                                                PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults != null");
-                                                PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults.size=" + scanResults.size());
-                                                //PPApplication.logE("----- EventPreferencesWifi.doHandleEvent","-- eventSSID="+event._eventPreferencesWifi._SSID);
-                                            }
-                                        }*/
+//                                        if (PPApplication.logEnabled()) {
+//                                            if (_event._name.equals("Wi-fi")) {
+//                                                PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults != null");
+//                                                PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults.size=" + scanResults.size());
+//                                                //PPApplication.logE("----- EventPreferencesWifi.doHandleEvent","-- eventSSID="+event._eventPreferencesWifi._SSID);
+//                                            }
+//                                        }
 
                                         for (WifiSSIDData result : scanResults) {
-                                            /*if (PPApplication.logEnabled()) {
-                                                if (event._name.equals("Doma")) {
-                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanSSID=" + result.ssid);
-                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanBSSID=" + result.bssid);
-                                                }
-                                            }*/
+//                                            if (PPApplication.logEnabled()) {
+//                                                if (_event._name.equals("Wi-fi")) {
+//                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanSSID=" + result.ssid);
+//                                                    //PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanBSSID=" + result.bssid);
+//                                                }
+//                                            }
                                             String[] splits = _SSID.split("\\|");
                                             boolean[] nearby = new boolean[splits.length];
                                             int i = 0;
@@ -578,21 +581,21 @@ class EventPreferencesWifi extends EventPreferences {
                                                 nearby[i] = false;
                                                 switch (_ssid) {
                                                     case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                                                        //if (event._name.equals("Doma"))
-                                                        //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "all ssids");
+//                                                        if (_event._name.equals("Wi-fi"))
+//                                                            PPApplication.logE("EventPreferencesWifi.doHandleEvent", "all ssids");
                                                         nearby[i] = true;
                                                         break;
                                                     case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                                                        //if (event._name.equals("Doma"))
-                                                        //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "configured ssids");
+//                                                        if (_event._name.equals("Wi-fi"))
+//                                                            PPApplication.logE("EventPreferencesWifi.doHandleEvent", "configured ssids");
                                                         for (WifiSSIDData data : wifiConfigurationList) {
                                                             if (WifiScanWorker.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
-                                                                /*if (PPApplication.logEnabled()) {
-                                                                    if (event._name.equals("Doma")) {
-                                                                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "configured SSID=" + data.ssid.replace("\"", ""));
-                                                                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi found");
-                                                                    }
-                                                                }*/
+//                                                                if (PPApplication.logEnabled()) {
+//                                                                    if (_event._name.equals("Wi-fi")) {
+//                                                                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "configured SSID=" + data.ssid.replace("\"", ""));
+//                                                                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi found");
+//                                                                    }
+//                                                                }
                                                                 nearby[i] = true;
                                                                 break;
                                                             }
@@ -600,12 +603,12 @@ class EventPreferencesWifi extends EventPreferences {
                                                         break;
                                                     default:
                                                         if (WifiScanWorker.compareSSID(result, _ssid, wifiConfigurationList)) {
-                                                            /*if (PPApplication.logEnabled()) {
-                                                                if (event._name.equals("Doma")) {
-                                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "event SSID=" + event._eventPreferencesWifi._SSID);
-                                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi found");
-                                                                }
-                                                            }*/
+//                                                            if (PPApplication.logEnabled()) {
+//                                                                if (_event._name.equals("Wi-fi")) {
+//                                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "event SSID=" + _event._eventPreferencesWifi._SSID);
+//                                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifi found");
+//                                                                }
+//                                                            }
                                                             nearby[i] = true;
                                                         }
                                                         break;
@@ -636,19 +639,19 @@ class EventPreferencesWifi extends EventPreferences {
                                             if (done)
                                                 break;
                                         }
-                                        //if (event._name.equals("Doma"))
-                                        //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiPassed - in front =" + wifiPassed);
+//                                        if (_event._name.equals("Wi-fi"))
+//                                            PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiPassed - in front =" + eventsHandler.wifiPassed);
 
                                         if (!done) {
                                             if (scanResults.size() == 0) {
-                                                //if (event._name.equals("Doma"))
-                                                //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResult is empty");
+//                                                if (_event._name.equals("Wi-fi"))
+//                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResult is empty");
 
                                                 if (_connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY)
                                                     eventsHandler.wifiPassed = true;
 
-                                                //if (event._name.equals("Doma"))
-                                                //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiPassed - in front - for empty scanResult =" + wifiPassed);
+//                                                if (_event._name.equals("Wi-fi"))
+//                                                    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "wifiPassed - in front - for empty scanResult =" + eventsHandler.wifiPassed);
                                             }
                                         }
 
@@ -657,8 +660,8 @@ class EventPreferencesWifi extends EventPreferences {
                                         // not allowed, no scan results
                                         eventsHandler.notAllowedWifi = true;
                                         //PPApplication.logE("[FIFO_TEST] EventPreferencesWifi.doHandleEvent", "notAllowedWifi (3)");
-                                        //if (event._name.equals("Doma"))
-                                        //    PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults == null");*/
+//                                        if (_event._name.equals("Wi-fi"))
+//                                            PPApplication.logE("EventPreferencesWifi.doHandleEvent", "scanResults == null");
                                     }
                                 }
                             }
@@ -666,12 +669,12 @@ class EventPreferencesWifi extends EventPreferences {
                     }
                 }
 
-                /*if (PPApplication.logEnabled()) {
-                    //if (event._name.equals("Doma")) {
-                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "------- wifiPassed=" + eventsHandler.wifiPassed);
-                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "------- notAllowedWifi=" + eventsHandler.notAllowedWifi);
-                    //}
-                }*/
+//                if (PPApplication.logEnabled()) {
+//                    if (_event._name.equals("Wi-fi")) {
+//                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "------- wifiPassed=" + eventsHandler.wifiPassed);
+//                        PPApplication.logE("EventPreferencesWifi.doHandleEvent", "------- notAllowedWifi=" + eventsHandler.notAllowedWifi);
+//                    }
+//                }
 
                 if (!eventsHandler.notAllowedWifi) {
                     if (eventsHandler.wifiPassed)
@@ -685,7 +688,7 @@ class EventPreferencesWifi extends EventPreferences {
             }
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
 //            if (PPApplication.logEnabled()) {
-//                if (_event._name.equals("Doma")) {
+//                if (_event._name.equals("Wi-fi")) {
 //                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - event._name=" + _event._name);
 //                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - old pass=" + oldSensorPassed);
 //                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - new pass=" + newSensorPassed);
@@ -697,8 +700,8 @@ class EventPreferencesWifi extends EventPreferences {
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_WIFI);
             }
 
-//            if (_event._name.equals("Doma"))
-//                PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "END");
+//            if (_event._name.equals("Wi-fi"))
+//                PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "----------- END");
         }
     }
 

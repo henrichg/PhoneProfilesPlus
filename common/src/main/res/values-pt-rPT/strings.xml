@@ -1557,6 +1557,10 @@
     <string name="normal_github_release">New app. release</string>
     <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
+    <string name="accessibility_service_enabled">Enabled</string>
+    <string name="accessibility_service_disabled">Disabled</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir PhoneProfilesPlusExtender por:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

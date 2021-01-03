@@ -264,6 +264,8 @@ public class PPApplication extends Application
 
                                                 +"|CheckCriticalGitHubReleasesBroadcastReceiver"
 
+                                                //+"|EventPreferencesWifi"
+
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

@@ -1558,6 +1558,10 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="normal_github_release">New app. release</string>
     <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
+    <string name="accessibility_service_enabled">Enabled</string>
+    <string name="accessibility_service_disabled">Disabled</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

@@ -1550,13 +1550,17 @@
     <string name="array_ignore_manual_activation_ignore_no_pause">Yoksayılsın ve fasıla verilmesin</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Nihayetinde el ile tercihi faaliyete geçirmek</string>
     <string name="critical_github_release_confirm_notification_disable">İndirmek için kritik PhoneProfilesPlus sürümü gereklidir. İçinde kritik hatalar düzeltildi. Bu bildirimi gelecekte göstermeyeceğinizden emin misiniz?</string>
-    <string name="critical_github_release_notification_disable_button">Ignore this version</string>
-    <string name="editor_drawer_order_start_profile_name">Start profile name</string>
-    <string name="editor_drawer_order_end_profile_name">End profile name</string>
-    <string name="donation_paypal_donate_button">Donate</string>
-    <string name="normal_github_release">New app. release</string>
-    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
-    <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
+    <string name="critical_github_release_notification_disable_button">Bu sürümü yoksay</string>
+    <string name="editor_drawer_order_start_profile_name">Başlangıç profil ismi</string>
+    <string name="editor_drawer_order_end_profile_name">Bitiş profil ismi</string>
+    <string name="donation_paypal_donate_button">Bağış Yap</string>
+    <string name="normal_github_release">Yeni sürüm mevcut</string>
+    <string name="normal_github_release_notification">PhoneProfilesPlus\'ın GitHub\'dan yeni sürümünü indirmek için bu bildirime dokunun.</string>
+    <string name="normal_github_release_confirm_notification_disable">Bu ikazı bir daha görmek istemediğinizden emin misiniz?</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
+    <string name="accessibility_service_enabled">Enabled</string>
+    <string name="accessibility_service_disabled">Disabled</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
