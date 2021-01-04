@@ -5,7 +5,11 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class ContactsCache {
 
@@ -134,6 +138,130 @@ class ContactsCache {
         caching = false;
     }
 
+    void getContactListX(Context context)
+    {
+        if (cached || caching) return;
+
+//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
+
+        caching = true;
+        //cancelled = false;
+
+        ArrayList<Contact> _contactList = new ArrayList<>();
+        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
+
+        try {
+            if (Permissions.checkContacts(context)) {
+
+                Map<Long, List<String>> phones = new HashMap<>();
+
+                String[] projection = new String[]{
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+                        ContactsContract.CommonDataKinds.Phone.NUMBER,
+                        ContactsContract.CommonDataKinds.Phone._ID
+                };
+
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, null, null, null);
+
+                if (mCursor != null) {
+                    while (mCursor.moveToNext()) {
+
+                        long contactId = mCursor.getLong(0);
+                        String phoneNumber = mCursor.getString(1);
+                        long phoneId = mCursor.getLong(2);
+                        List<String> list;
+                        if (phones.containsKey(contactId)) {
+                            list = phones.get(contactId);
+                        } else {
+                            list = new ArrayList<>();
+                            phones.put(contactId, list);
+                        }
+                        list.add(phoneId+"|"+phoneNumber);
+
+                        //if (cancelled)
+                        //    break;
+                    }
+                    mCursor.close();
+                }
+
+                //if (cancelled)
+                //    return;
+
+                projection = new String[]{
+                        ContactsContract.Contacts._ID,
+                        ContactsContract.Contacts.DISPLAY_NAME,
+                        ContactsContract.CommonDataKinds.Phone.PHOTO_ID
+                };
+
+                mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, null, null, null);
+
+                if (mCursor != null) {
+                    while (mCursor.moveToNext()) {
+                        long contactId = mCursor.getLong(0);
+                        String name = mCursor.getString(1);
+                        String photo = mCursor.getString(2);
+                        List<String> contactPhones = phones.get(contactId);
+                        if (contactPhones != null) {
+                            for (String phone : contactPhones) {
+                                String[] splits = phone.split("\\|");
+                                Contact aContact = new Contact();
+                                aContact.contactId = contactId;
+                                aContact.name = name;
+                                aContact.phoneId = Long.parseLong(splits[0]);
+                                aContact.phoneNumber = splits[1];
+                                try {
+                                    aContact.photoId = Long.parseLong(photo);
+                                } catch (Exception e) {
+                                    aContact.photoId = 0;
+                                }
+                                _contactList.add(aContact);
+                            }
+                        }
+
+                        //if (cancelled)
+                        //    break;
+                    }
+
+                    mCursor.close();
+                }
+
+                //if (cancelled)
+                //    return;
+
+                Collections.sort(_contactList, new ContactsComparator());
+
+                cached = true;
+            }
+        } catch (SecurityException e) {
+            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
+
+            _contactList.clear();
+            //_contactListWithoutNumber.clear();
+
+            cached = false;
+        } catch (Exception e) {
+            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+
+            _contactList.clear();
+            //_contactListWithoutNumber.clear();
+
+            cached = false;
+        }
+
+        //if (cached) {
+        synchronized (PPApplication.contactsCacheMutex) {
+            updateContacts(_contactList/*, false*/);
+            //updateContacts(_contactListWithoutNumber, true);
+        }
+        //}
+
+        //PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
+
+        caching = false;
+    }
+
     void updateContacts(List<Contact> _contactList/*, boolean withoutNumber*/) {
         /*if (withoutNumber) {
             contactListWithoutNumber.clear();
@@ -169,6 +297,16 @@ class ContactsCache {
 
     boolean getCaching() {
         return caching;
+    }
+
+    private static class ContactsComparator implements Comparator<Contact> {
+
+        public int compare(Contact lhs, Contact rhs) {
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.name, rhs.name);
+            else
+                return 0;
+        }
     }
 
 }

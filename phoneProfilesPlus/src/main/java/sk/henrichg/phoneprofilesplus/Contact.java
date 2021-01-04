@@ -24,4 +24,5 @@ class Contact {
     void toggleChecked() {
         checked = !checked;
     }
+
 }

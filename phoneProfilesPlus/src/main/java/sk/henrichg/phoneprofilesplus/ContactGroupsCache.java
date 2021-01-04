@@ -143,6 +143,141 @@ class ContactGroupsCache {
         caching = false;
     }
 
+    void getContactGroupListX(Context context) {
+        if (cached || caching) return;
+
+//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- START");
+
+        caching = true;
+        //cancelled = false;
+
+        ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
+        if (contactsCache == null) {
+            caching = false;
+            return;
+        }
+
+        ArrayList<ContactGroup> _contactGroupList = new ArrayList<>();
+
+        ArrayList<Contact> _contactList = new ArrayList<>();
+        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
+        synchronized (PPApplication.contactsCacheMutex) {
+            List<Contact> contacts = contactsCache.getList(/*false*/);
+            if (contacts != null)
+                _contactList.addAll(contacts);
+            /*contacts = contactsCache.getList(true);
+            if (contacts != null)
+                _contactListWithoutNumber.addAll(contacts);*/
+        }
+
+        try {
+            if (Permissions.checkContacts(context)) {
+                clearGroups(_contactList);
+                //contactsCache.clearGroups(_contactListWithoutNumber);
+
+                List<Long> contactGroupIds = new ArrayList<>();
+
+                String[] projection = new String[]{
+                        ContactsContract.Groups._ID,
+                        ContactsContract.Groups.TITLE,
+                        ContactsContract.Groups.SUMMARY_COUNT};
+                String selection = ContactsContract.Groups.DELETED + "!='1'";// + " AND "+
+                //ContactsContract.Groups.GROUP_VISIBLE+"!='0' ";
+                String order = ContactsContract.Groups.TITLE + " ASC";
+
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, order);
+
+                if (mCursor != null) {
+                    while (mCursor.moveToNext()) {
+                        long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
+                        String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                        int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
+
+                        if (count > 0) {
+                            contactGroupIds.add(contactGroupId);
+
+                            ContactGroup aContactGroup = new ContactGroup();
+                            aContactGroup.groupId = contactGroupId;
+                            aContactGroup.name = name;
+                            aContactGroup.count = count;
+
+                            _contactGroupList.add(aContactGroup);
+                        }
+
+                        //if (cancelled)
+                        //    break;
+
+                    }
+                    mCursor.close();
+                }
+
+                //if (cancelled)
+                //    return;
+
+                String[] projectionGroup = new String[]{
+                        ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID,
+                        ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID
+                };
+                String selectionGroup = ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
+                        + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
+
+                Cursor mCursorGroup = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projectionGroup, selectionGroup, null, null);
+                if (mCursorGroup != null) {
+                    while (mCursorGroup.moveToNext()) {
+                        for (long contactGroupId : contactGroupIds) {
+                            if (mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID) == contactGroupId) {
+                                // contact is in contactGroupId group
+
+                                long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                                /*if (name.equals("Family")) {
+                                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
+                                    Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
+                                }*/
+                                addGroup(contactId, contactGroupId, _contactList);
+                                //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
+                            }
+                        }
+                    }
+                    mCursorGroup.close();
+                }
+
+                cached = true;
+            }
+        } catch (SecurityException e) {
+            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
+
+            _contactGroupList.clear();
+            clearGroups(_contactList);
+            //contactsCache.clearGroups(_contactListWithoutNumber);
+
+            cached = false;
+        } catch (Exception e) {
+            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+
+            _contactGroupList.clear();
+            clearGroups(_contactList);
+            //contactsCache.clearGroups(_contactListWithoutNumber);
+
+            cached = false;
+        }
+
+        //if (cached) {
+        synchronized (PPApplication.contactsCacheMutex) {
+            contactsCache.updateContacts(_contactList/*, false*/);
+            //contactsCache.updateContacts(_contactListWithoutNumber, true);
+
+            contactGroupList.clear();
+            contactGroupList.addAll(_contactGroupList);
+        }
+        //}
+
+        //PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- END");
+
+        caching = false;
+    }
+
     public int getLength()
     {
         if (cached)
