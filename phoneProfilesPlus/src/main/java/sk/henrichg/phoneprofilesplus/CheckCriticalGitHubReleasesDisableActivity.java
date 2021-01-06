@@ -33,7 +33,10 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
 
         Intent intent = getIntent();
         criticalRelease = intent.getBooleanExtra(EXTRA_GITHUB_RELEASE_CRITICAL, true);
-        versionCode = intent.getIntExtra(EXTRA_GITHUB_RELEASE_CRITICAL, 0);
+        versionCode = intent.getIntExtra(EXTRA_GITHUB_RELEASE_CODE, 0);
+
+//        PPApplication.logE("CheckCriticalGitHubReleasesDisableActivity._doWork", "versionCode=" + versionCode);
+//        PPApplication.logE("CheckCriticalGitHubReleasesDisableActivity._doWork", "criticalRelease=" + criticalRelease);
 
         activityStarted = true;
 
