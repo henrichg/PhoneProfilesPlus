@@ -266,6 +266,7 @@ public class PPApplication extends Application
                                                 //+"|CheckCriticalGitHubReleasesDisableActivity"
 
                                                 //+"|EventPreferencesWifi"
+                                                //+"|EventPreferencesCall.doHandleEvent"
 
                                                 ;
 

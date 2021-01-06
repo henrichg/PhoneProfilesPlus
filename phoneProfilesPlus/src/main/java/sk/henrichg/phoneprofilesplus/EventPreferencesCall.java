@@ -567,14 +567,14 @@ class EventPreferencesCall extends EventPreferences {
                         List<Contact> contactList = contactsCache.getList(/*false*/);
                         if (contactList != null) {
                             for (Contact contact : contactList) {
-                            /*String __phoneNumber = contact.phoneNumber;
-                            boolean found = false;
-                            if (PhoneNumberUtils.compare(__phoneNumber, "917994279")) {
-                                found = true;
-                                Log.e("EventPreferencesCall.isPhoneNumberConfigured", "_phoneNumber=" + __phoneNumber);
-                                Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.contactId=" + contact.contactId);
-                                Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.groups=" + contact.groups);
-                            }*/
+                                /*String __phoneNumber = contact.phoneNumber;
+                                boolean found = false;
+                                if (PhoneNumberUtils.compare(__phoneNumber, "917994279")) {
+                                    found = true;
+                                    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "_phoneNumber=" + __phoneNumber);
+                                    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.contactId=" + contact.contactId);
+                                    Log.e("EventPreferencesCall.isPhoneNumberConfigured", "contact.groups=" + contact.groups);
+                                }*/
 
                                 if (contact.groups != null) {
                                     long groupId = contact.groups.indexOf(Long.valueOf(split));
@@ -780,10 +780,10 @@ class EventPreferencesCall extends EventPreferences {
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "callEventType=" + callEventType);
-                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumber=" + phoneNumber);
-                }*/
+//                if (PPApplication.logEnabled()) {
+//                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "callEventType=" + callEventType);
+//                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumber=" + phoneNumber);
+//                }
 
                 boolean phoneNumberFound = false;
 
