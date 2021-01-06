@@ -2590,13 +2590,13 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                 // Configure the notification channel.
                 //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(true);
+                channel.enableLights(false);
                 // Sets the notification light color for notifications posted to this
                 // channel, if the device supports this feature.
                 //channel.setLightColor(Color.RED);
-                //channel.enableVibration(false);
+                channel.enableVibration(false);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                channel.setBypassDnd(true);
+                channel.setBypassDnd(false);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
