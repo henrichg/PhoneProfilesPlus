@@ -47,8 +47,8 @@
 <!--    <color name="eventInDelayTextColor">#FFffb000</color>-->
 
     <color name="sensor_pass_status_passed">#FF00C000</color>
-    <color name="sensor_pass_status_not_passed">#FFE05050</color>
-    <color name="sensor_pass_status_waiting">#FFffb000</color>
+    <color name="sensor_pass_status_not_passed">#FFffb000</color>
+    <color name="sensor_pass_status_waiting">#FF0060FF</color>
 
     <color name="map_edited_location_marker_stroke">#FFE99B7F</color>
     <color name="map_edited_location_marker_fill">#77E99B7F</color>

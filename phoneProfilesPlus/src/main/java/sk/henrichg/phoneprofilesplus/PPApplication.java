@@ -2585,18 +2585,18 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_new_release_description);
 
-                NotificationChannel channel = new NotificationChannel(NEW_RELEASE_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(NEW_RELEASE_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
                 //channel.setImportance(importance);
                 channel.setDescription(description);
-                channel.enableLights(false);
+                channel.enableLights(true);
                 // Sets the notification light color for notifications posted to this
                 // channel, if the device supports this feature.
                 //channel.setLightColor(Color.RED);
-                channel.enableVibration(false);
+                //channel.enableVibration(false);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                //channel.setBypassDnd(true);
+                channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {

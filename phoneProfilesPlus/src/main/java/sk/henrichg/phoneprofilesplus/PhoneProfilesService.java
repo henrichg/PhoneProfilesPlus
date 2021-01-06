@@ -5039,7 +5039,7 @@ public class PhoneProfilesService extends Service
         }
         if (contactsCache == null)
             contactsCache = new ContactsCache();
-        contactsCache.getContactList(context);
+        contactsCache.getContactListX(context);
     }
 
     public static ContactsCache getContactsCache()
@@ -5055,7 +5055,7 @@ public class PhoneProfilesService extends Service
         }
         if (contactGroupsCache == null)
             contactGroupsCache = new ContactGroupsCache();
-        contactGroupsCache.getContactGroupList(context);
+        contactGroupsCache.getContactGroupListX(context);
     }
 
     public static ContactGroupsCache getContactGroupsCache()
