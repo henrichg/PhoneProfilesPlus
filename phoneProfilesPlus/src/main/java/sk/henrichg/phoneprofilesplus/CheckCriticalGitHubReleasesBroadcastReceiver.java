@@ -238,7 +238,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                         PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "OLD CHECK");
                         //critical = true;
                     }*/
-                    else if (splits.length == 3) {
+                    if (splits.length == 3) {
                         // new, better check
 //                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "NEW CHECK");
                         // last parameter:

@@ -88,6 +88,9 @@
     </issue>
     <issue id="IconLocation">
         <ignore path="src/main/res/drawable/ic_empty.png" />
+        <ignore path="src/main/res/drawable/icon_widget_preview.png" />
+        <ignore path="src/main/res/drawable/list_witget_preview.png" />
+        <ignore path="src/main/res/drawable/one_row_widget_preview.png" />
         <ignore path="src/main/res/drawable/phoneprofilesplus_assets_screenshot.png" />
         <ignore path="src/main/res/drawable/phoneprofilesplusextender_assets_screenshot.png" />
         <ignore path="src/main/res/drawable/samsung_edge_panel.png" />

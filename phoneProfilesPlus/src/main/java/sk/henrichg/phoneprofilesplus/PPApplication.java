@@ -2247,13 +2247,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
-                        return;// true;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - notificationManager=null");
-                }
+                if (notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL) != null)
+                    return;// true;
 
                 int importance;
                 //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
@@ -2312,13 +2307,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification);
@@ -2351,13 +2341,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(INFORMATION_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(INFORMATION_NOTIFICATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_information);
@@ -2388,13 +2373,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(EXCLAMATION_NOTIFICATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_exclamation);
@@ -2425,13 +2405,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_grant_permission);
@@ -2462,13 +2437,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_notify_event_start);
@@ -2500,13 +2470,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_not_used_mobile_cell);
@@ -2537,13 +2502,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_donation);
@@ -2574,13 +2534,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(NEW_RELEASE_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(NEW_RELEASE_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_new_release);
@@ -2612,12 +2567,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
+                if (notificationManager.getNotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL) != null)
                     return;
-                }
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_crash_report);
@@ -2649,13 +2600,8 @@ DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.appli
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                try {
-                    if (notificationManager.getNotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null)
-                        return;
-                } catch (Exception e) {
-                    if (notificationManager == null)
-                        return;
-                }
+                if (notificationManager.getNotificationChannel(GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null)
+                    return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_generated_by_profile);

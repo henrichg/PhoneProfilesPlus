@@ -10300,76 +10300,103 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (profilesCursor.moveToFirst()) {
                         do {
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_WIFI, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_WIFI, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_BLUETOOTH)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_BLUETOOTH, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_BLUETOOTH)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_BLUETOOTH, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_MOBILE_DATA, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_MOBILE_DATA, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_GPS)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_GPS, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_GPS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_GPS, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_NFC)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_NFC, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_NFC)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_NFC, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_WIFI_AP, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_WIFI_AP, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VOLUME_RINGER_MODE)) == 5) {
@@ -10400,106 +10427,134 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, false, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, false, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_NETWORK_TYPE, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_NETWORK_TYPE, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_NOTIFICATION_LED)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, false, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_NOTIFICATION_LED, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_NOTIFICATION_LED)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_NOTIFICATION_LED, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_VIBRATE_WHEN_RINGING, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_VIBRATE_WHEN_RINGING, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                            PreferenceAllowed _preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, context);
+                            if ((_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                    (_preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                         new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP_PREFS)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_WIFI_AP_PREFS, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP_PREFS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_WIFI_AP_PREFS, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, false, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_HEADS_UP_NOTIFICATIONS, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_HEADS_UP_NOTIFICATIONS, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, false, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, false, context).allowed
-                                            == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_ALWAYS_ON_DISPLAY, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ALWAYS_ON_DISPLAY)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_ALWAYS_ON_DISPLAY, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
-                            if ((profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE)) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(KEY_DEVICE_LOCATION_MODE, 0);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_LOCATION_MODE, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
                             }
 
                         } while (profilesCursor.moveToNext());

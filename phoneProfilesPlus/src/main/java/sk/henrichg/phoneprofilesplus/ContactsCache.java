@@ -27,6 +27,7 @@ class ContactsCache {
         caching = false;
     }
 
+    @SuppressWarnings("unused")
     void getContactList(Context context)
     {
         if (cached || caching) return;
@@ -176,7 +177,8 @@ class ContactsCache {
                             list = new ArrayList<>();
                             phones.put(contactId, list);
                         }
-                        list.add(phoneId+"|"+phoneNumber);
+                        if (list != null)
+                            list.add(phoneId+"|"+phoneNumber);
 
                         //if (cancelled)
                         //    break;

@@ -21,6 +21,7 @@ class ContactGroupsCache {
         caching = false;
     }
 
+    @SuppressWarnings("unused")
     void getContactGroupList(Context context) {
         if (cached || caching) return;
 

@@ -3443,45 +3443,42 @@ public class Profile {
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE))
-        {
+        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
             //if (android.os.Build.VERSION.SDK_INT >= 17)
             //{
-                if (PPApplication.isRooted(fromUIThread))
-                {
-                    // device is rooted
+            if (PPApplication.isRooted(fromUIThread)) {
+                // device is rooted
 
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._deviceAirplaneMode != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
-                            }
+                if (profile != null) {
+                    // test if grant root is disabled
+                    if (profile._deviceAirplaneMode != 0) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            //return preferenceAllowed;
                         }
                     }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
+                } else if (sharedPreferences != null) {
+                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return preferenceAllowed;
                         }
                     }
-
-                    if (PPApplication.settingsBinaryExists(fromUIThread))
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+
+                if (PPApplication.settingsBinaryExists(fromUIThread))
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+            } else {
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                if ((profile != null) && (profile._deviceAirplaneMode != 0))
+                    preferenceAllowed.notAllowedRoot = true;
+            }
             //}
             //else
             //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -3603,7 +3600,6 @@ public class Profile {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     //return preferenceAllowed;
-                                    preferenceAllowed.notAllowedRoot = true;
                                 }
                             }
                         }
@@ -3632,8 +3628,11 @@ public class Profile {
                         }
 
                     }
-                    else
+                    else {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                        if ((profile != null) && (profile._deviceMobileData != 0))
+                            preferenceAllowed.notAllowedRoot = true;
+                    }
                 /*}
                 else
                 {
@@ -3700,7 +3699,6 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3732,7 +3730,9 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceGPS=" + profile._deviceGPS);
                     if ((profile != null) && (profile._deviceGPS != 0)) {
                         //return preferenceAllowed;
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
+                        //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -3768,7 +3768,6 @@ public class Profile {
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                             // not needed to test all parameters
                             //return preferenceAllowed;
-                            preferenceAllowed.notAllowedRoot = true;
                         }
                     }
                 }
@@ -3795,7 +3794,9 @@ public class Profile {
 //                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceLocationMode=" + profile._deviceLocationMode);
                 if ((profile != null) && (profile._deviceLocationMode != 0)) {
                     //return preferenceAllowed;
-//                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
+//                    if (profile._name.equals("Low battery"))
+//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
+                    //preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedG1 = true;
                 }
             }
@@ -3830,7 +3831,6 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3854,7 +3854,9 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceNFC=" + profile._deviceNFC);
                     if ((profile != null) && (profile._deviceNFC != 0)) {
                         //return preferenceAllowed;
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
+                        //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -3900,7 +3902,6 @@ public class Profile {
                                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                         // not needed to test all parameters
                                         //return preferenceAllowed;
-                                        preferenceAllowed.notAllowedRoot = true;
                                     }
                                 }
                             } else if (sharedPreferences != null) {
@@ -3923,8 +3924,11 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
-                        } else
+                        } else {
+                            if ((profile != null) && (profile._deviceWiFiAP != 0))
+                                preferenceAllowed.notAllowedRoot = true;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                        }
                     } else
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 } else
@@ -3962,7 +3966,6 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -3983,8 +3986,11 @@ public class Profile {
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-                else
+                else {
+                    if ((profile != null) && (profile._vibrateWhenRinging != 0))
+                        preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
             }
             else
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -4019,7 +4025,6 @@ public class Profile {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                     // not needed to test all parameters
                                     //return preferenceAllowed;
-                                    preferenceAllowed.notAllowedRoot = true;
                                 }
                             }
                         }
@@ -4040,8 +4045,12 @@ public class Profile {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                    } else
+                    } else {
+                        if (profile != null)
+                            if (profile.getDeviceBrightnessChange() && profile.getDeviceBrightnessAutomatic())
+                                preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    }
                 //}
                 //else
                 //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -4078,7 +4087,6 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4105,7 +4113,9 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._devicePowerSaveMode=" + profile._devicePowerSaveMode);
                     if ((profile != null) && (profile._devicePowerSaveMode != 0)) {
                         //return preferenceAllowed;
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
+                        //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -4143,7 +4153,6 @@ public class Profile {
                                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                         // not needed to test all parameters
                                         //return preferenceAllowed;
-                                        preferenceAllowed.notAllowedRoot = true;
                                     }
                                 }
                             }
@@ -4168,8 +4177,11 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                             }
-                        } else
+                        } else {
+                            if ((profile != null) && (profile._deviceNetworkType != 0))
+                                preferenceAllowed.notAllowedRoot = true;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                        }
                     } else {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
@@ -4212,7 +4224,6 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4233,8 +4244,11 @@ public class Profile {
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-                else
+                else {
+                    if ((profile != null) && (profile._notificationLed != 0))
+                        preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
             }
             //else
             //if (value != -10)
@@ -4410,7 +4424,6 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4437,7 +4450,9 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._headsUpNotifications=" + profile._headsUpNotifications);
                     if ((profile != null) && (profile._headsUpNotifications != 0)) {
                         //return preferenceAllowed;
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
+                        //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -4544,7 +4559,6 @@ public class Profile {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4564,8 +4578,11 @@ public class Profile {
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
-                else
+                else {
+                    if ((profile != null) && (profile._alwaysOnDisplay != 0))
+                        preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
             }
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
@@ -4599,7 +4616,6 @@ public class Profile {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 // not needed to test all parameters
                                 //return preferenceAllowed;
-                                preferenceAllowed.notAllowedRoot = true;
                             }
                         }
                     }
@@ -4626,7 +4642,9 @@ public class Profile {
 //                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._screenDarkMode=" + profile._screenDarkMode);
                     if ((profile != null) && (profile._screenDarkMode != 0)) {
                         //return preferenceAllowed;
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
+                        //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
