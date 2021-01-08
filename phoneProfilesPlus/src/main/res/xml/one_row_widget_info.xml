@@ -9,5 +9,6 @@
     android:initialLayout="@layout/empty_widget"
     android:resizeMode="horizontal"
     android:updatePeriodMillis="0"
+    android:previewImage="@drawable/one_row_widget_preview"
     android:widgetCategory="home_screen">
 </appwidget-provider>
