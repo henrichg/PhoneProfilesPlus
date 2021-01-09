@@ -1,4 +1,4 @@
-PhoneProfiles features
+Profiles features
 ======================
 
 - add, edit, duplicate, delete Profiles (Editor)

@@ -10,11 +10,9 @@ PhoneProfilesPlus
 
 __Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
 
-__PhoneProfilesPlus is combination of two applications: PhoneProfiles and PhoneProfilesPlus.__
-
 __This application is for configuration of device for life situations (at home, at work, in your car, sleep, outside, ...) using Profiles. (PhoneProfiles).__
 
-__In it is also possibility to automatically activate Profile by Events (PhoneProfilesPlus).__
+__In it is also possibility to automatically activate Profiles by Events.__
 
 [Privacy Policy](https://sites.google.com/site/phoneprofilesplus/home/privacy-policy)
 
@@ -22,10 +20,7 @@ _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gro
 
 _*** Please help me with translation, thank you: <https://crowdin.com/project/phoneprofilesplus> ***_
 
-##### PhoneProfiles features
-- [Show it](docs/pp_features.md)
-
-##### PhoneProfilesPlus features
+##### Features
 - [Show it](docs/ppp_features.md)
 
 ##### Supported Android SDK
