@@ -35,4 +35,6 @@ __Notes:__
 - NFC: for not-rooted devices requires grant of WRITE_SECURE_SETTINGS
 - Location mode: requires grant of WRITE_SECURE_SETTINGS
 
-- Some parameters requires [PhoneProfilesPlus featuresExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
+__PhoneProfilesPlusExtender__
+
+Some parameters requires [PhoneProfilesPlus featuresExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
