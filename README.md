@@ -18,9 +18,9 @@ __In it is also possibility to automatically activate Profile by Events (PhonePr
 
 [Privacy Policy](https://sites.google.com/site/phoneprofilesplus/home/privacy-policy)
 
-_**** Please report me bugs, comments and suggestions to my mail. Speed up the especially bug fixes. Thank you very much. ****_
+_**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gron@gmail.com>. Speed up the especially bug fixes. Thank you very much. ****_
 
-_*** Please help me with translation, thank you: https://crowdin.com/project/phoneprofilesplus ***_
+_*** Please help me with translation, thank you: <https://crowdin.com/project/phoneprofilesplus> ***_
 
 ##### PhoneProfiles features
 - [Show it](docs/pp_features.md)
