@@ -19,8 +19,33 @@ __Profiles features:__
 - [Show it](pp_features.md)
 
 __Events features:__
-- priority, Profile which will by activated on start/end, ignore manual Profile activation, sound notification, undo Profile activated before start of Event, Event start delay, ...
-- Event sensor types: Time, Calendar, Battery, Call, Accessories, WiFi (SSID), Screen (on/off), Bluetooth, SMS, Notifications, Applications, Location, Orientation, Mobile cells, NFC tags, Radios, Alarm clock, ...
+- priority
+- Profile which will by activated on start/end
+- ignore manual Profile activation
+- sound notification
+- undo Profile activated before start of Event
+- Event start delay
+- ...
+
+__Event sensor types:__
+- Time
+- Calendar
+- Battery
+- Call
+- Accessories
+- WiFi (SSID)
+- Screen (on/off)
+- Bluetooth
+- SMS
+- Notifications
+- Applications
+- Location
+- Orientation
+- Mobile cells
+- NFC tags
+- Radios
+- Alarm clock
+- ...
 
 __PhoneProfilesPlusExtender__
 
