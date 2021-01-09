@@ -10,7 +10,7 @@ PhoneProfilesPlus
 
 __Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
 
-__This application is for configuration of device for life situations (at home, at work, in your car, sleep, outside, ...) using Profiles. (PhoneProfiles).__
+__This application is for configuration of device for life situations (at home, at work, in your car, sleep, outside, ...) using Profiles.__
 
 __In it is also possibility to automatically activate Profiles by Events.__
 
