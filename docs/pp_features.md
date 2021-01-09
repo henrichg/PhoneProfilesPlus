@@ -1,7 +1,7 @@
 Profiles features
 ======================
 
-- ringer mode
+- sound profile
 - sound volume
 - speakerphone
 - sounds
