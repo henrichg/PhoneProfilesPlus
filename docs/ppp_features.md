@@ -18,7 +18,7 @@ __Features:__
 - global enabling/disabling of events start
 
 __Profile features:__
-[Show it](pp_features.md)
+- [Show it](pp_features.md)
 
 __Events features:__
 - priority, profile which will by activated on start/end, ignore manual profile activation, sound notification, undo profile activated before start of event, event start delay, ...

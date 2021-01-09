@@ -22,22 +22,18 @@ _**** Please report me bugs, comments and suggestions to my mail. Speed up the e
 
 _*** Please help me with translation, thank you: https://crowdin.com/project/phoneprofilesplus ***_
 
-PhoneProfiles features
------------------------
-[Show it](docs/pp_features.md)
+##### PhoneProfiles features
+- [Show it](docs/pp_features.md)
 
-PhoneProfilesPlus features
---------------------------
-[Show it](docs/ppp_features.md)
+##### PhoneProfilesPlus features
+- [Show it](docs/ppp_features.md)
 
-Supported Android SDK
-----------------------
+##### Supported Android SDK
 
 - minSdkVersion = 23
 - targetSdkVersion = 28
 
-Required external libs
-----------------------
+##### Required external libs
 
 - AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager
 - Google Material library
