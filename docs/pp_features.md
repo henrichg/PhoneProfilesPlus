@@ -26,6 +26,7 @@ Profiles features
 - force stop application
 - ...
 
+__Notes:__
 - Lockscreen paarameter working only for non-secure lockscreen
 - Airplane mode: requires root
 - Mobile data: requires root
