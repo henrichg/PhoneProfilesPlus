@@ -15,7 +15,7 @@ PhoneProfilesPlus features
 - what will be launched (Activator, Editor) from home screen, widgets, notification
 - global enabling/disabling of Events start
 
-__Profile features:__
+__Profiles features:__
 - [Show it](pp_features.md)
 
 __Events features:__
