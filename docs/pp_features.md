@@ -1,7 +1,6 @@
 PhoneProfiles features
 ======================
 
-__Features:__
 - add, edit, duplicate, delete Profiles (Editor)
 - activation of Profile with click from popup window (Activator)
 - notifications: status bar, toast, notification style configuration

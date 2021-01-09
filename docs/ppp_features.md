@@ -1,7 +1,6 @@
 PhoneProfilesPlus features
 ==========================
 
-__Features:__
 - you can change, what you can see on Editor: Profiles, Events and how will by filtered
 - for Events you can change order of Events in list
 - default Profile
