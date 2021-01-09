@@ -12,7 +12,7 @@ __Android application - manually and by event triggered change of device setting
 
 __PhoneProfilesPlus is combination of two applications: PhoneProfiles and PhoneProfilesPlus.__
 
-__This application is for configuration of device for life situations (at home, at work, in your car, sleep outside, ...) using Profiles. (PhoneProfiles).__
+__This application is for configuration of device for life situations (at home, at work, in your car, sleep, outside, ...) using Profiles. (PhoneProfiles).__
 
 __In it is also possibility to automatically activate Profile by Events (PhoneProfilesPlus).__
 
