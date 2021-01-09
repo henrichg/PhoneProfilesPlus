@@ -37,4 +37,4 @@ __Notes:__
 
 __PhoneProfilesPlusExtender__
 
-Some parameters requires [PhoneProfilesPlus featuresExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
+Some parameters requires [PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)
