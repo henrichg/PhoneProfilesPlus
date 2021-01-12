@@ -69,10 +69,10 @@ abstract class EventPreferences {
     }
 
     String getPassStatusString(String sensorTitle, boolean addPassStatus, int eventType, Context context) {
-        if (addPassStatus && (this._event != null) && (this._event.getStatusFromDB(context) != Event.ESTATUS_STOP)) {
+        if (Event.getGlobalEventsRunning() && addPassStatus && (this._event != null) && (this._event.getStatusFromDB(context) != Event.ESTATUS_STOP)) {
             //Log.e("EventPreferences.getPassStatusString", "_event="+_event._name + "->_sensorPassed="+this._sensorPassed);
             int sensorPassed = getSensorPassedFromDB(eventType, context);
-            if ((!Event.getGlobalEventsRunning()) || (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
+            if (/*(!Event.getGlobalEventsRunning()) ||*/ (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
                 return String.format("<font color=\"#%s\">%s</font>:", colorString, sensorTitle);

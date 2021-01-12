@@ -88,11 +88,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-            if (!Event.getGlobalEventsRunning()) {
+            /*if (!Event.getGlobalEventsRunning()) {
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
-            }
-            else {
+            }*/
+            if (Event.getGlobalEventsRunning()) {
+            //else {
                 switch (_eventStatus) {
                     case Event.ESTATUS_RUNNING:
                         if (event._isInDelayEnd)
@@ -131,7 +132,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(Color.RED);
             }
             else
-            if (!Event.getGlobalEventsRunning() || (manualProfileActivation && !event._ignoreManualActivation)) {
+            if (!Event.getGlobalEventsRunning()/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
