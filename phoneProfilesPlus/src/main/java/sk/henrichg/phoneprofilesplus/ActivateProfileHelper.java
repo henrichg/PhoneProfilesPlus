@@ -870,7 +870,9 @@ class ActivateProfileHelper {
                 if (!ringMuted) {
                     if (profile.getVolumeRingtoneChange()) {
                         if (forProfileActivation) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             setRingerVolume(appContext, profile.getVolumeRingtoneValue());
                         }
                     }
@@ -878,7 +880,9 @@ class ActivateProfileHelper {
                 if (!notificationMuted) {
                     if (profile.getVolumeNotificationChange()) {
                         if (forProfileActivation) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             setNotificationVolume(appContext, profile.getVolumeNotificationValue());
                         }
                     }
@@ -920,7 +924,9 @@ class ActivateProfileHelper {
                     if (forProfileActivation) {
                         if (!dtmfMuted) {
                             if (profile.getVolumeDTMFChange()) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                    RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                }
                                 try {
                                     audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
@@ -931,7 +937,9 @@ class ActivateProfileHelper {
                         }
                         if (!systemMuted) {
                             if (profile.getVolumeSystemChange()) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                    RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                }
                                 try {
                                     audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM /* 1 */, profile.getVolumeSystemValue(), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
@@ -963,7 +971,7 @@ class ActivateProfileHelper {
                                 // in ringing state ringer volumes must by set
                                 // and notification volumes must not by set
                                 int volume = ApplicationPreferences.prefRingerVolume;
-                                //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-RINGING-unlink  ringer volume=" + volume);
+//                                PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-RINGING-unlink  ringer volume=" + volume);
                                 if (volume != -999) {
                                     try {
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -985,7 +993,7 @@ class ActivateProfileHelper {
                                 // for separating ringing and notification
                                 // in not ringing state ringer and notification volume must by change
                                 int volume = ApplicationPreferences.prefRingerVolume;
-                                //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  ringer volume=" + volume);
+//                                PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  ringer volume=" + volume);
                                 if (volume != -999) {
                                     try {
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -999,7 +1007,7 @@ class ActivateProfileHelper {
                                     }
                                 }
                                 volume = ApplicationPreferences.prefNotificationVolume;
-                                //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  notification volume=" + volume);
+//                                PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  notification volume=" + volume);
                                 if (volume != -999) {
                                     try {
                                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -1014,7 +1022,7 @@ class ActivateProfileHelper {
                             } else if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_NONE)/* ||
                                     (callState == TelephonyManager.CALL_STATE_IDLE)*/) {
                                 int volume = ApplicationPreferences.prefRingerVolume;
-                                //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  ringer volume=" + volume);
+//                                PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  ringer volume=" + volume);
                                 if (volume != -999) {
                                     try {
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -1029,7 +1037,7 @@ class ActivateProfileHelper {
                                     }
                                 }
                                 volume = ApplicationPreferences.prefNotificationVolume;
-                                //PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  notification volume=" + volume);
+//                                PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  notification volume=" + volume);
                                 if (volume != -999) {
                                     try {
                                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION /* 5 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -1617,13 +1625,13 @@ class ActivateProfileHelper {
     }
 
     static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context) {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "profile=" + profile);
-            if (profile != null)
-                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "profile._name=" + profile._name);
-            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlinkVolumes=" + linkUnlinkVolumes);
-            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "forProfileActivation=" + forProfileActivation);
-        }*/
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "profile=" + profile);
+//            if (profile != null)
+//                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "profile._name=" + profile._name);
+//            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlinkVolumes=" + linkUnlinkVolumes);
+//            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "forProfileActivation=" + forProfileActivation);
+//        }
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadVolumes();
@@ -1645,7 +1653,7 @@ class ActivateProfileHelper {
                     if (Permissions.checkPhone(appContext))
                         linkUnlink = linkUnlinkVolumes;
                 }
-                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
+//                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
 
                 if (profile != null) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
@@ -1659,7 +1667,7 @@ class ActivateProfileHelper {
                         profile.getVolumeSystemChange() ||
                         profile.getVolumeDTMFChange()) {
 
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
 
                         //if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
                         if (canChangeZenMode(appContext)) {
@@ -1683,7 +1691,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                             PPApplication.sleep(500);
 
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
+//                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
                             setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
 
                             //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
@@ -1714,11 +1722,11 @@ class ActivateProfileHelper {
                         profile.getVolumeBluetoothSCOChange())*/ {
                         // call setVolume() for "Mute sound"
 
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
 
                         int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
                         setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
                     }
                     /*else {
@@ -2169,7 +2177,9 @@ class ActivateProfileHelper {
                 case Profile.RINGERMODE_RING:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING");
 
-                    RingerModeChangeReceiver.notUnlinkVolumes = false;
+                    synchronized (PPApplication.notUnlinkVolumesMutex) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                    }
                     PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     PPApplication.sleep(500);
@@ -2184,7 +2194,9 @@ class ActivateProfileHelper {
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
 
-                    RingerModeChangeReceiver.notUnlinkVolumes = false;
+                    synchronized (PPApplication.notUnlinkVolumesMutex) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                    }
                     PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     PPApplication.sleep(500);
@@ -2199,7 +2211,9 @@ class ActivateProfileHelper {
                 case Profile.RINGERMODE_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=VIBRATE");
 
-                    RingerModeChangeReceiver.notUnlinkVolumes = false;
+                    synchronized (PPApplication.notUnlinkVolumesMutex) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                    }
                     PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     PPApplication.sleep(500);
@@ -2216,7 +2230,9 @@ class ActivateProfileHelper {
                     //setZenMode(appContext, ZENMODE_SILENT, audioManager, systemZenMode, AudioManager.RINGER_MODE_SILENT);
 
                     if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI) {
-                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        synchronized (PPApplication.notUnlinkVolumesMutex) {
+                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        }
                         PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
                         PPApplication.sleep(500);
@@ -2224,7 +2240,9 @@ class ActivateProfileHelper {
                         setVibrateSettings(true, audioManager);
                     }
                     else {
-                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        synchronized (PPApplication.notUnlinkVolumesMutex) {
+                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        }
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         setVibrateSettings(false, audioManager);
                         PPApplication.sleep(500);
@@ -2240,7 +2258,9 @@ class ActivateProfileHelper {
                         case Profile.ZENMODE_ALL:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL");
 
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
                             PPApplication.sleep(500);
@@ -2254,7 +2274,9 @@ class ActivateProfileHelper {
                         case Profile.ZENMODE_PRIORITY:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
 
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
                             PPApplication.sleep(500);
@@ -2269,7 +2291,9 @@ class ActivateProfileHelper {
                         case Profile.ZENMODE_NONE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=NONE");
 
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
                             PPApplication.sleep(500);
@@ -2282,7 +2306,9 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALL & VIBRATE");
                             // this is as Sound mode = Vibrate
 
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateSettings(true, audioManager);
                             PPApplication.sleep(500);
@@ -2297,7 +2323,9 @@ class ActivateProfileHelper {
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY & VIBRATE");
 
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             if (Build.VERSION.SDK_INT <= 25) {
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                                 PPApplication.sleep(500);
@@ -2347,7 +2375,9 @@ class ActivateProfileHelper {
                         case Profile.ZENMODE_ALARMS:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALARMS");
 
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            synchronized (PPApplication.notUnlinkVolumesMutex) {
+                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
                             PPApplication.sleep(500);

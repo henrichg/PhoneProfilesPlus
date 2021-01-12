@@ -1234,7 +1234,7 @@ class EventsHandler {
             //PPApplication.logE("EventsHandler.doEndHandler", "inRinging="+inRinging);
             if (inRinging) {
                 // start PhoneProfilesService for ringing call simulation
-                //PPApplication.logE("EventsHandler.doEndHandler", "start simulating ringing call");
+//                PPApplication.logE("EventsHandler.doEndHandler", "start simulating ringing call");
                 try {
                     boolean simulateRingingCall = false;
                     String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;

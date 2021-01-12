@@ -103,28 +103,30 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     @SuppressWarnings("UnusedReturnValue")
     private static boolean setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
-        //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes="+RingerModeChangeReceiver.notUnlinkVolumes);
-        if (!RingerModeChangeReceiver.notUnlinkVolumes) {
-            boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
-            //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "unlinkEnabled="+unlinkEnabled);
-            if (unlinkEnabled) {
-                int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
-                boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, context*/);
-                //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode="+audibleSystemRingerMode);
-                if (audibleSystemRingerMode) {
-                    //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-                    final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
-                    //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile="+profile);
-                    if (profile != null) {
-                        //PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name="+profile._name);
-                        ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
-                        return true;
+        synchronized (PPApplication.notUnlinkVolumesMutex) {
+//            PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes=" + RingerModeChangeReceiver.notUnlinkVolumes);
+            if (!RingerModeChangeReceiver.notUnlinkVolumes) {
+                boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
+//                PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "unlinkEnabled=" + unlinkEnabled);
+                if (unlinkEnabled) {
+                    int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
+                    boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, context*/);
+//                    PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode=" + audibleSystemRingerMode);
+                    if (audibleSystemRingerMode) {
+                        //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+                        final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
+//                        PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile=" + profile);
+                        if (profile != null) {
+//                            PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name=" + profile._name);
+                            ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
+                            return true;
+                        }
+                        //dataWrapper.invalidateDataWrapper();
                     }
-                    //dataWrapper.invalidateDataWrapper();
                 }
             }
+            return false;
         }
-        return false;
     }
 
     /*

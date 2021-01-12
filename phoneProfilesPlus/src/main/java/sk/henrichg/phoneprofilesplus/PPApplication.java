@@ -268,6 +268,11 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesWifi"
                                                 //+"|EventPreferencesCall.doHandleEvent"
 
+                                                //+"|PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume"
+                                                //+"|ActivateProfileHelper.executeForVolumes"
+                                                //+"|ActivateProfileHelper.setVolumes"
+                                                //+"|EventsHandler.doEndHandler"
+
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -384,6 +389,7 @@ public class PPApplication extends Application
     static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
+    static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
